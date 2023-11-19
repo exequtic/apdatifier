@@ -1,0 +1,19 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "exequtic@gmail.com",
+                "Name": "Evgeny K."
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Arch Update Notifier",
+        "Icon": "update-none",
+        "Id": "com.github.exequtic.apdatifier",
+        "Name": "Apdatifier",
+        "Version": "1.0",
+        "Website": "https://github.com/exequtic/apdatifier"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "KPackageStructure": "Plasma/Applet"
+}
