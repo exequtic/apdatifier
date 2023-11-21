@@ -23,10 +23,9 @@ Item {
 	property var updatesCount
 
 	property int interval: plasmoid.configuration.interval * 60000
-	readonly property string command: 'checkupdates'
 
 	PlasmaCore.DataSource {
-		id: executable
+		id: checkUpdatesCmd
 		engine: "executable"
 		connectedSources: []
 		onNewData: {
@@ -38,25 +37,20 @@ Item {
 			disconnectSource(sourceName)
 		}
 		function exec(cmd) {
-			if (cmd) {
-				connectSource(cmd)
-			}
+			checkUpdatesCmd.connectSource(cmd)
 		}
 		signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
 	}
 
 	Connections {
-		target: executable
-		onExited: {
-			if (cmd == command) {
-				updatesList = stdout
-				updatesList = updatesList.split("\n")
-				updatesCount = updatesList.length - 1
-				
-				updatesListModel.clear()
-				for (var i = 0; i < updatesCount; i++) {
-            		updatesListModel.append({"text": updatesList[i]});
-        		}
+		target: checkUpdatesCmd
+		function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
+			updatesList = stdout
+			updatesList = updatesList.split("\n")
+			updatesCount = updatesList.length - 1
+			
+			for (var i = 0; i < updatesCount; i++) {
+				updatesListModel.append({"text": updatesList[i]});
 			}
 		}
 	}
@@ -66,7 +60,7 @@ Item {
 		interval: root.interval
 		running: true
 		repeat: true
-		onTriggered: runCommand()
+		onTriggered: checkUpdates()
 		Component.onCompleted: triggered()
 	}
 	
@@ -78,8 +72,11 @@ Item {
         id: updatesListModel
     }
 
-	function runCommand() {
+	function checkUpdates() {
+		console.log(`Apdatifier -> exec -> checkupdates (${new Date().toLocaleTimeString().slice(0, -4)})`)
+		timer.restart()
+		updatesListModel.clear()
 		updatesCount = 1000
-		executable.exec(command)
+		checkUpdatesCmd.exec('checkupdates')
 	}
 }
