@@ -4,9 +4,11 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
 Item {
-    PlasmaCore.IconItem {
-        source: "update-none"
+    AppletIcon {
+        id: icon
         anchors.fill: parent
+        source: 'apdatifier-plasmoid-none'
+        active: mouseArea.containsMouse
     }
 
     Rectangle {
@@ -45,6 +47,9 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: plasmoid.expanded = !plasmoid.expanded
+        hoverEnabled: true
+        property bool wasExpanded: false
+        onPressed: wasExpanded = plasmoid.expanded
+        onClicked: plasmoid.expanded = !wasExpanded
     }
 }
