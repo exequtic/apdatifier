@@ -16,7 +16,7 @@ Item {
         radius: width * 0.40
         color: PlasmaCore.ColorScope.backgroundColor
         opacity: 0.6
-        visible: root.updatesCount > 0
+        visible: root.updatesCount > 0 || root.checkStatus
 
         anchors {
             right: parent.right
@@ -25,7 +25,7 @@ Item {
 
         PlasmaComponents.Label {
             id: label
-            text: root.updatesCount >= 1000 ? '↻' : root.updatesCount
+            text: root.checkStatus ? '↻' : root.updatesCount
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             anchors.centerIn: parent

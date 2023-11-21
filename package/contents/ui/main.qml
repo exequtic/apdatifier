@@ -18,9 +18,10 @@ Item {
 						return PlasmaCore.Types.PassiveStatus
 	}
 
-	property var theModel: updatesListModel
+	property var listModel: updatesListModel
 	property var updatesList
 	property var updatesCount
+	property var checkStatus
 
 	property int interval: plasmoid.configuration.interval * 60000
 
@@ -52,6 +53,8 @@ Item {
 			for (var i = 0; i < updatesCount; i++) {
 				updatesListModel.append({"text": updatesList[i]});
 			}
+
+			checkStatus = ''
 		}
 	}
 
@@ -76,7 +79,7 @@ Item {
 		console.log(`Apdatifier -> exec -> checkupdates (${new Date().toLocaleTimeString().slice(0, -4)})`)
 		timer.restart()
 		updatesListModel.clear()
-		updatesCount = 1000
+		checkStatus = 'Checking updates...'
 		checkUpdatesCmd.exec('checkupdates')
 	}
 }
