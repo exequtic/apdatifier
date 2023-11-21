@@ -11,11 +11,18 @@ Item {
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
+	Plasmoid.status: {
+						if (updatesCount > 0) {
+							return PlasmaCore.Types.ActiveStatus
+						}
+						return PlasmaCore.Types.PassiveStatus
+	}
+
 	property var theModel: updatesListModel
 	property var updatesList
-	property var updatesCount: '?'
+	property var updatesCount
 
-	readonly property int interval: plasmoid.configuration.interval * 1000
+	property int interval: plasmoid.configuration.interval * 60000
 	readonly property string command: 'checkupdates'
 
 	PlasmaCore.DataSource {
@@ -58,12 +65,9 @@ Item {
 		id: timer
 		interval: root.interval
 		running: true
-		repeat: false
+		repeat: true
 		onTriggered: runCommand()
-
-		Component.onCompleted: {
-			triggered()
-		}
+		Component.onCompleted: triggered()
 	}
 	
 	onIntervalChanged: {
@@ -75,6 +79,7 @@ Item {
     }
 
 	function runCommand() {
+		updatesCount = 1000
 		executable.exec(command)
 	}
 }

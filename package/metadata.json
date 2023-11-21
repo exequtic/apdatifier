@@ -2,8 +2,8 @@
     "KPlugin": {
         "Authors": [
             {
-                "Email": "exequtic@gmail.com",
-                "Name": "Evgeny K."
+                "Name": "Evgeny K.",
+                "Email": "exequtic@gmail.com"
             }
         ],
         "Category": "System Information",
@@ -12,8 +12,12 @@
         "Id": "com.github.exequtic.apdatifier",
         "Name": "Apdatifier",
         "Version": "1.0",
+        "License": "MIT",
         "Website": "https://github.com/exequtic/apdatifier"
     },
+    "KPackageStructure": "Plasma/Applet",
     "X-Plasma-API": "declarativeappletscript",
-    "KPackageStructure": "Plasma/Applet"
+    "X-Plasma-MainScript": "ui/main.qml",
+    "X-Plasma-NotificationArea": "true",
+    "X-Plasma-NotificationAreaCategory": "ApplicationStatus"
 }

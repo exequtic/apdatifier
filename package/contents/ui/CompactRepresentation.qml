@@ -25,7 +25,7 @@ Item {
 
         PlasmaComponents.Label {
             id: label
-            text: root.updatesCount
+            text: root.updatesCount >= 1000 ? '↻' : root.updatesCount
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             anchors.centerIn: parent
