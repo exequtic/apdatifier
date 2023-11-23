@@ -7,12 +7,12 @@ import org.kde.plasma.components 2.0 as PlasmaComponent
 Item {
 	id: root
 
-	Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
+	// Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
 	Plasmoid.status: {
-						if (updatesCount > 0) {
+						if (updatesCount > 0 || checkStatus) {
 							return PlasmaCore.Types.ActiveStatus
 						}
 						return PlasmaCore.Types.PassiveStatus
@@ -23,7 +23,7 @@ Item {
 	property var updatesCount
 	property var checkStatus
 
-	property int interval: plasmoid.configuration.interval * 60000
+	readonly property int interval: plasmoid.configuration.interval * 60000
 
 	PlasmaCore.DataSource {
 		id: checkUpdatesCmd
@@ -46,12 +46,11 @@ Item {
 	Connections {
 		target: checkUpdatesCmd
 		function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
-			updatesList = stdout
-			updatesList = updatesList.split("\n")
-			updatesCount = updatesList.length - 1
+			updatesList = stdout.replace(/\n$/, '').replace(/ ->/g, "").split("\n")
+			updatesCount = updatesList.length
 			
 			for (var i = 0; i < updatesCount; i++) {
-				updatesListModel.append({"text": updatesList[i]});
+				updatesListModel.append({"text": updatesList[i]})
 			}
 
 			checkStatus = ''
