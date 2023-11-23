@@ -13,6 +13,7 @@
         "Name": "Apdatifier",
         "Version": "1.0",
         "License": "MIT",
+        "BugReportUrl": "https://github.com/exequtic/apdatifier/issues",
         "Website": "https://github.com/exequtic/apdatifier"
     },
     "KPackageStructure": "Plasma/Applet",

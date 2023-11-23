@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
@@ -9,6 +10,12 @@ Item {
         anchors.fill: parent
         source: 'apdatifier-plasmoid-none'
         active: mouseArea.containsMouse
+
+        BusyIndicator {
+            anchors.fill: icon
+            visible: statusCheck
+            opacity: 0.6
+        }
     }
 
     Rectangle {
@@ -18,7 +25,7 @@ Item {
         radius: width * 0.40
         color: PlasmaCore.ColorScope.backgroundColor
         opacity: 0.6
-        visible: root.updatesCount > 0 || root.checkStatus
+        visible: updatesCount > 0 || statusError
 
         anchors {
             right: parent.right
@@ -27,7 +34,7 @@ Item {
 
         PlasmaComponents.Label {
             id: label
-            text: root.checkStatus ? '↻' : root.updatesCount
+            text: statusError ? '!' : updatesCount
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             anchors.centerIn: parent
