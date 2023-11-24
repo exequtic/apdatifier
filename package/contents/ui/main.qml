@@ -12,10 +12,10 @@ Item {
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
 	Plasmoid.status: {
-						if (updatesCount > 0 || statusCheck || statusError) {
-							return PlasmaCore.Types.ActiveStatus
-						}
-						return PlasmaCore.Types.PassiveStatus
+        if (updatesCount > 0 || statusCheck || statusError) {
+            return PlasmaCore.Types.ActiveStatus
+        }
+        return PlasmaCore.Types.PassiveStatus
 	}
 
 	property var listModel: updatesListModel
@@ -26,11 +26,13 @@ Item {
 	property bool statusError: false
 	property var errorCode
 	property var errorText
+    property string checkUpdatesCmd
 
 	readonly property int interval: plasmoid.configuration.interval * 60000
+	readonly property int wrapper: plasmoid.configuration.wrapper
 
 	PlasmaCore.DataSource {
-		id: checkUpdatesCmd
+		id: sh
 		engine: "executable"
 		connectedSources: []
 		onNewData: {
@@ -42,32 +44,35 @@ Item {
 			disconnectSource(sourceName)
 		}
 		function exec(cmd) {
-			checkUpdatesCmd.connectSource(cmd)
+			connectSource(cmd)
 		}
 		signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
 	}
 
 	Connections {
-		target: checkUpdatesCmd
+		target: sh
 		function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
-			if (stderr) {
-				statusError = true
-				errorCode = exitCode
-				errorText = stderr.split("\n")
-			} else if (stdout) {
-				statusError = false
-				updatesList = stdout.replace(/\n$/, '').replace(/ ->/g, "").split("\n")
-				updatesCount = updatesList.length
-				
-				for (var i = 0; i < updatesCount; i++) {
-					updatesListModel.append({"text": updatesList[i]})
+			if (cmd === checkUpdatesCmd) {
+				if (stderr) {
+					statusError = true
+					errorCode = exitCode
+					errorText = stderr.split("\n")
 				}
-			} else if (!stdout) {
-				statusError = false
-				updatesCount = 0
-			}
+				if (stdout) {
+					statusError = false
+					updatesList = stdout.replace(/\n$/, '').replace(/ ->/g, "").split("\n")
+					updatesCount = updatesList.length
+					for (var i = 0; i < updatesCount; i++) {
+						updatesListModel.append({"text": updatesList[i]})
+					}
+				}
+				if (!stdout && !stderr) {
+					statusError = false
+					updatesCount = 0
+				}
 
-			statusCheck = false
+				statusCheck = false
+			}
 		}
 	}
 
@@ -84,6 +89,10 @@ Item {
 		timer.restart()
 	}
 
+	onWrapperChanged: {
+		checkUpdates()
+	}
+
 	ListModel {
         id: updatesListModel
     }
@@ -95,6 +104,11 @@ Item {
 		statusError = false
 		statusCheck = true
 		updatesCount = ''
-		checkUpdatesCmd.exec('checkupdates')
+
+		wrapper ?
+			checkUpdatesCmd = '$(command -v yay || command -v paru || command -v picaur) -Qu' :
+			checkUpdatesCmd = '$(command -v checkupdates) || $(command -v pacman) -Qu'
+
+		sh.exec(checkUpdatesCmd)
 	}
 }
