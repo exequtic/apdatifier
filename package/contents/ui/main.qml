@@ -117,7 +117,15 @@ Item {
 		}
 		
 		if (flatpak) {
-			let checkFlatpakCmd = "$(command -v flatpak) remote-ls --columns=name,version --app --updates | sed 's/ /-/g' | sed 's/\t/ - /g'"
+			let checkFlatpakCmd = `upd=$(flatpak remote-ls --columns=name,application,version --app --updates | \
+									sed 's/ /-/g' | sed 's/\t/ /g')
+									while IFS= read -r app; do
+										id=$(echo "$app" | awk '{print $2}')
+										ver=$(flatpak info "$id" | grep "Version:" | awk '{print $2}')
+										output+="$(echo "$app" | sed "s/$id/$ver/" | tr '[:upper:]' '[:lower:]')"$'\n'
+									done <<< "$upd"
+									echo -en "$output"`;
+
 			checkUpdatesCmd = `${checkUpdatesCmd} && ${checkFlatpakCmd}`
 		}
 			
