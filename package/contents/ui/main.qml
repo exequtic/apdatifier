@@ -29,8 +29,9 @@ Item {
     property string checkUpdatesCmd
 
 	readonly property int interval: plasmoid.configuration.interval * 60000
-	readonly property int wrapper: plasmoid.configuration.wrapper
-	readonly property int flatpak: plasmoid.configuration.flatpak
+	readonly property bool wrapper: plasmoid.configuration.wrapper
+	readonly property bool flatpak: plasmoid.configuration.flatpak
+	readonly property bool repository: plasmoid.configuration.repository
 
 	PlasmaCore.DataSource {
 		id: sh
@@ -64,7 +65,8 @@ Item {
 					updatesList = stdout.replace(/\n$/, '').replace(/ ->/g, "").split("\n")
 					updatesCount = updatesList.length
 					for (var i = 0; i < updatesCount; i++) {
-						updatesListModel.append({"text": updatesList[i]})
+						let item = updatesList[i].trim().toLowerCase()
+						updatesListModel.append({"text": item})
 					}
 				}
 				if (!stdout && !stderr) {
@@ -94,6 +96,10 @@ Item {
 		checkUpdates()
 	}
 
+	onRepositoryChanged: {
+		checkUpdates()
+	}
+
 	onFlatpakChanged: {
 		checkUpdates()
 	}
@@ -110,21 +116,35 @@ Item {
 		statusCheck = true
 		updatesCount = ''
 
+		const helper = "$(command -v yay || command -v paru || command -v picaur)"
 		if (wrapper) {
-			checkUpdatesCmd = '$(command -v yay || command -v paru || command -v picaur) -Qu'
+			if (repository) {
+				checkUpdatesCmd = `\
+					all=$(${helper} -Sl)
+					upd=$(${helper} -Qu)
+					while IFS= read -r pkg; do
+						id=$(echo "$pkg" | awk '{print $1}')
+						repo=$(echo "$all" | grep " $id " | awk '{print $1}')
+						pkgs+="$repo $pkg\n"
+					done <<< "$upd"
+					echo -en "$pkgs"`;				
+			} else {
+				checkUpdatesCmd = `${helper} -Qu`;
+			}
 		} else {
 			checkUpdatesCmd = '$(command -v checkupdates) || $(command -v pacman) -Qu'
 		}
 		
 		if (flatpak) {
-			let checkFlatpakCmd = `upd=$(flatpak remote-ls --columns=name,application,version --app --updates | \
-									sed 's/ /-/g' | sed 's/\t/ /g')
-									while IFS= read -r app; do
-										id=$(echo "$app" | awk '{print $2}')
-										ver=$(flatpak info "$id" | grep "Version:" | awk '{print $2}')
-										output+="$(echo "$app" | sed "s/$id/$ver/" | tr '[:upper:]' '[:lower:]')"$'\n'
-									done <<< "$upd"
-									echo -en "$output"`;
+			let checkFlatpakCmd = `\
+				upd=$(flatpak remote-ls --columns=name,application,version --app --updates | \
+				sed 's/ /-/g' | sed 's/\t/ /g')
+				while IFS= read -r app; do
+					id=$(echo "$app" | awk '{print $2}')
+					ver=$(flatpak info "$id" | grep "Version:" | awk '{print $2}')
+					apps+="${repository ? "flatpak " : " "}$(echo "$app" | sed "s/$id/$ver/")"$'\n'
+				done <<< "$upd"
+				echo -en "$apps"`;
 
 			checkUpdatesCmd = `${checkUpdatesCmd} && ${checkFlatpakCmd}`
 		}
