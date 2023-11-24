@@ -11,5 +11,8 @@
 		<entry name="wrapper" type="bool">
 			<default>false</default>
 		</entry>
+		<entry name="flatpak" type="bool">
+			<default>true</default>
+		</entry>
 	</group>
 </kcfg>

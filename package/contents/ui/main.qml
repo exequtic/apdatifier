@@ -30,6 +30,7 @@ Item {
 
 	readonly property int interval: plasmoid.configuration.interval * 60000
 	readonly property int wrapper: plasmoid.configuration.wrapper
+	readonly property int flatpak: plasmoid.configuration.flatpak
 
 	PlasmaCore.DataSource {
 		id: sh
@@ -93,22 +94,33 @@ Item {
 		checkUpdates()
 	}
 
+	onFlatpakChanged: {
+		checkUpdates()
+	}
+
 	ListModel {
         id: updatesListModel
     }
 
 	function checkUpdates() {
-		console.log(`Apdatifier -> exec -> checkupdates (${new Date().toLocaleTimeString().slice(0, -4)})`)
+		console.log(`Apdatifier -> exec -> checkUpdates() (${new Date().toLocaleTimeString().slice(0, -4)})`)
 		timer.restart()
 		updatesListModel.clear()
 		statusError = false
 		statusCheck = true
 		updatesCount = ''
 
-		wrapper ?
-			checkUpdatesCmd = '$(command -v yay || command -v paru || command -v picaur) -Qu' :
+		if (wrapper) {
+			checkUpdatesCmd = '$(command -v yay || command -v paru || command -v picaur) -Qu'
+		} else {
 			checkUpdatesCmd = '$(command -v checkupdates) || $(command -v pacman) -Qu'
-
+		}
+		
+		if (flatpak) {
+			let checkFlatpakCmd = "$(command -v flatpak) remote-ls --columns=name,version --app --updates | sed 's/ /-/g' | sed 's/\t/ - /g'"
+			checkUpdatesCmd = `${checkUpdatesCmd} && ${checkFlatpakCmd}`
+		}
+			
 		sh.exec(checkUpdatesCmd)
 	}
 }
