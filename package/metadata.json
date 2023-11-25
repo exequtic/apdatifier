@@ -8,7 +8,7 @@
         ],
         "Category": "System Information",
         "Description": "Arch Update Notifier",
-        "Icon": "update-none",
+        "Icon": "flatpak-discover",
         "Id": "com.github.exequtic.apdatifier",
         "Name": "Apdatifier",
         "Version": "1.0",

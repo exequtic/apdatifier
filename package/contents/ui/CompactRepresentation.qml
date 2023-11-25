@@ -6,39 +6,37 @@ import org.kde.plasma.components 3.0 as PlasmaComponents
 
 Item {
     AppletIcon {
-        id: icon
         anchors.fill: parent
+        id: icon
         source: 'apdatifier-plasmoid-none'
         active: mouseArea.containsMouse
 
         BusyIndicator {
             anchors.fill: icon
-            visible: statusCheck
+            running: checkStatus
+            visible: running
             opacity: 0.6
         }
     }
 
     Rectangle {
-        id: circle
-        height: label.height
-        width: label.width + 4 * PlasmaCore.Units.devicePixelRatio
+        anchors.top: parent.top
+        anchors.right: parent.right
+        id: bgBadge
+        height: labelBadge.height
+        width: labelBadge.width + 3 * PlasmaCore.Units.devicePixelRatio
         radius: width * 0.40
         color: PlasmaCore.ColorScope.backgroundColor
         opacity: 0.6
-        visible: updatesCount > 0 || statusError
-
-        anchors {
-            right: parent.right
-            top: parent.top
-        }
+        visible: updatesCount > 0 || errorStd
 
         PlasmaComponents.Label {
-            id: label
-            text: statusError ? '!' : updatesCount
+            anchors.centerIn: parent
+            id: labelBadge
+            text: errorStd ? '✖' : updatesCount
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
-            anchors.centerIn: parent
-            visible: circle.visible
+            visible: bgBadge.visible
         }
 
         layer.enabled: true
@@ -52,8 +50,8 @@ Item {
     }
 
     MouseArea {
-        id: mouseArea
         anchors.fill: parent
+        id: mouseArea
         hoverEnabled: true
         property bool wasExpanded: false
         onPressed: wasExpanded = plasmoid.expanded

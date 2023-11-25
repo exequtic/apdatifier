@@ -4,9 +4,9 @@ import QtQuick.Layouts 1.1
 
 Item {
     property alias cfg_interval: interval.value
-    property alias cfg_wrapper: wrapper.checked
     property alias cfg_flatpak: flatpak.checked
-    property alias cfg_repository: repository.checked
+    property alias cfg_wrapper: wrapper.checked
+    property alias cfg_sort: sort.value
 
     ColumnLayout {
         RowLayout {
@@ -24,19 +24,18 @@ Item {
         }
 
         CheckBox {
-            id: wrapper
-            text: "Use pacman wrapper for searching updates"
-        }
-
-        CheckBox {
             id: flatpak
             text: "Enable Flatpak support"
         }
 
         CheckBox {
-            id: repository
-            text: "Show repository"
-            visible: wrapper.checked
+            id: wrapper
+            text: "Use pacman wrapper for searching updates"
+        }
+
+        SpinBox {
+            id: sort
+            visible: false
         }
     }
 }

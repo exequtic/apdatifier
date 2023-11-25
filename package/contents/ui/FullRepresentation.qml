@@ -5,6 +5,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.kirigami 2.20 as Kirigami
+import "../tools/tools.js" as Util
 
 Item {
     Layout.minimumWidth: 400
@@ -35,21 +36,36 @@ Item {
         width: parent.width
 
         PlasmaExtras.DescriptiveLabel {
-            text: statusCheck ? 'Checking updates...' :
-                  statusError ? 'Exit code: ' + errorCode :
+            text: checkStatus ? 'Checking updates...' :
                   updatesCount > 0 ? 'Total updates pending: ' + updatesCount : ' '
         }
 
-        PlasmaComponents.ToolButton {
+        RowLayout {
             Layout.alignment: Qt.AlignRight
-            icon.name: 'view-refresh-symbolic'
-            PlasmaComponents.ToolTip {
-                text: "Check updates"
+            spacing: 0
+
+            PlasmaComponents.ToolButton {
+                icon.name: sort === 0 ? 'repository' : 'sort-name'
+                PlasmaComponents.ToolTip {
+                    text: sort === 0 ? "Sorting by repository" : "Sorting by name"
+                }
+                onClicked: {
+                            plasmoid.configuration.sort = sort === 0 ? sort + 1 : 0
+                            Util.makeList()
+                }
+                visible: !errorStd && !checkStatus && updatesCount > 1
             }
-            onClicked: checkUpdates()
+
+            PlasmaComponents.ToolButton {
+                icon.name: 'view-refresh-symbolic'
+                PlasmaComponents.ToolTip {
+                    text: "Check updates"
+                }
+                onClicked: Util.checkUpdates()
+            }
         }
     }
-
+    
     Rectangle {
         anchors.bottom: footer.top
         id: separator
@@ -61,7 +77,7 @@ Item {
 
     Loader {
         anchors.centerIn: parent
-        active: statusCheck
+        active: checkStatus
         visible: active
         asynchronous: true
         sourceComponent: BusyIndicator {
@@ -74,13 +90,13 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
-        active: updatesCount === 0 || !statusCheck && statusError
+        active: updatesCount === 0 || !checkStatus && errorStd
         visible: active
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {
             width: parent.width
             iconName: updatesCount === 0 ? "checkmark" : "error"
-            text: updatesCount === 0 ? "System updated" : errorText[0]
+            text: updatesCount === 0 ? "System updated" : errorStd[0]
         }
     }
 }
