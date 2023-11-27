@@ -17,14 +17,55 @@ Item {
         anchors.right: parent.right
         anchors.bottom: separator.top
         ListView {
+            id: list
             model: listModel
-            delegate: Item {
-                height: 22
+            delegate: GridLayout {
+                columns: 4
+                height: pkgName.font.pixelSize * 1.5
                 Text {
-                    text: modelData
-                    font.pixelSize: 16
-                    font.bold: true
+                    id: pkgName
+                    Layout.column: 0
+                    Layout.minimumWidth: list.width / 2.5
+                    Layout.maximumWidth: list.width / 2.5
+                    text: modelData.split(" ")[0]
                     color: theme.textColor
+                    elide: Text.ElideRight
+                    font.pixelSize: theme.defaultFont.pixelSize
+                    font.family: theme.defaultFont.family
+                    font.bold: true
+                }
+                Text {
+                    id: repoName
+                    Layout.column: 1
+                    Layout.minimumWidth: list.width / 8
+                    Layout.maximumWidth: list.width / 8
+                    text: modelData.split(" ")[1]
+                    color: theme.textColor
+                    elide: Text.ElideRight
+                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.family: pkgName.font.family
+                }
+                Text {
+                    id: oldVersion
+                    Layout.column: 2
+                    Layout.minimumWidth: list.width / 4
+                    Layout.maximumWidth: list.width / 4
+                    text: modelData.split(" ")[2]
+                    color: theme.textColor
+                    elide: Text.ElideRight
+                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.family: pkgName.font.family
+                }
+                Text {
+                    id: newVersion
+                    Layout.column: 3
+                    Layout.minimumWidth: list.width / 4
+                    Layout.maximumWidth: list.width / 4
+                    text: modelData.split(" ")[3]
+                    color: theme.textColor
+                    elide: Text.ElideRight
+                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.family: pkgName.font.family
                 }
             }
         }

@@ -11,7 +11,7 @@
         "Icon": "flatpak-discover",
         "Id": "com.github.exequtic.apdatifier",
         "Name": "Apdatifier",
-        "Version": "1.0",
+        "Version": "0.1",
         "License": "MIT",
         "BugReportUrl": "https://github.com/exequtic/apdatifier/issues",
         "Website": "https://github.com/exequtic/apdatifier"
