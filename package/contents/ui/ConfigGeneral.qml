@@ -6,7 +6,8 @@ Item {
     property alias cfg_interval: interval.value
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_wrapper: wrapper.checked
-    property alias cfg_sort: sort.value
+    property alias cfg_sortMode: sortMode.value
+    property alias cfg_colMode: colMode.value
 
     ColumnLayout {
         RowLayout {
@@ -34,7 +35,12 @@ Item {
         }
 
         SpinBox {
-            id: sort
+            id: sortMode
+            visible: false
+        }
+
+        SpinBox {
+            id: colMode
             visible: false
         }
     }

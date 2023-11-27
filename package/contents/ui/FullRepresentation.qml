@@ -25,8 +25,8 @@ Item {
                 Text {
                     id: pkgName
                     Layout.column: 0
-                    Layout.minimumWidth: list.width / 2.5
-                    Layout.maximumWidth: list.width / 2.5
+                    Layout.minimumWidth: Util.colWidth(0, list.width)
+                    Layout.maximumWidth: pkgName.Layout.minimumWidth
                     text: modelData.split(" ")[0]
                     color: theme.textColor
                     elide: Text.ElideRight
@@ -37,34 +37,34 @@ Item {
                 Text {
                     id: repoName
                     Layout.column: 1
-                    Layout.minimumWidth: list.width / 8
-                    Layout.maximumWidth: list.width / 8
+                    Layout.minimumWidth: Util.colWidth(1, list.width)
+                    Layout.maximumWidth: repoName.Layout.minimumWidth
                     text: modelData.split(" ")[1]
                     color: theme.textColor
                     elide: Text.ElideRight
-                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                 }
                 Text {
-                    id: oldVersion
+                    id: currentVersion
                     Layout.column: 2
-                    Layout.minimumWidth: list.width / 4
-                    Layout.maximumWidth: list.width / 4
+                    Layout.minimumWidth: Util.colWidth(2, list.width)
+                    Layout.maximumWidth: currentVersion.Layout.minimumWidth
                     text: modelData.split(" ")[2]
                     color: theme.textColor
                     elide: Text.ElideRight
-                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                 }
                 Text {
                     id: newVersion
                     Layout.column: 3
-                    Layout.minimumWidth: list.width / 4
-                    Layout.maximumWidth: list.width / 4
+                    Layout.minimumWidth: Util.colWidth(3, list.width)
+                    Layout.maximumWidth: newVersion.Layout.minimumWidth
                     text: modelData.split(" ")[3]
                     color: theme.textColor
                     elide: Text.ElideRight
-                    font.pixelSize: pkgName.font.pixelSize - 4
+                    font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                 }
             }
@@ -86,12 +86,30 @@ Item {
             spacing: 0
 
             PlasmaComponents.ToolButton {
-                icon.name: sort === 0 ? 'repository' : 'sort-name'
+                icon.name: colMode >= 0 && colMode < 3 ? 'hide_table_column' : 'show_table_column'
                 PlasmaComponents.ToolTip {
-                    text: sort === 0 ? "Sorting by repository" : "Sorting by name"
+                    text: [
+                            'Hide repository',
+                            'Hide current version',
+                            'Hide new version',
+                            'Show repository',
+                            'Show new version', 
+                            'Show current version'
+                        ][colMode]
                 }
                 onClicked: {
-                            plasmoid.configuration.sort = sort === 0 ? sort + 1 : 0
+                            plasmoid.configuration.colMode = colMode >= 0 && colMode < 5 ? colMode + 1 : 0
+                }
+                visible: !errorStd && !checkStatus && updatesCount > 1
+            }
+
+            PlasmaComponents.ToolButton {
+                icon.name: sortMode === 0 ? 'repository' : 'sort-name'
+                PlasmaComponents.ToolTip {
+                    text: sortMode === 0 ? 'Sorting by repository' : 'Sorting by name'
+                }
+                onClicked: {
+                            plasmoid.configuration.sortMode = sortMode === 0 ? sortMode + 1 : 0
                             Util.makeList()
                 }
                 visible: !errorStd && !checkStatus && updatesCount > 1

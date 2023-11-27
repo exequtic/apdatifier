@@ -14,8 +14,11 @@
 		<entry name="wrapper" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="sort" type="int">
+		<entry name="sortMode" type="int">
 			<default>0</default>
+		</entry>
+		<entry name="colMode" type="int">
+			<default>5</default>
 		</entry>
 	</group>
 </kcfg>

@@ -24,7 +24,8 @@ Item {
 	readonly property int interval: plasmoid.configuration.interval * 60000
 	readonly property bool wrapper: plasmoid.configuration.wrapper
 	readonly property bool flatpak: plasmoid.configuration.flatpak
-	property int sort: plasmoid.configuration.sort
+	property int sortMode: plasmoid.configuration.sortMode
+	property int colMode: plasmoid.configuration.colMode
 
 	PlasmaCore.DataSource {
 		id: sh

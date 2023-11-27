@@ -41,7 +41,7 @@ function checkUpdates() {
         checkUpdatesCmd = `${checkUpdatesCmd} && ${checkFlatpakCmd}`
     }
     
-    sh.exec(checkUpdatesCmd)
+    sh.exec('sleep 1 && cat /home/exequtic/file.txt')
 }
 
 
@@ -66,7 +66,7 @@ function makeList() {
     updatesListObj.sort((a, b) => {
         const [nameA, repoA] = a.split(' ');
         const [nameB, repoB] = b.split(' ');
-        return sort === 0 ?
+        return sortMode === 0 ?
             nameA.localeCompare(nameB) :
             repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
     })
@@ -81,4 +81,13 @@ function makeList() {
     }
 
     checkStatus = false
+}
+
+function colWidth(col, w) {
+    switch (col) {
+        case 0: return w * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][colMode]
+        case 1: return w * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][colMode]
+        case 2: return w * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][colMode]
+        case 3: return w * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][colMode]
+    }
 }
