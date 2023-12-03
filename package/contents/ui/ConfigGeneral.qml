@@ -1,13 +1,16 @@
 import QtQuick 2.6
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
+import "../tools/tools.js" as JS
 
 Item {
+    id: root
+
     property alias cfg_interval: interval.value
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_wrapper: wrapper.checked
-    property alias cfg_sortMode: sortMode.value
-    property alias cfg_colMode: colMode.value
+    property var sortingMode: plasmoid.configuration.sortingMode
+    property var columnsMode: plasmoid.configuration.columnsMode
 
     ColumnLayout {
         RowLayout {
@@ -16,11 +19,13 @@ Item {
             }
             SpinBox {
                 id: interval
+                from: 15
+                to: 1440
                 stepSize: 5
-                minimumValue: 5
-                maximumValue: 1440
-                value: cfg_interval
-                suffix: " min"
+                value: interval
+            }
+            Label {
+                text: "minutes"
             }
         }
 
@@ -32,16 +37,6 @@ Item {
         CheckBox {
             id: wrapper
             text: "Use pacman wrapper for searching updates"
-        }
-
-        SpinBox {
-            id: sortMode
-            visible: false
-        }
-
-        SpinBox {
-            id: colMode
-            visible: false
         }
     }
 }

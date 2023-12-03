@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick 2.6
 import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -13,7 +13,7 @@ Item {
 
         BusyIndicator {
             anchors.fill: icon
-            running: checkStatus
+            running: busy
             visible: running
             opacity: 0.6
         }
@@ -28,12 +28,12 @@ Item {
         radius: width * 0.40
         color: PlasmaCore.ColorScope.backgroundColor
         opacity: 0.6
-        visible: updatesCount > 0 || errorStd
+        visible: updCount > 0 || error
 
         PlasmaComponents.Label {
             anchors.centerIn: parent
             id: labelBadge
-            text: errorStd ? '✖' : updatesCount
+            text: error ? '✖' : updCount
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             visible: bgBadge.visible
