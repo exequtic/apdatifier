@@ -8,10 +8,10 @@
 		<entry name="interval" type="int">
 			<default>30</default>
 		</entry>
-		<entry name="flatpak" type="bool">
+		<entry name="flatpakEnabled" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="wrapper" type="bool">
+		<entry name="wrapperEnabled" type="bool">
 			<default>true</default>
 		</entry>
 		<entry name="sortingMode" type="int">

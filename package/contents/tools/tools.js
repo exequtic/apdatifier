@@ -38,6 +38,44 @@ function catchErr(code, err) {
 }
 
 
+function checkDependencies() {
+    debug(' ')
+    debug('------------- Dependencies -----------')
+    debug('Checking dependencies...')
+
+    let wrappers = 'checkupdates aura aurman pacaur pakku paru picaur trizen yay'
+    let flatpak = 'flatpak'
+
+    function check(pkgs) {
+        return `for pgk in ${pkgs}; do command -v $pgk; done`
+    }
+
+    function fill(out) {
+        let obj = []
+        for (let i = 0; i < out.length; i++) {
+            obj.push({'name': out[i].split('/').pop(), 'bin': out[i]})
+        }
+        return obj
+    }
+ 
+    sh.exec(check(wrappers), function(cmd, stdout, stderr, exitCode) {
+        if (stdout) {
+            plasmoid.configuration.wrappersBin = fill(stdout.trim().split('\n'))
+        } else {
+            plasmoid.configuration.wrappersEnabled = false
+        }
+
+        sh.exec(check(flatpak), function(cmd, stdout, stderr, exitCode) {
+            if (stdout) {
+                plasmoid.configuration.flatpakBin = stdout
+            } else {
+                plasmoid.configuration.flatpakEnabled = false
+            }
+        })
+    })
+}
+
+
 function checkUpdates() {
     debug(' ')
     debug('--------- Start checkUpdates ---------')
@@ -52,7 +90,6 @@ function checkUpdates() {
     let listArchUpdate
     let listFlatpakUpdate
     let listFlatpakInfo
-
 
     debug('➤ Arch: checking updates...')
     sh.exec('yay -Qu', function(cmd, stdout, stderr, exitCode) {
@@ -109,7 +146,7 @@ function checkUpdates() {
                 debug('✦ Arch: updates not found - skipping search repository names')
             }
 
-            if (!flatpak) {
+            if (!flatpakEnabled) {
                 debug('✦ Flatpak: option disabled - skipping checking updates')
 
                 makeList()
@@ -208,5 +245,17 @@ function columnWidth(column, width) {
         case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columnsMode]
         case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columnsMode]
         case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columnsMode]
+    }
+}
+
+
+function setIndexInit(cfg) {
+    return cfg ? cfg : 0
+}
+
+
+function setIndex(bin, cfg) {
+    for (let i = 0; i < cfg.length; i++) {
+        return cfg[i]['bin'] == bin ? i : 0
     }
 }

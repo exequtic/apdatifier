@@ -22,9 +22,7 @@ Item {
 	property var error
 	property var busy
 
-	readonly property int interval: plasmoid.configuration.interval * 60000
-	readonly property bool wrapper: plasmoid.configuration.wrapper
-	readonly property bool flatpak: plasmoid.configuration.flatpak
+	property int interval: plasmoid.configuration.interval * 60000
 	property int sortingMode: plasmoid.configuration.sortingMode
 	property int columnsMode: plasmoid.configuration.columnsMode
 
@@ -47,5 +45,9 @@ Item {
 
 	onIntervalChanged: {
 		timer.restart()
+	}
+
+	Component.onCompleted: {
+		JS.checkDependencies()
 	}
 }
