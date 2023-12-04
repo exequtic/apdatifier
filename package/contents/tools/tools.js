@@ -11,7 +11,7 @@ function debug(msg) {
     const ms = date.getMilliseconds().toString().padStart(3, '0')
     let pass = ''
 
-    if (typeof timestamp !== "undefined") {
+    if (typeof timestamp !== 'undefined') {
         const currTimestamp = date.getTime()
         const timeDiff = currTimestamp - timestamp
         const secDiff = Math.floor(timeDiff / 1000)
@@ -43,11 +43,8 @@ function checkDependencies() {
     debug('------------- Dependencies -----------')
     debug('Checking dependencies...')
 
-    let wrappers = 'checkupdates aura aurman pacaur pakku paru picaur trizen yay'
-    let flatpak = 'flatpak'
-
     function check(pkgs) {
-        return `for pgk in ${pkgs}; do command -v $pgk; done`
+        return `for pgk in ${pkgs}; do command -v $pgk || echo; done`
     }
 
     function fill(out) {
@@ -57,21 +54,22 @@ function checkDependencies() {
         }
         return obj
     }
- 
-    sh.exec(check(wrappers), function(cmd, stdout, stderr, exitCode) {
-        if (stdout) {
-            plasmoid.configuration.wrappersBin = fill(stdout.trim().split('\n'))
-        } else {
-            plasmoid.configuration.wrappersEnabled = false
+
+    sh.exec(check(plasmoid.configuration.dependencies), function(cmd, stdout, stderr, exitCode) {
+        if (catchErr(exitCode, stderr)) return
+
+        let obj = stdout.trim().split('\n')
+
+        plasmoid.configuration.depsBin = obj.slice(0, 3)
+
+        let wrappers = fill(obj.slice(3, 11).filter(Boolean))
+        plasmoid.configuration.wrappersBin = wrappers.length > 0 ? wrappers : null
+
+        if(!plasmoid.configuration.searchCmd) {
+            setBin()
         }
 
-        sh.exec(check(flatpak), function(cmd, stdout, stderr, exitCode) {
-            if (stdout) {
-                plasmoid.configuration.flatpakBin = stdout
-            } else {
-                plasmoid.configuration.flatpakEnabled = false
-            }
-        })
+        timer.triggered()
     })
 }
 
@@ -82,55 +80,50 @@ function checkUpdates() {
 
     timer.restart()
     updListModel.clear()
-    updListOut = ''
+    let updListOut = ''
     busy = true
     error = null
     updCount = null
 
-    let listArchUpdate
-    let listFlatpakUpdate
-    let listFlatpakInfo
+    debug(`✦ Arch: search command - ${plasmoid.configuration.searchCmd}`)
+    debug(`✦ Arch: cache command - ${plasmoid.configuration.cacheCmd}`)
 
     debug('➤ Arch: checking updates...')
-    sh.exec('yay -Qu', function(cmd, stdout, stderr, exitCode) {
-        if (catchErr(exitCode, stderr)) {
-            return
-        }
+    sh.exec(plasmoid.configuration.searchCmd, function(cmd, stdout, stderr, exitCode) {
+        if (catchErr(exitCode, stderr)) return
 
-        listArchUpdate = stdout ? stdout.split('\n') : null
+        let listArch = stdout ? stdout.trim().split('\n') : null
 
-        function checkListAll() {
-            if (listArchUpdate) {
+        function checkCache() {
+            if (listArch) {
                 debug('✦ Arch: updates found!')
                 if (!cache) {
                     debug('➤ Arch: cache not found - creating cache...')
-                    return 'yay -Sl'
+                    return plasmoid.configuration.cacheCmd
                 } else {
                     debug('✦ Arch: cache found - skipping cache creation')
-                    return ''
+                    return 'exit 0'
                 }
             } else {
                 debug('✦ Arch: updates not found - skipping cache check')
-                return ''
+                return 'exit 0'
             }
         }
 
-        sh.exec(checkListAll(), function(cmd, stdout, stderr, exitCode) {
-            if (catchErr(exitCode, stderr)) {
-                return
-            }
+        sh.exec(checkCache(), function(cmd, stdout, stderr, exitCode) {
+            if (catchErr(exitCode, stderr)) return
 
-            if (cmd == 'yay -Sl') {
+            if (cmd !== 'exit 0') {
                 debug('➤ Arch: saving cache...')
-                cache = stdout ? stdout.split('\n') : null
+                cache = stdout ? stdout.trim().split('\n') : null
             } else {
                 debug('✦ Arch: updates not found - skipping saving cache')
             }
 
-            if (listArchUpdate) {
+            if (listArch) {
                 debug('➤ Arch: searching repository names in cache...')
-                for (let i = 0; i < listArchUpdate.length; i++) {
-                    let pkg = listArchUpdate[i]
+                for (let i = 0; i < listArch.length; i++) {
+                    let pkg = listArch[i]
                     let name = pkg.split(' ')[0]
             
                     for (let j = 0; j < cache.length; j++) {
@@ -146,31 +139,26 @@ function checkUpdates() {
                 debug('✦ Arch: updates not found - skipping search repository names')
             }
 
-            if (!flatpakEnabled) {
+            if (!plasmoid.configuration.flatpakEnabled) {
                 debug('✦ Flatpak: option disabled - skipping checking updates')
 
-                makeList()
+                makeList(updListOut)
             } else {
                 debug('➤ Flatpak: option enabled - checking updates...')
                 sh.exec('flatpak remote-ls --app --updates', function(cmd, stdout, stderr, exitCode) {
-                    if (catchErr(exitCode, stderr)) {
-                        return
-                    }
+                    if (catchErr(exitCode, stderr)) return
 
-                    listFlatpakUpdate = stdout ? stdout : null
+                    let listFlatpak = stdout ? stdout : null
 
-                    if(listFlatpakUpdate) {
+                    if(listFlatpak) {
                         debug('➤ Flatpak: updates found! - searching current versions')
                         sh.exec('flatpak list --app', function(cmd, stdout, stderr, exitCode) {
-                            if (catchErr(exitCode, stderr)) {
-                                return
-                            }
+                            if (catchErr(exitCode, stderr)) return
 
-                            listFlatpakInfo = stdout ? stdout : null
-
-                            let upd = listFlatpakUpdate.trim().replace(/ /g, '-').replace(/\t/g, ' ')
+                            let listFlatpakInfo = stdout ? stdout : null
+                            let upd = listFlatpak.trim().replace(/ /g, '-').replace(/\t/g, ' ')
                             let inf = listFlatpakInfo.trim().replace(/ /g, '-').replace(/\t/g, ' ')
-                            let pkg
+                            let pkg = ''
 
                             upd.split('\n').forEach(app => {
                                 let name = app.split(' ')[1]
@@ -180,7 +168,7 @@ function checkUpdates() {
                             debug('➤ Concatenating Arch and Flatpak lists')
                             updListOut = updListOut.concat(pkg)
 
-                            makeList()
+                            makeList(updListOut)
                         })
                     } else {
                         debug('✦ Flatpak: updates not found - skipping search current versions')
@@ -192,38 +180,40 @@ function checkUpdates() {
 }
 
 
-function makeList() {
+function makeList(out) {
     debug(' ')
     debug('----------- Start makeList -----------')
     busy = false
 
-    if (!updListOut) {
+    if (!out) {
         updCount = 0
         debug('✦ Updates not found - interrupting function makeList')
         debug(' ')
-        debug('----------------- End ----------------')
         return
     }
 
     debug('➤ Formatting text...')
 
-    updListObj = updListOut
-        .replace(/ ->/g, '')
-        .trim()
-        .toLowerCase()
-        .split('\n')
-        .map(str => {
-            const col = str.split(' ');
-            [col[0], col[1]] = [col[1], col[0]]
-            return col.join(' ')
-        })
-        .sort((a, b) => {
-            const [nameA, repoA] = a.split(' ');
-            const [nameB, repoB] = b.split(' ');
-            return sortingMode == 0 ?
-                nameA.localeCompare(nameB) :
-                repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
-        })
+    if (out !== 'sort' ) {
+        updListObj = out
+            .replace(/ ->/g, '')
+            .trim()
+            .toLowerCase()
+            .split('\n')
+            .map(str => {
+                const col = str.split(' ');
+                [col[0], col[1]] = [col[1], col[0]]
+                return col.join(' ')
+            })
+    }
+
+    updListObj.sort((a, b) => {
+        const [nameA, repoA] = a.split(' ');
+        const [nameB, repoB] = b.split(' ');
+        return sortingMode == 0 ?
+            nameA.localeCompare(nameB) :
+            repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
+    })
 
     updCount = updListObj.length
 
@@ -235,7 +225,6 @@ function makeList() {
     }
     
     debug(' ')
-    debug('----------------- End ----------------')
 }
 
 
@@ -258,4 +247,29 @@ function setIndex(bin, cfg) {
     for (let i = 0; i < cfg.length; i++) {
         return cfg[i]['bin'] == bin ? i : 0
     }
+}
+
+
+function setBin() {
+    cache = null
+    let deps = plasmoid.configuration.depsBin
+    let wrapper = plasmoid.configuration.selectedWrapperBin
+
+    if (deps === undefined) return
+
+    function setArg(searchCmd, cacheCmd) {
+        cacheCmd = `${cacheCmd} -Sl`
+        searchCmd = !searchMode[0] && !searchMode[1] ?
+                    searchCmd : `${searchCmd} -Qu`
+    
+        plasmoid.configuration.cacheCmd = cacheCmd
+        plasmoid.configuration.searchCmd = searchCmd
+    }
+
+    searchMode[0] && !searchMode[1] ? setArg(deps[0], deps[0]) :
+    !searchMode[0] && searchMode[1] ? setArg(wrapper, wrapper) :
+    !searchMode[0] && !searchMode[1] ? setArg(deps[1], deps[0]) :
+    null
+
+    checkUpdates()
 }

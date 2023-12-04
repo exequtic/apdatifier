@@ -110,7 +110,7 @@ Item {
                 }
                 onClicked: {
                             plasmoid.configuration.sortingMode = sortingMode == 0 ? sortingMode + 1 : 0
-                            JS.makeList()
+                            JS.makeList('sort')
                 }
                 visible: !error && !busy && updCount > 1
             }

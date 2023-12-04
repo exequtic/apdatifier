@@ -8,11 +8,18 @@ Item {
 
     property alias cfg_interval: interval.value
     property alias cfg_flatpakEnabled: flatpakEnabled.checked
-    property alias cfg_wrapperEnabled: wrapperEnabled.checked
+    property alias cfg_pacmanMode: pacmanMode.checked
+    property alias cfg_checkupdatesMode: checkupdatesMode.checked
+    property alias cfg_wrapperMode: wrapperMode.checked
+    property alias cfg_dependencies: dependencies.text
+
+    property var searchCmd: plasmoid.configuration.searchCmd
+    property var cacheCmd: plasmoid.configuration.cacheCmd
+
     property var sortingMode: plasmoid.configuration.sortingMode
     property var columnsMode: plasmoid.configuration.columnsMode
 
-    property var flatpakBin: plasmoid.configuration.flatpakBin
+    property var depsBin: plasmoid.configuration.depsBin
     property var wrappersBin: plasmoid.configuration.wrappersBin
     property var selectedWrapperBin: plasmoid.configuration.selectedWrapperBin
 
@@ -22,7 +29,7 @@ Item {
     ColumnLayout {
         RowLayout {
             Label {
-                text: "Check interval:"
+                text: 'Check interval:'
             }
             SpinBox {
                 id: interval
@@ -32,42 +39,52 @@ Item {
                 value: interval
             }
             Label {
-                text: "minutes"
+                text: 'minutes'
             }
         }
 
         CheckBox {
             id: flatpakEnabled
-            text: "Enable Flatpak support"
-            enabled: flatpakBin !== undefined
+            text: 'Enable Flatpak support'
+            enabled: depsBin[2]
 
             Component.onCompleted: {
-                if (checked && !flatpakBin) {
+                if (checked && !depsBin[2]) {
                     checked = false
                 }
             }
         }
 
-        CheckBox {
-            id: wrapperEnabled
-            text: "Use pacman wrapper for searching updates"
-            enabled: wrappersBin !== undefined
+		TextField {
+			id: dependencies
+            visible: false
+		}
 
-            Component.onCompleted: {
-                if (checked && !wrappersBin) {
-                    checked = false
-                }
-            }
+        RadioButton {
+            id: pacmanMode
+            text: 'pacman'
+        }
+
+        RadioButton {
+            id: checkupdatesMode
+            text: 'checkupdates'
+            enabled: depsBin[1]
+        }
+
+        RadioButton {
+            id: wrapperMode
+            text: 'wrapper'
+            enabled: wrappersBin
         }
 
         ComboBox {
             model: wrappersBin
-            textRole: "name"
-            enabled: wrapperEnabled.checked
+            textRole: 'name'
+            enabled: wrapperMode.checked
             implicitWidth: 150
 
             onCurrentIndexChanged: {
-                plasmoid.configuration.selectedWrapperBin = model[currentIndex]["bin"]
+                plasmoid.configuration.selectedWrapperBin = model[currentIndex]['bin']
                 root.selectedWrapper = currentIndex
             }
 

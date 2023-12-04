@@ -15,16 +15,18 @@ Item {
 
 	property var listModel: updListModel
 	property var listeners: ({})
-	property var updListOut
 	property var updListObj
-	property var updCount
-	property var cache
-	property var error
-	property var busy
+	property var updCount: 0
+	property var cache: null
+	property var error: null
+	property var busy: true
 
 	property int interval: plasmoid.configuration.interval * 60000
 	property int sortingMode: plasmoid.configuration.sortingMode
 	property int columnsMode: plasmoid.configuration.columnsMode
+
+	property var searchMode: [plasmoid.configuration.pacmanMode,
+							  plasmoid.configuration.wrapperMode]
 
 	ListModel  {
 		id: updListModel
@@ -40,11 +42,14 @@ Item {
 		running: true
 		repeat: true
 		onTriggered: JS.checkUpdates()
-		Component.onCompleted: triggered()
 	}
 
 	onIntervalChanged: {
 		timer.restart()
+	}
+
+	onSearchModeChanged: {
+		JS.setBin()
 	}
 
 	Component.onCompleted: {
