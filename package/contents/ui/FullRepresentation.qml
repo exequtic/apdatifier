@@ -77,8 +77,7 @@ Item {
         width: parent.width
 
         PlasmaExtras.DescriptiveLabel {
-            text: busy ? 'Checking updates...' :
-                  updCount > 0 ? 'Total updates pending: ' + updCount : ' '
+            text: statusMsg
         }
 
         RowLayout {
@@ -110,7 +109,7 @@ Item {
                 }
                 onClicked: {
                             plasmoid.configuration.sortingMode = sortingMode == 0 ? sortingMode + 1 : 0
-                            JS.makeList('sort')
+                            JS.sortList(updList)
                 }
                 visible: !error && !busy && updCount > 1
             }
