@@ -10,17 +10,18 @@ Item {
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
-	Plasmoid.status: updCount > 0 | busy | error
+	Plasmoid.status: count > 0 | busy | error
 							? PlasmaCore.Types.ActiveStatus
 							: PlasmaCore.Types.PassiveStatus
 
 	property var listModel: listModel
 	property var listeners: ({})
 	property var updList: []
-	property var updCount: 0
+	property var count: 0
 	property var error: ''
 	property var busy: true
 	property var statusMsg: ''
+	property var statusIco: ''
 	property var commands: []
 
 	property bool interval: plasmoid.configuration.interval
@@ -57,11 +58,26 @@ Item {
 		interval ? timer.start() : timer.stop()
 	}
 
-	onSearchModeChanged: {
-		JS.checkDependencies()
-	}
-
 	onSortingChanged: {
 		JS.sortList(updList)
 	}
+
+	onSearchModeChanged: {
+		JS.checkDependencies()
+
+		Plasmoid.setAction('check', 'Check updates', 'view-refresh-symbolic')
+
+		searchMode[1]
+			? Plasmoid.removeAction('database')
+			: Plasmoid.setAction('database', 'Download database', 'download')
+
+		Plasmoid.setActionSeparator(' ')
+	}
+
+    function action_check() {
+        JS.checkUpdates()
+    }
+    function action_database() {
+        JS.refreshDatabase()
+    }
 }

@@ -28,12 +28,12 @@ Item {
         radius: width * 0.40
         color: PlasmaCore.ColorScope.backgroundColor
         opacity: 0.6
-        visible: updCount > 0 || error
+        visible: count > 0 || error
 
         PlasmaComponents.Label {
             anchors.centerIn: parent
             id: labelBadge
-            text: error ? '✖' : updCount
+            text: error ? '✖' : count
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             visible: bgBadge.visible

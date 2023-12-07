@@ -39,6 +39,15 @@
 		<entry name="sortByRepo" type="bool">
 			<default>false</default>
 		</entry>
+		<entry name="showStatusBar" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="showCheckBtn" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="showDatabaseBtn" type="bool">
+			<default>true</default>
+		</entry>
 		<entry name="showSortBtn" type="bool">
 			<default>true</default>
 		</entry>

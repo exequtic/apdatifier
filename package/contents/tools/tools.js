@@ -29,7 +29,8 @@ function catchErr(code, err) {
     if (err) {
         debug('✖ Error - stopping function')
         error = err.trim().split('\n')[0]
-        statusMsg = `✖ Exit code: ${code}`
+        statusIco = 'error'
+        statusMsg = `Exit code: ${code}`
         busy = false
         return true
     }
@@ -38,9 +39,6 @@ function catchErr(code, err) {
 
 
 function checkDependencies() {
-    debug(' ')
-    debug('------------- Dependencies -----------')
-
     function check(packs) {
         return `for pgk in ${packs}; do command -v $pgk || echo; done`
     }
@@ -70,20 +68,41 @@ function checkDependencies() {
         commands[1] = packages[0] + ' -Sl'
         commands[2] = packages[2] + ' remote-ls --app --updates'
         commands[3] = packages[2] + ' list --app'
+        commands[4] = searchMode[0] || searchMode[1] ?
+                            packages[0] + ' -Sy' :
+                            commands[0].replace('Qu', 'Sy')
 
         timer.triggered()
     })
 }
 
 
+function refreshDatabase() {
+    listModel.clear()
+    busy = true
+
+    statusIco = 'download'
+    statusMsg = 'Download fresh package databases...'
+
+    sh.exec('pkexec ' + commands[4], (cmd, stdout, stderr, exitCode) => {
+        if (exitCode == 127) {
+            showListModel(updList)
+            return
+        }
+
+        checkUpdates()
+    })
+}
+
+
 function checkUpdates() {
-    debug('--------- Start checkUpdates ---------')
+    statusIco = 'view-refresh-symbolic'
     statusMsg = 'Checking updates...'
     timer.restart()
     listModel.clear()
     busy = true
     error = null
-    updCount = null
+    count = null
 
     let updArch
     let infArch
@@ -91,10 +110,10 @@ function checkUpdates() {
     let infFlpk
     let command = commands[0]
 
-    statusMsg = searchMode[2] ? '➤ Searching AUR for updates...'
-                              : '➤ Searching arch repositories for updates...'
+    statusIco = 'package'
+    statusMsg = searchMode[2] ? 'Searching AUR for updates...'
+                              : 'Searching arch repositories for updates...'
 
-    debug('➤ Arch: checking updates...')
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchErr(exitCode, stderr)) return
         updArch = stdout ? stdout : null
@@ -104,7 +123,8 @@ function checkUpdates() {
             if (catchErr(exitCode, stderr)) return
             infArch = stdout ? stdout : null
             command = searchMode[3] ? commands[2] : 'exit 0'
-            statusMsg = searchMode[3] ? '➤ Searching flathub for updates...' : statusMsg
+            statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
+            statusMsg = searchMode[3] ? 'Searching flathub for updates...' : statusMsg
 
             sh.exec(command, (cmd, stdout, stderr, exitCode) => {
                 if (catchErr(exitCode, stderr)) return
@@ -191,7 +211,7 @@ function sortList(list) {
         const [nameA, repoA] = a.split(' ')
         const [nameB, repoB] = b.split(' ')
 
-        return plasmoid.configuration.sortByName
+        return sorting
             ? nameA.localeCompare(nameB)
             : ((repoA.includes('aur') || repoA.includes('devel')) &&
              !(repoB.includes('aur') || repoB.includes('devel')))
@@ -208,23 +228,22 @@ function showListModel(list) {
     busy = false
 
     if (!list) {
-        debug('✦ Updates not found')
-        updCount = 0
+        count = 0
+        statusIco = ''
         statusMsg = ''
         return
     }
 
     updList = list
-    updCount = list.length
-    statusMsg = '✦ Total updates pending: ' + updCount
+    count = list.length
+    statusIco = 'update-none'
+    statusMsg = 'Total updates pending: ' + count
 
     listModel.clear()
 
-    for (var i = 0; i < updCount; i++) {
+    for (var i = 0; i < count; i++) {
         listModel.append({'text': list[i]})
     }
-
-    debug('✦ Total updates pending: ' + updCount)
 }
 
 

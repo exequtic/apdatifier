@@ -75,9 +75,21 @@ Item {
         anchors.bottom: parent.bottom
         id: footer
         width: parent.width
+        enabled: plasmoid.configuration.showStatusBar
+        visible: enabled
 
-        PlasmaExtras.DescriptiveLabel {
-            text: statusMsg
+        RowLayout {
+            spacing: 0
+            PlasmaComponents.ToolButton {
+                icon.name: statusIco
+                enabled: false
+                visible: footer.visible
+            }
+
+            PlasmaExtras.DescriptiveLabel {
+                text: statusMsg
+                visible: footer.visible
+            }
         }
 
         RowLayout {
@@ -86,20 +98,17 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
+                visible: footer.visible && !error && !busy && count > 0 && plasmoid.configuration.showColsBtn
+
                 PlasmaComponents.ToolTip {
-                    text: [
-                            'Hide repository',
-                            'Hide current version',
-                            'Hide new version',
-                            'Show repository',
-                            'Show new version', 
-                            'Show current version'
-                          ][columns]
+                    text: ['Hide repository',
+                           'Hide current version',
+                           'Hide new version',
+                           'Show repository',
+                           'Show new version', 
+                           'Show current version']
+                          [columns]
                 }
-                onClicked: {
-                            plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
-                }
-                visible: !error && !busy && updCount > 1 && plasmoid.configuration.showColsBtn
             }
 
             PlasmaComponents.ToolButton {
@@ -108,10 +117,21 @@ Item {
                     text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
                 }
                 onClicked: {
-                            plasmoid.configuration.sortByName = plasmoid.configuration.sortByName ? false : true
-                            JS.sortList(updList)
+                    plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
+                    plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
+                    JS.sortList(updList)
                 }
-                visible: !error && !busy && updCount > 1 && plasmoid.configuration.showSortBtn
+
+                visible: footer.visible && !error && !busy && count > 1 && plasmoid.configuration.showSortBtn
+            }
+
+            PlasmaComponents.ToolButton {
+                icon.name: 'download'
+                PlasmaComponents.ToolTip {
+                    text: 'Download databases'
+                }
+                onClicked: JS.refreshDatabase()
+                visible: footer.visible && !busy && plasmoid.configuration.showDatabaseBtn && !plasmoid.configuration.checkupdates
             }
 
             PlasmaComponents.ToolButton {
@@ -120,10 +140,11 @@ Item {
                     text: 'Check updates'
                 }
                 onClicked: JS.checkUpdates()
+                visible: footer.visible && plasmoid.configuration.showCheckBtn
             }
         }
     }
-    
+
     Rectangle {
         anchors.bottom: footer.top
         id: separator
@@ -131,6 +152,7 @@ Item {
         height: 1
         color: Kirigami.Theme.textColor
         opacity: 0.1
+        visible: footer.visible
     }
 
     Loader {
@@ -148,13 +170,13 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
-        active: updCount == 0 || !busy && error
+        active: count == 0 || !busy && error
         visible: active
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {
             width: parent.width
-            iconName: updCount == 0 ? 'checkmark' : 'error'
-            text: updCount == 0 ? 'System updated' : error
+            iconName: count == 0 ? 'checkmark' : 'error'
+            text: count == 0 ? 'System updated' : error
         }
     }
 }
