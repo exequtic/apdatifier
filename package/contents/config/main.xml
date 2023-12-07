@@ -4,33 +4,49 @@
 	  xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
 	  http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 <kcfgfile name="apdatifier"/>
+
 	<group name="General">
-		<entry name="interval" type="int">
-			<default>30</default>
-		</entry>
-		<entry name="flatpakEnabled" type="bool">
-			<default>false</default>
-		</entry>
-		<entry name="pacmanMode" type="bool">
+		<entry name="interval" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="checkupdatesMode" type="bool">
+		<entry name="time" type="int">
+			<default>30</default>
+		</entry>
+		<entry name="flatpak" type="bool">
 			<default>false</default>
 		</entry>
-		<entry name="wrapperMode" type="bool">
+		<entry name="pacman" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="checkupdates" type="bool">
+			<default>false</default>
+		</entry>
+		<entry name="wrapper" type="bool">
 			<default>false</default>
 		</entry>
 		<entry name="selectedWrapper" type="string">
 			<default></default>
 		</entry>
-		<entry name="sortingMode" type="int">
-			<default>0</default>
-		</entry>
-		<entry name="columnsMode" type="int">
-			<default>5</default>
-		</entry>
 		<entry name="dependencies" type="string">
 			<default>pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay</default>
+		</entry>
+	</group>
+
+	<group name="Appearance">
+		<entry name="sortByName" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="sortByRepo" type="bool">
+			<default>false</default>
+		</entry>
+		<entry name="showSortBtn" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="showColsBtn" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="columns" type="int">
+			<default>5</default>
 		</entry>
 	</group>
 </kcfg>

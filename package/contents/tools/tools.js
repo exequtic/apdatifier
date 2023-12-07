@@ -63,7 +63,6 @@ function checkDependencies() {
         plasmoid.configuration.packages = packs
         plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
 
-        commands = []
         commands[0] = searchMode[0] ? packages[0] + ' -Qu' :
                       searchMode[1] ? packages[1] :
                       searchMode[2] ? plasmoid.configuration.selectedWrapper + ' -Qu' : null
@@ -192,7 +191,7 @@ function sortList(list) {
         const [nameA, repoA] = a.split(' ')
         const [nameB, repoB] = b.split(' ')
 
-        return sortingMode == 0
+        return plasmoid.configuration.sortByName
             ? nameA.localeCompare(nameB)
             : ((repoA.includes('aur') || repoA.includes('devel')) &&
              !(repoB.includes('aur') || repoB.includes('devel')))
@@ -231,10 +230,10 @@ function showListModel(list) {
 
 function columnWidth(column, width) {
     switch (column) {
-        case 0: return width * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][columnsMode]
-        case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columnsMode]
-        case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columnsMode]
-        case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columnsMode]
+        case 0: return width * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][columns]
+        case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columns]
+        case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columns]
+        case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columns]
     }
 }
 

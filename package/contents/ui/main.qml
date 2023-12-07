@@ -7,7 +7,6 @@ import "../tools/tools.js" as JS
 Item {
 	id: root
 
-	Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
@@ -17,21 +16,22 @@ Item {
 
 	property var listModel: listModel
 	property var listeners: ({})
-	property var updList
+	property var updList: []
 	property var updCount: 0
-	property var error: null
+	property var error: ''
 	property var busy: true
-	property var statusMsg
-	property var commands
+	property var statusMsg: ''
+	property var commands: []
 
-	property int interval: plasmoid.configuration.interval * 60000
+	property bool interval: plasmoid.configuration.interval
+	property int time: plasmoid.configuration.time * 60000
 	property var packages: plasmoid.configuration.packages
-	property int sortingMode: plasmoid.configuration.sortingMode
-	property int columnsMode: plasmoid.configuration.columnsMode
-	property var searchMode: [plasmoid.configuration.pacmanMode,
-							  plasmoid.configuration.checkupdatesMode,
-							  plasmoid.configuration.wrapperMode,
-							  plasmoid.configuration.flatpakEnabled]
+	property var sorting: plasmoid.configuration.sortByName
+	property int columns: plasmoid.configuration.columns
+	property var searchMode: [plasmoid.configuration.pacman,
+							  plasmoid.configuration.checkupdates,
+							  plasmoid.configuration.wrapper,
+							  plasmoid.configuration.flatpak]
 
 	ListModel  {
 		id: listModel
@@ -43,17 +43,25 @@ Item {
 
 	Timer {
 		id: timer
-		interval: root.interval
+		interval: root.time
 		running: true
 		repeat: true
 		onTriggered: JS.checkUpdates()
 	}
 
-	onIntervalChanged: {
+	onTimeChanged: {
 		timer.restart()
+	}
+
+	onIntervalChanged: {
+		interval ? timer.start() : timer.stop()
 	}
 
 	onSearchModeChanged: {
 		JS.checkDependencies()
+	}
+
+	onSortingChanged: {
+		JS.sortList(updList)
 	}
 }

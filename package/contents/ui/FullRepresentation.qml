@@ -85,7 +85,7 @@ Item {
             spacing: 0
 
             PlasmaComponents.ToolButton {
-                icon.name: columnsMode >= 0 && columnsMode < 3 ? 'hide_table_column' : 'show_table_column'
+                icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
                 PlasmaComponents.ToolTip {
                     text: [
                             'Hide repository',
@@ -94,24 +94,24 @@ Item {
                             'Show repository',
                             'Show new version', 
                             'Show current version'
-                          ][columnsMode]
+                          ][columns]
                 }
                 onClicked: {
-                            plasmoid.configuration.columnsMode = columnsMode >= 0 && columnsMode < 5 ? columnsMode + 1 : 0
+                            plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
                 }
-                visible: !error && !busy && updCount > 1
+                visible: !error && !busy && updCount > 1 && plasmoid.configuration.showColsBtn
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: sortingMode == 0 ? 'repository' : 'sort-name'
+                icon.name: plasmoid.configuration.sortByName ? 'repository' : 'sort-name'
                 PlasmaComponents.ToolTip {
-                    text: sortingMode == 0 ? 'Sorting by repository' : 'Sorting by name'
+                    text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
                 }
                 onClicked: {
-                            plasmoid.configuration.sortingMode = sortingMode == 0 ? sortingMode + 1 : 0
+                            plasmoid.configuration.sortByName = plasmoid.configuration.sortByName ? false : true
                             JS.sortList(updList)
                 }
-                visible: !error && !busy && updCount > 1
+                visible: !error && !busy && updCount > 1 && plasmoid.configuration.showSortBtn
             }
 
             PlasmaComponents.ToolButton {

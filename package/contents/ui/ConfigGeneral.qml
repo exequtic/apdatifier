@@ -6,16 +6,14 @@ import "../tools/tools.js" as JS
 Item {
     id: root
 
-    property alias cfg_interval: interval.value
-    property alias cfg_flatpakEnabled: flatpakEnabled.checked
-    property alias cfg_pacmanMode: pacmanMode.checked
-    property alias cfg_checkupdatesMode: checkupdatesMode.checked
-    property alias cfg_wrapperMode: wrapperMode.checked
+    property alias cfg_interval: interval.checked
+    property alias cfg_time: time.value
+    property alias cfg_flatpak: flatpak.checked
+    property alias cfg_pacman: pacman.checked
+    property alias cfg_checkupdates: checkupdates.checked
+    property alias cfg_wrapper: wrapper.checked
 
-    property var sortingMode: plasmoid.configuration.sortingMode
-    property var columnsMode: plasmoid.configuration.columnsMode
     property var selectedWrapper: plasmoid.configuration.selectedWrapper
-
     property var dependencies: plasmoid.configuration.dependencies
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
@@ -25,15 +23,17 @@ Item {
 
     ColumnLayout {
         RowLayout {
-            Label {
-                text: 'Check interval:'
+            CheckBox {
+                id: interval
+                text: 'Interval: '
             }
             SpinBox {
-                id: interval
-                from: 15
+                id: time
+                from: 10
                 to: 1440
                 stepSize: 5
-                value: interval
+                value: time
+                enabled: interval.checked
             }
             Label {
                 text: 'minutes'
@@ -41,13 +41,13 @@ Item {
         }
 
         CheckBox {
-            id: flatpakEnabled
+            id: flatpak
             text: 'Enable Flatpak support'
             enabled: packages[2]
 
             onCheckedChanged: {
                 if (checked && !packages[2]) {
-                    plasmoid.configuration.flatpakEnabled = false
+                    plasmoid.configuration.flatpak = false
                 }
             }
 
@@ -58,28 +58,38 @@ Item {
             }
         }
 
-        RadioButton {
-            id: pacmanMode
-            text: 'pacman'
+        ButtonGroup {
+            buttons: groupSearch.children
         }
 
-        RadioButton {
-            id: checkupdatesMode
-            text: 'checkupdates'
-            enabled: packages[1]
-        }
+        Column {
+            id: groupSearch
+        
+            RadioButton {
+                id: pacman
+                text: 'pacman'
+                checked: true
+            }
 
-        RadioButton {
-            id: wrapperMode
-            text: 'wrapper'
-            enabled: wrappers
+            RadioButton {
+                id: checkupdates
+                text: 'checkupdates'
+                enabled: packages[1]
+            }
+
+            RadioButton {
+                id: wrapper
+                text: 'wrapper'
+                enabled: wrappers
+            }
         }
 
         ComboBox {
             model: wrappers
             textRole: 'name'
-            enabled: wrapperMode.checked
+            enabled: wrapper.checked
             implicitWidth: 150
+            visible: wrappers && wrappers.length > 1
 
             onCurrentIndexChanged: {
                 plasmoid.configuration.selectedWrapper = model[currentIndex]['bin']
