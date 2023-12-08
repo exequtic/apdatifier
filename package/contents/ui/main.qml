@@ -23,6 +23,8 @@ Item {
 	property var statusMsg: ''
 	property var statusIco: ''
 	property var commands: []
+	property var responseCode
+	property var action
 
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000
@@ -48,6 +50,19 @@ Item {
 		running: true
 		repeat: true
 		onTriggered: JS.checkUpdates()
+	}
+
+	Timer {
+		id: waitConnection
+		interval: 5000
+		repeat: true
+		onTriggered: JS.checkConnection()
+    }
+
+	WorkerScript {
+		id: connection
+		source: "../tools/connection.js"
+		onMessage: JS.sendCode(messageObject.code)
 	}
 
 	onTimeChanged: {

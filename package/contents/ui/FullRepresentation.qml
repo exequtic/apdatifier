@@ -80,15 +80,15 @@ Item {
 
         RowLayout {
             spacing: 0
+            visible: footer.visible
+
             PlasmaComponents.ToolButton {
                 icon.name: statusIco
                 enabled: false
-                visible: footer.visible
             }
 
             PlasmaExtras.DescriptiveLabel {
                 text: statusMsg
-                visible: footer.visible
             }
         }
 
@@ -109,38 +109,47 @@ Item {
                            'Show current version']
                           [columns]
                 }
+
+                onClicked: {
+                    plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
+                }
             }
 
             PlasmaComponents.ToolButton {
                 icon.name: plasmoid.configuration.sortByName ? 'repository' : 'sort-name'
+                visible: footer.visible && !error && !busy && count > 1 && plasmoid.configuration.showSortBtn
+
                 PlasmaComponents.ToolTip {
                     text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
                 }
+
                 onClicked: {
                     plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
                     plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
                     JS.sortList(updList)
                 }
-
-                visible: footer.visible && !error && !busy && count > 1 && plasmoid.configuration.showSortBtn
             }
 
             PlasmaComponents.ToolButton {
                 icon.name: 'download'
+                visible: footer.visible && !busy && plasmoid.configuration.showDatabaseBtn && !plasmoid.configuration.checkupdates
+
                 PlasmaComponents.ToolTip {
                     text: 'Download databases'
                 }
+
                 onClicked: JS.refreshDatabase()
-                visible: footer.visible && !busy && plasmoid.configuration.showDatabaseBtn && !plasmoid.configuration.checkupdates
             }
 
             PlasmaComponents.ToolButton {
                 icon.name: 'view-refresh-symbolic'
+                visible: footer.visible && plasmoid.configuration.showCheckBtn
+
                 PlasmaComponents.ToolTip {
                     text: 'Check updates'
                 }
+
                 onClicked: JS.checkUpdates()
-                visible: footer.visible && plasmoid.configuration.showCheckBtn
             }
         }
     }

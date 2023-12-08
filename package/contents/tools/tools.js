@@ -38,6 +38,37 @@ function catchErr(code, err) {
 }
 
 
+function checkConnection() {
+    statusIco = 'network-connect'
+    statusMsg = 'Checking connection...'
+    connection.sendMessage({})
+}
+
+
+function waitConnectionTimer(func) {
+    action = func
+
+    if (responseCode !== 200) {
+        if (!waitConnection.running) {
+            waitConnection.triggered()
+            waitConnection.start()
+        }
+        return true
+    }
+
+    waitConnection.stop()
+    responseCode = action == 'checkUpdates' ? null : responseCode
+    action = null
+    return false
+}
+
+
+function sendCode(code) {
+    responseCode = code
+    JS[action]()
+}
+
+
 function checkDependencies() {
     function check(packs) {
         return `for pgk in ${packs}; do command -v $pgk || echo; done`
@@ -81,6 +112,8 @@ function refreshDatabase() {
     listModel.clear()
     busy = true
 
+    if (waitConnectionTimer(refreshDatabase.name)) return
+
     statusIco = 'download'
     statusMsg = 'Download fresh package databases...'
 
@@ -96,13 +129,13 @@ function refreshDatabase() {
 
 
 function checkUpdates() {
-    statusIco = 'view-refresh-symbolic'
-    statusMsg = 'Checking updates...'
     timer.restart()
     listModel.clear()
     busy = true
     error = null
     count = null
+
+    if (waitConnectionTimer(checkUpdates.name)) return
 
     let updArch
     let infArch
