@@ -18,7 +18,7 @@ Item {
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
 
-    property int wrapperIndex: root.indexWrapper
+    property alias cfg_wrapperIndex: root.indexWrapper
     property int indexWrapper
 
     ColumnLayout {
