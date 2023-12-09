@@ -1,22 +1,23 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.5 as QQC2
 import QtQuick.Layouts 1.1
+import org.kde.kirigami 2.5 as Kirigami
 import "../tools/tools.js" as JS
 
-Item {
-    id: root
+Kirigami.FormLayout {
+    id: appearancePage
 
     property alias cfg_sortByName: sortByName.checked
     property alias cfg_sortByRepo: sortByRepo.checked
 
     property alias cfg_showStatusBar: showStatusBar.checked
     property alias cfg_showCheckBtn: showCheckBtn.checked
-    property alias cfg_showDatabaseBtn: showDatabaseBtn.checked
+    property alias cfg_showDownloadBtn: showDownloadBtn.checked
     property alias cfg_showSortBtn: showSortBtn.checked
     property alias cfg_showColsBtn: showColsBtn.checked
 
-    property alias cfg_fontDefault: fontDefault.checked
-    property alias cfg_fontIndex: root.indexFont
+    property alias cfg_fontCustom: fontCustom.checked
+    property alias cfg_fontIndex: appearancePage.indexFont
     property alias cfg_fontBold: fontBold.checked
     property alias cfg_fontSize: fontSize.value
     property alias cfg_fontHeight: fontHeight.value
@@ -31,107 +32,153 @@ Item {
     property var selectedFont: plasmoid.configuration.selectedFont
     property int indexFont
 
-    ColumnLayout {
-        ButtonGroup {
-            buttons: groupSorting.children
+
+    QQC2.CheckBox {
+        id: fontCustom
+        text: "Custom font settings"
+    }
+
+    QQC2.ComboBox {
+        Kirigami.FormData.label: "Font family:"
+        implicitWidth: 300
+        textRole: 'name'
+        model: JS.getFonts()
+        enabled: fontCustom.checked
+
+        onCurrentIndexChanged: {
+            plasmoid.configuration.selectedFont = model[currentIndex]['value']
+            appearancePage.indexFont = currentIndex
         }
 
-        Column {
-            id: groupSorting
+        Component.onCompleted: {
+            currentIndex = JS.setIndex(selectedFont, Qt.fontFamilies())
+            currentIndex = JS.setIndexInit(plasmoid.configuration.fontIndex)
+        }
+    }
 
-            RadioButton {
-                id: sortByName
-                text: 'Sort updates list by name'
-                checked: true
-            }
+    QQC2.CheckBox {
+        id: fontBold
+        text: "Bold"
+        enabled: fontCustom.checked
+    }
 
-            RadioButton {
-                id: sortByRepo
-                text: 'Sort updates list by repository'
-            }
+    RowLayout {
+        Layout.fillWidth: true
+        enabled: fontCustom.checked
+
+        Kirigami.FormData.label: "Size:"
+
+        QQC2.SpinBox {
+            id: fontSize
+            implicitWidth: 100
+            from: 8
+            to: 32
+            stepSize: 1
+            value: fontSize.value
         }
 
-        CheckBox {
-            id: showStatusBar
-            text: 'Show status line with buttons on bottom'
+        QQC2.Label {
+            text: "px"
+        }
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        enabled: fontCustom.checked
+
+        Kirigami.FormData.label: "Spacing:"
+
+        QQC2.SpinBox {
+            id: fontHeight
+            implicitWidth: 100
+            from: -6
+            to: 12
+            stepSize: 1
+            value: fontHeight.value
         }
 
-        CheckBox {
-            id: showCheckBtn
-            text: 'Show button for searching'
-            enabled: showStatusBar.checked
+        QQC2.Label {
+            text: "px"
         }
+    }
 
-        CheckBox {
-            id: showDatabaseBtn
-            text: 'Show button for download database'
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    QQC2.CheckBox {
+        id: showStatusBar
+        Kirigami.FormData.label: "Status bar: "
+        text: 'Show status bar'
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    QQC2.CheckBox {
+        id: showCheckBtn
+        Kirigami.FormData.label: "Buttons on status bar:"
+        text: "Search updates"
+        icon.name: "view-refresh-symbolic"
+        enabled: showStatusBar.checked
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        spacing: 10
+
+        QQC2.CheckBox {
+            id: showDownloadBtn
+            text: "Download database"
+            icon.name: "download"
             enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
         }
 
-        CheckBox {
-            id: showSortBtn
-            text: 'Show button for sortiing'
-            enabled: showStatusBar.checked
+        QQC2.Label {
+            font.italic: true
+            font.pixelSize: 12
+            color: Kirigami.Theme.neutralTextColor
+            text: "Not needed for checkupdates"
+            visible: !showDownloadBtn.enabled
+            enabled: visible
         }
+    }
 
-        CheckBox {
-            id: showColsBtn
-            text: 'Show button for hide/show columns'
-            enabled: showStatusBar.checked
-        }
+    QQC2.CheckBox {
+        id: showSortBtn
+        text: "Sorting columns"
+        icon.name: "sort-name"
+        enabled: showStatusBar.checked
+    }
 
-        CheckBox {
-            id: fontDefault
-            text: 'Use default system font'
-        }
+    QQC2.CheckBox {
+        id: showColsBtn
+        text: "Switch columns"
+        icon.name: "show_table_column"
+        enabled: showStatusBar.checked
+    }
 
-        ComboBox {
-            textRole: 'name'
-            implicitWidth: 300
-            model: JS.getFonts()
-            enabled: !fontDefault.checked
+    Item {
+        Kirigami.FormData.isSection: true
+    }
 
-            onCurrentIndexChanged: {
-                plasmoid.configuration.selectedFont = model[currentIndex]['value']
-                root.indexFont = currentIndex
-            }
+    QQC2.ButtonGroup {
+        id: sortGroup
+    }
 
-            Component.onCompleted: {
-                currentIndex = JS.setIndex(selectedFont, Qt.fontFamilies())
-                currentIndex = JS.setIndexInit(plasmoid.configuration.fontIndex)
-            }
-        }
+    QQC2.RadioButton {
+        id: sortByName
+        Kirigami.FormData.label: "Sort list by:"
+        text: 'Name'
+        checked: true
+        QQC2.ButtonGroup.group: sortGroup
+    }
 
-        CheckBox {
-            id: fontBold
-            text: 'Bold'
-        }
-
-        RowLayout {
-            Label {
-                text: 'Font Size: '
-            }
-            SpinBox {
-                id: fontSize
-                from: 8
-                to: 32
-                stepSize: 1
-                value: fontSize.value
-            }
-        }
-
-        RowLayout {
-            Label {
-                text: 'Spacing: '
-            }
-            SpinBox {
-                id: fontHeight
-                from: -6
-                to: 12
-                stepSize: 1
-                value: fontHeight.value
-            }
-        }
+    QQC2.RadioButton {
+        id: sortByRepo
+        text: 'Repository'
+        QQC2.ButtonGroup.group: sortGroup
     }
 
     // after changing the font settings, the columns are layered on top of each other

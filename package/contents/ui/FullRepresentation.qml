@@ -21,7 +21,9 @@ Item {
             model: listModel
             delegate: GridLayout {
                 columns: 4
-                height: pkgName.font.pixelSize * 1.5 + (plasmoid.configuration.fontHeight)
+                height: plasmoid.configuration.fontCustom
+                            ? pkgName.font.pixelSize * 1.4 + (plasmoid.configuration.fontHeight)
+                            : pkgName.font.pixelSize * 1.4
                 Text {
                     id: pkgName
                     Layout.column: 0
@@ -30,11 +32,15 @@ Item {
                     text: modelData.split(' ')[0]
                     elide: Text.ElideRight
                     color: theme.textColor
-                    font.pixelSize: plasmoid.configuration.fontSize
-                    font.family: plasmoid.configuration.fontDefault
-                            ? theme.defaultFont.family
-                            : JS.getFonts()[plasmoid.configuration.fontIndex]['value']
-                    font.bold: plasmoid.configuration.fontBold
+                    font.pixelSize: plasmoid.configuration.fontCustom
+                                        ? plasmoid.configuration.fontSize
+                                        : 16
+                    font.family: plasmoid.configuration.fontCustom
+                                    ? JS.getFonts()[plasmoid.configuration.fontIndex]['value']
+                                    : theme.defaultFont.family
+                    font.bold: plasmoid.configuration.fontCustom
+                                    ? plasmoid.configuration.fontBold
+                                    : false
                 }
                 Text {
                     id: repoName
@@ -137,7 +143,7 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: 'download'
-                visible: footer.visible && !busy && plasmoid.configuration.showDatabaseBtn && !plasmoid.configuration.checkupdates
+                visible: footer.visible && !busy && plasmoid.configuration.showDownloadBtn && !plasmoid.configuration.checkupdates
 
                 PlasmaComponents.ToolTip {
                     text: 'Download databases'

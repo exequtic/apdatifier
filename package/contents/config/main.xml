@@ -33,8 +33,8 @@
 	</group>
 
 	<group name="Appearance">
-		<entry name="fontDefault" type="bool">
-			<default>true</default>
+		<entry name="fontCustom" type="bool">
+			<default>false</default>
 		</entry>
 		<entry name="selectedFont" type="string">
 			<default></default>
@@ -63,7 +63,7 @@
 		<entry name="showCheckBtn" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="showDatabaseBtn" type="bool">
+		<entry name="showDownloadBtn" type="bool">
 			<default>true</default>
 		</entry>
 		<entry name="showSortBtn" type="bool">
