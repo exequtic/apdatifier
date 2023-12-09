@@ -21,18 +21,20 @@ Item {
             model: listModel
             delegate: GridLayout {
                 columns: 4
-                height: pkgName.font.pixelSize * 1.5
+                height: pkgName.font.pixelSize * 1.5 + (plasmoid.configuration.fontHeight)
                 Text {
                     id: pkgName
                     Layout.column: 0
                     Layout.minimumWidth: JS.columnWidth(0, list.width)
                     Layout.maximumWidth: pkgName.Layout.minimumWidth
                     text: modelData.split(' ')[0]
-                    color: theme.textColor
                     elide: Text.ElideRight
-                    font.pixelSize: theme.defaultFont.pixelSize
-                    font.family: theme.defaultFont.family
-                    font.bold: true
+                    color: theme.textColor
+                    font.pixelSize: plasmoid.configuration.fontSize
+                    font.family: plasmoid.configuration.fontDefault
+                            ? theme.defaultFont.family
+                            : JS.getFonts()[plasmoid.configuration.fontIndex]['value']
+                    font.bold: plasmoid.configuration.fontBold
                 }
                 Text {
                     id: repoName
@@ -40,10 +42,11 @@ Item {
                     Layout.minimumWidth: JS.columnWidth(1, list.width)
                     Layout.maximumWidth: repoName.Layout.minimumWidth
                     text: modelData.split(' ')[1]
-                    color: theme.textColor
                     elide: Text.ElideRight
+                    color: theme.textColor
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
+                    font.bold: pkgName.font.bold
                 }
                 Text {
                     id: currentVersion
@@ -51,10 +54,11 @@ Item {
                     Layout.minimumWidth: JS.columnWidth(2, list.width)
                     Layout.maximumWidth: currentVersion.Layout.minimumWidth
                     text: modelData.split(' ')[2]
-                    color: theme.textColor
                     elide: Text.ElideRight
+                    color: theme.textColor
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
+                    font.bold: pkgName.font.bold
                 }
                 Text {
                     id: newVersion
@@ -62,10 +66,11 @@ Item {
                     Layout.minimumWidth: JS.columnWidth(3, list.width)
                     Layout.maximumWidth: newVersion.Layout.minimumWidth
                     text: modelData.split(' ')[3]
-                    color: theme.textColor
                     elide: Text.ElideRight
+                    color: theme.textColor
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
+                    font.bold: pkgName.font.bold
                 }
             }
         }

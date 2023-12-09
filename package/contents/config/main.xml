@@ -33,6 +33,24 @@
 	</group>
 
 	<group name="Appearance">
+		<entry name="fontDefault" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="selectedFont" type="string">
+			<default></default>
+		</entry>
+		<entry name="fontIndex" type="int">
+			<default>0</default>
+		</entry>
+		<entry name="fontBold" type="bool">
+			<default>false</default>
+		</entry>
+		<entry name="fontSize" type="int">
+			<default>14</default>
+		</entry>
+		<entry name="fontHeight" type="int">
+			<default>0</default>
+		</entry>
 		<entry name="sortByName" type="bool">
 			<default>true</default>
 		</entry>

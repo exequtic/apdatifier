@@ -92,7 +92,7 @@ Item {
             visible: wrappers && wrappers.length > 1
 
             onCurrentIndexChanged: {
-                plasmoid.configuration.selectedWrapper = model[currentIndex]['bin']
+                plasmoid.configuration.selectedWrapper = model[currentIndex]['value']
                 root.indexWrapper = currentIndex
             }
 

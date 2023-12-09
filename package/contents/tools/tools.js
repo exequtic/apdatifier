@@ -57,7 +57,7 @@ function waitConnectionTimer(func) {
     }
 
     waitConnection.stop()
-    responseCode = action == 'checkUpdates' ? null : responseCode
+    responseCode = action === checkUpdates ? 0 : responseCode
     action = null
     return false
 }
@@ -65,7 +65,7 @@ function waitConnectionTimer(func) {
 
 function sendCode(code) {
     responseCode = code
-    JS[action]()
+    action()
 }
 
 
@@ -75,11 +75,11 @@ function checkDependencies() {
     }
 
     function add(data) {
-        let obj = []
+        let arr = []
         for (let i = 0; i < data.length; i++) {
-            obj.push({'name': data[i].split('/').pop(), 'bin': data[i]})
+            arr.push({'name': data[i].split('/').pop(), 'value': data[i]})
         }
-        return obj
+        return arr
     }
 
     sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
@@ -112,7 +112,7 @@ function refreshDatabase() {
     listModel.clear()
     busy = true
 
-    if (waitConnectionTimer(refreshDatabase.name)) return
+    if (waitConnectionTimer(refreshDatabase)) return
 
     statusIco = 'download'
     statusMsg = 'Download fresh package databases...'
@@ -135,7 +135,7 @@ function checkUpdates() {
     error = null
     count = null
 
-    if (waitConnectionTimer(checkUpdates.name)) return
+    if (waitConnectionTimer(checkUpdates)) return
 
     let updArch
     let infArch
@@ -295,8 +295,19 @@ function setIndexInit(cfg) {
 }
 
 
-function setIndex(bin, cfg) {
-    for (let i = 0; i < cfg.length; i++) {
-        return cfg[i]['bin'] == bin ? i : 0
+function setIndex(value, arr) {
+    for (let i = 0; i < arr.length; i++) {
+        return arr[i]['value'] == value ? i : 0
     }
+}
+
+
+function getFonts() {
+    let arr = []
+    // arr.push({'name': 'Default system font', 'value': theme.defaultFont.family})
+    let fonts = Qt.fontFamilies()
+    for (let i = 0; i < fonts.length; i++) {
+        arr.push({'name': fonts[i], 'value': fonts[i]})
+    }
+    return arr
 }

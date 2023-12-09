@@ -23,7 +23,7 @@ Item {
 	property var statusMsg: ''
 	property var statusIco: ''
 	property var commands: []
-	property var responseCode
+	property int responseCode: 0
 	property var action
 
 	property bool interval: plasmoid.configuration.interval
