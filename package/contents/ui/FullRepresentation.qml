@@ -22,8 +22,8 @@ Item {
             delegate: GridLayout {
                 columns: 4
                 height: plasmoid.configuration.fontCustom
-                            ? pkgName.font.pixelSize * 1.4 + (plasmoid.configuration.fontHeight)
-                            : pkgName.font.pixelSize * 1.4
+                            ? Math.round((plasmoid.configuration.fontSize * 1.4) + plasmoid.configuration.fontHeight)
+                            : Math.round(theme.defaultFont.pixelSize * 1.4)
                 Text {
                     id: pkgName
                     Layout.column: 0
