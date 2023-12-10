@@ -23,7 +23,7 @@ Item {
                 columns: 4
                 height: plasmoid.configuration.fontCustom
                             ? Math.round((plasmoid.configuration.fontSize * 1.4) + plasmoid.configuration.fontHeight)
-                            : Math.round(theme.defaultFont.pixelSize * 1.4)
+                            : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.4)
                 Text {
                     id: pkgName
                     Layout.column: 0
@@ -31,13 +31,13 @@ Item {
                     Layout.maximumWidth: pkgName.Layout.minimumWidth
                     text: modelData.split(' ')[0]
                     elide: Text.ElideRight
-                    color: theme.textColor
+                    color: Kirigami.Theme.textColor
                     font.pixelSize: plasmoid.configuration.fontCustom
                                         ? plasmoid.configuration.fontSize
-                                        : 16
+                                        : Kirigami.Theme.defaultFont.pixelSize
                     font.family: plasmoid.configuration.fontCustom
-                                    ? JS.getFonts()[plasmoid.configuration.fontIndex]['value']
-                                    : theme.defaultFont.family
+                                    ? plasmoid.configuration.selectedFont
+                                    : Kirigami.Theme.defaultFont
                     font.bold: plasmoid.configuration.fontCustom
                                     ? plasmoid.configuration.fontBold
                                     : false
@@ -49,7 +49,7 @@ Item {
                     Layout.maximumWidth: repoName.Layout.minimumWidth
                     text: modelData.split(' ')[1]
                     elide: Text.ElideRight
-                    color: theme.textColor
+                    color: pkgName.color
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                     font.bold: pkgName.font.bold
@@ -61,7 +61,7 @@ Item {
                     Layout.maximumWidth: currentVersion.Layout.minimumWidth
                     text: modelData.split(' ')[2]
                     elide: Text.ElideRight
-                    color: theme.textColor
+                    color: pkgName.color
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                     font.bold: pkgName.font.bold
@@ -73,7 +73,7 @@ Item {
                     Layout.maximumWidth: newVersion.Layout.minimumWidth
                     text: modelData.split(' ')[3]
                     elide: Text.ElideRight
-                    color: theme.textColor
+                    color: pkgName.color
                     font.pixelSize: pkgName.font.pixelSize
                     font.family: pkgName.font.family
                     font.bold: pkgName.font.bold
@@ -184,6 +184,7 @@ Item {
             width: 128
             height: 128
             opacity: 0.3
+            running: true
         }
     }
 

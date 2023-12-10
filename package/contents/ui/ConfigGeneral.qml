@@ -24,8 +24,6 @@ Kirigami.FormLayout {
 
 
     RowLayout {
-        Layout.fillWidth: true
-
         Kirigami.FormData.label: "Interval:"
 
         QQC2.CheckBox {
@@ -81,8 +79,6 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Layout.fillWidth: true
-
         Kirigami.FormData.label: "Search:"
 
         QQC2.ButtonGroup { id: searchGroup }
@@ -97,6 +93,7 @@ Kirigami.FormLayout {
 
     RowLayout {
         spacing: 15
+
         QQC2.RadioButton {
             id: checkupdates
             text: 'checkupdates'
@@ -117,6 +114,7 @@ Kirigami.FormLayout {
 
     RowLayout {
         spacing: 15
+
         QQC2.RadioButton {
             id: wrapper
             text: 'wrapper'
@@ -168,11 +166,13 @@ Kirigami.FormLayout {
         Layout.fillWidth: true
     }
 
-    QQC2.Label {
-        Layout.maximumWidth: 250
-        font.italic: true
-        font.pixelSize: 12
-        text: "If you rarely update local repository databases and don't need AUR support, it is recommended to use checkupdates, as it uses databases that are automatically updated."
-        wrapMode: Text.WordWrap
+    RowLayout {
+        QQC2.Label {
+            Layout.maximumWidth: 250
+            font.italic: true
+            font.pixelSize: 12
+            text: "If you rarely update local repository databases and don't need AUR support, it is recommended to use checkupdates, as it uses databases that are automatically updated."
+            wrapMode: Text.WordWrap
+        }
     }
 }

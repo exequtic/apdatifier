@@ -11,8 +11,12 @@ Item {
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
 	Plasmoid.status: count > 0 | busy | error
-							? PlasmaCore.Types.ActiveStatus
-							: PlasmaCore.Types.PassiveStatus
+						? PlasmaCore.Types.ActiveStatus
+						: PlasmaCore.Types.PassiveStatus
+
+	Plasmoid.toolTipSubText: !busy & lastCheck
+								? "The last check was at " + lastCheck
+								: "Checking..." 
 
 	property var listModel: listModel
 	property var listeners: ({})
@@ -25,6 +29,7 @@ Item {
 	property var commands: []
 	property int responseCode: 0
 	property var action
+	property var lastCheck
 
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000

@@ -277,6 +277,9 @@ function showListModel(list) {
     for (var i = 0; i < count; i++) {
         listModel.append({'text': list[i]})
     }
+
+    const date = new Date()
+    lastCheck = date.toLocaleTimeString().slice(0, -7)
 }
 
 
@@ -302,10 +305,9 @@ function setIndex(value, arr) {
 }
 
 
-function getFonts() {
+function getFonts(defaultFont, fonts) {
     let arr = []
-    // arr.push({'name': 'Default system font', 'value': theme.defaultFont.family})
-    let fonts = Qt.fontFamilies()
+    arr.push({'name': 'Default system font', 'value': defaultFont})
     for (let i = 0; i < fonts.length; i++) {
         arr.push({'name': fonts[i], 'value': fonts[i]})
     }

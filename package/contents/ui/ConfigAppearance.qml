@@ -42,7 +42,7 @@ Kirigami.FormLayout {
         Kirigami.FormData.label: "Font family:"
         implicitWidth: 300
         textRole: 'name'
-        model: JS.getFonts()
+        model: JS.getFonts(Kirigami.Theme.defaultFont, Qt.fontFamilies())
         enabled: fontCustom.checked
 
         onCurrentIndexChanged: {
@@ -63,7 +63,6 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Layout.fillWidth: true
         enabled: fontCustom.checked
 
         Kirigami.FormData.label: "Size:"
@@ -83,7 +82,6 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Layout.fillWidth: true
         enabled: fontCustom.checked
 
         Kirigami.FormData.label: "Spacing:"
@@ -125,7 +123,6 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Layout.fillWidth: true
         spacing: 10
 
         QQC2.CheckBox {
@@ -140,7 +137,7 @@ Kirigami.FormLayout {
             font.pixelSize: 12
             color: Kirigami.Theme.neutralTextColor
             text: "Not needed for checkupdates"
-            visible: !showDownloadBtn.enabled
+            visible: showStatusBar.checked && plasmoid.configuration.checkupdates
             enabled: visible
         }
     }
