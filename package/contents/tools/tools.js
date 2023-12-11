@@ -27,8 +27,8 @@ function debug(msg) {
 
 function catchErr(code, err) {
     if (err) {
-        debug('✖ Error - stopping function')
         error = err.trim().split('\n')[0]
+        debug("ExitCode " + code + ': ' + error)
         statusIco = 'error'
         statusMsg = `Exit code: ${code}`
         busy = false
@@ -82,33 +82,58 @@ function checkDependencies() {
         return arr
     }
 
-    sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
+    let command = `local="/home/$(whoami)/.local/share"
+                   plasm="$local/plasma/plasmoids/${applet}/contents"
+                   icons="$local/icons/breeze/status/24"
+                   notif="$local/knotifications5"
+                   [[ ! -d $icons ]] && mkdir -p $icons
+                   [[ ! -d $notif ]] && mkdir -p $notif
+                   cp $plasm/icons/* $icons
+                   cp -r $plasm/notifyrc/* $notif`
+
+    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchErr(exitCode, stderr)) return
 
-        let out = stdout.trim().split('\n')
-        let packs = out.slice(0, 3)
-        let wrappers = add(out.slice(3, 11).filter(Boolean))
+        sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
+            if (catchErr(exitCode, stderr)) return
 
-        plasmoid.configuration.packages = packs
-        plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
+            let out = stdout.split('\n')
+            let packs = out.slice(0, 3)
+            let wrappers = add(out.slice(3, 11).filter(Boolean))
 
-        commands[0] = searchMode[0] ? packages[0] + ' -Qu' :
-                      searchMode[1] ? packages[1] :
-                      searchMode[2] ? plasmoid.configuration.selectedWrapper + ' -Qu' : null
+            plasmoid.configuration.packages = packs
+            plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
 
-        commands[1] = packages[0] + ' -Sl'
-        commands[2] = packages[2] + ' remote-ls --app --updates'
-        commands[3] = packages[2] + ' list --app'
-        commands[4] = searchMode[0] || searchMode[1] ?
-                            packages[0] + ' -Sy' :
-                            commands[0].replace('Qu', 'Sy')
+            if (stop()) return
 
-        timer.triggered()
+            commands[0] = searchMode[0] ? packages[0] + ' -Qu' :
+                          searchMode[1] ? packages[1] :
+                          searchMode[2] ? plasmoid.configuration.selectedWrapper + ' -Qu' : null
+            commands[1] = packages[0] + ' -Sl'
+            commands[2] = packages[2] + ' remote-ls --app --updates'
+            commands[3] = packages[2] + ' list --app'
+            commands[4] = searchMode[0] || searchMode[1]
+                                        ? packages[0] + ' -Sy'
+                                        : commands[0].replace('Qu', 'Sy')
+
+            timer.triggered()
+        })
     })
 }
 
 
+function stop() {
+    if (!packages[0]) {
+        error = "Not Arch Linux!"
+        return true
+    }
+    return false
+}
+
+
 function refreshDatabase() {
+    if (stop()) return
+
     listModel.clear()
     busy = true
 
@@ -129,11 +154,12 @@ function refreshDatabase() {
 
 
 function checkUpdates() {
+    if (stop()) return
+
     timer.restart()
     listModel.clear()
     busy = true
     error = null
-    count = null
 
     if (waitConnectionTimer(checkUpdates)) return
 
@@ -171,10 +197,12 @@ function checkUpdates() {
                     updArch = updArch ? getArchList(updArch, infArch) : null
                     updFlpk = updFlpk ? getFlpkList(updFlpk, infFlpk) : null
 
-                    updArch && !updFlpk ? sortList(formatList(updArch)) :
-                    !updArch && updFlpk ? sortList(formatList(updFlpk)) :
+                    updArch && !updFlpk ? showListModel(sortList(formatList(updArch))) :
+                    !updArch && updFlpk ? showListModel(sortList(formatList(updFlpk))) :
                     !updArch && !updFlpk ? showListModel() :
-                    sortList(formatList(updArch.concat(updFlpk)))
+                    showListModel(sortList(formatList(updArch.concat(updFlpk))))
+
+                    lastCheck = new Date().toLocaleTimeString().slice(0, -7)
                 })
             })
         })
@@ -240,7 +268,7 @@ function formatList(list) {
 
 
 function sortList(list) {
-    showListModel(list.sort((a, b) => {
+    return list.sort((a, b) => {
         const [nameA, repoA] = a.split(' ')
         const [nameB, repoB] = b.split(' ')
 
@@ -253,33 +281,72 @@ function sortList(list) {
               (repoB.includes('aur') || repoB.includes('devel')))
             ? 1
             : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
-    }))
+    })
+}
+
+
+function applySort() {
+    if (updList.length == 0) return
+
+    let sorted = sortList(updList)
+
+    listModel.clear()
+
+    for (var i = 0; i < count; i++) {
+        listModel.append({'text': sorted[i]})
+    }
+}
+
+
+function setNotify(list) {
+    let prev = count
+    let curr = list.length
+
+    if (prev && prev < curr) {
+        let newList = list.filter(item => !updList.includes(item))
+        let newCount = newList.length
+
+        let lines = ''
+        for (let i = 0; i < newCount; i++) {
+            let col = newList[i].split(' ')
+            lines += col[0] + '  -> ' + col[3] + '\n'
+        }
+
+        notifyTitle = "+" + newCount + " new updates"
+        notifyBody = lines
+        notify.sendEvent()
+    }
+
+    if (!prev && curr > 0 && plasmoid.configuration.notifyStartup) {
+        notifyTitle = "Updates avialable"
+        notifyBody = curr + " total updates pending"
+        notify.sendEvent()
+    }
 }
 
 
 function showListModel(list) {
-    busy = false
-
     if (!list) {
         count = 0
         statusIco = ''
         statusMsg = ''
+        busy = false
         return
     }
+
+    listModel.clear()
+
+    for (var i = 0; i < list.length; i++) {
+        listModel.append({'text': list[i]})
+    }
+
+    if (plasmoid.configuration.notifications) setNotify(list)
 
     updList = list
     count = list.length
     statusIco = 'update-none'
     statusMsg = 'Total updates pending: ' + count
-
-    listModel.clear()
-
-    for (var i = 0; i < count; i++) {
-        listModel.append({'text': list[i]})
-    }
-
-    const date = new Date()
-    lastCheck = date.toLocaleTimeString().slice(0, -7)
+    busy = false
 }
 
 

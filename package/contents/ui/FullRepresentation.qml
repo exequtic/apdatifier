@@ -137,7 +137,7 @@ Item {
                 onClicked: {
                     plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
                     plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
-                    JS.sortList(updList)
+                    JS.applySort()
                 }
             }
 

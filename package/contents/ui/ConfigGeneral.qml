@@ -13,6 +13,9 @@ Kirigami.FormLayout {
     property alias cfg_pacman: pacman.checked
     property alias cfg_checkupdates: checkupdates.checked
     property alias cfg_wrapper: wrapper.checked
+    property alias cfg_notifications: notifications.checked
+    property alias cfg_withSound: withSound.checked
+    property alias cfg_notifyStartup: notifyStartup.checked
 
     property var selectedWrapper: plasmoid.configuration.selectedWrapper
     property var dependencies: plasmoid.configuration.dependencies
@@ -66,7 +69,10 @@ Kirigami.FormLayout {
         QQC2.Label {
             font.italic: true
             font.pixelSize: 12
-            text: '<a href="https://flathub.org/setup/Arch" style="color: ' + Kirigami.Theme.negativeTextColor + '">not installed</a>'
+            text: '<a href="https://flathub.org/setup/Arch"
+                    style="color: ' + Kirigami.Theme.negativeTextColor + '">
+                        not installed
+                    </a>'
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             enabled: visible
@@ -104,7 +110,10 @@ Kirigami.FormLayout {
         QQC2.Label {
             font.italic: true
             font.pixelSize: 12
-            text: '<a href="https://archlinux.org/packages/extra/x86_64/pacman-contrib" style="color: ' + Kirigami.Theme.negativeTextColor + '">not installed</a>'
+            text: '<a href="https://archlinux.org/packages/extra/x86_64/pacman-contrib"
+                    style="color: ' + Kirigami.Theme.negativeTextColor + '">
+                        not installed
+                    </a>'
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             enabled: visible
@@ -125,7 +134,10 @@ Kirigami.FormLayout {
         QQC2.Label {
             font.italic: true
             font.pixelSize: 12
-            text: '<a href="https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers" style="color: ' + Kirigami.Theme.negativeTextColor + '">not installed</a>'
+            text: '<a href="https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers"
+                    style="color: ' + Kirigami.Theme.negativeTextColor + '">
+                        not installed
+                    </a>'
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             visible: !wrappers
@@ -172,6 +184,45 @@ Kirigami.FormLayout {
             font.italic: true
             font.pixelSize: 12
             text: "If you rarely update local repository databases and don't need AUR support, it is recommended to use checkupdates, as it uses databases that are automatically updated."
+            wrapMode: Text.WordWrap
+        }
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    RowLayout {
+        Kirigami.FormData.label: "Notifications:"
+
+        QQC2.CheckBox {
+            id: notifications
+            text: "Popup"
+        }
+    }
+
+    QQC2.CheckBox {
+        id: withSound
+        text: "Sound"
+        enabled: notifications.checked
+    }
+
+    QQC2.CheckBox {
+        id: notifyStartup
+        text: "Notify on startup"
+        enabled: notifications.checked
+    }
+
+    Kirigami.Separator {
+        Layout.fillWidth: true
+    }
+
+    RowLayout {
+        QQC2.Label {
+            Layout.maximumWidth: 250
+            font.italic: true
+            font.pixelSize: 12
+            text: "To more configure notifications visit System Settings -> Notifications -> Configure -> Apdatifier"
             wrapMode: Text.WordWrap
         }
     }

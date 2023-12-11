@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.1
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.notification 1.0
 import "../tools/tools.js" as JS
 
 Item {
@@ -14,22 +15,25 @@ Item {
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
 
-	Plasmoid.toolTipSubText: !busy & lastCheck
+	Plasmoid.toolTipSubText: !busy && lastCheck
 								? "The last check was at " + lastCheck
 								: "Checking..." 
 
+	property var applet: Plasmoid.pluginName
 	property var listModel: listModel
 	property var listeners: ({})
 	property var updList: []
-	property var count: 0
+	property var count
 	property var error: ''
-	property var busy: true
+	property var busy: false
 	property var statusMsg: ''
 	property var statusIco: ''
 	property var commands: []
 	property int responseCode: 0
 	property var action
 	property var lastCheck
+	property var notifyTitle: ''
+	property var notifyBody: ''
 
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000
@@ -47,6 +51,15 @@ Item {
 
 	DataSource {
 		id: sh
+	}
+
+	Notification {
+		id: notify
+		componentName: "apdatifier"
+		eventId: plasmoid.configuration.withSound ? "sound" : "popup"
+		title: notifyTitle
+		text: notifyBody
+		iconName: "apdatifier-plasmoid-updates"
 	}
 
 	Timer {
@@ -79,7 +92,7 @@ Item {
 	}
 
 	onSortingChanged: {
-		JS.sortList(updList)
+		JS.applySort()
 	}
 
 	onSearchModeChanged: {

@@ -27,6 +27,15 @@
 		<entry name="selectedWrapper" type="string">
 			<default></default>
 		</entry>
+		<entry name="notifications" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="withSound" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="notifyStartup" type="bool">
+			<default>true</default>
+		</entry>
 		<entry name="dependencies" type="string">
 			<default>pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay</default>
 		</entry>

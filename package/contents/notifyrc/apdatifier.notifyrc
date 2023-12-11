@@ -1,0 +1,14 @@
+[Global]
+IconName=apdatifier-plasmoid-none
+Comment=Apdatifier
+
+[Event/popup]
+Name=Only popup
+Comment=Popup option enabled
+Action=Popup
+
+[Event/sound]
+Name=Sound popup
+Comment=Popup and sound options enabled
+Action=Popup|Sound
+Sound=Oxygen-Sys-App-Positive.ogg

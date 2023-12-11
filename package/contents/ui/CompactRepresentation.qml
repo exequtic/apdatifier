@@ -5,9 +5,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
 Item {
-    AppletIcon {
-        anchors.fill: parent
+    PlasmaCore.IconItem {
         id: icon
+        anchors.fill: parent
         source: 'apdatifier-plasmoid-none'
         active: mouseArea.containsMouse
 
@@ -15,7 +15,7 @@ Item {
             anchors.fill: icon
             running: busy
             visible: running
-            opacity: 0.6
+            opacity: 0.8
         }
     }
 
