@@ -82,14 +82,9 @@ function checkDependencies() {
         return arr
     }
 
-    let command = `local="/home/$(whoami)/.local/share"
-                   plasm="$local/plasma/plasmoids/${applet}/contents"
-                   icons="$local/icons/breeze/status/24"
-                   notif="$local/knotifications5"
-                   [[ ! -d $icons ]] && mkdir -p $icons
-                   [[ ! -d $notif ]] && mkdir -p $notif
-                   cp $plasm/icons/* $icons
-                   cp -r $plasm/notifyrc/* $notif`
+    let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
+    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/_install.sh"
+    let command = script + " " + homeDir + " " + applet
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchErr(exitCode, stderr)) return
@@ -100,9 +95,11 @@ function checkDependencies() {
             let out = stdout.split('\n')
             let packs = out.slice(0, 3)
             let wrappers = add(out.slice(3, 11).filter(Boolean))
+            let terminals = add(out.slice(11).filter(Boolean))
 
             plasmoid.configuration.packages = packs
             plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
+            plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
 
             if (stop()) return
 
@@ -360,15 +357,15 @@ function columnWidth(column, width) {
 }
 
 
-function setIndexInit(cfg) {
-    return cfg ? cfg : 0
-}
-
-
 function setIndex(value, arr) {
+    let index = 0
     for (let i = 0; i < arr.length; i++) {
-        return arr[i]['value'] == value ? i : 0
+        if (arr[i]['value'] == value) {
+            index = i
+            break
+        }
     }
+    return index
 }
 
 
@@ -379,4 +376,33 @@ function getFonts(defaultFont, fonts) {
         arr.push({'name': fonts[i], 'value': fonts[i]})
     }
     return arr
+}
+
+function upgradeSystem() {
+    let trap = "trap exit INT"
+    let term = plasmoid.configuration.selectedTerminal
+    let termArg = "-e"
+    let cmdArg = " -Syu"
+    let archCmd = plasmoid.configuration.wrapperUpgrade
+                    ? plasmoid.configuration.selectedWrapper + cmdArg
+                    : "sudo " + packages[0] + cmdArg
+
+    let flpkCmd = searchMode[3] ? "flatpak update" : "echo "
+
+    let line = "::::::::::::::::::::::::::::::::::::::::"
+    let initMsg = `echo ${line}
+                   echo :::::::::: Full system upgrade :::::::::
+                   echo ${line}; echo
+                   echo Executed: ${archCmd}; echo`
+
+    let doneMsg = `echo; echo ${line}
+                   echo ::::::::: Press Enter to close :::::::::
+                   echo ${line}
+                   read`
+
+    let command = `${term} ${termArg} sh -c "${initMsg}; ${trap}; ${archCmd}; ${flpkCmd}; ${doneMsg}"`
+
+    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+        if (catchErr(exitCode, stderr)) return
+    })
 }

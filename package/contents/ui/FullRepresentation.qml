@@ -109,7 +109,11 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
-                visible: footer.visible && !error && !busy && count > 0 && plasmoid.configuration.showColsBtn
+                visible: footer.visible &&
+                         !error &&
+                         !busy &&
+                         count > 0 &&
+                         plasmoid.configuration.showColsBtn
 
                 PlasmaComponents.ToolTip {
                     text: ['Hide repository',
@@ -127,8 +131,12 @@ Item {
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: plasmoid.configuration.sortByName ? 'repository' : 'sort-name'
-                visible: footer.visible && !error && !busy && count > 1 && plasmoid.configuration.showSortBtn
+                icon.name: 'sort-name'
+                visible: footer.visible &&
+                         !error &&
+                         !busy &&
+                         count > 1 &&
+                         plasmoid.configuration.showSortBtn
 
                 PlasmaComponents.ToolTip {
                     text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
@@ -142,8 +150,11 @@ Item {
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: 'download'
-                visible: footer.visible && !busy && plasmoid.configuration.showDownloadBtn && !plasmoid.configuration.checkupdates
+                icon.name: 'repository'
+                visible: footer.visible &&
+                         !busy &&
+                         plasmoid.configuration.showDownloadBtn &&
+                         !plasmoid.configuration.checkupdates
 
                 PlasmaComponents.ToolTip {
                     text: 'Download databases'
@@ -153,14 +164,41 @@ Item {
             }
 
             PlasmaComponents.ToolButton {
+                icon.name: 'akonadiconsole'
+                visible: footer.visible &&
+                         !busy &&
+                         count > 1 &&
+                         plasmoid.configuration.selectedTerminal &&
+                         plasmoid.configuration.showUpgradeBtn
+
+                PlasmaComponents.ToolTip {
+                    text: 'Upgrade system'
+                }
+
+                onClicked: JS.upgradeSystem()
+            }
+
+            PlasmaComponents.ToolButton {
                 icon.name: 'view-refresh-symbolic'
-                visible: footer.visible && plasmoid.configuration.showCheckBtn
+                visible: footer.visible &&
+                         plasmoid.configuration.showCheckBtn
 
                 PlasmaComponents.ToolTip {
                     text: 'Check updates'
                 }
 
                 onClicked: JS.checkUpdates()
+            }
+
+            PlasmaComponents.ToolButton {
+                icon.name: 'exifinfo'
+                visible: footer.visible
+                onClicked: {
+                    console.log(plasmoid.configuration.selectedWrapper)
+                    console.log(plasmoid.configuration.selectedTerminal)
+                    console.log(plasmoid.configuration.selectedFont)
+                    console.log(plasmoid.configuration)
+                }
             }
         }
     }

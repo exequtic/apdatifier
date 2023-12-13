@@ -33,7 +33,10 @@ Item {
         PlasmaComponents.Label {
             anchors.centerIn: parent
             id: labelBadge
-            text: error ? '✖' : count
+            text: count ? count
+                    : error ? '✖'
+                    : ' '
+
             font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
             font.bold: true
             visible: bgBadge.visible

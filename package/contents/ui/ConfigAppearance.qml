@@ -7,20 +7,21 @@ import "../tools/tools.js" as JS
 Kirigami.FormLayout {
     id: appearancePage
 
-    property alias cfg_sortByName: sortByName.checked
-    property alias cfg_sortByRepo: sortByRepo.checked
+    property alias cfg_fontCustom: fontCustom.checked
+    property alias cfg_selectedFont: appearancePage.selectedFnt
+    property alias cfg_fontBold: fontBold.checked
+    property alias cfg_fontSize: fontSize.value
+    property alias cfg_fontHeight: fontHeight.value
 
     property alias cfg_showStatusBar: showStatusBar.checked
     property alias cfg_showCheckBtn: showCheckBtn.checked
+    property alias cfg_showUpgradeBtn: showUpgradeBtn.checked
     property alias cfg_showDownloadBtn: showDownloadBtn.checked
     property alias cfg_showSortBtn: showSortBtn.checked
     property alias cfg_showColsBtn: showColsBtn.checked
 
-    property alias cfg_fontCustom: fontCustom.checked
-    property alias cfg_fontIndex: appearancePage.indexFont
-    property alias cfg_fontBold: fontBold.checked
-    property alias cfg_fontSize: fontSize.value
-    property alias cfg_fontHeight: fontHeight.value
+    property alias cfg_sortByName: sortByName.checked
+    property alias cfg_sortByRepo: sortByRepo.checked
 
     property var fontSettings: [plasmoid.configuration.fontIndex,
                                 plasmoid.configuration.fontBold,
@@ -28,10 +29,7 @@ Kirigami.FormLayout {
                                 plasmoid.configuration.fontHeight]
 
     property var columns: plasmoid.configuration.columns
-
-    property var selectedFont: plasmoid.configuration.selectedFont
-    property int indexFont
-
+    property string selectedFnt
 
     QQC2.CheckBox {
         id: fontCustom
@@ -46,13 +44,15 @@ Kirigami.FormLayout {
         enabled: fontCustom.checked
 
         onCurrentIndexChanged: {
-            plasmoid.configuration.selectedFont = model[currentIndex]['value']
-            appearancePage.indexFont = currentIndex
+            appearancePage.selectedFnt = model[currentIndex]['value']
         }
 
         Component.onCompleted: {
-            currentIndex = JS.setIndex(selectedFont, Qt.fontFamilies())
-            currentIndex = JS.setIndexInit(plasmoid.configuration.fontIndex)
+            currentIndex = JS.setIndex(plasmoid.configuration.selectedFont, model)
+
+            if (!plasmoid.configuration.selectedFont) {
+                plasmoid.configuration.selectedFont = model[currentIndex]['value']
+            }
         }
     }
 
@@ -122,13 +122,20 @@ Kirigami.FormLayout {
         enabled: showStatusBar.checked
     }
 
+    QQC2.CheckBox {
+        id: showUpgradeBtn
+        text: "Upgrade system"
+        icon.name: "akonadiconsole"
+        enabled: showStatusBar.checked
+    }
+
     RowLayout {
         spacing: 10
 
         QQC2.CheckBox {
             id: showDownloadBtn
             text: "Download database"
-            icon.name: "download"
+            icon.name: "repository"
             enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
         }
 

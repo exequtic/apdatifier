@@ -12,9 +12,6 @@
 		<entry name="time" type="int">
 			<default>30</default>
 		</entry>
-		<entry name="flatpak" type="bool">
-			<default>false</default>
-		</entry>
 		<entry name="pacman" type="bool">
 			<default>true</default>
 		</entry>
@@ -27,6 +24,15 @@
 		<entry name="selectedWrapper" type="string">
 			<default></default>
 		</entry>
+		<entry name="flatpak" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="wrapperUpgrade" type="bool">
+			<default>false</default>
+		</entry>
+		<entry name="selectedTerminal" type="string">
+			<default></default>
+		</entry>
 		<entry name="notifications" type="bool">
 			<default>true</default>
 		</entry>
@@ -34,10 +40,10 @@
 			<default>true</default>
 		</entry>
 		<entry name="notifyStartup" type="bool">
-			<default>true</default>
+			<default>false</default>
 		</entry>
 		<entry name="dependencies" type="string">
-			<default>pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay</default>
+			<default>pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay alacritty foot konsole kitty lxterminal tilix xterm</default>
 		</entry>
 	</group>
 
@@ -48,9 +54,6 @@
 		<entry name="selectedFont" type="string">
 			<default></default>
 		</entry>
-		<entry name="fontIndex" type="int">
-			<default>0</default>
-		</entry>
 		<entry name="fontBold" type="bool">
 			<default>false</default>
 		</entry>
@@ -60,16 +63,13 @@
 		<entry name="fontHeight" type="int">
 			<default>0</default>
 		</entry>
-		<entry name="sortByName" type="bool">
-			<default>true</default>
-		</entry>
-		<entry name="sortByRepo" type="bool">
-			<default>false</default>
-		</entry>
 		<entry name="showStatusBar" type="bool">
 			<default>true</default>
 		</entry>
 		<entry name="showCheckBtn" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="showUpgradeBtn" type="bool">
 			<default>true</default>
 		</entry>
 		<entry name="showDownloadBtn" type="bool">
@@ -80,6 +80,12 @@
 		</entry>
 		<entry name="showColsBtn" type="bool">
 			<default>true</default>
+		</entry>
+		<entry name="sortByName" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="sortByRepo" type="bool">
+			<default>false</default>
 		</entry>
 		<entry name="columns" type="int">
 			<default>5</default>

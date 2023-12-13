@@ -9,22 +9,27 @@ Kirigami.FormLayout {
 
     property alias cfg_interval: interval.checked
     property alias cfg_time: time.value
-    property alias cfg_flatpak: flatpak.checked
+
     property alias cfg_pacman: pacman.checked
     property alias cfg_checkupdates: checkupdates.checked
     property alias cfg_wrapper: wrapper.checked
+    property alias cfg_selectedWrapper: generalPage.selectedWrapp
+
+    property alias cfg_flatpak: flatpak.checked
+
+    property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
+    property alias cfg_selectedTerminal: generalPage.selectedTerm
+
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
     property alias cfg_notifyStartup: notifyStartup.checked
-
-    property var selectedWrapper: plasmoid.configuration.selectedWrapper
+    
     property var dependencies: plasmoid.configuration.dependencies
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
-
-    property alias cfg_wrapperIndex: generalPage.indexWrapper
-    property int indexWrapper
-
+    property var terminals: plasmoid.configuration.terminals
+    property string selectedWrapp
+    property string selectedTerm
 
     RowLayout {
         Kirigami.FormData.label: "Interval:"
@@ -44,39 +49,6 @@ Kirigami.FormLayout {
 
         QQC2.Label {
             text: 'minutes'
-        }
-    }
-
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
-    RowLayout {
-        spacing: 15
-        QQC2.CheckBox {
-            id: flatpak
-            text: 'Enable Flatpak support'
-            enabled: !packages[2] ? false : true
-
-            Component.onCompleted: {
-                if (checked && !packages[2]) {
-                    checked = false
-                    plasmoid.configuration.flatpak = checked
-                }
-            }
-        }
-
-        QQC2.Label {
-            font.italic: true
-            font.pixelSize: 12
-            text: '<a href="https://flathub.org/setup/Arch"
-                    style="color: ' + Kirigami.Theme.negativeTextColor + '">
-                        not installed
-                    </a>'
-            textFormat: Text.RichText
-            onLinkActivated: Qt.openUrlExternally(link)
-            enabled: visible
-            visible: !packages[2]
         }
     }
 
@@ -148,7 +120,7 @@ Kirigami.FormLayout {
             font.italic: true
             font.pixelSize: 12
             color: Kirigami.Theme.positiveTextColor
-            text: "found: " + selectedWrapper
+            text: "found: " + selectedWrapp
             visible: wrapper.checked && wrappers.length == 1
             enabled: visible
         }
@@ -157,19 +129,21 @@ Kirigami.FormLayout {
     QQC2.ComboBox {
         model: wrappers
         textRole: 'name'
-        enabled: wrapper.checked
+        enabled: wrappers
         implicitWidth: 150
         visible: wrappers && wrappers.length > 1
 
         onCurrentIndexChanged: {
-            plasmoid.configuration.selectedWrapper = model[currentIndex]['value']
-            generalPage.indexWrapper = currentIndex
+            generalPage.selectedWrapp = model[currentIndex]['value']
         }
 
         Component.onCompleted: {
             if (wrappers) {
-                currentIndex = JS.setIndex(selectedWrapper, wrappers)
-                currentIndex = JS.setIndexInit(plasmoid.configuration.wrapperIndex)
+                currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
+
+                if (!plasmoid.configuration.selectedWrapper) {
+                    plasmoid.configuration.selectedWrapper = model[currentIndex]['value']
+                }
             }
         }
     }
@@ -187,6 +161,80 @@ Kirigami.FormLayout {
             wrapMode: Text.WordWrap
         }
     }
+
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    RowLayout {
+        spacing: 15
+        QQC2.CheckBox {
+            id: flatpak
+            text: 'Enable Flatpak support'
+            enabled: !packages[2] ? false : true
+
+            Component.onCompleted: {
+                if (checked && !packages[2]) {
+                    checked = false
+                    plasmoid.configuration.flatpak = checked
+                }
+            }
+        }
+
+        QQC2.Label {
+            font.italic: true
+            font.pixelSize: 12
+            text: '<a href="https://flathub.org/setup/Arch"
+                    style="color: ' + Kirigami.Theme.negativeTextColor + '">
+                        not installed
+                    </a>'
+            textFormat: Text.RichText
+            onLinkActivated: Qt.openUrlExternally(link)
+            enabled: visible
+            visible: !packages[2]
+        }
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    QQC2.CheckBox {
+        Kirigami.FormData.label: "Upgrade:"
+
+        id: wrapperUpgrade
+        text: "Use wrapper instead of pacman"
+        enabled: terminals &&
+                 wrappers &&
+                 plasmoid.configuration.selectedWrapper
+    }
+
+RowLayout {
+    QQC2.Label {
+        text: "Terminal:"
+    }
+
+    QQC2.ComboBox {
+        model: terminals
+        textRole: 'name'
+        enabled: terminals
+        implicitWidth: 150
+
+        onCurrentIndexChanged: {
+            generalPage.selectedTerm = model[currentIndex]['value']
+        }
+
+        Component.onCompleted: {
+            if (terminals) {
+                currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
+
+                if (!plasmoid.configuration.selectedTerminal) {
+                    plasmoid.configuration.selectedTerminal = model[currentIndex]['value']
+                }
+            }
+        }
+    }
+}
 
     Item {
         Kirigami.FormData.isSection: true
@@ -225,5 +273,9 @@ Kirigami.FormLayout {
             text: "To more configure notifications visit System Settings -> Notifications -> Configure -> Apdatifier"
             wrapMode: Text.WordWrap
         }
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
     }
 }

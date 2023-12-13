@@ -1,3 +1,4 @@
+import Qt.labs.platform 1.1
 import QtQuick 2.6
 import QtQuick.Layouts 1.1
 import org.kde.plasma.plasmoid 2.0
