@@ -269,7 +269,7 @@ function sortList(list) {
         const [nameA, repoA] = a.split(' ')
         const [nameB, repoB] = b.split(' ')
 
-        return sorting
+        return plasmoid.configuration.sortByName
             ? nameA.localeCompare(nameB)
             : ((repoA.includes('aur') || repoA.includes('devel')) &&
              !(repoB.includes('aur') || repoB.includes('devel')))
@@ -285,12 +285,18 @@ function sortList(list) {
 function applySort() {
     if (updList.length == 0) return
 
-    let sorted = sortList(updList)
+    updList = sortList(updList)
 
     listModel.clear()
 
-    for (var i = 0; i < count; i++) {
-        listModel.append({'text': sorted[i]})
+    for (let i = 0; i < updList.length; i++) {
+        let item = updList[i].split(' ')
+        listModel.append({
+            'name': item[0],
+            'repo': item[1],
+            'current': item[2],
+            'newVer': item[3]
+        })
     }
 }
 
@@ -333,8 +339,14 @@ function showListModel(list) {
 
     listModel.clear()
 
-    for (var i = 0; i < list.length; i++) {
-        listModel.append({'text': list[i]})
+    for (let i = 0; i < list.length; i++) {
+        let item = list[i].split(' ')
+        listModel.append({
+            'name': item[0],
+            'repo': item[1],
+            'current': item[2],
+            'newVer': item[3]
+        })
     }
 
     if (plasmoid.configuration.notifications) setNotify(list)
@@ -342,19 +354,19 @@ function showListModel(list) {
     updList = list
     count = list.length
     statusIco = 'update-none'
-    statusMsg = 'Total updates pending: ' + count
+    statusMsg = count + ' updates total are pending'
     busy = false
 }
 
 
-function columnWidth(column, width) {
-    switch (column) {
-        case 0: return width * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][columns]
-        case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columns]
-        case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columns]
-        case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columns]
-    }
-}
+// function columnWidth(column, width) {
+//     switch (column) {
+//         case 0: return width * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][columns]
+//         case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columns]
+//         case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columns]
+//         case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columns]
+//     }
+// }
 
 
 function setIndex(value, arr) {
@@ -379,8 +391,9 @@ function getFonts(defaultFont, fonts) {
 }
 
 function upgradeSystem() {
-    let trap = "trap exit INT"
     let term = plasmoid.configuration.selectedTerminal
+    if (!term) return
+    let trap = "trap exit INT"
     let termArg = "-e"
     let cmdArg = " -Syu"
     let archCmd = plasmoid.configuration.wrapperUpgrade

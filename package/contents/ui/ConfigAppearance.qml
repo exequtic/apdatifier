@@ -17,16 +17,16 @@ Kirigami.FormLayout {
     property alias cfg_showCheckBtn: showCheckBtn.checked
     property alias cfg_showUpgradeBtn: showUpgradeBtn.checked
     property alias cfg_showDownloadBtn: showDownloadBtn.checked
-    property alias cfg_showSortBtn: showSortBtn.checked
-    property alias cfg_showColsBtn: showColsBtn.checked
+    // property alias cfg_showSortBtn: showSortBtn.checked
+    // property alias cfg_showColsBtn: showColsBtn.checked
 
     property alias cfg_sortByName: sortByName.checked
     property alias cfg_sortByRepo: sortByRepo.checked
 
-    property var fontSettings: [plasmoid.configuration.fontIndex,
-                                plasmoid.configuration.fontBold,
-                                plasmoid.configuration.fontSize,
-                                plasmoid.configuration.fontHeight]
+    // property var fontSettings: [plasmoid.configuration.fontIndex,
+    //                             plasmoid.configuration.fontBold,
+    //                             plasmoid.configuration.fontSize,
+    //                             plasmoid.configuration.fontHeight]
 
     property var columns: plasmoid.configuration.columns
     property string selectedFnt
@@ -110,13 +110,8 @@ Kirigami.FormLayout {
         text: 'Show status bar'
     }
 
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
     QQC2.CheckBox {
         id: showCheckBtn
-        Kirigami.FormData.label: "Buttons on status bar:"
         text: "Search updates"
         icon.name: "view-refresh-symbolic"
         enabled: showStatusBar.checked
@@ -149,19 +144,19 @@ Kirigami.FormLayout {
         }
     }
 
-    QQC2.CheckBox {
-        id: showSortBtn
-        text: "Sorting columns"
-        icon.name: "sort-name"
-        enabled: showStatusBar.checked
-    }
+    // QQC2.CheckBox {
+    //     id: showSortBtn
+    //     text: "Sorting columns"
+    //     icon.name: "sort-name"
+    //     enabled: showStatusBar.checked
+    // }
 
-    QQC2.CheckBox {
-        id: showColsBtn
-        text: "Switch columns"
-        icon.name: "show_table_column"
-        enabled: showStatusBar.checked
-    }
+    // QQC2.CheckBox {
+    //     id: showColsBtn
+    //     text: "Switch columns"
+    //     icon.name: "show_table_column"
+    //     enabled: showStatusBar.checked
+    // }
 
     Item {
         Kirigami.FormData.isSection: true
@@ -176,19 +171,29 @@ Kirigami.FormLayout {
         Kirigami.FormData.label: "Sort list by:"
         text: 'Name'
         checked: true
+
+        Component.onCompleted: {
+            checked = plasmoid.configuration.sortByName
+        }
+
         QQC2.ButtonGroup.group: sortGroup
     }
 
     QQC2.RadioButton {
         id: sortByRepo
         text: 'Repository'
+
+        Component.onCompleted: {
+            checked = !plasmoid.configuration.sortByName
+        }
+
         QQC2.ButtonGroup.group: sortGroup
     }
 
     // after changing the font settings, the columns are layered on top of each other
     // this show all columns
     // temporary workaround
-    onFontSettingsChanged: {
-        plasmoid.configuration.columns = 0
-    }
+    // onFontSettingsChanged: {
+    //     plasmoid.configuration.columns = 0
+    // }
 }

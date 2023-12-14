@@ -8,75 +8,222 @@ import org.kde.kirigami 2.20 as Kirigami
 import "../tools/tools.js" as JS
 
 Item {
-    Layout.minimumWidth: 400
-    Layout.minimumHeight: 200
+    property var fontFamily: plasmoid.configuration.fontCustom
+                                ? plasmoid.configuration.selectedFont
+                                : Kirigami.Theme.defaultFont
+    property var fontSize: plasmoid.configuration.fontCustom
+                                ? plasmoid.configuration.fontSize
+                                : Kirigami.Theme.defaultFont.pixelSize
+    property var fontBold: plasmoid.configuration.fontCustom
+                                ? plasmoid.configuration.fontBold
+                                : false
+    property var fontHeight: plasmoid.configuration.fontCustom
+                                ? Math.round(plasmoid.configuration.fontSize * 1.5 + plasmoid.configuration.fontHeight)
+                                : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.5)
 
-    ScrollView {
+    Layout.minimumWidth: PlasmaCore.Units.gridUnit * 24
+    Layout.minimumHeight: PlasmaCore.Units.gridUnit * 24
+    Layout.maximumWidth: PlasmaCore.Units.gridUnit * 80
+    Layout.maximumHeight: PlasmaCore.Units.gridUnit * 40
+    focus: true
+
+
+    TableView {
+        id: table
+        model: listModel
+
         anchors.top: parent.top
-        anchors.left: parent.left
         anchors.right: parent.right
+        anchors.left: parent.left
         anchors.bottom: separator.top
-        ListView {
-            id: list
-            model: listModel
-            delegate: GridLayout {
-                columns: 4
-                height: plasmoid.configuration.fontCustom
-                            ? Math.round((plasmoid.configuration.fontSize * 1.4) + plasmoid.configuration.fontHeight)
-                            : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.4)
-                Text {
-                    id: pkgName
-                    Layout.column: 0
-                    Layout.minimumWidth: JS.columnWidth(0, list.width)
-                    Layout.maximumWidth: pkgName.Layout.minimumWidth
-                    text: modelData.split(' ')[0]
-                    elide: Text.ElideRight
-                    color: Kirigami.Theme.textColor
-                    font.pixelSize: plasmoid.configuration.fontCustom
-                                        ? plasmoid.configuration.fontSize
-                                        : Kirigami.Theme.defaultFont.pixelSize
-                    font.family: plasmoid.configuration.fontCustom
-                                    ? plasmoid.configuration.selectedFont
-                                    : Kirigami.Theme.defaultFont
-                    font.bold: plasmoid.configuration.fontCustom
-                                    ? plasmoid.configuration.fontBold
-                                    : false
+
+        visible: !busy && !error
+
+        // headerVisible: false
+        backgroundVisible: false
+        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+
+        headerDelegate: Rectangle {
+            height: fontHeight + 5
+            color: Kirigami.Theme.alternateBackgroundColor
+            radius: 6
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.leftMargin: styleData.column == 0 ? 10 : 0
+                color: Kirigami.Theme.alternateBackgroundColor
+            }
+
+            Rectangle {
+                width: 1
+                height: parent.height * 0.8
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                color: Kirigami.Theme.backgroundColor
+            }
+
+            Text {
+                id: textItem
+                text: setText(styleData.value)
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+                color: Kirigami.Theme.textColor
+
+                font {
+                    bold: true
+                    pixelSize: fontSize
+                    family: fontFamily
                 }
-                Text {
-                    id: repoName
-                    Layout.column: 1
-                    Layout.minimumWidth: JS.columnWidth(1, list.width)
-                    Layout.maximumWidth: repoName.Layout.minimumWidth
-                    text: modelData.split(' ')[1]
-                    elide: Text.ElideRight
-                    color: pkgName.color
-                    font.pixelSize: pkgName.font.pixelSize
-                    font.family: pkgName.font.family
-                    font.bold: pkgName.font.bold
+
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    rightMargin: 0
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
                 }
-                Text {
-                    id: currentVersion
-                    Layout.column: 2
-                    Layout.minimumWidth: JS.columnWidth(2, list.width)
-                    Layout.maximumWidth: currentVersion.Layout.minimumWidth
-                    text: modelData.split(' ')[2]
-                    elide: Text.ElideRight
-                    color: pkgName.color
-                    font.pixelSize: pkgName.font.pixelSize
-                    font.family: pkgName.font.family
-                    font.bold: pkgName.font.bold
+
+                function setText(val) {
+                    if ((val == packageCol.title && plasmoid.configuration.sortByName)
+                            ||
+                        (val == repoCol.title && !plasmoid.configuration.sortByName))
+                    {
+                        return val + " •"
+                    } else {
+                        return val
+                    }
                 }
-                Text {
-                    id: newVersion
-                    Layout.column: 3
-                    Layout.minimumWidth: JS.columnWidth(3, list.width)
-                    Layout.maximumWidth: newVersion.Layout.minimumWidth
-                    text: modelData.split(' ')[3]
-                    elide: Text.ElideRight
-                    color: pkgName.color
-                    font.pixelSize: pkgName.font.pixelSize
-                    font.family: pkgName.font.family
-                    font.bold: pkgName.font.bold
+            }
+
+            property var pressed: styleData.pressed
+            onPressedChanged: {
+                if (pressed) {
+                    switch (styleData.value) {
+                        case packageCol.title:
+                            plasmoid.configuration.sortByName = true
+                            break
+                        case repoCol.title:
+                            plasmoid.configuration.sortByName = false
+                            break
+                        default:
+                            return
+                    }
+                }
+            }
+        }
+
+        rowDelegate: Rectangle {
+            radius: 6
+            color: styleData.selected ? Kirigami.Theme.focusColor : "transparent"
+            height: fontHeight
+        }
+
+        TableViewColumn {
+            id: packageCol
+            title: "Package"
+            role: "name"
+            width: table.width * 0.35
+
+            delegate: Text {
+                text: styleData.value
+                elide: styleData.elideMode
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+
+                font {
+                    pixelSize: fontSize
+                    family: fontFamily
+                    bold: fontBold
+                }
+
+                verticalAlignment: Text.AlignVCenter
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    rightMargin: 0
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        TableViewColumn {
+            id: repoCol
+            title: "Repository"
+            role: "repo"
+            width: table.width * 0.15
+
+            delegate: Text {
+                text: styleData.value
+                elide: styleData.elideMode
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+
+                font {
+                    pixelSize: fontSize
+                    family: fontFamily
+                    bold: fontBold
+                }
+
+                verticalAlignment: Text.AlignVCenter
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    rightMargin: 0
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        TableViewColumn {
+            title: "Current"
+            role: "current"
+            width: table.width * 0.25
+
+            delegate: Text {
+                text: styleData.value
+                elide: styleData.elideMode
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+
+                font {
+                    pixelSize: fontSize
+                    family: fontFamily
+                    bold: fontBold
+                }
+
+                verticalAlignment: Text.AlignVCenter
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    rightMargin: 0
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        TableViewColumn {
+            title: "New"
+            role: "newVer"
+            width: table.width * 0.25
+
+            delegate: Text {
+                text: styleData.value
+                elide: styleData.elideMode
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+
+                font {
+                    pixelSize: fontSize
+                    family: fontFamily
+                    bold: fontBold
+                }
+
+                verticalAlignment: Text.AlignVCenter
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    rightMargin: 0
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
                 }
             }
         }
@@ -107,54 +254,55 @@ Item {
             Layout.alignment: Qt.AlignRight
             spacing: 0
 
-            PlasmaComponents.ToolButton {
-                icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
-                visible: footer.visible &&
-                         !error &&
-                         !busy &&
-                         count > 0 &&
-                         plasmoid.configuration.showColsBtn
+            // PlasmaComponents.ToolButton {
+            //     icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
+            //     visible: footer.visible &&
+            //              !error &&
+            //              !busy &&
+            //              count > 0 &&
+            //              plasmoid.configuration.showColsBtn
 
-                PlasmaComponents.ToolTip {
-                    text: ['Hide repository',
-                           'Hide current version',
-                           'Hide new version',
-                           'Show repository',
-                           'Show new version', 
-                           'Show current version']
-                          [columns]
-                }
+            //     PlasmaComponents.ToolTip {
+            //         text: ['Hide repository',
+            //                'Hide current version',
+            //                'Hide new version',
+            //                'Show repository',
+            //                'Show new version', 
+            //                'Show current version']
+            //               [columns]
+            //     }
 
-                onClicked: {
-                    plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
-                }
-            }
+            //     onClicked: {
+            //         plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
+            //     }
+            // }
 
-            PlasmaComponents.ToolButton {
-                icon.name: 'sort-name'
-                visible: footer.visible &&
-                         !error &&
-                         !busy &&
-                         count > 1 &&
-                         plasmoid.configuration.showSortBtn
+            // PlasmaComponents.ToolButton {
+            //     icon.name: 'sort-name'
+            //     visible: footer.visible &&
+            //              !error &&
+            //              !busy &&
+            //              count > 1 &&
+            //              plasmoid.configuration.showSortBtn
 
-                PlasmaComponents.ToolTip {
-                    text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
-                }
+            //     PlasmaComponents.ToolTip {
+            //         text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
+            //     }
 
-                onClicked: {
-                    plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
-                    plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
-                    JS.applySort()
-                }
-            }
+            //     onClicked: {
+            //         plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
+            //         plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
+            //         JS.applySort()
+            //     }
+            // }
 
             PlasmaComponents.ToolButton {
                 icon.name: 'repository'
                 visible: footer.visible &&
                          !busy &&
-                         plasmoid.configuration.showDownloadBtn &&
-                         !plasmoid.configuration.checkupdates
+                         !error &&
+                         !plasmoid.configuration.checkupdates &&
+                         plasmoid.configuration.showDownloadBtn
 
                 PlasmaComponents.ToolTip {
                     text: 'Download databases'
@@ -168,7 +316,6 @@ Item {
                 visible: footer.visible &&
                          !busy &&
                          count > 1 &&
-                         plasmoid.configuration.selectedTerminal &&
                          plasmoid.configuration.showUpgradeBtn
 
                 PlasmaComponents.ToolTip {

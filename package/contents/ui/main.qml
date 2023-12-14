@@ -12,6 +12,9 @@ Item {
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
+	Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 20
+    Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 10
+
 	Plasmoid.status: count > 0 | busy | error
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
@@ -98,20 +101,27 @@ Item {
 
 	onSearchModeChanged: {
 		JS.checkDependencies()
-
-		Plasmoid.setAction('check', 'Check updates', 'view-refresh-symbolic')
-
-		searchMode[1]
-			? Plasmoid.removeAction('database')
-			: Plasmoid.setAction('database', 'Download database', 'download')
-
-		Plasmoid.setActionSeparator(' ')
 	}
 
     function action_check() {
-        JS.checkUpdates()
-    }
+		JS.checkUpdates()
+	}
+    function action_upgrade() {
+		JS.upgradeSystem()
+	}
     function action_database() {
-        JS.refreshDatabase()
-    }
+		JS.refreshDatabase()
+	}
+
+	Component.onCompleted: {
+		Plasmoid.setAction('check', 'Check updates', 'view-refresh-symbolic')
+		Plasmoid.setAction('upgrade', 'Upgrade system', 'akonadiconsole')
+		Plasmoid.setAction('database', 'Refresh database', 'repository')
+        Plasmoid.action("database").visible = Qt.binding(() => {
+            return !busy
+					&& !error
+					&& !plasmoid.configuration.checkupdates
+					&& plasmoid.configuration.showDownloadBtn
+        })
+	}
 }
