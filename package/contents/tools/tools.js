@@ -1,11 +1,9 @@
-const debugging = true
-
 let timestamp
 function debug(msg) {
     if (!debugging) return
 
     const date = new Date()
-    const hms = date.toLocaleTimeString().slice(3, -4)
+    const hms = date.toLocaleTimeString().slice(0, -4)
     const ms = date.getMilliseconds().toString().padStart(3, '0')
     let passed = ''
 
@@ -14,21 +12,46 @@ function debug(msg) {
         const timeDiff = currTimestamp - timestamp
         const secDiff = Math.floor(timeDiff / 1000)
         const msDiff = timeDiff % 1000
-        passed = `+${secDiff.toString().padStart(2, '0')}:${msDiff.toString().padStart(3, '0')} ↗`
-        passed = passed === '+00:000 ↗' ? '         ' : passed
+        passed = `+${secDiff.toString().padStart(2, '0')}:${msDiff.toString().padStart(3, '0')}`
         timestamp = currTimestamp
     } else {
+        passed = '+00:000'
         timestamp = date.getTime()
     }
 
-    console.log(`[${hms}:${ms}] ${passed}  ${msg}`)
+    console.log(`Apdatifier debug mode: [${hms}:${ms} ${passed}] ${msg}`)
 }
 
 
-function catchErr(code, err) {
-    if (err) {
-        error = err.trim().split('\n')[0]
-        debug("ExitCode " + code + ': ' + error)
+function debugButton() {
+    debug(plasmoid.configuration.packages)
+    debug(JSON.stringify(plasmoid.configuration.wrappers))
+    debug(JSON.stringify(plasmoid.configuration.terminals))
+    debug(shell[0])
+    debug(shell[1])
+    debug(shell[2])
+    debug(shell[3])
+    debug(shell[4])
+    debug(shell[5])
+    debug(shell[6])
+    debug(shell[7])
+    debug(shell[8])
+    debug(shell[9])
+    debug(shell[10])
+    debug(shell[11])
+}
+
+
+function catchError(code, err, out) {
+    if (code) {
+        debug("exitCode: " + code)
+        debug("stderr: " + err)
+        debug("stdout: " + out)
+
+        if (err) error = err.trim().split('\n')[0]
+        if (!err && out) error = out.trim().split('\n')[0]
+        if (!err && !out) error = "Unknown error. Try refresh package databases."
+
         statusIco = 'error'
         statusMsg = `Exit code: ${code}`
         busy = false
@@ -46,6 +69,9 @@ function checkConnection() {
 
 
 function waitConnectionTimer(func) {
+    error = null
+    busy = true
+
     action = func
 
     if (responseCode !== 200) {
@@ -69,6 +95,19 @@ function sendCode(code) {
 }
 
 
+function runScript() {
+    let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
+    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/_install.sh"
+    let command = script + " " + homeDir + " " + applet
+
+    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+        if (catchError(exitCode, stderr, stdout)) return
+
+        checkDependencies()
+    })
+}
+
+
 function checkDependencies() {
     function check(packs) {
         return `for pgk in ${packs}; do command -v $pgk || echo; done`
@@ -82,40 +121,38 @@ function checkDependencies() {
         return arr
     }
 
-    let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
-    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/_install.sh"
-    let command = script + " " + homeDir + " " + applet
+    sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
+        if (catchError(exitCode, stderr, stdout)) return
 
-    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-        if (catchErr(exitCode, stderr)) return
+        let out = stdout.split('\n')
+        let packs = out.slice(0, 4)
+        let wrappers = add(out.slice(4, 12).filter(Boolean))
+        let terminals = add(out.slice(12).filter(Boolean))
 
-        sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
-            if (catchErr(exitCode, stderr)) return
+        plasmoid.configuration.packages = packs
+        plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
+        plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
 
-            let out = stdout.split('\n')
-            let packs = out.slice(0, 3)
-            let wrappers = add(out.slice(3, 11).filter(Boolean))
-            let terminals = add(out.slice(11).filter(Boolean))
+        if (stop()) return
 
-            plasmoid.configuration.packages = packs
-            plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
-            plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
-
-            if (stop()) return
-
-            commands[0] = searchMode[0] ? packages[0] + ' -Qu' :
-                          searchMode[1] ? packages[1] :
-                          searchMode[2] ? plasmoid.configuration.selectedWrapper + ' -Qu' : null
-            commands[1] = packages[0] + ' -Sl'
-            commands[2] = packages[2] + ' remote-ls --app --updates'
-            commands[3] = packages[2] + ' list --app'
-            commands[4] = searchMode[0] || searchMode[1]
-                                        ? packages[0] + ' -Sy'
-                                        : commands[0].replace('Qu', 'Sy')
-
-            timer.triggered()
-        })
+        timer.triggered()
     })
+}
+
+
+function defineCommands() {
+    shell[0] = packages[0] + " -c"
+    shell[1] = searchMode[0] ? packages[1] + " -Qu" : searchMode[1] ? packages[2] : searchMode[2] ? plasmoid.configuration.selectedWrapper + " -Qu" : null
+    shell[2] = packages[1] + " -Sl"
+    shell[3] = packages[3] + " remote-ls --app --updates"
+    shell[4] = packages[3] + " list --app"
+    shell[5] = searchMode[0] || searchMode[1] ? packages[1] + " -Sy" : shell[1].replace("Qu", "Sy")
+    shell[6] = plasmoid.configuration.selectedTerminal
+    shell[7] = "-e"
+    shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
+    shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
+    shell[10] = "trap '' SIGINT"
+    shell[11] = "echo Executed: " + shell[8] + "; echo"
 }
 
 
@@ -128,21 +165,21 @@ function stop() {
 }
 
 
-function refreshDatabase() {
+function downloadDatabase() {
     if (stop()) return
-
-    listModel.clear()
-    busy = true
-
-    if (waitConnectionTimer(refreshDatabase)) return
+    if (waitConnectionTimer(downloadDatabase)) return
 
     statusIco = 'download'
     statusMsg = 'Download fresh package databases...'
 
-    sh.exec('pkexec ' + commands[4], (cmd, stdout, stderr, exitCode) => {
+    sh.exec('pkexec ' + shell[5], (cmd, stdout, stderr, exitCode) => {
         if (exitCode == 127) {
-            showListModel(updList)
+            statusIco = count > 0 ? 'update-none' : ''
+            statusMsg = count > 0 ? count + ' updates total are pending' : ''
+            busy = false
             return
+        } else {
+            if (catchError(exitCode, stderr, stdout)) return
         }
 
         checkUpdates()
@@ -152,54 +189,49 @@ function refreshDatabase() {
 
 function checkUpdates() {
     if (stop()) return
-
-    timer.restart()
-    listModel.clear()
-    busy = true
-    error = null
-
     if (waitConnectionTimer(checkUpdates)) return
+
+    defineCommands()
+    timer.restart()
 
     let updArch
     let infArch
     let updFlpk
     let infFlpk
-    let command = commands[0]
+    let command = shell[1]
 
     statusIco = 'package'
     statusMsg = searchMode[2] ? 'Searching AUR for updates...'
                               : 'Searching arch repositories for updates...'
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-        if (catchErr(exitCode, stderr)) return
+        if (catchError(exitCode, stderr, stdout)) return
         updArch = stdout ? stdout : null
-        command = updArch ? commands[1] : ''
+        command = updArch ? shell[2] : ''
 
         sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-            if (catchErr(exitCode, stderr)) return
+            if (catchError(exitCode, stderr, stdout)) return
             infArch = stdout ? stdout : null
-            command = searchMode[3] ? commands[2] : 'exit 0'
+            command = searchMode[3] ? shell[3] : 'exit 0'
             statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
             statusMsg = searchMode[3] ? 'Searching flathub for updates...' : statusMsg
 
             sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-                if (catchErr(exitCode, stderr)) return
+                if (catchError(exitCode, stderr, stdout)) return
                 updFlpk = stdout ? stdout : null
-                command = updFlpk ? commands[3] : ''
+                command = updFlpk ? shell[4] : ''
 
                 sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-                    if (catchErr(exitCode, stderr)) return
+                    if (catchError(exitCode, stderr, stdout)) return
                     infFlpk = stdout ? stdout : null
 
-                    updArch = updArch ? getArchList(updArch, infArch) : null
-                    updFlpk = updFlpk ? getFlpkList(updFlpk, infFlpk) : null
+                    updArch = updArch ? makeArchList(updArch, infArch) : null
+                    updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
 
-                    updArch && !updFlpk ? showListModel(sortList(formatList(updArch))) :
-                    !updArch && updFlpk ? showListModel(sortList(formatList(updFlpk))) :
-                    !updArch && !updFlpk ? showListModel() :
-                    showListModel(sortList(formatList(updArch.concat(updFlpk))))
-
-                    lastCheck = new Date().toLocaleTimeString().slice(0, -7)
+                    updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
+                    !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
+                    !updArch && !updFlpk ? finalize() :
+                    finalize(sortList(formatList(updArch.concat(updFlpk))))
                 })
             })
         })
@@ -207,7 +239,7 @@ function checkUpdates() {
 }
 
 
-function getArchList(upd, inf) {
+function makeArchList(upd, inf) {
     upd = upd.trim().split('\n')
     inf = inf.trim().split('\n')
     let out = ''
@@ -235,7 +267,7 @@ function getArchList(upd, inf) {
 }
 
 
-function getFlpkList(upd, inf) {
+function makeFlpkList(upd, inf) {
     upd = upd.trim().replace(/ /g, '-').replace(/\t/g, ' ').split('\n')
     inf = inf.trim().replace(/ /g, '-').replace(/\t/g, ' ').split('\n')
     let out = ''
@@ -269,35 +301,17 @@ function sortList(list) {
         const [nameA, repoA] = a.split(' ')
         const [nameB, repoB] = b.split(' ')
 
-        return plasmoid.configuration.sortByName
-            ? nameA.localeCompare(nameB)
-            : ((repoA.includes('aur') || repoA.includes('devel')) &&
-             !(repoB.includes('aur') || repoB.includes('devel')))
-            ? -1
-            : (!(repoA.includes('aur') || repoA.includes('devel')) &&
-              (repoB.includes('aur') || repoB.includes('devel')))
-            ? 1
-            : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
+        return plasmoid.configuration.sortByName ? nameA.localeCompare(nameB)
+                : ((repoA.includes('aur') || repoA.includes('devel'))
+                    &&
+                  !(repoB.includes('aur') || repoB.includes('devel')))
+                    ? -1
+                : (!(repoA.includes('aur') || repoA.includes('devel'))
+                    &&
+                  (repoB.includes('aur') || repoB.includes('devel')))
+                    ? 1
+                : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
     })
-}
-
-
-function applySort() {
-    if (updList.length == 0) return
-
-    updList = sortList(updList)
-
-    listModel.clear()
-
-    for (let i = 0; i < updList.length; i++) {
-        let item = updList[i].split(' ')
-        listModel.append({
-            'name': item[0],
-            'repo': item[1],
-            'current': item[2],
-            'newVer': item[3]
-        })
-    }
 }
 
 
@@ -305,7 +319,7 @@ function setNotify(list) {
     let prev = count
     let curr = list.length
 
-    if (prev && prev < curr) {
+    if (prev !== undefined && prev < curr) {
         let newList = list.filter(item => !updList.includes(item))
         let newCount = newList.length
 
@@ -320,21 +334,18 @@ function setNotify(list) {
         notify.sendEvent()
     }
 
-    if (!prev && curr > 0 && plasmoid.configuration.notifyStartup) {
-        notifyTitle = "Updates avialable"
-        notifyBody = curr + " total updates pending"
+    if (prev === undefined && curr > 0 && plasmoid.configuration.notifyStartup) {
+        notifyTitle = "Updates available"
+        notifyBody = curr + " updates total are pending"
         notify.sendEvent()
     }
 }
 
 
-function showListModel(list) {
+function refreshListModel(list) {
     if (!list) {
-        count = 0
-        statusIco = ''
-        statusMsg = ''
-        busy = false
-        return
+        if (updList.length == 0) return
+        list = sortList(updList)
     }
 
     listModel.clear()
@@ -344,29 +355,36 @@ function showListModel(list) {
         listModel.append({
             'name': item[0],
             'repo': item[1],
-            'current': item[2],
-            'newVer': item[3]
+            'curr': item[2],
+            'newv': item[3]
         })
     }
+}
+
+
+function finalize(list) {
+    lastCheck = new Date().toLocaleTimeString().slice(0, -7)
+
+    if (!list) {
+        count = 0
+        updList = ['']
+        statusIco = ''
+        statusMsg = ''
+        listModel.clear()
+        busy = false
+        return
+    }
+
+    refreshListModel(list)
 
     if (plasmoid.configuration.notifications) setNotify(list)
 
-    updList = list
     count = list.length
+    updList = list
     statusIco = 'update-none'
     statusMsg = count + ' updates total are pending'
     busy = false
 }
-
-
-// function columnWidth(column, width) {
-//     switch (column) {
-//         case 0: return width * [0.40, 0.40, 0.65, 1.00, 0.80, 0.50][columns]
-//         case 1: return width * [0.10, 0.00, 0.00, 0.00, 0.20, 0.15][columns]
-//         case 2: return width * [0.25, 0.30, 0.00, 0.00, 0.00, 0.00][columns]
-//         case 3: return width * [0.25, 0.30, 0.35, 0.00, 0.00, 0.35][columns]
-//     }
-// }
 
 
 function setIndex(value, arr) {
@@ -390,32 +408,40 @@ function getFonts(defaultFont, fonts) {
     return arr
 }
 
+
+function print(text) {
+    let ooo = ":".repeat(48)
+    let oo = ":".repeat(Math.ceil((ooo.length - text.length - 2)/2))
+    let o = text.length % 2 !== 0 ? oo.substring(1) : oo
+
+    return `echo; echo ${ooo}
+            echo ${oo} ${text} ${o}
+            echo ${ooo}; echo`
+}
+
+
 function upgradeSystem() {
-    let term = plasmoid.configuration.selectedTerminal
-    if (!term) return
-    let trap = "trap exit INT"
-    let termArg = "-e"
-    let cmdArg = " -Syu"
-    let archCmd = plasmoid.configuration.wrapperUpgrade
-                    ? plasmoid.configuration.selectedWrapper + cmdArg
-                    : "sudo " + packages[0] + cmdArg
+    defineCommands()
 
-    let flpkCmd = searchMode[3] ? "flatpak update" : "echo "
+    if (!shell[6]) return
 
-    let line = "::::::::::::::::::::::::::::::::::::::::"
-    let initMsg = `echo ${line}
-                   echo :::::::::: Full system upgrade :::::::::
-                   echo ${line}; echo
-                   echo Executed: ${archCmd}; echo`
+    busy = true
+    upgrade = true
+    timer.stop()
 
-    let doneMsg = `echo; echo ${line}
-                   echo ::::::::: Press Enter to close :::::::::
-                   echo ${line}
-                   read`
+    statusIco = 'accept_time_event'
+    statusMsg = 'Full upgrade running...'
 
-    let command = `${term} ${termArg} sh -c "${initMsg}; ${trap}; ${archCmd}; ${flpkCmd}; ${doneMsg}"`
+    let init = "Full system upgrade"
+    let done = "Press Enter to close"
+
+    let command = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-        if (catchErr(exitCode, stderr)) return
+        if (catchError(exitCode, stderr, stdout)) return
+
+        upgrade = false
+        timer.triggered()
+        timer.start()        
     })
 }

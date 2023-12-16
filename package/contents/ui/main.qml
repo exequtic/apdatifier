@@ -19,9 +19,8 @@ Item {
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
 
-	Plasmoid.toolTipSubText: !busy && lastCheck
-								? "The last check was at " + lastCheck
-								: "Checking..." 
+	Plasmoid.toolTipMainText: ''
+	Plasmoid.toolTipSubText: busy ? statusMsg : "The last check was at " + lastCheck
 
 	property var applet: Plasmoid.pluginName
 	property var listModel: listModel
@@ -30,9 +29,10 @@ Item {
 	property var count
 	property var error: ''
 	property var busy: false
+	property var upgrade: false
 	property var statusMsg: ''
 	property var statusIco: ''
-	property var commands: []
+	property var shell: []
 	property int responseCode: 0
 	property var action
 	property var lastCheck
@@ -42,8 +42,9 @@ Item {
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000
 	property var packages: plasmoid.configuration.packages
-	property var sorting: plasmoid.configuration.sortByName
-	property int columns: plasmoid.configuration.columns
+	property bool sorting: plasmoid.configuration.sortByName
+	property bool debugging: plasmoid.configuration.debugging
+
 	property var searchMode: [plasmoid.configuration.pacman,
 							  plasmoid.configuration.checkupdates,
 							  plasmoid.configuration.wrapper,
@@ -96,12 +97,16 @@ Item {
 	}
 
 	onSortingChanged: {
-		JS.applySort()
+		JS.refreshListModel()
 	}
 
-	onSearchModeChanged: {
-		JS.checkDependencies()
-	}
+	// Triggers update check when search settings are modified.
+	// For some reason, it is also triggered when the Desktop Folder Settings (Wallpapers) window is opened
+	// Plasma bug?...
+
+	// onSearchModeChanged: {
+	// 	JS.checkUpdates()
+	// }
 
     function action_check() {
 		JS.checkUpdates()
@@ -110,18 +115,25 @@ Item {
 		JS.upgradeSystem()
 	}
     function action_database() {
-		JS.refreshDatabase()
+		JS.downloadDatabase()
 	}
 
 	Component.onCompleted: {
-		Plasmoid.setAction('check', 'Check updates', 'view-refresh-symbolic')
-		Plasmoid.setAction('upgrade', 'Upgrade system', 'akonadiconsole')
-		Plasmoid.setAction('database', 'Refresh database', 'repository')
+		JS.runScript()
+
+		Plasmoid.setAction("check", "Check updates", "view-refresh-symbolic")
+        Plasmoid.action("check").visible = Qt.binding(() => {
+            return !upgrade
+        })
+
+		Plasmoid.setAction("upgrade", "Upgrade system", "akonadiconsole")
+        Plasmoid.action("upgrade").visible = Qt.binding(() => {
+            return !busy && !error && plasmoid.configuration.selectedTerminal
+        })
+
+		Plasmoid.setAction("database", "Download database", "repository")
         Plasmoid.action("database").visible = Qt.binding(() => {
-            return !busy
-					&& !error
-					&& !plasmoid.configuration.checkupdates
-					&& plasmoid.configuration.showDownloadBtn
+            return !busy && !searchMode[1] && plasmoid.configuration.showDownloadBtn
         })
 	}
 }

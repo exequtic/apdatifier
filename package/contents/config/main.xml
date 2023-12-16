@@ -42,8 +42,11 @@
 		<entry name="notifyStartup" type="bool">
 			<default>false</default>
 		</entry>
+		<entry name="debugging" type="bool">
+			<default>false</default>
+		</entry>
 		<entry name="dependencies" type="string">
-			<default>pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay alacritty foot konsole kitty lxterminal tilix xterm</default>
+			<default>sh pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay alacritty foot konsole kitty lxterminal tilix xterm</default>
 		</entry>
 	</group>
 
@@ -86,9 +89,6 @@
 		</entry>
 		<entry name="sortByRepo" type="bool">
 			<default>false</default>
-		</entry>
-		<entry name="columns" type="int">
-			<default>5</default>
 		</entry>
 	</group>
 </kcfg>

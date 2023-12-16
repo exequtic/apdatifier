@@ -17,18 +17,10 @@ Kirigami.FormLayout {
     property alias cfg_showCheckBtn: showCheckBtn.checked
     property alias cfg_showUpgradeBtn: showUpgradeBtn.checked
     property alias cfg_showDownloadBtn: showDownloadBtn.checked
-    // property alias cfg_showSortBtn: showSortBtn.checked
-    // property alias cfg_showColsBtn: showColsBtn.checked
 
     property alias cfg_sortByName: sortByName.checked
     property alias cfg_sortByRepo: sortByRepo.checked
 
-    // property var fontSettings: [plasmoid.configuration.fontIndex,
-    //                             plasmoid.configuration.fontBold,
-    //                             plasmoid.configuration.fontSize,
-    //                             plasmoid.configuration.fontHeight]
-
-    property var columns: plasmoid.configuration.columns
     property string selectedFnt
 
     QQC2.CheckBox {
@@ -124,39 +116,54 @@ Kirigami.FormLayout {
         enabled: showStatusBar.checked
     }
 
+    QQC2.CheckBox {
+        id: showDownloadBtn
+        text: "Download database"
+        icon.name: "repository"
+        enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
+    }
+
     RowLayout {
-        spacing: 10
-
-        QQC2.CheckBox {
-            id: showDownloadBtn
-            text: "Download database"
-            icon.name: "repository"
-            enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
-        }
-
         QQC2.Label {
-            font.italic: true
-            font.pixelSize: 12
-            color: Kirigami.Theme.neutralTextColor
+            Layout.maximumWidth: 250
+            font.pixelSize: tip.font.pixelSize
             text: "Not needed for checkupdates"
             visible: showStatusBar.checked && plasmoid.configuration.checkupdates
             enabled: visible
         }
     }
 
-    // QQC2.CheckBox {
-    //     id: showSortBtn
-    //     text: "Sorting columns"
-    //     icon.name: "sort-name"
-    //     enabled: showStatusBar.checked
-    // }
+    ColumnLayout {
+        spacing: 0
+        visible: showDownloadBtn.checked && !plasmoid.configuration.checkupdates
 
-    // QQC2.CheckBox {
-    //     id: showColsBtn
-    //     text: "Switch columns"
-    //     icon.name: "show_table_column"
-    //     enabled: showStatusBar.checked
-    // }
+        RowLayout {
+            QQC2.Label {
+                id: tip
+                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
+                text: "Avoid"
+            }
+
+            QQC2.Label {
+                font.pixelSize: tip.font.pixelSize
+                text: '<a href="https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported" style="color: ' + Kirigami.Theme.neutralTextColor + '">partial</a>'
+                textFormat: Text.RichText
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            QQC2.Label {
+                font.pixelSize: tip.font.pixelSize
+                text: "upgrades!"
+            }
+        }
+
+        QQC2.Label {
+            Layout.maximumWidth: 250
+            font.pixelSize: tip.font.pixelSize
+            text: "If you need to install a package after refreshing the package databases, use -Syu <i>package</i> (install package with full upgrade)."
+            wrapMode: Text.WordWrap
+        }
+    }
 
     Item {
         Kirigami.FormData.isSection: true
@@ -189,11 +196,4 @@ Kirigami.FormLayout {
 
         QQC2.ButtonGroup.group: sortGroup
     }
-
-    // after changing the font settings, the columns are layered on top of each other
-    // this show all columns
-    // temporary workaround
-    // onFontSettingsChanged: {
-    //     plasmoid.configuration.columns = 0
-    // }
 }

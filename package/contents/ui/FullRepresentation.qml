@@ -21,13 +21,6 @@ Item {
                                 ? Math.round(plasmoid.configuration.fontSize * 1.5 + plasmoid.configuration.fontHeight)
                                 : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.5)
 
-    Layout.minimumWidth: PlasmaCore.Units.gridUnit * 24
-    Layout.minimumHeight: PlasmaCore.Units.gridUnit * 24
-    Layout.maximumWidth: PlasmaCore.Units.gridUnit * 80
-    Layout.maximumHeight: PlasmaCore.Units.gridUnit * 40
-    focus: true
-
-
     TableView {
         id: table
         model: listModel
@@ -37,7 +30,7 @@ Item {
         anchors.left: parent.left
         anchors.bottom: separator.top
 
-        visible: !busy && !error
+        visible: !busy && !error && count > 0
 
         // headerVisible: false
         backgroundVisible: false
@@ -45,13 +38,13 @@ Item {
 
         headerDelegate: Rectangle {
             height: fontHeight + 5
-            color: Kirigami.Theme.alternateBackgroundColor
+            color: Kirigami.Theme.backgroundColor
             radius: 6
 
             Rectangle {
                 anchors.fill: parent
                 anchors.leftMargin: styleData.column == 0 ? 10 : 0
-                color: Kirigami.Theme.alternateBackgroundColor
+                color: Kirigami.Theme.backgroundColor
             }
 
             Rectangle {
@@ -176,7 +169,7 @@ Item {
 
         TableViewColumn {
             title: "Current"
-            role: "current"
+            role: "curr"
             width: table.width * 0.25
 
             delegate: Text {
@@ -203,7 +196,7 @@ Item {
 
         TableViewColumn {
             title: "New"
-            role: "newVer"
+            role: "newv"
             width: table.width * 0.25
 
             delegate: Text {
@@ -254,69 +247,28 @@ Item {
             Layout.alignment: Qt.AlignRight
             spacing: 0
 
-            // PlasmaComponents.ToolButton {
-            //     icon.name: columns >= 0 && columns < 3 ? 'hide_table_column' : 'show_table_column'
-            //     visible: footer.visible &&
-            //              !error &&
-            //              !busy &&
-            //              count > 0 &&
-            //              plasmoid.configuration.showColsBtn
-
-            //     PlasmaComponents.ToolTip {
-            //         text: ['Hide repository',
-            //                'Hide current version',
-            //                'Hide new version',
-            //                'Show repository',
-            //                'Show new version', 
-            //                'Show current version']
-            //               [columns]
-            //     }
-
-            //     onClicked: {
-            //         plasmoid.configuration.columns = columns >= 0 && columns < 5 ? columns + 1 : 0
-            //     }
-            // }
-
-            // PlasmaComponents.ToolButton {
-            //     icon.name: 'sort-name'
-            //     visible: footer.visible &&
-            //              !error &&
-            //              !busy &&
-            //              count > 1 &&
-            //              plasmoid.configuration.showSortBtn
-
-            //     PlasmaComponents.ToolTip {
-            //         text: plasmoid.configuration.sortByName ? 'Sorting by repository' : 'Sorting by name'
-            //     }
-
-            //     onClicked: {
-            //         plasmoid.configuration.sortByName = !plasmoid.configuration.sortByName
-            //         plasmoid.configuration.sortByRepo = !plasmoid.configuration.sortByRepo
-            //         JS.applySort()
-            //     }
-            // }
-
             PlasmaComponents.ToolButton {
                 icon.name: 'repository'
-                visible: footer.visible &&
-                         !busy &&
-                         !error &&
-                         !plasmoid.configuration.checkupdates &&
-                         plasmoid.configuration.showDownloadBtn
+                visible: footer.visible
+                            && !busy
+                            && !plasmoid.configuration.checkupdates
+                            && plasmoid.configuration.showDownloadBtn
 
                 PlasmaComponents.ToolTip {
                     text: 'Download databases'
                 }
 
-                onClicked: JS.refreshDatabase()
+                onClicked: JS.downloadDatabase()
             }
 
             PlasmaComponents.ToolButton {
                 icon.name: 'akonadiconsole'
-                visible: footer.visible &&
-                         !busy &&
-                         count > 1 &&
-                         plasmoid.configuration.showUpgradeBtn
+                visible: footer.visible
+                            && !busy
+                            && !error
+                            && count > 1
+                            && plasmoid.configuration.showUpgradeBtn
+                            && plasmoid.configuration.selectedTerminal
 
                 PlasmaComponents.ToolTip {
                     text: 'Upgrade system'
@@ -327,8 +279,7 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: 'view-refresh-symbolic'
-                visible: footer.visible &&
-                         plasmoid.configuration.showCheckBtn
+                visible: footer.visible && plasmoid.configuration.showCheckBtn && !upgrade
 
                 PlasmaComponents.ToolTip {
                     text: 'Check updates'
@@ -339,13 +290,13 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: 'exifinfo'
-                visible: footer.visible
-                onClicked: {
-                    console.log(plasmoid.configuration.selectedWrapper)
-                    console.log(plasmoid.configuration.selectedTerminal)
-                    console.log(plasmoid.configuration.selectedFont)
-                    console.log(plasmoid.configuration)
+                visible: footer.visible && plasmoid.configuration.debugging
+
+                PlasmaComponents.ToolTip {
+                    text: 'Print debug info in console'
                 }
+
+                onClicked: JS.debugButton()
             }
         }
     }
@@ -362,8 +313,8 @@ Item {
 
     Loader {
         anchors.centerIn: parent
-        active: busy
-        visible: active
+        enabled: busy
+        visible: enabled
         asynchronous: true
         sourceComponent: BusyIndicator {
             width: 128
@@ -376,8 +327,8 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
-        active: count == 0 || !busy && error
-        visible: active
+        enabled: !busy && count == 0 || error
+        visible: enabled
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {
             width: parent.width
