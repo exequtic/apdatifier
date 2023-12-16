@@ -18,6 +18,8 @@ Kirigami.FormLayout {
     property alias cfg_flatpak: flatpak.checked
 
     property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
+    property alias cfg_upgradeFlags: upgradeFlags.checked
+    property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_selectedTerminal: generalPage.selectedTerm
 
     property alias cfg_notifications: notifications.checked
@@ -206,6 +208,19 @@ Kirigami.FormLayout {
         enabled: terminals &&
                  wrappers &&
                  plasmoid.configuration.selectedWrapper
+    }
+
+    QQC2.CheckBox {
+        id: upgradeFlags
+        text: "Additional flags"
+        enabled: terminals
+    }
+
+    QQC2.TextField {
+        id: upgradeFlagsText
+        placeholderText: " only flags without -Syu"
+        placeholderTextColor: "grey"
+        visible: upgradeFlags.checked
     }
 
     RowLayout {

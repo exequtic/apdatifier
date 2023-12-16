@@ -150,6 +150,7 @@ function defineCommands() {
     shell[6] = plasmoid.configuration.selectedTerminal
     shell[7] = "-e"
     shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
+    shell[8] = plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
     shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
     shell[10] = "trap '' SIGINT"
     shell[11] = "echo Executed: " + shell[8] + "; echo"
