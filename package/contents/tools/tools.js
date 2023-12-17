@@ -24,6 +24,7 @@ function debug(msg) {
 
 
 function debugButton() {
+    defineCommands()
     debug(plasmoid.configuration.packages)
     debug(JSON.stringify(plasmoid.configuration.wrappers))
     debug(JSON.stringify(plasmoid.configuration.terminals))
@@ -148,12 +149,22 @@ function defineCommands() {
     shell[4] = packages[3] + " list --app"
     shell[5] = searchMode[0] || searchMode[1] ? packages[1] + " -Sy" : shell[1].replace("Qu", "Sy")
     shell[6] = plasmoid.configuration.selectedTerminal
-    shell[7] = "-e"
+    shell[7] = defineTermArg(shell[6])
     shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
     shell[8] = plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
     shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
     shell[10] = "trap '' SIGINT"
     shell[11] = "echo Executed: " + shell[8] + "; echo"
+
+    function defineTermArg(term) {
+        switch (term.split('/').pop()) {
+            case "gnome-terminal": return "--"
+            case "terminator": return "-x"
+            default: return "-e"
+        }
+    }
+
+    shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
 }
 
 
@@ -427,6 +438,9 @@ function print(text) {
 }
 
 
+const init = "Full system upgrade"
+const done = "Press Enter to close"
+
 function upgradeSystem() {
     defineCommands()
 
@@ -439,12 +453,7 @@ function upgradeSystem() {
     statusIco = 'accept_time_event'
     statusMsg = 'Full upgrade running...'
 
-    let init = "Full system upgrade"
-    let done = "Press Enter to close"
-
-    let command = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
-
-    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
 
         upgrade = false

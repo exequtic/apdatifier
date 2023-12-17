@@ -233,6 +233,10 @@ Kirigami.FormLayout {
                 if (terminals) {
                     currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
                 }
+
+                if (!plasmoid.configuration.selectedTerminal) {
+                    plasmoid.configuration.selectedTerminal = model[0]['value']
+                }
             }
         }
 
