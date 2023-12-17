@@ -2,13 +2,15 @@ import QtQuick 2.6
 import QtQuick.Controls 2.5 as QQC2
 import QtQuick.Layouts 1.1
 import org.kde.kirigami 2.5 as Kirigami
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
 import "../tools/tools.js" as JS
 
 Kirigami.FormLayout {
     id: appearancePage
 
     property alias cfg_fontCustom: fontCustom.checked
-    property alias cfg_selectedFont: appearancePage.selectedFnt
+    property string cfg_selectedFont: plasmoid.configuration.selectedFont
     property alias cfg_fontBold: fontBold.checked
     property alias cfg_fontSize: fontSize.value
     property alias cfg_fontHeight: fontHeight.value
@@ -21,7 +23,12 @@ Kirigami.FormLayout {
     property alias cfg_sortByName: sortByName.checked
     property alias cfg_sortByRepo: sortByRepo.checked
 
-    property string selectedFnt
+    property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
+
+    Kirigami.Separator {
+        Kirigami.FormData.isSection: true
+        Kirigami.FormData.label: "List View"
+    }
 
     QQC2.CheckBox {
         id: fontCustom
@@ -36,15 +43,11 @@ Kirigami.FormLayout {
         enabled: fontCustom.checked
 
         onCurrentIndexChanged: {
-            appearancePage.selectedFnt = model[currentIndex]['value']
+            cfg_selectedFont = model[currentIndex]['value']
         }
 
         Component.onCompleted: {
             currentIndex = JS.setIndex(plasmoid.configuration.selectedFont, model)
-
-            if (!plasmoid.configuration.selectedFont) {
-                plasmoid.configuration.selectedFont = model[currentIndex]['value']
-            }
         }
     }
 
@@ -123,24 +126,21 @@ Kirigami.FormLayout {
         enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
     }
 
-    RowLayout {
-        QQC2.Label {
-            Layout.maximumWidth: 250
-            font.pixelSize: tip.font.pixelSize
-            text: "Not needed for checkupdates"
-            visible: showStatusBar.checked && plasmoid.configuration.checkupdates
-            enabled: visible
-        }
+    Kirigami.Separator {
+        Layout.fillWidth: true
+        visible: warning.visible || tip.visible
     }
 
     ColumnLayout {
+        id: warning
         spacing: 0
         visible: showDownloadBtn.checked && !plasmoid.configuration.checkupdates
 
         RowLayout {
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
             QQC2.Label {
-                id: tip
-                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
+                font.pixelSize: tip.font.pixelSize
                 text: "Avoid"
             }
 
@@ -159,10 +159,18 @@ Kirigami.FormLayout {
 
         QQC2.Label {
             Layout.maximumWidth: 250
+            horizontalAlignment: Text.AlignHCenter
             font.pixelSize: tip.font.pixelSize
             text: "If you need to install a package after refreshing the package databases, use -Syu <i>package</i> (install package with full upgrade)."
             wrapMode: Text.WordWrap
         }
+    }
+
+    QQC2.Label {
+        id: tip
+        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
+        text: "Not needed for checkupdates"
+        visible: showStatusBar.checked && plasmoid.configuration.checkupdates
     }
 
     Item {
@@ -195,5 +203,68 @@ Kirigami.FormLayout {
         }
 
         QQC2.ButtonGroup.group: sortGroup
+    }
+
+    Kirigami.Separator {
+        Kirigami.FormData.isSection: true
+        Kirigami.FormData.label: "Panel Icon View"
+    }
+
+    QQC2.Button {
+        id: iconButton
+
+        Kirigami.FormData.label: "Icon:"
+
+        implicitWidth: iconFrame.width + PlasmaCore.Units.smallSpacing
+        implicitHeight: implicitWidth
+        hoverEnabled: true
+
+        QQC2.ToolTip.text: cfg_selectedIcon
+        QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+        QQC2.ToolTip.visible: iconButton.hovered
+
+        PlasmaCore.FrameSvgItem {
+            id: iconFrame
+            anchors.centerIn: parent
+            width: PlasmaCore.Units.iconSizes.medium + fixedMargins.left + fixedMargins.right
+            height: width
+            imagePath: "widgets/background"
+
+            PlasmaCore.IconItem {
+                anchors.centerIn: parent
+                width: PlasmaCore.Units.iconSizes.medium
+                height: width
+                source: JS.setIcon(cfg_selectedIcon)
+            }
+        }
+
+        KQuickAddons.IconDialog {
+            id: iconsDialog
+            onIconNameChanged: cfg_selectedIcon = iconName || JS.defaultIcon
+        }
+
+        onPressed: menu.opened ? menu.close() : menu.open()
+
+        QQC2.Menu {
+            id: menu
+            y: +parent.height
+
+            QQC2.MenuItem {
+                text: "Default icon"
+                icon.name: "edit-clear"
+                enabled: cfg_selectedIcon !== JS.defaultIcon
+                onClicked: cfg_selectedIcon = JS.defaultIcon
+            }
+
+            QQC2.MenuItem {
+                text: "Select..."
+                icon.name: "document-open-folder"
+                onClicked: iconsDialog.open()
+            }
+        }
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
     }
 }

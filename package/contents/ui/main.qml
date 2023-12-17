@@ -19,6 +19,8 @@ Item {
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
 
+	Plasmoid.icon: plasmoid.configuration.selectedIcon
+
 	Plasmoid.toolTipMainText: ''
 	Plasmoid.toolTipSubText: busy ? statusMsg : "The last check was at " + lastCheck
 

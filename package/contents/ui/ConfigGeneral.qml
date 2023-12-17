@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5 as QQC2
 import QtQuick.Layouts 1.1
+import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
 import org.kde.kirigami 2.5 as Kirigami
 import "../tools/tools.js" as JS
 
@@ -13,14 +14,14 @@ Kirigami.FormLayout {
     property alias cfg_pacman: pacman.checked
     property alias cfg_checkupdates: checkupdates.checked
     property alias cfg_wrapper: wrapper.checked
-    property alias cfg_selectedWrapper: generalPage.selectedWrapp
+    property string cfg_selectedWrapper: plasmoid.configuration.selectedWrapper
 
     property alias cfg_flatpak: flatpak.checked
 
     property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
-    property alias cfg_selectedTerminal: generalPage.selectedTerm
+    property string cfg_selectedTerminal: plasmoid.configuration.selectedTerminal
 
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
@@ -32,9 +33,6 @@ Kirigami.FormLayout {
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
-
-    property string selectedWrapp
-    property string selectedTerm
 
     RowLayout {
         Kirigami.FormData.label: "Interval:"
@@ -123,7 +121,7 @@ Kirigami.FormLayout {
         QQC2.Label {
             font.pixelSize: tip.font.pixelSize
             color: Kirigami.Theme.positiveTextColor
-            text: "found: " + selectedWrapp
+            text: "found: " + cfg_selectedWrapper
             visible: wrapper.checked && wrappers.length == 1
             enabled: visible
         }
@@ -137,35 +135,14 @@ Kirigami.FormLayout {
         visible: wrappers && wrappers.length > 1
 
         onCurrentIndexChanged: {
-            generalPage.selectedWrapp = model[currentIndex]['value']
+            cfg_selectedWrapper = model[currentIndex]['value']
         }
 
         Component.onCompleted: {
             if (wrappers) {
                 currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
-
-                if (!plasmoid.configuration.selectedWrapper) {
-                    plasmoid.configuration.selectedWrapper = model[currentIndex]['value']
-                }
             }
         }
-    }
-
-    Kirigami.Separator {
-        Layout.fillWidth: true
-    }
-
-    RowLayout {
-        QQC2.Label {
-            Layout.maximumWidth: 250
-            font.pixelSize: tip.font.pixelSize
-            text: "If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates."
-            wrapMode: Text.WordWrap
-        }
-    }
-
-    Item {
-        Kirigami.FormData.isSection: true
     }
 
     RowLayout {
@@ -196,6 +173,20 @@ Kirigami.FormLayout {
         }
     }
 
+    Kirigami.Separator {
+        Layout.fillWidth: true
+    }
+
+    RowLayout {
+        QQC2.Label {
+            Layout.maximumWidth: 250
+            font.pixelSize: tip.font.pixelSize
+            text: "If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates."
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
     Item {
         Kirigami.FormData.isSection: true
     }
@@ -207,7 +198,7 @@ Kirigami.FormLayout {
         text: "Use wrapper instead of pacman"
         enabled: terminals &&
                  wrappers &&
-                 plasmoid.configuration.selectedWrapper
+                 cfg_selectedWrapper
     }
 
     QQC2.CheckBox {
@@ -235,16 +226,12 @@ Kirigami.FormLayout {
             implicitWidth: 150
 
             onCurrentIndexChanged: {
-                generalPage.selectedTerm = model[currentIndex]['value']
+                cfg_selectedTerminal = model[currentIndex]['value']
             }
 
             Component.onCompleted: {
                 if (terminals) {
                     currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
-
-                    if (!plasmoid.configuration.selectedTerminal) {
-                        plasmoid.configuration.selectedTerminal = model[currentIndex]['value']
-                    }
                 }
             }
         }
@@ -288,12 +275,23 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
+        id: notifyTip
+
         QQC2.Label {
+            horizontalAlignment: Text.AlignHCenter
             Layout.maximumWidth: 250
             font.pixelSize: tip.font.pixelSize
-            text: "To more configure notifications visit System Settings -> Notifications -> Configure -> Apdatifier"
+            text: "To further configure, click the button below -> Application-specific settings -> Apdatifier"
             wrapMode: Text.WordWrap
         }
+    }
+
+    QQC2.Button {
+        anchors.horizontalCenter: notifyTip.horizontalCenter
+        enabled: notifications.checked
+        icon.name: "settings-configure"
+        text: "Configure..."
+        onClicked: KQuickAddons.KCMShell.openSystemSettings("kcm_notifications")
     }
 
     Item {

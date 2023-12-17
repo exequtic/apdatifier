@@ -400,6 +400,12 @@ function setIndex(value, arr) {
 }
 
 
+const defaultIcon = "apdatifier-plasmoid-none"
+function setIcon(icon) {
+    return icon === "" ? defaultIcon : icon
+}
+
+
 function getFonts(defaultFont, fonts) {
     let arr = []
     arr.push({'name': 'Default system font', 'value': defaultFont})

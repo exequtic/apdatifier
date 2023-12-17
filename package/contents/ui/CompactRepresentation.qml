@@ -3,12 +3,13 @@ import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
+import "../tools/tools.js" as JS
 
 Item {
     PlasmaCore.IconItem {
         id: icon
         anchors.fill: parent
-        source: 'apdatifier-plasmoid-none'
+        source: JS.setIcon(plasmoid.icon)
         active: mouseArea.containsMouse
 
         BusyIndicator {
