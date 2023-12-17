@@ -37,9 +37,12 @@ Item {
         horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
         headerDelegate: Rectangle {
-            height: fontHeight + 5
+            height: plasmoid.configuration.showHeaders
+                        ? PlasmaCore.Units.smallSpacing + fontHeight
+                        : PlasmaCore.Units.smallSpacing
             color: Kirigami.Theme.backgroundColor
             radius: 6
+            visible: plasmoid.configuration.showHeaders
 
             Rectangle {
                 anchors.fill: parent
@@ -52,7 +55,7 @@ Item {
                 height: parent.height * 0.8
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                color: Kirigami.Theme.backgroundColor
+                color: Kirigami.Theme.alternateBackgroundColor
             }
 
             Text {
@@ -63,16 +66,16 @@ Item {
                 color: Kirigami.Theme.textColor
 
                 font {
-                    bold: true
-                    pixelSize: fontSize
-                    family: fontFamily
+                    bold: plasmoid.configuration.customHeaders ? fontBold : true
+                    pixelSize: plasmoid.configuration.customHeaders ? fontSize : Kirigami.Theme.defaultFont.pixelSize
+                    family: plasmoid.configuration.customHeaders ? fontFamily : Kirigami.Theme.defaultFont
                 }
 
                 anchors {
                     right: parent.right
                     left: parent.left
                     rightMargin: 0
-                    leftMargin: 10
+                    leftMargin: PlasmaCore.Units.smallSpacing
                     verticalCenter: parent.verticalCenter
                 }
 
@@ -133,7 +136,7 @@ Item {
                     right: parent.right
                     left: parent.left
                     rightMargin: 0
-                    leftMargin: 10
+                    leftMargin: PlasmaCore.Units.smallSpacing
                     verticalCenter: parent.verticalCenter
                 }
             }
@@ -161,7 +164,7 @@ Item {
                     right: parent.right
                     left: parent.left
                     rightMargin: 0
-                    leftMargin: 10
+                    leftMargin: PlasmaCore.Units.smallSpacing
                     verticalCenter: parent.verticalCenter
                 }
             }
@@ -188,7 +191,7 @@ Item {
                     right: parent.right
                     left: parent.left
                     rightMargin: 0
-                    leftMargin: 10
+                    leftMargin: PlasmaCore.Units.smallSpacing
                     verticalCenter: parent.verticalCenter
                 }
             }
@@ -215,7 +218,7 @@ Item {
                     right: parent.right
                     left: parent.left
                     rightMargin: 0
-                    leftMargin: 10
+                    leftMargin: PlasmaCore.Units.smallSpacing
                     verticalCenter: parent.verticalCenter
                 }
             }

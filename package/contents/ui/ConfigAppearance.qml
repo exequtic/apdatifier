@@ -15,6 +15,9 @@ Kirigami.FormLayout {
     property alias cfg_fontSize: fontSize.value
     property alias cfg_fontHeight: fontHeight.value
 
+    property alias cfg_showHeaders: showHeaders.checked
+    property alias cfg_customHeaders: customHeaders.checked
+
     property alias cfg_showStatusBar: showStatusBar.checked
     property alias cfg_showCheckBtn: showCheckBtn.checked
     property alias cfg_showUpgradeBtn: showUpgradeBtn.checked
@@ -93,6 +96,22 @@ Kirigami.FormLayout {
         QQC2.Label {
             text: "px"
         }
+    }
+
+    Item {
+        Kirigami.FormData.isSection: true
+    }
+
+    QQC2.CheckBox {
+        id: showHeaders
+        Kirigami.FormData.label: "Header:"
+        text: 'Show table headers'
+    }
+
+    QQC2.CheckBox {
+        id: customHeaders
+        text: 'Apply custom font for headers'
+        enabled: showHeaders.checked && fontCustom.checked
     }
 
     Item {

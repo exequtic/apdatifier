@@ -72,6 +72,12 @@
 		<entry name="fontHeight" type="int">
 			<default>0</default>
 		</entry>
+		<entry name="showHeaders" type="bool">
+			<default>true</default>
+		</entry>
+		<entry name="customHeaders" type="bool">
+			<default>false</default>
+		</entry>
 		<entry name="showStatusBar" type="bool">
 			<default>true</default>
 		</entry>
