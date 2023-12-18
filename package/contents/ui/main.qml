@@ -66,7 +66,7 @@ Item {
 		eventId: plasmoid.configuration.withSound ? "sound" : "popup"
 		title: notifyTitle
 		text: notifyBody
-		iconName: "apdatifier-plasmoid-updates"
+		iconName: "apdatifier-package"
 	}
 
 	Timer {

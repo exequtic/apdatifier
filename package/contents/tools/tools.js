@@ -411,9 +411,27 @@ function setIndex(value, arr) {
 }
 
 
-const defaultIcon = "apdatifier-plasmoid-none"
+const defaultIcon = "apdatifier-plasmoid"
 function setIcon(icon) {
     return icon === "" ? defaultIcon : icon
+}
+
+
+function indicatorFrameWidth() {
+    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.80 : 0
+
+    return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
+           plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
+}
+
+function indicatorAnchors(pos) {
+    switch (pos) {
+        case "top": return plasmoid.configuration.indicatorTop && !plasmoid.configuration.indicatorBottom ? frame.top : undefined
+        case "bottom": return plasmoid.configuration.indicatorBottom && !plasmoid.configuration.indicatorTop ? frame.bottom : undefined
+        case "right": return plasmoid.configuration.indicatorRight && !plasmoid.configuration.indicatorLeft ? frame.right : undefined
+        case "left": return plasmoid.configuration.indicatorLeft && !plasmoid.configuration.indicatorRight ? frame.left : undefined
+        default: return undefined
+    }
 }
 
 

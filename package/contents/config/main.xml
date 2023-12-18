@@ -46,7 +46,7 @@
 			<default>true</default>
 		</entry>
 		<entry name="notifyStartup" type="bool">
-			<default>false</default>
+			<default>true</default>
 		</entry>
 		<entry name="debugging" type="bool">
 			<default>false</default>
@@ -90,12 +90,6 @@
 		<entry name="showDownloadBtn" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="showSortBtn" type="bool">
-			<default>true</default>
-		</entry>
-		<entry name="showColsBtn" type="bool">
-			<default>true</default>
-		</entry>
 		<entry name="sortByName" type="bool">
 			<default>true</default>
 		</entry>
@@ -103,7 +97,34 @@
 			<default>false</default>
 		</entry>
         <entry name="selectedIcon" type="string">
-            <default>apdatifier-plasmoid-none</default>
+            <default>apdatifier-plasmoid</default>
+        </entry>
+        <entry name="indicatorCounter" type="bool">
+            <default>true</default>
+        </entry>
+        <entry name="indicatorScale" type="bool">
+            <default>true</default>
+        </entry>
+        <entry name="indicatorCircle" type="bool">
+            <default>false</default>
+        </entry>
+        <entry name="indicatorColor" type="string">
+            <default></default>
+        </entry>
+        <entry name="indicatorDisable" type="bool">
+            <default>false</default>
+        </entry>
+        <entry name="indicatorTop" type="bool">
+            <default>true</default>
+        </entry>
+        <entry name="indicatorBottom" type="bool">
+            <default>false</default>
+        </entry>
+        <entry name="indicatorRight" type="bool">
+            <default>true</default>
+        </entry>
+        <entry name="indicatorLeft" type="bool">
+            <default>false</default>
         </entry>
 	</group>
 </kcfg>

@@ -16,39 +16,60 @@ Item {
             anchors.fill: icon
             running: busy
             visible: running
-            opacity: 0.8
-        }
-    }
-
-    Rectangle {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        id: bgBadge
-        height: labelBadge.height
-        width: labelBadge.width + 3 * PlasmaCore.Units.devicePixelRatio
-        radius: width * 0.40
-        color: PlasmaCore.ColorScope.backgroundColor
-        opacity: 0.6
-        visible: !busy && count > 0 || error
-
-        PlasmaComponents.Label {
-            anchors.centerIn: parent
-            id: labelBadge
-            text: count ? count
-                    : error ? '✖'
-                    : ' '
-
-            font.pixelSize: PlasmaCore.Theme.smallestFont.pixelSize
-            font.bold: true
         }
 
-        layer.enabled: true
-        layer.effect: DropShadow {
-            horizontalOffset: 0
-            verticalOffset: 0
-            radius: 1
-            samples: 1 + radius * 2
-            color: Qt.rgba(0, 0, 0, 0.3)
+        Rectangle {
+            id: frame
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+
+            width: JS.indicatorFrameWidth()
+            height: width
+            opacity: 0
+            visible: !plasmoid.configuration.indicatorDisable && (!busy && count > 0 || error)
+        }
+
+        Rectangle {
+            id: circle
+
+            anchors.top: JS.indicatorAnchors("top")
+            anchors.bottom: JS.indicatorAnchors("bottom")
+            anchors.right: JS.indicatorAnchors("right")
+            anchors.left: JS.indicatorAnchors("left")
+
+            width: frame.width / 3.3
+            height: width
+            radius: width / 2
+            color: plasmoid.configuration.indicatorColor ? plasmoid.configuration.indicatorColor : PlasmaCore.ColorScope.highlightColor
+            visible: frame.visible && plasmoid.configuration.indicatorCircle
+        }
+
+        Rectangle {
+            id: counterFrame
+
+            anchors.top: JS.indicatorAnchors("top")
+            anchors.bottom: JS.indicatorAnchors("bottom")
+            anchors.right: JS.indicatorAnchors("right")
+            anchors.left: JS.indicatorAnchors("left")
+
+            width: counter.width + (frame.width / 10) * PlasmaCore.Units.devicePixelRatio
+            height: plasmoid.configuration.indicatorScale ? frame.width / 3 : counter.height
+            radius: width * 0.30
+            color: PlasmaCore.ColorScope.backgroundColor
+            opacity: 0.7
+            visible: frame.visible && plasmoid.configuration.indicatorCounter
+
+            PlasmaComponents.Label {
+                id: counter
+
+                anchors.centerIn: parent
+
+                text: count ? count : error ? '✖' : ' '
+                font.pixelSize: plasmoid.configuration.indicatorScale ? frame.width / 3 : PlasmaCore.Theme.smallestFont.pixelSize
+                font.bold: true
+                renderType: Text.NativeRendering
+            }
         }
     }
 
