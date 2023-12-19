@@ -165,11 +165,17 @@ function defineCommands() {
         switch (term.split('/').pop()) {
             case "gnome-terminal": return "--"
             case "terminator": return "-x"
+            case "yakuake": return false
             default: return "-e"
         }
     }
 
-    shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
+    if (shell[7]) {
+        shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
+    } else {
+        let QDBUS = "qdbus org.kde.yakuake /yakuake/sessions"
+        shell[12] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[8]}; ${shell[9]}"`
+    }
 }
 
 
