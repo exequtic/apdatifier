@@ -12,6 +12,10 @@ Item {
 	Plasmoid.compactRepresentation: CompactRepresentation {}
 	Plasmoid.fullRepresentation: FullRepresentation {}
 
+    Plasmoid.preferredRepresentation: plasmoid.location === PlasmaCore.Types.Floating
+                                      	? Plasmoid.fullRepresentation
+                                    	: Plasmoid.compactRepresentation
+
 	Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 20
     Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 10
 
@@ -21,25 +25,25 @@ Item {
 
 	Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-	Plasmoid.toolTipMainText: ''
-	Plasmoid.toolTipSubText: busy ? statusMsg : "The last check was at " + lastCheck
+	Plasmoid.toolTipMainText: ""
+	Plasmoid.toolTipSubText: busy ? statusMsg : i18n("The last check was at %1", lastCheck)
 
 	property var applet: Plasmoid.pluginName
 	property var listModel: listModel
 	property var listeners: ({})
 	property var updList: []
 	property var count
-	property var error: ''
+	property var error: ""
 	property var busy: false
 	property var upgrade: false
-	property var statusMsg: ''
-	property var statusIco: ''
+	property var statusMsg: ""
+	property var statusIco: ""
 	property var shell: []
 	property int responseCode: 0
 	property var action
-	property var lastCheck
-	property var notifyTitle: ''
-	property var notifyBody: ''
+	property var lastCheck: i18n("never")
+	property var notifyTitle: ""
+	property var notifyBody: ""
 
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000
@@ -123,17 +127,17 @@ Item {
 	Component.onCompleted: {
 		JS.runScript()
 
-		Plasmoid.setAction("check", "Check updates", "view-refresh-symbolic")
+		Plasmoid.setAction("check", i18n("Check updates"), "view-refresh-symbolic")
         Plasmoid.action("check").visible = Qt.binding(() => {
             return !upgrade
         })
 
-		Plasmoid.setAction("upgrade", "Upgrade system", "akonadiconsole")
+		Plasmoid.setAction("upgrade", i18n("Upgrade system"), "akonadiconsole")
         Plasmoid.action("upgrade").visible = Qt.binding(() => {
             return !busy && !error && plasmoid.configuration.selectedTerminal
         })
 
-		Plasmoid.setAction("database", "Download database", "repository")
+		Plasmoid.setAction("database", i18n("Download database"), "repository")
         Plasmoid.action("database").visible = Qt.binding(() => {
             return !busy && !searchMode[1] && plasmoid.configuration.showDownloadBtn
         })

@@ -35,7 +35,7 @@ Kirigami.FormLayout {
     property var terminals: plasmoid.configuration.terminals
 
     RowLayout {
-        Kirigami.FormData.label: "Interval:"
+        Kirigami.FormData.label: i18n("Interval:")
 
         QQC2.CheckBox {
             id: interval
@@ -51,7 +51,7 @@ Kirigami.FormLayout {
         }
 
         QQC2.Label {
-            text: 'minutes'
+            text: i18n("minutes")
         }
     }
 
@@ -60,13 +60,13 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Kirigami.FormData.label: "Search:"
+        Kirigami.FormData.label: i18n("Search:")
 
         QQC2.ButtonGroup { id: searchGroup }
 
         QQC2.RadioButton {
             id: pacman
-            text: 'pacman'
+            text: "pacman"
             checked: true
             QQC2.ButtonGroup.group: searchGroup
         }
@@ -77,22 +77,19 @@ Kirigami.FormLayout {
 
         QQC2.RadioButton {
             id: checkupdates
-            text: 'checkupdates'
-            enabled: !packages[1] ? false : true
+            text: "checkupdates"
+            enabled: !packages[2] ? false : true
             QQC2.ButtonGroup.group: searchGroup
         }
 
         QQC2.Label {
             id: tip
             font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-            text: '<a href="https://archlinux.org/packages/extra/x86_64/pacman-contrib"
-                    style="color: ' + Kirigami.Theme.neutralTextColor + '">
-                        Not installed
-                    </a>'
+            text: "<a href=\"https://archlinux.org/packages/extra/x86_64/pacman-contrib\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             enabled: visible
-            visible: !packages[1]
+            visible: !packages[2]
         }
     }
 
@@ -101,17 +98,14 @@ Kirigami.FormLayout {
 
         QQC2.RadioButton {
             id: wrapper
-            text: 'wrapper'
+            text: i18n("pacman wrapper")
             enabled: !wrappers ? false : true
             QQC2.ButtonGroup.group: searchGroup
         }
 
         QQC2.Label {
             font.pixelSize: tip.font.pixelSize
-            text: '<a href="https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers"
-                    style="color: ' + Kirigami.Theme.neutralTextColor + '">
-                        Not installed
-                    </a>'
+            text: "<a href=\"https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             visible: !wrappers
@@ -121,7 +115,7 @@ Kirigami.FormLayout {
         QQC2.Label {
             font.pixelSize: tip.font.pixelSize
             color: Kirigami.Theme.positiveTextColor
-            text: "found: " + cfg_selectedWrapper
+            text: i18n("found: %1", cfg_selectedWrapper)
             visible: wrapper.checked && wrappers.length == 1
             enabled: visible
         }
@@ -129,13 +123,13 @@ Kirigami.FormLayout {
 
     QQC2.ComboBox {
         model: wrappers
-        textRole: 'name'
+        textRole: "name"
         enabled: wrappers
         implicitWidth: 150
         visible: wrappers && wrappers.length > 1
 
         onCurrentIndexChanged: {
-            cfg_selectedWrapper = model[currentIndex]['value']
+            cfg_selectedWrapper = model[currentIndex]["value"]
         }
 
         Component.onCompleted: {
@@ -149,11 +143,11 @@ Kirigami.FormLayout {
         spacing: 10
         QQC2.CheckBox {
             id: flatpak
-            text: 'Enable Flatpak support'
-            enabled: !packages[2] ? false : true
+            text: i18n("Enable Flatpak support")
+            enabled: !packages[3] ? false : true
 
             Component.onCompleted: {
-                if (checked && !packages[2]) {
+                if (checked && !packages[3]) {
                     checked = false
                     plasmoid.configuration.flatpak = checked
                 }
@@ -162,14 +156,11 @@ Kirigami.FormLayout {
 
         QQC2.Label {
             font.pixelSize: tip.font.pixelSize
-            text: '<a href="https://flathub.org/setup/Arch"
-                    style="color: ' + Kirigami.Theme.neutralTextColor + '">
-                        Not installed
-                    </a>'
+            text: "<a href=\"https://flathub.org/setup/Arch\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
             enabled: visible
-            visible: !packages[2]
+            visible: !packages[3]
         }
     }
 
@@ -181,7 +172,7 @@ Kirigami.FormLayout {
         QQC2.Label {
             Layout.maximumWidth: 250
             font.pixelSize: tip.font.pixelSize
-            text: "If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates."
+            text: i18n("If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates.")
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
         }
@@ -192,10 +183,10 @@ Kirigami.FormLayout {
     }
 
     QQC2.CheckBox {
-        Kirigami.FormData.label: "Upgrade:"
+        Kirigami.FormData.label: i18n("Upgrade:")
 
         id: wrapperUpgrade
-        text: "Use wrapper instead of pacman"
+        text: i18n("Use wrapper instead of pacman")
         enabled: terminals &&
                  wrappers &&
                  cfg_selectedWrapper
@@ -203,30 +194,30 @@ Kirigami.FormLayout {
 
     QQC2.CheckBox {
         id: upgradeFlags
-        text: "Additional flags"
+        text: i18n("Additional flags")
         enabled: terminals
     }
 
     QQC2.TextField {
         id: upgradeFlagsText
-        placeholderText: " only flags without -Syu"
+        placeholderText: i18n(" only flags, without -Syu")
         placeholderTextColor: "grey"
         visible: upgradeFlags.checked
     }
 
     RowLayout {
         QQC2.Label {
-            text: "Terminal:"
+            text: i18n("Terminal:")
         }
 
         QQC2.ComboBox {
             model: terminals
-            textRole: 'name'
+            textRole: "name"
             enabled: terminals
             implicitWidth: 150
 
             onCurrentIndexChanged: {
-                cfg_selectedTerminal = model[currentIndex]['value']
+                cfg_selectedTerminal = model[currentIndex]["value"]
             }
 
             Component.onCompleted: {
@@ -235,12 +226,13 @@ Kirigami.FormLayout {
                 }
 
                 if (!plasmoid.configuration.selectedTerminal) {
-                    plasmoid.configuration.selectedTerminal = model[0]['value']
+                    plasmoid.configuration.selectedTerminal = model[0]["value"]
                 }
             }
         }
 
         QQC2.Label {
+            id: notInst
             font.pixelSize: tip.font.pixelSize
             color: Kirigami.Theme.neutralTextColor
             text: "Not installed"
@@ -254,23 +246,23 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Kirigami.FormData.label: "Notifications:"
+        Kirigami.FormData.label: i18n("Notifications:")
 
         QQC2.CheckBox {
             id: notifications
-            text: "Popup"
+            text: i18n("Popup")
         }
     }
 
     QQC2.CheckBox {
         id: withSound
-        text: "Sound"
+        text: i18n("Sound")
         enabled: notifications.checked
     }
 
     QQC2.CheckBox {
         id: notifyStartup
-        text: "Notify on startup"
+        text: i18n("Notify on startup")
         enabled: notifications.checked
     }
 
@@ -285,7 +277,7 @@ Kirigami.FormLayout {
             horizontalAlignment: Text.AlignHCenter
             Layout.maximumWidth: 250
             font.pixelSize: tip.font.pixelSize
-            text: "To further configure, click the button below -> Application-specific settings -> Apdatifier"
+            text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
             wrapMode: Text.WordWrap
         }
     }
@@ -294,7 +286,7 @@ Kirigami.FormLayout {
         anchors.horizontalCenter: notifyTip.horizontalCenter
         enabled: notifications.checked
         icon.name: "settings-configure"
-        text: "Configure..."
+        text: i18n("Configure...")
         onClicked: KQuickAddons.KCMShell.openSystemSettings("kcm_notifications")
     }
 
@@ -303,9 +295,9 @@ Kirigami.FormLayout {
     }
 
     QQC2.CheckBox {
-        Kirigami.FormData.label: "Debug mode:"
+        Kirigami.FormData.label: i18n("Debug mode:")
         id: debugging
-        text: "Print debug info in console"
+        text: i18n("Print debug info in console")
     }
 
     Item {

@@ -40,6 +40,7 @@ function debugButton() {
     debug(shell[9])
     debug(shell[10])
     debug(shell[11])
+    debug(shell[12])
 }
 
 
@@ -51,7 +52,7 @@ function catchError(code, err, out) {
 
         if (err) error = err.trim().split('\n')[0]
         if (!err && out) error = out.trim().split('\n')[0]
-        if (!err && !out) error = "Unknown error. Try refresh package databases."
+        if (!err && !out) error = i18n("Unknown error. Try refresh package databases.")
 
         statusIco = 'error'
         statusMsg = `Exit code: ${code}`
@@ -64,7 +65,7 @@ function catchError(code, err, out) {
 
 function checkConnection() {
     statusIco = 'network-connect'
-    statusMsg = 'Checking connection...'
+    statusMsg = i18n("Checking connection...")
     connection.sendMessage({})
 }
 
@@ -142,6 +143,10 @@ function checkDependencies() {
 
 
 function defineCommands() {
+    let exec = i18n("Executed: ")
+    let init = i18n("Full system upgrade")
+    let done = i18n("Press Enter to close")
+
     shell[0] = packages[0] + " -c"
     shell[1] = searchMode[0] ? packages[1] + " -Qu" : searchMode[1] ? packages[2] : searchMode[2] ? plasmoid.configuration.selectedWrapper + " -Qu" : null
     shell[2] = packages[1] + " -Sl"
@@ -154,7 +159,7 @@ function defineCommands() {
     shell[8] = plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
     shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
     shell[10] = "trap '' SIGINT"
-    shell[11] = "echo Executed: " + shell[8] + "; echo"
+    shell[11] = "echo " + exec + shell[8] + "; echo"
 
     function defineTermArg(term) {
         switch (term.split('/').pop()) {
@@ -182,12 +187,12 @@ function downloadDatabase() {
     if (waitConnectionTimer(downloadDatabase)) return
 
     statusIco = 'download'
-    statusMsg = 'Download fresh package databases...'
+    statusMsg = i18n("Download fresh package databases...")
 
     sh.exec('pkexec ' + shell[5], (cmd, stdout, stderr, exitCode) => {
         if (exitCode == 127) {
             statusIco = count > 0 ? 'update-none' : ''
-            statusMsg = count > 0 ? count + ' updates total are pending' : ''
+            statusMsg = count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ''
             busy = false
             return
         } else {
@@ -213,8 +218,7 @@ function checkUpdates() {
     let command = shell[1]
 
     statusIco = 'package'
-    statusMsg = searchMode[2] ? 'Searching AUR for updates...'
-                              : 'Searching arch repositories for updates...'
+    statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
@@ -226,7 +230,7 @@ function checkUpdates() {
             infArch = stdout ? stdout : null
             command = searchMode[3] ? shell[3] : 'exit 0'
             statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
-            statusMsg = searchMode[3] ? 'Searching flathub for updates...' : statusMsg
+            statusMsg = searchMode[3] ? i18n("Searching flathub for updates...") : statusMsg
 
             sh.exec(command, (cmd, stdout, stderr, exitCode) => {
                 if (catchError(exitCode, stderr, stdout)) return
@@ -341,14 +345,14 @@ function setNotify(list) {
             lines += col[0] + '  -> ' + col[3] + '\n'
         }
 
-        notifyTitle = "+" + newCount + " new updates"
+        notifyTitle = i18np("+%1 new update", "+%1 new updates", newCount)
         notifyBody = lines
         notify.sendEvent()
     }
 
     if (prev === undefined && curr > 0 && plasmoid.configuration.notifyStartup) {
-        notifyTitle = "Updates available"
-        notifyBody = curr + " updates total are pending"
+        notifyTitle = i18np("Update available", "Updates available", curr)
+        notifyBody = i18np("One update is pending", "%1 updates total are pending", curr)
         notify.sendEvent()
     }
 }
@@ -394,7 +398,7 @@ function finalize(list) {
     count = list.length
     updList = list
     statusIco = 'update-none'
-    statusMsg = count + ' updates total are pending'
+    statusMsg = i18np("%1 update is pending", "%1 updates total are pending", count)
     busy = false
 }
 
@@ -437,7 +441,7 @@ function indicatorAnchors(pos) {
 
 function getFonts(defaultFont, fonts) {
     let arr = []
-    arr.push({'name': 'Default system font', 'value': defaultFont})
+    arr.push({'name': i18n("Default system font"), 'value': defaultFont})
     for (let i = 0; i < fonts.length; i++) {
         arr.push({'name': fonts[i], 'value': fonts[i]})
     }
@@ -456,9 +460,6 @@ function print(text) {
 }
 
 
-const init = "Full system upgrade"
-const done = "Press Enter to close"
-
 function upgradeSystem() {
     defineCommands()
 
@@ -469,7 +470,7 @@ function upgradeSystem() {
     timer.stop()
 
     statusIco = 'accept_time_event'
-    statusMsg = 'Full upgrade running...'
+    statusMsg = i18n("Full upgrade running...")
 
     sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return

@@ -42,23 +42,23 @@ Kirigami.FormLayout {
 
     Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "List View"
+        Kirigami.FormData.label: i18n("List View")
     }
 
     QQC2.CheckBox {
         id: fontCustom
-        text: "Custom font settings"
+        text: i18n("Custom font settings")
     }
 
     QQC2.ComboBox {
-        Kirigami.FormData.label: "Font family:"
+        Kirigami.FormData.label: i18n("Font family:")
         implicitWidth: 300
-        textRole: 'name'
+        textRole: "name"
         model: JS.getFonts(Kirigami.Theme.defaultFont, Qt.fontFamilies())
         enabled: fontCustom.checked
 
         onCurrentIndexChanged: {
-            cfg_selectedFont = model[currentIndex]['value']
+            cfg_selectedFont = model[currentIndex]["value"]
         }
 
         Component.onCompleted: {
@@ -68,14 +68,14 @@ Kirigami.FormLayout {
 
     QQC2.CheckBox {
         id: fontBold
-        text: "Bold"
+        text: i18n("Bold")
         enabled: fontCustom.checked
     }
 
     RowLayout {
         enabled: fontCustom.checked
 
-        Kirigami.FormData.label: "Size:"
+        Kirigami.FormData.label: i18n("Size:")
 
         QQC2.SpinBox {
             id: fontSize
@@ -94,7 +94,7 @@ Kirigami.FormLayout {
     RowLayout {
         enabled: fontCustom.checked
 
-        Kirigami.FormData.label: "Spacing:"
+        Kirigami.FormData.label: i18n("Spacing:")
 
         QQC2.SpinBox {
             id: fontHeight
@@ -116,13 +116,13 @@ Kirigami.FormLayout {
 
     QQC2.CheckBox {
         id: showHeaders
-        Kirigami.FormData.label: "Header:"
-        text: 'Show table headers'
+        Kirigami.FormData.label: i18n("Header:")
+        text: i18n("Show table headers")
     }
 
     QQC2.CheckBox {
         id: customHeaders
-        text: 'Apply custom font for headers'
+        text: i18n("Apply custom font for headers")
         enabled: showHeaders.checked && fontCustom.checked
     }
 
@@ -132,27 +132,27 @@ Kirigami.FormLayout {
 
     QQC2.CheckBox {
         id: showStatusBar
-        Kirigami.FormData.label: "Status bar: "
-        text: 'Show status bar'
+        Kirigami.FormData.label: i18n("Status bar:")
+        text: i18n("Show status bar")
     }
 
     QQC2.CheckBox {
         id: showCheckBtn
-        text: "Search updates"
+        text: i18n("Check updates")
         icon.name: "view-refresh-symbolic"
         enabled: showStatusBar.checked
     }
 
     QQC2.CheckBox {
         id: showUpgradeBtn
-        text: "Upgrade system"
+        text: i18n("Upgrade system")
         icon.name: "akonadiconsole"
         enabled: showStatusBar.checked
     }
 
     QQC2.CheckBox {
         id: showDownloadBtn
-        text: "Download database"
+        text: i18n("Download database")
         icon.name: "repository"
         enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
     }
@@ -172,19 +172,19 @@ Kirigami.FormLayout {
 
             QQC2.Label {
                 font.pixelSize: tip.font.pixelSize
-                text: "Avoid"
+                text: i18n("Avoid")
             }
 
             QQC2.Label {
                 font.pixelSize: tip.font.pixelSize
-                text: '<a href="https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported" style="color: ' + Kirigami.Theme.neutralTextColor + '">partial</a>'
+                text: "<a href=\"https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + i18n("partial") + "</a>"
                 textFormat: Text.RichText
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             QQC2.Label {
                 font.pixelSize: tip.font.pixelSize
-                text: "upgrades!"
+                text: i18n("upgrades!")
             }
         }
 
@@ -192,7 +192,7 @@ Kirigami.FormLayout {
             Layout.maximumWidth: 250
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: tip.font.pixelSize
-            text: "If you need to install a package after refreshing the package databases, use -Syu <i>package</i> (install package with full upgrade)."
+            text: i18n("If you need to install a package after refreshing the package databases, use -Syu <i>package</i> (install package with full upgrade).")
             wrapMode: Text.WordWrap
         }
     }
@@ -200,7 +200,7 @@ Kirigami.FormLayout {
     QQC2.Label {
         id: tip
         font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-        text: "Not needed for checkupdates"
+        text: i18n("Not needed for checkupdates")
         visible: showStatusBar.checked && plasmoid.configuration.checkupdates
     }
 
@@ -214,8 +214,8 @@ Kirigami.FormLayout {
 
     QQC2.RadioButton {
         id: sortByName
-        Kirigami.FormData.label: "Sort list by:"
-        text: 'Name'
+        Kirigami.FormData.label: i18n("Sorting:")
+        text: i18n("By name")
         checked: true
 
         Component.onCompleted: {
@@ -227,7 +227,7 @@ Kirigami.FormLayout {
 
     QQC2.RadioButton {
         id: sortByRepo
-        text: 'Repository'
+        text: i18n("By repository")
 
         Component.onCompleted: {
             checked = !plasmoid.configuration.sortByName
@@ -238,13 +238,13 @@ Kirigami.FormLayout {
 
     Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "Panel Icon View"
+        Kirigami.FormData.label: i18n("Panel Icon View")
     }
 
     QQC2.Button {
         id: iconButton
 
-        Kirigami.FormData.label: "Icon:"
+        Kirigami.FormData.label: i18n("Icon:")
 
         implicitWidth: iconFrame.width + PlasmaCore.Units.smallSpacing
         implicitHeight: implicitWidth
@@ -281,14 +281,14 @@ Kirigami.FormLayout {
             y: +parent.height
 
             QQC2.MenuItem {
-                text: "Default icon"
+                text: i18n("Default icon")
                 icon.name: "edit-clear"
                 enabled: cfg_selectedIcon !== JS.defaultIcon
                 onClicked: cfg_selectedIcon = JS.defaultIcon
             }
 
             QQC2.MenuItem {
-                text: "Select..."
+                text: i18n("Select...")
                 icon.name: "document-open-folder"
                 onClicked: iconsDialog.open()
             }
@@ -304,19 +304,19 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        Kirigami.FormData.label: "Indicator:"
+        Kirigami.FormData.label: i18n("Indicator:")
         spacing: PlasmaCore.Units.largeSpacing
 
         QQC2.RadioButton {
             id: indicatorCounter
-            text: "Counter"
+            text: i18n("Counter")
             checked: true
             QQC2.ButtonGroup.group: indicator
         }
 
         QQC2.CheckBox {
             id: indicatorScale
-            text: "Scale with icon"
+            text: i18n("Scale with icon")
             visible: indicatorCounter.checked
         }
     }
@@ -326,7 +326,7 @@ Kirigami.FormLayout {
 
         QQC2.RadioButton {
             id: indicatorCircle
-            text: "Circle"    
+            text: i18n("Circle")
             QQC2.ButtonGroup.group: indicator
         }
 
@@ -339,7 +339,7 @@ Kirigami.FormLayout {
             hoverEnabled: true
             visible: indicatorCircle.checked
 
-            QQC2.ToolTip.text: cfg_indicatorColor ? cfg_indicatorColor : "Default accent color from current color scheme"
+            QQC2.ToolTip.text: cfg_indicatorColor ? cfg_indicatorColor : i18n("Default accent color from current color scheme")
             QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
             QQC2.ToolTip.visible: colorButton.hovered
 
@@ -356,14 +356,14 @@ Kirigami.FormLayout {
                 y: +parent.height
 
                 QQC2.MenuItem {
-                    text: "Reset to default"
+                    text: i18n("Default color")
                     icon.name: "edit-clear"
                     enabled: cfg_indicatorColor && cfg_indicatorColor !== PlasmaCore.ColorScope.highlightColor
                     onClicked: cfg_indicatorColor = ""
                 }
 
                 QQC2.MenuItem {
-                    text: "Select..."
+                    text: i18n("Select...")
                     icon.name: "document-open-folder"
                     onClicked: colorDialog.open()
                 }
@@ -372,14 +372,13 @@ Kirigami.FormLayout {
             ColorDialog {
                 id: colorDialog
                 visible: false
-                title: "Select circle color"
+                title: i18n("Select circle color")
                 showAlphaChannel: true
                 color: cfg_indicatorColor
 
                 onCurrentColorChanged: {
                     if (visible && color != currentColor) {
                         cfg_indicatorColor = currentColor
-                        console.log(currentColor)
                     }
                 }
             }
@@ -388,7 +387,7 @@ Kirigami.FormLayout {
 
     QQC2.RadioButton {
         id: indicatorDisable
-        text: "Nothing"    
+        text: i18n("Nothing")
         QQC2.ButtonGroup.group: indicator
     }
 
@@ -404,7 +403,7 @@ Kirigami.FormLayout {
             QQC2.Label {
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignRight
-                text: "Top-Left    "
+                text: i18n("Top-Left    ")
                 font.pixelSize: tip.font.pixelSize
 
                 MouseArea {
@@ -418,7 +417,7 @@ Kirigami.FormLayout {
             QQC2.Label {
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignRight
-                text: "Bottom-Left    "
+                text: i18n("Bottom-Left    ")
                 font.pixelSize: tip.font.pixelSize
 
                 MouseArea {
@@ -502,7 +501,7 @@ Kirigami.FormLayout {
             QQC2.Label {
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
-                text: "Top-Right"
+                text: i18n("Top-Right")
                 font.pixelSize: tip.font.pixelSize
 
                 MouseArea {
@@ -516,7 +515,7 @@ Kirigami.FormLayout {
             QQC2.Label {
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
-                text: "Bottom-Right"
+                text: i18n("Bottom-Right")
                 font.pixelSize: tip.font.pixelSize
 
                 MouseArea {

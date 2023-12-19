@@ -27,7 +27,9 @@ Item {
             width: JS.indicatorFrameWidth()
             height: width
             opacity: 0
-            visible: !plasmoid.configuration.indicatorDisable && (!busy && count > 0 || error)
+            visible: !plasmoid.configuration.indicatorDisable
+                        && plasmoid.location !== PlasmaCore.Types.Floating
+                        && (!busy && count > 0 || error)
         }
 
         Rectangle {
@@ -65,7 +67,7 @@ Item {
 
                 anchors.centerIn: parent
 
-                text: count ? count : error ? '✖' : ' '
+                text: count ? count : error ? "✖" : " "
                 font.pixelSize: plasmoid.configuration.indicatorScale ? frame.width / 3 : PlasmaCore.Theme.smallestFont.pixelSize
                 font.bold: true
                 renderType: Text.NativeRendering

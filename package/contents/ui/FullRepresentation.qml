@@ -116,7 +116,7 @@ Item {
 
         TableViewColumn {
             id: packageCol
-            title: "Package"
+            title: i18n("Package")
             role: "name"
             width: table.width * 0.35
 
@@ -144,7 +144,7 @@ Item {
 
         TableViewColumn {
             id: repoCol
-            title: "Repository"
+            title: i18n("Repository")
             role: "repo"
             width: table.width * 0.15
 
@@ -171,7 +171,7 @@ Item {
         }
 
         TableViewColumn {
-            title: "Current"
+            title: i18n("Current")
             role: "curr"
             width: table.width * 0.25
 
@@ -198,7 +198,7 @@ Item {
         }
 
         TableViewColumn {
-            title: "New"
+            title: i18n("New")
             role: "newv"
             width: table.width * 0.25
 
@@ -251,21 +251,21 @@ Item {
             spacing: 0
 
             PlasmaComponents.ToolButton {
-                icon.name: 'repository'
+                icon.name: "repository"
                 visible: footer.visible
                             && !busy
                             && !plasmoid.configuration.checkupdates
                             && plasmoid.configuration.showDownloadBtn
 
                 PlasmaComponents.ToolTip {
-                    text: 'Download databases'
+                    text: i18n("Download database")
                 }
 
                 onClicked: JS.downloadDatabase()
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: 'akonadiconsole'
+                icon.name: "akonadiconsole"
                 visible: footer.visible
                             && !busy
                             && !error
@@ -274,29 +274,29 @@ Item {
                             && plasmoid.configuration.selectedTerminal
 
                 PlasmaComponents.ToolTip {
-                    text: 'Upgrade system'
+                    text: i18n("Upgrade system")
                 }
 
                 onClicked: JS.upgradeSystem()
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: 'view-refresh-symbolic'
+                icon.name: "view-refresh-symbolic"
                 visible: footer.visible && plasmoid.configuration.showCheckBtn && !upgrade
 
                 PlasmaComponents.ToolTip {
-                    text: 'Check updates'
+                    text: i18n("Check updates")
                 }
 
                 onClicked: JS.checkUpdates()
             }
 
             PlasmaComponents.ToolButton {
-                icon.name: 'exifinfo'
+                icon.name: "exifinfo"
                 visible: footer.visible && plasmoid.configuration.debugging
 
                 PlasmaComponents.ToolTip {
-                    text: 'Print debug info in console'
+                    text: i18n("Print debug info in console")
                 }
 
                 onClicked: JS.debugButton()
@@ -335,8 +335,8 @@ Item {
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {
             width: parent.width
-            iconName: count == 0 ? 'checkmark' : 'error'
-            text: count == 0 ? 'System updated' : error
+            iconName: count == 0 ? "checkmark" : "error"
+            text: count == 0 ? i18n("System updated") : error
         }
     }
 }
