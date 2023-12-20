@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-19 20:41+0300\n"
+"POT-Creation-Date: 2023-12-20 21:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,10 @@ msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
+msgstr ""
+
+#: ../contents/config/config.qml
+msgid "Support author"
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -324,6 +328,14 @@ msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml ../contents/ui/FullRepresentation.qml
 msgid "Print debug info in console"
+msgstr ""
+
+#: ../contents/ui/ConfigSupport.qml
+msgid "Thanks for using my widget! If you appreciate my work, you can support me by making a donation - click the Pling button in KDE Store, or you can buy me a coffee ;)"
+msgstr ""
+
+#: ../contents/ui/ConfigSupport.qml
+msgid "Visit %1"
 msgstr ""
 
 #: ../contents/ui/FullRepresentation.qml

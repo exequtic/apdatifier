@@ -13,4 +13,10 @@ ConfigModel {
          icon: "preferences-desktop-display-color"
          source: "ConfigAppearance.qml"
     }
+
+    ConfigCategory {
+         name: i18n("Support author")
+         icon: "system-help"
+         source: "ConfigSupport.qml"
+    }
 }
