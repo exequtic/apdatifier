@@ -19,7 +19,7 @@ Item {
 	Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 20
     Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 10
 
-	Plasmoid.status: count > 0 | busy | error
+	Plasmoid.status: count > 0 || busy || error
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
 
@@ -105,14 +105,6 @@ Item {
 	onSortingChanged: {
 		JS.refreshListModel()
 	}
-
-	// Triggers update check when search settings are modified.
-	// For some reason, it is also triggered when the Desktop Folder Settings (Wallpapers) window is opened
-	// Plasma bug?...
-
-	// onSearchModeChanged: {
-	// 	JS.checkUpdates()
-	// }
 
     function action_check() {
 		JS.checkUpdates()

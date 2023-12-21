@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-20 21:56+0300\n"
+"POT-Creation-Date: 2023-12-21 14:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,10 +29,6 @@ msgstr "Внешний вид"
 #: ../contents/config/config.qml
 msgid "Support author"
 msgstr "Поддержать"
-
-#: ../contents/tools/tools.js
-msgid "Unknown error. Try refresh package databases."
-msgstr "Неизвестная ошибка. Попробуйте обновить базы данных пакетов."
 
 #: ../contents/tools/tools.js
 msgid "Checking connection..."
@@ -188,7 +184,7 @@ msgstr "По репозиторию"
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Panel Icon View"
-msgstr "Внешний вид иконки"
+msgstr "Вид иконки"
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Icon:"
@@ -205,6 +201,10 @@ msgstr "Выбрать..."
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Indicator:"
 msgstr "Индикатор:"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Don't show"
+msgstr "Не показывать"
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Counter"
@@ -231,20 +231,16 @@ msgid "Select circle color"
 msgstr "Выбор цвета индикатора"
 
 #: ../contents/ui/ConfigAppearance.qml
-msgid "Nothing"
-msgstr "Ничего"
-
-#: ../contents/ui/ConfigAppearance.qml
-msgid "Top-Left    "
-msgstr "Сверху-слева    "
-
-#: ../contents/ui/ConfigAppearance.qml
-msgid "Bottom-Left    "
-msgstr "Снизу-слева    "
+msgid "Top-Left"
+msgstr "Сверху-слева"
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Top-Right"
 msgstr "Сверху-справа"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Bottom-Left"
+msgstr "Снизу-слева"
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Bottom-Right"

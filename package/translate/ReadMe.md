@@ -27,5 +27,5 @@ Or if you know how to make a pull request
 ## Status
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |      81 |       |
-| ru_RU    |   81/81 |  100% |
+| Template |      80 |       |
+| ru_RU    |   80/80 |  100% |

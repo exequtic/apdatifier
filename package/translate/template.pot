@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-20 21:56+0300\n"
+"POT-Creation-Date: 2023-12-21 14:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,10 +28,6 @@ msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Support author"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "Unknown error. Try refresh package databases."
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -207,6 +203,10 @@ msgid "Indicator:"
 msgstr ""
 
 #: ../contents/ui/ConfigAppearance.qml
+msgid "Don't show"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
 msgid "Counter"
 msgstr ""
 
@@ -231,19 +231,15 @@ msgid "Select circle color"
 msgstr ""
 
 #: ../contents/ui/ConfigAppearance.qml
-msgid "Nothing"
-msgstr ""
-
-#: ../contents/ui/ConfigAppearance.qml
-msgid "Top-Left    "
-msgstr ""
-
-#: ../contents/ui/ConfigAppearance.qml
-msgid "Bottom-Left    "
+msgid "Top-Left"
 msgstr ""
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "Top-Right"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Bottom-Left"
 msgstr ""
 
 #: ../contents/ui/ConfigAppearance.qml

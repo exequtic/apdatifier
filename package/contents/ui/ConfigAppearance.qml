@@ -1,5 +1,5 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.5 as QQC2
+import QtQuick 2.15
+import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.1
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -250,7 +250,7 @@ Kirigami.FormLayout {
         implicitHeight: implicitWidth
         hoverEnabled: true
 
-        QQC2.ToolTip.text: cfg_selectedIcon
+        QQC2.ToolTip.text: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
         QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
         QQC2.ToolTip.visible: iconButton.hovered
 
@@ -272,6 +272,10 @@ Kirigami.FormLayout {
         KQuickAddons.IconDialog {
             id: iconsDialog
             onIconNameChanged: cfg_selectedIcon = iconName || JS.defaultIcon
+        }
+
+        HoverHandler {
+            cursorShape: Qt.PointingHandCursor
         }
 
         onPressed: menu.opened ? menu.close() : menu.open()
@@ -299,230 +303,231 @@ Kirigami.FormLayout {
         Kirigami.FormData.isSection: true
     }
 
-    QQC2.ButtonGroup {
-        id: indicator
-    }
-
-    RowLayout {
+    QQC2.CheckBox {
         Kirigami.FormData.label: i18n("Indicator:")
-        spacing: PlasmaCore.Units.largeSpacing
-
-        QQC2.RadioButton {
-            id: indicatorCounter
-            text: i18n("Counter")
-            checked: true
-            QQC2.ButtonGroup.group: indicator
-        }
-
-        QQC2.CheckBox {
-            id: indicatorScale
-            text: i18n("Scale with icon")
-            visible: indicatorCounter.checked
-        }
+        id: indicatorDisable
+        text: i18n("Don't show")
     }
 
-    RowLayout {
-        spacing: PlasmaCore.Units.largeSpacing
+    ColumnLayout {
+        enabled: !indicatorDisable.checked
 
-        QQC2.RadioButton {
-            id: indicatorCircle
-            text: i18n("Circle")
-            QQC2.ButtonGroup.group: indicator
+        QQC2.ButtonGroup {
+            id: indicator
         }
 
-
-        QQC2.Button {
-            id: colorButton
-
-            implicitWidth: PlasmaCore.Units.largeSpacing - PlasmaCore.Units.smallSpacing
-            implicitHeight: implicitWidth
-            hoverEnabled: true
-            visible: indicatorCircle.checked
-
-            QQC2.ToolTip.text: cfg_indicatorColor ? cfg_indicatorColor : i18n("Default accent color from current color scheme")
-            QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
-            QQC2.ToolTip.visible: colorButton.hovered
-
-            Rectangle {
-                anchors.fill: parent
-                radius: colorButton.implicitWidth / 2
-                color: cfg_indicatorColor ? cfg_indicatorColor : PlasmaCore.ColorScope.highlightColor
+        RowLayout {
+            QQC2.RadioButton {
+                id: indicatorCounter
+                text: i18n("Counter")
+                checked: true
+                QQC2.ButtonGroup.group: indicator
             }
 
-            onPressed: menuColor.opened ? menuColor.close() : menuColor.open()
+            QQC2.CheckBox {
+                id: indicatorScale
+                Layout.leftMargin: Kirigami.Units.gridUnit
+                text: i18n("Scale with icon")
+                visible: indicatorCounter.checked
+            }
+        }
 
-            QQC2.Menu {
-                id: menuColor
-                y: +parent.height
-
-                QQC2.MenuItem {
-                    text: i18n("Default color")
-                    icon.name: "edit-clear"
-                    enabled: cfg_indicatorColor && cfg_indicatorColor !== PlasmaCore.ColorScope.highlightColor
-                    onClicked: cfg_indicatorColor = ""
-                }
-
-                QQC2.MenuItem {
-                    text: i18n("Select...")
-                    icon.name: "document-open-folder"
-                    onClicked: colorDialog.open()
-                }
+        RowLayout {
+            QQC2.RadioButton {
+                id: indicatorCircle
+                text: i18n("Circle")
+                QQC2.ButtonGroup.group: indicator
             }
 
-            ColorDialog {
-                id: colorDialog
-                visible: false
-                title: i18n("Select circle color")
-                showAlphaChannel: true
-                color: cfg_indicatorColor
+            QQC2.Button {
+                id: colorButton
 
-                onCurrentColorChanged: {
-                    if (visible && color != currentColor) {
-                        cfg_indicatorColor = currentColor
+                Layout.leftMargin: (indicatorCounter.width - indicatorCircle.width) + Kirigami.Units.gridUnit * 1.1
+
+                implicitWidth: Kirigami.Units.gridUnit
+                implicitHeight: implicitWidth
+                visible: indicatorCircle.checked
+
+                QQC2.ToolTip.text: cfg_indicatorColor ? cfg_indicatorColor : i18n("Default accent color from current color scheme")
+                QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                QQC2.ToolTip.visible: colorButton.hovered
+
+                Rectangle {
+                    anchors.fill: parent
+                    radius: colorButton.implicitWidth / 2
+                    color: cfg_indicatorColor ? cfg_indicatorColor : PlasmaCore.ColorScope.highlightColor
+                }
+
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
+
+                onPressed: menuColor.opened ? menuColor.close() : menuColor.open()
+
+                QQC2.Menu {
+                    id: menuColor
+                    y: +parent.height
+
+                    QQC2.MenuItem {
+                        text: i18n("Default color")
+                        icon.name: "edit-clear"
+                        enabled: cfg_indicatorColor && cfg_indicatorColor !== PlasmaCore.ColorScope.highlightColor
+                        onClicked: cfg_indicatorColor = ""
+                    }
+
+                    QQC2.MenuItem {
+                        text: i18n("Select...")
+                        icon.name: "document-open-folder"
+                        onClicked: colorDialog.open()
+                    }
+                }
+
+                ColorDialog {
+                    id: colorDialog
+                    visible: false
+                    title: i18n("Select circle color")
+                    showAlphaChannel: true
+                    color: cfg_indicatorColor
+
+                    onCurrentColorChanged: {
+                        if (visible && color != currentColor) {
+                            cfg_indicatorColor = currentColor
+                        }
                     }
                 }
             }
         }
-    }
-
-    QQC2.RadioButton {
-        id: indicatorDisable
-        text: i18n("Nothing")
-        QQC2.ButtonGroup.group: indicator
     }
 
     Item {
         Kirigami.FormData.isSection: true
     }
 
-    RowLayout {
-        visible: !indicatorDisable.checked
+    GridLayout {
         Layout.fillWidth: true
-
-        ColumnLayout {
-            QQC2.Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignRight
-                text: i18n("Top-Left    ")
-                font.pixelSize: tip.font.pixelSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        topleft.checked = true
-                    }
-                }
-            }
-
-            QQC2.Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignRight
-                text: i18n("Bottom-Left    ")
-                font.pixelSize: tip.font.pixelSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        bottomleft.checked = true
-                    }
-                }
-            }
-        }
+        enabled: !indicatorDisable.checked
+        columns: 4
+        rowSpacing: 0
+        columnSpacing: 0
 
         QQC2.ButtonGroup {
             id: position
         }
 
-        ColumnLayout {
-            QQC2.RadioButton {
-                id: topleft
-                QQC2.ButtonGroup.group: position
-                checked: cfg_indicatorTop && cfg_indicatorLeft
+        QQC2.Label {
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignRight
+            Layout.rightMargin: PlasmaCore.Units.smallSpacing * 2.5
+            text: i18n("Top-Left")
+            font.pixelSize: tip.font.pixelSize
 
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_indicatorTop = true
-                        cfg_indicatorBottom = false
-                        cfg_indicatorRight = false
-                        cfg_indicatorLeft = true
-                    }
-                }
-            }
-
-            QQC2.RadioButton {
-                id: bottomleft
-                QQC2.ButtonGroup.group: position
-                checked: cfg_indicatorBottom && cfg_indicatorLeft
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_indicatorTop = false
-                        cfg_indicatorBottom = true
-                        cfg_indicatorRight = false
-                        cfg_indicatorLeft = true
-                    }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    topleft.checked = true
                 }
             }
         }
 
-        ColumnLayout {
-            QQC2.RadioButton {
-                id: topright
-                QQC2.ButtonGroup.group: position
-                checked: cfg_indicatorTop && cfg_indicatorRight
+        QQC2.RadioButton {
+            id: topleft
+            QQC2.ButtonGroup.group: position
+            checked: cfg_indicatorTop && cfg_indicatorLeft
 
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_indicatorTop = true
-                        cfg_indicatorBottom = false
-                        cfg_indicatorRight = true
-                        cfg_indicatorLeft = false
-                    }
-                }
-            }
-
-            QQC2.RadioButton {
-                id: bottomright
-                QQC2.ButtonGroup.group: position
-                checked: cfg_indicatorBottom && cfg_indicatorRight
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_indicatorTop = false
-                        cfg_indicatorBottom = true
-                        cfg_indicatorRight = true
-                        cfg_indicatorLeft = false
-                    }
+            onCheckedChanged: {
+                if (checked) {
+                    cfg_indicatorTop = true
+                    cfg_indicatorBottom = false
+                    cfg_indicatorRight = false
+                    cfg_indicatorLeft = true
                 }
             }
         }
 
-        ColumnLayout {
-            QQC2.Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Top-Right")
-                font.pixelSize: tip.font.pixelSize
+        QQC2.RadioButton {
+            id: topright
+            QQC2.ButtonGroup.group: position
+            checked: cfg_indicatorTop && cfg_indicatorRight
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        topright.checked = true
-                    }
+            onCheckedChanged: {
+                if (checked) {
+                    cfg_indicatorTop = true
+                    cfg_indicatorBottom = false
+                    cfg_indicatorRight = true
+                    cfg_indicatorLeft = false
                 }
             }
+        }
 
-            QQC2.Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Bottom-Right")
-                font.pixelSize: tip.font.pixelSize
+        QQC2.Label {
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignLeft
+            text: i18n("Top-Right")
+            font.pixelSize: tip.font.pixelSize
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        bottomright.checked = true
-                    }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    topright.checked = true
+                }
+            }
+        }
+
+        QQC2.Label {
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignRight
+            Layout.rightMargin: PlasmaCore.Units.smallSpacing * 2.5
+            text: i18n("Bottom-Left")
+            font.pixelSize: tip.font.pixelSize
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    bottomleft.checked = true
+                }
+            }
+        }
+
+        QQC2.RadioButton {
+            id: bottomleft
+            QQC2.ButtonGroup.group: position
+            checked: cfg_indicatorBottom && cfg_indicatorLeft
+
+            onCheckedChanged: {
+                if (checked) {
+                    cfg_indicatorTop = false
+                    cfg_indicatorBottom = true
+                    cfg_indicatorRight = false
+                    cfg_indicatorLeft = true
+                }
+            }
+        }
+
+        QQC2.RadioButton {
+            id: bottomright
+            QQC2.ButtonGroup.group: position
+            checked: cfg_indicatorBottom && cfg_indicatorRight
+
+            onCheckedChanged: {
+                if (checked) {
+                    cfg_indicatorTop = false
+                    cfg_indicatorBottom = true
+                    cfg_indicatorRight = true
+                    cfg_indicatorLeft = false
+                }
+            }
+        }
+
+        QQC2.Label {
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignLeft
+            text: i18n("Bottom-Right")
+            font.pixelSize: tip.font.pixelSize
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    bottomright.checked = true
                 }
             }
         }

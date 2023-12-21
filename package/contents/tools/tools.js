@@ -52,7 +52,7 @@ function catchError(code, err, out) {
 
         if (err) error = err.trim().split('\n')[0]
         if (!err && out) error = out.trim().split('\n')[0]
-        if (!err && !out) error = i18n("Unknown error. Try refresh package databases.")
+        if (!err && !out) return false
 
         statusIco = 'error'
         statusMsg = `Exit code: ${code}`
@@ -427,8 +427,8 @@ function setIcon(icon) {
 }
 
 
-function indicatorFrameWidth() {
-    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.80 : 0
+function indicatorFrameSize() {
+    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.90 : 0
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
            plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
