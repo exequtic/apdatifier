@@ -40,7 +40,6 @@ function debugButton() {
     debug(shell[9])
     debug(shell[10])
     debug(shell[11])
-    debug(shell[12])
 }
 
 
@@ -99,8 +98,8 @@ function sendCode(code) {
 
 function runScript() {
     let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
-    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/_install.sh"
-    let command = script + " " + homeDir + " " + applet
+    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/tools.sh"
+    let command = `${script} install`
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
