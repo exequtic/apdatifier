@@ -1,6 +1,6 @@
 let timestamp
 function debug(msg) {
-    if (!debugging) return
+    if (!plasmoid.configuration.debugging) return
 
     const date = new Date()
     const hms = date.toLocaleTimeString().slice(0, -4)
@@ -25,21 +25,20 @@ function debug(msg) {
 
 function debugButton() {
     defineCommands()
-    debug(plasmoid.configuration.packages)
-    debug(JSON.stringify(plasmoid.configuration.wrappers))
-    debug(JSON.stringify(plasmoid.configuration.terminals))
-    debug(shell[0])
-    debug(shell[1])
-    debug(shell[2])
-    debug(shell[3])
-    debug(shell[4])
-    debug(shell[5])
-    debug(shell[6])
-    debug(shell[7])
-    debug(shell[8])
-    debug(shell[9])
-    debug(shell[10])
-    debug(shell[11])
+    debug("")
+    debug("found packages: " + plasmoid.configuration.packages)
+    debug("found wrappers: " + JSON.stringify(plasmoid.configuration.wrappers))
+    debug("found terminals: " + JSON.stringify(plasmoid.configuration.terminals))
+    debug("shell command: " + shell[0])
+    debug("check command: " + shell[1])
+    debug("pacman list: " + shell[2])
+    debug("flatpak check: " + shell[3])
+    debug("flatpak list: " + shell[4])
+    debug("download database: " + shell[5])
+    debug("terminal path: " + shell[6])
+    debug("terminal flag: " + shell[7])
+    debug("upgrade command: " + shell[8])
+    debug("flatpak update: " + shell[9])
 }
 
 
@@ -99,11 +98,10 @@ function sendCode(code) {
 function runScript() {
     let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
     let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/tools.sh"
-    let command = `${script} install`
+    let command = `${script} copy`
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
-
         checkDependencies()
     })
 }
@@ -134,8 +132,6 @@ function checkDependencies() {
         plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
         plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
 
-        if (stop()) return
-
         timer.triggered()
     })
 }
@@ -147,7 +143,10 @@ function defineCommands() {
     let done = i18n("Press Enter to close")
 
     shell[0] = packages[0] + " -c"
-    shell[1] = searchMode[0] ? packages[1] + " -Qu" : searchMode[1] ? packages[2] : searchMode[2] ? plasmoid.configuration.selectedWrapper + " -Qu" : null
+    shell[1] = packages[1] && searchMode[0] ? packages[1] + " -Qu" :
+               searchMode[1] ? packages[2] :
+               searchMode[2] ? plasmoid.configuration.selectedWrapper + " -Qu"
+               : null
     shell[2] = packages[1] + " -Sl"
     shell[3] = packages[3] + " remote-ls --app --updates"
     shell[4] = packages[3] + " list --app"
@@ -155,10 +154,10 @@ function defineCommands() {
     shell[6] = plasmoid.configuration.selectedTerminal
     shell[7] = defineTermArg(shell[6])
     shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
-    shell[8] = plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
+    shell[8] = !packages[1] ? "echo" : plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
     shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
     shell[10] = "trap '' SIGINT"
-    shell[11] = "echo " + exec + shell[8] + "; echo"
+    shell[11] = packages[1] ? "echo " + exec + shell[8] + "; echo" : "echo " + exec + shell[9] + "; echo"
 
     function defineTermArg(term) {
         switch (term.split('/').pop()) {
@@ -170,7 +169,7 @@ function defineCommands() {
     }
 
     if (shell[7]) {
-        shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
+        shell[12] = `${shell[6]} --title kitty ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
     } else {
         let QDBUS = "qdbus org.kde.yakuake /yakuake/sessions"
         shell[12] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[8]}; ${shell[9]}"`
@@ -178,39 +177,53 @@ function defineCommands() {
 }
 
 
-function stop() {
-    if (!packages[0]) {
-        error = "Not Arch Linux!"
-        return true
-    }
-    return false
+function upgradeSystem() {
+    defineCommands()
+
+    if (!shell[6]) return
+
+    busy = true
+    upgrade = true
+    timer.stop()
+
+    statusIco = 'accept_time_event'
+    statusMsg = i18n("Full upgrade running...")
+
+    sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
+        if (catchError(exitCode, stderr, stdout)) return
+
+        upgrade = false
+        timer.triggered()
+        timer.start()        
+    })
 }
 
 
 function downloadDatabase() {
-    if (stop()) return
     if (waitConnectionTimer(downloadDatabase)) return
+
+    timer.stop()
 
     statusIco = 'download'
     statusMsg = i18n("Download fresh package databases...")
 
     sh.exec('pkexec ' + shell[5], (cmd, stdout, stderr, exitCode) => {
         if (exitCode == 127) {
-            statusIco = count > 0 ? 'update-none' : ''
-            statusMsg = count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ''
+            statusIco = count > 0 ? "update-none" : ""
+            statusMsg = count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ""
             busy = false
             return
         } else {
             if (catchError(exitCode, stderr, stdout)) return
         }
 
-        checkUpdates()
+        timer.triggered()
+        timer.start()  
     })
 }
 
 
 function checkUpdates() {
-    if (stop()) return
     if (waitConnectionTimer(checkUpdates)) return
 
     defineCommands()
@@ -220,43 +233,90 @@ function checkUpdates() {
     let infArch
     let updFlpk
     let infFlpk
-    let command = shell[1]
 
-    statusIco = 'package'
-    statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
+    shell[1] ? archCheck() : searchMode[3] ? flpkCheck() : merge()
 
-    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-        if (catchError(exitCode, stderr, stdout)) return
-        updArch = stdout ? stdout : null
-        command = updArch ? shell[2] : ''
+    function archCheck() {
+        statusIco = "package"
+        statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
 
-        sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+        sh.exec(shell[1], (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr, stdout)) return
+            updArch = stdout ? stdout : null
+            updArch ? archList() : searchMode[3] ? flpkCheck() : merge()
+    })}
+
+    function archList() {
+        sh.exec(shell[2], (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             infArch = stdout ? stdout : null
-            command = searchMode[3] ? shell[3] : 'exit 0'
-            statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
-            statusMsg = searchMode[3] ? i18n("Searching flathub for updates...") : statusMsg
+            searchMode[3] ? flpkCheck() : merge()
+    })}
 
-            sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-                if (catchError(exitCode, stderr, stdout)) return
-                updFlpk = stdout ? stdout : null
-                command = updFlpk ? shell[4] : ''
+    function flpkCheck() {
+        statusIco = "flatpak-discover"
+        statusMsg = i18n("Searching flathub for updates...")
 
-                sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-                    if (catchError(exitCode, stderr, stdout)) return
-                    infFlpk = stdout ? stdout : null
+        sh.exec(shell[3], (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr, stdout)) return
+            updFlpk = stdout ? stdout : null
+            updFlpk ? flpkList() : merge()
+    })}
 
-                    updArch = updArch ? makeArchList(updArch, infArch) : null
-                    updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
+    function flpkList() {
+        sh.exec(shell[4], (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr, stdout)) return
+            infFlpk = stdout ? stdout : null
+            merge()
+    })}
 
-                    updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
-                    !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
-                    !updArch && !updFlpk ? finalize() :
-                    finalize(sortList(formatList(updArch.concat(updFlpk))))
-                })
-            })
-        })
-    })
+    function merge() {
+        updArch = updArch ? makeArchList(updArch, infArch) : null
+        updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
+    
+        updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
+        !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
+        !updArch && !updFlpk ? finalize() :
+        finalize(sortList(formatList(updArch.concat(updFlpk))))
+    }
+
+    // let command = shell[1]
+
+    // statusIco = 'package'
+    // statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
+
+    // sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    //     if (catchError(exitCode, stderr, stdout)) return
+    //     updArch = stdout ? stdout : null
+    //     command = updArch ? shell[2] : ''
+
+    //     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    //         if (catchError(exitCode, stderr, stdout)) return
+    //         infArch = stdout ? stdout : null
+    //         command = searchMode[3] ? shell[3] : 'exit 0'
+    //         statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
+    //         statusMsg = searchMode[3] ? i18n("Searching flathub for updates...") : statusMsg
+
+    //         sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    //             if (catchError(exitCode, stderr, stdout)) return
+    //             updFlpk = stdout ? stdout : null
+    //             command = updFlpk ? shell[4] : ''
+
+    //             sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    //                 if (catchError(exitCode, stderr, stdout)) return
+    //                 infFlpk = stdout ? stdout : null
+
+    //                 updArch = updArch ? makeArchList(updArch, infArch) : null
+    //                 updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
+
+    //                 updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
+    //                 !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
+    //                 !updArch && !updFlpk ? finalize() :
+    //                 finalize(sortList(formatList(updArch.concat(updFlpk))))
+    //             })
+    //         })
+    //     })
+    // })
 }
 
 
@@ -427,11 +487,12 @@ function setIcon(icon) {
 
 
 function indicatorFrameSize() {
-    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.90 : 0
+    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.85 : 0
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
            plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
 }
+
 
 function indicatorAnchors(pos) {
     switch (pos) {
@@ -462,26 +523,4 @@ function print(text) {
     return `echo; echo ${ooo}
             echo ${oo} ${text} ${o}
             echo ${ooo}; echo`
-}
-
-
-function upgradeSystem() {
-    defineCommands()
-
-    if (!shell[6]) return
-
-    busy = true
-    upgrade = true
-    timer.stop()
-
-    statusIco = 'accept_time_event'
-    statusMsg = i18n("Full upgrade running...")
-
-    sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
-        if (catchError(exitCode, stderr, stdout)) return
-
-        upgrade = false
-        timer.triggered()
-        timer.start()        
-    })
 }

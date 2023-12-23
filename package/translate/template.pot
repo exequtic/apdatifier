@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-21 14:43+0300\n"
+"POT-Creation-Date: 2023-12-23 14:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,10 @@ msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Press Enter to close"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Full upgrade running..."
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -88,10 +92,6 @@ msgstr[1] ""
 
 #: ../contents/tools/tools.js
 msgid "Default system font"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "Full upgrade running..."
 msgstr ""
 
 #: ../contents/ui/ConfigAppearance.qml
@@ -259,15 +259,15 @@ msgid "Search:"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
+msgid "Enable Flatpak support"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
 msgid "pacman wrapper"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid "found: %1"
-msgstr ""
-
-#: ../contents/ui/ConfigGeneral.qml
-msgid "Enable Flatpak support"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
@@ -288,10 +288,6 @@ msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid " only flags, without -Syu"
-msgstr ""
-
-#: ../contents/ui/ConfigGeneral.qml
-msgid "Terminal:"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
@@ -327,7 +323,7 @@ msgid "Print debug info in console"
 msgstr ""
 
 #: ../contents/ui/ConfigSupport.qml
-msgid "Thanks for using my widget! If you appreciate my work, you can support me by making a donation - click the Pling button in KDE Store, or you can buy me a coffee ;)"
+msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
 
 #: ../contents/ui/ConfigSupport.qml

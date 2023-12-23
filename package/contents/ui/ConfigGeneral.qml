@@ -1,8 +1,8 @@
-import QtQuick 2.6
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5 as QQC2
-import QtQuick.Layouts 1.1
+import org.kde.kirigami 2.15 as Kirigami
 import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
-import org.kde.kirigami 2.5 as Kirigami
 import "../tools/tools.js" as JS
 
 Kirigami.FormLayout {
@@ -28,8 +28,7 @@ Kirigami.FormLayout {
     property alias cfg_notifyStartup: notifyStartup.checked
 
     property alias cfg_debugging: debugging.checked
-    
-    property var dependencies: plasmoid.configuration.dependencies
+
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
@@ -62,6 +61,32 @@ Kirigami.FormLayout {
     RowLayout {
         Kirigami.FormData.label: i18n("Search:")
 
+        spacing: 10
+
+        QQC2.CheckBox {
+            id: flatpak
+            text: i18n("Enable Flatpak support")
+            enabled: packages[3]
+
+            Component.onCompleted: {
+                if (checked && !packages[3]) {
+                    checked = false
+                    plasmoid.configuration.flatpak = checked
+                }
+            }
+        }
+
+        QQC2.Label {
+            font.pixelSize: tip.font.pixelSize
+            text: "<a href=\"https://flathub.org/setup\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
+            textFormat: Text.RichText
+            onLinkActivated: Qt.openUrlExternally(link)
+            enabled: visible
+            visible: !packages[3]
+        }
+    }
+
+    RowLayout {
         QQC2.ButtonGroup { id: searchGroup }
 
         QQC2.RadioButton {
@@ -70,6 +95,8 @@ Kirigami.FormLayout {
             checked: true
             QQC2.ButtonGroup.group: searchGroup
         }
+
+        visible: packages[1]
     }
 
     RowLayout {
@@ -78,7 +105,7 @@ Kirigami.FormLayout {
         QQC2.RadioButton {
             id: checkupdates
             text: "checkupdates"
-            enabled: !packages[2] ? false : true
+            enabled: packages[2]
             QQC2.ButtonGroup.group: searchGroup
         }
 
@@ -91,6 +118,8 @@ Kirigami.FormLayout {
             enabled: visible
             visible: !packages[2]
         }
+
+        visible: packages[1]
     }
 
     RowLayout {
@@ -119,6 +148,8 @@ Kirigami.FormLayout {
             visible: wrapper.checked && wrappers.length == 1
             enabled: visible
         }
+
+        visible: packages[1]
     }
 
     QQC2.ComboBox {
@@ -139,33 +170,9 @@ Kirigami.FormLayout {
         }
     }
 
-    RowLayout {
-        spacing: 10
-        QQC2.CheckBox {
-            id: flatpak
-            text: i18n("Enable Flatpak support")
-            enabled: !packages[3] ? false : true
-
-            Component.onCompleted: {
-                if (checked && !packages[3]) {
-                    checked = false
-                    plasmoid.configuration.flatpak = checked
-                }
-            }
-        }
-
-        QQC2.Label {
-            font.pixelSize: tip.font.pixelSize
-            text: "<a href=\"https://flathub.org/setup/Arch\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-            textFormat: Text.RichText
-            onLinkActivated: Qt.openUrlExternally(link)
-            enabled: visible
-            visible: !packages[3]
-        }
-    }
-
     Kirigami.Separator {
         Layout.fillWidth: true
+        visible: packages[1]
     }
 
     RowLayout {
@@ -176,39 +183,16 @@ Kirigami.FormLayout {
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
         }
+
+        visible: packages[1]
     }
 
     Item {
         Kirigami.FormData.isSection: true
     }
 
-    QQC2.CheckBox {
-        Kirigami.FormData.label: i18n("Upgrade:")
-
-        id: wrapperUpgrade
-        text: i18n("Use wrapper instead of pacman")
-        enabled: terminals &&
-                 wrappers &&
-                 cfg_selectedWrapper
-    }
-
-    QQC2.CheckBox {
-        id: upgradeFlags
-        text: i18n("Additional flags")
-        enabled: terminals
-    }
-
-    QQC2.TextField {
-        id: upgradeFlagsText
-        placeholderText: i18n(" only flags, without -Syu")
-        placeholderTextColor: "grey"
-        visible: upgradeFlags.checked
-    }
-
     RowLayout {
-        QQC2.Label {
-            text: i18n("Terminal:")
-        }
+        Kirigami.FormData.label: i18n("Upgrade:")
 
         QQC2.ComboBox {
             model: terminals
@@ -239,6 +223,29 @@ Kirigami.FormLayout {
             enabled: visible
             visible: !terminals
         }
+    }
+
+    QQC2.CheckBox {
+        id: wrapperUpgrade
+        text: i18n("Use wrapper instead of pacman")
+        enabled: terminals &&
+                 wrappers &&
+                 cfg_selectedWrapper
+        visible: packages[1]
+    }
+
+    QQC2.CheckBox {
+        id: upgradeFlags
+        text: i18n("Additional flags")
+        enabled: terminals
+        visible: packages[1]
+    }
+
+    QQC2.TextField {
+        id: upgradeFlagsText
+        placeholderText: i18n(" only flags, without -Syu")
+        placeholderTextColor: "grey"
+        visible: packages[1] && upgradeFlags.checked
     }
 
     Item {

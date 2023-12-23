@@ -25,7 +25,7 @@
 			<default></default>
 		</entry>
 		<entry name="flatpak" type="bool">
-			<default>true</default>
+			<default>false</default>
 		</entry>
 		<entry name="wrapperUpgrade" type="bool">
 			<default>false</default>
@@ -88,7 +88,7 @@
 			<default>true</default>
 		</entry>
 		<entry name="showDownloadBtn" type="bool">
-			<default>true</default>
+			<default>false</default>
 		</entry>
 		<entry name="sortByName" type="bool">
 			<default>true</default>

@@ -1,4 +1,6 @@
-import QtQuick 2.5
+// full version: https://github.com/Zren/plasma-applet-lib/blob/master/package/contents/ui/lib/ExecUtil.qml
+
+import QtQuick 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 PlasmaCore.DataSource {
@@ -21,6 +23,8 @@ PlasmaCore.DataSource {
 	}
 
 	signal exited(string cmd, string stdout, string stderr, int exitCode)
+
+	property var listeners: ({})
 
 	function exec(cmd, callback) {
 		listeners[cmd] = execCallback.bind(executable, callback)

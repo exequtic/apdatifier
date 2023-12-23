@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-21 14:43+0300\n"
+"POT-Creation-Date: 2023-12-23 14:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,10 @@ msgstr "Полное обновление системы"
 #: ../contents/tools/tools.js
 msgid "Press Enter to close"
 msgstr "Нажмите Enter чтобы закрыть"
+
+#: ../contents/tools/tools.js
+msgid "Full upgrade running..."
+msgstr "Полное обновление запущено..."
 
 #: ../contents/tools/tools.js
 msgid "Download fresh package databases..."
@@ -89,10 +93,6 @@ msgstr[1] "%1 обновлений доступно"
 #: ../contents/tools/tools.js
 msgid "Default system font"
 msgstr "Системный шрифт"
-
-#: ../contents/tools/tools.js
-msgid "Full upgrade running..."
-msgstr "Полное обновление запущено..."
 
 #: ../contents/ui/ConfigAppearance.qml
 msgid "List View"
@@ -259,16 +259,16 @@ msgid "Search:"
 msgstr "Поиск:"
 
 #: ../contents/ui/ConfigGeneral.qml
+msgid "Enable Flatpak support"
+msgstr "Включить поддержку Flatpak"
+
+#: ../contents/ui/ConfigGeneral.qml
 msgid "pacman wrapper"
 msgstr "обертка pacman"
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid "found: %1"
 msgstr "найден: %1"
-
-#: ../contents/ui/ConfigGeneral.qml
-msgid "Enable Flatpak support"
-msgstr "Включить поддержку Flatpak"
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid "If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates."
@@ -289,10 +289,6 @@ msgstr "Дополнительные флаги"
 #: ../contents/ui/ConfigGeneral.qml
 msgid " only flags, without -Syu"
 msgstr " только флаги, без -Syu"
-
-#: ../contents/ui/ConfigGeneral.qml
-msgid "Terminal:"
-msgstr "Терминал:"
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid "Notifications:"
@@ -327,8 +323,8 @@ msgid "Print debug info in console"
 msgstr "Отображать debug информацию"
 
 #: ../contents/ui/ConfigSupport.qml
-msgid "Thanks for using my widget! If you appreciate my work, you can support me by making a donation - click the Pling button in KDE Store, or you can buy me a coffee ;)"
-msgstr "Спасибо, что пользуетесь моим виджетом! Если он понравился, Вы можете поддержать меня, нажав кнопку Pling на сайте KDE Store, или купить мне кофе ;)"
+msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
+msgstr "Спасибо, что пользуетесь моим виджетом! Если он понравился, Вы можете поддержать меня, нажав кнопку Star на GitHub, или купив мне кофе ;)"
 
 #: ../contents/ui/ConfigSupport.qml
 msgid "Visit %1"

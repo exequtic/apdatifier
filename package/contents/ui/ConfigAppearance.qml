@@ -1,9 +1,9 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15 as QQC2
-import QtQuick.Layouts 1.1
-import org.kde.kirigami 2.5 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.5 as QQC2
+import org.kde.kirigami 2.15 as Kirigami
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
 import "../tools/tools.js" as JS
 
@@ -73,8 +73,6 @@ Kirigami.FormLayout {
     }
 
     RowLayout {
-        enabled: fontCustom.checked
-
         Kirigami.FormData.label: i18n("Size:")
 
         QQC2.SpinBox {
@@ -89,11 +87,11 @@ Kirigami.FormLayout {
         QQC2.Label {
             text: "px"
         }
+
+        enabled: fontCustom.checked
     }
 
     RowLayout {
-        enabled: fontCustom.checked
-
         Kirigami.FormData.label: i18n("Spacing:")
 
         QQC2.SpinBox {
@@ -108,6 +106,8 @@ Kirigami.FormLayout {
         QQC2.Label {
             text: "px"
         }
+
+        enabled: fontCustom.checked
     }
 
     Item {
@@ -155,6 +155,7 @@ Kirigami.FormLayout {
         text: i18n("Download database")
         icon.name: "repository"
         enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
+        visible: plasmoid.configuration.packages[1]
     }
 
     Kirigami.Separator {
@@ -352,8 +353,7 @@ Kirigami.FormLayout {
                 QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
                 QQC2.ToolTip.visible: colorButton.hovered
 
-                Rectangle {
-                    anchors.fill: parent
+                background: Rectangle {
                     radius: colorButton.implicitWidth / 2
                     color: cfg_indicatorColor ? cfg_indicatorColor : PlasmaCore.ColorScope.highlightColor
                 }

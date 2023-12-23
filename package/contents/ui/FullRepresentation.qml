@@ -1,10 +1,10 @@
-import QtQuick 2.6
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.4
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 1.4 as QQC1
+import org.kde.kirigami 2.15 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.kirigami 2.20 as Kirigami
 import "../tools/tools.js" as JS
 
 Item {
@@ -21,7 +21,7 @@ Item {
                                 ? Math.round(plasmoid.configuration.fontSize * 1.5 + plasmoid.configuration.fontHeight)
                                 : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.5)
 
-    TableView {
+    QQC1.TableView {
         id: table
         model: listModel
 
@@ -32,7 +32,6 @@ Item {
 
         visible: !busy && !error && count > 0
 
-        // headerVisible: false
         backgroundVisible: false
         horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
@@ -114,7 +113,7 @@ Item {
             height: fontHeight
         }
 
-        TableViewColumn {
+        QQC1.TableViewColumn {
             id: packageCol
             title: i18n("Package")
             role: "name"
@@ -142,7 +141,7 @@ Item {
             }
         }
 
-        TableViewColumn {
+        QQC1.TableViewColumn {
             id: repoCol
             title: i18n("Repository")
             role: "repo"
@@ -170,7 +169,7 @@ Item {
             }
         }
 
-        TableViewColumn {
+        QQC1.TableViewColumn {
             title: i18n("Current")
             role: "curr"
             width: table.width * 0.25
@@ -197,7 +196,7 @@ Item {
             }
         }
 
-        TableViewColumn {
+        QQC1.TableViewColumn {
             title: i18n("New")
             role: "newv"
             width: table.width * 0.25
@@ -269,7 +268,7 @@ Item {
                 visible: footer.visible
                             && !busy
                             && !error
-                            && count > 1
+                            && count > 0
                             && plasmoid.configuration.showUpgradeBtn
                             && plasmoid.configuration.selectedTerminal
 
@@ -319,7 +318,7 @@ Item {
         enabled: busy
         visible: enabled
         asynchronous: true
-        sourceComponent: BusyIndicator {
+        sourceComponent: QQC1.BusyIndicator {
             width: 128
             height: 128
             opacity: 0.3

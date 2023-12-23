@@ -1,6 +1,6 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.5 as QQC2
 import org.kde.kirigami 2.15 as Kirigami
 
 Kirigami.Page {
@@ -20,7 +20,7 @@ Kirigami.Page {
             QQC2.Label {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
-                text: i18n("Thanks for using my widget! If you appreciate my work, you can support me by making a donation - click the Pling button in KDE Store, or you can buy me a coffee ;)")
+                text: i18n("Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)")
                 wrapMode: Text.WordWrap
             }
         }
@@ -28,17 +28,17 @@ Kirigami.Page {
 
     Kirigami.UrlButton {
         id: link
-        url: "https://example.com"
+        url: "https://buymeacoffee.com/evgk"
         visible: false
     }
 
     Image {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: Kirigami.Units.gridUnit
+        // anchors.verticalCenterOffset: Kirigami.Units.gridUnit
         width: Math.min (parent.width, Kirigami.Units.gridUnit * 15)
         fillMode: Image.PreserveAspectFit
         mipmap: true
-        source: "../icons/apdatifier-plasmoid.svg"
+        source: "../assets/apdatifier-support.png"
 
         HoverHandler {
             id: hoverhandler
