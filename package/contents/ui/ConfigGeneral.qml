@@ -115,7 +115,7 @@ Kirigami.FormLayout {
 
             QQC2.CheckBox {
                 id: checkupdatesAUR
-                text: "With AUR"
+                text: "AUR"
                 enabled: packages[2] && wrappers
                 visible: enabled && checkupdates.checked
             }
