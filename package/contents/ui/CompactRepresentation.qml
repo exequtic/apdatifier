@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 1.4 as QQC1
+import QtQuick.Controls 2.5 as QQC2
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
@@ -11,12 +11,6 @@ Item {
         anchors.fill: parent
         source: JS.setIcon(plasmoid.icon)
         active: mouseArea.containsMouse
-
-        QQC1.BusyIndicator {
-            anchors.fill: icon
-            running: busy
-            visible: running
-        }
 
         Rectangle {
             id: frame
@@ -59,7 +53,7 @@ Item {
             opacity: 0.9
             visible: frame.visible && plasmoid.configuration.indicatorCounter
 
-            QQC1.Label {
+            QQC2.Label {
                 id: counter
                 anchors.centerIn: parent
                 text: count ? count : error ? "✖" : " "

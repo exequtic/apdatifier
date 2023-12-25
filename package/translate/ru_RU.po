@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-23 14:21+0300\n"
+"POT-Creation-Date: 2023-12-24 20:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,8 +31,8 @@ msgid "Support author"
 msgstr "Поддержать"
 
 #: ../contents/tools/tools.js
-msgid "Checking connection..."
-msgstr "Проверка соединения..."
+msgid "Waiting for internet connection..."
+msgstr "Ожидание подключения к интернету..."
 
 #: ../contents/tools/tools.js
 msgid "Executed: "
@@ -53,12 +53,6 @@ msgstr "Полное обновление запущено..."
 #: ../contents/tools/tools.js
 msgid "Download fresh package databases..."
 msgstr "Обновление баз данных пакетов..."
-
-#: ../contents/tools/tools.js
-msgid "%1 update is pending"
-msgid_plural "%1 updates total are pending"
-msgstr[0] "%1 обновление доступно"
-msgstr[1] "%1 обновлений доступно"
 
 #: ../contents/tools/tools.js
 msgid "Searching AUR for updates..."
@@ -88,6 +82,12 @@ msgstr[1] "Обновления доступны"
 msgid "One update is pending"
 msgid_plural "%1 updates total are pending"
 msgstr[0] "Одно обновление доступно"
+msgstr[1] "%1 обновлений доступно"
+
+#: ../contents/tools/tools.js
+msgid "%1 update is pending"
+msgid_plural "%1 updates total are pending"
+msgstr[0] "%1 обновление доступно"
 msgstr[1] "%1 обновлений доступно"
 
 #: ../contents/tools/tools.js
@@ -313,14 +313,6 @@ msgstr "Для дополнительных настроек, нажмите к�
 #: ../contents/ui/ConfigGeneral.qml
 msgid "Configure..."
 msgstr "Настроить..."
-
-#: ../contents/ui/ConfigGeneral.qml
-msgid "Debug mode:"
-msgstr "Debug режим:"
-
-#: ../contents/ui/ConfigGeneral.qml ../contents/ui/FullRepresentation.qml
-msgid "Print debug info in console"
-msgstr "Отображать debug информацию"
 
 #: ../contents/ui/ConfigSupport.qml
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"

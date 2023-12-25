@@ -281,24 +281,16 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: "view-refresh-symbolic"
-                visible: footer.visible && plasmoid.configuration.showCheckBtn && !upgrade
+                visible: footer.visible
+                            && plasmoid.configuration.showCheckBtn
+                            && !upgrading
+                            && !downloading
 
                 PlasmaComponents.ToolTip {
                     text: i18n("Check updates")
                 }
 
                 onClicked: JS.checkUpdates()
-            }
-
-            PlasmaComponents.ToolButton {
-                icon.name: "exifinfo"
-                visible: footer.visible && plasmoid.configuration.debugging
-
-                PlasmaComponents.ToolTip {
-                    text: i18n("Print debug info in console")
-                }
-
-                onClicked: JS.debugButton()
             }
         }
     }
@@ -315,7 +307,7 @@ Item {
 
     Loader {
         anchors.centerIn: parent
-        enabled: busy
+        enabled: busy && plasmoid.location !== PlasmaCore.Types.Floating
         visible: enabled
         asynchronous: true
         sourceComponent: QQC1.BusyIndicator {
@@ -329,13 +321,26 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
-        enabled: !busy && count == 0 || error
+        enabled: !busy && !error && count == 0
         visible: enabled
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {
             width: parent.width
-            iconName: count == 0 ? "checkmark" : "error"
-            text: count == 0 ? i18n("System updated") : error
+            iconName: "checkmark"
+            text: i18n("System updated")
+        }
+    }
+
+    Loader {
+        anchors.centerIn: parent
+        width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
+        enabled: !busy && error
+        visible: enabled
+        asynchronous: true
+        sourceComponent: PlasmaExtras.PlaceholderMessage {
+            width: parent.width
+            iconName: "error"
+            text: error
         }
     }
 }

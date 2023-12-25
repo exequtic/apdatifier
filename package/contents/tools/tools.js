@@ -1,97 +1,50 @@
-let timestamp
-function debug(msg) {
-    if (!plasmoid.configuration.debugging) return
-
-    const date = new Date()
-    const hms = date.toLocaleTimeString().slice(0, -4)
-    const ms = date.getMilliseconds().toString().padStart(3, '0')
-    let passed = ''
-
-    if (typeof timestamp !== 'undefined') {
-        const currTimestamp = date.getTime()
-        const timeDiff = currTimestamp - timestamp
-        const secDiff = Math.floor(timeDiff / 1000)
-        const msDiff = timeDiff % 1000
-        passed = `+${secDiff.toString().padStart(2, '0')}:${msDiff.toString().padStart(3, '0')}`
-        timestamp = currTimestamp
-    } else {
-        passed = '+00:000'
-        timestamp = date.getTime()
-    }
-
-    console.log(`Apdatifier debug mode: [${hms}:${ms} ${passed}] ${msg}`)
-}
-
-
-function debugButton() {
-    defineCommands()
-    debug("")
-    debug("found packages: " + plasmoid.configuration.packages)
-    debug("found wrappers: " + JSON.stringify(plasmoid.configuration.wrappers))
-    debug("found terminals: " + JSON.stringify(plasmoid.configuration.terminals))
-    debug("shell command: " + shell[0])
-    debug("check command: " + shell[1])
-    debug("pacman list: " + shell[2])
-    debug("flatpak check: " + shell[3])
-    debug("flatpak list: " + shell[4])
-    debug("download database: " + shell[5])
-    debug("terminal path: " + shell[6])
-    debug("terminal flag: " + shell[7])
-    debug("upgrade command: " + shell[8])
-    debug("flatpak update: " + shell[9])
-}
-
 
 function catchError(code, err, out) {
     if (code) {
-        debug("exitCode: " + code)
-        debug("stderr: " + err)
-        debug("stdout: " + out)
-
-        if (err) error = err.trim().split('\n')[0]
-        if (!err && out) error = out.trim().split('\n')[0]
+        if (err) error = err.trim().split("\n")[0]
+        if (!err && out) error = out.trim().split("\n")[0]
         if (!err && !out) return false
 
-        statusIco = 'error'
-        statusMsg = `Exit code: ${code}`
-        busy = false
+        setStatusBar(code)
         return true
     }
     return false
 }
 
 
-function checkConnection() {
-    statusIco = 'network-connect'
-    statusMsg = i18n("Checking connection...")
-    connection.sendMessage({})
+function waitConnection(func) {
+    if (!connectionStatus()) {
+        statusIco = "network-connect"
+        statusMsg = i18n("Waiting for internet connection...")
+
+        if (!connectionTimer.running) {
+            action = func ? func : false
+            connectionTimer.start()
+        }
+        return
+    }
+
+    connectionTimer.stop()
+
+    if (action) return action()
+
+    setStatusBar()
 }
 
 
-function waitConnectionTimer(func) {
+function connectionStatus() {
+    searchTimer.stop()
     error = null
     busy = true
 
-    action = func
-
-    if (responseCode !== 200) {
-        if (!waitConnection.running) {
-            waitConnection.triggered()
-            waitConnection.start()
-        }
-        return true
-    }
-
-    waitConnection.stop()
-    responseCode = action === checkUpdates ? 0 : responseCode
-    action = null
-    return false
-}
-
-
-function sendCode(code) {
-    responseCode = code
-    action()
+    const status = connection.connectionIcon
+    return connection.connecting === true
+            || status.includes("limited")
+            || status.includes("unavailable")
+            || status.includes("disconected")
+            || status.includes("available")
+                ? false
+                : true
 }
 
 
@@ -112,10 +65,10 @@ function checkDependencies() {
         return `for pgk in ${packs}; do command -v $pgk || echo; done`
     }
 
-    function add(data) {
+    function populate(data) {
         let arr = []
         for (let i = 0; i < data.length; i++) {
-            arr.push({'name': data[i].split('/').pop(), 'value': data[i]})
+            arr.push({"name": data[i].split("/").pop(), "value": data[i]})
         }
         return arr
     }
@@ -123,16 +76,16 @@ function checkDependencies() {
     sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
 
-        let out = stdout.split('\n')
+        let out = stdout.split("\n")
         let packs = out.slice(0, 4)
-        let wrappers = add(out.slice(4, 12).filter(Boolean))
-        let terminals = add(out.slice(12).filter(Boolean))
+        let wrappers = populate(out.slice(4, 12).filter(Boolean))
+        let terminals = populate(out.slice(12).filter(Boolean))
 
         plasmoid.configuration.packages = packs
         plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
         plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
 
-        timer.triggered()
+        searchTimer.triggered()
     })
 }
 
@@ -154,13 +107,13 @@ function defineCommands() {
     shell[6] = plasmoid.configuration.selectedTerminal
     shell[7] = defineTermArg(shell[6])
     shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
-    shell[8] = !packages[1] ? "echo" : plasmoid.configuration.upgradeFlags ? shell[8] + ' ' + plasmoid.configuration.upgradeFlagsText : shell[8]
+    shell[8] = !packages[1] ? "echo" : plasmoid.configuration.upgradeFlags ? shell[8] + " " + plasmoid.configuration.upgradeFlagsText : shell[8]
     shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
     shell[10] = "trap '' SIGINT"
     shell[11] = packages[1] ? "echo " + exec + shell[8] + "; echo" : "echo " + exec + shell[9] + "; echo"
 
     function defineTermArg(term) {
-        switch (term.split('/').pop()) {
+        switch (term.split("/").pop()) {
             case "gnome-terminal": return "--"
             case "terminator": return "-x"
             case "yakuake": return false
@@ -169,7 +122,7 @@ function defineCommands() {
     }
 
     if (shell[7]) {
-        shell[12] = `${shell[6]} --title kitty ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
+        shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
     } else {
         let QDBUS = "qdbus org.kde.yakuake /yakuake/sessions"
         shell[12] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[8]}; ${shell[9]}"`
@@ -178,56 +131,50 @@ function defineCommands() {
 
 
 function upgradeSystem() {
-    defineCommands()
+    if (!connectionStatus()) return waitConnection()
 
-    if (!shell[6]) return
-
-    busy = true
-    upgrade = true
-    timer.stop()
-
-    statusIco = 'accept_time_event'
+    statusIco = "accept_time_event"
     statusMsg = i18n("Full upgrade running...")
+    upgrading = true
+
+    defineCommands() 
 
     sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
+        upgrading = false
+
         if (catchError(exitCode, stderr, stdout)) return
 
-        upgrade = false
-        timer.triggered()
-        timer.start()        
+        searchTimer.triggered()
     })
 }
 
 
 function downloadDatabase() {
-    if (waitConnectionTimer(downloadDatabase)) return
+    if (!connectionStatus()) return waitConnection()
 
-    timer.stop()
-
-    statusIco = 'download'
+    statusIco = "download"
     statusMsg = i18n("Download fresh package databases...")
+    downloading = true
 
-    sh.exec('pkexec ' + shell[5], (cmd, stdout, stderr, exitCode) => {
+    sh.exec("pkexec " + shell[5], (cmd, stdout, stderr, exitCode) => {
+        downloading = false
+
         if (exitCode == 127) {
-            statusIco = count > 0 ? "update-none" : ""
-            statusMsg = count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ""
-            busy = false
+            setStatusBar()
             return
-        } else {
-            if (catchError(exitCode, stderr, stdout)) return
         }
 
-        timer.triggered()
-        timer.start()  
+        if (catchError(exitCode, stderr, stdout)) return
+
+        searchTimer.triggered()
     })
 }
 
 
 function checkUpdates() {
-    if (waitConnectionTimer(checkUpdates)) return
+    if (!connectionStatus()) return waitConnection(checkUpdates)
 
     defineCommands()
-    timer.restart()
 
     let updArch
     let infArch
@@ -238,7 +185,8 @@ function checkUpdates() {
 
     function archCheck() {
         statusIco = "package"
-        statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
+        statusMsg = searchMode[2] ? i18n("Searching AUR for updates...")
+                                  : i18n("Searching arch repositories for updates...")
 
         sh.exec(shell[1], (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
@@ -279,69 +227,31 @@ function checkUpdates() {
         !updArch && !updFlpk ? finalize() :
         finalize(sortList(formatList(updArch.concat(updFlpk))))
     }
-
-    // let command = shell[1]
-
-    // statusIco = 'package'
-    // statusMsg = searchMode[2] ? i18n("Searching AUR for updates...") : i18n("Searching arch repositories for updates...")
-
-    // sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-    //     if (catchError(exitCode, stderr, stdout)) return
-    //     updArch = stdout ? stdout : null
-    //     command = updArch ? shell[2] : ''
-
-    //     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-    //         if (catchError(exitCode, stderr, stdout)) return
-    //         infArch = stdout ? stdout : null
-    //         command = searchMode[3] ? shell[3] : 'exit 0'
-    //         statusIco = searchMode[3] ? 'flatpak-discover' : statusIco
-    //         statusMsg = searchMode[3] ? i18n("Searching flathub for updates...") : statusMsg
-
-    //         sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-    //             if (catchError(exitCode, stderr, stdout)) return
-    //             updFlpk = stdout ? stdout : null
-    //             command = updFlpk ? shell[4] : ''
-
-    //             sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-    //                 if (catchError(exitCode, stderr, stdout)) return
-    //                 infFlpk = stdout ? stdout : null
-
-    //                 updArch = updArch ? makeArchList(updArch, infArch) : null
-    //                 updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
-
-    //                 updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
-    //                 !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
-    //                 !updArch && !updFlpk ? finalize() :
-    //                 finalize(sortList(formatList(updArch.concat(updFlpk))))
-    //             })
-    //         })
-    //     })
-    // })
 }
 
 
 function makeArchList(upd, inf) {
-    upd = upd.trim().split('\n')
-    inf = inf.trim().split('\n')
-    let out = ''
+    upd = upd.trim().split("\n")
+    inf = inf.trim().split("\n")
+    let out = ""
 
     for (let i = 0; i < upd.length; i++) {
         let pkg = upd[i]
-        let name = pkg.split(' ')[0]
+        let name = pkg.split(" ")[0]
         let aur = true
 
         for (let j = 0; j < inf.length; j++)
-            if (inf[j].includes(' ' + name + ' ')) {
-                let repo = inf[j].split(' ')[0]
-                out += repo + ' ' + pkg + '\n'
+            if (inf[j].includes(" " + name + " ")) {
+                let repo = inf[j].split(" ")[0]
+                out += repo + " " + pkg + "\n"
                 aur = false
                 break
             }
 
         if (aur)
-            pkg.split(' ').pop() === 'latest-commit' ?
-                out += 'devel ' + pkg + '\n' :
-                out += 'aur ' + pkg + '\n'
+            pkg.split(" ").pop() === "latest-commit" ?
+                out += "devel " + pkg + "\n" :
+                out += "aur " + pkg + "\n"
     }
 
     return out
@@ -349,13 +259,13 @@ function makeArchList(upd, inf) {
 
 
 function makeFlpkList(upd, inf) {
-    upd = upd.trim().replace(/ /g, '-').replace(/\t/g, ' ').split('\n')
-    inf = inf.trim().replace(/ /g, '-').replace(/\t/g, ' ').split('\n')
-    let out = ''
+    upd = upd.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
+    inf = inf.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
+    let out = ""
 
     upd.forEach(pkg => {
-        let name = pkg.split(' ')[1]
-        let vers = inf.find(line => line.includes(name)).split(' ')[2]
+        let name = pkg.split(" ")[1]
+        let vers = inf.find(line => line.includes(name)).split(" ")[2]
         out += `flathub ${pkg.replace(name, vers)}\n`
     })
 
@@ -365,31 +275,31 @@ function makeFlpkList(upd, inf) {
 
 function formatList(list) {
     return list
-        .replace(/ ->/g, '')
+        .replace(/ ->/g, "")
         .trim()
         .toLowerCase()
-        .split('\n')
+        .split("\n")
         .map(str => {
-            const col = str.split(' ');
+            const col = str.split(" ");
             [col[0], col[1]] = [col[1], col[0]]
-            return col.join(' ')
+            return col.join(" ")
         })
 }
 
 
 function sortList(list) {
     return list.sort((a, b) => {
-        const [nameA, repoA] = a.split(' ')
-        const [nameB, repoB] = b.split(' ')
+        const [nameA, repoA] = a.split(" ")
+        const [nameB, repoB] = b.split(" ")
 
         return plasmoid.configuration.sortByName ? nameA.localeCompare(nameB)
-                : ((repoA.includes('aur') || repoA.includes('devel'))
+                : ((repoA.includes("aur") || repoA.includes("devel"))
                     &&
-                  !(repoB.includes('aur') || repoB.includes('devel')))
+                  !(repoB.includes("aur") || repoB.includes("devel")))
                     ? -1
-                : (!(repoA.includes('aur') || repoA.includes('devel'))
+                : (!(repoA.includes("aur") || repoA.includes("devel"))
                     &&
-                  (repoB.includes('aur') || repoB.includes('devel')))
+                  (repoB.includes("aur") || repoB.includes("devel")))
                     ? 1
                 : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
     })
@@ -404,10 +314,10 @@ function setNotify(list) {
         let newList = list.filter(item => !updList.includes(item))
         let newCount = newList.length
 
-        let lines = ''
+        let lines = ""
         for (let i = 0; i < newCount; i++) {
-            let col = newList[i].split(' ')
-            lines += col[0] + '  -> ' + col[3] + '\n'
+            let col = newList[i].split(" ")
+            lines += col[0] + "  -> " + col[3] + "\n"
         }
 
         notifyTitle = i18np("+%1 new update", "+%1 new updates", newCount)
@@ -432,12 +342,12 @@ function refreshListModel(list) {
     listModel.clear()
 
     for (let i = 0; i < list.length; i++) {
-        let item = list[i].split(' ')
+        let item = list[i].split(" ")
         listModel.append({
-            'name': item[0],
-            'repo': item[1],
-            'curr': item[2],
-            'newv': item[3]
+            "name": item[0],
+            "repo": item[1],
+            "curr": item[2],
+            "newv": item[3]
         })
     }
 }
@@ -447,12 +357,10 @@ function finalize(list) {
     lastCheck = new Date().toLocaleTimeString().slice(0, -7)
 
     if (!list) {
-        count = 0
-        updList = ['']
-        statusIco = ''
-        statusMsg = ''
         listModel.clear()
-        busy = false
+        updList = [""]
+        count = 0
+        setStatusBar()
         return
     }
 
@@ -462,16 +370,22 @@ function finalize(list) {
 
     count = list.length
     updList = list
-    statusIco = 'update-none'
-    statusMsg = i18np("%1 update is pending", "%1 updates total are pending", count)
+    setStatusBar()
+}
+
+
+function setStatusBar(code) {
+    statusIco = error ? "error" : count > 0 ? "update-none" : ""
+    statusMsg = error ? "Exit code: " + code : count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ""
     busy = false
+    searchTimer.restart()
 }
 
 
 function setIndex(value, arr) {
     let index = 0
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i]['value'] == value) {
+        if (arr[i]["value"] == value) {
             index = i
             break
         }
@@ -507,9 +421,9 @@ function indicatorAnchors(pos) {
 
 function getFonts(defaultFont, fonts) {
     let arr = []
-    arr.push({'name': i18n("Default system font"), 'value': defaultFont})
+    arr.push({"name": i18n("Default system font"), "value": defaultFont})
     for (let i = 0; i < fonts.length; i++) {
-        arr.push({'name': fonts[i], 'value': fonts[i]})
+        arr.push({"name": fonts[i], "value": fonts[i]})
     }
     return arr
 }

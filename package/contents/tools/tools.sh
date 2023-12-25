@@ -11,6 +11,7 @@ file1="apdatifier-plasmoid.svg"
 file2="apdatifier-packages.svg"
 file3="apdatifier.notifyrc"
 
+
 copy() {
     [ -d $iconsdir ] || mkdir -p $iconsdir
     [ -f $iconsdir/$file1 ] || cp $plasmoid/contents/assets/$file1 $iconsdir
@@ -29,18 +30,24 @@ uninstall() {
     rm -f $notifdir/$file3
     rmdir -p --ignore-fail-on-non-empty $notifdir
 
-    [ -d $plasmoid ] && rm -rf $plasmoid
-    killall plasmashell && kstart5 plasmashell
+    plasmapkg2 -r $applet
 }
 
 
 help() {
     cat <<EOF
 
+Usage: sh tools.sh [option]
+
 Options:
-    -i  install     Copy files
-    -u  uninstall   Remove plasmoid and files
+    copy        Copy files
+    uninstall   Remove files and plasmoid
+
 EOF
 }
+
+
+[ -z $1 ] && help && exit 0
+
 
 $1

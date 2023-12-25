@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import org.kde.notification 1.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.networkmanagement 0.2
 import Qt.labs.platform 1.1
 import "../tools/tools.js" as JS
 
@@ -19,6 +20,7 @@ Item {
 	Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 20
     Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 10
 
+	Plasmoid.busy: busy
 	Plasmoid.status: count > 0 || busy || error
 						? PlasmaCore.Types.ActiveStatus
 						: PlasmaCore.Types.PassiveStatus
@@ -33,21 +35,21 @@ Item {
 	property var updList: []
 	property var shell: []
 	property bool busy: false
-	property bool upgrade: false
+	property bool upgrading: false
+	property bool downloading: false
 	property string error: ""
 	property string statusMsg: ""
 	property string statusIco: ""
 	property string notifyTitle: ""
 	property string notifyBody: ""
 	property string lastCheck: i18n("never")
-	property int responseCode: 0
 	property var action
 	property var count
 
 	property bool interval: plasmoid.configuration.interval
 	property int time: plasmoid.configuration.time * 60000
-	property var packages: plasmoid.configuration.packages
 	property bool sorting: plasmoid.configuration.sortByName
+	property var packages: plasmoid.configuration.packages
 
 	property var searchMode: [plasmoid.configuration.pacman,
 							  plasmoid.configuration.checkupdates,
@@ -71,8 +73,12 @@ Item {
 		iconName: "apdatifier-packages"
 	}
 
+    ConnectionIcon {
+        id: connection
+    }
+
 	Timer {
-		id: timer
+		id: searchTimer
 		interval: root.time
 		running: true
 		repeat: true
@@ -80,24 +86,19 @@ Item {
 	}
 
 	Timer {
-		id: waitConnection
+		id: connectionTimer
 		interval: 5000
 		repeat: true
-		onTriggered: JS.checkConnection()
+		onTriggered: JS.waitConnection()
     }
 
-	WorkerScript {
-		id: connection
-		source: "../tools/connection.js"
-		onMessage: JS.sendCode(messageObject.code)
-	}
-
 	onTimeChanged: {
-		timer.restart()
+		searchTimer.restart()
 	}
 
 	onIntervalChanged: {
-		interval ? timer.start() : timer.stop()
+		interval ? searchTimer.start()
+				 : searchTimer.stop()
 	}
 
 	onSortingChanged: {
@@ -119,7 +120,7 @@ Item {
 
 		Plasmoid.setAction("check", i18n("Check updates"), "view-refresh-symbolic")
         Plasmoid.action("check").visible = Qt.binding(() => {
-            return !upgrade
+            return !upgrading && !downloading
         })
 
 		Plasmoid.setAction("upgrade", i18n("Upgrade system"), "akonadiconsole")

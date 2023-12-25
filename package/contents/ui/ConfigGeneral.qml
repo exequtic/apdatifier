@@ -27,8 +27,6 @@ Kirigami.FormLayout {
     property alias cfg_withSound: withSound.checked
     property alias cfg_notifyStartup: notifyStartup.checked
 
-    property alias cfg_debugging: debugging.checked
-
     property var packages: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
@@ -295,16 +293,6 @@ Kirigami.FormLayout {
         icon.name: "settings-configure"
         text: i18n("Configure...")
         onClicked: KQuickAddons.KCMShell.openSystemSettings("kcm_notifications")
-    }
-
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
-    QQC2.CheckBox {
-        Kirigami.FormData.label: i18n("Debug mode:")
-        id: debugging
-        text: i18n("Print debug info in console")
     }
 
     Item {

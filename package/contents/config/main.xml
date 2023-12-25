@@ -48,9 +48,6 @@
 		<entry name="notifyStartup" type="bool">
 			<default>true</default>
 		</entry>
-		<entry name="debugging" type="bool">
-			<default>false</default>
-		</entry>
 		<entry name="dependencies" type="string">
 			<default>sh pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake</default>
 		</entry>
