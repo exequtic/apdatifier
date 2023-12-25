@@ -12,18 +12,14 @@
 </div>
 
 # Features
-- Choice between pacman, checkupdates, pacman [wrappers][1]
+- Choice between pacman, checkupdates, pacman [wrappers](#wrappers)
 - Supports Flatpak (without showing the runtime updates)
 - Work on any distro, but only Arch Linux will support system updates, while in other, only Flatpak will be supported.
 - Notification for new updates
 - Button for downloading fresh package databases
-- Button to initiate a full system upgrade in the selected [terminal][2]
+- Button to initiate a full system upgrade in the selected [terminal](#terminals)
 - Customizable icon on the panel and update list
 - The list with updates is presented as a table, so you can rearrange columns, resize them, and sort by name/repository.
-
-[1]: aura, aurman, pacaur, pakku, paru, picaur, trizen, yay.
-<br>
-[2]: alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake.
 
 <br>
 
@@ -66,6 +62,14 @@ sudo steamos-readonly disable
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
 ```
+
+<h2 id="wrappers">Supported pacman wrappers</h2>
+aura, aurman, pacaur, pakku, paru, picaur, trizen, yay.
+
+
+<h2 id="terminals">Supported terminals</h2>
+alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake.
+
 <br>
 
 # Installation
@@ -76,10 +80,10 @@ curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/co
 <br>
 
 # Translation
-You can translate this widget into other languages. Please refer to the ReadMe.md for instructions on how to do it.
+You can translate this widget into other languages. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
 ### Current status:
-```
+```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
 | English  |      77 |       |
@@ -104,3 +108,5 @@ You can translate this widget into other languages. Please refer to the ReadMe.m
 ![screenshot](./screenshots/screenshot_7.png)
 
 </div>
+
+
