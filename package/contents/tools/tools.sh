@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
 applet="com.github.exequtic.apdatifier"
 
 localdir="/home/$(whoami)/.local/share"

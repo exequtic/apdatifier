@@ -1,3 +1,8 @@
+/*
+	SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+	SPDX-License-Identifier: MIT
+*/
+
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import org.kde.notification 1.0

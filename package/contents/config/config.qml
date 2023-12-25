@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+
 import QtQuick 2.6
 import org.kde.plasma.configuration 2.0
 

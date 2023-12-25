@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5 as QQC2
@@ -34,7 +39,6 @@ Kirigami.Page {
 
     Image {
         anchors.centerIn: parent
-        // anchors.verticalCenterOffset: Kirigami.Units.gridUnit
         width: Math.min (parent.width, Kirigami.Units.gridUnit * 15)
         fillMode: Image.PreserveAspectFit
         mipmap: true

@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+
 
 function catchError(code, err, out) {
     if (code) {

@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+
 import QtQuick 2.15
 import QtQuick.Controls 2.5 as QQC2
 import org.kde.kirigami 2.15 as Kirigami
