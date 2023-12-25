@@ -271,7 +271,7 @@ msgid "found: %1"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
-msgid "If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates."
+msgid "Highly recommended to use checkupdates for getting the latest updates without the need to download fresh package databases."
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml

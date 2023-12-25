@@ -91,41 +91,87 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    let exec = i18n("Executed: ")
-    let init = i18n("Full system upgrade")
-    let done = i18n("Press Enter to close")
+    let wrapper = plasmoid.configuration.selectedWrapper
+    let terminal = plasmoid.configuration.selectedTerminal
+    let wrapperUpgrade = plasmoid.configuration.wrapperUpgrade
+    let checkupdatesAUR = plasmoid.configuration.checkupdatesAUR
+    let flags = plasmoid.configuration.upgradeFlags ? plasmoid.configuration.upgradeFlagsText : ""
+    let archCmd
+    let flatpakCmd
 
     shell[0] = packages[0] + " -c"
-    shell[1] = packages[1] && searchMode[0] ? packages[1] + " -Qu" :
-               searchMode[1] ? packages[2] :
-               searchMode[2] ? plasmoid.configuration.selectedWrapper + " -Qu"
-               : null
+    shell[1] = packages[1] ? `${shell[0]} ${defineArchCmd(searchMode, packages[1], packages[2])}` : null
     shell[2] = packages[1] + " -Sl"
     shell[3] = packages[3] + " remote-ls --app --updates"
     shell[4] = packages[3] + " list --app"
-    shell[5] = searchMode[0] || searchMode[1] ? packages[1] + " -Sy" : shell[1].replace("Qu", "Sy")
-    shell[6] = plasmoid.configuration.selectedTerminal
-    shell[7] = defineTermArg(shell[6])
-    shell[8] = plasmoid.configuration.wrapperUpgrade ? plasmoid.configuration.selectedWrapper + " -Syu" : "sudo " + packages[1] + " -Syu"
-    shell[8] = !packages[1] ? "echo" : plasmoid.configuration.upgradeFlags ? shell[8] + " " + plasmoid.configuration.upgradeFlagsText : shell[8]
-    shell[9] = searchMode[3] ? packages[3] + " update" : "echo "
-    shell[10] = "trap '' SIGINT"
-    shell[11] = packages[1] ? "echo " + exec + shell[8] + "; echo" : "echo " + exec + shell[9] + "; echo"
+    shell[5] = searchMode[0] || searchMode[1] ? packages[1] + " -Sy" : wrapper + " -Sy"
+    shell[6] = terminal + defineTermArg()
+    shell[7] = defineUpgradeCmd()
 
-    function defineTermArg(term) {
-        switch (term.split("/").pop()) {
-            case "gnome-terminal": return "--"
-            case "terminator": return "-x"
-            case "yakuake": return false
-            default: return "-e"
+    function defineArchCmd(mode, pacman, checkupdates) {
+        if (mode[0] && pacman) {
+            return `"${pacman} -Qu"`
+        } else if (mode[1] && !checkupdatesAUR) {
+            return `${checkupdates}`
+        } else if (mode[1] && checkupdatesAUR) {
+            return `"(${checkupdates}; ${wrapper} -${defineWrapperArg()}) | sort -u"`
+        } else if (mode[2]) {
+            return `"${wrapper} -${defineWrapperArg()}"`
+        } else {
+            return
         }
     }
 
-    if (shell[7]) {
-        shell[12] = `${shell[6]} ${shell[7]} ${shell[0]} "${shell[10]}; ${print(init)}; ${shell[11]}; ${shell[8]}; ${shell[9]}; ${print(done)}; read"`
-    } else {
+    function defineWrapperArg() {
+        switch (wrapper.split("/").pop()) {
+            case "aura":   return "Qu"
+            case "aurman": return "Qu"
+            case "pacaur": return "Qu -a"
+            case "pakku":  return "Qu"
+            case "paru":   return "Qua"
+            case "picaur": return "Qua"
+            case "trizen": return "Qu -a"
+            case "yay":    return "Qu"
+        }
+    }
+
+    function defineTermArg() {
+        switch (terminal.split("/").pop()) {
+            case "gnome-terminal": return " --"
+            case "terminator": return " -x"
+            case "yakuake": return false
+            default: return " -e"
+        }
+    }
+    
+    function defineUpgradeCmd() {
+        flatpakCmd = searchMode[3] ? `${packages[3]} update` : "echo"
+
+        if (packages[1]) {
+            if (wrapperUpgrade) {
+                archCmd = `${wrapper} -Syu ${flags}`
+                return `${archCmd}; ${flatpakCmd}`
+            } else {
+                archCmd = `sudo ${packages[1]} -Syu ${flags}`
+                return `${archCmd}; ${flatpakCmd}`
+            }
+        } else {
+            return flatpakCmd
+        }
+    }
+
+    if (!defineTermArg()) {
         let QDBUS = "qdbus org.kde.yakuake /yakuake/sessions"
-        shell[12] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[8]}; ${shell[9]}"`
+        shell[8] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[7]}"`
+    } else {
+        let exec = i18n("Executed: ")
+        let init = i18n("Full system upgrade")
+        let done = i18n("Press Enter to close")
+        let trap = "trap '' SIGINT"
+        exec = packages[1] ? "echo " + exec + archCmd + "; echo"
+                           : "echo " + exec + flatpakCmd + "; echo"
+
+        shell[8] = `${shell[6]} ${shell[0]} "${trap}; ${print(init)}; ${exec}; ${shell[7]}; ${print(done)}; read"`
     }
 }
 
@@ -139,7 +185,7 @@ function upgradeSystem() {
 
     defineCommands() 
 
-    sh.exec(shell[12], (cmd, stdout, stderr, exitCode) => {
+    sh.exec(shell[8], (cmd, stdout, stderr, exitCode) => {
         upgrading = false
 
         if (catchError(exitCode, stderr, stdout)) return

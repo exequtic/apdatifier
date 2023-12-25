@@ -13,6 +13,7 @@ Kirigami.FormLayout {
 
     property alias cfg_pacman: pacman.checked
     property alias cfg_checkupdates: checkupdates.checked
+    property alias cfg_checkupdatesAUR: checkupdatesAUR.checked
     property alias cfg_wrapper: wrapper.checked
     property string cfg_selectedWrapper: plasmoid.configuration.selectedWrapper
 
@@ -59,7 +60,7 @@ Kirigami.FormLayout {
     RowLayout {
         Kirigami.FormData.label: i18n("Search:")
 
-        spacing: 10
+        spacing: Kirigami.Units.gridUnit
 
         QQC2.CheckBox {
             id: flatpak
@@ -79,13 +80,16 @@ Kirigami.FormLayout {
             text: "<a href=\"https://flathub.org/setup\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
             textFormat: Text.RichText
             onLinkActivated: Qt.openUrlExternally(link)
-            enabled: visible
             visible: !packages[3]
         }
     }
 
-    RowLayout {
-        QQC2.ButtonGroup { id: searchGroup }
+    ColumnLayout {
+        visible: packages[1]
+
+        QQC2.ButtonGroup {
+            id: searchGroup
+        }
 
         QQC2.RadioButton {
             id: pacman
@@ -94,95 +98,93 @@ Kirigami.FormLayout {
             QQC2.ButtonGroup.group: searchGroup
         }
 
-        visible: packages[1]
-    }
+        RowLayout {
+            spacing: Kirigami.Units.gridUnit
 
-    RowLayout {
-        spacing: 10
+            QQC2.RadioButton {
+                id: checkupdates
+                text: "checkupdates"
+                enabled: packages[2]
+                QQC2.ButtonGroup.group: searchGroup
+            }
 
-        QQC2.RadioButton {
-            id: checkupdates
-            text: "checkupdates"
-            enabled: packages[2]
-            QQC2.ButtonGroup.group: searchGroup
-        }
+            QQC2.CheckBox {
+                id: checkupdatesAUR
+                text: "With AUR"
+                enabled: packages[2] && wrappers
+                visible: enabled && checkupdates.checked
+            }
 
-        QQC2.Label {
-            id: tip
-            font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-            text: "<a href=\"https://archlinux.org/packages/extra/x86_64/pacman-contrib\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-            textFormat: Text.RichText
-            onLinkActivated: Qt.openUrlExternally(link)
-            enabled: visible
-            visible: !packages[2]
-        }
-
-        visible: packages[1]
-    }
-
-    RowLayout {
-        spacing: 10
-
-        QQC2.RadioButton {
-            id: wrapper
-            text: i18n("pacman wrapper")
-            enabled: !wrappers ? false : true
-            QQC2.ButtonGroup.group: searchGroup
-        }
-
-        QQC2.Label {
-            font.pixelSize: tip.font.pixelSize
-            text: "<a href=\"https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-            textFormat: Text.RichText
-            onLinkActivated: Qt.openUrlExternally(link)
-            visible: !wrappers
-            enabled: visible
-        }
-
-        QQC2.Label {
-            font.pixelSize: tip.font.pixelSize
-            color: Kirigami.Theme.positiveTextColor
-            text: i18n("found: %1", cfg_selectedWrapper)
-            visible: wrapper.checked && wrappers.length == 1
-            enabled: visible
-        }
-
-        visible: packages[1]
-    }
-
-    QQC2.ComboBox {
-        model: wrappers
-        textRole: "name"
-        enabled: wrappers
-        implicitWidth: 150
-        visible: wrappers && wrappers.length > 1
-
-        onCurrentIndexChanged: {
-            cfg_selectedWrapper = model[currentIndex]["value"]
-        }
-
-        Component.onCompleted: {
-            if (wrappers) {
-                currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
+            QQC2.Label {
+                id: tip
+                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
+                text: "<a href=\"https://archlinux.org/packages/extra/x86_64/pacman-contrib\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
+                textFormat: Text.RichText
+                onLinkActivated: Qt.openUrlExternally(link)
+                enabled: visible
+                visible: !packages[2]
             }
         }
-    }
 
-    Kirigami.Separator {
-        Layout.fillWidth: true
-        visible: packages[1]
-    }
+        RowLayout {
+            spacing: Kirigami.Units.gridUnit
 
-    RowLayout {
-        QQC2.Label {
-            Layout.maximumWidth: 250
-            font.pixelSize: tip.font.pixelSize
-            text: i18n("If you rarely update local repository databases and don't need AUR support, it is highly recommended to use checkupdates.")
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            QQC2.RadioButton {
+                id: wrapper
+                text: i18n("pacman wrapper")
+                enabled: wrappers
+                QQC2.ButtonGroup.group: searchGroup
+            }
+
+            QQC2.Label {
+                font.pixelSize: tip.font.pixelSize
+                text: "<a href=\"https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
+                textFormat: Text.RichText
+                onLinkActivated: Qt.openUrlExternally(link)
+                visible: !wrappers
+                enabled: visible
+            }
+
+            QQC2.Label {
+                font.pixelSize: tip.font.pixelSize
+                color: Kirigami.Theme.positiveTextColor
+                text: i18n("found: %1", cfg_selectedWrapper)
+                visible: wrapper.checked && wrappers.length == 1
+                enabled: visible
+            }
         }
 
-        visible: packages[1]
+        QQC2.ComboBox {
+            model: wrappers
+            textRole: "name"
+            enabled: wrappers
+            implicitWidth: 150
+            visible: wrappers && wrappers.length > 1
+
+            onCurrentIndexChanged: {
+                cfg_selectedWrapper = model[currentIndex]["value"]
+            }
+
+            Component.onCompleted: {
+                if (wrappers) {
+                    currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
+                }
+            }
+        }
+
+        Kirigami.Separator {
+            Layout.fillWidth: true
+        }
+
+        RowLayout {
+            QQC2.Label {
+                Layout.maximumWidth: 250
+                font.pixelSize: tip.font.pixelSize
+                text: i18n("Highly recommended to use checkupdates for getting the latest updates without the need to download fresh package databases.")
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
     }
 
     Item {

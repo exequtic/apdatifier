@@ -18,6 +18,9 @@
 		<entry name="checkupdates" type="bool">
 			<default>false</default>
 		</entry>
+		<entry name="checkupdatesAUR" type="bool">
+			<default>false</default>
+		</entry>
 		<entry name="wrapper" type="bool">
 			<default>false</default>
 		</entry>
