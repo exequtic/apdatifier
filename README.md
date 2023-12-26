@@ -3,8 +3,8 @@
 <img src="./screenshots/screenshot_1.png" width="500px" alt="banner"/>
 
 ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
-![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
 ![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot)
+<!-- ![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
 
 # Apdatifier
 ## Arch Update Notifier
@@ -12,18 +12,18 @@
 </div>
 
 # Features
-- Choice between pacman, checkupdates, pacman [wrappers](#wrappers)
+- Choice between pacman, checkupdates, pacman [wrappers](#supported-pacman-wrappers)
 - Supports Flatpak (without showing the runtime updates)
-- Work on any distro, but only Arch Linux will support system updates, while in other, only Flatpak will be supported.
+- Should work on other distributions, but only Arch Linux will support system updates, while in other only Flatpak will be supported.
 - Notification for new updates
 - Button for downloading fresh package databases
-- Button to initiate a full system upgrade in the selected [terminal](#terminals)
+- Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
 - Customizable icon on the panel and update list
 - The list with updates is presented as a table, so you can rearrange columns, resize them, and sort by name/repository.
 
-<br>
-
 <div align="center">
+
+<br>
 
 ![screenshot](./screenshots/screenshot_2.png)
 
@@ -55,7 +55,7 @@ Fedora
 sudo dnf install kf5-knotification
 ```
 
-### Steam Deck
+### For Steam Deck
 If you haven't done this before:
 ```bash
 sudo steamos-readonly disable
@@ -63,24 +63,24 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 ```
 
-<h2 id="wrappers">Supported pacman wrappers</h2>
+### Supported pacman wrappers
 aura, aurman, pacaur, pakku, paru, picaur, trizen, yay.
 
-
-<h2 id="terminals">Supported terminals</h2>
+### Supported terminals
 alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake.
 
 <br>
 
 # Installation
-Download latest release and install plasmoid in oneline command:
+Download latest release and install plasmoid in one line command:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/contents/tools.sh | sh -s install
+curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/KF5/package/contents/tools.sh | sh -s install
 ```
+
 <br>
 
 # Translation
-You can translate this widget into other languages. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
+You can help translate this widget into other languages, please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
 ### Current status:
 ```markdown
@@ -90,10 +90,11 @@ You can translate this widget into other languages. Please refer to the [ReadMe.
 | Russian  |   77/77 |  100% |
 |----------|---------|-------|
 ```
-<br>
 
 
 <div align="center">
+
+<br>
 
 # Screenshots
 
@@ -108,5 +109,3 @@ You can translate this widget into other languages. Please refer to the [ReadMe.
 ![screenshot](./screenshots/screenshot_7.png)
 
 </div>
-
-

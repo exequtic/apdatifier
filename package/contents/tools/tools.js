@@ -18,7 +18,7 @@ function catchError(code, err, out) {
 
 
 function waitConnection(func) {
-    if (!connectionStatus()) {
+    if (!connection()) {
         statusIco = "network-connect"
         statusMsg = i18n("Waiting for internet connection...")
 
@@ -37,13 +37,13 @@ function waitConnection(func) {
 }
 
 
-function connectionStatus() {
+function connection() {
     searchTimer.stop()
     error = null
     busy = true
 
-    const status = connection.connectionIcon
-    return connection.connecting === true
+    const status = network.connectionIcon
+    return network.connecting === true
             || status.includes("limited")
             || status.includes("unavailable")
             || status.includes("disconected")
@@ -182,7 +182,7 @@ function defineCommands() {
 
 
 function upgradeSystem() {
-    if (!connectionStatus()) return waitConnection()
+    if (!connection()) return waitConnection()
 
     statusIco = "accept_time_event"
     statusMsg = i18n("Full upgrade running...")
@@ -201,7 +201,7 @@ function upgradeSystem() {
 
 
 function downloadDatabase() {
-    if (!connectionStatus()) return waitConnection()
+    if (!connection()) return waitConnection()
 
     statusIco = "download"
     statusMsg = i18n("Download fresh package databases...")
@@ -223,7 +223,7 @@ function downloadDatabase() {
 
 
 function checkUpdates() {
-    if (!connectionStatus()) return waitConnection(checkUpdates)
+    if (!connection()) return waitConnection(checkUpdates)
 
     defineCommands()
 

@@ -79,7 +79,7 @@ Item {
 	}
 
     ConnectionIcon {
-        id: connection
+        id: network
     }
 
 	Timer {
@@ -135,7 +135,11 @@ Item {
 
 		Plasmoid.setAction("database", i18n("Download database"), "repository")
         Plasmoid.action("database").visible = Qt.binding(() => {
-            return !busy && !searchMode[1] && plasmoid.configuration.showDownloadBtn
+			return (!busy && plasmoid.configuration.showDownloadBtn)
+					&& ((plasmoid.configuration.checkupdates
+						&& plasmoid.configuration.checkupdatesAUR)
+						|| (plasmoid.configuration.pacman)
+						|| (plasmoid.configuration.wrapper))
         })
 	}
 }

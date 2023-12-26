@@ -25,15 +25,50 @@ copy() {
 }
 
 
+install() {
+    command -v curl >/dev/null || { echo "curl not installed" >&2; exit 1; }
+    command -v kpackagetool5 >/dev/null || { echo "kpackagetool5 not installed" >&2; exit 1; }
+
+    if [ ! -z "$(kpackagetool5 -t Plasma/Applet -l | grep $applet)" ]; then
+        while true; do
+            echo "Plasmoid already installed"
+            read -p "Reinstall? [Y/n]: " reply
+            case $reply in
+                [Yy]*|"") uninstall; sleep 2; break ;;
+                [Nn]*) exit 0 ;;
+            esac
+        done
+    fi
+
+    releases=https://github.com/exequtic/apdatifier/releases
+    tag=$(curl -LsH 'Accept: application/json' $releases/latest)
+    tag=${tag%\,\"update_url*}
+    tag=${tag##*tag_name\":\"}
+    tag=${tag%\"}
+
+    file="apdatifier_KF5_$tag.plasmoid"
+    download="$releases/download/$tag/$file"
+    tempfile="/tmp/$file"
+
+    curl --fail --location --progress-bar --output $tempfile $download
+
+    if [ $? -eq 0 ]; then
+        [ -f $tempfile ] && kpackagetool5 -t Plasma/Applet -i $tempfile
+        rm $tempfile
+    fi
+}
+
+
 uninstall() {
-    rm -f $iconsdir/$file1
-    rm -f $iconsdir/$file2
-    rmdir -p --ignore-fail-on-non-empty $iconsdir
+    command -v kpackagetool5 >/dev/null || { echo "kpackagetool5 not installed" >&2; exit 1; }
 
-    rm -f $notifdir/$file3
-    rmdir -p --ignore-fail-on-non-empty $notifdir
+    [ ! -f $iconsdir/$file1 ] || rm -f $iconsdir/$file1
+    [ ! -f $iconsdir/$file2 ] || rm -f $iconsdir/$file2
+    [ ! -f $notifdir/$file3 ] || rm -f $notifdir/$file3
+    [ ! -d $iconsdir ] || rmdir -p --ignore-fail-on-non-empty $iconsdir
+    [ ! -d $notifdir ] || rmdir -p --ignore-fail-on-non-empty $notifdir
 
-    plasmapkg2 -r $applet
+    [ -z "$(kpackagetool5 -t Plasma/Applet -l | grep $applet)" ] || kpackagetool5 --type Plasma/Applet -r $applet
 }
 
 
@@ -44,6 +79,7 @@ Usage: sh tools.sh [option]
 
 Options:
     copy        Copy files
+    install     Download latest release and install
     uninstall   Remove files and plasmoid
 
 EOF

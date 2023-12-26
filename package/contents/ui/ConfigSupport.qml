@@ -31,31 +31,63 @@ Kirigami.Page {
         }
     }
 
-    Kirigami.UrlButton {
-        id: link
-        url: "https://buymeacoffee.com/evgk"
-        visible: false
-    }
-
-    Image {
+    RowLayout {
         anchors.centerIn: parent
-        width: Math.min (parent.width, Kirigami.Units.gridUnit * 15)
-        fillMode: Image.PreserveAspectFit
-        mipmap: true
-        source: "../assets/apdatifier-support.png"
+        Layout.fillWidth: true
+        Layout.fillHeight: true
 
-        HoverHandler {
-            id: hoverhandler
-            cursorShape: Qt.PointingHandCursor
+        Kirigami.UrlButton {
+            id: buymeacoffee
+            url: "https://buymeacoffee.com/evgk"
+            visible: false
         }
 
-        TapHandler {
-            onTapped: Qt.openUrlExternally(link.url)
+        Kirigami.UrlButton {
+            id: github
+            url: "https://github.com/exequtic/apdatifier"
+            visible: false
         }
 
-        QQC2.ToolTip {
-            visible: hoverhandler.hovered
-            text: i18n("Visit %1", link.url)
+        Image {
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            source: "../assets/apdatifier-donate.png"
+            sourceSize.width: supportPage.width / 2
+            sourceSize.height: supportPage.height
+
+            HoverHandler {
+                id: handlerCoffee
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            TapHandler {
+                onTapped: Qt.openUrlExternally(buymeacoffee.url)
+            }
+
+            QQC2.ToolTip {
+                visible: handlerCoffee.hovered
+                text: i18n("Visit %1", buymeacoffee.url)
+            }
+        }
+
+        Image {
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            source: "../assets/apdatifier-githubstar.png"
+            sourceSize.width: supportPage.width / 2
+            sourceSize.height: supportPage.height
+
+            HoverHandler {
+                id: handlerGithub
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            TapHandler {
+                onTapped: Qt.openUrlExternally(github.url)
+            }
+
+            QQC2.ToolTip {
+                visible: handlerGithub.hovered
+                text: i18n("Visit %1", github.url)
+            }
         }
     }
 }

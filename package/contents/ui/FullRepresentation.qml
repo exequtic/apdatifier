@@ -256,10 +256,11 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: "repository"
-                visible: footer.visible
-                            && !busy
-                            && !plasmoid.configuration.checkupdates
-                            && plasmoid.configuration.showDownloadBtn
+                visible: (footer.visible && !busy && plasmoid.configuration.showDownloadBtn)
+                            && ((plasmoid.configuration.checkupdates
+                                && plasmoid.configuration.checkupdatesAUR)
+                                    || (plasmoid.configuration.pacman)
+                                    || (plasmoid.configuration.wrapper))
 
                 PlasmaComponents.ToolTip {
                     text: i18n("Download database")

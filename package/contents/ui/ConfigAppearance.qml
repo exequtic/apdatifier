@@ -159,7 +159,11 @@ Kirigami.FormLayout {
         id: showDownloadBtn
         text: i18n("Download database")
         icon.name: "repository"
-        enabled: showStatusBar.checked && !plasmoid.configuration.checkupdates
+        enabled: showStatusBar.checked
+                    && (plasmoid.configuration.pacman
+                        || (plasmoid.configuration.checkupdates
+                            && plasmoid.configuration.checkupdatesAUR)
+                        || plasmoid.configuration.wrapper)
         visible: plasmoid.configuration.packages[1]
     }
 
@@ -171,7 +175,7 @@ Kirigami.FormLayout {
     ColumnLayout {
         id: warning
         spacing: 0
-        visible: showDownloadBtn.checked && !plasmoid.configuration.checkupdates
+        visible: showDownloadBtn.checked && showDownloadBtn.enabled
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -208,6 +212,7 @@ Kirigami.FormLayout {
         font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
         text: i18n("Not needed for checkupdates")
         visible: showStatusBar.checked && plasmoid.configuration.checkupdates
+                                       && !plasmoid.configuration.checkupdatesAUR
     }
 
     Item {
