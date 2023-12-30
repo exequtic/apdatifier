@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-24 20:47+0300\n"
+"POT-Creation-Date: 2023-12-30 14:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,6 +260,10 @@ msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
 msgid "Enable Flatpak support"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Not installed"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml

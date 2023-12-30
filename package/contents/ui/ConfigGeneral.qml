@@ -6,8 +6,10 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5 as QQC2
+
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+
 import "../tools/tools.js" as JS
 
 Kirigami.FormLayout {
@@ -80,11 +82,12 @@ Kirigami.FormLayout {
             }
         }
 
-        QQC2.Label {
+        Kirigami.UrlButton {
+            id: instTip
+            url: "https://flathub.org/setup"
+            text: i18n("Not installed")
             font.pixelSize: tip.font.pixelSize
-            text: "<a href=\"https://flathub.org/setup\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-            textFormat: Text.RichText
-            onLinkActivated: Qt.openUrlExternally(link)
+            color: Kirigami.Theme.neutralTextColor
             visible: !packages[3]
         }
     }
@@ -120,13 +123,11 @@ Kirigami.FormLayout {
                 visible: enabled && checkupdates.checked
             }
 
-            QQC2.Label {
-                id: tip
-                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-                text: "<a href=\"https://archlinux.org/packages/extra/x86_64/pacman-contrib\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-                textFormat: Text.RichText
-                onLinkActivated: Qt.openUrlExternally(link)
-                enabled: visible
+            Kirigami.UrlButton {
+                url: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
+                text: instTip.text
+                font.pixelSize: tip.font.pixelSize
+                color: instTip.color
                 visible: !packages[2]
             }
         }
@@ -141,13 +142,12 @@ Kirigami.FormLayout {
                 QQC2.ButtonGroup.group: searchGroup
             }
 
-            QQC2.Label {
+            Kirigami.UrlButton {
+                url: "https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers"
+                text: instTip.text
                 font.pixelSize: tip.font.pixelSize
-                text: "<a href=\"https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + notInst.text + "</a>"
-                textFormat: Text.RichText
-                onLinkActivated: Qt.openUrlExternally(link)
+                color: instTip.color
                 visible: !wrappers
-                enabled: visible
             }
 
             QQC2.Label {
@@ -155,7 +155,6 @@ Kirigami.FormLayout {
                 color: Kirigami.Theme.positiveTextColor
                 text: i18n("found: %1", cfg_selectedWrapper)
                 visible: wrapper.checked && wrappers.length == 1
-                enabled: visible
             }
         }
 
@@ -183,8 +182,9 @@ Kirigami.FormLayout {
 
         RowLayout {
             QQC2.Label {
+                id: tip
                 Layout.maximumWidth: 250
-                font.pixelSize: tip.font.pixelSize
+                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
                 text: i18n("Highly recommended to use checkupdates for getting the latest updates without the need to download fresh package databases.")
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
@@ -212,20 +212,19 @@ Kirigami.FormLayout {
             Component.onCompleted: {
                 if (terminals) {
                     currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
-                }
 
-                if (!plasmoid.configuration.selectedTerminal) {
-                    plasmoid.configuration.selectedTerminal = model[0]["value"]
+                    if (!plasmoid.configuration.selectedTerminal) {
+                        plasmoid.configuration.selectedTerminal = model[0]["value"]
+                    }
                 }
             }
         }
 
-        QQC2.Label {
-            id: notInst
+        Kirigami.UrlButton {
+            url: "https://github.com/exequtic/apdatifier#supported-terminals"
+            text: instTip.text
             font.pixelSize: tip.font.pixelSize
-            color: Kirigami.Theme.neutralTextColor
-            text: "Not installed"
-            enabled: visible
+            color: instTip.color
             visible: !terminals
         }
     }

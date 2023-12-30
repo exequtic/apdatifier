@@ -3,8 +3,8 @@
 <img src="./screenshots/screenshot_1.png" width="500px" alt="banner"/>
 
 ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
+![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
 ![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot)
-<!-- ![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
 
 # Apdatifier
 ## Arch Update Notifier
@@ -72,9 +72,11 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 <br>
 
 # Installation
-Download latest release and install plasmoid in one line command:
+Just install directly from KDE Widget Store.
+
+Or download latest release and install in one line command:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/KF5/package/contents/tools.sh | sh -s install
+curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/KF5/package/contents/tools/tools.sh | sh -s install
 ```
 
 <br>
@@ -86,8 +88,8 @@ You can help translate this widget into other languages, please refer to the [Re
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| English  |      77 |       |
-| Russian  |   77/77 |  100% |
+| English  |      78 |       |
+| Russian  |   78/78 |  100% |
 |----------|---------|-------|
 ```
 

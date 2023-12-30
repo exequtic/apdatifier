@@ -7,9 +7,11 @@ import QtQuick 2.15
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5 as QQC2
+
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+
 import "../tools/tools.js" as JS
 
 Kirigami.FormLayout {
@@ -185,11 +187,11 @@ Kirigami.FormLayout {
                 text: i18n("Avoid")
             }
 
-            QQC2.Label {
+            Kirigami.UrlButton {
+                url: "https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported"
+                text: i18n("partial")
                 font.pixelSize: tip.font.pixelSize
-                text: "<a href=\"https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported\" style=\"color: " + Kirigami.Theme.neutralTextColor + "\">" + i18n("partial") + "</a>"
-                textFormat: Text.RichText
-                onLinkActivated: Qt.openUrlExternally(link)
+                color: Kirigami.Theme.neutralTextColor
             }
 
             QQC2.Label {
