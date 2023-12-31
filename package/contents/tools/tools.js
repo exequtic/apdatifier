@@ -109,7 +109,7 @@ function defineCommands() {
     shell[2] = packages[1] + " -Sl"
     shell[3] = packages[3] + " remote-ls --app --updates"
     shell[4] = packages[3] + " list --app"
-    shell[5] = searchMode[0] || searchMode[1] ? packages[1] + " -Sy" : wrapper + " -Sy"
+    shell[5] = searchMode[0] ? packages[1] + " -Sy" : wrapper + " -Sy"
     shell[6] = terminal + defineTermArg()
     shell[7] = defineUpgradeCmd()
 
@@ -206,6 +206,8 @@ function downloadDatabase() {
     statusIco = "download"
     statusMsg = i18n("Download fresh package databases...")
     downloading = true
+
+    defineCommands()
 
     sh.exec("pkexec " + shell[5], (cmd, stdout, stderr, exitCode) => {
         downloading = false
