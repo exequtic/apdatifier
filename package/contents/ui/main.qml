@@ -36,7 +36,7 @@ Item {
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
     Plasmoid.toolTipMainText: ""
-    Plasmoid.toolTipSubText: busy ? statusMsg : i18n("The last check was at %1", lastCheck)
+    Plasmoid.toolTipSubText: busy ? statusMsg : lastCheck
 
     property var applet: Plasmoid.pluginName
     property var listModel: listModel
@@ -50,7 +50,8 @@ Item {
     property string statusIco: ""
     property string notifyTitle: ""
     property string notifyBody: ""
-    property string lastCheck: i18n("never")
+    property string timestamp
+    property string lastCheck
     property var action
     property var count
 

@@ -77,5 +77,8 @@ Item {
         property bool wasExpanded: false
         onPressed: wasExpanded = plasmoid.expanded
         onClicked: plasmoid.expanded = !wasExpanded
+        onHoveredChanged: {
+            lastCheck = JS.getLastCheck()
+        }
     }
 }

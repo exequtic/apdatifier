@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-30 14:35+0300\n"
+"POT-Creation-Date: 2023-12-31 13:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,6 +89,32 @@ msgid "%1 update is pending"
 msgid_plural "%1 updates total are pending"
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "ago"
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Default system font"
@@ -344,12 +370,4 @@ msgstr ""
 
 #: ../contents/ui/FullRepresentation.qml
 msgid "System updated"
-msgstr ""
-
-#: ../contents/ui/main.qml
-msgid "The last check was at %1"
-msgstr ""
-
-#: ../contents/ui/main.qml
-msgid "never"
 msgstr ""

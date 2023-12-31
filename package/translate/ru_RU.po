@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2023-12-30 14:35+0300\n"
+"POT-Creation-Date: 2023-12-31 13:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,6 +89,32 @@ msgid "%1 update is pending"
 msgid_plural "%1 updates total are pending"
 msgstr[0] "%1 обновление доступно"
 msgstr[1] "%1 обновлений доступно"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Последняя проверка:"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 секунду"
+msgstr[1] "%1 секунд"
+
+#: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 минуту"
+msgstr[1] "%1 минут"
+
+#: ../contents/tools/tools.js
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] "%1 час"
+msgstr[1] "%1 часов"
+
+#: ../contents/tools/tools.js
+msgid "ago"
+msgstr "назад"
 
 #: ../contents/tools/tools.js
 msgid "Default system font"
@@ -345,11 +371,3 @@ msgstr "Новая"
 #: ../contents/ui/FullRepresentation.qml
 msgid "System updated"
 msgstr "Система обновлена"
-
-#: ../contents/ui/main.qml
-msgid "The last check was at %1"
-msgstr "Последняя проверка была в %1"
-
-#: ../contents/ui/main.qml
-msgid "never"
-msgstr "никогда"

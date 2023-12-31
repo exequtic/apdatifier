@@ -405,7 +405,7 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
-    lastCheck = new Date().toLocaleTimeString().slice(0, -7)
+    timestamp = new Date().getTime()
 
     if (!list) {
         listModel.clear()
@@ -430,6 +430,27 @@ function setStatusBar(code) {
     statusMsg = error ? "Exit code: " + code : count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ""
     busy = false
     searchTimer.restart()
+}
+
+
+function getLastCheck() {
+    if (!timestamp) return ""
+
+    let diff = new Date().getTime() - timestamp
+    let sec = Math.floor((diff % (1000 * 60)) / 1000)
+    let min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    let hrs = Math.floor(diff / (1000 * 60 * 60))
+
+    let text = i18n("Last check:")
+    let secText = i18np("%1 second", "%1 seconds", sec)
+    let minText = i18np("%1 minute", "%1 minutes", min)
+    let hrsText = i18np("%1 hour", "%1 hours", hrs)
+    let ago = i18n("ago")
+
+    if (hrs === 0 && min === 0) return text + " " + secText + " " + ago
+    if (hrs === 0) return text + " " + minText + " " + secText + " " + ago
+    if (min === 0) return text + " " + hrsText + " " + ago
+    return text + " " + hrsText + " " + minText + " " + ago
 }
 
 
