@@ -16,8 +16,6 @@ import Qt.labs.platform 1.1
 import "../tools/tools.js" as JS
 
 Item {
-    id: root
-
     Plasmoid.compactRepresentation: CompactRepresentation {}
     Plasmoid.fullRepresentation: FullRepresentation {}
 
@@ -56,7 +54,7 @@ Item {
     property var count
 
     property bool interval: plasmoid.configuration.interval
-    property int time: plasmoid.configuration.time * 60000
+    property int time: plasmoid.configuration.time
     property bool sorting: plasmoid.configuration.sortByName
     property var packages: plasmoid.configuration.packages
 
@@ -88,7 +86,7 @@ Item {
 
     Timer {
         id: searchTimer
-        interval: root.time
+        interval: time * 1000 * 60
         running: true
         repeat: true
         onTriggered: JS.checkUpdates()
