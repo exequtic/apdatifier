@@ -79,6 +79,8 @@ Or download latest release and install in one line command:
 curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/KF5/package/contents/tools/tools.sh | sh -s install
 ```
 
+After installation, the widget icon should automatically appear in the system tray. If this does not happen, Log Out or restart plasmashell/latte-dock.
+
 <br>
 
 # Translation
@@ -90,6 +92,7 @@ You can help translate this widget into other languages, please refer to the [Re
 |----------|---------|-------|
 | English  |      78 |       |
 | Russian  |   78/78 |  100% |
+| Dutch    |   78/78 |  100% |
 |----------|---------|-------|
 ```
 
