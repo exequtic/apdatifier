@@ -46,30 +46,30 @@ Item {
             height: plasmoid.configuration.showHeaders
                         ? PlasmaCore.Units.smallSpacing + fontHeight
                         : PlasmaCore.Units.smallSpacing
-            color: Kirigami.Theme.backgroundColor
+            color: PlasmaCore.ColorScope.backgroundColor
             radius: 6
             visible: plasmoid.configuration.showHeaders
 
             Rectangle {
                 anchors.fill: parent
                 anchors.leftMargin: styleData.column == 0 ? 10 : 0
-                color: Kirigami.Theme.backgroundColor
+                color: PlasmaCore.ColorScope.backgroundColor
             }
 
-            Rectangle {
-                width: 1
-                height: parent.height * 0.8
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                color: Kirigami.Theme.alternateBackgroundColor
-            }
+            // Rectangle {
+            //     width: 1
+            //     height: parent.height * 0.8
+            //     anchors.right: parent.right
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     color: Kirigami.Theme.alternateBackgroundColor
+            // }
 
             Text {
                 id: textItem
                 text: setText(styleData.value)
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                color: Kirigami.Theme.textColor
+                color: PlasmaCore.ColorScope.textColor
 
                 font {
                     bold: plasmoid.configuration.customHeaders ? fontBold : true
@@ -129,7 +129,7 @@ Item {
             delegate: Text {
                 text: styleData.value
                 elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
 
                 font {
                     pixelSize: fontSize
@@ -157,7 +157,7 @@ Item {
             delegate: Text {
                 text: styleData.value
                 elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
 
                 font {
                     pixelSize: fontSize
@@ -184,7 +184,7 @@ Item {
             delegate: Text {
                 text: styleData.value
                 elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
 
                 font {
                     pixelSize: fontSize
@@ -211,7 +211,7 @@ Item {
             delegate: Text {
                 text: styleData.value
                 elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
 
                 font {
                     pixelSize: fontSize
