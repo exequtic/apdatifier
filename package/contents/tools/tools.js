@@ -118,7 +118,7 @@ function defineCommands() {
         } else if (mode[1] && !checkupdatesAUR) {
             return `${checkupdates}`
         } else if (mode[1] && checkupdatesAUR) {
-            return `"(${checkupdates}; ${wrapper} -${defineWrapperArg()}) | sort -u"`
+            return `"(${checkupdates}; ${wrapper} -${defineWrapperArg()} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
         } else if (mode[2]) {
             return `"${wrapper} -${defineWrapperArg()}"`
         } else {
