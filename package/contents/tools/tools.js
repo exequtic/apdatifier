@@ -47,7 +47,6 @@ function connection() {
             || status.includes("limited")
             || status.includes("unavailable")
             || status.includes("disconected")
-            || status.includes("available")
                 ? false
                 : true
 }
