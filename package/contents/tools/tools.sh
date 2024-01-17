@@ -24,38 +24,65 @@ copy() {
     [ -f $notifdir/$file3 ] || cp $plasmoid/contents/notifyrc/$file3 $notifdir
 }
 
+### Download and install latest release
+# install() {
+#     command -v curl >/dev/null || { echo "curl not installed" >&2; exit 1; }
+#     command -v kpackagetool5 >/dev/null || { echo "kpackagetool5 not installed" >&2; exit 1; }
 
+#     if [ ! -z "$(kpackagetool5 -t Plasma/Applet -l | grep $applet)" ]; then
+#         while true; do
+#             echo "Plasmoid already installed"
+#             read -p "Reinstall? [Y/n]: " reply
+#             case $reply in
+#                 [Yy]*|"") uninstall; sleep 2; break ;;
+#                 [Nn]*) exit 0 ;;
+#             esac
+#         done
+#     fi
+
+#     releases=https://github.com/exequtic/apdatifier/releases
+#     tag=$(curl -LsH 'Accept: application/json' $releases/latest)
+#     tag=${tag%\,\"update_url*}
+#     tag=${tag##*tag_name\":\"}
+#     tag=${tag%\"}
+
+#     file="apdatifier_KF5_$tag.plasmoid"
+#     download="$releases/download/$tag/$file"
+#     tempfile="/tmp/$file"
+
+#     curl --fail --location --progress-bar --output $tempfile $download
+
+#     if [ $? -eq 0 ]; then
+#         [ -f $tempfile ] && kpackagetool5 -t Plasma/Applet -i $tempfile
+#         rm $tempfile
+#     fi
+# }
+
+### Download and install with latest commit
 install() {
-    command -v curl >/dev/null || { echo "curl not installed" >&2; exit 1; }
+    command -v git >/dev/null || { echo "git not installed" >&2; exit 1; }
+    command -v zip >/dev/null || { echo "zip not installed" >&2; exit 1; }
     command -v kpackagetool5 >/dev/null || { echo "kpackagetool5 not installed" >&2; exit 1; }
 
     if [ ! -z "$(kpackagetool5 -t Plasma/Applet -l | grep $applet)" ]; then
-        while true; do
-            echo "Plasmoid already installed"
-            read -p "Reinstall? [Y/n]: " reply
-            case $reply in
-                [Yy]*|"") uninstall; sleep 2; break ;;
-                [Nn]*) exit 0 ;;
-            esac
-        done
+        echo "Plasmoid already installed"
+        uninstall
+        sleep 2
     fi
 
-    releases=https://github.com/exequtic/apdatifier/releases
-    tag=$(curl -LsH 'Accept: application/json' $releases/latest)
-    tag=${tag%\,\"update_url*}
-    tag=${tag##*tag_name\":\"}
-    tag=${tag%\"}
-
-    file="apdatifier_KF5_$tag.plasmoid"
-    download="$releases/download/$tag/$file"
-    tempfile="/tmp/$file"
-
-    curl --fail --location --progress-bar --output $tempfile $download
+    savedir=$(pwd)
+    cd /tmp && git clone -n --depth=1 --filter=tree:0 https://github.com/exequtic/apdatifier
+    cd apdatifier && git sparse-checkout set --no-cone package && git checkout
 
     if [ $? -eq 0 ]; then
-        [ -f $tempfile ] && kpackagetool5 -t Plasma/Applet -i $tempfile
-        rm $tempfile
+        cd package
+        zip -rq apdatifier.plasmoid .
+        [ ! -f apdatifier.plasmoid ] || kpackagetool5 -t Plasma/Applet -i apdatifier.plasmoid
     fi
+
+    cd $savedir
+
+    [ ! -d /tmp/apdatifier ] || rm -rf /tmp/apdatifier
 }
 
 
@@ -79,7 +106,7 @@ Usage: sh tools.sh [option]
 
 Options:
     copy        Copy files
-    install     Download latest release and install
+    install     Download and install
     uninstall   Remove files and plasmoid
 
 EOF

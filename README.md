@@ -74,12 +74,17 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 # Installation
 Just install directly from KDE Widget Store.
 
-Or download latest release and install in one line command:
+Or download with latest commit and install in one line command:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/KF5/package/contents/tools/tools.sh | sh -s install
 ```
 
 After installation, the widget icon should automatically appear in the system tray. If this does not happen, Log Out or restart plasmashell/latte-dock.
+
+### Uninstall
+```bash
+sh ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
+```
 
 <br>
 
