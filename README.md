@@ -64,10 +64,10 @@ sudo pacman-key --populate archlinux
 ```
 
 ### Supported pacman wrappers
-aura, aurman, pacaur, pakku, paru, picaur, trizen, yay.
+paru, trizen, yay
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake.
+alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake
 
 <br>
 

@@ -82,8 +82,8 @@ function checkDependencies() {
 
         let out = stdout.split("\n")
         let packs = out.slice(0, 4)
-        let wrappers = populate(out.slice(4, 12).filter(Boolean))
-        let terminals = populate(out.slice(12).filter(Boolean))
+        let wrappers = populate(out.slice(4, 7).filter(Boolean))
+        let terminals = populate(out.slice(7).filter(Boolean))
 
         plasmoid.configuration.packages = packs
         plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
@@ -128,14 +128,8 @@ function defineCommands() {
 
     function defineWrapperArg() {
         switch (wrapper.split("/").pop()) {
-            case "aura":   return "Qu"
-            case "aurman": return "Qu"
-            case "pacaur": return "Qu -a"
-            case "pakku":  return "Qu"
-            case "paru":   return "Qua"
-            case "picaur": return "Qua"
-            case "trizen": return "Qu -a"
-            case "yay":    return "Qu"
+            case "trizen": return "Qu; trizen -Qu -a"
+            default: return "Qu"
         }
     }
 

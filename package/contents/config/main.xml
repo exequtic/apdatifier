@@ -57,7 +57,7 @@
             <default>true</default>
         </entry>
         <entry name="dependencies" type="string">
-            <default>sh pacman checkupdates flatpak aura aurman pacaur pakku paru picaur trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake</default>
+            <default>sh pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake</default>
         </entry>
     </group>
 

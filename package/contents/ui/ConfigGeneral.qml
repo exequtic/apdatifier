@@ -143,7 +143,7 @@ Kirigami.FormLayout {
             }
 
             Kirigami.UrlButton {
-                url: "https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers"
+                url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
                 text: instTip.text
                 font.pixelSize: tip.font.pixelSize
                 color: instTip.color
