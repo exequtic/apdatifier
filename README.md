@@ -2,9 +2,9 @@
 
 <img src="./screenshots/screenshot_1.png" width="500px" alt="banner"/>
 
-![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
-![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
-![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot)
+<!-- ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red) -->
+<!-- ![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
+<!-- ![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot) -->
 
 # Apdatifier
 ## Arch Update Notifier
@@ -14,7 +14,6 @@
 # Features
 - Choice between pacman, checkupdates, pacman [wrappers](#supported-pacman-wrappers)
 - Supports Flatpak (without showing the runtime updates)
-- Should work on other distributions, but only Arch Linux will support system updates, while in other only Flatpak will be supported.
 - Notification for new updates
 - Button for downloading fresh package databases
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
@@ -33,26 +32,11 @@
 
 # Requirements
 >[!WARNING]
->Before install plasmoid, make sure you have the org.kde.notification qml module installed
+>Before install plasmoid, make sure you have the org.kde.notification module installed
 
-Arch Linux
+
 ```bash
 sudo pacman -S knotifications5
-```
-
-KDE Neon
-```bash
-sudo apt install qml-module-org-kde-notification
-```
-
-Kubuntu
-```bash
-sudo apt install qml-module-org-kde-notifications
-```
-
-Fedora
-```bash
-sudo dnf install kf5-knotification
 ```
 
 ### For Steam Deck
