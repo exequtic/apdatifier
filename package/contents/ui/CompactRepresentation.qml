@@ -1,19 +1,20 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-import QtQuick 2.15
-import QtQuick.Controls 2.5 as QQC2
+import QtQuick
+import QtQuick.Controls as QQC2
 
-import org.kde.kirigami 2.15 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents
 
 import "../tools/tools.js" as JS
 
 Item {
-    PlasmaCore.IconItem {
+    Kirigami.Icon {
         id: icon
         anchors.fill: parent
         source: JS.setIcon(plasmoid.icon)
@@ -43,7 +44,7 @@ Item {
             color: error ? Kirigami.Theme.negativeTextColor
                             : plasmoid.configuration.indicatorColor
                                 ? plasmoid.configuration.indicatorColor
-                                    : PlasmaCore.ColorScope.highlightColor
+                                    : Kirigami.Theme.highlightColor
             visible: frame.visible && plasmoid.configuration.indicatorCircle
         }
 
@@ -53,9 +54,9 @@ Item {
             anchors.bottom: JS.indicatorAnchors("bottom")
             anchors.right: JS.indicatorAnchors("right")
             anchors.left: JS.indicatorAnchors("left")
-            width: counter.width + (frame.width / 15) * PlasmaCore.Units.devicePixelRatio
+            width: counter.width + (frame.width / 15)
             height: plasmoid.configuration.indicatorScale ? (frame.width / 3) : counter.height
-            radius: width * 0.15
+            radius: width * 0.30
             color: Kirigami.Theme.backgroundColor
             opacity: 0.9
             visible: frame.visible && plasmoid.configuration.indicatorCounter
@@ -64,7 +65,7 @@ Item {
                 id: counter
                 anchors.centerIn: parent
                 text: count ? count : error ? "✖" : " "
-                font.pixelSize: plasmoid.configuration.indicatorScale ? frame.width / 3 : PlasmaCore.Theme.smallestFont.pixelSize
+                font.pointSize: plasmoid.configuration.indicatorScale ? frame.width / 5 :  Kirigami.Theme.smallFont.pointSize
                 renderType: Text.NativeRendering
             }
         }
@@ -75,8 +76,8 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         property bool wasExpanded: false
-        onPressed: wasExpanded = plasmoid.expanded
-        onClicked: plasmoid.expanded = !wasExpanded
+        onPressed: wasExpanded = expanded
+        onClicked: expanded = !wasExpanded
         onHoveredChanged: {
             lastCheck = JS.getLastCheck()
         }

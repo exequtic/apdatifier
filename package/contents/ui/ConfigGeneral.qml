@@ -1,14 +1,14 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.5 as QQC2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as QQC2
 
-import org.kde.kirigami 2.15 as Kirigami
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+import org.kde.kcmutils
+import org.kde.kirigami as Kirigami
 
 import "../tools/tools.js" as JS
 
@@ -18,13 +18,10 @@ Kirigami.FormLayout {
     property alias cfg_interval: interval.checked
     property alias cfg_time: time.value
 
-    property alias cfg_pacman: pacman.checked
-    property alias cfg_checkupdates: checkupdates.checked
-    property alias cfg_checkupdatesAUR: checkupdatesAUR.checked
-    property alias cfg_wrapper: wrapper.checked
-    property string cfg_selectedWrapper: plasmoid.configuration.selectedWrapper
-
+    property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
+
+    property string cfg_selectedWrapper: plasmoid.configuration.selectedWrapper
 
     property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
@@ -70,8 +67,33 @@ Kirigami.FormLayout {
         spacing: Kirigami.Units.gridUnit
 
         QQC2.CheckBox {
+            id: aur
+            text: i18n("AUR")
+            enabled: wrappers
+        }
+
+        Kirigami.UrlButton {
+            url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
+            text: instTip.text
+            font.pointSize: tip.font.pointSize
+            color: instTip.color
+            visible: !wrappers
+        }
+
+        QQC2.Label {
+            font.pointSize: tip.font.pointSize
+            color: Kirigami.Theme.positiveTextColor
+            text: i18n("found: %1", cfg_selectedWrapper)
+            visible: aur.checked && wrappers.length == 1
+        }
+    }
+
+    RowLayout {
+        spacing: Kirigami.Units.gridUnit
+
+        QQC2.CheckBox {
             id: flatpak
-            text: i18n("Enable Flatpak support")
+            text: i18n("Flatpak")
             enabled: packages[3]
 
             Component.onCompleted: {
@@ -86,84 +108,20 @@ Kirigami.FormLayout {
             id: instTip
             url: "https://flathub.org/setup"
             text: i18n("Not installed")
-            font.pixelSize: tip.font.pixelSize
+            font.pointSize: tip.font.pointSize
             color: Kirigami.Theme.neutralTextColor
             visible: !packages[3]
         }
     }
 
-    ColumnLayout {
-        visible: packages[1]
-
-        QQC2.ButtonGroup {
-            id: searchGroup
-        }
-
-        QQC2.RadioButton {
-            id: pacman
-            text: "pacman"
-            checked: true
-            QQC2.ButtonGroup.group: searchGroup
-        }
-
-        RowLayout {
-            spacing: Kirigami.Units.gridUnit
-
-            QQC2.RadioButton {
-                id: checkupdates
-                text: "checkupdates"
-                enabled: packages[2]
-                QQC2.ButtonGroup.group: searchGroup
-            }
-
-            QQC2.CheckBox {
-                id: checkupdatesAUR
-                text: "AUR"
-                enabled: packages[2] && wrappers
-                visible: enabled && checkupdates.checked
-            }
-
-            Kirigami.UrlButton {
-                url: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
-                text: instTip.text
-                font.pixelSize: tip.font.pixelSize
-                color: instTip.color
-                visible: !packages[2]
-            }
-        }
-
-        RowLayout {
-            spacing: Kirigami.Units.gridUnit
-
-            QQC2.RadioButton {
-                id: wrapper
-                text: i18n("pacman wrapper")
-                enabled: wrappers
-                QQC2.ButtonGroup.group: searchGroup
-            }
-
-            Kirigami.UrlButton {
-                url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
-                text: instTip.text
-                font.pixelSize: tip.font.pixelSize
-                color: instTip.color
-                visible: !wrappers
-            }
-
-            QQC2.Label {
-                font.pixelSize: tip.font.pixelSize
-                color: Kirigami.Theme.positiveTextColor
-                text: i18n("found: %1", cfg_selectedWrapper)
-                visible: wrapper.checked && wrappers.length == 1
-            }
-        }
+    RowLayout {
+        Kirigami.FormData.label: i18n("Wrapper:")
 
         QQC2.ComboBox {
             model: wrappers
             textRole: "name"
             enabled: wrappers
             implicitWidth: 150
-            visible: wrappers && wrappers.length > 1
 
             onCurrentIndexChanged: {
                 cfg_selectedWrapper = model[currentIndex]["value"]
@@ -176,19 +134,24 @@ Kirigami.FormLayout {
             }
         }
 
-        Kirigami.Separator {
-            Layout.fillWidth: true
-        }
+        visible: aur.checked && wrappers.length > 1
+    }
 
-        RowLayout {
-            QQC2.Label {
-                id: tip
-                Layout.maximumWidth: 250
-                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-                text: i18n("Highly recommended to use checkupdates for getting the latest updates without the need to download fresh package databases.")
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
-            }
+    Kirigami.Separator {
+        Layout.fillWidth: true
+        visible: !packages[2]
+    }
+
+    RowLayout {
+        visible: !packages[2]
+        QQC2.Label {
+            id: tip
+            Layout.maximumWidth: 250
+            font.pointSize: Kirigami.Theme.smallFont.pointSize
+            color: Kirigami.Theme.neutralTextColor
+            text: i18n("Package 'checkupdates' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
         }
     }
 
@@ -223,7 +186,7 @@ Kirigami.FormLayout {
         Kirigami.UrlButton {
             url: "https://github.com/exequtic/apdatifier#supported-terminals"
             text: instTip.text
-            font.pixelSize: tip.font.pixelSize
+            font.pointSize: tip.font.pointSize
             color: instTip.color
             visible: !terminals
         }
@@ -287,7 +250,7 @@ Kirigami.FormLayout {
         QQC2.Label {
             horizontalAlignment: Text.AlignHCenter
             Layout.maximumWidth: 250
-            font.pixelSize: tip.font.pixelSize
+            font.pointSize: tip.font.pointSize
             text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
             wrapMode: Text.WordWrap
         }
@@ -298,7 +261,7 @@ Kirigami.FormLayout {
         enabled: notifications.checked
         icon.name: "settings-configure"
         text: i18n("Configure...")
-        onClicked: KQuickAddons.KCMShell.openSystemSettings("kcm_notifications")
+        onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
     }
 
     Item {

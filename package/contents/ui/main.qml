@@ -1,30 +1,31 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Layouts
 
-import org.kde.notification 1.0
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.networkmanagement 0.2
+import org.kde.notification
+import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.networkmanagement
 
-import Qt.labs.platform 1.1
+import Qt.labs.platform
 
 import "../tools/tools.js" as JS
 
-Item {
-    Plasmoid.compactRepresentation: CompactRepresentation {}
-    Plasmoid.fullRepresentation: FullRepresentation {}
+PlasmoidItem {
+    compactRepresentation: CompactRepresentation {}
+    fullRepresentation: FullRepresentation {}
 
-    Plasmoid.preferredRepresentation: plasmoid.location === PlasmaCore.Types.Floating
-                                          ? Plasmoid.fullRepresentation
-                                          : Plasmoid.compactRepresentation
+    // preferredRepresentation: plasmoid.location === PlasmaCore.Types.Floating
+    //                                      ? fullRepresentation
+    //                                      : compactRepresentation
 
-    Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 20
-    Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 10
+    switchWidth: Kirigami.Units.gridUnit * 20
+    switchHeight: Kirigami.Units.gridUnit * 10
 
     Plasmoid.busy: busy
     Plasmoid.status: count > 0 || busy || error
@@ -33,8 +34,8 @@ Item {
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    Plasmoid.toolTipMainText: ""
-    Plasmoid.toolTipSubText: busy ? statusMsg : lastCheck
+    toolTipMainText: ""
+    toolTipSubText: busy ? statusMsg : lastCheck
 
     property var applet: Plasmoid.pluginName
     property var listModel: listModel
@@ -42,7 +43,6 @@ Item {
     property var shell: []
     property bool busy: false
     property bool upgrading: false
-    property bool downloading: false
     property string error: ""
     property string statusMsg: ""
     property string statusIco: ""
@@ -57,11 +57,6 @@ Item {
     property int time: plasmoid.configuration.time
     property bool sorting: plasmoid.configuration.sortByName
     property var packages: plasmoid.configuration.packages
-
-    property var searchMode: [plasmoid.configuration.pacman,
-                              plasmoid.configuration.checkupdates,
-                              plasmoid.configuration.wrapper,
-                              plasmoid.configuration.flatpak]
 
     ListModel  {
         id: listModel
@@ -112,36 +107,22 @@ Item {
         JS.refreshListModel()
     }
 
-    function action_check() {
-        JS.checkUpdates()
-    }
-    function action_upgrade() {
-        JS.upgradeSystem()
-    }
-    function action_database() {
-        JS.downloadDatabase()
-    }
+    Plasmoid.contextualActions: [
+        PlasmaCore.Action {
+            text: i18n("Check updates")
+            icon.name: "view-refresh"
+            enabled: !upgrading
+            onTriggered: JS.checkUpdates()
+        },
+        PlasmaCore.Action {
+            text: i18n("Upgrade system")
+            icon.name: "akonadiconsole"
+            enabled: !busy && !error && count > 0 && plasmoid.configuration.selectedTerminal
+            onTriggered: JS.upgradeSystem()
+        }
+    ]
 
-    Component.onCompleted: {
-        JS.runScript()
-
-        Plasmoid.setAction("check", i18n("Check updates"), "view-refresh-symbolic")
-        Plasmoid.action("check").visible = Qt.binding(() => {
-            return !upgrading && !downloading
-        })
-
-        Plasmoid.setAction("upgrade", i18n("Upgrade system"), "akonadiconsole")
-        Plasmoid.action("upgrade").visible = Qt.binding(() => {
-            return !busy && !error && count > 0 && plasmoid.configuration.selectedTerminal
-        })
-
-        Plasmoid.setAction("database", i18n("Download database"), "repository")
-        Plasmoid.action("database").visible = Qt.binding(() => {
-            return (!busy && plasmoid.configuration.showDownloadBtn)
-                    && ((plasmoid.configuration.checkupdates
-                        && plasmoid.configuration.checkupdatesAUR)
-                        || (plasmoid.configuration.pacman)
-                        || (plasmoid.configuration.wrapper))
-        })
+	Component.onCompleted: {
+		JS.runScript()
     }
 }

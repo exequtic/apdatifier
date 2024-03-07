@@ -1,231 +1,67 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 1.4 as QQC1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
-import org.kde.kirigami 2.15 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.components as PlasmaComponents
 
 import "../tools/tools.js" as JS
 
-Item {
-    property var fontFamily: plasmoid.configuration.fontCustom
-                                ? plasmoid.configuration.selectedFont
-                                : Kirigami.Theme.defaultFont
-    property var fontSize: plasmoid.configuration.fontCustom
-                                ? plasmoid.configuration.fontSize
-                                : Kirigami.Theme.defaultFont.pixelSize
-    property var fontBold: plasmoid.configuration.fontCustom
-                                ? plasmoid.configuration.fontBold
-                                : false
-    property var fontHeight: plasmoid.configuration.fontCustom
-                                ? Math.round(plasmoid.configuration.fontSize * 1.5 + plasmoid.configuration.fontHeight)
-                                : Math.round(Kirigami.Theme.defaultFont.pixelSize * 1.5)
-
-    QQC1.TableView {
-        id: table
-        model: listModel
-
+Item {    
+    Kirigami.ScrollablePage {
+        background: Kirigami.Theme.backgroundColor
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: separator.top
 
-        visible: !busy && !error && count > 0
+        ListView {
+            id: list
+            visible: !busy && !error && count > 0
+            model: listModel
 
-        backgroundVisible: false
-        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+            delegate: ItemDelegate {
+                id: delegate
+                width: list.width
+                height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + plasmoid.configuration.spacing)
+                highlighted: false
+                hoverEnabled: false
+                enabled: false
 
-        headerDelegate: Rectangle {
-            height: plasmoid.configuration.showHeaders
-                        ? PlasmaCore.Units.smallSpacing + fontHeight
-                        : PlasmaCore.Units.smallSpacing
-            color: PlasmaCore.ColorScope.backgroundColor
-            radius: 6
-            visible: plasmoid.configuration.showHeaders
+                contentItem: RowLayout {
+                    RowLayout {
+                        Layout.preferredWidth: list.width / 2
+                        Layout.maximumWidth: list.width / 2
+                        Layout.fillHeight: true
 
-            Rectangle {
-                anchors.fill: parent
-                anchors.leftMargin: styleData.column == 0 ? 10 : 0
-                color: PlasmaCore.ColorScope.backgroundColor
-            }
-
-            // Rectangle {
-            //     width: 1
-            //     height: parent.height * 0.8
-            //     anchors.right: parent.right
-            //     anchors.verticalCenter: parent.verticalCenter
-            //     color: Kirigami.Theme.alternateBackgroundColor
-            // }
-
-            Text {
-                id: textItem
-                text: setText(styleData.value)
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
-                color: PlasmaCore.ColorScope.textColor
-
-                font {
-                    bold: plasmoid.configuration.customHeaders ? fontBold : true
-                    pixelSize: plasmoid.configuration.customHeaders ? fontSize : Kirigami.Theme.defaultFont.pixelSize
-                    family: plasmoid.configuration.customHeaders ? fontFamily : Kirigami.Theme.defaultFont
-                }
-
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    rightMargin: 0
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    verticalCenter: parent.verticalCenter
-                }
-
-                function setText(val) {
-                    if ((val == packageCol.title && plasmoid.configuration.sortByName)
-                            ||
-                        (val == repoCol.title && !plasmoid.configuration.sortByName))
-                    {
-                        return val + " •"
-                    } else {
-                        return val
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            elide: Text.ElideRight
+                            text: model.name
+                        }
                     }
-                }
-            }
 
-            property var pressed: styleData.pressed
-            onPressedChanged: {
-                if (pressed) {
-                    switch (styleData.value) {
-                        case packageCol.title:
-                            plasmoid.configuration.sortByName = true
-                            break
-                        case repoCol.title:
-                            plasmoid.configuration.sortByName = false
-                            break
-                        default:
-                            return
+                    RowLayout {
+                        Layout.preferredWidth: list.width / 2
+                        Layout.maximumWidth: list.width / 2
+                        Layout.fillHeight: true
+
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            elide: Text.ElideRight
+                            font.pointSize: Kirigami.Theme.smallFont.pointSize
+                            text: model.repo + " → " + model.curr + " → " + model.newv
+                        }
                     }
-                }
-            }
-        }
-
-        rowDelegate: Rectangle {
-            radius: 6
-            color: styleData.selected ? Kirigami.Theme.focusColor : "transparent"
-            height: fontHeight
-        }
-
-        QQC1.TableViewColumn {
-            id: packageCol
-            title: i18n("Package")
-            role: "name"
-            width: table.width * 0.35
-
-            delegate: Text {
-                text: styleData.value
-                elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
-
-                font {
-                    pixelSize: fontSize
-                    family: fontFamily
-                    bold: fontBold
-                }
-
-                verticalAlignment: Text.AlignVCenter
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    rightMargin: 0
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-        }
-
-        QQC1.TableViewColumn {
-            id: repoCol
-            title: i18n("Repository")
-            role: "repo"
-            width: table.width * 0.15
-
-            delegate: Text {
-                text: styleData.value
-                elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
-
-                font {
-                    pixelSize: fontSize
-                    family: fontFamily
-                    bold: fontBold
-                }
-
-                verticalAlignment: Text.AlignVCenter
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    rightMargin: 0
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-        }
-
-        QQC1.TableViewColumn {
-            title: i18n("Current")
-            role: "curr"
-            width: table.width * 0.25
-
-            delegate: Text {
-                text: styleData.value
-                elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
-
-                font {
-                    pixelSize: fontSize
-                    family: fontFamily
-                    bold: fontBold
-                }
-
-                verticalAlignment: Text.AlignVCenter
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    rightMargin: 0
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-        }
-
-        QQC1.TableViewColumn {
-            title: i18n("New")
-            role: "newv"
-            width: table.width * 0.25
-
-            delegate: Text {
-                text: styleData.value
-                elide: styleData.elideMode
-                color: styleData.selected ? Kirigami.Theme.highlightedTextColor : PlasmaCore.ColorScope.textColor
-
-                font {
-                    pixelSize: fontSize
-                    family: fontFamily
-                    bold: fontBold
-                }
-
-                verticalAlignment: Text.AlignVCenter
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    rightMargin: 0
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    verticalCenter: parent.verticalCenter
                 }
             }
         }
@@ -244,6 +80,8 @@ Item {
 
             PlasmaComponents.ToolButton {
                 icon.name: statusIco
+                hoverEnabled: false
+                highlighted: false
                 enabled: false
             }
 
@@ -257,48 +95,43 @@ Item {
             spacing: 0
 
             PlasmaComponents.ToolButton {
-                icon.name: "repository"
-                visible: (footer.visible && !busy && plasmoid.configuration.showDownloadBtn)
-                            && ((plasmoid.configuration.checkupdates
-                                && plasmoid.configuration.checkupdatesAUR)
-                                    || (plasmoid.configuration.pacman)
-                                    || (plasmoid.configuration.wrapper))
+                onClicked: {
+                    plasmoid.configuration.sortByName = plasmoid.configuration.sortByName ? false : true
+                    JS.refreshListModel()
+                }
+                icon.name: "sort-name"
+                visible: footer.visible
+                            && !busy
+                            && !error
+                            && count > 0
 
                 PlasmaComponents.ToolTip {
-                    text: i18n("Download database")
+                    text: i18n("Sort by name/repository")
                 }
-
-                onClicked: JS.downloadDatabase()
             }
 
             PlasmaComponents.ToolButton {
+                onClicked: JS.upgradeSystem()
                 icon.name: "akonadiconsole"
                 visible: footer.visible
                             && !busy
                             && !error
                             && count > 0
-                            && plasmoid.configuration.showUpgradeBtn
                             && plasmoid.configuration.selectedTerminal
 
                 PlasmaComponents.ToolTip {
                     text: i18n("Upgrade system")
                 }
-
-                onClicked: JS.upgradeSystem()
             }
 
             PlasmaComponents.ToolButton {
+                onClicked: JS.checkUpdates()
                 icon.name: "view-refresh-symbolic"
-                visible: footer.visible
-                            && plasmoid.configuration.showCheckBtn
-                            && !upgrading
-                            && !downloading
+                visible: footer.visible && !upgrading
 
                 PlasmaComponents.ToolTip {
                     text: i18n("Check updates")
                 }
-
-                onClicked: JS.checkUpdates()
             }
         }
     }
@@ -318,7 +151,8 @@ Item {
         enabled: busy && plasmoid.location !== PlasmaCore.Types.Floating
         visible: enabled
         asynchronous: true
-        sourceComponent: QQC1.BusyIndicator {
+        PlasmaComponents.BusyIndicator {
+            anchors.centerIn: parent
             width: 128
             height: 128
             opacity: 0.3
@@ -328,7 +162,7 @@ Item {
 
     Loader {
         anchors.centerIn: parent
-        width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
+        width: parent.width - (Kirigami.Units.gridUnit * 4)
         enabled: !busy && !error && count == 0
         visible: enabled
         asynchronous: true
@@ -341,7 +175,7 @@ Item {
 
     Loader {
         anchors.centerIn: parent
-        width: parent.width - (PlasmaCore.Units.largeSpacing * 4)
+        width: parent.width - (Kirigami.Units.gridUnit * 4)
         enabled: !busy && error
         visible: enabled
         asynchronous: true

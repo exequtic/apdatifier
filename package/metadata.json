@@ -12,14 +12,13 @@
         "Id": "com.github.exequtic.apdatifier",
         "Name": "Apdatifier",
         "EnabledByDefault": true,
-        "Version": "1.0.2",
+        "Version": "1.9",
         "License": "MIT",
         "BugReportUrl": "https://github.com/exequtic/apdatifier/issues",
         "Website": "https://github.com/exequtic/apdatifier"
     },
     "KPackageStructure": "Plasma/Applet",
-    "X-Plasma-API": "declarativeappletscript",
-    "X-Plasma-MainScript": "ui/main.qml",
+    "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-NotificationArea": "true",
     "X-Plasma-NotificationAreaCategory": "SystemServices"
 }

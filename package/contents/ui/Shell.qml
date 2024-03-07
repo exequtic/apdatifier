@@ -1,14 +1,12 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-// full version: https://github.com/Zren/plasma-applet-lib/blob/master/package/contents/ui/lib/ExecUtil.qml
+import QtQuick
+import org.kde.plasma.plasma5support as Plasma5Support
 
-import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-
-PlasmaCore.DataSource {
+Plasma5Support.DataSource {
     id: executable
     engine: "executable"
     connectedSources: []

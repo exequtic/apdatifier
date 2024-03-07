@@ -1,5 +1,5 @@
 <!--
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 -->
 
@@ -17,23 +17,14 @@
         <entry name="time" type="int">
             <default>30</default>
         </entry>
-        <entry name="pacman" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="checkupdates" type="bool">
+        <entry name="aur" type="bool">
             <default>false</default>
         </entry>
-        <entry name="checkupdatesAUR" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="wrapper" type="bool">
+        <entry name="flatpak" type="bool">
             <default>false</default>
         </entry>
         <entry name="selectedWrapper" type="string">
             <default></default>
-        </entry>
-        <entry name="flatpak" type="bool">
-            <default>false</default>
         </entry>
         <entry name="wrapperUpgrade" type="bool">
             <default>false</default>
@@ -56,44 +47,14 @@
         <entry name="notifyStartup" type="bool">
             <default>true</default>
         </entry>
-        <entry name="dependencies" type="string">
-            <default>sh pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake</default>
-        </entry>
     </group>
 
     <group name="Appearance">
-        <entry name="fontCustom" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="selectedFont" type="string">
-            <default></default>
-        </entry>
-        <entry name="fontBold" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="fontSize" type="int">
-            <default>14</default>
-        </entry>
-        <entry name="fontHeight" type="int">
-            <default>0</default>
-        </entry>
-        <entry name="showHeaders" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="customHeaders" type="bool">
-            <default>false</default>
+        <entry name="spacing" type="int">
+            <default>6</default>
         </entry>
         <entry name="showStatusBar" type="bool">
             <default>true</default>
-        </entry>
-        <entry name="showCheckBtn" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="showUpgradeBtn" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="showDownloadBtn" type="bool">
-            <default>false</default>
         </entry>
         <entry name="sortByName" type="bool">
             <default>true</default>

@@ -1,36 +1,26 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
-import QtQuick 2.15
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.5 as QQC2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls as QQC2
 
-import org.kde.kirigami 2.15 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+import org.kde.kcmutils
+import org.kde.ksvg as KSvg
+import org.kde.iconthemes as KIconThemes
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
 
 import "../tools/tools.js" as JS
 
-Kirigami.FormLayout {
-    id: appearancePage
+SimpleKCM {
+    id: root
 
-    property alias cfg_fontCustom: fontCustom.checked
-    property string cfg_selectedFont: plasmoid.configuration.selectedFont
-    property alias cfg_fontBold: fontBold.checked
-    property alias cfg_fontSize: fontSize.value
-    property alias cfg_fontHeight: fontHeight.value
-
-    property alias cfg_showHeaders: showHeaders.checked
-    property alias cfg_customHeaders: customHeaders.checked
-
+    property alias cfg_spacing: spacing.value
     property alias cfg_showStatusBar: showStatusBar.checked
-    property alias cfg_showCheckBtn: showCheckBtn.checked
-    property alias cfg_showUpgradeBtn: showUpgradeBtn.checked
-    property alias cfg_showDownloadBtn: showDownloadBtn.checked
-
     property alias cfg_sortByName: sortByName.checked
     property alias cfg_sortByRepo: sortByRepo.checked
 
@@ -47,90 +37,28 @@ Kirigami.FormLayout {
     property bool cfg_indicatorRight: plasmoid.configuration.indicatorRight
     property bool cfg_indicatorLeft: plasmoid.configuration.indicatorLeft
 
+Kirigami.FormLayout {
+    id: appearancePage
+
     Kirigami.Separator {
         Kirigami.FormData.isSection: true
         Kirigami.FormData.label: i18n("List View")
     }
 
-    QQC2.CheckBox {
-        id: fontCustom
-        text: i18n("Custom font settings")
-    }
-
-    QQC2.ComboBox {
-        Kirigami.FormData.label: i18n("Font family:")
-        implicitWidth: 300
-        textRole: "name"
-        model: JS.getFonts(Kirigami.Theme.defaultFont, Qt.fontFamilies())
-        enabled: fontCustom.checked
-
-        onCurrentIndexChanged: {
-            cfg_selectedFont = model[currentIndex]["value"]
-        }
-
-        Component.onCompleted: {
-            currentIndex = JS.setIndex(plasmoid.configuration.selectedFont, model)
-        }
-    }
-
-    QQC2.CheckBox {
-        id: fontBold
-        text: i18n("Bold")
-        enabled: fontCustom.checked
-    }
-
-    RowLayout {
-        Kirigami.FormData.label: i18n("Size:")
-
-        QQC2.SpinBox {
-            id: fontSize
-            implicitWidth: 100
-            from: 8
-            to: 32
-            stepSize: 1
-            value: fontSize.value
-        }
-
-        QQC2.Label {
-            text: "px"
-        }
-
-        enabled: fontCustom.checked
-    }
-
     RowLayout {
         Kirigami.FormData.label: i18n("Spacing:")
 
-        QQC2.SpinBox {
-            id: fontHeight
-            implicitWidth: 100
-            from: -6
+        QQC2.Slider {
+            id: spacing
+            from: 0
             to: 12
             stepSize: 1
-            value: fontHeight.value
+            value: spacing.value
+
+            onValueChanged: {
+                plasmoid.configuration.spacing = spacing.value
+            }
         }
-
-        QQC2.Label {
-            text: "px"
-        }
-
-        enabled: fontCustom.checked
-    }
-
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
-    QQC2.CheckBox {
-        id: showHeaders
-        Kirigami.FormData.label: i18n("Header:")
-        text: i18n("Show table headers")
-    }
-
-    QQC2.CheckBox {
-        id: customHeaders
-        text: i18n("Apply custom font for headers")
-        enabled: showHeaders.checked && fontCustom.checked
     }
 
     Item {
@@ -141,80 +69,6 @@ Kirigami.FormLayout {
         id: showStatusBar
         Kirigami.FormData.label: i18n("Status bar:")
         text: i18n("Show status bar")
-    }
-
-    QQC2.CheckBox {
-        id: showCheckBtn
-        text: i18n("Check updates")
-        icon.name: "view-refresh-symbolic"
-        enabled: showStatusBar.checked
-    }
-
-    QQC2.CheckBox {
-        id: showUpgradeBtn
-        text: i18n("Upgrade system")
-        icon.name: "akonadiconsole"
-        enabled: showStatusBar.checked
-    }
-
-    QQC2.CheckBox {
-        id: showDownloadBtn
-        text: i18n("Download database")
-        icon.name: "repository"
-        enabled: showStatusBar.checked
-                    && (plasmoid.configuration.pacman
-                        || (plasmoid.configuration.checkupdates
-                            && plasmoid.configuration.checkupdatesAUR)
-                        || plasmoid.configuration.wrapper)
-        visible: plasmoid.configuration.packages[1]
-    }
-
-    Kirigami.Separator {
-        Layout.fillWidth: true
-        visible: warning.visible || tip.visible
-    }
-
-    ColumnLayout {
-        id: warning
-        spacing: 0
-        visible: showDownloadBtn.checked && showDownloadBtn.enabled
-
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-            QQC2.Label {
-                font.pixelSize: tip.font.pixelSize
-                text: i18n("Avoid")
-            }
-
-            Kirigami.UrlButton {
-                url: "https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported"
-                text: i18n("partial")
-                font.pixelSize: tip.font.pixelSize
-                color: Kirigami.Theme.neutralTextColor
-            }
-
-            QQC2.Label {
-                font.pixelSize: tip.font.pixelSize
-                text: i18n("upgrades!")
-            }
-        }
-
-        QQC2.Label {
-            Layout.maximumWidth: 250
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: tip.font.pixelSize
-            text: i18n("If you need to install a package after refreshing the package databases, use -Syu <i>package</i> (install package with full upgrade).")
-            wrapMode: Text.WordWrap
-        }
-    }
-
-    QQC2.Label {
-        id: tip
-        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize - 4
-        text: i18n("Not needed for checkupdates")
-        visible: showStatusBar.checked && plasmoid.configuration.checkupdates
-                                       && !plasmoid.configuration.checkupdatesAUR
     }
 
     Item {
@@ -259,7 +113,7 @@ Kirigami.FormLayout {
 
         Kirigami.FormData.label: i18n("Icon:")
 
-        implicitWidth: iconFrame.width + PlasmaCore.Units.smallSpacing
+        implicitWidth: iconFrame.width + Kirigami.Units.smallSpacing
         implicitHeight: implicitWidth
         hoverEnabled: true
 
@@ -267,22 +121,22 @@ Kirigami.FormLayout {
         QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
         QQC2.ToolTip.visible: iconButton.hovered
 
-        PlasmaCore.FrameSvgItem {
+        KSvg.FrameSvgItem {
             id: iconFrame
             anchors.centerIn: parent
-            width: PlasmaCore.Units.iconSizes.medium + fixedMargins.left + fixedMargins.right
+            width: Kirigami.Units.iconSizes.medium + fixedMargins.left + fixedMargins.right
             height: width
             imagePath: "widgets/background"
 
-            PlasmaCore.IconItem {
+            Kirigami.Icon {
                 anchors.centerIn: parent
-                width: PlasmaCore.Units.iconSizes.medium
+                width: Kirigami.Units.iconSizes.medium
                 height: width
                 source: JS.setIcon(cfg_selectedIcon)
             }
         }
 
-        KQuickAddons.IconDialog {
+        KIconThemes.IconDialog {
             id: iconsDialog
             onIconNameChanged: cfg_selectedIcon = iconName || JS.defaultIcon
         }
@@ -367,7 +221,7 @@ Kirigami.FormLayout {
 
                 background: Rectangle {
                     radius: colorButton.implicitWidth / 2
-                    color: cfg_indicatorColor ? cfg_indicatorColor : PlasmaCore.ColorScope.highlightColor
+                    color: cfg_indicatorColor ? cfg_indicatorColor : Kirigami.Theme.highlightColor
                 }
 
                 HoverHandler {
@@ -383,7 +237,7 @@ Kirigami.FormLayout {
                     QQC2.MenuItem {
                         text: i18n("Default color")
                         icon.name: "edit-clear"
-                        enabled: cfg_indicatorColor && cfg_indicatorColor !== PlasmaCore.ColorScope.highlightColor
+                        enabled: cfg_indicatorColor && cfg_indicatorColor !== Kirigami.Theme.highlightColor
                         onClicked: cfg_indicatorColor = ""
                     }
 
@@ -398,13 +252,10 @@ Kirigami.FormLayout {
                     id: colorDialog
                     visible: false
                     title: i18n("Select circle color")
-                    showAlphaChannel: true
-                    color: cfg_indicatorColor
+                    selectedColor: cfg_indicatorColor
 
-                    onCurrentColorChanged: {
-                        if (visible && color != currentColor) {
-                            cfg_indicatorColor = currentColor
-                        }
+                    onAccepted: {
+                        cfg_indicatorColor = selectedColor
                     }
                 }
             }
@@ -429,9 +280,8 @@ Kirigami.FormLayout {
         QQC2.Label {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignRight
-            Layout.rightMargin: PlasmaCore.Units.smallSpacing * 2.5
+            Layout.rightMargin: Kirigami.Units.smallSpacing * 2.5
             text: i18n("Top-Left")
-            font.pixelSize: tip.font.pixelSize
 
             MouseArea {
                 anchors.fill: parent
@@ -475,7 +325,6 @@ Kirigami.FormLayout {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignLeft
             text: i18n("Top-Right")
-            font.pixelSize: tip.font.pixelSize
 
             MouseArea {
                 anchors.fill: parent
@@ -488,9 +337,8 @@ Kirigami.FormLayout {
         QQC2.Label {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignRight
-            Layout.rightMargin: PlasmaCore.Units.smallSpacing * 2.5
+            Layout.rightMargin: Kirigami.Units.smallSpacing * 2.5
             text: i18n("Bottom-Left")
-            font.pixelSize: tip.font.pixelSize
 
             MouseArea {
                 anchors.fill: parent
@@ -534,7 +382,6 @@ Kirigami.FormLayout {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignLeft
             text: i18n("Bottom-Right")
-            font.pixelSize: tip.font.pixelSize
 
             MouseArea {
                 anchors.fill: parent
@@ -548,4 +395,5 @@ Kirigami.FormLayout {
     Item {
         Kirigami.FormData.isSection: true
     }
+}
 }

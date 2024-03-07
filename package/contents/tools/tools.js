@@ -1,5 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2023 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
     SPDX-License-Identifier: MIT
 */
 
@@ -77,7 +77,8 @@ function checkDependencies() {
         return arr
     }
 
-    sh.exec(check(plasmoid.configuration.dependencies), (cmd, stdout, stderr, exitCode) => {
+    let deps = "sh pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
+    sh.exec(check(deps),(cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
 
         let out = stdout.split("\n")
@@ -95,46 +96,38 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    let wrapper = plasmoid.configuration.selectedWrapper
-    let terminal = plasmoid.configuration.selectedTerminal
-    let wrapperUpgrade = plasmoid.configuration.wrapperUpgrade
-    let checkupdatesAUR = plasmoid.configuration.checkupdatesAUR
-    let flags = plasmoid.configuration.upgradeFlags ? plasmoid.configuration.upgradeFlagsText : ""
     let archCmd
     let flatpakCmd
 
     shell[0] = packages[0] + " -c"
-    shell[1] = packages[1] ? `${shell[0]} ${defineArchCmd(searchMode, packages[1], packages[2])}` : null
+    shell[1] = packages[1] ? defineArchCmd() : null
     shell[2] = packages[1] + " -Sl"
     shell[3] = packages[3] + " remote-ls --app --updates"
     shell[4] = packages[3] + " list --app"
-    shell[5] = searchMode[0] ? packages[1] + " -Sy" : wrapper + " -Sy"
-    shell[6] = terminal + defineTermArg()
+    shell[5] = plasmoid.configuration.aur ? packages[1] + " -Sy" : plasmoid.configuration.selectedWrapper + " -Sy"
+    shell[6] = plasmoid.configuration.selectedTerminal + defineTermArg()
     shell[7] = defineUpgradeCmd()
 
-    function defineArchCmd(mode, pacman, checkupdates) {
-        if (mode[0] && pacman) {
-            return `"${pacman} -Qu"`
-        } else if (mode[1] && !checkupdatesAUR) {
-            return `${checkupdates}`
-        } else if (mode[1] && checkupdatesAUR) {
-            return `"(${checkupdates}; ${wrapper} -${defineWrapperArg()} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
-        } else if (mode[2]) {
-            return `"${wrapper} -${defineWrapperArg()}"`
+    function defineArchCmd() {
+        if (packages[2]) {
+            if (plasmoid.configuration.aur) return `${shell[0]} "(${packages[2]}; ${defineWrapperArg()} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
+            return packages[2]
         } else {
-            return
+            if (plasmoid.configuration.aur) return defineWrapperArg()
+            return packages[1] + " -Qu"
         }
     }
 
     function defineWrapperArg() {
-        switch (wrapper.split("/").pop()) {
-            case "trizen": return "Qu; trizen -Qu -a"
-            default: return "Qu"
+        switch (plasmoid.configuration.selectedWrapper.split("/").pop()) {
+            case "yay": return "yay -Qu"
+            case "paru": return "paru -Qu"
+            case "trizen": return "trizen -Qu; trizen -Qu -a"
         }
     }
 
     function defineTermArg() {
-        switch (terminal.split("/").pop()) {
+        switch (plasmoid.configuration.selectedTerminal.split("/").pop()) {
             case "gnome-terminal": return " --"
             case "terminator": return " -x"
             case "yakuake": return false
@@ -143,11 +136,14 @@ function defineCommands() {
     }
     
     function defineUpgradeCmd() {
-        flatpakCmd = searchMode[3] ? `${packages[3]} update` : "echo"
+        flatpakCmd = packages[3] ? `${packages[3]} update` : "echo"
 
         if (packages[1]) {
-            if (wrapperUpgrade) {
-                archCmd = `${wrapper} -Syu ${flags}`
+
+            let flags = plasmoid.configuration.upgradeFlags ? plasmoid.configuration.upgradeFlagsText : ""
+
+            if (plasmoid.configuration.wrapperUpgrade) {
+                archCmd = `${plasmoid.configuration.selectedWrapper} -Syu ${flags}`
                 return `${archCmd}; ${flatpakCmd}`
             } else {
                 archCmd = `sudo ${packages[1]} -Syu ${flags}`
@@ -166,6 +162,7 @@ function defineCommands() {
         let init = i18n("Full system upgrade")
         let done = i18n("Press Enter to close")
         let trap = "trap '' SIGINT"
+
         exec = packages[1] ? "echo " + exec + archCmd + "; echo"
                            : "echo " + exec + flatpakCmd + "; echo"
 
@@ -175,6 +172,7 @@ function defineCommands() {
 
 
 function upgradeSystem() {
+    console.log(shell[8])
     if (!connection()) return waitConnection()
 
     statusIco = "accept_time_event"
@@ -193,30 +191,6 @@ function upgradeSystem() {
 }
 
 
-function downloadDatabase() {
-    if (!connection()) return waitConnection()
-
-    statusIco = "download"
-    statusMsg = i18n("Download fresh package databases...")
-    downloading = true
-
-    defineCommands()
-
-    sh.exec("pkexec " + shell[5], (cmd, stdout, stderr, exitCode) => {
-        downloading = false
-
-        if (exitCode == 127) {
-            setStatusBar()
-            return
-        }
-
-        if (catchError(exitCode, stderr, stdout)) return
-
-        searchTimer.triggered()
-    })
-}
-
-
 function checkUpdates() {
     if (!connection()) return waitConnection(checkUpdates)
 
@@ -227,24 +201,24 @@ function checkUpdates() {
     let updFlpk
     let infFlpk
 
-    shell[1] ? archCheck() : searchMode[3] ? flpkCheck() : merge()
+    shell[1] ? archCheck() : plasmoid.configuration.flatpak ? flpkCheck() : merge()
 
     function archCheck() {
         statusIco = "package"
-        statusMsg = searchMode[2] ? i18n("Searching AUR for updates...")
-                                  : i18n("Searching arch repositories for updates...")
+        statusMsg = plasmoid.configuration.aur ? i18n("Searching AUR for updates...")
+                                                                              : i18n("Searching arch repositories for updates...")
 
         sh.exec(shell[1], (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             updArch = stdout ? stdout : null
-            updArch ? archList() : searchMode[3] ? flpkCheck() : merge()
+            updArch ? archList() : plasmoid.configuration.flatpak ? flpkCheck() : merge()
     })}
 
     function archList() {
         sh.exec(shell[2], (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             infArch = stdout ? stdout : null
-            searchMode[3] ? flpkCheck() : merge()
+            plasmoid.configuration.flatpak ? flpkCheck() : merge()
     })}
 
     function flpkCheck() {
@@ -312,7 +286,7 @@ function makeFlpkList(upd, inf) {
     upd.forEach(pkg => {
         let name = pkg.split(" ")[1]
         let vers = inf.find(line => line.includes(name)).split(" ")[2]
-        out += `flathub ${pkg.replace(name, vers)}\n`
+        out += `flatpak ${pkg.replace(name, vers)}\n`
     })
 
     return out
@@ -389,6 +363,7 @@ function refreshListModel(list) {
 
     for (let i = 0; i < list.length; i++) {
         let item = list[i].split(" ")
+        if (item[2] === item[3]) item[3] = "refresh"
         listModel.append({
             "name": item[0],
             "repo": item[1],
@@ -468,10 +443,11 @@ function setIcon(icon) {
 
 
 function indicatorFrameSize() {
-    const multiplier = plasmoid.configuration.indicatorCounter ? 1 : plasmoid.configuration.indicatorCircle ? 0.85 : 0
+    const multiplier = plasmoid.configuration.indicatorCounter && plasmoid.configuration.indicatorScale ? 1.2 :  
+                                    plasmoid.configuration.indicatorCounter && !plasmoid.configuration.indicatorScale ? 1 : 0.85
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
-           plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
+                plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
 }
 
 
