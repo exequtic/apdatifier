@@ -2,21 +2,46 @@
 
 <img src="./screenshots/screenshot_1.png" width="500px" alt="banner"/>
 
-<!-- ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red) -->
-<!-- ![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
-<!-- ![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot) -->
+![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
+![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
+![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot)
 
 # Apdatifier
 ## Arch Update Notifier
 
 </div>
 
+# Features
+- Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
+- Notification for new updates
+- Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
+- Customizable icon on the panel
 
-## Beta version for Plasma 6
+<br>
 
-### Installation
+<div align="center">
+<img src="./screenshots/screenshot_2.jpg" width="350px" alt="banner"/>
+<img src="./screenshots/screenshot_3.jpg" width="350px" alt="banner"/>
+</div>
 
-Download with latest commit and install in one line command:
+<br>
+
+# Requirements
+checkupdates - optional, but recommended
+
+### Supported pacman wrappers
+paru, trizen, yay
+
+### Supported terminals
+alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake
+
+<br>
+
+# Installation
+
+Just install directly from KDE Widget Store.
+
+Or download with latest commit and install in one line command:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/contents/tools/tools.sh | sh -s install
 ```
