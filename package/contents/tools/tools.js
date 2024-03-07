@@ -136,7 +136,7 @@ function defineCommands() {
     }
     
     function defineUpgradeCmd() {
-        flatpakCmd = packages[3] ? `${packages[3]} update` : "echo"
+        flatpakCmd = plasmoid.configuration.flatpak ? `${packages[3]} update` : "echo"
 
         if (packages[1]) {
 
@@ -459,16 +459,6 @@ function indicatorAnchors(pos) {
         case "left": return plasmoid.configuration.indicatorLeft && !plasmoid.configuration.indicatorRight ? frame.left : undefined
         default: return undefined
     }
-}
-
-
-function getFonts(defaultFont, fonts) {
-    let arr = []
-    arr.push({"name": i18n("Default system font"), "value": defaultFont})
-    for (let i = 0; i < fonts.length; i++) {
-        arr.push({"name": fonts[i], "value": fonts[i]})
-    }
-    return arr
 }
 
 
