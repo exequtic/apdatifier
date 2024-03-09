@@ -12,8 +12,8 @@ import org.kde.kirigami as Kirigami
 
 import "../tools/tools.js" as JS
 
-Kirigami.FormLayout {
-    id: generalPage
+SimpleKCM {
+    id: root
 
     property alias cfg_interval: interval.checked
     property alias cfg_time: time.value
@@ -36,235 +36,239 @@ Kirigami.FormLayout {
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
 
-    RowLayout {
-        Kirigami.FormData.label: i18n("Interval:")
+    Kirigami.FormLayout {
+        id: generalPage
 
-        QQC2.CheckBox {
-            id: interval
-        }
+        RowLayout {
+            Kirigami.FormData.label: i18n("Interval:")
 
-        QQC2.SpinBox {
-            id: time
-            from: 10
-            to: 1440
-            stepSize: 5
-            value: time
-            enabled: interval.checked
-        }
+            QQC2.CheckBox {
+                id: interval
+            }
 
-        QQC2.Label {
-            text: i18n("minutes")
-        }
-    }
+            QQC2.SpinBox {
+                id: time
+                from: 10
+                to: 1440
+                stepSize: 5
+                value: time
+                enabled: interval.checked
+            }
 
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
-    RowLayout {
-        Kirigami.FormData.label: i18n("Search:")
-
-        spacing: Kirigami.Units.gridUnit
-
-        QQC2.CheckBox {
-            id: aur
-            text: i18n("AUR")
-            enabled: wrappers
-        }
-
-        Kirigami.UrlButton {
-            url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
-            text: instTip.text
-            font.pointSize: tip.font.pointSize
-            color: instTip.color
-            visible: !wrappers
-        }
-
-        QQC2.Label {
-            font.pointSize: tip.font.pointSize
-            color: Kirigami.Theme.positiveTextColor
-            text: i18n("found: %1", cfg_selectedWrapper)
-            visible: aur.checked && wrappers.length == 1
-        }
-    }
-
-    RowLayout {
-        spacing: Kirigami.Units.gridUnit
-
-        QQC2.CheckBox {
-            id: flatpak
-            text: i18n("Flatpak")
-            enabled: packages[3]
-
-            Component.onCompleted: {
-                if (checked && !packages[3]) {
-                    checked = false
-                    plasmoid.configuration.flatpak = checked
-                }
+            QQC2.Label {
+                text: i18n("minutes")
             }
         }
 
-        Kirigami.UrlButton {
-            id: instTip
-            url: "https://flathub.org/setup"
-            text: i18n("Not installed")
-            font.pointSize: tip.font.pointSize
-            color: Kirigami.Theme.neutralTextColor
-            visible: !packages[3]
-        }
-    }
-
-    RowLayout {
-        Kirigami.FormData.label: i18n("Wrapper:")
-
-        QQC2.ComboBox {
-            model: wrappers
-            textRole: "name"
-            enabled: wrappers
-            implicitWidth: 150
-
-            onCurrentIndexChanged: {
-                cfg_selectedWrapper = model[currentIndex]["value"]
-            }
-
-            Component.onCompleted: {
-                if (wrappers) {
-                    currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
-                }
-            }
+        Item {
+            Kirigami.FormData.isSection: true
         }
 
-        visible: aur.checked && wrappers.length > 1
-    }
+        RowLayout {
+            Kirigami.FormData.label: i18n("Search:")
 
-    Kirigami.Separator {
-        Layout.fillWidth: true
-        visible: !packages[2]
-    }
+            spacing: Kirigami.Units.gridUnit
 
-    RowLayout {
-        visible: !packages[2]
-        QQC2.Label {
-            id: tip
-            Layout.maximumWidth: 250
-            font.pointSize: Kirigami.Theme.smallFont.pointSize
-            color: Kirigami.Theme.neutralTextColor
-            text: i18n("Package 'pacman-contrib' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-        }
-    }
-
-    Item {
-        Kirigami.FormData.isSection: true
-    }
-
-    RowLayout {
-        Kirigami.FormData.label: i18n("Upgrade:")
-
-        QQC2.ComboBox {
-            model: terminals
-            textRole: "name"
-            enabled: terminals
-            implicitWidth: 150
-
-            onCurrentIndexChanged: {
-                cfg_selectedTerminal = model[currentIndex]["value"]
+            QQC2.CheckBox {
+                id: aur
+                text: i18n("AUR")
+                enabled: wrappers
             }
 
-            Component.onCompleted: {
-                if (terminals) {
-                    currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
+            Kirigami.UrlButton {
+                url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
+                text: instTip.text
+                font.pointSize: tip.font.pointSize
+                color: instTip.color
+                visible: !wrappers
+            }
 
-                    if (!plasmoid.configuration.selectedTerminal) {
-                        plasmoid.configuration.selectedTerminal = model[0]["value"]
+            QQC2.Label {
+                font.pointSize: tip.font.pointSize
+                color: Kirigami.Theme.positiveTextColor
+                text: i18n("found: %1", cfg_selectedWrapper)
+                visible: aur.checked && wrappers.length == 1
+            }
+        }
+
+        RowLayout {
+            spacing: Kirigami.Units.gridUnit
+
+            QQC2.CheckBox {
+                id: flatpak
+                text: i18n("Flatpak")
+                enabled: packages[3]
+
+                Component.onCompleted: {
+                    if (checked && !packages[3]) {
+                        checked = false
+                        plasmoid.configuration.flatpak = checked
                     }
                 }
             }
+
+            Kirigami.UrlButton {
+                id: instTip
+                url: "https://flathub.org/setup"
+                text: i18n("Not installed")
+                font.pointSize: tip.font.pointSize
+                color: Kirigami.Theme.neutralTextColor
+                visible: !packages[3]
+            }
         }
 
-        Kirigami.UrlButton {
-            url: "https://github.com/exequtic/apdatifier#supported-terminals"
-            text: instTip.text
-            font.pointSize: tip.font.pointSize
-            color: instTip.color
-            visible: !terminals
+        RowLayout {
+            Kirigami.FormData.label: i18n("Wrapper:")
+
+            QQC2.ComboBox {
+                model: wrappers
+                textRole: "name"
+                enabled: wrappers
+                implicitWidth: 150
+
+                onCurrentIndexChanged: {
+                    cfg_selectedWrapper = model[currentIndex]["value"]
+                }
+
+                Component.onCompleted: {
+                    if (wrappers) {
+                        currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
+                    }
+                }
+            }
+
+            visible: aur.checked && wrappers.length > 1
         }
-    }
 
-    QQC2.CheckBox {
-        id: wrapperUpgrade
-        text: i18n("Use wrapper instead of pacman")
-        enabled: terminals &&
-                 wrappers &&
-                 cfg_selectedWrapper
-        visible: packages[1]
-    }
+        Kirigami.Separator {
+            Layout.fillWidth: true
+            visible: !packages[2]
+        }
 
-    QQC2.CheckBox {
-        id: upgradeFlags
-        text: i18n("Additional flags")
-        enabled: terminals
-        visible: packages[1]
-    }
+        RowLayout {
+            visible: !packages[2]
+            QQC2.Label {
+                id: tip
+                Layout.maximumWidth: 250
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                color: Kirigami.Theme.neutralTextColor
+                text: i18n("Package 'pacman-contrib' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
 
-    QQC2.TextField {
-        id: upgradeFlagsText
-        placeholderText: i18n(" only flags, without -Syu")
-        placeholderTextColor: "grey"
-        visible: packages[1] && upgradeFlags.checked
-    }
+        Item {
+            Kirigami.FormData.isSection: true
+        }
 
-    Item {
-        Kirigami.FormData.isSection: true
-    }
+        RowLayout {
+            Kirigami.FormData.label: i18n("Upgrade:")
 
-    RowLayout {
-        Kirigami.FormData.label: i18n("Notifications:")
+            QQC2.ComboBox {
+                model: terminals
+                textRole: "name"
+                enabled: terminals
+                implicitWidth: 150
+
+                onCurrentIndexChanged: {
+                    cfg_selectedTerminal = model[currentIndex]["value"]
+                }
+
+                Component.onCompleted: {
+                    if (terminals) {
+                        currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
+
+                        if (!plasmoid.configuration.selectedTerminal) {
+                            plasmoid.configuration.selectedTerminal = model[0]["value"]
+                        }
+                    }
+                }
+            }
+
+            Kirigami.UrlButton {
+                url: "https://github.com/exequtic/apdatifier#supported-terminals"
+                text: instTip.text
+                font.pointSize: tip.font.pointSize
+                color: instTip.color
+                visible: !terminals
+            }
+        }
 
         QQC2.CheckBox {
-            id: notifications
-            text: i18n("Popup")
+            id: wrapperUpgrade
+            text: i18n("Use wrapper instead of pacman")
+            enabled: terminals &&
+                    wrappers &&
+                    cfg_selectedWrapper
+            visible: packages[1]
         }
-    }
 
-    QQC2.CheckBox {
-        id: withSound
-        text: i18n("Sound")
-        enabled: notifications.checked
-    }
-
-    QQC2.CheckBox {
-        id: notifyStartup
-        text: i18n("Notify on startup")
-        enabled: notifications.checked
-    }
-
-    Kirigami.Separator {
-        Layout.fillWidth: true
-    }
-
-    RowLayout {
-        id: notifyTip
-
-        QQC2.Label {
-            horizontalAlignment: Text.AlignHCenter
-            Layout.maximumWidth: 250
-            font.pointSize: tip.font.pointSize
-            text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
-            wrapMode: Text.WordWrap
+        QQC2.CheckBox {
+            id: upgradeFlags
+            text: i18n("Additional flags")
+            enabled: terminals
+            visible: packages[1]
         }
-    }
 
-    QQC2.Button {
-        anchors.horizontalCenter: notifyTip.horizontalCenter
-        enabled: notifications.checked
-        icon.name: "settings-configure"
-        text: i18n("Configure...")
-        onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
-    }
+        QQC2.TextField {
+            id: upgradeFlagsText
+            placeholderText: i18n(" only flags, without -Syu")
+            placeholderTextColor: "grey"
+            visible: packages[1] && upgradeFlags.checked
+        }
 
-    Item {
-        Kirigami.FormData.isSection: true
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Notifications:")
+
+            QQC2.CheckBox {
+                id: notifications
+                text: i18n("Popup")
+            }
+        }
+
+        QQC2.CheckBox {
+            id: withSound
+            text: i18n("Sound")
+            enabled: notifications.checked
+        }
+
+        QQC2.CheckBox {
+            id: notifyStartup
+            text: i18n("Notify on startup")
+            enabled: notifications.checked
+        }
+
+        Kirigami.Separator {
+            Layout.fillWidth: true
+        }
+
+        RowLayout {
+            id: notifyTip
+
+            QQC2.Label {
+                horizontalAlignment: Text.AlignHCenter
+                Layout.maximumWidth: 250
+                font.pointSize: tip.font.pointSize
+                text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
+                wrapMode: Text.WordWrap
+            }
+        }
+
+        QQC2.Button {
+            anchors.horizontalCenter: notifyTip.horizontalCenter
+            enabled: notifications.checked
+            icon.name: "settings-configure"
+            text: i18n("Configure...")
+            onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
     }
 }
