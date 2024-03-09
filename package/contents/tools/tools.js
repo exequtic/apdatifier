@@ -172,7 +172,6 @@ function defineCommands() {
 
 
 function upgradeSystem() {
-    console.log(shell[8])
     if (!connection()) return waitConnection()
 
     statusIco = "accept_time_event"

@@ -27,7 +27,7 @@
 <br>
 
 # Requirements
-checkupdates - optional, but recommended
+[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but recommended
 
 ### Supported pacman wrappers
 paru, trizen, yay

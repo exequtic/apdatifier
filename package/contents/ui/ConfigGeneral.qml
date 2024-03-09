@@ -149,7 +149,7 @@ Kirigami.FormLayout {
             Layout.maximumWidth: 250
             font.pointSize: Kirigami.Theme.smallFont.pointSize
             color: Kirigami.Theme.neutralTextColor
-            text: i18n("Package 'checkupdates' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
+            text: i18n("Package 'pacman-contrib' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
         }
