@@ -54,7 +54,7 @@ Item {
             anchors.bottom: JS.indicatorAnchors("bottom")
             anchors.right: JS.indicatorAnchors("right")
             anchors.left: JS.indicatorAnchors("left")
-            width: counter.width + (frame.width / 15)
+            width: counter.width + (frame.width / 10)
             height: plasmoid.configuration.indicatorScale ? (frame.width / 3) : counter.height
             radius: width * 0.30
             color: Kirigami.Theme.backgroundColor
@@ -65,6 +65,7 @@ Item {
                 id: counter
                 anchors.centerIn: parent
                 text: count ? count : error ? "✖" : " "
+                font.bold: true
                 font.pointSize: plasmoid.configuration.indicatorScale ? frame.width / 5 :  Kirigami.Theme.smallFont.pointSize
                 renderType: Text.NativeRendering
             }

@@ -14,7 +14,7 @@ import org.kde.plasma.components as PlasmaComponents
 
 import "../tools/tools.js" as JS
 
-Item {    
+Item {
     Kirigami.ScrollablePage {
         background: Kirigami.Theme.backgroundColor
         anchors.top: parent.top
@@ -99,7 +99,7 @@ Item {
                     plasmoid.configuration.sortByName = plasmoid.configuration.sortByName ? false : true
                     JS.refreshListModel()
                 }
-                icon.name: "sort-name"
+                icon.name: "view-sort"
                 visible: footer.visible
                             && !busy
                             && !error
@@ -126,7 +126,7 @@ Item {
 
             PlasmaComponents.ToolButton {
                 onClicked: JS.checkUpdates()
-                icon.name: "view-refresh-symbolic"
+                icon.name: "view-refresh"
                 visible: footer.visible && !upgrading
 
                 PlasmaComponents.ToolTip {
@@ -142,7 +142,7 @@ Item {
         width: footer.width
         height: 1
         color: Kirigami.Theme.textColor
-        opacity: 0.1
+        opacity: 0.3
         visible: footer.visible
     }
 
@@ -155,7 +155,7 @@ Item {
             anchors.centerIn: parent
             width: 128
             height: 128
-            opacity: 0.3
+            opacity: 0.6
             running: true
         }
     }
