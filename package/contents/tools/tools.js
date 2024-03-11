@@ -336,7 +336,7 @@ function setStatusBar(code) {
     statusIco = error ? "error" : count > 0 ? "update-none" : ""
     statusMsg = error ? "Exit code: " + code : count > 0 ? i18np("%1 update is pending", "%1 updates total are pending", count) : ""
     busy = false
-    searchTimer.restart()
+    !cfg.interval ? searchTimer.stop() : searchTimer.restart()
 }
 
 
