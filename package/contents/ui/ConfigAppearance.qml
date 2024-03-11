@@ -152,10 +152,17 @@ Kirigami.FormLayout {
             y: +parent.height
 
             QQC2.MenuItem {
-                text: i18n("Default icon")
-                icon.name: "edit-clear"
+                text: i18n("Default 1")
+                icon.name: "apdatifier-plasmoid"
                 enabled: cfg_selectedIcon !== JS.defaultIcon
                 onClicked: cfg_selectedIcon = JS.defaultIcon
+            }
+
+            QQC2.MenuItem {
+                text: i18n("Default 2")
+                icon.name: "apdatifier-packages"
+                enabled: cfg_selectedIcon !== icon.name
+                onClicked: cfg_selectedIcon = icon.name
             }
 
             QQC2.MenuItem {
