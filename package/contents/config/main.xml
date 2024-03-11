@@ -9,7 +9,6 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 
 <kcfgfile name="apdatifier"/>
-
     <group name="General">
         <entry name="interval" type="bool">
             <default>true</default>
@@ -44,11 +43,7 @@
         <entry name="withSound" type="bool">
             <default>true</default>
         </entry>
-        <entry name="notifyStartup" type="bool">
-            <default>true</default>
-        </entry>
     </group>
-
     <group name="Appearance">
         <entry name="spacing" type="int">
             <default>6</default>
@@ -91,6 +86,14 @@
         </entry>
         <entry name="indicatorLeft" type="bool">
             <default>false</default>
+        </entry>
+    </group>
+    <group name="Misc">
+        <entry name="dir" type="path">
+            <default>$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier</default>
+        </entry>
+        <entry name="cache" type="string">
+            <default></default>
         </entry>
     </group>
 </kcfg>

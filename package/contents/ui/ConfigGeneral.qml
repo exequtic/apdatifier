@@ -30,7 +30,6 @@ SimpleKCM {
 
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
-    property alias cfg_notifyStartup: notifyStartup.checked
 
     property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
@@ -232,12 +231,6 @@ SimpleKCM {
         QQC2.CheckBox {
             id: withSound
             text: i18n("Sound")
-            enabled: notifications.checked
-        }
-
-        QQC2.CheckBox {
-            id: notifyStartup
-            text: i18n("Notify on startup")
             enabled: notifications.checked
         }
 

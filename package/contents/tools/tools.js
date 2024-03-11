@@ -52,15 +52,8 @@ function connection() {
 }
 
 
-function file(path) {
-    const homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
-    return homeDir + "/.local/share/plasma/plasmoids/" + applet + "/" + path
-}
-
-
 function runScript() {
-    const command = `${file("contents/tools/tools.sh")} copy`
-
+    const command = cfg.dir + "/contents/tools/tools.sh copy"
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
         checkDependencies()
@@ -277,13 +270,11 @@ function sortList(list) {
 
 
 function setNotify(list) {
-    let prev = count
-    let curr = list.length
+    const cache = cfg.cache.trim().split(",")
+    const newList = list.filter(item => !cache.includes(item))
+    const newCount = newList.length
 
-    if (prev !== undefined && prev < curr) {
-        let newList = list.filter(item => !updList.includes(item))
-        let newCount = newList.length
-
+    if (newCount > 0) {
         let lines = ""
         for (let i = 0; i < newCount; i++) {
             let col = newList[i].split(" ")
@@ -295,11 +286,7 @@ function setNotify(list) {
         notify.sendEvent()
     }
 
-    if (prev === undefined && curr > 0 && cfg.notifyStartup) {
-        notifyTitle = i18np("Update available", "Updates available", curr)
-        notifyBody = i18np("One update is pending", "%1 updates total are pending", curr)
-        notify.sendEvent()
-    }
+    cfg.cache = list.join(",")
 }
 
 
@@ -337,7 +324,7 @@ function finalize(list) {
 
     refreshListModel(list)
 
-    if (cfg.notifications) setNotify(list)
+    cfg.notifications ? setNotify(list) : cfg.cache = ""
 
     count = list.length
     updList = list

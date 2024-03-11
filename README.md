@@ -41,7 +41,7 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets")
 
-Or download with latest commit and install in one line command:
+Or download with latest commit (may be unstable) and install in one line command:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/contents/tools/tools.sh | sh -s install
 ```

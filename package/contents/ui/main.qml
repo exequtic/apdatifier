@@ -12,8 +12,6 @@ import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.networkmanagement
 
-import Qt.labs.platform
-
 import "../tools/tools.js" as JS
 
 PlasmoidItem {
@@ -33,7 +31,6 @@ PlasmoidItem {
     toolTipMainText: ""
     toolTipSubText: busy ? statusMsg : lastCheck
 
-    property var applet: Plasmoid.pluginName
     property var listModel: listModel
     property var updList: []
     property var cmd: []
