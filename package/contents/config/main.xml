@@ -23,7 +23,7 @@
         <entry name="flatpak" type="bool">
             <default>false</default>
         </entry>
-        <entry name="selectedWrapper" type="string">
+        <entry name="wrapper" type="string">
             <default></default>
         </entry>
         <entry name="wrapperUpgrade" type="bool">
@@ -35,7 +35,7 @@
         <entry name="upgradeFlagsText" type="string">
             <default></default>
         </entry>
-        <entry name="selectedTerminal" type="string">
+        <entry name="terminal" type="string">
             <default></default>
         </entry>
         <entry name="notifications" type="bool">

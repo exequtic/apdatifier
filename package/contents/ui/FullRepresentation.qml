@@ -30,7 +30,7 @@ Item {
             delegate: ItemDelegate {
                 id: delegate
                 width: list.width
-                height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + plasmoid.configuration.spacing)
+                height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + cfg.spacing)
                 highlighted: false
                 hoverEnabled: false
                 enabled: false
@@ -71,7 +71,7 @@ Item {
         anchors.bottom: parent.bottom
         id: footer
         width: parent.width
-        enabled: plasmoid.configuration.showStatusBar
+        enabled: cfg.showStatusBar
         visible: enabled
 
         RowLayout {
@@ -96,7 +96,7 @@ Item {
 
             PlasmaComponents.ToolButton {
                 onClicked: {
-                    plasmoid.configuration.sortByName = plasmoid.configuration.sortByName ? false : true
+                    cfg.sortByName = cfg.sortByName ? false : true
                     JS.refreshListModel()
                 }
                 icon.name: "view-sort"
@@ -117,7 +117,7 @@ Item {
                             && !busy
                             && !error
                             && count > 0
-                            && plasmoid.configuration.selectedTerminal
+                            && cfg.terminal
 
                 PlasmaComponents.ToolTip {
                     text: i18n("Upgrade system")

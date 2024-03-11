@@ -20,10 +20,6 @@ PlasmoidItem {
     compactRepresentation: CompactRepresentation {}
     fullRepresentation: FullRepresentation {}
 
-    // preferredRepresentation: plasmoid.location === PlasmaCore.Types.Floating
-    //                                      ? fullRepresentation
-    //                                      : compactRepresentation
-
     switchWidth: Kirigami.Units.gridUnit * 20
     switchHeight: Kirigami.Units.gridUnit * 10
 
@@ -40,7 +36,7 @@ PlasmoidItem {
     property var applet: Plasmoid.pluginName
     property var listModel: listModel
     property var updList: []
-    property var shell: []
+    property var cmd: []
     property bool busy: false
     property bool upgrading: false
     property string error: ""
@@ -56,7 +52,8 @@ PlasmoidItem {
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time
     property bool sorting: plasmoid.configuration.sortByName
-    property var packages: plasmoid.configuration.packages
+    property var pkg: plasmoid.configuration.packages
+    property var cfg: plasmoid.configuration
 
     ListModel  {
         id: listModel
@@ -69,7 +66,7 @@ PlasmoidItem {
     Notification {
         id: notify
         componentName: "apdatifier"
-        eventId: plasmoid.configuration.withSound ? "sound" : "popup"
+        eventId: cfg.withSound ? "sound" : "popup"
         title: notifyTitle
         text: notifyBody
         iconName: "apdatifier-packages"
@@ -117,7 +114,7 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Upgrade system")
             icon.name: "akonadiconsole"
-            enabled: !busy && !error && count > 0 && plasmoid.configuration.selectedTerminal
+            enabled: !busy && !error && count > 0 && cfg.terminal
             onTriggered: JS.upgradeSystem()
         }
     ]

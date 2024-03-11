@@ -39,7 +39,7 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 # Installation
 
-Just install directly from KDE Widget Store.
+Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets")
 
 Or download with latest commit and install in one line command:
 ```bash

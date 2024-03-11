@@ -52,10 +52,14 @@ function connection() {
 }
 
 
+function file(path) {
+    const homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
+    return homeDir + "/.local/share/plasma/plasmoids/" + applet + "/" + path
+}
+
+
 function runScript() {
-    let homeDir = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().substring(7)
-    let script = homeDir + "/.local/share/plasma/plasmoids/" + applet + "/contents/tools/tools.sh"
-    let command = `${script} copy`
+    const command = `${file("contents/tools/tools.sh")} copy`
 
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
@@ -65,30 +69,23 @@ function runScript() {
 
 
 function checkDependencies() {
-    function check(packs) {
-        return `for pgk in ${packs}; do command -v $pgk || echo; done`
-    }
+    const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
+    const checkPkg = (pkgs) => `for pgk in ${pkgs}; do command -v $pgk || echo; done`
+    const pkgs = "pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
 
-    function populate(data) {
-        let arr = []
-        for (let i = 0; i < data.length; i++) {
-            arr.push({"name": data[i].split("/").pop(), "value": data[i]})
-        }
-        return arr
-    }
-
-    let deps = "sh pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
-    sh.exec(check(deps),(cmd, stdout, stderr, exitCode) => {
+    sh.exec(checkPkg(pkgs),(cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr, stdout)) return
 
-        let out = stdout.split("\n")
-        let packs = out.slice(0, 4)
-        let wrappers = populate(out.slice(4, 7).filter(Boolean))
-        let terminals = populate(out.slice(7).filter(Boolean))
+        const out = stdout.split("\n")
 
-        plasmoid.configuration.packages = packs
-        plasmoid.configuration.wrappers = wrappers.length > 0 ? wrappers : null
-        plasmoid.configuration.terminals = terminals.length > 0 ? terminals : null
+        const [pacman, checkupdates, flatpak] = stdout.split("\n").map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak }
+
+        const wrappers = populate(out.slice(3, 6).filter(Boolean))
+        cfg.wrappers = wrappers.length > 0 ? wrappers : null
+
+        const terminals = populate(out.slice(6).filter(Boolean))
+        cfg.terminals = terminals.length > 0 ? terminals : null
 
         searchTimer.triggered()
     })
@@ -96,77 +93,33 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    let archCmd
-    let flatpakCmd
+    const wrapperSearch = cfg.wrapper.split("/").pop() === "trizen" ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a` : `${cfg.wrapper} -Qu`
+    cmd.arch = pkg.checkupdates
+        ? cfg.aur
+            ? `sh -c "(checkupdates; ${wrapperSearch} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
+            : "checkupdates"
+        : cfg.aur
+            ? wrapperSearch
+            : "pacman -Qu"
 
-    shell[0] = packages[0] + " -c"
-    shell[1] = packages[1] ? defineArchCmd() : null
-    shell[2] = packages[1] + " -Sl"
-    shell[3] = packages[3] + " remote-ls --app --updates"
-    shell[4] = packages[3] + " list --app"
-    shell[5] = plasmoid.configuration.aur ? packages[1] + " -Sy" : plasmoid.configuration.selectedWrapper + " -Sy"
-    shell[6] = plasmoid.configuration.selectedTerminal + defineTermArg()
-    shell[7] = defineUpgradeCmd()
+    if (!pkg.pacman) delete cmd.arch
 
-    function defineArchCmd() {
-        if (packages[2]) {
-            if (plasmoid.configuration.aur) return `${shell[0]} "(${packages[2]}; ${defineWrapperArg()} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
-            return packages[2]
-        } else {
-            if (plasmoid.configuration.aur) return defineWrapperArg()
-            return packages[1] + " -Qu"
-        }
-    }
-
-    function defineWrapperArg() {
-        switch (plasmoid.configuration.selectedWrapper.split("/").pop()) {
-            case "yay": return "yay -Qu"
-            case "paru": return "paru -Qu"
-            case "trizen": return "trizen -Qu; trizen -Qu -a"
-        }
-    }
-
-    function defineTermArg() {
-        switch (plasmoid.configuration.selectedTerminal.split("/").pop()) {
-            case "gnome-terminal": return " --"
-            case "terminator": return " -x"
-            case "yakuake": return false
-            default: return " -e"
-        }
-    }
-    
-    function defineUpgradeCmd() {
-        flatpakCmd = plasmoid.configuration.flatpak ? `${packages[3]} update` : "echo"
-
-        if (packages[1]) {
-
-            let flags = plasmoid.configuration.upgradeFlags ? plasmoid.configuration.upgradeFlagsText : ""
-
-            if (plasmoid.configuration.wrapperUpgrade) {
-                archCmd = `${plasmoid.configuration.selectedWrapper} -Syu ${flags}`
-                return `${archCmd}; ${flatpakCmd}`
-            } else {
-                archCmd = `sudo ${packages[1]} -Syu ${flags}`
-                return `${archCmd}; ${flatpakCmd}`
-            }
-        } else {
-            return flatpakCmd
-        }
-    }
-
-    if (!defineTermArg()) {
-        let QDBUS = "qdbus org.kde.yakuake /yakuake/sessions"
-        shell[8] = `${QDBUS} addSession; ${QDBUS} runCommandInTerminal $(${QDBUS} org.kde.yakuake.activeSessionId) "${shell[7]}"`
+    const upgradeFlatpak = cfg.flatpak ? "; flatpak update" : ""
+    const upgradeFlags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText}` : " "
+    const upgradeArch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + upgradeFlags : "sudo pacman -Syu" + upgradeFlags
+    const terminal = cfg.terminal
+    if (terminal.split("/").pop() === "yakuake") {
+        const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
+        cmd.upgrade = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId) "${upgradeArch}${upgradeFlatpak}"`
     } else {
-        let exec = i18n("Executed: ")
-        let init = i18n("Full system upgrade")
-        let done = i18n("Press Enter to close")
-        let trap = "trap '' SIGINT"
-
-        exec = packages[1] ? "echo " + exec + archCmd + "; echo"
-                           : "echo " + exec + flatpakCmd + "; echo"
-
-        shell[8] = `${shell[6]} ${shell[0]} "${trap}; ${print(init)}; ${exec}; ${shell[7]}; ${print(done)}; read"`
+        const exec = i18n("Executed: ")
+        const init = i18n("Full system upgrade")
+        const done = i18n("Press Enter to close")
+        const trap = "trap '' SIGINT"
+        const executed = "echo " + exec + upgradeArch + "; echo"
+        const terminalArgs = { "gnome-terminal": " --", "terminator": " -x" }
+        cmd.terminal = terminal + (terminalArgs[terminal.split("/").pop()] || " -e")
+        cmd.upgrade = `${cmd.terminal} sh -c "${trap}; ${print(init)}; ${executed}; ${upgradeArch}${upgradeFlatpak}; ${print(done)}; read"`
     }
 }
 
@@ -178,9 +131,9 @@ function upgradeSystem() {
     statusMsg = i18n("Full upgrade running...")
     upgrading = true
 
-    defineCommands() 
+    defineCommands()
 
-    sh.exec(shell[8], (cmd, stdout, stderr, exitCode) => {
+    sh.exec(cmd.upgrade, (cmd, stdout, stderr, exitCode) => {
         upgrading = false
 
         if (catchError(exitCode, stderr, stdout)) return
@@ -200,38 +153,36 @@ function checkUpdates() {
     let updFlpk
     let infFlpk
 
-    shell[1] ? archCheck() : plasmoid.configuration.flatpak ? flpkCheck() : merge()
+    cmd.arch ? archCheck() : cfg.flatpak ? flpkCheck() : merge()
 
     function archCheck() {
         statusIco = "package"
-        statusMsg = plasmoid.configuration.aur ? i18n("Searching AUR for updates...")
-                                                                              : i18n("Searching arch repositories for updates...")
-
-        sh.exec(shell[1], (cmd, stdout, stderr, exitCode) => {
+        statusMsg = cfg.aur ? i18n("Searching AUR for updates...")
+                            : i18n("Searching arch repositories for updates...")
+        sh.exec(cmd.arch, (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             updArch = stdout ? stdout : null
-            updArch ? archList() : plasmoid.configuration.flatpak ? flpkCheck() : merge()
+            updArch ? archList() : cfg.flatpak ? flpkCheck() : merge()
     })}
 
     function archList() {
-        sh.exec(shell[2], (cmd, stdout, stderr, exitCode) => {
+        sh.exec("pacman -Sl", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             infArch = stdout ? stdout : null
-            plasmoid.configuration.flatpak ? flpkCheck() : merge()
+            cfg.flatpak ? flpkCheck() : merge()
     })}
 
     function flpkCheck() {
         statusIco = "flatpak-discover"
         statusMsg = i18n("Searching flathub for updates...")
-
-        sh.exec(shell[3], (cmd, stdout, stderr, exitCode) => {
+        sh.exec("flatpak remote-ls --app --updates", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             updFlpk = stdout ? stdout : null
             updFlpk ? flpkList() : merge()
     })}
 
     function flpkList() {
-        sh.exec(shell[4], (cmd, stdout, stderr, exitCode) => {
+        sh.exec("flatpak list --app", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr, stdout)) return
             infFlpk = stdout ? stdout : null
             merge()
@@ -311,7 +262,7 @@ function sortList(list) {
         const [nameA, repoA] = a.split(" ")
         const [nameB, repoB] = b.split(" ")
 
-        return plasmoid.configuration.sortByName ? nameA.localeCompare(nameB)
+        return cfg.sortByName ? nameA.localeCompare(nameB)
                 : ((repoA.includes("aur") || repoA.includes("devel"))
                     &&
                   !(repoB.includes("aur") || repoB.includes("devel")))
@@ -336,7 +287,7 @@ function setNotify(list) {
         let lines = ""
         for (let i = 0; i < newCount; i++) {
             let col = newList[i].split(" ")
-            lines += col[0] + "  -> " + col[3] + "\n"
+            lines += col[0] + "   → " + col[3] + "\n"
         }
 
         notifyTitle = i18np("+%1 new update", "+%1 new updates", newCount)
@@ -344,7 +295,7 @@ function setNotify(list) {
         notify.sendEvent()
     }
 
-    if (prev === undefined && curr > 0 && plasmoid.configuration.notifyStartup) {
+    if (prev === undefined && curr > 0 && cfg.notifyStartup) {
         notifyTitle = i18np("Update available", "Updates available", curr)
         notifyBody = i18np("One update is pending", "%1 updates total are pending", curr)
         notify.sendEvent()
@@ -386,7 +337,7 @@ function finalize(list) {
 
     refreshListModel(list)
 
-    if (plasmoid.configuration.notifications) setNotify(list)
+    if (cfg.notifications) setNotify(list)
 
     count = list.length
     updList = list
@@ -405,21 +356,21 @@ function setStatusBar(code) {
 function getLastCheck() {
     if (!timestamp) return ""
 
-    let diff = new Date().getTime() - timestamp
-    let sec = Math.floor((diff % (1000 * 60)) / 1000)
-    let min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-    let hrs = Math.floor(diff / (1000 * 60 * 60))
+    const diff = new Date().getTime() - timestamp
+    const sec = Math.floor((diff % (1000 * 60)) / 1000)
+    const min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    const hrs = Math.floor(diff / (1000 * 60 * 60))
 
-    let text = i18n("Last check:")
-    let secText = i18np("%1 second", "%1 seconds", sec)
-    let minText = i18np("%1 minute", "%1 minutes", min)
-    let hrsText = i18np("%1 hour", "%1 hours", hrs)
-    let ago = i18n("ago")
+    const lastcheck = i18n("Last check:")
+    const second = i18np("%1 second", "%1 seconds", sec)
+    const minute = i18np("%1 minute", "%1 minutes", min)
+    const hour = i18np("%1 hour", "%1 hours", hrs)
+    const ago = i18n("ago")
 
-    if (hrs === 0 && min === 0) return text + " " + secText + " " + ago
-    if (hrs === 0) return text + " " + minText + " " + secText + " " + ago
-    if (min === 0) return text + " " + hrsText + " " + ago
-    return text + " " + hrsText + " " + minText + " " + ago
+    if (hrs === 0 && min === 0) return `${lastcheck} ${second} ${ago}`
+    if (hrs === 0) return `${lastcheck} ${minute} ${second} ${ago}`
+    if (min === 0) return `${lastcheck} ${hour} ${ago}`
+    return `${lastcheck} ${hour} ${minute} ${ago}`
 }
 
 
@@ -442,21 +393,21 @@ function setIcon(icon) {
 
 
 function indicatorFrameSize() {
-    const multiplier = plasmoid.configuration.indicatorCounter && plasmoid.configuration.indicatorScale ? 1.2 :  
-                                    plasmoid.configuration.indicatorCounter && !plasmoid.configuration.indicatorScale ? 1 : 0.85
+    const multiplier = cfg.indicatorCounter && cfg.indicatorScale ? 1.2 :  
+                       cfg.indicatorCounter && !cfg.indicatorScale ? 1 : 0.85
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
-                plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
+           plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
 }
 
 
 function indicatorAnchors(pos) {
     switch (pos) {
-        case "top": return plasmoid.configuration.indicatorTop && !plasmoid.configuration.indicatorBottom ? frame.top : undefined
-        case "bottom": return plasmoid.configuration.indicatorBottom && !plasmoid.configuration.indicatorTop ? frame.bottom : undefined
-        case "right": return plasmoid.configuration.indicatorRight && !plasmoid.configuration.indicatorLeft ? frame.right : undefined
-        case "left": return plasmoid.configuration.indicatorLeft && !plasmoid.configuration.indicatorRight ? frame.left : undefined
-        default: return undefined
+        case "top": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.top : undefined;
+        case "bottom": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.bottom : undefined;
+        case "right": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.right : undefined;
+        case "left": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.left : undefined;
+        default: return undefined;
     }
 }
 

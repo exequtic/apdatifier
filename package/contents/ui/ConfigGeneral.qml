@@ -21,18 +21,18 @@ SimpleKCM {
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
 
-    property string cfg_selectedWrapper: plasmoid.configuration.selectedWrapper
+    property string cfg_wrapper: plasmoid.configuration.wrapper
 
     property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
-    property string cfg_selectedTerminal: plasmoid.configuration.selectedTerminal
+    property string cfg_terminal: plasmoid.configuration.terminal
 
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
     property alias cfg_notifyStartup: notifyStartup.checked
 
-    property var packages: plasmoid.configuration.packages
+    property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
 
@@ -72,7 +72,7 @@ SimpleKCM {
             QQC2.CheckBox {
                 id: aur
                 text: i18n("AUR")
-                enabled: wrappers
+                enabled: pkg.pacman && wrappers
             }
 
             Kirigami.UrlButton {
@@ -80,13 +80,13 @@ SimpleKCM {
                 text: instTip.text
                 font.pointSize: tip.font.pointSize
                 color: instTip.color
-                visible: !wrappers
+                visible: pkg.pacman && !wrappers
             }
 
             QQC2.Label {
                 font.pointSize: tip.font.pointSize
                 color: Kirigami.Theme.positiveTextColor
-                text: i18n("found: %1", cfg_selectedWrapper)
+                text: i18n("found: %1", cfg_wrapper)
                 visible: aur.checked && wrappers.length == 1
             }
         }
@@ -97,10 +97,10 @@ SimpleKCM {
             QQC2.CheckBox {
                 id: flatpak
                 text: i18n("Flatpak")
-                enabled: packages[3]
+                enabled: pkg.flatpak
 
                 Component.onCompleted: {
-                    if (checked && !packages[3]) {
+                    if (checked && !pkg.flatpak) {
                         checked = false
                         plasmoid.configuration.flatpak = checked
                     }
@@ -113,7 +113,7 @@ SimpleKCM {
                 text: i18n("Not installed")
                 font.pointSize: tip.font.pointSize
                 color: Kirigami.Theme.neutralTextColor
-                visible: !packages[3]
+                visible: !pkg.flatpak
             }
         }
 
@@ -127,12 +127,12 @@ SimpleKCM {
                 implicitWidth: 150
 
                 onCurrentIndexChanged: {
-                    cfg_selectedWrapper = model[currentIndex]["value"]
+                    cfg_wrapper = model[currentIndex]["value"]
                 }
 
                 Component.onCompleted: {
                     if (wrappers) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.selectedWrapper, wrappers)
+                        currentIndex = JS.setIndex(plasmoid.configuration.wrapper, wrappers)
                     }
                 }
             }
@@ -142,17 +142,17 @@ SimpleKCM {
 
         Kirigami.Separator {
             Layout.fillWidth: true
-            visible: !packages[2]
+            visible: !pkg.checkupdates
         }
 
         RowLayout {
-            visible: !packages[2]
+            visible: pkg.pacman && !pkg.checkupdates
             QQC2.Label {
                 id: tip
                 Layout.maximumWidth: 250
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
                 color: Kirigami.Theme.neutralTextColor
-                text: i18n("Package 'pacman-contrib' not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
+                text: i18n("pacman-contrib not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.")
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -172,15 +172,15 @@ SimpleKCM {
                 implicitWidth: 150
 
                 onCurrentIndexChanged: {
-                    cfg_selectedTerminal = model[currentIndex]["value"]
+                    cfg_terminal = model[currentIndex]["value"]
                 }
 
                 Component.onCompleted: {
                     if (terminals) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.selectedTerminal, terminals)
+                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
 
-                        if (!plasmoid.configuration.selectedTerminal) {
-                            plasmoid.configuration.selectedTerminal = model[0]["value"]
+                        if (!plasmoid.configuration.terminal) {
+                            plasmoid.configuration.terminal = model[0]["value"]
                         }
                     }
                 }
@@ -198,24 +198,22 @@ SimpleKCM {
         QQC2.CheckBox {
             id: wrapperUpgrade
             text: i18n("Use wrapper instead of pacman")
-            enabled: terminals &&
-                    wrappers &&
-                    cfg_selectedWrapper
-            visible: packages[1]
+            enabled: terminals && wrappers && cfg_wrapper
+            visible: pkg.pacman
         }
 
         QQC2.CheckBox {
             id: upgradeFlags
             text: i18n("Additional flags")
             enabled: terminals
-            visible: packages[1]
+            visible: pkg.pacman
         }
 
         QQC2.TextField {
             id: upgradeFlagsText
             placeholderText: i18n(" only flags, without -Syu")
             placeholderTextColor: "grey"
-            visible: packages[1] && upgradeFlags.checked
+            visible: pkg.pacman && upgradeFlags.checked
         }
 
         Item {
