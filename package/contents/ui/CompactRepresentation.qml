@@ -79,7 +79,7 @@ Item {
         property bool wasExpanded: false
         onPressed: wasExpanded = expanded
         onClicked: expanded = !wasExpanded
-        onHoveredChanged: {
+        onEntered: {
             lastCheck = JS.getLastCheck()
         }
     }
