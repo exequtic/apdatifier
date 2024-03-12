@@ -311,7 +311,7 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
-    timestamp = new Date().getTime()
+    cfg.timestamp = new Date().getTime()
 
     if (!list) {
         listModel.clear()
@@ -340,9 +340,9 @@ function setStatusBar(code) {
 
 
 function getLastCheck() {
-    if (!timestamp) return ""
+    if (!cfg.timestamp) return ""
 
-    const diff = new Date().getTime() - timestamp
+    const diff = new Date().getTime() - cfg.timestamp
     const sec = Math.floor((diff % (1000 * 60)) / 1000)
     const min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
     const hrs = Math.floor(diff / (1000 * 60 * 60))

@@ -40,7 +40,6 @@ PlasmoidItem {
     property string statusIco: ""
     property string notifyTitle: ""
     property string notifyBody: ""
-    property string timestamp
     property string lastCheck
     property var action
     property var count
