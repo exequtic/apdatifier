@@ -43,6 +43,9 @@
         <entry name="withSound" type="bool">
             <default>true</default>
         </entry>
+        <entry name="middleClick" type="string">
+            <default></default>
+        </entry>
     </group>
     <group name="Appearance">
         <entry name="spacing" type="int">

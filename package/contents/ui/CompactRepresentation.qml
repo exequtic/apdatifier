@@ -78,7 +78,10 @@ Item {
         hoverEnabled: true
         property bool wasExpanded: false
         onPressed: wasExpanded = expanded
-        onClicked: expanded = !wasExpanded
+        onClicked: (mouse) => {
+            if (mouse.button == Qt.LeftButton) expanded = !wasExpanded
+            if (mouse.button == Qt.MiddleButton && cfg.middleClick) JS[cfg.middleClick]()
+        }
         onEntered: {
             lastCheck = JS.getLastCheck()
         }

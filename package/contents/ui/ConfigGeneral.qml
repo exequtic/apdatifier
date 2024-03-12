@@ -31,6 +31,8 @@ SimpleKCM {
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
 
+    property string cfg_middleClick: plasmoid.configuration.middleClick
+
     property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
@@ -256,6 +258,30 @@ SimpleKCM {
             icon.name: "settings-configure"
             text: i18n("Configure...")
             onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: "Middle-button:"
+
+            QQC2.ComboBox {
+                implicitWidth: 150
+                textRole: "name"
+                model: [{"name": "Nothing", "value": ""},
+                        {"name": "Check updates", "value": "checkUpdates"},
+                        {"name": "Upgrade system", "value": "upgradeSystem"}]
+
+                onCurrentIndexChanged: {
+                    cfg_middleClick = model[currentIndex]["value"]
+                }
+
+                Component.onCompleted: {
+                    currentIndex = JS.setIndex(plasmoid.configuration.middleClick, model)
+                }
+            }
         }
 
         Item {
