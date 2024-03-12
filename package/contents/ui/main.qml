@@ -28,7 +28,7 @@ PlasmoidItem {
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    toolTipMainText: ""
+    toolTipMainText: !interval ? "Auto check disabled" : ""
     toolTipSubText: busy ? statusMsg : lastCheck
 
     property var listModel: listModel
