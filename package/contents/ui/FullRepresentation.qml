@@ -96,8 +96,7 @@ Item {
 
             PlasmaComponents.ToolButton {
                 onClicked: {
-                    cfg.sortByName = cfg.sortByName ? false : true
-                    JS.refreshListModel()
+                    cfg.sortByName = !cfg.sortByName;
                 }
                 icon.name: "view-sort"
                 visible: footer.visible

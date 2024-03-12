@@ -32,7 +32,6 @@ PlasmoidItem {
     toolTipSubText: busy ? statusMsg : lastCheck
 
     property var listModel: listModel
-    property var updList: []
     property var cmd: []
     property bool busy: false
     property bool upgrading: false

@@ -80,7 +80,7 @@ function checkDependencies() {
         const terminals = populate(out.slice(6).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
 
-        searchTimer.triggered()
+        !cfg.interval ? refreshListModel() : searchTimer.triggered()
     })
 }
 
@@ -285,16 +285,15 @@ function setNotify(list) {
         notifyBody = lines
         notify.sendEvent()
     }
-
-    cfg.cache = list.join(",")
 }
 
 
 function refreshListModel(list) {
-    if (!list) {
-        if (updList.length == 0) return
-        list = sortList(updList)
-    }
+    list = list || (cfg.cache.length ? sortList(cfg.cache.trim().split(",")) : 0)
+    count = list.length || 0
+    setStatusBar()
+
+    if (!count || !list) return
 
     listModel.clear()
 
@@ -316,7 +315,7 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        updList = [""]
+        cfg.cache = ""
         count = 0
         setStatusBar()
         return
@@ -327,7 +326,7 @@ function finalize(list) {
     cfg.notifications ? setNotify(list) : cfg.cache = ""
 
     count = list.length
-    updList = list
+    cfg.cache = list.join(",")
     setStatusBar()
 }
 
