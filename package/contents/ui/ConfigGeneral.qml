@@ -32,6 +32,7 @@ SimpleKCM {
     property alias cfg_withSound: withSound.checked
 
     property string cfg_middleClick: plasmoid.configuration.middleClick
+    property string cfg_rightClick: plasmoid.configuration.rightClick
 
     property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
@@ -198,7 +199,7 @@ SimpleKCM {
 
         QQC2.CheckBox {
             id: wrapperUpgrade
-            text: i18n("Use wrapper instead of pacman")
+            text: i18n("Upgrade using wrapper")
             enabled: terminals && wrappers && cfg_wrapper
             visible: pkg.pacman
         }
@@ -265,15 +266,15 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Middle-button:"
+            Kirigami.FormData.label: "Mouse actions:"
 
             QQC2.ComboBox {
                 implicitWidth: 150
                 textRole: "name"
-                model: [{"name": "Switch interval", "value": "switchInterval"},
+                model: [{"name": "None", "value": ""},
                         {"name": "Check updates", "value": "checkUpdates"},
                         {"name": "Upgrade system", "value": "upgradeSystem"},
-                        {"name": "Nothing", "value": ""}]
+                        {"name": "Switch interval", "value": "switchInterval"}]
 
                 onCurrentIndexChanged: {
                     cfg_middleClick = model[currentIndex]["value"]
@@ -282,6 +283,33 @@ SimpleKCM {
                 Component.onCompleted: {
                     currentIndex = JS.setIndex(plasmoid.configuration.middleClick, model)
                 }
+            }
+
+            QQC2.Label {
+                text: "for middle button"
+            }
+        }
+
+        RowLayout {
+            QQC2.ComboBox {
+                implicitWidth: 150
+                textRole: "name"
+                model: [{"name": "Default", "value": ""},
+                        {"name": "Check updates", "value": "checkUpdates"},
+                        {"name": "Upgrade system", "value": "upgradeSystem"},
+                        {"name": "Switch interval", "value": "switchInterval"}]
+
+                onCurrentIndexChanged: {
+                    cfg_rightClick = model[currentIndex]["value"]
+                }
+
+                Component.onCompleted: {
+                    currentIndex = JS.setIndex(plasmoid.configuration.rightClick, model)
+                }
+            }
+
+            QQC2.Label {
+                text: "for right button"
             }
         }
 

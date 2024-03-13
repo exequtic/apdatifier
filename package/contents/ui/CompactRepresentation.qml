@@ -99,12 +99,14 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
+        acceptedButtons: cfg.rightClick ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
         hoverEnabled: true
         property bool wasExpanded: false
         onPressed: wasExpanded = expanded
         onClicked: (mouse) => {
             if (mouse.button == Qt.LeftButton) expanded = !wasExpanded
             if (mouse.button == Qt.MiddleButton && cfg.middleClick) JS[cfg.middleClick]()
+            if (mouse.button == Qt.RightButton && cfg.rightClick) JS[cfg.rightClick]()
         }
         onEntered: {
             lastCheck = JS.getLastCheck()

@@ -46,6 +46,9 @@
         <entry name="middleClick" type="string">
             <default>switchInterval</default>
         </entry>
+        <entry name="rightClick" type="string">
+            <default></default>
+        </entry>
     </group>
     <group name="Appearance">
         <entry name="spacing" type="int">
