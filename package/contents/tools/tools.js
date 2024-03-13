@@ -4,12 +4,9 @@
 */
 
 
-function catchError(code, err, out) {
-    if (code) {
-        if (err) error = err.trim().split("\n")[0]
-        if (!err && out) error = out.trim().split("\n")[0]
-        if (!err && !out) return false
-
+function catchError(code, err) {
+    if (err) {
+        error = err.trim().substring(0, 100) + "..."
         setStatusBar(code)
         return true
     }
@@ -17,47 +14,19 @@ function catchError(code, err, out) {
 }
 
 
-function waitConnection(func) {
-    if (!connection()) {
-        statusIco = "network-connect"
-        statusMsg = i18n("Waiting for internet connection...")
-
-        if (!connectionTimer.running) {
-            action = func ? func : false
-            connectionTimer.start()
-        }
-        return
-    }
-
-    connectionTimer.stop()
-
-    if (action) return action()
-
-    setStatusBar()
-}
-
-
-function connection() {
-    searchTimer.stop()
-    error = null
-    busy = true
-
-    const status = network.connectionIcon
-    return network.connecting === true
-            || status.includes("limited")
-            || status.includes("unavailable")
-            || status.includes("disconected")
-                ? false
-                : true
-}
-
-
 function runScript() {
     const command = cfg.dir + "/contents/tools/tools.sh copy"
     sh.exec(command, (cmd, stdout, stderr, exitCode) => {
-        if (catchError(exitCode, stderr, stdout)) return
+        if (catchError(exitCode, stderr)) return
         checkDependencies()
     })
+}
+
+
+function runAction() {
+    searchTimer.stop()
+    error = null
+    busy = true
 }
 
 
@@ -67,11 +36,11 @@ function checkDependencies() {
     const pkgs = "pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
 
     sh.exec(checkPkg(pkgs),(cmd, stdout, stderr, exitCode) => {
-        if (catchError(exitCode, stderr, stdout)) return
+        if (catchError(exitCode, stderr)) return
 
         const out = stdout.split("\n")
 
-        const [pacman, checkupdates, flatpak] = stdout.split("\n").map(Boolean)
+        const [pacman, checkupdates, flatpak] = out.map(Boolean)
         cfg.packages = { pacman, checkupdates, flatpak }
 
         const wrappers = populate(out.slice(3, 6).filter(Boolean))
@@ -86,15 +55,18 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    const trizen = cfg.wrapper.split("/").pop() === "trizen" ? true : false
-    const wrapperCmd = trizen ? `${cfg.wrapper} -Qu -a` : `${cfg.wrapper} -Qu`
+    runAction()
+
+    const trizen = cfg.wrapper.split("/").pop() === "trizen"
+    const wrapperCmd = trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
+
     cmd.arch = pkg.checkupdates
         ? cfg.aur
-            ? `sh -c "(checkupdates; ${wrapperCmd} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
+            ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"`
             : "checkupdates"
         : cfg.aur
             ? wrapperCmd
-            : "pacman -Qu"
+            : "ping -c 1 archlinux.org >/dev/null 2>&1 || { echo 'No internet' >&2; exit 1; }; pacman -Qu"     
 
     if (!pkg.pacman) delete cmd.arch
 
@@ -122,27 +94,20 @@ function defineCommands() {
 
 
 function upgradeSystem() {
-    if (!connection()) return waitConnection()
+    defineCommands()
 
     statusIco = "accept_time_event"
     statusMsg = i18n("Full upgrade running...")
     upgrading = true
 
-    defineCommands()
-
     sh.exec(cmd.upgrade, (cmd, stdout, stderr, exitCode) => {
         upgrading = false
-
-        if (catchError(exitCode, stderr, stdout)) return
-
         searchTimer.triggered()
     })
 }
 
 
 function checkUpdates() {
-    if (!connection()) return waitConnection(checkUpdates)
-
     defineCommands()
 
     let updArch
@@ -157,14 +122,14 @@ function checkUpdates() {
         statusMsg = cfg.aur ? i18n("Searching AUR for updates...")
                             : i18n("Searching arch repositories for updates...")
         sh.exec(cmd.arch, (cmd, stdout, stderr, exitCode) => {
-            if (catchError(exitCode, stderr, stdout)) return
+            if (catchError(exitCode, stderr)) return
             updArch = stdout ? stdout : null
             updArch ? archList() : cfg.flatpak ? flpkCheck() : merge()
     })}
 
     function archList() {
         sh.exec("pacman -Sl", (cmd, stdout, stderr, exitCode) => {
-            if (catchError(exitCode, stderr, stdout)) return
+            if (catchError(exitCode, stderr)) return
             infArch = stdout ? stdout : null
             cfg.flatpak ? flpkCheck() : merge()
     })}
@@ -173,14 +138,14 @@ function checkUpdates() {
         statusIco = "flatpak-discover"
         statusMsg = i18n("Searching flathub for updates...")
         sh.exec("flatpak remote-ls --app --updates", (cmd, stdout, stderr, exitCode) => {
-            if (catchError(exitCode, stderr, stdout)) return
+            if (catchError(exitCode, stderr)) return
             updFlpk = stdout ? stdout : null
             updFlpk ? flpkList() : merge()
     })}
 
     function flpkList() {
         sh.exec("flatpak list --app", (cmd, stdout, stderr, exitCode) => {
-            if (catchError(exitCode, stderr, stdout)) return
+            if (catchError(exitCode, stderr)) return
             infFlpk = stdout ? stdout : null
             merge()
     })}

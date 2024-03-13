@@ -10,7 +10,6 @@ import org.kde.notification
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.networkmanagement
 
 import "../tools/tools.js" as JS
 
@@ -41,7 +40,6 @@ PlasmoidItem {
     property string notifyTitle: ""
     property string notifyBody: ""
     property string lastCheck
-    property var action
     property var count
 
     property bool interval: plasmoid.configuration.interval
@@ -67,23 +65,12 @@ PlasmoidItem {
         iconName: "apdatifier-packages"
     }
 
-    ConnectionIcon {
-        id: network
-    }
-
     Timer {
         id: searchTimer
         interval: time * 1000 * 60
         running: true
         repeat: true
         onTriggered: JS.checkUpdates()
-    }
-
-    Timer {
-        id: connectionTimer
-        interval: 5000
-        repeat: true
-        onTriggered: JS.waitConnection()
     }
 
     onTimeChanged: {
