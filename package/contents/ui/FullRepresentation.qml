@@ -162,7 +162,7 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: parent.width - (Kirigami.Units.gridUnit * 4)
-        enabled: !busy && !error && count == 0
+        enabled: !busy && !error && count === 0 && Object.keys(listModel).length === 0
         visible: enabled
         asynchronous: true
         sourceComponent: PlasmaExtras.PlaceholderMessage {

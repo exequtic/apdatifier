@@ -9,7 +9,6 @@ import QtQuick.Controls as QQC2
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.components as PlasmaComponents
 
 import "../tools/tools.js" as JS
 
@@ -22,52 +21,57 @@ Item {
 
         Rectangle {
             id: frame
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            width: JS.indicatorFrameSize()
+            anchors.centerIn: parent
+            width: JS.setFrameSize()
             height: width * 0.9
             opacity: 0
-            visible: !plasmoid.configuration.indicatorDisable
-                        && plasmoid.location !== PlasmaCore.Types.Floating
-                        && (!busy && count > 0 || error)
+            visible: !cfg.indicatorDisable && !busy && plasmoid.location !== PlasmaCore.Types.Floating
         }
 
         Rectangle {
             id: circle
-            anchors.top: JS.indicatorAnchors("top")
-            anchors.bottom: JS.indicatorAnchors("bottom")
-            anchors.right: JS.indicatorAnchors("right")
-            anchors.left: JS.indicatorAnchors("left")
             width: frame.width / 3.7
             height: width
             radius: width / 2
+            visible: frame.visible && cfg.indicatorCircle && (error || count)
             color: error ? Kirigami.Theme.negativeTextColor
-                            : plasmoid.configuration.indicatorColor
-                                ? plasmoid.configuration.indicatorColor
-                                    : Kirigami.Theme.highlightColor
-            visible: frame.visible && plasmoid.configuration.indicatorCircle
+                 : cfg.indicatorColor ? cfg.indicatorColor
+                 : Kirigami.Theme.highlightColor
+
+            anchors {
+                top: JS.setAnchor("top")
+                bottom: JS.setAnchor("bottom")
+                right: JS.setAnchor("right")
+                left: JS.setAnchor("left")
+            }
         }
 
         Rectangle {
             id: counterFrame
-            anchors.top: JS.indicatorAnchors("top")
-            anchors.bottom: JS.indicatorAnchors("bottom")
-            anchors.right: JS.indicatorAnchors("right")
-            anchors.left: JS.indicatorAnchors("left")
-            width: counter.width + (frame.width / 10)
-            height: plasmoid.configuration.indicatorScale ? (frame.width / 3) : counter.height
-            radius: width * 0.30
+            width: counter.width + frame.width / 10
+            height: cfg.indicatorScale ? frame.width / 3 : counter.height
+            radius: width * 0.35
             color: Kirigami.Theme.backgroundColor
             opacity: 0.9
-            visible: frame.visible && plasmoid.configuration.indicatorCounter
+            visible: frame.visible && cfg.indicatorCounter
 
             QQC2.Label {
                 id: counter
                 anchors.centerIn: parent
-                text: count ? count : error ? "✖" : " "
-                font.bold: true
-                font.pointSize: plasmoid.configuration.indicatorScale ? frame.width / 5 :  Kirigami.Theme.smallFont.pointSize
+                text: error ? "🛇" : (count || "✔")
                 renderType: Text.NativeRendering
+                font.bold: true
+                font.pointSize: cfg.indicatorScale ? frame.width / 5 : Kirigami.Theme.smallFont.pointSize
+                color: error ? Kirigami.Theme.negativeTextColor
+                     : !count ? Kirigami.Theme.positiveTextColor
+                     : Kirigami.Theme.textColor
+            }
+
+            anchors {
+                top: JS.setAnchor("top")
+                bottom: JS.setAnchor("bottom")
+                right: JS.setAnchor("right")
+                left: JS.setAnchor("left")
             }
         }
     }

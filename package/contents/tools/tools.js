@@ -347,7 +347,7 @@ function setIcon(icon) {
 }
 
 
-function indicatorFrameSize() {
+function setFrameSize() {
     const multiplier = cfg.indicatorCounter && cfg.indicatorScale ? 1.2 :  
                        cfg.indicatorCounter && !cfg.indicatorScale ? 1 : 0.85
 
@@ -356,7 +356,7 @@ function indicatorFrameSize() {
 }
 
 
-function indicatorAnchors(pos) {
+function setAnchor(pos) {
     switch (pos) {
         case "top": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.top : undefined;
         case "bottom": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.bottom : undefined;
