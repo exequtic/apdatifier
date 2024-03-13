@@ -1,10 +1,12 @@
 <div align="center">
 
-<img src="./screenshots/screenshot_1.png" width="500px" alt="banner"/>
+<img src="./screenshots/header.png" width="200px" alt="banner"/>
+
+<br>
 
 ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
 ![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
-![Badge](https://img.shields.io/badge/Beep-Boop-green?style=plastic&logo=dependabot)
+
 
 # Apdatifier
 ## Arch Update Notifier
@@ -20,8 +22,9 @@
 <br>
 
 <div align="center">
-<img src="./screenshots/screenshot_2.jpg" width="350px" alt="banner"/>
-<img src="./screenshots/screenshot_3.jpg" width="350px" alt="banner"/>
+<img src="./screenshots/screenshot_2.jpg" width="300px" alt="banner"/>
+<img src="./screenshots/screenshot_1.jpg" width="300px" alt="banner"/>
+<img src="./screenshots/screenshot_3.jpg" width="300px" alt="banner"/>
 </div>
 
 <br>
