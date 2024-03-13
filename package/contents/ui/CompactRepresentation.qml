@@ -48,7 +48,7 @@ Item {
 
         Rectangle {
             id: counterFrame
-            width: counter.width + frame.width / 10
+            width: counter.width + frame.width / 8
             height: cfg.indicatorScale ? frame.width / 3 : counter.height
             radius: width * 0.35
             color: Kirigami.Theme.backgroundColor

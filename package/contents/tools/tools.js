@@ -348,7 +348,7 @@ function setIcon(icon) {
 
 
 function setFrameSize() {
-    const multiplier = cfg.indicatorCounter && cfg.indicatorScale ? 1.2 :  
+    const multiplier = cfg.indicatorCounter && cfg.indicatorScale ? 1.1 :  
                        cfg.indicatorCounter && !cfg.indicatorScale ? 1 : 0.85
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
