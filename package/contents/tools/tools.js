@@ -86,34 +86,38 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    const wrapperSearch = cfg.wrapper.split("/").pop() === "trizen" ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a` : `${cfg.wrapper} -Qu`
+    const trizen = cfg.wrapper.split("/").pop() === "trizen" ? true : false
+    const wrapperCmd = trizen ? `${cfg.wrapper} -Qu -a` : `${cfg.wrapper} -Qu`
     cmd.arch = pkg.checkupdates
         ? cfg.aur
-            ? `sh -c "(checkupdates; ${wrapperSearch} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
+            ? `sh -c "(checkupdates; ${wrapperCmd} | sed 's/Get .*//') | sort -u -t' ' -k1,1"`
             : "checkupdates"
         : cfg.aur
-            ? wrapperSearch
+            ? wrapperCmd
             : "pacman -Qu"
 
     if (!pkg.pacman) delete cmd.arch
 
-    const upgradeFlatpak = cfg.flatpak ? "; flatpak update" : ""
-    const upgradeFlags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText}` : " "
-    const upgradeArch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + upgradeFlags : "sudo pacman -Syu" + upgradeFlags
-    const terminal = cfg.terminal
-    if (terminal.split("/").pop() === "yakuake") {
+    const flatpak = cfg.flatpak ? "; flatpak update" : ""
+    const flags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText}` : " "
+    const arch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + flags : "sudo pacman -Syu" + flags
+
+    if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
-        cmd.upgrade = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId) "${upgradeArch}${upgradeFlatpak}"`
-    } else {
-        const exec = i18n("Executed: ")
-        const init = i18n("Full system upgrade")
-        const done = i18n("Press Enter to close")
-        const trap = "trap '' SIGINT"
-        const executed = "echo " + exec + upgradeArch + "; echo"
-        const terminalArgs = { "gnome-terminal": " --", "terminator": " -x" }
-        cmd.terminal = terminal + (terminalArgs[terminal.split("/").pop()] || " -e")
-        cmd.upgrade = `${cmd.terminal} sh -c "${trap}; ${print(init)}; ${executed}; ${upgradeArch}${upgradeFlatpak}; ${print(done)}; read"`
+        cmd.upgrade = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId) "${arch}${flatpak}"`
+        return
     }
+
+    const init = i18n("Full system upgrade")
+    const done = i18n("Press Enter to close")
+    const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
+    const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
+    const executed = cfg.wrapperUpgrade && trizen ? "echo " : "echo; echo -e " + exec + arch + "; echo"
+
+    const trap = "trap '' SIGINT"
+    const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
+    const terminalCmd = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
+    cmd.upgrade = `${terminalCmd} sh -c "${trap}; ${print(init)}; ${executed}; ${arch}${flatpak}; ${print(done)}; read"`
 }
 
 
@@ -400,10 +404,16 @@ function indicatorAnchors(pos) {
 
 function print(text) {
     let ooo = ":".repeat(48)
-    let oo = ":".repeat(Math.ceil((ooo.length - text.length - 2)/2))
+    let oo = ":".repeat(Math.ceil((ooo.length - text.length - 2) / 2))
     let o = text.length % 2 !== 0 ? oo.substring(1) : oo
 
-    return `echo; echo ${ooo}
-            echo ${oo} ${text} ${o}
-            echo ${ooo}; echo`
+    const green = "\x1B[1m\x1B[32m", bold = "\x1B[1m", reset = "\x1B[0m"
+    text = bold + text + reset
+    ooo = green + ooo + reset
+    oo =  green + oo + reset
+    o =  green + o + reset
+
+    return `echo; echo -e ${ooo}
+            echo -e ${oo} ${text} ${o}
+            echo -e ${ooo}`
 }
