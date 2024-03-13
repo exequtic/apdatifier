@@ -25,7 +25,7 @@ Item {
             width: JS.setFrameSize()
             height: width * 0.9
             opacity: 0
-            visible: !cfg.indicatorDisable && !busy && plasmoid.location !== PlasmaCore.Types.Floating
+            visible: cfg.indicatorUpdates && !busy && plasmoid.location !== PlasmaCore.Types.Floating
         }
 
         Rectangle {
@@ -72,6 +72,26 @@ Item {
                 bottom: JS.setAnchor("bottom")
                 right: JS.setAnchor("right")
                 left: JS.setAnchor("left")
+            }
+        }
+
+        Rectangle {
+            id: intervalStopped
+            anchors.centerIn: parent
+            height: stop.height
+            width: height
+            radius: width / 2
+            color: counterFrame.color
+            opacity: counterFrame.opacity
+            visible: !cfg.interval && cfg.indicatorStop
+
+            QQC2.Label {
+                id: stop
+                anchors.centerIn: parent
+                text: "⏸"
+                renderType: Text.NativeRendering
+                font.pointSize: cfg.indicatorScale ? frame.width / 5 : Kirigami.Theme.smallFont.pointSize
+                color: Kirigami.Theme.neutralTextColor
             }
         }
     }

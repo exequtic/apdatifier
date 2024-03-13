@@ -382,3 +382,8 @@ function print(text) {
             echo -e ${oo} ${text} ${o}
             echo -e ${ooo}`
 }
+
+
+function switchInterval() {
+    cfg.interval = !cfg.interval
+}

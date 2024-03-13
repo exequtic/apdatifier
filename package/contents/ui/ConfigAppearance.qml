@@ -30,7 +30,8 @@ SimpleKCM {
     property alias cfg_indicatorScale: indicatorScale.checked
     property alias cfg_indicatorCircle: indicatorCircle.checked
     property string cfg_indicatorColor: plasmoid.configuration.indicatorColor
-    property alias cfg_indicatorDisable: indicatorDisable.checked
+    property alias cfg_indicatorUpdates: indicatorUpdates.checked
+    property alias cfg_indicatorStop: indicatorStop.checked
 
     property bool cfg_indicatorTop: plasmoid.configuration.indicatorTop
     property bool cfg_indicatorBottom: plasmoid.configuration.indicatorBottom
@@ -178,13 +179,18 @@ Kirigami.FormLayout {
     }
 
     QQC2.CheckBox {
-        Kirigami.FormData.label: i18n("Indicator:")
-        id: indicatorDisable
-        text: i18n("Don't show")
+        Kirigami.FormData.label: i18n("Indicators:")
+        id: indicatorStop
+        text: i18n("Stopped interval")
+    }
+
+    QQC2.CheckBox {
+        id: indicatorUpdates
+        text: i18n("Status of updates")
     }
 
     ColumnLayout {
-        enabled: !indicatorDisable.checked
+        enabled: indicatorUpdates.checked
 
         QQC2.ButtonGroup {
             id: indicator
@@ -275,7 +281,7 @@ Kirigami.FormLayout {
 
     GridLayout {
         Layout.fillWidth: true
-        enabled: !indicatorDisable.checked
+        enabled: indicatorUpdates.checked
         columns: 4
         rowSpacing: 0
         columnSpacing: 0

@@ -270,9 +270,10 @@ SimpleKCM {
             QQC2.ComboBox {
                 implicitWidth: 150
                 textRole: "name"
-                model: [{"name": "Nothing", "value": ""},
+                model: [{"name": "Switch interval", "value": "switchInterval"},
                         {"name": "Check updates", "value": "checkUpdates"},
-                        {"name": "Upgrade system", "value": "upgradeSystem"}]
+                        {"name": "Upgrade system", "value": "upgradeSystem"},
+                        {"name": "Nothing", "value": ""}]
 
                 onCurrentIndexChanged: {
                     cfg_middleClick = model[currentIndex]["value"]

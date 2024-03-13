@@ -44,7 +44,7 @@
             <default>true</default>
         </entry>
         <entry name="middleClick" type="string">
-            <default></default>
+            <default>switchInterval</default>
         </entry>
     </group>
     <group name="Appearance">
@@ -75,8 +75,11 @@
         <entry name="indicatorColor" type="string">
             <default></default>
         </entry>
-        <entry name="indicatorDisable" type="bool">
-            <default>false</default>
+        <entry name="indicatorUpdates" type="bool">
+            <default>true</default>
+        </entry>
+        <entry name="indicatorStop" type="bool">
+            <default>true</default>
         </entry>
         <entry name="indicatorTop" type="bool">
             <default>true</default>
