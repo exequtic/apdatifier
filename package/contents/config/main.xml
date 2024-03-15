@@ -97,9 +97,20 @@
             <default>false</default>
         </entry>
     </group>
+    <group name="Mirrors">
+        <entry name="dynamicUrl" type="string">
+            <default></default>
+        </entry>
+        <entry name="mirrorCount" type="int">
+            <default>1</default>
+        </entry>
+        <entry name="mirrors" type="bool">
+            <default>false</default>
+        </entry>
+    </group>
     <group name="Misc">
-        <entry name="dir" type="path">
-            <default>$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier</default>
+        <entry name="script" type="path">
+            <default>$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh</default>
         </entry>
         <entry name="cache" type="string">
             <default></default>

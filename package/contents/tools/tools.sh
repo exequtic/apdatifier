@@ -66,6 +66,68 @@ uninstall() {
 }
 
 
+mirrorlist_generator() {
+    if $1; then
+        r="\033[1;31m"
+        g="\033[1;32m"
+        b="\033[1;34m"
+        c="\033[0m"
+
+        echo
+        [[ $EUID -ne 0 ]] && { echo -e "$r✘ Requires sudo permissions$c\n"; exit 1; }
+        command -v curl >/dev/null || { echo -e "$r✘ Unable to retrieve mirrorlist - curl is not installed$c\n"; exit 1; }
+
+        mirrorfile="/etc/pacman.d/mirrorlist"
+        count="$2"
+        url="$3"
+
+        spinner() {
+            spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+            while kill -0 $1 2>/dev/null; do
+                i=$(( (i+1) %10 ))
+                printf "$r\r${spin:$i:1}$c $b$2$c"
+                sleep .2
+            done
+        }
+
+        tput sc
+        tempfile=$(mktemp)
+        curl -s -o $tempfile "$url" 2>/dev/null &
+        pid=$!
+        text="Fetching filtered list by mirror score..."
+        spinner $pid "$text"
+        tput rc
+        tput ed
+        [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r✘ $text$c\n$r✘ Check your mirrorlist generator settings$c\n"; rm $tempfile; exit 1; }
+        echo -e "$g✔ $text$c"
+
+        tput sc
+        sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
+        tempfile2=$(mktemp)
+        rankmirrors -n $count "$tempfile" > "$tempfile2" &
+        pid=$!
+        text="Ranking a mirrorlist by open speed..."
+        spinner $pid "$text"
+        tput rc
+        tput ed
+        [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r✘ $text$c"; rm $tempfile2; exit 1; }
+        echo -e "$g✔ $text$c"
+
+        sed -i '1d' "$tempfile2"
+        sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
+        cat $tempfile2 > $mirrorfile
+
+        echo -e "$g✔ Update mirrorlist file$c"
+        echo -e "\n$g$mirrorfile was updated with following servers:$c"
+        tail -n +6 $mirrorfile | sed 's/Server = //g'
+        echo
+
+        rm $tempfile2
+        rm $tempfile
+    fi
+}
+
+
 help() {
     cat <<EOF
 
@@ -82,4 +144,7 @@ EOF
 
 [ -z $1 ] && help && exit 0
 
-$1
+case "$1" in
+    "mirrorlist_generator") mirrorlist_generator $2 $3 $4;;
+    *) "$1" ;;
+esac

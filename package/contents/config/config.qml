@@ -13,6 +13,12 @@ ConfigModel {
     }
 
     ConfigCategory {
+         name: i18n("Mirrors")
+         icon: "ksmserver"
+         source: "ConfigMirrors.qml"
+    }
+
+    ConfigCategory {
          name: i18n("Appearance")
          icon: "preferences-desktop-display-color"
          source: "ConfigAppearance.qml"

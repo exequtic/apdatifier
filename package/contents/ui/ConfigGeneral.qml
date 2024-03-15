@@ -24,6 +24,7 @@ SimpleKCM {
     property string cfg_wrapper: plasmoid.configuration.wrapper
 
     property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
+    property alias cfg_mirrors: mirrors.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property string cfg_terminal: plasmoid.configuration.terminal
@@ -201,6 +202,13 @@ SimpleKCM {
             id: wrapperUpgrade
             text: i18n("Upgrade using wrapper")
             enabled: terminals && wrappers && cfg_wrapper
+            visible: pkg.pacman
+        }
+
+        QQC2.CheckBox {
+            id: mirrors
+            text: i18n("Refresh mirrorlist")
+            enabled: pkg.checkupdates
             visible: pkg.pacman
         }
 

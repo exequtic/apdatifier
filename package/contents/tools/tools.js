@@ -15,8 +15,8 @@ function catchError(code, err) {
 
 
 function runScript() {
-    const command = cfg.dir + "/contents/tools/tools.sh copy"
-    sh.exec(command, (cmd, stdout, stderr, exitCode) => {
+    const script = `${cfg.script} copy`
+    sh.exec(script, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr)) return
         checkDependencies()
     })
@@ -89,7 +89,8 @@ function defineCommands() {
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
     const terminalCmd = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    cmd.upgrade = `${terminalCmd} sh -c "${trap}; ${print(init)}; ${executed}; ${arch}${flatpak}; ${print(done)}; read"`
+    const mirrorlist = `sudo ${cfg.script} mirrorlist_generator ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}'`
+    cmd.upgrade = `${terminalCmd} sh -c "${trap}; ${print(init)}; ${executed}; ${mirrorlist}; ${arch}${flatpak}; ${print(done)}; read"`
 }
 
 
