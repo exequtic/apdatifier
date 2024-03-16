@@ -71,15 +71,12 @@ mirrorlist_generator() {
         r="\033[1;31m"
         g="\033[1;32m"
         b="\033[1;34m"
+        y="\033[0;33m"
         c="\033[0m"
 
         echo
-        [[ $EUID -ne 0 ]] && { echo -e "$r✘ Requires sudo permissions$c\n"; exit 1; }
-        command -v curl >/dev/null || { echo -e "$r✘ Unable to retrieve mirrorlist - curl is not installed$c\n"; exit 1; }
-
-        mirrorfile="/etc/pacman.d/mirrorlist"
-        count="$2"
-        url="$3"
+        [[ $EUID -ne 0 ]] && { echo -e "$r\u2718 Requires sudo permissions$c\n"; exit 1; }
+        command -v curl >/dev/null || { echo -e "$r\u2718 Unable to retrieve mirrorlist - curl is not installed$c\n"; exit 1; }
 
         spinner() {
             spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
@@ -92,34 +89,33 @@ mirrorlist_generator() {
 
         tput sc
         tempfile=$(mktemp)
-        curl -s -o $tempfile "$url" 2>/dev/null &
-        pid=$!
-        text="Fetching filtered list by mirror score..."
-        spinner $pid "$text"
+        text="Fetching the latest filtered mirror list..."
+        curl -s -o $tempfile "$3" 2>/dev/null &
+        spinner $! "$text"
         tput rc
         tput ed
-        [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r✘ $text$c\n$r✘ Check your mirrorlist generator settings$c\n"; rm $tempfile; exit 1; }
-        echo -e "$g✔ $text$c"
+        [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r\u2718 $text$c\n$r\u2718 Check your mirrorlist generator settings$c\n"; rm $tempfile; exit 1; }
+        echo -e "$g\u2714 $text$c"
 
         tput sc
         sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
         tempfile2=$(mktemp)
-        rankmirrors -n $count "$tempfile" > "$tempfile2" &
-        pid=$!
         text="Ranking mirrors by their connection and opening speed..."
-        spinner $pid "$text"
+        rankmirrors -n "$2" "$tempfile" > "$tempfile2" &
+        spinner $! "$text"
         tput rc
         tput ed
-        [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r✘ $text$c"; rm $tempfile2; exit 1; }
-        echo -e "$g✔ $text$c"
+        [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r\u2718 $text$c"; rm $tempfile2; exit 1; }
+        echo -e "$g\u2714 $text$c"
 
+        mirrorfile="/etc/pacman.d/mirrorlist"
         sed -i '1d' "$tempfile2"
         sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
         cat $tempfile2 > $mirrorfile
 
-        echo -e "$g✔ Update mirrorlist file$c"
-        echo -e "\n$g$mirrorfile was updated with following servers:$c"
-        tail -n +6 $mirrorfile | sed 's/Server = //g'
+        echo -e "$g\u2714 Update mirrorlist file$c"
+        echo -e "$g\nFile $mirrorfile was updated with following servers:$c"
+        echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
         echo
 
         rm $tempfile2

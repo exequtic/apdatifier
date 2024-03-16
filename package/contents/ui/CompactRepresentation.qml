@@ -82,7 +82,7 @@ Item {
             radius: width / 2
             color: counterFrame.color
             opacity: counterFrame.opacity
-            visible: !cfg.interval && cfg.indicatorStop
+            visible: frame.visible && !cfg.interval && cfg.indicatorStop
 
             Label {
                 id: stop

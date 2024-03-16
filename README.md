@@ -17,6 +17,7 @@
 - Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
 - Notification for new updates
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
+- Option to refresh the mirrorlist with the latest mirrors filtered by speed
 - Customizable icon on the panel
 
 <br>

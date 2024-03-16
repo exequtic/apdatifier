@@ -103,7 +103,7 @@ function upgradeSystem() {
 
     sh.exec(cmd.upgrade, (cmd, stdout, stderr, exitCode) => {
         upgrading = false
-        searchTimer.triggered()
+        cfg.interval ? searchTimer.triggered() : (busy = false, searchTimer.start())
     })
 }
 
@@ -358,23 +358,19 @@ function setFrameSize() {
 
 
 function setAnchor(pos, stop) {
-    if (stop) {
-        switch (pos) {
-            case "top": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.top : undefined
-            case "bottom": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.bottom : undefined
-            case "right": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.right : undefined
-            case "left": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.left : undefined
-            default: return undefined;
-        }
+    const anchors = {
+        top: cfg.indicatorBottom && !cfg.indicatorTop,
+        bottom: cfg.indicatorTop && !cfg.indicatorBottom,
+        right: cfg.indicatorLeft && !cfg.indicatorRight,
+        left: cfg.indicatorRight && !cfg.indicatorLeft
     }
 
-    switch (pos) {
-        case "top": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.top : undefined
-        case "bottom": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.bottom : undefined
-        case "right": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.right : undefined
-        case "left": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.left : undefined
-        default: return undefined
-    }
+    return (stop ? anchors[pos] : {
+        top: anchors.bottom,
+        bottom: anchors.top,
+        right: anchors.left,
+        left: anchors.right
+    }[pos]) ? frame[pos] : undefined
 }
 
 
