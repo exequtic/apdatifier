@@ -77,7 +77,6 @@ Item {
 
         Rectangle {
             id: intervalStopped
-            anchors.centerIn: parent
             height: stop.height
             width: height
             radius: width / 2
@@ -92,6 +91,13 @@ Item {
                 renderType: Text.NativeRendering
                 font.pointSize: cfg.indicatorScale ? frame.width / 5 : Kirigami.Theme.smallFont.pointSize
                 color: Kirigami.Theme.neutralTextColor
+            }
+
+            anchors {
+                top: JS.setAnchor("top", 1)
+                bottom: JS.setAnchor("bottom", 1)
+                right: JS.setAnchor("right", 1)
+                left: JS.setAnchor("left", 1)
             }
         }
     }

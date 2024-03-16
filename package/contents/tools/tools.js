@@ -357,13 +357,23 @@ function setFrameSize() {
 }
 
 
-function setAnchor(pos) {
+function setAnchor(pos, stop) {
+    if (stop) {
+        switch (pos) {
+            case "top": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.top : undefined
+            case "bottom": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.bottom : undefined
+            case "right": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.right : undefined
+            case "left": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.left : undefined
+            default: return undefined;
+        }
+    }
+
     switch (pos) {
-        case "top": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.top : undefined;
-        case "bottom": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.bottom : undefined;
-        case "right": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.right : undefined;
-        case "left": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.left : undefined;
-        default: return undefined;
+        case "top": return cfg.indicatorTop && !cfg.indicatorBottom ? frame.top : undefined
+        case "bottom": return cfg.indicatorBottom && !cfg.indicatorTop ? frame.bottom : undefined
+        case "right": return cfg.indicatorRight && !cfg.indicatorLeft ? frame.right : undefined
+        case "left": return cfg.indicatorLeft && !cfg.indicatorRight ? frame.left : undefined
+        default: return undefined
     }
 }
 
