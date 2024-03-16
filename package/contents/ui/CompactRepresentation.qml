@@ -4,7 +4,7 @@
 */
 
 import QtQuick
-import QtQuick.Controls as QQC2
+import QtQuick.Controls
 
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
@@ -55,7 +55,7 @@ Item {
             opacity: 0.9
             visible: frame.visible && cfg.indicatorCounter
 
-            QQC2.Label {
+            Label {
                 id: counter
                 anchors.centerIn: parent
                 text: error ? "🛇" : (count || "✔")
@@ -85,7 +85,7 @@ Item {
             opacity: counterFrame.opacity
             visible: !cfg.interval && cfg.indicatorStop
 
-            QQC2.Label {
+            Label {
                 id: stop
                 anchors.centerIn: parent
                 text: "⏸"

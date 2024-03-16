@@ -5,7 +5,7 @@
 
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls as QQC2
+import QtQuick.Controls
 
 import org.kde.kirigami as Kirigami
 
@@ -23,7 +23,7 @@ Kirigami.Page {
             width: parent.width - (Kirigami.Units.gridUnit * 2)
             anchors.centerIn: parent
 
-            QQC2.Label {
+            Label {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 text: i18n("Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)")
@@ -64,7 +64,7 @@ Kirigami.Page {
                 onTapped: Qt.openUrlExternally(buymeacoffee.url)
             }
 
-            QQC2.ToolTip {
+            ToolTip {
                 visible: handlerCoffee.hovered
                 text: i18n("Visit %1", buymeacoffee.url)
             }
@@ -85,7 +85,7 @@ Kirigami.Page {
                 onTapped: Qt.openUrlExternally(github.url)
             }
 
-            QQC2.ToolTip {
+            ToolTip {
                 visible: handlerGithub.hovered
                 text: i18n("Visit %1", github.url)
             }

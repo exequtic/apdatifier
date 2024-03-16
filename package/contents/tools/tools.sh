@@ -106,7 +106,7 @@ mirrorlist_generator() {
         tempfile2=$(mktemp)
         rankmirrors -n $count "$tempfile" > "$tempfile2" &
         pid=$!
-        text="Ranking a mirrorlist by open speed..."
+        text="Ranking mirrors by their connection and opening speed..."
         spinner $pid "$text"
         tput rc
         tput ed

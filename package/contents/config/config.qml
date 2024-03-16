@@ -13,9 +13,9 @@ ConfigModel {
     }
 
     ConfigCategory {
-         name: i18n("Mirrors")
-         icon: "ksmserver"
-         source: "ConfigMirrors.qml"
+         name: i18n("Upgrade")
+         icon: "preferences-system-startup"
+         source: "ConfigUpgrade.qml"
     }
 
     ConfigCategory {

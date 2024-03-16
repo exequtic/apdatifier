@@ -5,7 +5,7 @@
 
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls as QQC2
+import QtQuick.Controls
 
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
@@ -23,12 +23,6 @@ SimpleKCM {
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
 
-    property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
-    property alias cfg_mirrors: mirrors.checked
-    property alias cfg_upgradeFlags: upgradeFlags.checked
-    property alias cfg_upgradeFlagsText: upgradeFlagsText.text
-    property string cfg_terminal: plasmoid.configuration.terminal
-
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
 
@@ -45,11 +39,11 @@ SimpleKCM {
         RowLayout {
             Kirigami.FormData.label: i18n("Interval:")
 
-            QQC2.CheckBox {
+            CheckBox {
                 id: interval
             }
 
-            QQC2.SpinBox {
+            SpinBox {
                 id: time
                 from: 10
                 to: 1440
@@ -58,7 +52,7 @@ SimpleKCM {
                 enabled: interval.checked
             }
 
-            QQC2.Label {
+            Label {
                 text: i18n("minutes")
             }
         }
@@ -72,7 +66,7 @@ SimpleKCM {
 
             spacing: Kirigami.Units.gridUnit
 
-            QQC2.CheckBox {
+            CheckBox {
                 id: aur
                 text: i18n("AUR")
                 enabled: pkg.pacman && wrappers
@@ -86,7 +80,7 @@ SimpleKCM {
                 visible: pkg.pacman && !wrappers
             }
 
-            QQC2.Label {
+            Label {
                 font.pointSize: tip.font.pointSize
                 color: Kirigami.Theme.positiveTextColor
                 text: i18n("found: %1", cfg_wrapper)
@@ -97,7 +91,7 @@ SimpleKCM {
         RowLayout {
             spacing: Kirigami.Units.gridUnit
 
-            QQC2.CheckBox {
+            CheckBox {
                 id: flatpak
                 text: i18n("Flatpak")
                 enabled: pkg.flatpak
@@ -120,10 +114,15 @@ SimpleKCM {
             }
         }
 
+        Item {
+            Kirigami.FormData.isSection: true
+            visible: aur.checked && wrappers.length > 1
+        }
+
         RowLayout {
             Kirigami.FormData.label: i18n("Wrapper:")
 
-            QQC2.ComboBox {
+            ComboBox {
                 model: wrappers
                 textRole: "name"
                 enabled: wrappers
@@ -150,7 +149,7 @@ SimpleKCM {
 
         RowLayout {
             visible: pkg.pacman && !pkg.checkupdates
-            QQC2.Label {
+            Label {
                 id: tip
                 Layout.maximumWidth: 250
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
@@ -166,117 +165,9 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Upgrade:")
-
-            QQC2.ComboBox {
-                model: terminals
-                textRole: "name"
-                enabled: terminals
-                implicitWidth: 150
-
-                onCurrentIndexChanged: {
-                    cfg_terminal = model[currentIndex]["value"]
-                }
-
-                Component.onCompleted: {
-                    if (terminals) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
-
-                        if (!plasmoid.configuration.terminal) {
-                            plasmoid.configuration.terminal = model[0]["value"]
-                        }
-                    }
-                }
-            }
-
-            Kirigami.UrlButton {
-                url: "https://github.com/exequtic/apdatifier#supported-terminals"
-                text: instTip.text
-                font.pointSize: tip.font.pointSize
-                color: instTip.color
-                visible: !terminals
-            }
-        }
-
-        QQC2.CheckBox {
-            id: wrapperUpgrade
-            text: i18n("Upgrade using wrapper")
-            enabled: terminals && wrappers && cfg_wrapper
-            visible: pkg.pacman
-        }
-
-        QQC2.CheckBox {
-            id: mirrors
-            text: i18n("Refresh mirrorlist")
-            enabled: pkg.checkupdates
-            visible: pkg.pacman
-        }
-
-        QQC2.CheckBox {
-            id: upgradeFlags
-            text: i18n("Additional flags")
-            enabled: terminals
-            visible: pkg.pacman
-        }
-
-        QQC2.TextField {
-            id: upgradeFlagsText
-            placeholderText: i18n(" only flags, without -Syu")
-            placeholderTextColor: "grey"
-            visible: pkg.pacman && upgradeFlags.checked
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Notifications:")
-
-            QQC2.CheckBox {
-                id: notifications
-                text: i18n("Popup")
-            }
-        }
-
-        QQC2.CheckBox {
-            id: withSound
-            text: i18n("Sound")
-            enabled: notifications.checked
-        }
-
-        Kirigami.Separator {
-            Layout.fillWidth: true
-        }
-
-        RowLayout {
-            id: notifyTip
-
-            QQC2.Label {
-                horizontalAlignment: Text.AlignHCenter
-                Layout.maximumWidth: 250
-                font.pointSize: tip.font.pointSize
-                text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
-                wrapMode: Text.WordWrap
-            }
-        }
-
-        QQC2.Button {
-            anchors.horizontalCenter: notifyTip.horizontalCenter
-            enabled: notifications.checked
-            icon.name: "settings-configure"
-            text: i18n("Configure...")
-            onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
             Kirigami.FormData.label: "Mouse actions:"
 
-            QQC2.ComboBox {
+            ComboBox {
                 implicitWidth: 150
                 textRole: "name"
                 model: [{"name": "None", "value": ""},
@@ -293,13 +184,13 @@ SimpleKCM {
                 }
             }
 
-            QQC2.Label {
+            Label {
                 text: "for middle button"
             }
         }
 
         RowLayout {
-            QQC2.ComboBox {
+            ComboBox {
                 implicitWidth: 150
                 textRole: "name"
                 model: [{"name": "Default", "value": ""},
@@ -316,9 +207,52 @@ SimpleKCM {
                 }
             }
 
-            QQC2.Label {
+            Label {
                 text: "for right button"
             }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Notifications:")
+
+            CheckBox {
+                id: notifications
+                text: i18n("Popup")
+            }
+        }
+
+        CheckBox {
+            id: withSound
+            text: i18n("Sound")
+            enabled: notifications.checked
+        }
+
+        Kirigami.Separator {
+            Layout.fillWidth: true
+        }
+
+        RowLayout {
+            id: notifyTip
+
+            Label {
+                horizontalAlignment: Text.AlignHCenter
+                Layout.maximumWidth: 250
+                font.pointSize: tip.font.pointSize
+                text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
+                wrapMode: Text.WordWrap
+            }
+        }
+
+        Button {
+            anchors.horizontalCenter: notifyTip.horizontalCenter
+            enabled: notifications.checked
+            icon.name: "settings-configure"
+            text: i18n("Configure...")
+            onClicked: KCMLauncher.openSystemSettings("kcm_notifications")
         }
 
         Item {

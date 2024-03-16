@@ -1,15 +1,30 @@
+/*
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import org.kde.kirigami as Kirigami
+
 import org.kde.kcmutils
+import org.kde.kirigami as Kirigami
+
+import "../tools/tools.js" as JS
 
 SimpleKCM {
-    id: root
+    property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
+    property alias cfg_upgradeFlags: upgradeFlags.checked
+    property alias cfg_upgradeFlagsText: upgradeFlagsText.text
+    property string cfg_terminal: plasmoid.configuration.terminal
+    property alias cfg_mirrors: mirrors.checked
 
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
     property alias cfg_mirrorCount: mirrorCount.value
+
+    property var pkg: plasmoid.configuration.packages
+    property var terminals: plasmoid.configuration.terminals
 
     function updateUrl() {
         var params = ""
@@ -43,7 +58,68 @@ SimpleKCM {
     }
 
     Kirigami.FormLayout {
-        id: page
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Terminal:")
+
+            ComboBox {
+                model: terminals
+                textRole: "name"
+                enabled: terminals
+                implicitWidth: 150
+
+                onCurrentIndexChanged: {
+                    cfg_terminal = model[currentIndex]["value"]
+                }
+
+                Component.onCompleted: {
+                    if (terminals) {
+                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
+
+                        if (!plasmoid.configuration.terminal) {
+                            plasmoid.configuration.terminal = model[0]["value"]
+                        }
+                    }
+                }
+            }
+
+            Kirigami.UrlButton {
+                url: "https://github.com/exequtic/apdatifier#supported-terminals"
+                text: i18n("Not installed")
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                color: Kirigami.Theme.neutralTextColor
+                visible: !terminals
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            id: wrapperUpgrade
+            text: i18n("Upgrade using wrapper")
+            enabled: terminals && plasmoid.configuration.wrappers
+            visible: pkg.pacman
+        }
+
+
+        CheckBox {
+            id: upgradeFlags
+            text: i18n("Additional flags")
+            enabled: terminals
+            visible: pkg.pacman
+        }
+
+        TextField {
+            id: upgradeFlagsText
+            placeholderText: i18n(" only flags, without -Syu")
+            placeholderTextColor: "grey"
+            visible: pkg.pacman && upgradeFlags.checked
+        }
 
         Kirigami.Separator {
             Kirigami.FormData.label: i18n("Pacman Mirrorlist Generator")
@@ -58,16 +134,28 @@ SimpleKCM {
             color: Kirigami.Theme.positiveTextColor
         }
 
-
         Item {
             Kirigami.FormData.isSection: true
         }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Generator:")
+            id: mirrors
+            text: i18n("Refresh on upgrade")
+            enabled: pkg.checkupdates
+            visible: pkg.pacman
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }   
 
         CheckBox {
             Kirigami.FormData.label: i18n("Protocol:")
             id: http
             text: "http"
             onClicked: updateUrl()
+            enabled: mirrors.checked
             
         }
 
@@ -75,6 +163,7 @@ SimpleKCM {
             id: https
             text: "https"
             onClicked: updateUrl()
+            enabled: mirrors.checked
         }
 
         Item {
@@ -86,12 +175,14 @@ SimpleKCM {
             id: ipv4
             text: "IPv4"
             onClicked: updateUrl()
+            enabled: mirrors.checked
         }
 
         CheckBox {
             id: ipv6
             text: "IPv6"
             onClicked: updateUrl()
+            enabled: mirrors.checked
         }
 
         Item {
@@ -103,6 +194,7 @@ SimpleKCM {
             id: mirrorstatus
             text: "Use mirror status"
             onClicked: updateUrl()
+            enabled: mirrors.checked
         }
 
         Item {
@@ -116,6 +208,7 @@ SimpleKCM {
             to: 10
             stepSize: 1
             value: mirrorCount
+            enabled: mirrors.checked
         }
 
         Item {
@@ -124,20 +217,20 @@ SimpleKCM {
 
         Label {
             Kirigami.FormData.label: i18n("Country:")
-
+            textFormat: Text.RichText
             text: {
                 var matchResult = cfg_dynamicUrl.match(/country=([A-Z]+)/g)
                 if (matchResult !== null) {
                     var countries = matchResult.map(str => str.split("=")[1]).join(", ")
                     return countries
                 } else {
-                    return "<font color='red'>No one selected</font>";
+                    return '<a style="color: ' + Kirigami.Theme.negativeTextColor + '">Select at least one!</a>'
                 }
             }
         }
 
         ScrollView {
-            height: 120
+            enabled: mirrors.checked
 
             Column {
                 Repeater {
