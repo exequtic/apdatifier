@@ -103,7 +103,7 @@ function upgradeSystem() {
 
     sh.exec(cmd.upgrade, (cmd, stdout, stderr, exitCode) => {
         upgrading = false
-        cfg.interval ? searchTimer.triggered() : (busy = false, searchTimer.start())
+        cfg.interval ? searchTimer.triggered() : refreshListModel()
     })
 }
 
