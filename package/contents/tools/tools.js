@@ -54,7 +54,18 @@ function checkDependencies() {
         const terminals = populate(out.slice(6).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
 
-        !cfg.interval ? refreshListModel() : searchTimer.triggered()
+        if (!cfg.interval) {
+            refreshListModel()
+            return
+        }
+    
+        if (!cfg.checkOnStartup) {
+            refreshListModel()
+            searchTimer.start()
+            return
+        }
+
+        searchTimer.triggered()
     })
 }
 

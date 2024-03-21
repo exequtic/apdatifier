@@ -17,6 +17,7 @@ SimpleKCM {
 
     property alias cfg_interval: interval.checked
     property alias cfg_time: time.value
+    property alias cfg_checkOnStartup: checkOnStartup.checked
 
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
@@ -45,7 +46,7 @@ SimpleKCM {
 
             SpinBox {
                 id: time
-                from: 10
+                from: 1
                 to: 1440
                 stepSize: 5
                 value: time
@@ -55,6 +56,12 @@ SimpleKCM {
             Label {
                 text: i18n("minutes")
             }
+        }
+
+        CheckBox {
+            id: checkOnStartup
+            text: "Check on start up"
+            enabled: interval.checked
         }
 
         Item {
