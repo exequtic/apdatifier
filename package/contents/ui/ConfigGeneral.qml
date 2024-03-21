@@ -26,6 +26,7 @@ SimpleKCM {
 
     property alias cfg_notifications: notifications.checked
     property alias cfg_withSound: withSound.checked
+    property alias cfg_notifyEveryBump: notifyEveryBump.checked
 
     property string cfg_middleClick: plasmoid.configuration.middleClick
     property string cfg_rightClick: plasmoid.configuration.rightClick
@@ -46,7 +47,7 @@ SimpleKCM {
 
             SpinBox {
                 id: time
-                from: 1
+                from: 10
                 to: 1440
                 stepSize: 5
                 value: time
@@ -230,11 +231,17 @@ SimpleKCM {
                 id: notifications
                 text: i18n("Popup")
             }
+
+            CheckBox {
+                id: withSound
+                text: i18n("Sound")
+                enabled: notifications.checked
+            }
         }
 
         CheckBox {
-            id: withSound
-            text: i18n("Sound")
+            id: notifyEveryBump
+            text: i18n("For every version bump")
             enabled: notifications.checked
         }
 

@@ -294,10 +294,10 @@ function sortList(list) {
 
 
 function setNotify(list) {
-    let newList = []
-    list.forEach(item => {
-        const foundInCache = cache.some(cacheItem => cacheItem.name === item.name)
-        if (!foundInCache) newList.push(item)
+    const newList = list.filter(el => {
+        if (!cache.some(elCache => elCache.name === el.name)) return true
+        if (cfg.notifyEveryBump && cache.some(elCache => elCache.name === el.name && elCache.vernew !== el.vernew)) return true
+        return false
     })
 
     const newCount = newList.length
