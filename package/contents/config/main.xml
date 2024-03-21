@@ -10,113 +10,46 @@
 
 <kcfgfile name="apdatifier"/>
     <group name="General">
-        <entry name="interval" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="time" type="int">
-            <default>30</default>
-        </entry>
-        <entry name="aur" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="flatpak" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="wrapper" type="string">
-            <default></default>
-        </entry>
-        <entry name="notifications" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="withSound" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="middleClick" type="string">
-            <default>switchInterval</default>
-        </entry>
-        <entry name="rightClick" type="string">
-            <default></default>
-        </entry>
+        <entry name="interval" type="bool"><default>true</default></entry>
+        <entry name="time" type="int"><default>30</default></entry>
+        <entry name="aur" type="bool"><default>false</default></entry>
+        <entry name="flatpak" type="bool"><default>false</default></entry>
+        <entry name="wrapper" type="string"><default></default></entry>
+        <entry name="middleClick" type="string"><default>switchInterval</default></entry>
+        <entry name="rightClick" type="string"><default></default></entry>
+        <entry name="notifications" type="bool"><default>true</default></entry>
+        <entry name="withSound" type="bool"><default>true</default></entry>
+        <entry name="timestamp" type="string"><default></default></entry>
     </group>
     <group name="Upgrade">
-        <entry name="terminal" type="string">
-            <default></default>
-        </entry>
-        <entry name="wrapperUpgrade" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="upgradeFlags" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="upgradeFlagsText" type="string">
-            <default></default>
-        </entry>
-        <entry name="dynamicUrl" type="string">
-            <default></default>
-        </entry>
-        <entry name="mirrorCount" type="int">
-            <default>1</default>
-        </entry>
-        <entry name="mirrors" type="bool">
-            <default>false</default>
-        </entry>
+        <entry name="terminal" type="string"><default></default></entry>
+        <entry name="wrapperUpgrade" type="bool"><default>false</default></entry>
+        <entry name="upgradeFlags" type="bool"><default>false</default></entry>
+        <entry name="upgradeFlagsText" type="string"><default></default></entry>
+        <entry name="mirrors" type="bool"><default>false</default></entry>
+        <entry name="mirrorCount" type="int"><default>5</default></entry>
+        <entry name="dynamicUrl" type="string"><default></default></entry>
     </group>
     <group name="Appearance">
-        <entry name="spacing" type="int">
-            <default>6</default>
-        </entry>
-        <entry name="showStatusBar" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="sortByName" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="sortByRepo" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="selectedIcon" type="string">
-            <default>apdatifier-plasmoid</default>
-        </entry>
-        <entry name="indicatorCounter" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorScale" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorCircle" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="indicatorColor" type="string">
-            <default></default>
-        </entry>
-        <entry name="indicatorUpdates" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorStop" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorTop" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorBottom" type="bool">
-            <default>false</default>
-        </entry>
-        <entry name="indicatorRight" type="bool">
-            <default>true</default>
-        </entry>
-        <entry name="indicatorLeft" type="bool">
-            <default>false</default>
-        </entry>
-    </group>
-    <group name="Misc">
-        <entry name="cache" type="string">
-            <default></default>
-        </entry>
-        <entry name="timestamp" type="string">
-            <default></default>
-        </entry>
-        <entry name="script" type="path">
-            <default>$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh</default>
-        </entry>
+        <entry name="fullView" type="bool"><default>true</default></entry>
+        <entry name="spacing" type="int"><default>6</default></entry>
+        <entry name="showStatusBar" type="bool"><default>true</default></entry>
+        <entry name="searchButton" type="bool"><default>true</default></entry>
+        <entry name="viewButton" type="bool"><default>true</default></entry>
+        <entry name="sortButton" type="bool"><default>true</default></entry>
+        <entry name="upgradeButton" type="bool"><default>true</default></entry>
+        <entry name="checkButton" type="bool"><default>true</default></entry>
+        <entry name="sortByName" type="bool"><default>true</default></entry>
+        <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
+        <entry name="indicatorCounter" type="bool"><default>true</default></entry>
+        <entry name="indicatorScale" type="bool"><default>true</default></entry>
+        <entry name="indicatorCircle" type="bool"><default>false</default></entry>
+        <entry name="indicatorColor" type="string"><default></default></entry>
+        <entry name="indicatorUpdates" type="bool"><default>true</default></entry>
+        <entry name="indicatorStop" type="bool"><default>true</default></entry>
+        <entry name="indicatorTop" type="bool"><default>true</default></entry>
+        <entry name="indicatorBottom" type="bool"><default>false</default></entry>
+        <entry name="indicatorRight" type="bool"><default>true</default></entry>
+        <entry name="indicatorLeft" type="bool"><default>false</default></entry>
     </group>
 </kcfg>

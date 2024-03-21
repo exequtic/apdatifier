@@ -17,10 +17,17 @@ import org.kde.plasma.core as PlasmaCore
 import "../tools/tools.js" as JS
 
 SimpleKCM {
+    property alias cfg_fullView: extView.checked
     property alias cfg_spacing: spacing.value
+
     property alias cfg_showStatusBar: showStatusBar.checked
+    property alias cfg_searchButton: searchButton.checked
+    property alias cfg_viewButton: viewButton.checked
+    property alias cfg_sortButton: sortButton.checked
+    property alias cfg_upgradeButton: upgradeButton.checked
+    property alias cfg_checkButton: checkButton.checked
+
     property alias cfg_sortByName: sortByName.checked
-    property alias cfg_sortByRepo: sortByRepo.checked
 
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
@@ -44,8 +51,39 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("List View")
         }
 
+        ButtonGroup {
+            id: viewGroup
+        }
+
+        RadioButton {
+            Kirigami.FormData.label: i18n("View:")
+
+            ButtonGroup.group: viewGroup
+            id: extView
+            text: "Extended"
+
+            onCheckedChanged: cfg_fullView = checked
+
+            Component.onCompleted: {
+                checked = plasmoid.configuration.fullView
+            }
+
+        }
+
+        RadioButton {
+            id: compactView
+            ButtonGroup.group: viewGroup
+            text: "Compact"
+
+            Component.onCompleted: {
+                checked = !plasmoid.configuration.fullView
+            }
+        }
+
+
         RowLayout {
             Kirigami.FormData.label: i18n("Spacing:")
+            enabled: compactView.checked
 
             Slider {
                 id: spacing
@@ -68,6 +106,30 @@ SimpleKCM {
             id: showStatusBar
             Kirigami.FormData.label: i18n("Status bar:")
             text: i18n("Show status bar")
+        }
+
+        RowLayout {
+            enabled: showStatusBar.checked
+            CheckBox {
+                id: searchButton
+                icon.name: "search"
+            }
+            CheckBox {
+                id: viewButton
+                icon.name: "view-split-top-bottom"
+            }
+            CheckBox {
+                id: sortButton
+                icon.name: "sort-name"
+            }
+            CheckBox {
+                id: upgradeButton
+                icon.name: "akonadiconsole"
+            }
+            CheckBox {
+                id: checkButton
+                icon.name: "view-refresh"
+            }
         }
 
         Item {

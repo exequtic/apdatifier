@@ -13,12 +13,17 @@ function catchError(code, err) {
     return false
 }
 
-
+const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
+const cachefile = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache"
 function runScript() {
-    const script = `${cfg.script} copy`
-    sh.exec(script, (cmd, stdout, stderr, exitCode) => {
+    sh.exec(`${script} copy`, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr)) return
-        checkDependencies()
+
+        sh.exec(`[ -f "${cachefile}" ] && cat "${cachefile}"`, (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr)) return
+            cache = stdout ? JSON.parse(stdout.trim()) : []
+            checkDependencies()
+        })
     })
 }
 
@@ -55,8 +60,7 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    runAction()
-
+    const mirrorlist = `sudo ${script} mirrorlist_generator ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}'`
     const trizen = cfg.wrapper.split("/").pop() === "trizen"
     const wrapperCmd = trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
 
@@ -76,7 +80,8 @@ function defineCommands() {
 
     if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
-        cmd.upgrade = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId) "${arch}${flatpak}"`
+        cmd.terminal = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId)`
+        cmd.upgrade = `${cmd.terminal} "${arch}${flatpak}"`
         return
     }
 
@@ -88,13 +93,23 @@ function defineCommands() {
 
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
-    const terminalCmd = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    const mirrorlist = `sudo ${cfg.script} mirrorlist_generator ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}'`
-    cmd.upgrade = `${terminalCmd} sh -c "${trap}; ${print(init)}; ${executed}; ${mirrorlist}; ${arch}${flatpak}; ${print(done)}; read"`
+    cmd.terminal = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
+    cmd.upgrade = `${cmd.terminal} sh -c "${trap}; ${print(init)}; ${executed}; ${mirrorlist}; ${arch}${flatpak}; ${print(done)}; read"`
+}
+
+
+function updatePackage(id) {
+    defineCommands()
+
+    if (cfg.terminal.split("/").pop() === "yakuake")
+        sh.exec(`${cmd.terminal} "flatpak update ${id}"`,(cmd, stdout, stderr, exitCode) => {})
+    else
+        sh.exec(`${cmd.terminal} flatpak update ${id}`,(cmd, stdout, stderr, exitCode) => {})
 }
 
 
 function upgradeSystem() {
+    runAction()
     defineCommands()
 
     statusIco = "accept_time_event"
@@ -109,10 +124,12 @@ function upgradeSystem() {
 
 
 function checkUpdates() {
+    runAction()
     defineCommands()
 
     let updArch
     let infArch
+    let descArch
     let updFlpk
     let infFlpk
 
@@ -124,14 +141,22 @@ function checkUpdates() {
                             : i18n("Searching arch repositories for updates...")
         sh.exec(cmd.arch, (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
-            updArch = stdout ? stdout : null
+            updArch = stdout ? stdout.trim().split("\n") : null
             updArch ? archList() : cfg.flatpak ? flpkCheck() : merge()
     })}
 
     function archList() {
         sh.exec("pacman -Sl", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
-            infArch = stdout ? stdout : null
+            infArch = stdout.trim().split("\n")
+            archDesc()
+    })}
+
+    function archDesc() {
+        let list = updArch.map(s => s.split(" ")[0]).join(' ')
+        sh.exec(`pacman -Qi ${list}`, (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr)) return
+            descArch = stdout
             cfg.flatpak ? flpkCheck() : merge()
     })}
 
@@ -152,104 +177,125 @@ function checkUpdates() {
     })}
 
     function merge() {
-        updArch = updArch ? makeArchList(updArch, infArch) : null
+        updArch = updArch ? makeArchList(updArch, infArch, descArch) : null
         updFlpk = updFlpk ? makeFlpkList(updFlpk, infFlpk) : null
     
-        updArch && !updFlpk ? finalize(sortList(formatList(updArch))) :
-        !updArch && updFlpk ? finalize(sortList(formatList(updFlpk))) :
+        updArch && !updFlpk ? finalize(sortList(updArch)) :
+        !updArch && updFlpk ? finalize(sortList(updFlpk)) :
         !updArch && !updFlpk ? finalize() :
-        finalize(sortList(formatList(updArch.concat(updFlpk))))
+        finalize(sortList(updArch.concat(updFlpk)))
     }
 }
 
 
-function makeArchList(upd, inf) {
-    upd = upd.trim().split("\n")
-    inf = inf.trim().split("\n")
-    let out = ""
-
-    for (let i = 0; i < upd.length; i++) {
-        let pkg = upd[i]
-        let name = pkg.split(" ")[0]
-        let aur = true
-
-        for (let j = 0; j < inf.length; j++)
-            if (inf[j].includes(" " + name + " ")) {
-                let repo = inf[j].split(" ")[0]
-                out += repo + " " + pkg + "\n"
-                aur = false
-                break
-            }
-
-        if (aur)
-            pkg.split(" ").pop() === "latest-commit" ?
-                out += "devel " + pkg + "\n" :
-                out += "aur " + pkg + "\n"
+function makeArchList(upd, inf, desc) {
+    const packagesData = desc.split("\n\n")
+    const skip = [1, 3, 5, 9, 11, 15, 16, 19, 20]
+    const keyNames = {
+        0: 'name', 2: 'desc', 4: 'link', 6: 'group', 7: 'provides',
+        8: 'depends', 10: 'required', 12: 'conflicts', 13: 'replaces',
+        14: 'installedsize', 17: 'installdate', 18: 'reason'
     }
 
-    return out
+    let extendedInfo = packagesData.map(function(packageData) {
+        packageData = packageData.split('\n').filter(line => line.includes(" : ")).join('\n')
+        const lines = packageData.split("\n")
+        
+        let packageObj = {}
+        lines.forEach(function(line, index) {
+            if (skip.includes(index)) return
+
+            const parts = line.split(/\s* : \s*/)
+            if (parts.length === 2) {
+                packageObj[keyNames[index]] = parts[1].trim()
+            }
+        })
+        return packageObj
+    })
+
+    extendedInfo.forEach(el => {
+        let found = false
+
+        inf.forEach(str => {
+            const parts = str.split(" ")
+            if (el.name === parts[1]) {
+                el.repository = parts[0]
+                found = true
+            }
+        })
+
+        if (!found) {
+            el.repository = "aur"
+        }
+
+        upd.forEach(str => {
+            const parts = str.split(" ")
+            if (el.name === parts[0]) {
+                el.verold = parts[1]
+                el.vernew = parts[3]
+            }
+        })
+    })
+
+    extendedInfo.pop()
+
+    return extendedInfo
 }
 
 
 function makeFlpkList(upd, inf) {
     upd = upd.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
     inf = inf.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
-    let out = ""
 
+    let extendedInfo = []
     upd.forEach(pkg => {
-        let name = pkg.split(" ")[1]
-        let vers = inf.find(line => line.includes(name)).split(" ")[2]
-        out += `flatpak ${pkg.replace(name, vers)}\n`
+        const part = pkg.split(" ")
+        const curr = inf.find(line => line.includes(part[1])).split(" ")[2]
+        const newv = part[2] === curr ? "refresh of " + curr : part[2]
+
+        extendedInfo.push({
+            name: part[0].toLowerCase(),
+            repository: "flatpak",
+            vernew: newv,
+            verold: curr,
+            idflatpak: part[1],
+            branch: part[3]
+        })
     })
 
-    return out
-}
-
-
-function formatList(list) {
-    return list
-        .replace(/ ->/g, "")
-        .trim()
-        .toLowerCase()
-        .split("\n")
-        .map(str => {
-            const col = str.split(" ");
-            [col[0], col[1]] = [col[1], col[0]]
-            return col.join(" ")
-        })
+    return extendedInfo
 }
 
 
 function sortList(list) {
     return list.sort((a, b) => {
-        const [nameA, repoA] = a.split(" ")
-        const [nameB, repoB] = b.split(" ")
+        const [nameA, repoA] = [a.name, a.repository]
+        const [nameB, repoB] = [b.name, b.repository]
 
-        return cfg.sortByName ? nameA.localeCompare(nameB)
-                : ((repoA.includes("aur") || repoA.includes("devel"))
-                    &&
-                  !(repoB.includes("aur") || repoB.includes("devel")))
-                    ? -1
-                : (!(repoA.includes("aur") || repoA.includes("devel"))
-                    &&
-                  (repoB.includes("aur") || repoB.includes("devel")))
-                    ? 1
-                : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
-    })
+        if (cfg.sortByName) return nameA.localeCompare(nameB)
+
+        const isRepoAURorDevelA = repoA.includes("aur") || repoA.includes("devel")
+        const isRepoAURorDevelB = repoB.includes("aur") || repoB.includes("devel")
+
+        return isRepoAURorDevelA !== isRepoAURorDevelB ? isRepoAURorDevelA ? -1 : 1 : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
+    })    
 }
 
 
 function setNotify(list) {
-    const cache = cfg.cache.trim().split(",")
-    const newList = list.filter(item => !cache.includes(item))
+    let newList = []
+    list.forEach(item => {
+        const foundInCache = cache.some(cacheItem => cacheItem.name === item.name)
+        if (!foundInCache) newList.push(item)
+    })
+
     const newCount = newList.length
 
     if (newCount > 0) {
         let lines = ""
-        for (let i = 0; i < newCount; i++) {
-            let col = newList[i].split(" ")
-            lines += col[0] + "   → " + col[3] + "\n"
-        }
+        newList.forEach(item => {
+            lines += item["name"] + "   → " + item["vernew"] + "\n"
+        })
 
         notifyTitle = i18np("+%1 new update", "+%1 new updates", newCount)
         notifyBody = lines
@@ -259,24 +305,14 @@ function setNotify(list) {
 
 
 function refreshListModel(list) {
-    list = list || (cfg.cache.length ? sortList(cfg.cache.trim().split(",")) : 0)
+    list = list || (cache ? sortList(cache) : 0)
     count = list.length || 0
     setStatusBar()
 
     if (!count || !list) return
 
     listModel.clear()
-
-    for (let i = 0; i < list.length; i++) {
-        let item = list[i].split(" ")
-        if (item[2] === item[3]) item[3] = "refresh"
-        listModel.append({
-            "name": item[0],
-            "repo": item[1],
-            "curr": item[2],
-            "newv": item[3]
-        })
-    }
+    list.forEach(item => listModel.append(item))
 }
 
 
@@ -285,7 +321,8 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        cfg.cache = ""
+        sh.exec(`[ -f "${cachefile}" ] && rm "${cachefile}"`, (cmd, stdout, stderr, exitCode) => {})
+        cache = []
         count = 0
         setStatusBar()
         return
@@ -293,10 +330,11 @@ function finalize(list) {
 
     refreshListModel(list)
 
-    cfg.notifications ? setNotify(list) : cfg.cache = ""
+    if (cfg.notifications) setNotify(list)
 
     count = list.length
-    cfg.cache = list.join(",")
+    cache = list
+    sh.exec(`echo '${JSON.stringify(list).replace(/'/g, '')}' > ${cachefile}`, (cmd, stdout, stderr, exitCode) => {})
     setStatusBar()
 }
 

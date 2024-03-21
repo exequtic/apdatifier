@@ -114,7 +114,7 @@ mirrorlist_generator() {
         cat $tempfile2 > $mirrorfile
 
         echo -e "$g\u2714 Update mirrorlist file$c"
-        echo -e "$g\nFile $mirrorfile was updated with following servers:$c"
+        echo -e "$g\nFile $mirrorfile was updated with the following servers:$c"
         echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
         echo
 

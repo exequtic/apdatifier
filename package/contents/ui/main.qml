@@ -41,6 +41,7 @@ PlasmoidItem {
     property string notifyBody: ""
     property string lastCheck
     property var count
+    property var cache
 
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time
