@@ -12,7 +12,7 @@
     <group name="General">
         <entry name="interval" type="bool"><default>true</default></entry>
         <entry name="time" type="int"><default>30</default></entry>
-        <entry name="checkOnStartup" type="bool"><default>true</default></entry>
+        <entry name="checkOnStartup" type="bool"><default>false</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
         <entry name="wrapper" type="string"><default></default></entry>
@@ -42,6 +42,7 @@
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="sortByName" type="bool"><default>true</default></entry>
+        <entry name="relevantIcon" type="bool"><default>false</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
         <entry name="indicatorCounter" type="bool"><default>true</default></entry>
         <entry name="indicatorScale" type="bool"><default>true</default></entry>

@@ -29,6 +29,7 @@ SimpleKCM {
 
     property alias cfg_sortByName: sortByName.checked
 
+    property alias cfg_relevantIcon: relevantIcon.checked
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
     property alias cfg_indicatorCounter: indicatorCounter.checked
@@ -169,10 +170,14 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Panel Icon View")
         }
 
+        CheckBox {
+            Kirigami.FormData.label: i18n("Icon:")
+            id: relevantIcon
+            text: "Shown when relevant"
+        }
+
         Button {
             id: iconButton
-
-            Kirigami.FormData.label: i18n("Icon:")
 
             implicitWidth: iconFrame.width + Kirigami.Units.smallSpacing
             implicitHeight: implicitWidth

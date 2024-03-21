@@ -21,9 +21,10 @@ PlasmoidItem {
     switchHeight: Kirigami.Units.gridUnit * 10
 
     Plasmoid.busy: busy
-    Plasmoid.status: count > 0 || busy || error
-                        ? PlasmaCore.Types.ActiveStatus
-                        : PlasmaCore.Types.PassiveStatus
+    Plasmoid.status: {
+        if (cfg.relevantIcon) return count > 0 || busy || error ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus
+        else return PlasmaCore.Types.ActiveStatus
+    }
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
