@@ -2,10 +2,8 @@
 
 <img src="./screenshots/header.png" width="200px" alt="banner"/>
 
-<br>
-
-![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
-![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue)
+<!-- ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
+![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
 
 
 # Apdatifier
@@ -14,8 +12,8 @@
 </div>
 
 # Features
-- Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
 - Notification for new updates
+- Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
 - Option to refresh the mirrorlist with the latest mirrors filtered by speed
 - Customizable icon on the panel
@@ -23,15 +21,15 @@
 <br>
 
 <div align="center">
-<img src="./screenshots/screenshot_2.jpg" width="300px" alt="banner"/>
-<img src="./screenshots/screenshot_1.jpg" width="300px" alt="banner"/>
-<img src="./screenshots/screenshot_3.jpg" width="300px" alt="banner"/>
+<img src="./screenshots/screenshot_2.jpg" width="300px" alt="screenshot"/>
+<img src="./screenshots/screenshot_1.jpg" width="300px" alt="screenshot"/>
+<img src="./screenshots/screenshot_3.jpg" width="300px" alt="screenshot"/>
 </div>
 
 <br>
 
 # Requirements
-[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but recommended
+[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>recommended</b>. For checkupdates and rankmirrors scripts.
 
 ### Supported pacman wrappers
 paru, trizen, yay
@@ -43,15 +41,12 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 # Installation
 
-Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets")
+Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets").
 
-Or download with latest commit (may be unstable) and install in one line command:
-```bash
-curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/contents/tools/tools.sh | sh -s install
-```
+After installation, the widget icon should <b>automatically</b> appear in the system tray.
 
 >[!WARNING]
->After installation, the widget icon should automatically appear in the system tray. If this does not happen, Log Out or restart plasmashell
+>If you had the previous version installed, you may need to Log Out or restart plasmashell after install.
 >```bash
 >killall plasmashell && kstart plasmashell
 >```
@@ -60,3 +55,16 @@ curl -fsSL https://raw.githubusercontent.com/exequtic/apdatifier/main/package/co
 ```bash
 sh ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
 ```
+
+<br>
+
+## Settings
+<div align="center">
+
+<img src="./screenshots/settings_1.png" width="500px" alt="Settings"/>
+
+<img src="./screenshots/settings_2.png" width="500px" alt="Settings"/>
+
+<img src="./screenshots/settings_3.png" width="500px" alt="Settings"/>
+
+</div>
