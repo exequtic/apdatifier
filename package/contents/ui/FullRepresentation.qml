@@ -17,6 +17,8 @@ import org.kde.plasma.core as PlasmaCore
 import "../tools/tools.js" as JS
 
 Item {
+    property bool searchFieldOpen: false
+
     ScrollView {
         anchors.top: parent.top
         anchors.right: parent.right
@@ -187,11 +189,11 @@ Item {
             id: searchField
             Layout.fillWidth: true
             focus: true
-            visible: false
+            visible: searchFieldOpen && footer.visible && !busy && !error && count > 0
 
             onTextChanged: {
-                if (searchField.visible) modelList.setFilterFixedString(text)
-                if (!searchField.visible && text.length === 0) text = ""
+                if (searchFieldOpen) modelList.setFilterFixedString(text)
+                if (!searchFieldOpen) return
             }
         }
 
@@ -206,9 +208,10 @@ Item {
                 enabled: visible
                 ToolTip { text: i18n("Search") }
                 onClicked: {
-                    searchField.visible = !searchField.visible
+                    if (searchFieldOpen) searchField.text = ""
+                    searchFieldOpen = !searchField.visible
                     status.visible = !status.visible
-                    searchField.focus = searchField.visible
+                    searchField.focus = searchFieldOpen
                 }
             }
 
