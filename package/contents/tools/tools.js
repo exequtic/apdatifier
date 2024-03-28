@@ -330,7 +330,7 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
-    cfg.timestamp = new Date().getTime()
+    cfg.timestamp = new Date().getTime().toString()
 
     if (!list) {
         listModel.clear()
@@ -363,9 +363,9 @@ function setStatusBar(code) {
 function getLastCheck() {
     if (!cfg.timestamp) return ""
 
-    const diff = new Date().getTime() - cfg.timestamp
-    const sec = Math.floor((diff % (1000 * 60)) / 1000)
-    const min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    const diff = new Date().getTime() - parseInt(cfg.timestamp)
+    const sec = Math.round((diff / 1000) % 60)
+    const min = Math.floor((diff / (1000 * 60)) % 60)
     const hrs = Math.floor(diff / (1000 * 60 * 60))
 
     const lastcheck = i18n("Last check:")
