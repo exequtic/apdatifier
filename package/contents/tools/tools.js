@@ -174,14 +174,14 @@ function checkUpdates() {
     function flpkCheck() {
         statusIco = "flatpak-discover"
         statusMsg = i18n("Searching flathub for updates...")
-        sh.exec("flatpak remote-ls --app --updates", (cmd, stdout, stderr, exitCode) => {
+        sh.exec("flatpak remote-ls --app --updates --show-details", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
             updFlpk = stdout ? stdout : null
             updFlpk ? flpkList() : merge()
     })}
 
     function flpkList() {
-        sh.exec("flatpak list --app", (cmd, stdout, stderr, exitCode) => {
+        sh.exec("flatpak list --app --columns=application,version", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
             infFlpk = stdout ? stdout : null
             merge()
@@ -255,26 +255,28 @@ function makeArchList(upd, inf, desc) {
 
 
 function makeFlpkList(upd, inf) {
-    upd = upd.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
-    inf = inf.trim().replace(/ /g, "-").replace(/\t/g, " ").split("\n")
+    const list = inf.split('\n').slice(1).reduce((map, line) => {
+        const [appID, verold] = line.split('\t').map(entry => entry.trim())
+        map.set(appID, verold)
+        return map
+    }, new Map())
 
-    let extendedInfo = []
-    upd.forEach(pkg => {
-        const part = pkg.split(" ")
-        const curr = inf.find(line => line.includes(part[1])).split(" ")[2]
-        const newv = part[2] === curr ? "refresh of " + curr : part[2]
-
-        extendedInfo.push({
-            name: part[0].toLowerCase(),
-            repository: "flatpak",
-            vernew: newv,
-            verold: curr,
-            idflatpak: part[1],
-            branch: part[3]
-        })
-    })
-
-    return extendedInfo
+    return upd.split('\n').map(line => {
+        const [name, desc, appID, vernew, branch, , repository, , commit, runtime, installedsize, downloadsize] = line.split('\t').map(entry => entry.trim())
+        return name ? {
+            name: name.replace(/ /g, "-").toLowerCase(),
+            desc: desc,
+            appID: appID,
+            verold: list.get(appID),
+            vernew: list.get(appID) === vernew ? "refresh of " + vernew : vernew,
+            branch: branch,
+            repository: repository,
+            commit: commit,
+            runtime: runtime,
+            installedsize: installedsize,
+            downloadsize: downloadsize,
+        } : null
+    }).filter(Boolean)
 }
 
 

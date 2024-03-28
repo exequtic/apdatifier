@@ -69,15 +69,15 @@ Item {
                 property var pkg: []
                 title: model.name
                 subtitle: model.repository + "  " + model.verold + " → " + model.vernew
-                icon: model.repository === "flatpak" ? model.idflatpak : "server-database"
+                icon: model.appID !== "" ? model.appID : "server-database"
 
                 contextualActions: [
                     Action {
                         id: updateButton
                         icon.name: "folder-download-symbolic"
                         text: "Update"
-                        enabled: model.repository === "flatpak" && cfg.terminal
-                        onTriggered: JS.updatePackage(model.idflatpak)
+                        enabled: model.appID !== "" && cfg.terminal
+                        onTriggered: JS.updatePackage(model.appID)
                     }
                 ]
 
@@ -141,6 +141,10 @@ Item {
                         Component.onCompleted: {
                             const details = []
                             model.desc && details.push("Description", model.desc)
+                            model.appID && details.push("App ID", model.appID)
+                            model.branch && details.push("Branch", model.branch)
+                            model.commit && details.push("Commit", model.commit)
+                            model.runtime && details.push("Runtime", model.runtime)
                             model.link && details.push("URL", model.link)
                             model.group && details.push("Groups", model.group)
                             model.provides && details.push("Provides", model.provides)
@@ -149,10 +153,9 @@ Item {
                             model.conflicts && details.push("Conflicts with", model.conflicts)
                             model.replaces && details.push("Replaces", model.replaces)
                             model.installedsize && details.push("Installed size", model.installedsize)
+                            model.downloadsize && details.push("Download size", model.downloadsize)
                             model.installdate && details.push("Install date", model.installdate)
                             model.reason && details.push("Install reason", model.reason)
-                            model.idflatpak && details.push("ID", model.idflatpak)
-                            model.branch && details.push("Branch", model.branch)
                             pkg = details
                         }
                     }
