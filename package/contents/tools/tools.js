@@ -400,8 +400,7 @@ function setIcon(icon) {
 
 
 function setFrameSize() {
-    const multiplier = cfg.indicatorCounter && cfg.indicatorScale ? 1.1 :  
-                       cfg.indicatorCounter && !cfg.indicatorScale ? 1 : 0.85
+    const multiplier = cfg.indicatorCounter ? 1.1 : 0.9
 
     return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
            plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
@@ -410,6 +409,7 @@ function setFrameSize() {
 
 function setAnchor(pos, stop) {
     const anchors = {
+        parent: cfg.indicatorCenter ? parent : undefined,
         top: cfg.indicatorBottom && !cfg.indicatorTop,
         bottom: cfg.indicatorTop && !cfg.indicatorBottom,
         right: cfg.indicatorLeft && !cfg.indicatorRight,
@@ -417,6 +417,7 @@ function setAnchor(pos, stop) {
     }
 
     return (stop ? anchors[pos] : {
+        parent: cfg.indicatorCenter ? parent : undefined,
         top: anchors.bottom,
         bottom: anchors.top,
         right: anchors.left,

@@ -45,11 +45,12 @@
         <entry name="relevantIcon" type="bool"><default>false</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
         <entry name="indicatorCounter" type="bool"><default>true</default></entry>
-        <entry name="indicatorScale" type="bool"><default>true</default></entry>
+        <entry name="indicatorSize" type="int"><default>0</default></entry>
         <entry name="indicatorCircle" type="bool"><default>false</default></entry>
         <entry name="indicatorColor" type="string"><default></default></entry>
         <entry name="indicatorUpdates" type="bool"><default>true</default></entry>
         <entry name="indicatorStop" type="bool"><default>true</default></entry>
+        <entry name="indicatorCenter" type="bool"><default>true</default></entry>
         <entry name="indicatorTop" type="bool"><default>true</default></entry>
         <entry name="indicatorBottom" type="bool"><default>false</default></entry>
         <entry name="indicatorRight" type="bool"><default>true</default></entry>

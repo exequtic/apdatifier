@@ -32,13 +32,14 @@ SimpleKCM {
     property alias cfg_relevantIcon: relevantIcon.checked
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
+    property alias cfg_indicatorStop: indicatorStop.checked
+    property alias cfg_indicatorUpdates: indicatorUpdates.checked
     property alias cfg_indicatorCounter: indicatorCounter.checked
-    property alias cfg_indicatorScale: indicatorScale.checked
     property alias cfg_indicatorCircle: indicatorCircle.checked
     property string cfg_indicatorColor: plasmoid.configuration.indicatorColor
-    property alias cfg_indicatorUpdates: indicatorUpdates.checked
-    property alias cfg_indicatorStop: indicatorStop.checked
+    property alias cfg_indicatorSize: indicatorSize.value
 
+    property alias cfg_indicatorCenter: indicatorCenter.checked
     property bool cfg_indicatorTop: plasmoid.configuration.indicatorTop
     property bool cfg_indicatorBottom: plasmoid.configuration.indicatorBottom
     property bool cfg_indicatorRight: plasmoid.configuration.indicatorRight
@@ -96,6 +97,10 @@ SimpleKCM {
                 onValueChanged: {
                     plasmoid.configuration.spacing = spacing.value
                 }
+            }
+
+            Label {
+                text: spacing.value
             }
         }
 
@@ -261,20 +266,11 @@ SimpleKCM {
                 id: indicator
             }
 
-            RowLayout {
-                RadioButton {
-                    id: indicatorCounter
-                    text: i18n("Counter")
-                    checked: true
-                    ButtonGroup.group: indicator
-                }
-
-                CheckBox {
-                    id: indicatorScale
-                    Layout.leftMargin: Kirigami.Units.gridUnit
-                    text: i18n("Scale with icon")
-                    visible: indicatorCounter.checked
-                }
+            RadioButton {
+                id: indicatorCounter
+                text: i18n("Counter")
+                checked: true
+                ButtonGroup.group: indicator
             }
 
             RowLayout {
@@ -344,9 +340,40 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
+        RowLayout {
+            Kirigami.FormData.label: "Size:"
+            enabled: indicatorUpdates.checked
+
+            Slider {
+                id: indicatorSize
+                from: -5
+                to: 8
+                stepSize: 1
+                value: indicatorSize.value
+
+                onValueChanged: {
+                    plasmoid.configuration.indicatorSize = indicatorSize.value
+                }
+            }
+
+            Label {
+                text: indicatorSize.value
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: "Position:"
+            id: indicatorCenter
+            text: "Center"
+        }
+
         GridLayout {
             Layout.fillWidth: true
-            enabled: indicatorUpdates.checked
+            enabled: indicatorUpdates.checked && !indicatorCenter.checked
             columns: 4
             rowSpacing: 0
             columnSpacing: 0
