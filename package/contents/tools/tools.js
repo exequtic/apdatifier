@@ -221,8 +221,9 @@ function makeArchList(upd, inf, desc) {
     })
 
     extendedInfo.forEach(el => {
-        let found = false
+        ['appID', 'branch', 'commit', 'runtime', 'downloadsize'].forEach(key => el[key] = '')
 
+        let found = false
         inf.forEach(str => {
             const parts = str.split(" ")
             if (el.name === parts[1]) {
@@ -393,6 +394,18 @@ function setIndex(value, arr) {
 const defaultIcon = "apdatifier-plasmoid"
 function setIcon(icon) {
     return icon === "" ? defaultIcon : icon
+}
+
+
+function setPackageIcon(icons, name, appID) {
+    if (appID) return appID
+
+    if (cfg.customIconsEnabled) {
+        const match = icons.find(item => item.name.includes(name))
+        return match ? match.icon : "server-database"
+    }
+
+    return "server-database"
 }
 
 

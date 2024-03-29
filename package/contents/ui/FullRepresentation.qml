@@ -67,9 +67,10 @@ Item {
 
             delegate: ExpandableListItem {
                 property var pkg: []
+                property var pkgIcons: cfg.customIcons.split("\n").filter(Boolean).map(l => ({ name: l.split(' ')[0], icon: l.split(' ')[1] }))
                 title: model.name
                 subtitle: model.repository + "  " + model.verold + " → " + model.vernew
-                icon: model.appID !== "" ? model.appID : "server-database"
+                icon: JS.setPackageIcon(pkgIcons, model.name, model.appID)
 
                 contextualActions: [
                     Action {

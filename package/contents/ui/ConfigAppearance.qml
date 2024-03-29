@@ -19,6 +19,8 @@ import "../tools/tools.js" as JS
 SimpleKCM {
     property alias cfg_fullView: extView.checked
     property alias cfg_spacing: spacing.value
+    property alias cfg_customIconsEnabled: customIconsEnabled.checked
+    property alias cfg_customIcons: customIcons.text
 
     property alias cfg_showStatusBar: showStatusBar.checked
     property alias cfg_searchButton: searchButton.checked
@@ -99,6 +101,40 @@ SimpleKCM {
 
             Label {
                 text: spacing.value
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: "Custom icons:"
+            CheckBox {
+                id: customIconsEnabled
+                text: "Enable"
+            }
+
+            ContextualHelpButton {
+                toolTipText: "<p>You can specify which icon to use in the extended list for each <b>system</b> package.</p><br><p><b>PKG1-NAME ICON-NAME<br>PKG2-NAME ICON-NAME</b></p><br><p>Each package should be on a new line. The package and icon should be separated by a space.</p><br><p><b>You may lose these settings after updating the widget, so make a backup of this list just in case.</b></p>"
+            }
+        }
+
+        ColumnLayout {
+            Layout.maximumWidth: appearancePage.width / 2
+            Layout.maximumHeight: 100
+            visible: customIconsEnabled.checked
+
+            ScrollView {
+                Layout.preferredWidth: appearancePage.width / 2
+                Layout.preferredHeight: 100
+
+                TextArea {
+                    id: customIcons
+                    width: parent.width
+                    height: parent.height
+                    placeholderText: "EXAMPLE:\nlinux preferences-system-linux"
+                }
             }
         }
 
