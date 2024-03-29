@@ -25,7 +25,7 @@ Item {
             width: JS.setFrameSize()
             height: width * 0.9
             opacity: 0
-            visible: cfg.indicatorUpdates && !busy && plasmoid.location !== PlasmaCore.Types.Floating
+            visible: !busy && plasmoid.location !== PlasmaCore.Types.Floating
         }
 
         Rectangle {
@@ -33,7 +33,7 @@ Item {
             width: Math.round((frame.width / 4) + cfg.indicatorSize)
             height: width
             radius: width / 2
-            visible: frame.visible && cfg.indicatorCircle && (error || count)
+            visible: frame.visible && cfg.indicatorUpdates && cfg.indicatorCircle && (error || count)
             color: error ? Kirigami.Theme.negativeTextColor
                  : cfg.indicatorColor ? cfg.indicatorColor
                  : Kirigami.Theme.highlightColor
@@ -54,7 +54,7 @@ Item {
             radius: width * 0.35
             color: Kirigami.Theme.backgroundColor
             opacity: 0.8
-            visible: frame.visible && cfg.indicatorCounter
+            visible: frame.visible && cfg.indicatorUpdates && cfg.indicatorCounter
 
             Label {
                 id: counter
@@ -91,12 +91,11 @@ Item {
                 anchors.centerIn: parent
                 text: "⏸"
                 renderType: Text.NativeRendering
-                font.pointSize: frame.width / 5
+                font.pointSize: Math.round(frame.width / 5)
                 color: Kirigami.Theme.neutralTextColor
             }
 
             anchors {
-                centerIn: JS.setAnchor("parent")
                 top: JS.setAnchor("top", 1)
                 bottom: JS.setAnchor("bottom", 1)
                 right: JS.setAnchor("right", 1)

@@ -14,7 +14,7 @@ function catchError(code, err) {
 }
 
 const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
-const cachefile = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache"
+const cachefile = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache.json"
 function runScript() {
     sh.exec(`${script} copy`, (cmd, stdout, stderr, exitCode) => {
         if (catchError(exitCode, stderr)) return
@@ -76,18 +76,14 @@ function defineCommands() {
     const wrapperCmd = trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
 
     cmd.arch = pkg.checkupdates
-        ? cfg.aur
-            ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"`
-            : "checkupdates"
-        : cfg.aur
-            ? wrapperCmd
-            : "ping -c 1 archlinux.org >/dev/null 2>&1 || { echo 'No internet' >&2; exit 1; }; pacman -Qu"     
+                    ? cfg.aur ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"` : "checkupdates"
+                    : cfg.aur ? wrapperCmd : "pacman -Qu"
 
     if (!pkg.pacman) delete cmd.arch
 
     const flatpak = cfg.flatpak ? "; flatpak update" : ""
-    const flags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText}` : " "
-    const arch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + flags : "sudo pacman -Syu" + flags
+    const flags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText.trim()}` : " "
+    const arch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + flags : "sudo pacman -Syu" + flags.trim()
 
     if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
@@ -173,8 +169,8 @@ function checkUpdates() {
 
     function flpkCheck() {
         statusIco = "flatpak-discover"
-        statusMsg = i18n("Searching flathub for updates...")
-        sh.exec("flatpak remote-ls --app --updates --show-details", (cmd, stdout, stderr, exitCode) => {
+        statusMsg = i18n("Searching for flatpak updates...")
+        sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
             updFlpk = stdout ? stdout : null
             updFlpk ? flpkList() : merge()
@@ -347,7 +343,8 @@ function finalize(list) {
 
     count = list.length
     cache = list
-    sh.exec(`echo '${JSON.stringify(list).replace(/'/g, '')}' > ${cachefile}`, (cmd, stdout, stderr, exitCode) => {})
+    const json = JSON.stringify(list).replace(/},/g, "},\n").replace(/'/g, '')
+    sh.exec(`echo '${json}' > ${cachefile}`, (cmd, stdout, stderr, exitCode) => {})
     setStatusBar()
 }
 

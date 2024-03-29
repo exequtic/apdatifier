@@ -69,7 +69,6 @@ SimpleKCM {
             Component.onCompleted: {
                 checked = plasmoid.configuration.fullView
             }
-
         }
 
         RadioButton {
@@ -81,7 +80,6 @@ SimpleKCM {
                 checked = !plasmoid.configuration.fullView
             }
         }
-
 
         RowLayout {
             Kirigami.FormData.label: i18n("Spacing:")
@@ -175,10 +173,16 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Panel Icon View")
         }
 
-        CheckBox {
-            Kirigami.FormData.label: i18n("Icon:")
-            id: relevantIcon
-            text: "Shown when relevant"
+        RowLayout {
+            CheckBox {
+                Kirigami.FormData.label: i18n("Icon:")
+                id: relevantIcon
+                text: "Shown when relevant"
+            }
+
+            ContextualHelpButton {
+                toolTipText: "<p>If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates.</p><br><p>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.</p>"
+            }
         }
 
         Button {
@@ -347,7 +351,7 @@ SimpleKCM {
             Slider {
                 id: indicatorSize
                 from: -5
-                to: 8
+                to: 10
                 stepSize: 1
                 value: indicatorSize.value
 
@@ -367,6 +371,7 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: "Position:"
+            enabled: indicatorUpdates.checked
             id: indicatorCenter
             text: "Center"
         }

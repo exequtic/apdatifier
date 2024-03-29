@@ -116,10 +116,11 @@ Item {
                                     Label {
                                         property bool header: !(index % 2)
                                         Layout.fillWidth: true
+                                        Layout.alignment: Qt.AlignTop
                                         horizontalAlignment: Text.AlignLeft
                                         font: Kirigami.Theme.smallFont
                                         opacity: header ? 0.6 : 1
-                                        text: header ? pkg[index] + ":"
+                                        text: header ? "<b>" + pkg[index] + ":</b>"
                                                      : pkg[index].indexOf("://") !== -1
                                                      ? "<a href=\"" + pkg[index] + "\">" + pkg[index].replace(/\/+$/, '') + "</a>"
                                                      : pkg[index]

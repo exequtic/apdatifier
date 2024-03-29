@@ -50,7 +50,7 @@
         <entry name="indicatorColor" type="string"><default></default></entry>
         <entry name="indicatorUpdates" type="bool"><default>true</default></entry>
         <entry name="indicatorStop" type="bool"><default>true</default></entry>
-        <entry name="indicatorCenter" type="bool"><default>true</default></entry>
+        <entry name="indicatorCenter" type="bool"><default>false</default></entry>
         <entry name="indicatorTop" type="bool"><default>true</default></entry>
         <entry name="indicatorBottom" type="bool"><default>false</default></entry>
         <entry name="indicatorRight" type="bool"><default>true</default></entry>
