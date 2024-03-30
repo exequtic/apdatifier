@@ -210,8 +210,9 @@ SimpleKCM {
         }
 
         RowLayout {
+            Kirigami.FormData.label: i18n("Panel icon:")
+
             CheckBox {
-                Kirigami.FormData.label: i18n("Icon:")
                 id: relevantIcon
                 text: "Shown when relevant"
             }

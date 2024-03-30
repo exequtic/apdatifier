@@ -83,7 +83,7 @@ function defineCommands() {
 
     const flatpak = cfg.flatpak ? "; flatpak update" : ""
     const flags = cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText.trim()}` : " "
-    const arch = cfg.wrapperUpgrade ? cfg.wrapper + " -Syu" + flags : "sudo pacman -Syu" + flags.trim()
+    const arch = cfg.aur ? cfg.wrapper + " -Syu" + flags.trim() : "sudo pacman -Syu" + flags.trim()
 
     if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
@@ -96,7 +96,7 @@ function defineCommands() {
     const done = i18n("Press Enter to close")
     const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
     const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
-    const executed = cfg.wrapperUpgrade && trizen ? "echo " : "echo; echo -e " + exec + arch + "; echo"
+    const executed = cfg.aur && trizen ? "echo " : "echo; echo -e " + exec + arch + "; echo"
 
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }

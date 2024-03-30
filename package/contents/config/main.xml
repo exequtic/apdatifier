@@ -27,7 +27,6 @@
     </group>
     <group name="Upgrade">
         <entry name="terminal" type="string"><default></default></entry>
-        <entry name="wrapperUpgrade" type="bool"><default>false</default></entry>
         <entry name="upgradeFlags" type="bool"><default>false</default></entry>
         <entry name="upgradeFlagsText" type="string"><default></default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>

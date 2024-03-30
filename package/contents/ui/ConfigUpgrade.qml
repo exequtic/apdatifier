@@ -13,7 +13,6 @@ import org.kde.kirigami as Kirigami
 import "../tools/tools.js" as JS
 
 SimpleKCM {
-    property alias cfg_wrapperUpgrade: wrapperUpgrade.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property string cfg_terminal: plasmoid.configuration.terminal
@@ -27,6 +26,8 @@ SimpleKCM {
     property var terminals: plasmoid.configuration.terminals
 
     Kirigami.FormLayout {
+        id: upgradePage
+
         Item {
             Kirigami.FormData.isSection: true
         }
@@ -67,30 +68,22 @@ SimpleKCM {
             }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
-            id: wrapperUpgrade
-            text: i18n("Upgrade using wrapper")
-            enabled: terminals && plasmoid.configuration.wrappers
+        RowLayout {
+            Kirigami.FormData.label: i18n("Additional flags:")
+            spacing: 0
             visible: pkg.pacman
-        }
 
+            CheckBox {
+                id: upgradeFlags
+                enabled: terminals
+            }
 
-        CheckBox {
-            id: upgradeFlags
-            text: i18n("Additional flags")
-            enabled: terminals
-            visible: pkg.pacman
-        }
-
-        TextField {
-            id: upgradeFlagsText
-            placeholderText: i18n(" only flags, without -Syu")
-            placeholderTextColor: "grey"
-            visible: pkg.pacman && upgradeFlags.checked
+            TextField {
+                id: upgradeFlagsText
+                placeholderText: "--noconfirm"
+                placeholderTextColor: "grey"
+                enabled: pkg.pacman && upgradeFlags.checked
+            }
         }
 
         Kirigami.Separator {
@@ -98,66 +91,59 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        Kirigami.UrlButton {
-            horizontalAlignment: Text.AlignHCenter
-            url: "https://archlinux.org/mirrorlist"
-            text: "archlinux.org"
-            font.pointSize: Kirigami.Theme.smallFont.pointSize
-            color: Kirigami.Theme.positiveTextColor
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("Generator:")
-            id: mirrors
-            text: i18n("Refresh on upgrade")
-            enabled: pkg.checkupdates && cfg_terminal.split("/").pop() !== "yakuake"
-            visible: pkg.pacman
+
+            CheckBox {
+                id: mirrors
+                text: i18n("Refresh on upgrade")
+                enabled: pkg.checkupdates && cfg_terminal.split("/").pop() !== "yakuake"
+                visible: pkg.pacman
+            }
+
+            ContextualHelpButton {
+                toolTipText: "<p>To use this feature, the following installed utilities are required: <b>curl, pacman-contrib</b>, any supported terminal except yakuake.</p><br><p>See https://archlinux.org/mirrorlist</p>"
+                onClicked: {
+                    Qt.openUrlExternally("https://archlinux.org/mirrorlist")
+                }
+            }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }   
-
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("Protocol:")
-            id: http
-            text: "http"
-            onClicked: updateUrl()
-            enabled: mirrors.checked
+
+            CheckBox {
+                
+                id: http
+                text: "http"
+                onClicked: updateUrl()
+                enabled: mirrors.checked
+            }
+
+            CheckBox {
+                id: https
+                text: "https"
+                onClicked: updateUrl()
+                enabled: mirrors.checked
+            }
         }
 
-        CheckBox {
-            id: https
-            text: "https"
-            onClicked: updateUrl()
-            enabled: mirrors.checked
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("IP version:")
-            id: ipv4
-            text: "IPv4"
-            onClicked: updateUrl()
-            enabled: mirrors.checked
-        }
 
-        CheckBox {
-            id: ipv6
-            text: "IPv6"
-            onClicked: updateUrl()
-            enabled: mirrors.checked
-        }
+            CheckBox {
+                id: ipv4
+                text: "IPv4"
+                onClicked: updateUrl()
+                enabled: mirrors.checked
+            }
 
-        Item {
-            Kirigami.FormData.isSection: true
+            CheckBox {
+                id: ipv6
+                text: "IPv6"
+                onClicked: updateUrl()
+                enabled: mirrors.checked
+            }
         }
 
         CheckBox {
@@ -166,10 +152,6 @@ SimpleKCM {
             text: "Use mirror status"
             onClicked: updateUrl()
             enabled: mirrors.checked
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
         }
 
         RowLayout {
@@ -210,23 +192,32 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>You must select at least one country, otherwise all will be chosen by default. <b>The more countries you select, the longer it will take to generate the mirrors!</b> It is optimal to choose <b>1-2</b> countries closest to you.</p>"
+                toolTipText: "<p>You must select at least one country, otherwise all will be chosen by default.<br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b><br><br>It is optimal to choose <b>1-2</b> countries closest to you.</p>"
             }
         }
 
-
-        ScrollView {
+        ColumnLayout {
+            Layout.maximumWidth: upgradePage.width / 2
+            Layout.maximumHeight: 150
             enabled: mirrors.checked
-            Column {
-                Repeater {
-                    model: countryListModel
-                    delegate: CheckBox {
-                        text: model.text
-                        checked: model.checked
-                        onClicked: {
-                            model.checked = checked
-                            checked ? countryList.push(model.code) : countryList.splice(countryList.indexOf(model.code), 1)
-                            updateUrl()
+
+            ScrollView {
+                Layout.preferredWidth: upgradePage.width / 2
+                Layout.preferredHeight: 150
+
+                GridLayout {
+                    columns: 1
+                
+                    Repeater {
+                        model: countryListModel
+                        delegate: CheckBox {
+                            text: model.text
+                            checked: model.checked
+                            onClicked: {
+                                model.checked = checked
+                                checked ? countryList.push(model.code) : countryList.splice(countryList.indexOf(model.code), 1)
+                                updateUrl()
+                            }
                         }
                     }
                 }
