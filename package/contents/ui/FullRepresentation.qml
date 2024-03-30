@@ -5,6 +5,7 @@
 
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import QtQuick.Controls
 
 import org.kde.ksvg
@@ -18,9 +19,44 @@ import "../tools/tools.js" as JS
 
 Item {
     property bool searchFieldOpen: false
+    property var lastNews: cfg.lastNews.length ? JSON.parse(cfg.lastNews) : null
+
+    Kirigami.InlineMessage {
+        id: news
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.left: parent.left
+
+        icon.source: "news-subscribe"
+        text: lastNews ? `<b>Check out the latest news! (${lastNews.date})</b><br><b>Article:</b> ${lastNews.article}<br><b>TLDR:</b> ${lastNews.TLDR}` : ""
+        onLinkActivated: Qt.openUrlExternally(link)
+        type: Kirigami.MessageType.Warning
+
+        visible: !busy && lastNews && !lastNews.dismissed
+        enabled: visible
+
+        actions: [
+            Kirigami.Action {
+                text: "Read full article"
+                icon.name: "internet-web-browser"
+                onTriggered: {
+                    Qt.openUrlExternally(lastNews.link)
+                }
+            },
+            Kirigami.Action {
+                text: "Dismiss"
+                icon.name: "dialog-close"
+                onTriggered: {
+                    lastNews.dismissed = true
+                    cfg.lastNews = JSON.stringify(lastNews)
+                }
+            }
+        ]
+    }
+    
 
     ScrollView {
-        anchors.top: parent.top
+        anchors.top: news.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: separator.top
@@ -49,7 +85,7 @@ Item {
     }
 
     ScrollView {
-        anchors.top: parent.top
+        anchors.top: news.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: separator.top

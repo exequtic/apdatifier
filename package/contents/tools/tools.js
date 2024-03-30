@@ -140,7 +140,51 @@ function checkUpdates() {
     let updFlpk
     let infFlpk
 
-    cmd.arch ? archCheck() : cfg.flatpak ? flpkCheck() : merge()
+    cmd.arch && cfg.archNews ? newsCheck() : cmd.arch ? archCheck() : cfg.flatpak ? flpkCheck() : merge()
+
+    function newsCheck() {
+        statusIco = "news-subscribe"
+        statusMsg = "Checking latest Arch Linux news..."
+
+        const wrapper = (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || ""
+        const newsCmd = wrapper ? wrapper + " -Pw" : null
+
+        if (!newsCmd) {
+            archCheck()
+            return
+        }
+
+        sh.exec(newsCmd, (cmd, stdout, stderr, exitCode) => {
+            if (catchError(exitCode, stderr)) return
+
+            function createLink(text) {
+                const baseURL = "https://archlinux.org/news/"
+                const articleURL = text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "")
+                return baseURL + articleURL
+            }
+
+            const parts = stdout.split("\n")
+            let lastNews = {}
+            lastNews["article"] = parts[0].split(" ").slice(1).join(" ")
+
+            const prevArticle = cfg.lastNews ? JSON.parse(cfg.lastNews).article : ""
+
+            if (lastNews.article !== prevArticle) {
+                lastNews["date"] = parts[0].split(" ")[0]
+                lastNews["TLDR"] = parts[1].replace("TL;DR: ", "").trim()
+                lastNews["link"] = createLink(lastNews.article)
+                lastNews["dismissed"] = false
+                cfg.lastNews = JSON.stringify(lastNews)
+
+                if (cfg.notifications) {
+                    notifyTitle = "Arch Linux News"
+                    notifyBody = "<b>Latest article:</b> " + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">Open full article in browser</a>`
+                    notify.sendEvent()
+                }
+            }
+
+            archCheck()
+    })}
 
     function archCheck() {
         statusIco = "package"
@@ -398,7 +442,10 @@ function setIcon(icon) {
 
 
 function setPackageIcon(icons, name, appID) {
-    if (appID) return appID
+    if (appID) {
+        if (appID === "org.libreoffice.LibreOffice") return appID + ".main"
+        return appID
+    }
 
     if (cfg.customIconsEnabled) {
         const match = icons.find(item => item.name.includes(name))

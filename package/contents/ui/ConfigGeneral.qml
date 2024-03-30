@@ -21,6 +21,7 @@ SimpleKCM {
 
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
+    property alias cfg_archNews: archNews.checked
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
 
@@ -129,6 +130,17 @@ SimpleKCM {
                 font.pointSize: tip.font.pointSize
                 color: Kirigami.Theme.neutralTextColor
                 visible: !pkg.flatpak
+            }
+        }
+
+        RowLayout {
+            CheckBox {
+                id: archNews
+                text: "Arch Linux News"
+            }
+
+            ContextualHelpButton {
+                toolTipText: "<p>It is necessary to have paru or yay installed.</p>"
             }
         }
 
