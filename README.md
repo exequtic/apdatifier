@@ -14,6 +14,7 @@
 # Features
 - Notification for new updates
 - Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
+- Checking news from [archlinux.org](https://archlinux.org/news)
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
 - Option to refresh the mirrorlist with the latest mirrors filtered by speed
 - Customizable icon on the panel
@@ -24,6 +25,7 @@
 <img src="./screenshots/screenshot_2.jpg" width="300px" alt="screenshot"/>
 <img src="./screenshots/screenshot_1.jpg" width="300px" alt="screenshot"/>
 <img src="./screenshots/screenshot_3.jpg" width="300px" alt="screenshot"/>
+<img src="./screenshots/screenshot_4.jpg" width="600px" alt="screenshot"/>
 </div>
 
 <br>
@@ -45,8 +47,8 @@ Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widg
 
 After installation, the widget icon should <b>automatically</b> appear in the system tray.
 
->[!WARNING]
->If you had the previous version installed, you may need to Log Out or restart plasmashell after install.
+>[!IMPORTANT]
+>If you had the previous version installed, you may need to log out or restart plasmashell after installation for the new features to work properly.
 >```bash
 >killall plasmashell && kstart plasmashell
 >```
@@ -60,11 +62,7 @@ sh ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools
 
 ## Settings
 <div align="center">
-
-<img src="./screenshots/settings_1.png" width="500px" alt="Settings"/>
-
-<img src="./screenshots/settings_2.png" width="500px" alt="Settings"/>
-
-<img src="./screenshots/settings_3.png" width="500px" alt="Settings"/>
-
+<img src="./screenshots/settings_1.png" width="300px" alt="Settings"/>
+<img src="./screenshots/settings_2.png" width="300px" alt="Settings"/>
+<img src="./screenshots/settings_3.png" width="300px" alt="Settings"/>
 </div>
