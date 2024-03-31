@@ -271,6 +271,7 @@ function makeArchList(upd, inf, desc) {
         return packageObj
     })
 
+    extendedInfo.pop()
     extendedInfo.forEach(el => {
         ['appID', 'branch', 'commit', 'runtime', 'downloadsize'].forEach(key => el[key] = '')
 
@@ -284,7 +285,7 @@ function makeArchList(upd, inf, desc) {
         })
 
         if (!found) {
-            el.repository = "aur"
+            el.repository = el.name.slice(-4) === "-git" ? "devel" : "aur"
         }
 
         upd.forEach(str => {
@@ -295,8 +296,6 @@ function makeArchList(upd, inf, desc) {
             }
         })
     })
-
-    extendedInfo.pop()
 
     return extendedInfo
 }
@@ -335,10 +334,20 @@ function sortList(list) {
 
         if (cfg.sortByName) return nameA.localeCompare(nameB)
 
-        const isRepoAURorDevelA = repoA.includes("aur") || repoA.includes("devel")
-        const isRepoAURorDevelB = repoB.includes("aur") || repoB.includes("devel")
+        const isRepoDevelA = repoA.includes("devel")
+        const isRepoDevelB = repoB.includes("devel")
 
-        return isRepoAURorDevelA !== isRepoAURorDevelB ? isRepoAURorDevelA ? -1 : 1 : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
+        if (isRepoDevelA && !isRepoDevelB) return -1
+        if (!isRepoDevelA && isRepoDevelB) return 1
+
+        const isRepoAURorDevelA = repoA.includes("aur")
+        const isRepoAURorDevelB = repoB.includes("aur")
+
+        return isRepoAURorDevelA !== isRepoAURorDevelB
+            ? isRepoAURorDevelA
+                ? -1
+                : 1
+            : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
     })    
 }
 
