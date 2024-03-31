@@ -67,7 +67,20 @@ Item {
             id: list
             model: !cfg.fullView ? modelList : []
             delegate: GridLayout {
+                property var pkgIcons: cfg.customIcons
                 height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + cfg.spacing)
+                Rectangle {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5)
+                    width: height
+                    color: "transparent"
+                    Kirigami.Icon {
+                        anchors.centerIn: parent
+                        height: parent.height
+                        width: parent.width
+                        source: JS.setPackageIcon(pkgIcons, model.name, model.repository, model.group, model.appID)
+                    } 
+                }
                 Label {
                     Layout.minimumWidth: list.width / 2
                     Layout.maximumWidth: list.width / 2
