@@ -28,7 +28,7 @@ Item {
         anchors.left: parent.left
 
         icon.source: "news-subscribe"
-        text: lastNews ? `<b>Check out the latest news! (${lastNews.date})</b><br><b>Article:</b> ${lastNews.article}<br><b>TLDR:</b> ${lastNews.TLDR}` : ""
+        text: lastNews ? `<b>Check out the latest news! (${lastNews.date})</b><br><b>Article:</b> ${lastNews.article}` : ""
         onLinkActivated: Qt.openUrlExternally(link)
         type: Kirigami.MessageType.Warning
 

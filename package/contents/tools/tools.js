@@ -147,7 +147,7 @@ function checkUpdates() {
         statusMsg = "Checking latest Arch Linux news..."
 
         const wrapper = (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || ""
-        const newsCmd = wrapper ? wrapper + " -Pww" : null
+        const newsCmd = wrapper ? wrapper + " -Pwwq" : null
 
         if (!newsCmd) {
             archCheck()
@@ -168,15 +168,17 @@ function checkUpdates() {
                 return baseURL + articleURL
             }
 
-            const parts = stdout.split("\n")
+            let article = stdout.trim().split("\n")
+            if (article.length > 10) article = article.filter(line => !line.startsWith(' '))
+            article = article[article.length - 1]
+
             let lastNews = {}
-            lastNews["article"] = parts[0].split(" ").slice(1).join(" ")
+            lastNews["article"] = article.split(" ").slice(1).join(" ")
 
             const prevArticle = cfg.lastNews ? JSON.parse(cfg.lastNews).article : ""
 
             if (lastNews.article !== prevArticle) {
-                lastNews["date"] = parts[0].split(" ")[0]
-                lastNews["TLDR"] = parts[1].replace("TL;DR: ", "").trim()
+                lastNews["date"] = article.split(" ")[0]
                 lastNews["link"] = createLink(lastNews.article)
                 lastNews["dismissed"] = false
                 cfg.lastNews = JSON.stringify(lastNews)
