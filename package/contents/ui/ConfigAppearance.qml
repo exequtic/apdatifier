@@ -116,24 +116,26 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>You can specify which icon to use in the extended list for each <b>system</b> package.</p><br><p><b>PKG1-NAME ICON-NAME<br>PKG2-NAME ICON-NAME</b></p><br><p>Each package should be on a new line. The package and icon should be separated by a space.</p><br><p><b>You may lose these settings after updating the widget, so make a backup of this list just in case.</b></p>"
+                toolTipText: "<p>You can specify which icon to use in the extended list for each <b>system</b> package.</p><br>Syntax:<br>type > value > icon-name<br>type > value > icon-name<br><br>Posible types: repo, group, match, name<br>Each type overrides the previous one. Therefore, the order should be as follows:<br>1) repo 2) group 3) match 4) name"
             }
         }
 
         ColumnLayout {
             Layout.maximumWidth: appearancePage.width / 2
-            Layout.maximumHeight: 100
+            Layout.maximumHeight: 150
             visible: customIconsEnabled.checked
 
             ScrollView {
                 Layout.preferredWidth: appearancePage.width / 2
-                Layout.preferredHeight: 100
+                Layout.preferredHeight: 150
 
                 TextArea {
                     id: customIcons
                     width: parent.width
                     height: parent.height
-                    placeholderText: "EXAMPLE:\nlinux preferences-system-linux"
+                    font.family: "Monospace"
+                    font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
+                    placeholderText: "EXAMPLE:\nrepo  > aur    > run-build\nrepo  > devel  > run-build\ngroup > plasma > kde-symbolic\ngroup > kf5    > kde-symbolic\nmatch > python > python-backend\nname  > linux  > preferences-system-linux"
                 }
             }
         }

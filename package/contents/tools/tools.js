@@ -457,18 +457,27 @@ function setIcon(icon) {
 }
 
 
-function setPackageIcon(icons, name, appID) {
-    if (appID) {
-        if (appID === "org.libreoffice.LibreOffice") return appID + ".main"
-        return appID
-    }
+function setPackageIcon(icons, name, repo, group, appID) {
+    if (appID && appID === "org.libreoffice.LibreOffice") return appID + ".main"
+    if (appID) return appID
+
+    let icon = ""
+    icons = icons.split("\n").filter(Boolean)
+                 .map(l => ({ type: l.split('>')[0].trim(),
+                              value: l.split('>')[1].trim(),
+                              icon: l.split('>')[2].trim()
+                            }))
 
     if (cfg.customIconsEnabled) {
-        const match = icons.find(item => item.name.includes(name))
-        return match ? match.icon : "server-database"
+        icons.forEach(el => {
+            icon = el.type === "repo" && el.value === repo ? el.icon : icon
+            icon = el.type === "group" && el.value === group ? el.icon : icon
+            icon = el.type === "match" && name.indexOf(el.value) !== -1 ? el.icon : icon
+            icon = el.type === "name" && el.value === name ? el.icon : icon
+        })
     }
 
-    return "server-database"
+    return icon || "server-database"
 }
 
 
