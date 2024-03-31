@@ -6,7 +6,7 @@
 
 function catchError(code, err) {
     if (err) {
-        error = err.trim().substring(0, 100) + "..."
+        error = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
     }
@@ -147,7 +147,7 @@ function checkUpdates() {
         statusMsg = "Checking latest Arch Linux news..."
 
         const wrapper = (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || ""
-        const newsCmd = wrapper ? wrapper + " -Pw" : null
+        const newsCmd = wrapper ? wrapper + " -Pww" : null
 
         if (!newsCmd) {
             archCheck()
@@ -156,6 +156,11 @@ function checkUpdates() {
 
         sh.exec(newsCmd, (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
+
+            if (!stdout) {
+                archCheck()
+                return
+            }
 
             function createLink(text) {
                 const baseURL = "https://archlinux.org/news/"
