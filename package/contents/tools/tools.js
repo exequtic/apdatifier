@@ -14,15 +14,23 @@ function catchError(code, err) {
 }
 
 const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
-const cachefile = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache.json"
+const cachefile1 = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache.json"
+const cachefile2 = cachefile1.replace(/\.json$/, "2.json")
 function runScript() {
-    sh.exec(`${script} copy`, (cmd, stdout, stderr, exitCode) => {
-        if (catchError(exitCode, stderr)) return
-
-        sh.exec(`[ -f "${cachefile}" ] && cat "${cachefile}"`, (cmd, stdout, stderr, exitCode) => {
+    sh.exec(`${script} copy`,
+        (cmd, stdout, stderr, exitCode) => {
             if (catchError(exitCode, stderr)) return
-            cache = stdout ? JSON.parse(stdout.trim()) : []
-            checkDependencies()
+            sh.exec(`[ -f "${cachefile2}" ] && cat "${cachefile2}"`,
+                (cmd, stdout, stderr, exitCode) => {
+                    if (catchError(exitCode, stderr)) return
+                    const cache2 = stdout ? JSON.parse(stdout.trim()) : []
+
+            sh.exec(`[ -f "${cachefile1}" ] && cat "${cachefile1}"`,
+                (cmd, stdout, stderr, exitCode) => {
+                    if (catchError(exitCode, stderr)) return
+                    cache = stdout ? cache2.concat(JSON.parse(stdout.trim())) : []
+                    checkDependencies()
+            })
         })
     })
 }
@@ -391,7 +399,9 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        sh.exec(`[ -f "${cachefile}" ] && rm "${cachefile}"`, (cmd, stdout, stderr, exitCode) => {})
+        sh.exec(`[ -f "${cachefile1}" ] && rm "${cachefile1}";\
+                 [ -f "${cachefile2}" ] && rm "${cachefile2}"`,
+                    (cmd, stdout, stderr, exitCode) => {})
         cache = []
         count = 0
         setStatusBar()
@@ -404,8 +414,26 @@ function finalize(list) {
 
     count = list.length
     cache = list
-    const json = JSON.stringify(list).replace(/},/g, "},\n").replace(/'/g, '')
-    sh.exec(`echo '${json}' > ${cachefile}`, (cmd, stdout, stderr, exitCode) => {})
+
+    let json1 = "", json2 = ""
+    const json = JSON.stringify(list).replace(/},/g, "},\n").replace(/'/g, "")
+
+    if (json.length > 130000) {
+        const lines = json.split("\n")
+        const half = Math.floor(lines.length / 2)
+        json1 = lines.slice(0, half).join("\n").replace(/,$/, "]")
+        json2 = "[" + lines.slice(half).join("\n")
+    } else {
+        json1 = json
+        json2 = null
+        sh.exec(`[ -f "${cachefile2}" ] && rm "${cachefile2}"`,
+            (cmd, stdout, stderr, exitCode) => {})
+    }
+
+    sh.exec(`echo '${json1}' > ${cachefile1}`, (cmd, stdout, stderr, exitCode) => {
+        if (json2) sh.exec(`echo '${json2}' > ${cachefile2}`, (cmd, stdout, stderr, exitCode) => {})
+    })
+
     setStatusBar()
 }
 
