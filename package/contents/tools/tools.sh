@@ -31,15 +31,15 @@ install() {
     command -v zip >/dev/null || { echo "zip not installed" >&2; exit 1; }
     command -v kpackagetool6 >/dev/null || { echo "kpackagetool6 not installed" >&2; exit 1; }
 
-    if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l | grep $applet)" ]; then
+    if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
         echo "Plasmoid already installed"
         uninstall
         sleep 2
     fi
 
     savedir=$(pwd)
-    cd /tmp && git clone -n --depth=1 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
-    cd apdatifier && git sparse-checkout set --no-cone package && git checkout
+    echo; cd /tmp && git clone -n --depth=1 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
+    cd apdatifier && git sparse-checkout set --no-cone package && git checkout; echo    
 
     if [ $? -eq 0 ]; then
         cd package
@@ -62,7 +62,7 @@ uninstall() {
     [ ! -d $iconsdir ] || rmdir -p --ignore-fail-on-non-empty $iconsdir
     [ ! -d $notifdir ] || rmdir -p --ignore-fail-on-non-empty $notifdir
 
-    [ -z "$(kpackagetool6 -t Plasma/Applet -l | grep $applet)" ] || kpackagetool6 --type Plasma/Applet -r $applet
+    [ -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ] || kpackagetool6 --type Plasma/Applet -r $applet 2>/dev/null
 }
 
 

@@ -12,18 +12,18 @@ Plasma5Support.DataSource {
     connectedSources: []
     onNewData: (sourceName, data) => {
         var cmd = sourceName
-        var stdout = data["stdout"]
-        var stderr = data["stderr"]
-        var exitCode = data["exit code"]
+        var out = data["stdout"]
+        var err = data["stderr"]
+        var code = data["exit code"]
         var listener = listeners[cmd]
 
-        if (listener) listener(cmd, stdout, stderr, exitCode)
+        if (listener) listener(cmd, out, err, code)
 
-        exited(cmd, stdout, stderr, exitCode)
+        exited(cmd, out, err, code)
         disconnectSource(sourceName)
     }
 
-    signal exited(string cmd, string stdout, string stderr, int exitCode)
+    signal exited(string cmd, string out, string err, int code)
 
     property var listeners: ({})
 
@@ -32,8 +32,8 @@ Plasma5Support.DataSource {
         connectSource(cmd)
     }
 
-    function execCallback(callback, cmd, stdout, stderr, exitCode) {
+    function execCallback(callback, cmd, out, err, code) {
         delete listeners[cmd]
-        callback(cmd, stdout, stderr, exitCode)
+        if (callback) callback(cmd, out, err, code)
     }
 }

@@ -116,7 +116,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>You can specify which icon to use in the extended list for each <b>system</b> package.</p><br>Syntax:<br>type > value > icon-name<br>type > value > icon-name<br><br>Posible types: repo, group, match, name<br>Each type overrides the previous one. Therefore, the order should be as follows:<br>1) repo 2) group 3) match 4) name"
+                toolTipText: "You can specify which icon to use for each <b>system</b> package.<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br><br>Posible types in this order: default, repo, group, match, name<br>Each rule overrides the previous one."
             }
         }
 
@@ -135,7 +135,7 @@ SimpleKCM {
                     height: parent.height
                     font.family: "Monospace"
                     font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                    placeholderText: "EXAMPLE:\nrepo  > aur    > run-build\nrepo  > devel  > run-build\ngroup > plasma > kde-symbolic\ngroup > kf5    > kde-symbolic\nmatch > python > python-backend\nname  > linux  > preferences-system-linux"
+                    placeholderText: "EXAMPLE:\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\ngroup   > kf6    > kde-symbolic\nmatch   > python > python-backend\nname    > linux  > preferences-system-linux"
                 }
             }
         }

@@ -117,7 +117,7 @@ Item {
             if (mouse.button == Qt.RightButton && cfg.rightClick) JS[cfg.rightClick]()
         }
         onEntered: {
-            lastCheck = JS.getLastCheck()
+            lastCheck = JS.getLastCheckTime()
         }
     }
 }

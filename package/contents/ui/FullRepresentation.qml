@@ -20,6 +20,7 @@ import "../tools/tools.js" as JS
 Item {
     property bool searchFieldOpen: false
     property var lastNews: cfg.lastNews.length ? JSON.parse(cfg.lastNews) : null
+    property var pkgIcons: cfg.customIcons
 
     Kirigami.InlineMessage {
         id: news
@@ -67,7 +68,6 @@ Item {
             id: list
             model: !cfg.fullView ? modelList : []
             delegate: GridLayout {
-                property var pkgIcons: cfg.customIcons
                 height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + cfg.spacing)
                 Rectangle {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -78,19 +78,19 @@ Item {
                         anchors.centerIn: parent
                         height: parent.height
                         width: parent.width
-                        source: JS.setPackageIcon(pkgIcons, model.name, model.repository, model.group, model.appID)
+                        source: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID)
                     } 
                 }
                 Label {
                     Layout.minimumWidth: list.width / 2
                     Layout.maximumWidth: list.width / 2
-                    text: model.name
+                    text: model.NM
                     elide: Text.ElideRight
                 }
                 Label {
                     Layout.minimumWidth: list.width / 2
                     Layout.maximumWidth: list.width / 2
-                    text: model.repository + " → " + model.vernew
+                    text: model.RE + " → " + model.VN
                     elide: Text.ElideRight
                 }
             }
@@ -116,18 +116,17 @@ Item {
 
             delegate: ExpandableListItem {
                 property var pkg: []
-                property var pkgIcons: cfg.customIcons
-                title: model.name
-                subtitle: model.repository + "  " + model.verold + " → " + model.vernew
-                icon: JS.setPackageIcon(pkgIcons, model.name, model.repository, model.group, model.appID)
+                title: model.NM
+                subtitle: model.RE + "  " + model.VO + " → " + model.VN
+                icon: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID)
 
                 contextualActions: [
                     Action {
                         id: updateButton
                         icon.name: "folder-download-symbolic"
                         text: "Update"
-                        enabled: model.appID !== "" && cfg.terminal
-                        onTriggered: JS.updatePackage(model.appID)
+                        enabled: model.ID !== "" && cfg.terminal
+                        onTriggered: JS.updatePackage(model.ID)
                     }
                 ]
 
@@ -172,7 +171,7 @@ Item {
                                         opacity: header ? 0.6 : 1
                                         text: header ? "<b>" + pkg[index] + ":</b>"
                                                      : pkg[index].indexOf("://") !== -1
-                                                     ? "<a href=\"" + pkg[index] + "\">" + pkg[index].replace(/\/+$/, '') + "</a>"
+                                                     ? "<a href=\"" + pkg[index] + "\">" + pkg[index] + "</a>"
                                                      : pkg[index]
                                         textFormat: header ? Text.StyledText
                                                            : pkg[index].indexOf("://") !== -1
@@ -191,22 +190,22 @@ Item {
 
                         Component.onCompleted: {
                             const details = []
-                            model.desc && details.push("Description", model.desc)
-                            model.appID && details.push("App ID", model.appID)
-                            model.branch && details.push("Branch", model.branch)
-                            model.commit && details.push("Commit", model.commit)
-                            model.runtime && details.push("Runtime", model.runtime)
-                            model.link && details.push("URL", model.link)
-                            model.group && details.push("Groups", model.group)
-                            model.provides && details.push("Provides", model.provides)
-                            model.depends && details.push("Depends on", model.depends)
-                            model.required && details.push("Required by", model.required)
-                            model.conflicts && details.push("Conflicts with", model.conflicts)
-                            model.replaces && details.push("Replaces", model.replaces)
-                            model.installedsize && details.push("Installed size", model.installedsize)
-                            model.downloadsize && details.push("Download size", model.downloadsize)
-                            model.installdate && details.push("Install date", model.installdate)
-                            model.reason && details.push("Install reason", model.reason)
+                            model.DE && details.push("Description", model.DE)
+                            model.ID && details.push("App ID", model.ID)
+                            model.BR && details.push("Branch", model.BR)
+                            model.CM && details.push("Commit", model.CM)
+                            model.RT && details.push("Runtime", model.RT)
+                            model.LN && details.push("URL", model.LN)
+                            model.GR && details.push("Groups", model.GR)
+                            model.PR && details.push("Provides", model.PR)
+                            model.DP && details.push("Depends on", model.DP)
+                            model.RQ && details.push("Required by", model.RQ)
+                            model.CF && details.push("Conflicts with", model.CF)
+                            model.RP && details.push("Replaces", model.RP)
+                            model.IS && details.push("Installed size", model.IS)
+                            model.DS && details.push("Download size", model.DS)
+                            model.DT && details.push("Install date", model.DT)
+                            model.RN && details.push("Install reason", model.RN)
                             pkg = details
                         }
                     }
