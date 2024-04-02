@@ -124,6 +124,16 @@ mirrorlist_generator() {
 }
 
 
+getIgnoredPackages() {
+    conf="/etc/pacman.conf"
+
+    if [ -s "$conf" ]; then
+        grep -E "^\s*IgnorePkg\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
+        grep -E "^\s*IgnoreGroup\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
+    fi
+}
+
+
 help() {
     cat <<EOF
 

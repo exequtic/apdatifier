@@ -140,7 +140,7 @@ function checkUpdates() {
     runAction()
     defineCommands()
 
-    let updArch, infArch, descArch, updFlpk, infFlpk
+    let updArch, infArch, descArch, updFlpk, infFlpk, ignored
 
     cmd.arch && cfg.archNews ? checkNews() : cmd.arch ? checkArch() : cfg.flatpak ? checkFlatpak() : merge()
 
@@ -179,6 +179,12 @@ function checkUpdates() {
         sh.exec(`pacman -Qi ${list}`, (cmd, out, err, code) => {
             if (Error(code, err)) return
             descArch = out
+            checkIgnored()
+    })}
+
+    function checkIgnored() {
+        sh.exec(`${script} getIgnoredPackages`, (cmd, out, err, code) => {
+            ignored = out.trim()
             cfg.flatpak ? checkFlatpak() : merge()
     })}
 
@@ -201,7 +207,7 @@ function checkUpdates() {
     })}
 
     function merge() {
-        updArch = updArch ? makeArchList(updArch, infArch, descArch) : null
+        updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : null
         updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : null
     
         updArch && !updFlpk ? finalize(sortList(updArch)) :
@@ -237,7 +243,7 @@ function makeNewsArticle(news) {
 }
 
 
-function makeArchList(updates, information, description) {
+function makeArchList(updates, information, description, ignored) {
     const packagesData = description.split("\n\n")
     const skip = [1, 3, 5, 9, 11, 15, 16, 19, 20]
     const keyNames = {
@@ -294,7 +300,7 @@ function makeArchList(updates, information, description) {
         })
     })
 
-    return extendedList
+    return ignorePackagesAndGroups(extendedList, ignored)
 }
 
 
@@ -314,6 +320,25 @@ function makeFlatpakList(updates, information) {
             VN: list.get(ID) === VN ? "refresh of " + VN : VN,
         } : null
     }).filter(Boolean)
+}
+
+
+function ignorePackagesAndGroups(list, ignored) {
+    if (!ignored) return list
+
+    const [ignoredPkgs, ignoredGroups] = ignored.split("\n").map(str => str.trim())
+
+    if (ignoredPkgs) {
+        const ignorePkg = new Set(ignoredPkgs.split(" "))
+        list = list.filter(el => !ignorePkg.has(el.NM.trim()))
+    }
+
+    if (ignoredGroups) {
+        const ignoreGroup = new Set(ignoredGroups.split(" "))
+        list = list.filter(el => !ignoreGroup.has(el.GR.trim()))
+    }
+
+    return list
 }
 
 
