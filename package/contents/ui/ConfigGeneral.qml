@@ -22,6 +22,7 @@ SimpleKCM {
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_archNews: archNews.checked
+    property alias cfg_plasmoids: plasmoids.checked
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
 
@@ -108,6 +109,18 @@ SimpleKCM {
         }
 
         RowLayout {
+            CheckBox {
+                id: archNews
+                text: "Arch Linux News"
+                enabled: pkg.pacman && wrappers
+            }
+
+            ContextualHelpButton {
+                toolTipText: "<p>It is necessary to have paru or yay installed.</p>"
+            }
+        }
+
+        RowLayout {
             spacing: Kirigami.Units.gridUnit
 
             CheckBox {
@@ -135,12 +148,12 @@ SimpleKCM {
 
         RowLayout {
             CheckBox {
-                id: archNews
-                text: "Arch Linux News"
+                id: plasmoids
+                text: "Plasmoids (beta)"
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>It is necessary to have paru or yay installed.</p>"
+                toolTipText: "To use this feature, the following installed utilities are required: <b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For plasmoid developers: please don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
             }
         }
 

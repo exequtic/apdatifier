@@ -68,18 +68,19 @@ Item {
             id: list
             model: !cfg.fullView ? modelList : []
             delegate: GridLayout {
-                height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5 + cfg.spacing)
+                property var heightItem: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5)
+                height: heightItem + cfg.spacing
                 Rectangle {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    height: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5)
+                    height: heightItem
                     width: height
                     color: "transparent"
                     Kirigami.Icon {
                         anchors.centerIn: parent
-                        height: parent.height
-                        width: parent.width
+                        height: heightItem
+                        width: height
                         source: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID)
-                    } 
+                    }
                 }
                 Label {
                     Layout.minimumWidth: list.width / 2
@@ -124,9 +125,9 @@ Item {
                     Action {
                         id: updateButton
                         icon.name: "folder-download-symbolic"
-                        text: "Update"
-                        enabled: model.ID !== "" && cfg.terminal
-                        onTriggered: JS.updatePackage(model.ID)
+                        text: "Upgrade"
+                        enabled: cfg.terminal
+                        onTriggered: JS.upgradePackage(model.NM, model.ID, model.CN)
                     }
                 ]
 
@@ -191,6 +192,7 @@ Item {
                         Component.onCompleted: {
                             const details = []
                             model.DE && details.push("Description", model.DE)
+                            model.AU && details.push("Author", model.AU)
                             model.ID && details.push("App ID", model.ID)
                             model.BR && details.push("Branch", model.BR)
                             model.CM && details.push("Commit", model.CM)

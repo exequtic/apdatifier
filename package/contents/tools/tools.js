@@ -40,9 +40,9 @@ function runAction() {
 
 
 function checkDependencies() {
-    const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
-    const checkPkg = (pkgs) => `for pgk in ${pkgs}; do command -v $pgk || echo; done`
     const pkgs = "pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
+    const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
+    const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
     sh.exec(checkPkg(pkgs), (cmd, out, err, code) => {
         if (Error(code, err)) return
@@ -75,11 +75,10 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    const mirrorlist = `sudo ${script} mirrorlist_generator ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}'`
     const trizen = cfg.wrapper.split("/").pop() === "trizen"
     const wrapperCmd = trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
 
-    const yayOrParu = (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || ""
+    const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
     cmd.news = yayOrParu ? yayOrParu + " -Pwwq" : null
 
     cmd.arch = pkg.checkupdates
@@ -88,36 +87,60 @@ function defineCommands() {
 
     if (!pkg.pacman) delete cmd.arch
 
-    const flatpak = (cfg.flatpak ? "; flatpak update" : " ").trim()
-    const flags = (cfg.upgradeFlags ? ` ${cfg.upgradeFlagsText}` : " ").trim()
-    const arch = (cfg.aur ? cfg.wrapper + " -Syu" + " " + flags : "sudo pacman -Syu" + " " + flags).trim()
+    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}';` : ""
+    const flatpak = cfg.flatpak ? "flatpak update;" : ""
+    const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
+    const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`sudo pacman -Syu ${flags}`).trim() + ";") : ""
+    const commands = (`${mirrorlist} ${arch} ${flatpak}`).trim()
 
     if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
         cmd.terminal = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId)`
-        cmd.upgrade = `${cmd.terminal} "${arch}${flatpak}"`
+        cmd.upgrade = `${cmd.terminal} "${commands}"`
         return
     }
 
-    const init = i18n("Full system upgrade")
+    const init = cmd.arch ? i18n("Full system upgrade") : "Upgrade"
     const done = i18n("Press Enter to close")
     const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
     const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
-    const executed = cfg.aur && trizen ? "echo " : "echo; echo -e " + exec + arch + "; echo"
-
+    const executed = cfg.aur && trizen ? "echo " : cmd.arch ? "echo; echo -e " + exec + arch + " echo" : "echo "
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
     cmd.terminal = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    cmd.upgrade = `${cmd.terminal} sh -c "${trap}; ${print(init)}; ${executed}; ${mirrorlist}; ${arch}${flatpak}; ${print(done)}; read"`
+    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read"`
 }
 
 
-function updatePackage(id) {
+function upgradePackage(name, id, contentID) {
     defineCommands()
 
-    cfg.terminal.split("/").pop() === "yakuake"
-        ? sh.exec(`${cmd.terminal} "flatpak update ${id}"`)
-        : sh.exec(`${cmd.terminal} flatpak update ${id}`)
+    const init = i18n(`Upgrade ${name}`)
+    const done = i18n("Press Enter to close")
+    const trap = "trap '' SIGINT"
+    const yakuake = cfg.terminal.split("/").pop() === "yakuake"
+
+    if (id) {
+        yakuake ? sh.exec(`${cmd.terminal} "flatpak update ${id}"`)
+                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read"`)
+        return
+    }
+
+    if (contentID) {
+        yakuake ? sh.exec(`${cmd.terminal} "bash ${script} upgradePlasmoid ${contentID}"`)
+                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${script} upgradePlasmoid ${contentID}; ${print(done)}; read"`)
+        return
+    }
+
+    const red = "\x1B[1m\x1B[31m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
+    const warning = `${red}Read ArchWiki - Partial upgrade and understand that you dont want to do this!${reset}`
+    const trizen = cfg.wrapper.split("/").pop() === "trizen"
+    const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
+    const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `sudo pacman -Sy ${name}`
+    const executed = cfg.aur && trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
+
+    yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
+            : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; echo ${warning}; ${executed}; ${command}; ${print(done)}; read"`)
 }
 
 
@@ -140,9 +163,13 @@ function checkUpdates() {
     runAction()
     defineCommands()
 
-    let updArch, infArch, descArch, updFlpk, infFlpk, ignored
+    let updArch, infArch, descArch, updFlpk, infFlpk, updPlasmoids, ignored
 
-    cmd.arch && cfg.archNews ? checkNews() : cmd.arch ? checkArch() : cfg.flatpak ? checkFlatpak() : merge()
+    cmd.arch && cfg.archNews ? checkNews() :
+                    cmd.arch ? checkArch() :
+                 cfg.flatpak ? checkFlatpak() :
+               cfg.plasmoids ? checkPlasmoids() :
+                               merge()
 
     function checkNews() {
         statusIco = "news-subscribe"
@@ -164,7 +191,7 @@ function checkUpdates() {
         sh.exec(cmd.arch, (cmd, out, err, code) => {
             if (Error(code, err)) return
             updArch = out ? out.trim().split("\n") : null
-            updArch ? listArch() : cfg.flatpak ? checkFlatpak() : merge()
+            updArch ? listArch() : cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkPlasmoids() : merge()
     })}
 
     function listArch() {
@@ -183,9 +210,10 @@ function checkUpdates() {
     })}
 
     function checkIgnored() {
-        sh.exec(`${script} getIgnoredPackages`, (cmd, out, err, code) => {
+        sh.exec(`${script} getIgnored`, (cmd, out, err, code) => {
+            if (Error(code, err)) return
             ignored = out.trim()
-            cfg.flatpak ? checkFlatpak() : merge()
+            cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkPlasmoids() : merge()
     })}
 
     function checkFlatpak() {
@@ -194,26 +222,46 @@ function checkUpdates() {
         sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details",
             (cmd, out, err, code) => {
             if (Error(code, err)) return
-            updFlpk = out ? out : null
-            updFlpk ? listFlatpak() : merge()
+            updFlpk = out ? out.trim() : null
+            updFlpk ? listFlatpak() : cfg.plasmoids ? checkPlasmoids() : merge()
     })}
 
     function listFlatpak() {
         sh.exec("flatpak list --app --columns=application,version",
             (cmd, out, err, code) => {
             if (Error(code, err)) return
-            infFlpk = out ? out : null
-            merge()
+            infFlpk = out ? out.trim() : null
+            cfg.plasmoids ? checkPlasmoids() : merge()
     })}
 
+    function checkPlasmoids() {
+        statusIco = cfg.plasmoids ? "plasma-symbolic" : ""
+        statusMsg = cfg.plasmoids ? "Checking plasmoids for updates..." : ""
+
+        sh.exec(`${script} checkPlasmoids ${cfg.plasmoids}`, (cmd, out, err, code) => {
+            if (Error(code, err)) return
+            out = out.trim()
+
+            if (out === "200") {
+                Error(out, "Unable check plasmoids: too many API requests in the last 15 minutes from your IP address. Please try again later")
+                return
+            }
+
+            if (out === "127") {
+                Error(out, "Unable check plasmoids: some required utilities are not installed (curl, jq, xmlstarlet)")
+                return
+            }
+
+            updPlasmoids = out ? out.split("\n") : null
+            merge()
+        })
+    }
+
     function merge() {
-        updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : null
-        updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : null
-    
-        updArch && !updFlpk ? finalize(sortList(updArch)) :
-        !updArch && updFlpk ? finalize(sortList(updFlpk)) :
-        !updArch && !updFlpk ? finalize() :
-        finalize(sortList(updArch.concat(updFlpk)))
+        updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : []
+        updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : []
+        updPlasmoids = updPlasmoids ? makePlasmoidsList(updPlasmoids) : []
+        finalize(sortList(updArch.concat(updFlpk, updPlasmoids)))
     }
 }
 
@@ -270,7 +318,7 @@ function makeArchList(updates, information, description, ignored) {
     extendedList.pop()
 
     extendedList.forEach(el => {
-        ["ID", "BR", "CM", "RT", "DS"].forEach(prop => el[prop] = "")
+        ["ID", "BR", "CM", "RT", "DS", "CN", "AU"].forEach(prop => el[prop] = "")
     })
 
     extendedList.forEach(el => {
@@ -313,13 +361,23 @@ function makeFlatpakList(updates, information) {
 
     return updates.split("\n").map(line => {
         const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
-        return NM ? {
+        return {
             NM: NM.replace(/ /g, "-").toLowerCase(),
-            DE: DE, ID: ID, BR: BR, RE: RE, CM: CM, RT: RT, IS: IS, DS: DS,
+            DE, ID, BR, RE, CM, RT, IS, DS, AU: "", LN: "",
             VO: list.get(ID),
-            VN: list.get(ID) === VN ? "refresh of " + VN : VN,
-        } : null
-    }).filter(Boolean)
+            VN: list.get(ID) === VN ? "refresh " + VN : VN,
+        }
+    })
+}
+
+
+function makePlasmoidsList(updates) {
+    return updates.map(line => {
+        const [NM, CN, DE, AU, VO, VN, LN] = line.split('@')
+        return { NM: NM.replace(/ /g, "-").toLowerCase(),
+                 RE: "kde-store",
+                 CN, DE, AU, VO, VN, LN, ID: "", BR: "", CM: "", RT: "", DS: "" }
+    })
 }
 
 
@@ -482,9 +540,9 @@ function setIndex(value, arr) {
     return index
 }
 
-
+const defaultIcon = "apdatifier-plasmoid"
 function setIcon(icon) {
-    return icon === "" ? "apdatifier-plasmoid" : icon
+    return icon === "" ? defaultIcon : icon
 }
 
 

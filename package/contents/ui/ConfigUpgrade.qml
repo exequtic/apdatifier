@@ -43,9 +43,6 @@ SimpleKCM {
 
                 onCurrentIndexChanged: {
                     cfg_terminal = model[currentIndex]["value"]
-                    if (cfg_terminal.split("/").pop() === "yakuake") {
-                        mirrors.checked = false
-                    }
                 }
 
                 Component.onCompleted: {
@@ -97,12 +94,11 @@ SimpleKCM {
             CheckBox {
                 id: mirrors
                 text: i18n("Refresh on upgrade")
-                enabled: pkg.checkupdates && cfg_terminal.split("/").pop() !== "yakuake"
-                visible: pkg.pacman
+                enabled: pkg.pacman
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>To use this feature, the following installed utilities are required: <b>curl, pacman-contrib</b>, any supported terminal except yakuake.</p><br><p>See https://archlinux.org/mirrorlist</p>"
+                toolTipText: "<p>To use this feature, the following installed utilities are required: <b>curl, pacman-contrib.</b></p><br><p>Also see https://archlinux.org/mirrorlist</p>"
                 onClicked: {
                     Qt.openUrlExternally("https://archlinux.org/mirrorlist")
                 }
