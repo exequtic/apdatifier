@@ -278,7 +278,7 @@ function makeNewsArticle(news) {
 
     if (lastNews.article !== prevArticle) {
         lastNews["date"] = article.split(" ")[0]
-        lastNews["link"] = "https://archlinux.org/news/" + lastNews.article.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "")
+        lastNews["link"] = "https://archlinux.org/news/" + lastNews.article.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
         lastNews["dismissed"] = false
         cfg.lastNews = JSON.stringify(lastNews)
 
