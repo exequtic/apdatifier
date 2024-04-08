@@ -11,4 +11,4 @@ Action=Popup
 Name=Sound popup
 Comment=Popup and sound options enabled
 Action=Popup|Sound
-Sound=Oxygen-Sys-App-Positive.ogg
+Sound=service-login

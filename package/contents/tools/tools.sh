@@ -21,7 +21,7 @@ copy() {
     [ -f $iconsdir/$file2 ] || cp $plasmoid/contents/assets/$file2 $iconsdir
 
     [ -d $notifdir ] || mkdir -p $notifdir
-    [ -f $notifdir/$file3 ] || cp $plasmoid/contents/notifyrc/$file3 $notifdir
+    [ -d $notifdir ] && cp $plasmoid/contents/notifyrc/$file3 $notifdir
 }
 
 
