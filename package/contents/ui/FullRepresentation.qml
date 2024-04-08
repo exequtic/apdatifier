@@ -79,7 +79,14 @@ Item {
                         anchors.centerIn: parent
                         height: heightItem
                         width: height
-                        source: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID)
+                        source: !hoverIcon.containsMouse ? JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID) : "folder-download-symbolic"
+                    }
+                    MouseArea {
+                        id: hoverIcon
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: { JS.upgradePackage(model.NM, model.ID, model.CN) }
                     }
                 }
                 Label {

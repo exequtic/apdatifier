@@ -17,7 +17,7 @@ PlasmoidItem {
     compactRepresentation: CompactRepresentation {}
     fullRepresentation: FullRepresentation {}
 
-    switchWidth: Kirigami.Units.gridUnit * 20
+    switchWidth: Kirigami.Units.gridUnit * 25
     switchHeight: Kirigami.Units.gridUnit * 10
 
     Plasmoid.busy: busy
