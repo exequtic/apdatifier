@@ -73,7 +73,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.</p><br><p>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started.</p>"
+                toolTipText: "<p>If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.</p><br><p>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b></p>"
             }
         }
 
@@ -153,7 +153,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "To use this feature, the following installed utilities are required: <b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For plasmoid developers: please don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+                toolTipText: "To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For plasmoid developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
             }
         }
 

@@ -12,12 +12,13 @@
 </div>
 
 # Features
-- Notification for new updates
-- Supports [AUR](#supported-pacman-wrappers) and Flatpak (without showing the runtime updates)
-- Checking news from [archlinux.org](https://archlinux.org/news)
+- Notification for new updates and [Arch Linux News](https://archlinux.org/news)
+- Supports [AUR](#supported-pacman-wrappers), Plasmoids, Flatpak (without showing the runtime updates)
+- Also should work on non-Arch-based systems (for Plasmoids and Flatpak)
+- Two types of lists: compact and expanded with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
 - Option to refresh the mirrorlist with the latest mirrors filtered by speed
-- Customizable icon on the panel
+- Customizable icon on the panel and package icons in the list
 
 <br>
 
@@ -26,6 +27,7 @@
 <img src="./screenshots/screenshot_1.jpg" width="300px" alt="screenshot"/>
 <img src="./screenshots/screenshot_3.jpg" width="300px" alt="screenshot"/>
 <img src="./screenshots/screenshot_4.jpg" width="600px" alt="screenshot"/>
+<img src="./screenshots/screenshot_5.jpg" width="600px" alt="screenshot"/>
 </div>
 
 <br>
@@ -39,6 +41,8 @@ paru, trizen, yay
 ### Supported terminals
 alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake
 
+*yakuake used the D-Bus method runCommand. So you need installed qdbus. But in general, I do not recommend using this terminal with this plasmoid.
+
 <br>
 
 # Installation
@@ -50,7 +54,7 @@ After installation, the widget icon should <b>automatically</b> appear in the sy
 >[!IMPORTANT]
 >If you had the previous version installed, you may need to log out or restart plasmashell after installation for the new features to work properly.
 >```bash
->killall plasmashell && kstart plasmashell
+>kquitapp6 plasmashell && kstart plasmashell
 >```
 
 ### Uninstall

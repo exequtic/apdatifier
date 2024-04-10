@@ -30,6 +30,7 @@
         <entry name="terminal" type="string"><default></default></entry>
         <entry name="upgradeFlags" type="bool"><default>false</default></entry>
         <entry name="upgradeFlagsText" type="string"><default></default></entry>
+        <entry name="refreshShell" type="bool"><default>false</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
         <entry name="dynamicUrl" type="string"><default></default></entry>

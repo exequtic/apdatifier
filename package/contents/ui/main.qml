@@ -65,7 +65,7 @@ PlasmoidItem {
         eventId: cfg.withSound ? "sound" : "popup"
         title: notifyTitle
         text: notifyBody
-        iconName: "apdatifier-packages"
+        iconName: notifyTitle === "Arch Linux News" ? "news-subscribe" : "apdatifier-packages"
     }
 
     Timer {

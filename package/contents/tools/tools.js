@@ -138,13 +138,13 @@ function upgradePackage(name, id, contentID) {
     }
 
     if (contentID) {
-        yakuake ? sh.exec(`${cmd.terminal} "bash ${script} upgradePlasmoid ${contentID}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${script} upgradePlasmoid ${contentID}; ${print(done)}; read"`)
+        yakuake ? sh.exec(`${cmd.terminal} "bash ${script} upgradePlasmoid ${contentID} ${cfg.refreshShell}"`)
+                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${script} upgradePlasmoid ${contentID} ${cfg.refreshShell}; ${print(done)}; read"`)
         return
     }
 
-    const red = "\x1B[1m\x1B[31m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const warning = `${red}Read ArchWiki - Partial upgrade and understand that you dont want to do this!${reset}`
+    const red = "\x1B[1m\x1B[31m", green = "\x1B[1m\x1B[32m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
+    const warning = `${red}Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead,${reset} ${green}perform full system upgrade.${reset}`
     const trizen = cfg.wrapper.split("/").pop() === "trizen"
     const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
     const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `sudo pacman -Sy ${name}`
@@ -296,7 +296,7 @@ function makeNewsArticle(data) {
 
         if (cfg.notifications) {
             notifyTitle = "Arch Linux News"
-            notifyBody = "<b>Latest news:</b> " + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">Open full article in browser</a>`
+            notifyBody = "\n⠀\n" + "<b>Latest news:</b> " + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">Open full article in browser</a>`
             notify.sendEvent()
         }
     }

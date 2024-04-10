@@ -116,17 +116,17 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "You can specify which icon to use for each <b>system</b> package.<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br><br>Posible types in this order: default, repo, group, match, name<br>Each rule overrides the previous one."
+                toolTipText: "You can specify which icon to use for each <b>system</b> package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update."
             }
         }
 
         ColumnLayout {
-            Layout.maximumWidth: appearancePage.width / 2
+            Layout.maximumWidth: appearancePage.width / 1.5
             Layout.maximumHeight: 150
             visible: customIconsEnabled.checked
 
             ScrollView {
-                Layout.preferredWidth: appearancePage.width / 2
+                Layout.preferredWidth: appearancePage.width / 1.5
                 Layout.preferredHeight: 150
 
                 TextArea {
@@ -135,7 +135,7 @@ SimpleKCM {
                     height: parent.height
                     font.family: "Monospace"
                     font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                    placeholderText: "EXAMPLE:\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\ngroup   > kf6    > kde-symbolic\nmatch   > python > python-backend\nname    > linux  > preferences-system-linux"
+                    placeholderText: "EXAMPLE:\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
                 }
             }
         }

@@ -36,7 +36,7 @@ Item {
         icon.source: "news-subscribe"
         text: news ? `<b>Check out the latest news! (${news.date})</b><br><b>Article:</b> ${news.article}` : ""
         onLinkActivated: Qt.openUrlExternally(link)
-        type: Kirigami.MessageType.Warning
+        type: Kirigami.MessageType.Positive
 
         actions: [
             Kirigami.Action {
