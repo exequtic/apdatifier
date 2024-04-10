@@ -13,19 +13,30 @@ function Error(code, err) {
     return false
 }
 
-const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
-const cachefile1 = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/cache.json"
-const cachefile2 = cachefile1.replace(/\.json$/, "2.json")
+const appletDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/"
+const script = appletDir + "contents/tools/tools.sh"
+const cacheFile1 = appletDir + "cache/packages.json"
+const cacheFile2 = appletDir + "cache/packages_2.json"
+const newsFile = appletDir + "cache/news.json"
+
+const writeFile = (data, file) => `echo '${data}' > "${file}"`
+const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
+const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
+
 function runScript() {
     sh.exec(`${script} copy`, (cmd, out, err, code) => {
         if (Error(code, err)) return
 
-        sh.exec(`[ -f "${cachefile2}" ] && cat "${cachefile2}"`, (cmd, out, err, code) => {
+        sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
             const cache2 = out ? JSON.parse(out.trim()) : []
 
-            sh.exec(`[ -f "${cachefile1}" ] && cat "${cachefile1}"`, (cmd, out, err, code) => {
+            sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
                 cache = out ? cache2.concat(JSON.parse(out.trim())) : []
-                checkDependencies()
+                
+                sh.exec(readFile(newsFile), (cmd, out, err, code) => {
+                    news = out ? JSON.parse(out.trim()) : []
+                    checkDependencies()
+                })
             })
         })
     })
@@ -266,21 +277,22 @@ function checkUpdates() {
 }
 
 
-function makeNewsArticle(news) {
-    let article = news.trim().split("\n")
+function makeNewsArticle(data) {
+    let article = data.trim().replace(/'/g, "").split("\n")
     if (article.length > 10) article = article.filter(line => !line.startsWith(' '))
     article = article[article.length - 1]
 
     let lastNews = {}
     lastNews["article"] = article.split(" ").slice(1).join(" ")
 
-    const prevArticle = cfg.lastNews ? JSON.parse(cfg.lastNews).article : ""
+    const prevArticle = news ? news.article : ""
 
     if (lastNews.article !== prevArticle) {
         lastNews["date"] = article.split(" ")[0]
         lastNews["link"] = "https://archlinux.org/news/" + lastNews.article.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
         lastNews["dismissed"] = false
-        cfg.lastNews = JSON.stringify(lastNews)
+        news = lastNews
+        sh.exec(writeFile(JSON.stringify(lastNews), newsFile))
 
         if (cfg.notifications) {
             notifyTitle = "Arch Linux News"
@@ -464,8 +476,8 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        sh.exec(`[ -f "${cachefile1}" ] && rm "${cachefile1}";\
-                 [ -f "${cachefile2}" ] && rm "${cachefile2}"`)
+        sh.exec(removeFile(cacheFile1))
+        sh.exec(removeFile(cacheFile2))
         cache = []
         count = 0
         setStatusBar()
@@ -490,11 +502,11 @@ function finalize(list) {
     } else {
         json1 = json
         json2 = null
-        sh.exec(`[ -f "${cachefile2}" ] && rm "${cachefile2}"`)
+        sh.exec(removeFile(cacheFile2))
     }
 
-    sh.exec(`echo '${json1}' > ${cachefile1}`)
-    if (json2) sh.exec(`echo '${json2}' > ${cachefile2}`)
+    sh.exec(writeFile(json1, cacheFile1))
+    if (json2) sh.exec(writeFile(json2, cacheFile2))
 
     setStatusBar()
 }

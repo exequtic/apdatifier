@@ -43,6 +43,7 @@ PlasmoidItem {
     property string lastCheck
     property var count
     property var cache
+    property var news: []
 
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time

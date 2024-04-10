@@ -19,37 +19,40 @@ import "../tools/tools.js" as JS
 
 Item {
     property bool searchFieldOpen: false
-    property var lastNews: cfg.lastNews.length ? JSON.parse(cfg.lastNews) : null
     property var pkgIcons: cfg.customIcons
 
+    property bool visibility: !busy && Object.keys(news).length !== 0 && !news.dismissed
+    function updateVisibility() {
+        visibility = !news.dismissed
+    }
+
     Kirigami.InlineMessage {
-        id: news
+        id: newsAlert
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.left: parent.left
+        visible: visibility
 
         icon.source: "news-subscribe"
-        text: lastNews ? `<b>Check out the latest news! (${lastNews.date})</b><br><b>Article:</b> ${lastNews.article}` : ""
+        text: news ? `<b>Check out the latest news! (${news.date})</b><br><b>Article:</b> ${news.article}` : ""
         onLinkActivated: Qt.openUrlExternally(link)
         type: Kirigami.MessageType.Warning
-
-        visible: !busy && lastNews && !lastNews.dismissed
-        enabled: visible
 
         actions: [
             Kirigami.Action {
                 text: "Read full article"
                 icon.name: "internet-web-browser"
                 onTriggered: {
-                    Qt.openUrlExternally(lastNews.link)
+                    Qt.openUrlExternally(news.link)
                 }
             },
             Kirigami.Action {
                 text: "Dismiss"
                 icon.name: "dialog-close"
                 onTriggered: {
-                    lastNews.dismissed = true
-                    cfg.lastNews = JSON.stringify(lastNews)
+                    news.dismissed = true
+                    sh.exec(`echo '${JSON.stringify(news)}' > "${JS.newsFile}"`)
+                    updateVisibility()
                 }
             }
         ]
@@ -57,7 +60,7 @@ Item {
     
 
     ScrollView {
-        anchors.top: news.bottom
+        anchors.top: newsAlert.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: separator.top
@@ -106,7 +109,7 @@ Item {
     }
 
     ScrollView {
-        anchors.top: news.bottom
+        anchors.top: newsAlert.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: separator.top

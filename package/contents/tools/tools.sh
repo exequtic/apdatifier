@@ -5,7 +5,7 @@
 
 applet="com.github.exequtic.apdatifier"
 
-localdir="/home/$(whoami)/.local/share"
+localdir="$HOME/.local/share"
 plasmoid="$localdir/plasma/plasmoids/$applet"
 iconsdir="$localdir/icons/breeze/status/24"
 notifdir="$localdir/knotifications6"
@@ -22,6 +22,8 @@ copy() {
 
     [ -d $notifdir ] || mkdir -p $notifdir
     [ -d $notifdir ] && cp $plasmoid/contents/notifyrc/$file3 $notifdir
+
+    [ -d $plasmoid/cache ] || mkdir -p $plasmoid/cache
 }
 
 
