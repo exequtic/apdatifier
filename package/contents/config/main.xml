@@ -13,12 +13,14 @@
         <entry name="interval" type="bool"><default>true</default></entry>
         <entry name="time" type="int"><default>30</default></entry>
         <entry name="checkOnStartup" type="bool"><default>false</default></entry>
+        <entry name="archRepo" type="bool"><default>true</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
         <entry name="archNews" type="bool"><default>false</default></entry>
         <entry name="lastNews" type="string"><default></default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
         <entry name="plasmoids" type="bool"><default>false</default></entry>
         <entry name="wrapper" type="string"><default></default></entry>
+        <entry name="exclude" type="string"><default></default></entry>
         <entry name="middleClick" type="string"><default>switchInterval</default></entry>
         <entry name="rightClick" type="string"><default></default></entry>
         <entry name="notifications" type="bool"><default>true</default></entry>

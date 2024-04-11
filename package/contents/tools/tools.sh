@@ -23,7 +23,7 @@ copy() {
     [ -d $notifdir ] || mkdir -p $notifdir
     [ -d $notifdir ] && cp $plasmoid/contents/notifyrc/$file3 $notifdir
 
-    [ -d $plasmoid/cache ] || mkdir -p $plasmoid/cache
+    [ -d "$HOME/.cache/apdatifier" ] || mkdir -p "$HOME/.cache/apdatifier"
 }
 
 
@@ -99,7 +99,9 @@ mirrorlist_generator() {
     [ $1 ] || exit
     echo
     [[ $EUID -ne 0 ]] && { echo -e "$r\u2718 Requires sudo permissions$c\n"; exit; }
-    command -v curl >/dev/null || { echo -e "$r\u2718 Unable to retrieve mirrorlist - curl is not installed$c\n"; exit; }
+    for cmd in curl rankmirrors; do
+        command -v "$cmd" >/dev/null || { echo -e "$r\u2718 Unable to generate mirrorlist - $cmd is not installed$c\n"; exit; }
+    done
 
     tput sc
     tempfile=$(mktemp)
@@ -149,6 +151,7 @@ checkPlasmoidsUpdates() {
     # The function is used if the name in metadata.json differs from what is specified on the website.
     getId() {
         case "$1" in
+            com.bxabi.bumblebee-indicator)              echo "998890";;
             org.kde.plasma.shutdownorswitch)            echo "1288430";;
             org.kde.mediabar)                           echo "1377704";;
             com.github.heqro.day-night-switcher)        echo "1804745";;
@@ -233,6 +236,7 @@ checkPlasmoidsUpdates() {
             org.previewqt.previewqt.plasmoidpreviewqt)  echo "2144426";;
             SoloDay.P6)                                 echo "2144969";;
             com.github.liujed.rssfeeds)                 echo "2145065";;
+            com.github.DenysMb.Kicker-AppsOnly)         echo "2145280";;
             luisbocanegra.desktop.wallpaper.effects)    echo "2145723";;
         esac
     }
@@ -424,9 +428,7 @@ upgradePlasmoid() {
     # Self-upgrade. This is necessary because this script will close
     # after first command and further code execution won't occur.
     if [ "$1" = "2135796" ]; then
-        nohup kpackagetool6 -t Plasma/Applet -u . &
-        sleep 2
-        qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell
+        nohup kpackagetool6 -t Plasma/Applet -u . && qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell &
     else
     # For the rest
         echo
@@ -438,7 +440,7 @@ upgradePlasmoid() {
             exit
         fi
 
-        if [ "$2" ] && command -v "qdbus" >/dev/null; then
+        if [ "$2" = "true" ] && command -v "qdbus" >/dev/null; then
             sleep 2
             qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell
         fi

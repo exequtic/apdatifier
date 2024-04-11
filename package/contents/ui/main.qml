@@ -41,6 +41,7 @@ PlasmoidItem {
     property string notifyTitle: ""
     property string notifyBody: ""
     property string lastCheck
+    property string timestamp
     property var count
     property var cache
     property var news: []

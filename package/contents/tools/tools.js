@@ -13,11 +13,13 @@ function Error(code, err) {
     return false
 }
 
-const appletDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/"
-const script = appletDir + "contents/tools/tools.sh"
-const cacheFile1 = appletDir + "cache/packages.json"
-const cacheFile2 = appletDir + "cache/packages_2.json"
-const newsFile = appletDir + "cache/news.json"
+
+const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
+const cacheDir = "$HOME/.cache/apdatifier/"
+const cacheFile1 = cacheDir + "packages_list.json"
+const cacheFile2 = cacheDir + "packages_list_2.json"
+const newsFile = cacheDir + "latest_news.json"
+const timestampFile = cacheDir + "last_check_timestamp"
 
 const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
@@ -35,7 +37,11 @@ function runScript() {
                 
                 sh.exec(readFile(newsFile), (cmd, out, err, code) => {
                     news = out ? JSON.parse(out.trim()) : []
-                    checkDependencies()
+
+                    sh.exec(readFile(timestampFile), (cmd, out, err, code) => {
+                        timestamp = out ? out.trim() : []
+                        checkDependencies()
+                    })
                 })
             })
         })
@@ -96,7 +102,7 @@ function defineCommands() {
                     ? cfg.aur ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"` : "checkupdates"
                     : cfg.aur ? wrapperCmd : "pacman -Qu"
 
-    if (!pkg.pacman) delete cmd.arch
+    if (!pkg.pacman || !cfg.archRepo) delete cmd.arch
 
     const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}';` : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
@@ -176,11 +182,13 @@ function checkUpdates() {
 
     let updArch, infArch, descArch, updFlpk, infFlpk, updPlasmoids, ignored
 
-    cmd.arch && cfg.archNews ? checkNews() :
-                    cmd.arch ? checkArch() :
-                 cfg.flatpak ? checkFlatpak() :
-               cfg.plasmoids ? checkPlasmoids() :
-                               merge()
+    const arch = cmd.arch
+
+     cfg.archNews ? checkNews() :
+             arch ? checkArch() :
+      cfg.flatpak ? checkFlatpak() :
+    cfg.plasmoids ? checkPlasmoids() :
+                    merge()
 
     function checkNews() {
         statusIco = "news-subscribe"
@@ -192,14 +200,14 @@ function checkUpdates() {
         sh.exec(cmd.news, (cmd, out, err, code) => {
             if (Error(code, err)) return
             makeNewsArticle(out)
-            checkArch()
+            arch ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkPlasmoids() : merge()
     })}
 
     function checkArch() {
         statusIco = "package"
         statusMsg = cfg.aur ? i18n("Searching AUR for updates...")
                             : i18n("Searching arch repositories for updates...")
-        sh.exec(cmd.arch, (cmd, out, err, code) => {
+        sh.exec(arch, (cmd, out, err, code) => {
             if (Error(code, err)) return
             updArch = out ? out.trim().split("\n") : null
             updArch ? listArch() : cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkPlasmoids() : merge()
@@ -272,7 +280,7 @@ function checkUpdates() {
         updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : []
         updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : []
         updPlasmoids = updPlasmoids ? makePlasmoidsList(updPlasmoids) : []
-        finalize(sortList(updArch.concat(updFlpk, updPlasmoids)))
+        finalize(sortList(excludePackages(updArch.concat(updFlpk, updPlasmoids))))
     }
 }
 
@@ -412,6 +420,16 @@ function ignorePackagesAndGroups(list, ignored) {
 }
 
 
+function excludePackages(list) {
+    if (cfg.exclude.trim() !== "" && list.length > 0) {
+        const ignorePkg = new Set(cfg.exclude.trim().split(" "))
+        list = list.filter(el => !ignorePkg.has(el.NM.trim()))
+    }
+
+    return list
+}
+
+
 function sortList(list) {
     return list.sort((a, b) => {
         const [nameA, repoA] = [a.NM, a.RE]
@@ -472,7 +490,8 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
-    cfg.timestamp = new Date().getTime().toString()
+    timestamp = new Date().getTime().toString()
+    sh.exec(writeFile(timestamp, timestampFile))
 
     if (!list) {
         listModel.clear()
@@ -521,9 +540,9 @@ function setStatusBar(code) {
 
 
 function getLastCheckTime() {
-    if (!cfg.timestamp) return ""
+    if (!timestamp) return ""
 
-    const diff = new Date().getTime() - parseInt(cfg.timestamp)
+    const diff = new Date().getTime() - parseInt(timestamp)
     const sec = Math.round((diff / 1000) % 60)
     const min = Math.floor((diff / (1000 * 60)) % 60)
     const hrs = Math.floor(diff / (1000 * 60 * 60))
