@@ -43,6 +43,12 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 *yakuake used the D-Bus method runCommand. So you need installed qdbus. But in general, I do not recommend using this terminal with this plasmoid.
 
+### Required utilities for options:
+<b>Arch Linux News:</b> paru or yay<br>
+<b>Plasmoids:</b> curl, jq, xmlstarlet, unzip, tar<br>
+<b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
+<b>Refresh plasmashell:</b> qdbus<br>
+
 <br>
 
 # Installation

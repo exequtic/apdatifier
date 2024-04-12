@@ -451,7 +451,7 @@ upgradePlasmoid() {
 
 case "$1" in
                     "copy") copy;;
-                 "install") intall;;
+                 "install") install;;
                "uninstall") uninstall;;
               "getIgnored") getIgnoredPackages;;
           "checkPlasmoids") checkPlasmoidsUpdates $2;;
