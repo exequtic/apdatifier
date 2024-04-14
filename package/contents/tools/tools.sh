@@ -97,7 +97,18 @@ spinner() {
 
 mirrorlist_generator() {
     [ $1 ] || exit
+
     echo
+    while true; do
+        echo -n "Refresh mirrorlist? [y/N]: "
+        read -r answer
+        case "$answer" in
+                [Yy]*) echo; break;;
+             [Nn]*|"") echo; exit;;
+                    *)  ;;
+        esac
+    done
+
     [[ $EUID -ne 0 ]] && { echo -e "$r\u2718 Requires sudo permissions$c\n"; exit; }
     for cmd in curl rankmirrors; do
         command -v "$cmd" >/dev/null || { echo -e "$r\u2718 Unable to generate mirrorlist - $cmd is not installed$c\n"; exit; }
