@@ -64,7 +64,7 @@ SimpleKCM {
 
             ButtonGroup.group: viewGroup
             id: extView
-            text: "Extended"
+            text: i18n("Extended")
 
             onCheckedChanged: cfg_fullView = checked
 
@@ -76,7 +76,7 @@ SimpleKCM {
         RadioButton {
             id: compactView
             ButtonGroup.group: viewGroup
-            text: "Compact"
+            text: i18n("Compact")
 
             Component.onCompleted: {
                 checked = !plasmoid.configuration.fullView
@@ -109,14 +109,14 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Custom icons:"
+            Kirigami.FormData.label: i18n("Custom icons:")
             CheckBox {
                 id: customIconsEnabled
-                text: "Enable"
+                text: i18n("Enable")
             }
 
             ContextualHelpButton {
-                toolTipText: "You can specify which icon to use for each <b>system</b> package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update."
+                toolTipText: i18n("You can specify which icon to use for each <b>system</b> package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update.")
             }
         }
 
@@ -135,7 +135,7 @@ SimpleKCM {
                     height: parent.height
                     font.family: "Monospace"
                     font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                    placeholderText: "EXAMPLE:\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
+                    placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
                 }
             }
         }
@@ -216,11 +216,11 @@ SimpleKCM {
 
             CheckBox {
                 id: relevantIcon
-                text: "Shown when relevant"
+                text: i18n("Shown when relevant")
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates.</p><br><p>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.</p>"
+                toolTipText: i18n("<p>If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates.</p><br><p>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.</p>")
             }
         }
 
@@ -266,14 +266,14 @@ SimpleKCM {
                 y: +parent.height
 
                 MenuItem {
-                    text: i18n("Default 1")
+                    text: i18n("Default") + " 1"
                     icon.name: "apdatifier-plasmoid"
                     enabled: cfg_selectedIcon !== JS.defaultIcon
                     onClicked: cfg_selectedIcon = JS.defaultIcon
                 }
 
                 MenuItem {
-                    text: i18n("Default 2")
+                    text: i18n("Default") + " 2"
                     icon.name: "apdatifier-packages"
                     enabled: cfg_selectedIcon !== icon.name
                     onClicked: cfg_selectedIcon = icon.name
@@ -384,7 +384,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Size:"
+            Kirigami.FormData.label: i18n("Size:")
             enabled: indicatorUpdates.checked
 
             Slider {
@@ -409,10 +409,10 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: "Position:"
+            Kirigami.FormData.label: i18n("Position:")
             enabled: indicatorUpdates.checked
             id: indicatorCenter
-            text: "Center"
+            text: i18n("Center")
         }
 
         GridLayout {

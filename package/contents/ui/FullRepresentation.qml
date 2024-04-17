@@ -34,20 +34,20 @@ Item {
         visible: visibility
 
         icon.source: "news-subscribe"
-        text: news ? `<b>Check out the latest news! (${news.date})</b><br><b>Article:</b> ${news.article}` : ""
+        text: news ? i18n("<b>Check out the latest news!") + " (" + news.date + ")</b>" + i18n("<br><b>Article: </b>") + news.article : ""
         onLinkActivated: Qt.openUrlExternally(link)
         type: Kirigami.MessageType.Positive
 
         actions: [
             Kirigami.Action {
-                text: "Read full article"
+                text: i18n("Read full article")
                 icon.name: "internet-web-browser"
                 onTriggered: {
                     Qt.openUrlExternally(news.link)
                 }
             },
             Kirigami.Action {
-                text: "Dismiss"
+                text: i18n("Dismiss")
                 icon.name: "dialog-close"
                 onTriggered: {
                     news.dismissed = true
@@ -135,7 +135,7 @@ Item {
                     Action {
                         id: updateButton
                         icon.name: "folder-download-symbolic"
-                        text: "Upgrade"
+                        text: i18n("Upgrade package")
                         enabled: cfg.terminal
                         onTriggered: JS.upgradePackage(model.NM, model.ID, model.CN)
                     }
@@ -167,7 +167,7 @@ Item {
                                 width: parent.width
                                 columns: 2
                                 rowSpacing: Kirigami.Units.smallSpacing / 4
-                                columnSpacing: 30
+                                columnSpacing: 40
 
                                 Repeater {
                                     id: repeater
@@ -201,23 +201,23 @@ Item {
 
                         Component.onCompleted: {
                             const details = []
-                            model.DE && details.push("Description", model.DE)
-                            model.AU && details.push("Author", model.AU)
-                            model.ID && details.push("App ID", model.ID)
-                            model.BR && details.push("Branch", model.BR)
-                            model.CM && details.push("Commit", model.CM)
-                            model.RT && details.push("Runtime", model.RT)
+                            model.DE && details.push(i18n("Description"), model.DE)
+                            model.AU && details.push(i18n("Author"), model.AU)
+                            model.ID && details.push(i18n("App ID"), model.ID)
+                            model.BR && details.push(i18n("Branch"), model.BR)
+                            model.CM && details.push(i18n("Commit"), model.CM)
+                            model.RT && details.push(i18n("Runtime"), model.RT)
                             model.LN && details.push("URL", model.LN)
-                            model.GR && details.push("Groups", model.GR)
-                            model.PR && details.push("Provides", model.PR)
-                            model.DP && details.push("Depends on", model.DP)
-                            model.RQ && details.push("Required by", model.RQ)
-                            model.CF && details.push("Conflicts with", model.CF)
-                            model.RP && details.push("Replaces", model.RP)
-                            model.IS && details.push("Installed size", model.IS)
-                            model.DS && details.push("Download size", model.DS)
-                            model.DT && details.push("Install date", model.DT)
-                            model.RN && details.push("Install reason", model.RN)
+                            model.GR && details.push(i18n("Groups"), model.GR)
+                            model.PR && details.push(i18n("Provides"), model.PR)
+                            model.DP && details.push(i18n("Depends on"), model.DP)
+                            model.RQ && details.push(i18n("Required by"), model.RQ)
+                            model.CF && details.push(i18n("Conflicts with"), model.CF)
+                            model.RP && details.push(i18n("Replaces"), model.RP)
+                            model.IS && details.push(i18n("Installed size"), model.IS)
+                            model.DS && details.push(i18n("Download size"), model.DS)
+                            model.DT && details.push(i18n("Install date"), model.DT)
+                            model.RN && details.push(i18n("Install reason"), model.RN)
                             pkg = details
                         }
                     }

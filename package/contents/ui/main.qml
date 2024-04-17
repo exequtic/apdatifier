@@ -28,7 +28,7 @@ PlasmoidItem {
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    toolTipMainText: !interval ? "Auto check disabled" : ""
+    toolTipMainText: !interval ? i18n("Auto check disabled") : ""
     toolTipSubText: busy ? statusMsg : lastCheck
 
     property var listModel: listModel
@@ -66,7 +66,7 @@ PlasmoidItem {
         eventId: cfg.withSound ? "sound" : "popup"
         title: notifyTitle
         text: notifyBody
-        iconName: notifyTitle === "Arch Linux News" ? "news-subscribe" : "apdatifier-packages"
+        iconName: notifyTitle.startsWith("+") ? "apdatifier-packages" : "news-subscribe"
     }
 
     Timer {

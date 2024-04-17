@@ -70,6 +70,16 @@ uninstall() {
 }
 
 
+setLanguage() {
+    LANGUAGE=${LANG:0:2}
+    MESSAGES_FILE="/home/$(logname)/.local/share/plasma/plasmoids/$applet/translate/$LANGUAGE.sh"
+
+    if [ -f "$MESSAGES_FILE" ]; then
+        source "$MESSAGES_FILE"
+    fi
+}
+
+
 getIgnoredPackages() {
     conf="/etc/pacman.conf"
     if [ -s "$conf" ]; then
@@ -96,11 +106,17 @@ spinner() {
 
 
 mirrorlist_generator() {
-    [ $1 ] || exit
+    QUESTION_TEXT="Refresh mirrorlist? [y/N]:"
+    CMD_ERROR_TEXT="Unable to generate mirrorlist - not installed:"
+    FETCHING_MIRRORS_TEXT="Fetching the latest filtered mirror list..."
+    RANKING_MIRRORS_TEXT="Ranking mirrors by their connection and opening speed..."
+    MIRRORS_ERROR_TEXT="Check your mirrorlist generator settings..."
+    MIRRORS_UPDATED_TEXT="was updated with the following servers:"
+    setLanguage
 
     echo
     while true; do
-        echo -n "Refresh mirrorlist? [y/N]: "
+        echo -n "$QUESTION_TEXT "
         read -r answer
         case "$answer" in
                 [Yy]*) echo; break;;
@@ -111,28 +127,28 @@ mirrorlist_generator() {
 
     [[ $EUID -ne 0 ]] && { echo -e "$r\u2718 Requires sudo permissions$c\n"; exit; }
     for cmd in curl rankmirrors; do
-        command -v "$cmd" >/dev/null || { echo -e "$r\u2718 Unable to generate mirrorlist - $cmd is not installed$c\n"; exit; }
+        command -v "$cmd" >/dev/null || { echo -e "$r\u2718 $CMD_ERROR_TEXT $cmd $c\n"; exit; }
     done
 
     tput sc
     tempfile=$(mktemp)
-    text="Fetching the latest filtered mirror list..."
-    curl -s -o $tempfile "$3" 2>/dev/null &
+    text=$FETCHING_MIRRORS_TEXT
+    curl -s -o $tempfile "$2" 2>/dev/null &
     spinner $! "$text"
     tput rc
     tput ed
-    [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r\u2718 $text$c\n$r\u2718 Check your mirrorlist generator settings$c\n"; exit; }
+    [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r\u2718 $text $c\n$r\u2718 $MIRRORS_ERROR_TEXT $c\n"; exit; }
     echo -e "$g\u2714 $text$c"
 
     tput sc
     sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
     tempfile2=$(mktemp)
-    text="Ranking mirrors by their connection and opening speed..."
-    rankmirrors -n "$2" "$tempfile" > "$tempfile2" &
+    text=$RANKING_MIRRORS_TEXT
+    rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
     spinner $! "$text"
     tput rc
     tput ed
-    [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r\u2718 $text$c"; exit; }
+    [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r\u2718 $text $c"; exit; }
     echo -e "$g\u2714 $text$c"
 
     mirrorfile="/etc/pacman.d/mirrorlist"
@@ -140,8 +156,7 @@ mirrorlist_generator() {
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
     cat $tempfile2 > $mirrorfile
 
-    echo -e "$g\u2714 Update mirrorlist file$c"
-    echo -e "$g\nFile $mirrorfile was updated with the following servers:$c"
+    echo -e "$g\n$mirrorfile $MIRRORS_UPDATED_TEXT $c"
     echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
     echo
 
@@ -345,12 +360,21 @@ upgradePlasmoid() {
         command -v "$cmd" >/dev/null || { echo -e "\n$r\u2718 $cmd not installed$c"; exit; }
     done
 
+    WARNING_TEXT_1="For some widgets you may need to Log Out or restart plasmashell after upgrade"
+    WARNING_TEXT_2="(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly."
+    FETCHING_INFO_TEXT="Fetching information about widget..."
+    DOWNLOADING_TEXT="Downloading widget..."
+    API_ERROR_TEXT="Too many API requests in the last 15 minutes from your IP address. Please try again later."
+    METADATA_ERROR_TEXT="File metadata.json not found"
+    QDBUS_ERROR_TEXT="Unable refresh plasmashell - qdbus not installed"
+    setLanguage
+
     # Display a message if the "Refresh plasmashell" option is turned off.
     if $2; then
         echo -e "\n"
         sleep 1
     else
-        echo -e "\n${y}For some plasmoids you may need to Log Out or restart plasmashell after upgrade\n(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly.${c}\n"
+        echo -e "\n${y}${WARNING_TEXT_1}\n${WARNING_TEXT_2}${c}\n"
         sleep 2
     fi
 
@@ -361,7 +385,7 @@ upgradePlasmoid() {
 
     # Downloading an XML file containing the current information.
     tput sc
-    text="Fetching information about plasmoid..."
+    text=$FETCHING_INFO_TEXT
     curl -s -o $tempXML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null &
     spinner $! "$text"
     tput rc
@@ -378,7 +402,7 @@ upgradePlasmoid() {
     if [ $statuscode = 100 ]; then
         echo -e "$g\u2714 $text $c"
     elif [ $statuscode = 200 ]; then
-        echo -e "$r\u2718 Too many API requests in the last 15 minutes from your IP address. Please try again later.$c"
+        echo -e "$r\u2718 $API_ERROR_TEXT $c"
         exit
     else
         echo -e "$r\u2718 $text $c"
@@ -386,7 +410,7 @@ upgradePlasmoid() {
 
     # Getting the link to the last uploaded file and downloading it.
     tput sc
-    text="Downloading plasmoid..."
+    text=$DOWNLOADING_TEXT
     link=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "downloadlink1[not(.='')] | downloadlink2[not(.='')] | downloadlink3[not(.='')] | downloadlink4[not(.='')] | downloadlink5[not(.='')] | downloadlink6[not(.='')]" -n $tempXML | tail -1 | tr -d '\n')
     tempFile="$tempDir/$(basename "${link}")"
     curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
@@ -412,7 +436,7 @@ upgradePlasmoid() {
     # Finding the path where metadata.json is located.
     metadata_path=$(find "$tempDir/unpacked" -name "metadata.json")
     if [ -z "$metadata_path" ]; then
-        echo -e "$r\u2718 metadata.json not found$c"
+        echo -e "$r\u2718 $METADATA_ERROR_TEXT $c"
         exit
     fi
 
@@ -447,7 +471,7 @@ upgradePlasmoid() {
 
         # Refresh plasmashell if option enabled
         if [ "$2" = "true" ] && ! command -v "qdbus" >/dev/null; then
-            echo -e "$r\u2718 Unable refresh plasmashell - qdbus not installed$c"
+            echo -e "$r\u2718 $QDBUS_ERROR_TEXT $c"
             exit
         fi
 
@@ -467,6 +491,6 @@ case "$1" in
               "getIgnored") getIgnoredPackages;;
           "checkPlasmoids") checkPlasmoidsUpdates $2;;
          "upgradePlasmoid") upgradePlasmoid $2 $3;;
-              "mirrorlist") mirrorlist_generator $2 $3 $4;;
+              "mirrorlist") mirrorlist_generator $2 $3;;
                          *) exit 0;;
 esac

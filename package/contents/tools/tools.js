@@ -104,7 +104,7 @@ function defineCommands() {
 
     if (!pkg.pacman || !cfg.archRepo) delete cmd.arch
 
-    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrors} ${cfg.mirrorCount} '${cfg.dynamicUrl}';` : ""
+    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}';` : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`sudo pacman -Syu ${flags}`).trim() + ";") : ""
@@ -132,7 +132,7 @@ function defineCommands() {
 function upgradePackage(name, id, contentID) {
     defineCommands()
 
-    const init = i18n(`Upgrade ${name}`)
+    const init = i18n("Upgrade") + " " + name
     const done = i18n("Press Enter to close")
     const trap = "trap '' SIGINT"
     const yakuake = cfg.terminal.split("/").pop() === "yakuake"
@@ -149,8 +149,8 @@ function upgradePackage(name, id, contentID) {
         return
     }
 
-    const red = "\x1B[1m\x1B[31m", green = "\x1B[1m\x1B[32m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const warning = `${red}Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead,${reset} ${green}perform full system upgrade.${reset}`
+    const red = "\x1B[1m\x1B[31m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
+    const warning = red + i18n("Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead, perform full system upgrade.") + reset
     const trizen = cfg.wrapper.split("/").pop() === "trizen"
     const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
     const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `sudo pacman -Sy ${name}`
@@ -192,7 +192,7 @@ function checkUpdates() {
 
     function checkNews() {
         statusIco = "news-subscribe"
-        statusMsg = "Checking latest Arch Linux news..."
+        statusMsg = i18n("Checking latest Arch Linux news...")
 
         if (!cmd.news) checkArch()
         if (!cmd.news) return
@@ -255,19 +255,21 @@ function checkUpdates() {
 
     function checkPlasmoids() {
         statusIco = cfg.plasmoids ? "plasma-symbolic" : ""
-        statusMsg = cfg.plasmoids ? "Checking plasmoids for updates..." : ""
+        statusMsg = cfg.plasmoids ? i18n("Checking widgets for updates...") : ""
 
         sh.exec(`${script} checkPlasmoids ${cfg.plasmoids}`, (cmd, out, err, code) => {
             if (Error(code, err)) return
             out = out.trim()
 
             if (out === "200") {
-                Error(out, "Unable check plasmoids: too many API requests in the last 15 minutes from your IP address. Please try again later")
+                const errorText = i18n("Unable check widgets: too many API requests in the last 15 minutes from your IP address. Please try again later")
+                Error(out, errorText)
                 return
             }
 
             if (out === "127") {
-                Error(out, "Unable check plasmoids: some required utilities are not installed (curl, jq, xmlstarlet)")
+                const errorText = i18n("Unable check widgets: some required utilities are not installed (curl, jq, xmlstarlet)")
+                Error(out, errorText)
                 return
             }
 
@@ -303,8 +305,9 @@ function makeNewsArticle(data) {
         sh.exec(writeFile(JSON.stringify(lastNews), newsFile))
 
         if (cfg.notifications) {
-            notifyTitle = "Arch Linux News"
-            notifyBody = "\n⠀\n" + "<b>Latest news:</b> " + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">Open full article in browser</a>`
+            const openFull = i18n("Open full article in browser")
+            notifyTitle = i18n("Arch Linux News")
+            notifyBody = "\n⠀\n" + i18n("<b>Latest news:</b> ") + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">${openFull}</a>`
             notify.sendEvent()
         }
     }
@@ -320,7 +323,7 @@ function makeArchList(updates, information, description, ignored) {
     }
 
     let extendedList = packagesData.map(function(packageData) {
-        packageData = packageData.split('\n').filter(line => line.includes("  : ")).join('\n')
+        packageData = packageData.split('\n').filter(line => line.includes(" : ")).join('\n')
         const lines = packageData.split("\n")
         
         let packageObj = {}
@@ -396,7 +399,8 @@ function makePlasmoidsList(updates) {
         const [NM, CN, DE, AU, VO, VN, LN] = line.split('@')
         return { NM: NM.replace(/ /g, "-").toLowerCase(),
                  RE: "kde-store",
-                 CN, DE, AU, VO, VN, LN, ID: "", BR: "", CM: "", RT: "", DS: "" }
+                 CN, DE, AU, VO, VN, LN, ID: "", BR: "", CM: "", RT: "", DS: "",
+                 GR: "", PR: "", DP: "", RQ: "", CF: "", RP: "", IS: "", DT: "", RN: "" }
     })
 }
 

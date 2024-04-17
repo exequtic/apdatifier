@@ -51,6 +51,21 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 <br>
 
+# Translation
+You can translate this widget into other languages, please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
+
+### Current status:
+```markdown
+|  Locale  |  Lines  | % Done|
+|----------|---------|-------|
+| English  |     145 |       |
+| Dutch    |  47/145 |   32% |
+| Russian  | 145/145 |  100% |
+|----------|---------|-------|
+```
+
+<br>
+
 # Installation
 
 Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets").

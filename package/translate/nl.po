@@ -1,0 +1,637 @@
+# Translation of apdatifier in nl
+# Copyright (C) 2023
+# This file is distributed under the same license as the apdatifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apdatifier\n"
+"Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
+"POT-Creation-Date: 2024-04-17 21:39+0300\n"
+"PO-Revision-Date: 2024-01-04 21:50+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: ../contents/config/config.qml
+msgid "General"
+msgstr "Algemeen"
+
+#: ../contents/config/config.qml ../contents/tools/tools.js
+msgid "Upgrade"
+msgstr ""
+
+#: ../contents/config/config.qml
+msgid "Appearance"
+msgstr "Vormgeving"
+
+#: ../contents/config/config.qml
+msgid "Support author"
+msgstr "Doneren"
+
+#: ../contents/tools/tools.js
+msgid "Full system upgrade"
+msgstr "Systeem volledig bijwerken"
+
+#: ../contents/tools/tools.js
+msgid "Press Enter to close"
+msgstr "Druk op enter om te sluiten"
+
+#: ../contents/tools/tools.js
+msgid "Executed: "
+msgstr "Uitgevoerd: "
+
+#: ../contents/tools/tools.js
+msgid ""
+"Read the ArchWiki page on Partial Upgrades and understand why you should not "
+"do this! Instead, perform full system upgrade."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Full upgrade running..."
+msgstr "Bezig met volledig bijwerken…"
+
+#: ../contents/tools/tools.js
+msgid "Checking latest Arch Linux news..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Searching AUR for updates..."
+msgstr "Bezig met zoeken naar updates op AUR…"
+
+#: ../contents/tools/tools.js
+msgid "Searching arch repositories for updates..."
+msgstr "Bezig met zoeken naar updates in pakketbronnen…"
+
+#: ../contents/tools/tools.js
+msgid "Searching for flatpak updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking widgets for updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid ""
+"Unable check widgets: too many API requests in the last 15 minutes from your "
+"IP address. Please try again later"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid ""
+"Unable check widgets: some required utilities are not installed (curl, jq, "
+"xmlstarlet)"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Open full article in browser"
+msgstr ""
+
+#: ../contents/tools/tools.js ../contents/ui/ConfigGeneral.qml
+msgid "Arch Linux News"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "<b>Latest news:</b> "
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "+%1 new update"
+msgid_plural "+%1 new updates"
+msgstr[0] "+%1 update"
+msgstr[1] "+%1 updates"
+
+#: ../contents/tools/tools.js
+msgid "%1 update is pending"
+msgid_plural "%1 updates total are pending"
+msgstr[0] "%1 update in de wachtrij"
+msgstr[1] "%1 updates in de wachtrij"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Recentste controle:"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 seconde"
+msgstr[1] "%1 seconden"
+
+#: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 minuut"
+msgstr[1] "%1 minuten"
+
+#: ../contents/tools/tools.js
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] "%1 uur"
+msgstr[1] "%1 uur"
+
+#: ../contents/tools/tools.js
+msgid "ago"
+msgstr "geleden"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "List View"
+msgstr "Lijstweergave"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "View:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Extended"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Compact"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Spacing:"
+msgstr "Afstand:"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Custom icons:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml ../contents/ui/ConfigUpgrade.qml
+msgid "Enable"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid ""
+"You can specify which icon to use for each <b>system</b> package."
+"<br><br>Posible types in this order: default, repo, group, match, "
+"name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For "
+"default: default >> icon-name<br><br>If a package matches multiple rules, "
+"the last one will be applied to it.<br><br>Keep this list just in case; "
+"these settings might be lost after this plasmoid update."
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "EXAMPLE:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Status bar:"
+msgstr "Statusbalk:"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Show status bar"
+msgstr "Statusbalk tonen"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Sorting:"
+msgstr "Sorteren:"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "By name"
+msgstr "Op naam"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "By repository"
+msgstr "Op pakketbron"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Panel Icon View"
+msgstr "Paneelpictogramweergave"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Panel icon:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Shown when relevant"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid ""
+"<p>If the option is <b>enabled</b>, the icon in the system tray will be "
+"<b>hidden</b> when there are no updates.</p><br><p>If the option is "
+"<b>disabled</b>, the icon in the system tray will always be <b>shown</b>.</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Default icon"
+msgstr "Standaardpictogram"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Default"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Select..."
+msgstr "Kiezen…"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Indicators:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Stopped interval"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Status of updates"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Counter"
+msgstr "Embleem"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Circle"
+msgstr "Cirkel"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Default accent color from current color scheme"
+msgstr "Standaard accentkleur uit kleurenschema"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Default color"
+msgstr "Standaardkleur"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Select circle color"
+msgstr "Kies een cirkelkleur"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Size:"
+msgstr "Grootte:"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Position:"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Center"
+msgstr ""
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Top-Left"
+msgstr "Linksboven"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Top-Right"
+msgstr "Rechtsboven"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Bottom-Left"
+msgstr "Linksonder"
+
+#: ../contents/ui/ConfigAppearance.qml
+msgid "Bottom-Right"
+msgstr "Rechtsonder"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Interval:"
+msgstr "Periodiek bijwerken:"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "minutes"
+msgstr "minuten"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"<p>The current timer is reset when either of these settings is changed.</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Check on start up"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"<p>If the option is <b>enabled</b>, update checking will begin immediately "
+"upon widget startup.</p><br><p>If the option is <b>disabled</b>, update "
+"checking will be initiated after a specified time interval has passed since "
+"the widget was started. <b>Recommended.</b></p>"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Search:"
+msgstr "Zoeken:"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Arch repositories"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "found: %1"
+msgstr "gevonden: %1"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "<p>It is necessary to have paru or yay installed.</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml ../contents/ui/ConfigUpgrade.qml
+msgid "Not installed"
+msgstr "Niet geïnstalleerd"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Widgets (beta)"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"To use this feature, the following installed utilities are required:"
+"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
+"<br>Don't forget to update the metadata.json and specify the name of the "
+"applet and its version <b>exactly</b> as they appear on the KDE Store."
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Wrapper:"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"pacman-contrib not installed! Highly recommended to install it for getting "
+"the latest updates without the need to download fresh package databases."
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Exclude packages:"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"<p>In this field, you can specify package names that you want to ignore."
+"<br><b>Specify names separated by spaces.</b><br><br>If you want to ignore "
+"packages or groups during an upgrade, specify them in the settings "
+"<b>IgnorePkg</b> and <b>IgnoreGroup</b> of the /etc/pacman.conf file.</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Mouse actions:"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "None"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml ../contents/ui/FullRepresentation.qml
+#: ../contents/ui/main.qml
+msgid "Check updates"
+msgstr "Controleren op updates"
+
+#: ../contents/ui/ConfigGeneral.qml ../contents/ui/FullRepresentation.qml
+#: ../contents/ui/main.qml
+msgid "Upgrade system"
+msgstr "Systeem bijwerken"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Switch interval"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "for middle button"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "for right button"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Notifications:"
+msgstr "Meldingen:"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Popup"
+msgstr "Pop-up"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Sound"
+msgstr "Geluid"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "For every version bump"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"<p>If the option is <b>enabled</b>, notifications will be sent when a new "
+"version of the package is bumped, even if the package is already on the "
+"list. <b>More notifications.</b></p><br><p>If the option is <b>disabled</b>, "
+"notifications will only be sent for packages that are not yet on the list. "
+"<b>Less notifications.</b></p>"
+msgstr ""
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid ""
+"To further configure, click the button below -> Application-specific "
+"settings -> Apdatifier"
+msgstr ""
+"De rest van de instellingen zijn beschikbaar via onderstaande knop → "
+"Speciale programma-instellingen → Apdatifier"
+
+#: ../contents/ui/ConfigGeneral.qml
+msgid "Configure..."
+msgstr "Instellen…"
+
+#: ../contents/ui/ConfigSupport.qml
+msgid ""
+"Thanks for using my widget! If you appreciate my work, you can support me by "
+"starring the GitHub repository or buying me a coffee ;)"
+msgstr ""
+"Bedankt voor het gebruik van mijn widget! Als je mijn werk waardeert, "
+"ondersteun me dan door de GitHub-pakketbron een ster te geven of me een "
+"kopje koffie te schenken. ;)"
+
+#: ../contents/ui/ConfigSupport.qml
+msgid "Visit %1"
+msgstr "%1 openen"
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Terminal:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Additional flags:"
+msgstr "Aanvullende opties:"
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Widgets:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Refresh plasmashell"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid ""
+"<p><b>Required installed qdbus.</b><br>After upgrading widget, the old "
+"version will still remain in memory until you restart plasmashell. To avoid "
+"doing this manually, enable this option. It will refresh plasmashell via "
+"qdbus. The terminal may be closed automatically as Apdatifier will also be "
+"restarted.<br><br>If plasmashell is only terminating and not starting "
+"itself, then execute the command: kstart plasmashell.</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Pacman Mirrorlist Generator"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Generator:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Suggest refresh on upgrade"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid ""
+"<p>To use this feature, the following installed utilities are required:"
+"<br><b>curl, pacman-contrib.</b></p><br><p>Also see https://archlinux.org/"
+"mirrorlist (click button to open link)</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Protocol:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "IP version:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Mirror status:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Number output:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "<p>Number of servers to write to mirrorlist file, 0 for all</p>"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Country:"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid "Select at least one!"
+msgstr ""
+
+#: ../contents/ui/ConfigUpgrade.qml
+msgid ""
+"<p>You must select at least one country, otherwise all will be chosen by "
+"default.<br><br><b>The more countries you select, the longer it will take to "
+"generate the mirrors!</b><br><br>It is optimal to choose <b>1-2</b> "
+"countries closest to you.</p>"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "<b>Check out the latest news!"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "<br><b>Article: </b>"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Read full article"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Dismiss"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Upgrade package"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Description"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Author"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "App ID"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Branch"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Commit"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Runtime"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Groups"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Provides"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Depends on"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Required by"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Conflicts with"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Replaces"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Installed size"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Download size"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Install date"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Install reason"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Search"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Compact/Extended view"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "Sort by name/repository"
+msgstr ""
+
+#: ../contents/ui/FullRepresentation.qml
+msgid "System updated"
+msgstr "Het systeem is bijgewerkt"
+
+#: ../contents/ui/main.qml
+msgid "Auto check disabled"
+msgstr ""

@@ -89,15 +89,15 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Plasmoids:")
+            Kirigami.FormData.label: i18n("Widgets:")
 
             CheckBox {
                 id: refreshShell
-                text: "Refresh plasmashell"
+                text: i18n("Refresh plasmashell")
             }
 
             ContextualHelpButton {
-                toolTipText: "<p><b>Required installed qdbus.</b><br>After upgrading plasmoid, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will refresh plasmashell via qdbus. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the command: kstart plasmashell.</p>"
+                toolTipText: i18n("<p><b>Required installed qdbus.</b><br>After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will refresh plasmashell via qdbus. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the command: kstart plasmashell.</p>")
             }
         }
 
@@ -111,12 +111,12 @@ SimpleKCM {
 
             CheckBox {
                 id: mirrors
-                text: i18n("Refresh on upgrade")
+                text: i18n("Suggest refresh on upgrade")
                 enabled: pkg.pacman
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b></p><br><p>Also see https://archlinux.org/mirrorlist (click button to open link)</p>"
+                toolTipText: i18n("<p>To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b></p><br><p>Also see https://archlinux.org/mirrorlist (click button to open link)</p>")
                 onClicked: {
                     Qt.openUrlExternally("https://archlinux.org/mirrorlist")
                 }
@@ -163,7 +163,7 @@ SimpleKCM {
         CheckBox {
             Kirigami.FormData.label: i18n("Mirror status:")
             id: mirrorstatus
-            text: "Use mirror status"
+            text: i18n("Enable")
             onClicked: updateUrl()
             enabled: mirrors.checked
         }
@@ -181,7 +181,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>Number of servers to write to mirrorlist file, 0 for all</p>"
+                toolTipText: i18n("<p>Number of servers to write to mirrorlist file, 0 for all</p>")
             }
         }
 
@@ -200,13 +200,13 @@ SimpleKCM {
                         var countries = matchResult.map(str => str.split("=")[1]).join(", ")
                         return countries
                     } else {
-                        return '<a style="color: ' + Kirigami.Theme.negativeTextColor + '">Select at least one!</a>'
+                        return '<a style="color: ' + Kirigami.Theme.negativeTextColor + '">' + i18n("Select at least one!") + '</a>'
                     }
                 }
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>You must select at least one country, otherwise all will be chosen by default.<br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b><br><br>It is optimal to choose <b>1-2</b> countries closest to you.</p>"
+                toolTipText: i18n("<p>You must select at least one country, otherwise all will be chosen by default.<br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b><br><br>It is optimal to choose <b>1-2</b> countries closest to you.</p>")
             }
         }
 

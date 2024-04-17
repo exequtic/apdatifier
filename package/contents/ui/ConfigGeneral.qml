@@ -64,19 +64,19 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>The current timer is reset when either of these settings is changed.</p>"
+                toolTipText: i18n("<p>The current timer is reset when either of these settings is changed.</p>")
             }
         }
 
         RowLayout {
             CheckBox {
                 id: checkOnStartup
-                text: "Check on start up"
+                text: i18n("Check on start up")
                 enabled: interval.checked
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.</p><br><p>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b></p>"
+                toolTipText: i18n("<p>If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.</p><br><p>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b></p>")
             }
         }
 
@@ -108,7 +108,7 @@ SimpleKCM {
 
             CheckBox {
                 id: aur
-                text: i18n("AUR")
+                text: "AUR"
                 enabled: archRepo.checked && pkg.pacman && wrappers
             }
 
@@ -131,12 +131,12 @@ SimpleKCM {
         RowLayout {
             CheckBox {
                 id: archNews
-                text: "Arch Linux News"
+                text: i18n("Arch Linux News")
                 enabled: pkg.pacman && wrappers
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>It is necessary to have paru or yay installed.</p>"
+                toolTipText: i18n("<p>It is necessary to have paru or yay installed.</p>")
             }
         }
 
@@ -145,7 +145,7 @@ SimpleKCM {
 
             CheckBox {
                 id: flatpak
-                text: i18n("Flatpak")
+                text: "Flatpak"
                 enabled: pkg.flatpak
 
                 Component.onCompleted: {
@@ -169,11 +169,11 @@ SimpleKCM {
         RowLayout {
             CheckBox {
                 id: plasmoids
-                text: "Plasmoids (beta)"
+                text: i18n("Widgets (beta)")
             }
 
             ContextualHelpButton {
-                toolTipText: "To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For plasmoid developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+                toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
             }
         }
 
@@ -236,7 +236,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>In this field, you can specify package names that you want to ignore.<br><b>Specify names separated by spaces.</b><br><br>If you want to ignore packages or groups during an upgrade, specify them in the settings <b>IgnorePkg</b> and <b>IgnoreGroup</b> of the /etc/pacman.conf file.</p>"
+                toolTipText: i18n("<p>In this field, you can specify package names that you want to ignore.<br><b>Specify names separated by spaces.</b><br><br>If you want to ignore packages or groups during an upgrade, specify them in the settings <b>IgnorePkg</b> and <b>IgnoreGroup</b> of the /etc/pacman.conf file.</p>")
             }
         }
 
@@ -245,15 +245,15 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Mouse actions:"
+            Kirigami.FormData.label: i18n("Mouse actions:")
 
             ComboBox {
                 implicitWidth: 150
                 textRole: "name"
-                model: [{"name": "None", "value": ""},
-                        {"name": "Check updates", "value": "checkUpdates"},
-                        {"name": "Upgrade system", "value": "upgradeSystem"},
-                        {"name": "Switch interval", "value": "switchInterval"}]
+                model: [{"name": i18n("None"), "value": ""},
+                        {"name": i18n("Check updates"), "value": "checkUpdates"},
+                        {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
+                        {"name": i18n("Switch interval"), "value": "switchInterval"}]
 
                 onCurrentIndexChanged: {
                     cfg_middleClick = model[currentIndex]["value"]
@@ -265,7 +265,7 @@ SimpleKCM {
             }
 
             Label {
-                text: "for middle button"
+                text: i18n("for middle button")
             }
         }
 
@@ -273,10 +273,10 @@ SimpleKCM {
             ComboBox {
                 implicitWidth: 150
                 textRole: "name"
-                model: [{"name": "Default", "value": ""},
-                        {"name": "Check updates", "value": "checkUpdates"},
-                        {"name": "Upgrade system", "value": "upgradeSystem"},
-                        {"name": "Switch interval", "value": "switchInterval"}]
+                model: [{"name": i18n("None"), "value": ""},
+                        {"name": i18n("Check updates"), "value": "checkUpdates"},
+                        {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
+                        {"name": i18n("Switch interval"), "value": "switchInterval"}]
 
                 onCurrentIndexChanged: {
                     cfg_rightClick = model[currentIndex]["value"]
@@ -288,7 +288,7 @@ SimpleKCM {
             }
 
             Label {
-                text: "for right button"
+                text: i18n("for right button")
             }
         }
 
@@ -319,7 +319,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: "<p>If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b></p><br><p>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b></p>"
+                toolTipText: i18n("<p>If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b></p><br><p>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b></p>")
             }
         }
 
