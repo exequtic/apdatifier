@@ -165,7 +165,7 @@ msgid ""
 "You can specify which icon to use for each <b>system</b> package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid "
 "update."
 msgstr ""
-"Вы можете определить какую иконку использовать для каждого <b>системного</b> пакета.<br><br>Возможные типы правил в таком порядке: default, repo, group, match, name<br><br><b>Синтаксис для правила:</b><br>type > value > icon-name<br>Для стандартной иконки: default >> icon-name<br><br>Если пакет соответствует нескольким правилам, то он будет испльзовать последнее.<br><br>Сохраните этот список на "
+"Вы можете определить какую иконку использовать для каждого <b>системного</b> пакета.<br><br>Возможные типы правил в таком порядке: default, repo, group, match, name<br><br><b>Синтаксис для правила:</b><br>type > value > icon-name<br>Для стандартной иконки: default >> icon-name<br><br>Если пакет соответствует нескольким правилам, то он будет использовать последнее.<br><br>Сохраните этот список на "
 "всякий случай; эти настройки могут удалится после обновления этого виджета."
 
 #: ../contents/ui/ConfigAppearance.qml
@@ -429,7 +429,7 @@ msgid ""
 "<p><b>Required installed qdbus.</b><br>After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will refresh plasmashell via qdbus. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the "
 "command: kstart plasmashell.</p>"
 msgstr ""
-"<p><b>Необходим установленный qdbus.</b><br>После обновления плазмоида, старая версия будет в памяти до тех пор пока не будет перезапущена plasmashell. Чтобы не делать это вручную, включите эту опцию. Это будет перезапускать plasmashell через qdbus. При этом терминал может закрываться автоматически, так как Apdatifier также будет перезапущен.<br><br>Если plasmashell только завершается и не "
+"<p><b>Необходим установленный qdbus.</b><br>После обновления виджета, старая версия будет в памяти до тех пор пока не будет перезапущена plasmashell. Чтобы не делать это вручную, включите эту опцию. Это будет перезапускать plasmashell через qdbus. При этом терминал может закрываться автоматически, так как Apdatifier также будет перезапущен.<br><br>Если plasmashell только завершается и не "
 "запускается, тогда выполните команду: kstart plasmashell.</p>"
 
 #: ../contents/ui/ConfigUpgrade.qml
