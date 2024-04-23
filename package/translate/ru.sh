@@ -16,9 +16,6 @@ API_ERROR_TEXT="Слишком много API запросов с вашего I
 # File metadata.json not found
 METADATA_ERROR_TEXT="Файл metadata.json не найден"
 
-# Unable refresh plasmashell - qdbus not installed
-QDBUS_ERROR_TEXT="Невозможно перезапустить plasmashell - qdbus не установлен"
-
 # Refresh mirrorlist? [y/N]:
 QUESTION_TEXT="Обновить список зеркал? [y/N]:"
 

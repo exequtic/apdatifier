@@ -47,7 +47,6 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 <b>Arch Linux News:</b> paru or yay<br>
 <b>Plasmoids:</b> curl, jq, xmlstarlet, unzip, tar<br>
 <b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
-<b>Refresh plasmashell:</b> qdbus<br>
 
 <br>
 
@@ -58,9 +57,9 @@ You can translate this widget into other languages, please refer to the [ReadMe.
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| English  |     145 |       |
-| Dutch    |  47/145 |   32% |
-| Russian  | 145/145 |  100% |
+| English  |     144 |       |
+| Dutch    |  47/144 |   32% |
+| Russian  | 144/144 |  100% |
 |----------|---------|-------|
 ```
 

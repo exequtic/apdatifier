@@ -108,7 +108,8 @@ function defineCommands() {
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`sudo pacman -Syu ${flags}`).trim() + ";") : ""
-    const commands = (`${mirrorlist} ${arch} ${flatpak}`).trim()
+    const widgets = cfg.plasmoids ? `${script} checkPlasmoidsAndUpgrade ${cfg.refreshShell};` : ""
+    const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
     if (cfg.terminal.split("/").pop() === "yakuake") {
         const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"

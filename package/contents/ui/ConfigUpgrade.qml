@@ -93,11 +93,11 @@ SimpleKCM {
 
             CheckBox {
                 id: refreshShell
-                text: i18n("Refresh plasmashell")
+                text: i18n("Restart plasmashell")
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p><b>Required installed qdbus.</b><br>After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will refresh plasmashell via qdbus. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the command: kstart plasmashell.</p>")
+                toolTipText: i18n("<p>After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will restart plasmashell.service. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the command: kstart plasmashell.</p>")
             }
         }
 

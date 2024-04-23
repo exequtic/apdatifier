@@ -16,9 +16,6 @@ API_ERROR_TEXT=""
 # File metadata.json not found
 METADATA_ERROR_TEXT=""
 
-# Unable refresh plasmashell - qdbus not installed
-QDBUS_ERROR_TEXT=""
-
 # Refresh mirrorlist? [y/N]:
 QUESTION_TEXT=""
 

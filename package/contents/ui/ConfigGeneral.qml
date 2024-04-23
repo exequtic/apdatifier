@@ -169,7 +169,7 @@ SimpleKCM {
         RowLayout {
             CheckBox {
                 id: plasmoids
-                text: i18n("Widgets (beta)")
+                text: i18n("Plasma Widgets")
             }
 
             ContextualHelpButton {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-04-17 21:39+0300\n"
+"POT-Creation-Date: 2024-04-24 13:44+0300\n"
 "PO-Revision-Date: 2024-01-04 21:50+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -338,7 +338,7 @@ msgid "Not installed"
 msgstr "Niet geïnstalleerd"
 
 #: ../contents/ui/ConfigGeneral.qml
-msgid "Widgets (beta)"
+msgid "Plasma Widgets"
 msgstr ""
 
 #: ../contents/ui/ConfigGeneral.qml
@@ -464,17 +464,17 @@ msgid "Widgets:"
 msgstr ""
 
 #: ../contents/ui/ConfigUpgrade.qml
-msgid "Refresh plasmashell"
+msgid "Restart plasmashell"
 msgstr ""
 
 #: ../contents/ui/ConfigUpgrade.qml
 msgid ""
-"<p><b>Required installed qdbus.</b><br>After upgrading widget, the old "
-"version will still remain in memory until you restart plasmashell. To avoid "
-"doing this manually, enable this option. It will refresh plasmashell via "
-"qdbus. The terminal may be closed automatically as Apdatifier will also be "
-"restarted.<br><br>If plasmashell is only terminating and not starting "
-"itself, then execute the command: kstart plasmashell.</p>"
+"<p>After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option. "
+"It will restart plasmashell.service. The terminal may be closed "
+"automatically as Apdatifier will also be restarted.<br><br>If plasmashell is "
+"only terminating and not starting itself, then execute the command: kstart "
+"plasmashell.</p>"
 msgstr ""
 
 #: ../contents/ui/ConfigUpgrade.qml

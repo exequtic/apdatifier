@@ -1,15 +1,5 @@
 > Version 7 of Zren's i18n scripts.
 
-## Install Translations
-The `*.mo` files are not included in the `.plasmoid` file, so they need to be created manually.
-
-```
-cd ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/translate/
-sh ./build
-```
-
-Afterwards, restart plasmashell.
-
 ## New Translations
 
 1. Fill out [`template.pot`](template.pot) and [`template.sh`](template.sh) with your translations then open a [new issue](https://github.com/exequtic/apdatifier/issues/new), name the files with the extension `.txt`, attach the txt files to the issue (drag and drop).
@@ -34,4 +24,4 @@ Or if you know how to make a pull request
 |----------|---------|-------|
 | Template |     132 |       |
 | nl       |  47/132 |   35% |
-| ru       | 132/132 |  100% |
+| ru       | 131/132 |   99% |
