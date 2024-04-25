@@ -24,4 +24,4 @@ Or if you know how to make a pull request
 |----------|---------|-------|
 | Template |     132 |       |
 | nl       |  47/132 |   35% |
-| ru       | 131/132 |   99% |
+| ru       | 132/132 |  100% |

@@ -13,8 +13,8 @@
 
 # Features
 - Notification for new updates and [Arch Linux News](https://archlinux.org/news)
-- Supports [AUR](#supported-pacman-wrappers), Plasmoids, Flatpak (without showing the runtime updates)
-- Also should work on non-Arch-based systems (for Plasmoids and Flatpak)
+- Searching updates for [AUR](#supported-pacman-wrappers), Plasma Widgets, Flatpak (without showing the runtime updates)
+- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
 - Two types of lists: compact and expanded with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
 - Option to refresh the mirrorlist with the latest mirrors filtered by speed
@@ -45,7 +45,7 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 ### Required utilities for options:
 <b>Arch Linux News:</b> paru or yay<br>
-<b>Plasmoids:</b> curl, jq, xmlstarlet, unzip, tar<br>
+<b>Plasma Widgets:</b> curl, jq, xmlstarlet, unzip, tar<br>
 <b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
 
 <br>
