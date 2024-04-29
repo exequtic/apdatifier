@@ -26,6 +26,7 @@ SimpleKCM {
     property alias cfg_searchButton: searchButton.checked
     property alias cfg_viewButton: viewButton.checked
     property alias cfg_sortButton: sortButton.checked
+    property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
 
@@ -163,6 +164,13 @@ SimpleKCM {
             CheckBox {
                 id: sortButton
                 icon.name: "sort-name"
+            }
+        }
+        RowLayout {
+            enabled: showStatusBar.checked
+            CheckBox {
+                id: managementButton
+                icon.name: "run-build-configure"
             }
             CheckBox {
                 id: upgradeButton

@@ -89,11 +89,7 @@ getIgnoredPackages() {
 }
 
 
-r="\033[1;31m"
-g="\033[1;32m"
-b="\033[1;34m"
-y="\033[0;33m"
-c="\033[0m"
+r="\033[1;31m"; g="\033[1;32m"; b="\033[1;34m"; y="\033[0;33m"; c="\033[0m"; bold="\033[1m"
 
 spinner() {
     spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
@@ -106,26 +102,49 @@ spinner() {
 
 
 mirrorlist_generator() {
+    trap '' SIGINT
+    count=$1; link=$2; wrapper=$3; menu=$4;
+    
     QUESTION_TEXT="Refresh mirrorlist? [y/N]:"
-    CMD_ERROR_TEXT="Unable to generate mirrorlist - not installed:"
+    CMD_ERROR_TEXT="Required installed"
     FETCHING_MIRRORS_TEXT="Fetching the latest filtered mirror list..."
     RANKING_MIRRORS_TEXT="Ranking mirrors by their connection and opening speed..."
     MIRRORS_ERROR_TEXT="Check your mirrorlist generator settings..."
     MIRRORS_UPDATED_TEXT="was updated with the following servers:"
+    MIRRORLIST_SUDO_TEXT="To write to a mirrorlist file, sudo rights are required"
+    RETURN_MENU_TEXT="Press Enter to return menu"
     setLanguage
 
-    echo
-    while true; do
-        echo -n "$QUESTION_TEXT "
-        read -r answer
-        case "$answer" in
-                [Yy]*) echo; break;;
-             [Nn]*|"") echo; exit;;
-                    *)  ;;
-        esac
-    done
+    return_menu() {
+        echo -e "\n$b::$c $RETURN_MENU_TEXT"
+        read -r
+        tput civis
+        management $count $link $wrapper $menu
+        tput cnorm
+    }
 
-    [[ $EUID -ne 0 ]] && { echo -e "$r\u2718 Requires sudo permissions$c\n"; exit; }
+    print_mirrors() {
+        echo -e "$g\n$mirrorfile $MIRRORS_UPDATED_TEXT $c"
+        echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
+        echo
+
+        rm $tempfile
+        rm $tempfile2
+    }
+
+    if [ "$menu" != "true" ]; then
+        echo $menu
+        while true; do
+            echo -en "$b::$c $bold$QUESTION_TEXT$c "
+            read -r answer
+            case "$answer" in
+                    [Yy]*) echo; break;;
+                 [Nn]*|"") echo; exit;;
+                        *)  ;;
+            esac
+        done
+    fi
+
     for cmd in curl rankmirrors; do
         command -v "$cmd" >/dev/null || { echo -e "$r\u2718 $CMD_ERROR_TEXT $cmd $c\n"; exit; }
     done
@@ -154,14 +173,162 @@ mirrorlist_generator() {
     mirrorfile="/etc/pacman.d/mirrorlist"
     sed -i '1d' "$tempfile2"
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
-    cat $tempfile2 > $mirrorfile
 
-    echo -e "$g\n$mirrorfile $MIRRORS_UPDATED_TEXT $c"
-    echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
-    echo
+    if [ "$menu" = "true" ]; then
+        if ! sudo -n true 2>/dev/null; then
+            echo -e "$y$bold\n$MIRRORLIST_SUDO_TEXT$c"
+        fi
+        cat $tempfile2 | sudo tee $mirrorfile > /dev/null
+    else
+        cat $tempfile2 > $mirrorfile
+    fi
 
-    rm $tempfile
-    rm $tempfile2
+    if [ $? -eq 0 ]; then
+        print_mirrors
+        [ "$menu" = "true" ] && return_menu
+    else
+        echo -e "$r\u2718 $MIRRORLIST_SUDO_TEXT$c\n"
+        [ "$menu" = "true" ] && return_menu || exit
+    fi
+}
+
+
+management() {
+    trap '' SIGINT
+    count=$1; link=$2; wrapper=$3; menu=$4; [ $5 ] && selected=$5
+    wrapper_sudo=$wrapper
+    [[ $wrapper = "pacman" ]] && wrapper_sudo="sudo pacman"
+
+    CMD_ERROR_TEXT="Required installed"
+    LIST_ALL_TEXT="List all avialable packages from repositories"
+    LIST_INSTALLED_TEXT="List all installed packages"
+    LIST_EXPL_TEXT="List explicitly installed packages"
+    LIST_EXPL_NODEP_TEXT="List explicitly installed and isn't a dependency of anything"
+    LIST_DEPS="List installed as a dependency but isn't needed anymore (orphans)"
+    REMOVE_ORPHANS_TEXT="Uninstall orphans packages"
+    DOWNGRADE_TEXT="Downgrade package from cache"
+    NO_ORPHANS_TEXT="No orphans to remove"
+    EXECUTED_TEXT="Executed:"
+    REFRESH_MIRRORLIST_TEXT="Refresh mirrorlist"
+    RETURN_MENU_TEXT="Press Enter to return menu"
+    EXIT_TEXT="Exit"
+    setLanguage
+
+    options=(
+        "$LIST_ALL_TEXT"
+        "$LIST_INSTALLED_TEXT"
+        "$LIST_EXPL_TEXT"
+        "$LIST_EXPL_NODEP_TEXT"
+        "$LIST_DEPS"
+        "$REMOVE_ORPHANS_TEXT"
+        "$DOWNGRADE_TEXT"
+        "$REFRESH_MIRRORLIST_TEXT"
+        "$EXIT_TEXT"
+    )
+
+    show_options() {
+        [ $1 ] && selected=$1
+
+        while true; do
+            clear
+            tput civis
+            for i in "${!options[@]}"; do
+                if [ $i -eq $selected ]; then
+                    echo -e "$g>$c $g${options[$i]}$c"
+                else
+                    echo -e "  $b${options[$i]}$c"
+                fi
+            done
+
+            read -rsn1 input
+            case $input in
+                A) ((selected--));;
+                B) ((selected++));;
+                "") break;;
+            esac
+
+            if [ $selected -lt 0 ]; then
+                selected=$(( ${#options[@]} - 1 ))
+            elif [ $selected -ge ${#options[@]} ]; then
+                selected=0
+            fi
+        done
+
+        clear
+        tput cnorm
+
+        case $selected in
+            0) fzf_preview Slq;;
+            1) fzf_preview Qq;;
+            2) fzf_preview Qqe;;
+            3) fzf_preview Qqet;;
+            4) fzf_preview Qqtd;;
+            5) fzf_preview RQqtd;;
+            6) fzf_preview downgrade;;
+            7) mirrorlist_generator $count $link $wrapper $menu;;
+            8) exit;;
+        esac
+    }
+
+    return_menu() {
+            tput civis
+            echo -e "\n$b::$c $RETURN_MENU_TEXT"
+            read -r
+            tput cnorm
+            show_options $selected
+    }
+
+    check_fzf() {
+        for cmd in fzf; do
+            if ! command -v "$cmd" >/dev/null; then
+                echo -e "$r\u2718 $CMD_ERROR_TEXT $cmd $c"
+                return_menu
+            else
+                fzf_settings="--preview-window "right:70%" --height=100% \
+                              --layout=reverse --info=right --border=none \
+                              --multi --track --exact  --margin=0 --padding=0 \
+                              --separator=- --prompt=Search:  --marker=•"
+            fi
+        done
+    }
+
+    fzf_exec() {
+        packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper -$2 {}")
+        if [[ -z "$packages" ]]; then
+            show_options $selected
+        else
+            packages=$(echo $packages | tr '\n' ' ' | sed 's/ $//')
+            echo -e "$b::$c$bold $EXECUTED_TEXT$c $wrapper_sudo -$3 $packages\n"
+            $wrapper_sudo -$3 $packages
+            return_menu
+        fi
+    }
+
+    downgrade_package() {
+        cache_dir="/var/cache/pacman/pkg"
+        cache=$(find $cache_dir -type f -name "*.pkg.tar.zst" -printf "%f\n" | sort | \
+                fzf --exact --layout=reverse | \
+                tr '\n' ' ' | sed 's/ $//')
+
+        if [[ -z "$cache" ]]; then
+            show_options $selected
+        else
+            echo -e "$b::$c$bold $EXECUTED_TEXT$c $wrapper_sudo -U $cache_dir/$cache\n"
+            $wrapper_sudo -U $cache_dir/$cache
+            return_menu
+        fi
+    }
+
+    fzf_preview() {
+        case $1 in
+            Slq) check_fzf; fzf_exec -$1 Si S;;
+            Qq|Qqe|Qqet|Qqtd) check_fzf; fzf_exec -$1 Qil Rsn;;
+            RQqtd) [[ -n $($wrapper -Qdt) ]] && $wrapper_sudo -Rsn $($wrapper -Qqtd) || echo $NO_ORPHANS_TEXT; return_menu ;;
+            downgrade) downgrade_package;;
+        esac
+    }
+
+    show_options
 }
 
 
@@ -340,10 +507,7 @@ checkPlasmoidsUpdates() {
 upgradePlasmoid() {
     [ $1 ] || exit
 
-    for cmd in curl jq xmlstarlet unzip tar; do
-        command -v "$cmd" >/dev/null || { echo -e "\n$r\u2718 $cmd not installed$c"; exit; }
-    done
-
+    CMD_ERROR_TEXT="Required installed"
     WARNING_TEXT_1="For some widgets you may need to Log Out or restart plasmashell after upgrade"
     WARNING_TEXT_2="(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly."
     FETCHING_INFO_TEXT="Fetching information about widget..."
@@ -351,6 +515,10 @@ upgradePlasmoid() {
     API_ERROR_TEXT="Too many API requests in the last 15 minutes from your IP address. Please try again later."
     METADATA_ERROR_TEXT="File metadata.json not found"
     setLanguage
+
+    for cmd in curl jq xmlstarlet unzip tar; do
+        command -v "$cmd" >/dev/null || { echo -e "\n$r\u2718 $CMD_ERROR_TEXT $cmd $c"; exit; }
+    done
 
     if $2; then
         echo -e "\n"
@@ -450,9 +618,11 @@ upgradePlasmoid() {
 
 
 checkPlasmoidsAndUpgrade() {
-    echo
+    CMD_ERROR_TEXT="Required installed"
+    setLanguage
+
     for cmd in curl jq xmlstarlet unzip tar; do
-        command -v "$cmd" >/dev/null || { echo "$cmd not installed"; exit; }
+        command -v "$cmd" >/dev/null || { echo "$CMD_ERROR_TEXT $cmd"; exit; }
     done
 
     plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
@@ -463,6 +633,7 @@ checkPlasmoidsAndUpgrade() {
         lines+=("$line")
     done <<< "$plasmoids"
 
+    echo
     tput sc
     text="Checking widgets for updates..."
     tempXML=$(mktemp)
@@ -579,6 +750,7 @@ case "$1" in
                  "install") install;;
                "uninstall") uninstall;;
               "getIgnored") getIgnoredPackages;;
+              "management") management $2 $3 $4 true 0;;
           "checkPlasmoids") checkPlasmoidsUpdates $2;;
          "upgradePlasmoid") upgradePlasmoid $2 $3;;
 "checkPlasmoidsAndUpgrade") checkPlasmoidsAndUpgrade $2;;

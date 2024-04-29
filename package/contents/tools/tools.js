@@ -161,6 +161,12 @@ function upgradePackage(name, id, contentID) {
             : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; echo ${warning}; ${executed}; ${command}; ${print(done)}; read"`)
 }
 
+function management() {
+    defineCommands()
+    const wrapper = cfg.aur && cfg.wrapper ? cfg.wrapper : "pacman"
+    sh.exec(`${cmd.terminal} bash -c "${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${wrapper}"`)
+}
+
 
 function upgradeSystem() {
     runAction()

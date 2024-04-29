@@ -19,7 +19,7 @@ METADATA_ERROR_TEXT=""
 # Refresh mirrorlist? [y/N]:
 QUESTION_TEXT=""
 
-# Unable to generate mirrorlist - not installed:
+# Required installed
 CMD_ERROR_TEXT=""
 
 # Fetching the latest filtered mirror list...
@@ -33,3 +33,39 @@ MIRRORS_ERROR_TEXT=""
 
 # was updated with the following servers:
 MIRRORS_UPDATED_TEXT=""
+
+# To write to a mirrorlist file, sudo rights are required"
+MIRRORLIST_SUDO_TEXT=""
+
+# List all avialable packages from repositories
+LIST_ALL_TEXT=""
+
+# List all installed packages
+LIST_INSTALLED_TEXT=""
+
+# List explicitly installed packages
+LIST_EXPL_TEXT=""
+
+# List explicitly installed and isn't a dependency of anything
+LIST_EXPL_NODEP_TEXT=""
+
+# List installed as a dependency but isn't needed anymore (orphans)
+LIST_DEPS=""
+
+# Remove orphans
+REMOVE_ORPHANS_TEXT=""
+
+# No orphans to remove
+NO_ORPHANS_TEXT=
+
+# Executed:
+EXECUTED_TEXT=""
+
+# Refresh mirrorlist
+REFRESH_MIRRORLIST_TEXT=""
+
+# Press Enter to return menu
+RETURN_MENU_TEXT=""
+
+# Exit
+EXIT_TEXT=""

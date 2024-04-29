@@ -102,6 +102,12 @@ PlasmoidItem {
             icon.name: "akonadiconsole"
             enabled: !busy && !error && count > 0 && cfg.terminal
             onTriggered: JS.upgradeSystem()
+        },
+        PlasmaCore.Action {
+            text: i18n("Management")
+            icon.name: "run-build-configure"
+            enabled: !busy && !error && pkg.pacman && cfg.terminal
+            onTriggered: JS.management()
         }
     ]
 

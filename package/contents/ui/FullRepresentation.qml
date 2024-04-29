@@ -295,6 +295,13 @@ Item {
             }
 
             ToolButton {
+                icon.name: "run-build-configure"
+                visible: footer.visible && !busy && !error && pkg.pacman && cfg.terminal && cfg.managementButton
+                onClicked: JS.management()
+                ToolTip { text: i18n("Management") }
+            }
+
+            ToolButton {
                 icon.name: "akonadiconsole"
                 visible: footer.visible && !busy && !error && count > 0 && cfg.terminal && cfg.upgradeButton
                 onClicked: JS.upgradeSystem()

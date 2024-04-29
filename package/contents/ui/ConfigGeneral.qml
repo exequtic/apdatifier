@@ -124,7 +124,7 @@ SimpleKCM {
                 font.pointSize: tip.font.pointSize
                 color: Kirigami.Theme.positiveTextColor
                 text: i18n("found: %1", cfg_wrapper)
-                visible: aur.checked && wrappers.length == 1
+                visible: aur.checked && wrappers && wrappers.length == 1
             }
         }
 
@@ -198,6 +198,8 @@ SimpleKCM {
                 Component.onCompleted: {
                     if (wrappers) {
                         currentIndex = JS.setIndex(plasmoid.configuration.wrapper, wrappers)
+                    } else {
+                        plasmoid.configuration.wrapper = ""
                     }
                 }
             }
@@ -253,7 +255,8 @@ SimpleKCM {
                 model: [{"name": i18n("None"), "value": ""},
                         {"name": i18n("Check updates"), "value": "checkUpdates"},
                         {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
-                        {"name": i18n("Switch interval"), "value": "switchInterval"}]
+                        {"name": i18n("Switch interval"), "value": "switchInterval"},
+                        {"name": i18n("Management"), "value": "management"}]
 
                 onCurrentIndexChanged: {
                     cfg_middleClick = model[currentIndex]["value"]
@@ -276,7 +279,8 @@ SimpleKCM {
                 model: [{"name": i18n("None"), "value": ""},
                         {"name": i18n("Check updates"), "value": "checkUpdates"},
                         {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
-                        {"name": i18n("Switch interval"), "value": "switchInterval"}]
+                        {"name": i18n("Switch interval"), "value": "switchInterval"},
+                        {"name": i18n("Management"), "value": "management"}]
 
                 onCurrentIndexChanged: {
                     cfg_rightClick = model[currentIndex]["value"]

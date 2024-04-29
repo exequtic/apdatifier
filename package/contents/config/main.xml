@@ -46,6 +46,7 @@
         <entry name="searchButton" type="bool"><default>true</default></entry>
         <entry name="viewButton" type="bool"><default>true</default></entry>
         <entry name="sortButton" type="bool"><default>true</default></entry>
+        <entry name="managementButton" type="bool"><default>true</default></entry>
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="sortByName" type="bool"><default>true</default></entry>
