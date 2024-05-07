@@ -58,6 +58,15 @@ REMOVE_ORPHANS_TEXT=""
 # No orphans to remove
 NO_ORPHANS_TEXT=
 
+# Downgrade package from cache
+DOWNGRADE_TEXT=""
+
+# Remove ALL cached packages
+REMOVE_CACHED_TEXT=""
+
+# Remove cached packages that are not currently installed
+REMOVE_CACHED_NOTINST_TEXT=""
+
 # Executed:
 EXECUTED_TEXT=""
 

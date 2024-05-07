@@ -13,6 +13,7 @@ import org.kde.kirigami as Kirigami
 import "../tools/tools.js" as JS
 
 SimpleKCM {
+    property alias cfg_termFont: termFont.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_refreshShell: refreshShell.checked
@@ -63,6 +64,18 @@ SimpleKCM {
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
                 color: Kirigami.Theme.neutralTextColor
                 visible: !terminals
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Icons:")
+            CheckBox {
+                id: termFont
+                text: i18n("Enable")
+            }
+
+            ContextualHelpButton {
+                toolTipText: i18n("<p>If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.</p>")
             }
         }
 

@@ -70,18 +70,8 @@ uninstall() {
 }
 
 
-setLanguage() {
-    LANGUAGE=${LANG:0:2}
-    MESSAGES_FILE="/home/$(logname)/.local/share/plasma/plasmoids/$applet/translate/$LANGUAGE.sh"
-
-    if [ -f "$MESSAGES_FILE" ]; then
-        source "$MESSAGES_FILE"
-    fi
-}
-
-
-getIgnoredPackages() {
-    conf="/etc/pacman.conf"
+get_ignored_packages() {
+    conf=$(pacman -Qv | awk 'NR==2 {print $NF}')
     if [ -s "$conf" ]; then
         grep -E "^\s*IgnorePkg\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
         grep -E "^\s*IgnoreGroup\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
@@ -89,54 +79,15 @@ getIgnoredPackages() {
 }
 
 
-r="\033[1;31m"; g="\033[1;32m"; b="\033[1;34m"; y="\033[0;33m"; c="\033[0m"; bold="\033[1m"
-
-spinner() {
-    spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
-    while kill -0 $1 2>/dev/null; do
-        i=$(( (i+1) %10 ))
-        printf "$r\r${spin:$i:1}$c $b$2$c"
-        sleep .2
-    done
-}
-
-
 mirrorlist_generator() {
-    trap '' SIGINT
-    count=$1; link=$2; wrapper=$3; menu=$4;
-    
-    QUESTION_TEXT="Refresh mirrorlist? [y/N]:"
-    CMD_ERROR_TEXT="Required installed"
-    FETCHING_MIRRORS_TEXT="Fetching the latest filtered mirror list..."
-    RANKING_MIRRORS_TEXT="Ranking mirrors by their connection and opening speed..."
-    MIRRORS_ERROR_TEXT="Check your mirrorlist generator settings..."
-    MIRRORS_UPDATED_TEXT="was updated with the following servers:"
-    MIRRORLIST_SUDO_TEXT="To write to a mirrorlist file, sudo rights are required"
-    RETURN_MENU_TEXT="Press Enter to return menu"
-    setLanguage
+    count=$1; link=$2; icons=$3; wrapper=$4; menu=$5; selected=$6
+    define_text_icons $icons
 
-    return_menu() {
-        echo -e "\n$b::$c $RETURN_MENU_TEXT"
-        read -r
-        tput civis
-        management $count $link $wrapper $menu
-        tput cnorm
-    }
+    return_menu() { print_menu; management $count $link $icons $wrapper $selected; }
 
-    print_mirrors() {
-        echo -e "$g\n$mirrorfile $MIRRORS_UPDATED_TEXT $c"
-        echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c"
-        echo
-
-        rm $tempfile
-        rm $tempfile2
-    }
-
-    if [ "$menu" != "true" ]; then
-        echo $menu
+    if [[ "$menu" != "true" ]]; then
         while true; do
-            echo -en "$b::$c $bold$QUESTION_TEXT$c "
-            read -r answer
+            print_question "$QUESTION_TEXT"; read -r answer
             case "$answer" in
                     [Yy]*) echo; break;;
                  [Nn]*|"") echo; exit;;
@@ -145,98 +96,91 @@ mirrorlist_generator() {
         done
     fi
 
-    for cmd in curl rankmirrors; do
-        command -v "$cmd" >/dev/null || { echo -e "$r\u2718 $CMD_ERROR_TEXT $cmd $c\n"; exit; }
-    done
+    check_pkg "curl rankmirrors" $5
 
     tput sc
     tempfile=$(mktemp)
-    text=$FETCHING_MIRRORS_TEXT
-    curl -s -o $tempfile "$2" 2>/dev/null &
-    spinner $! "$text"
-    tput rc
-    tput ed
-    [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]] || { echo -e "$r\u2718 $text $c\n$r\u2718 $MIRRORS_ERROR_TEXT $c\n"; exit; }
-    echo -e "$g\u2714 $text$c"
+    curl -m 30 -s -o $tempfile "$2" 2>/dev/null &
+    spinner $! "$FETCHING_MIRRORS_TEXT"
+    tput rc; tput ed
+    if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
+        print_done "$FETCHING_MIRRORS_TEXT"
+    else
+        print_error "$FETCHING_MIRRORS_TEXT"
+        print_error "$MIRRORS_ERROR_TEXT"
+        [[ "$menu" = "true" ]] && return_menu || exit
+    fi
 
     tput sc
     sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
     tempfile2=$(mktemp)
-    text=$RANKING_MIRRORS_TEXT
     rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
-    spinner $! "$text"
-    tput rc
-    tput ed
-    [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]] || { echo -e "$r\u2718 $text $c"; exit; }
-    echo -e "$g\u2714 $text$c"
+    spinner $! "$RANKING_MIRRORS_TEXT"
+    tput rc; tput ed
+    if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; then
+        print_done "$RANKING_MIRRORS_TEXT"
+    else
+        print_error "$RANKING_MIRRORS_TEXT"
+        [[ "$menu" = "true" ]] && return_menu || exit
+    fi
 
     mirrorfile="/etc/pacman.d/mirrorlist"
     sed -i '1d' "$tempfile2"
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
 
-    if [ "$menu" = "true" ]; then
-        if ! sudo -n true 2>/dev/null; then
-            echo -e "$y$bold\n$MIRRORLIST_SUDO_TEXT$c"
-        fi
+    if [[ "$menu" = "true" ]]; then
+        sudo -n true 2>/dev/null || { print_important "$MIRRORLIST_SUDO_TEXT"; }
         cat $tempfile2 | sudo tee $mirrorfile > /dev/null
     else
         cat $tempfile2 > $mirrorfile
     fi
 
     if [ $? -eq 0 ]; then
-        print_mirrors
-        [ "$menu" = "true" ] && return_menu
+        print_done "$mirrorfile $MIRRORS_UPDATED_TEXT"
+        echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c\n"
+        rm $tempfile; rm $tempfile2
+        [[ "$menu" = "true" ]] && return_menu
     else
-        echo -e "$r\u2718 $MIRRORLIST_SUDO_TEXT$c\n"
-        [ "$menu" = "true" ] && return_menu || exit
+        print_error "$MIRRORLIST_SUDO_TEXT"
+        [[ "$menu" = "true" ]] && return_menu || exit
     fi
 }
 
 
 management() {
     trap '' SIGINT
-    count=$1; link=$2; wrapper=$3; menu=$4; [ $5 ] && selected=$5
-    wrapper_sudo=$wrapper
+    count=$1; link=$2; icons=$3; wrapper=$4; [ "$5" ] && selected="$5" || selected=0
+    wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
     [[ $wrapper = "pacman" ]] && wrapper_sudo="sudo pacman"
 
-    CMD_ERROR_TEXT="Required installed"
-    LIST_ALL_TEXT="List all avialable packages from repositories"
-    LIST_INSTALLED_TEXT="List all installed packages"
-    LIST_EXPL_TEXT="List explicitly installed packages"
-    LIST_EXPL_NODEP_TEXT="List explicitly installed and isn't a dependency of anything"
-    LIST_DEPS="List installed as a dependency but isn't needed anymore (orphans)"
-    REMOVE_ORPHANS_TEXT="Uninstall orphans packages"
-    DOWNGRADE_TEXT="Downgrade package from cache"
-    NO_ORPHANS_TEXT="No orphans to remove"
-    EXECUTED_TEXT="Executed:"
-    REFRESH_MIRRORLIST_TEXT="Refresh mirrorlist"
-    RETURN_MENU_TEXT="Press Enter to return menu"
-    EXIT_TEXT="Exit"
-    setLanguage
+    define_text_icons $icons
+
+    return_menu() { print_menu; show_options $selected; }
 
     options=(
-        "$LIST_ALL_TEXT"
-        "$LIST_INSTALLED_TEXT"
-        "$LIST_EXPL_TEXT"
-        "$LIST_EXPL_NODEP_TEXT"
-        "$LIST_DEPS"
-        "$REMOVE_ORPHANS_TEXT"
-        "$DOWNGRADE_TEXT"
-        "$REFRESH_MIRRORLIST_TEXT"
-        "$EXIT_TEXT"
+        "$LIST_ALL_ICO $LIST_ALL_TEXT"
+        "$LIST_INSTALLED_ICO $LIST_INSTALLED_TEXT"
+        "$LIST_EXPL_ICO $LIST_EXPL_TEXT"
+        "$LIST_EXPL_NODEP_ICO $LIST_EXPL_NODEP_TEXT"
+        "$LIST_DEPS_ICO $LIST_DEPS"
+        "$REMOVE_ORPHANS_ICO $REMOVE_ORPHANS_TEXT"
+        "$DOWNGRADE_ICO $DOWNGRADE_TEXT"
+        "$REMOVE_CACHED_ICO $REMOVE_CACHED_TEXT"
+        "$REMOVE_CACHED_ICO $REMOVE_CACHED_NOTINST_TEXT"
+        "$REBUILD_PYTHON_ICO $REBUILD_PYTHON_TEXT"
+        "$REFRESH_MIRRORLIST_ICO $REFRESH_MIRRORLIST_TEXT"
+        "$EXIT_ICO $EXIT_TEXT"
     )
 
     show_options() {
-        [ $1 ] && selected=$1
-
         while true; do
             clear
             tput civis
             for i in "${!options[@]}"; do
-                if [ $i -eq $selected ]; then
-                    echo -e "$g>$c $g${options[$i]}$c"
+                if [[ $i -eq $selected ]]; then
+                    echo -e "${g}$SELECTOR_ICO${c} ${bold}${g}${options[$i]}${c}"
                 else
-                    echo -e "  $b${options[$i]}$c"
+                    echo -e "  ${options[$i]}"
                 fi
             done
 
@@ -247,7 +191,7 @@ management() {
                 "") break;;
             esac
 
-            if [ $selected -lt 0 ]; then
+            if [[ $selected -lt 0 ]]; then
                 selected=$(( ${#options[@]} - 1 ))
             elif [ $selected -ge ${#options[@]} ]; then
                 selected=0
@@ -263,69 +207,103 @@ management() {
             2) fzf_preview Qqe;;
             3) fzf_preview Qqet;;
             4) fzf_preview Qqtd;;
-            5) fzf_preview RQqtd;;
-            6) fzf_preview downgrade;;
-            7) mirrorlist_generator $count $link $wrapper $menu;;
-            8) exit;;
+            5) uninstall_orphans;;
+            6) downgrade_package;;
+            7) print_executed -Scc; $wrapper_sudo -Scc; return_menu;;
+            8) print_executed -Sc; $wrapper_sudo -Sc; return_menu;;
+            9) rebuild_python;;
+           10) mirrorlist_generator $count $link $icons $wrapper true $selected;;
+           11) exit;;
         esac
     }
 
-    return_menu() {
-            tput civis
-            echo -e "\n$b::$c $RETURN_MENU_TEXT"
-            read -r
-            tput cnorm
-            show_options $selected
-    }
+    fzf_preview() {
+        check_pkg "fzf" true
+        fzf_settings="--preview-window "right:70%" --height=100% \
+                      --layout=reverse --info=right --border=none \
+                      --multi --track --exact  --margin=0 --padding=0 \
+                      --cycle --prompt=$SEARCH_TEXT⠀ --marker=•"
 
-    check_fzf() {
-        for cmd in fzf; do
-            if ! command -v "$cmd" >/dev/null; then
-                echo -e "$r\u2718 $CMD_ERROR_TEXT $cmd $c"
-                return_menu
-            else
-                fzf_settings="--preview-window "right:70%" --height=100% \
-                              --layout=reverse --info=right --border=none \
-                              --multi --track --exact  --margin=0 --padding=0 \
-                              --separator=- --prompt=Search:  --marker=•"
-            fi
-        done
+        case $1 in
+                         Slq) fzf_exec -$1 -Si -S;;
+            Qq|Qqe|Qqet|Qqtd) fzf_exec -$1 -Qil -Rsn;;
+        esac
     }
 
     fzf_exec() {
-        packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper -$2 {}")
+        packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper $2 {}")
         if [[ -z "$packages" ]]; then
             show_options $selected
         else
-            packages=$(echo $packages | tr '\n' ' ' | sed 's/ $//')
-            echo -e "$b::$c$bold $EXECUTED_TEXT$c $wrapper_sudo -$3 $packages\n"
-            $wrapper_sudo -$3 $packages
+            packages=$(echo $packages | oneline)
+            print_executed $3 "$packages"
+            $wrapper_sudo $3 $packages
             return_menu
         fi
     }
 
+    uninstall_orphans() {
+        print_executed -Rsn "$($wrapper -Qqtd | oneline)"
+        if [[ -n $($wrapper -Qdt) ]]; then
+            $wrapper_sudo -Rsn $($wrapper -Qqtd)
+        else
+            print_done "$NO_ORPHANS_TEXT"
+        fi
+
+        return_menu
+    }
+
     downgrade_package() {
-        cache_dir="/var/cache/pacman/pkg"
-        cache=$(find $cache_dir -type f -name "*.pkg.tar.zst" -printf "%f\n" | sort | \
-                fzf --exact --layout=reverse | \
-                tr '\n' ' ' | sed 's/ $//')
+        pacman_cache=$(pacman -Qv | awk 'NR==4 {print $NF}')
+        wrapper_cache="$HOME/.cache/$wrapper"
+
+        cache=$(find $pacman_cache $wrapper_cache -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | sort | \
+                fzf --exact --layout=reverse | oneline)
 
         if [[ -z "$cache" ]]; then
             show_options $selected
         else
-            echo -e "$b::$c$bold $EXECUTED_TEXT$c $wrapper_sudo -U $cache_dir/$cache\n"
-            $wrapper_sudo -U $cache_dir/$cache
+            if [ -f "${pacman_cache}${cache}" ]; then
+                print_executed -U "${pacman_cache}${cache}"
+                $wrapper_sudo -U "${pacman_cache}${cache}"
+            else
+                cache=$(find $wrapper_cache -type f -name $cache 2>/dev/null)
+                print_executed -U "${cache}"
+                $wrapper_sudo -U $cache
+            fi
             return_menu
         fi
     }
 
-    fzf_preview() {
-        case $1 in
-            Slq) check_fzf; fzf_exec -$1 Si S;;
-            Qq|Qqe|Qqet|Qqtd) check_fzf; fzf_exec -$1 Qil Rsn;;
-            RQqtd) [[ -n $($wrapper -Qdt) ]] && $wrapper_sudo -Rsn $($wrapper -Qqtd) || echo $NO_ORPHANS_TEXT; return_menu ;;
-            downgrade) downgrade_package;;
-        esac
+    rebuild_python() {
+        [[ $wrapper = "pacman" ]] && { echo "Need wrapper"; return_menu; }
+        rebuild_dir=$(find /usr/lib -type d -name "python*.*" | oneline)
+
+        if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
+            rebuild_dir="${rebuild_dir#* }"
+            rebuild_packages=$(pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneline)
+
+            if [[ -z "$rebuild_packages" ]]; then
+                print_done "$NOTHING_TEXT"
+            else
+                print_executed -S "$rebuild_packages --rebuild"
+                while true; do
+                    print_question "$RESUME_TEXT"
+                    read -r answer
+                    case "$answer" in
+                           [Yy]*) echo; break;;
+                        [Nn]*|"") echo; show_options;;
+                               *)  ;;
+                    esac
+                done
+                pacman -Qqo "$rebuild" | pacman -Qqm - | $wrapper -S --rebuild -
+            fi
+            
+        else
+            print_done "$NOTHING_TEXT"
+        fi
+
+        return_menu
     }
 
     show_options
@@ -335,40 +313,24 @@ management() {
 getId() {
     case "$1" in
         com.bxabi.bumblebee-indicator)              echo "998890";;
-        org.kde.plasma.shutdownorswitch)            echo "1288430";;
-        org.kde.mediabar)                           echo "1377704";;
-        com.github.heqro.day-night-switcher)        echo "1804745";;
         org.nielsvm.plasma.menupager)               echo "1898708";;
+        dev.vili.sahkoporssi)                       echo "2079446";;
         org.kde.mcwsremote)                         echo "2100417";;
-        org.kde.olib.thermalmonitor)                echo "2100418";;
-        org.kde.panel.transparency.toggle)          echo "2107649";;
-        com.github.tilorenz.compact_pager)          echo "2112443";;
         com.github.korapp.cloudflare-warp)          echo "2113872";;
         de.davidhi.ddcci-brightness)                echo "2114471";;
         org.kde.plasma.simplekickoff)               echo "2115883";;
-        com.dv.fokus)                               echo "2117117";;
         com.github.stepan-zubkov.days-to-new-year)  echo "2118132";;
         com.github.korapp.nordvpn)                  echo "2118492";;
-        com.github.tilorenz.timeprogressbar)        echo "2126775";;
-        luisbocanegra.panelspacer.extended)         echo "2128047";;
         plasmusic-toolbar)                          echo "2128143";;
-        luisbocanegra.intel.gpu.monitor)            echo "2128477";;
         org.kde.windowtitle)                        echo "2129423";;
-        luisbocanegra.panel.modes.switcher)         echo "2130222";;
-        org.kde.archupdatechecker)                  echo "2130541";;
         luisbocanegra.panel.colorizer)              echo "2130967";;
-        com.github.korapp.homeassistant)            echo "2131364";;
-        org.kde.plasma.plasm6desktopindicator)      echo "2131462";;
         com.github.dhruv8sh.year-progress-mod)      echo "2132405";;
         com.himdek.kde.plasma.overview)             echo "2132554";;
         com.himdek.kde.plasma.runcommand)           echo "2132555";;
         a2n.archupdate.plasmoid)                    echo "2134470";;
-        com.github.antroids.application-title-bar)  echo "2135509";;
-        org.kde.placesWidget)                       echo "2135511";;
         org.kde.plasma.yesplaymusic-lyrics)         echo "2135552";;
         com.github.prayag2.minimalistclock)         echo "2135642";;
         com.github.prayag2.modernclock)             echo "2135653";;
-        com.github.exequtic.apdatifier)             echo "2135796";;
         com.github.k-donn.plasmoid-wunderground)    echo "2135799";;
         com.dv.uswitcher)                           echo "2135898";;
         org.kde.Big.Clock)                          echo "2136288";;
@@ -379,381 +341,363 @@ getId() {
         Minimal.chaac.weather)                      echo "2136307";;
         com.Petik.clock)                            echo "2136321";;
         weather.bicolor.widget)                     echo "2136329";;
-        org.kde.netspeedWidget)                     echo "2136505";;
         com.nemmayan.clock)                         echo "2136546";;
-        com.github.scriptinator)                    echo "2136631";;
         com.github.zren.commandoutput)              echo "2136636";;
         org.kde.latte.separator)                    echo "2136852";;
-        com.github.zren.alphablackcontrol)          echo "2136860";;
-        org.kde.plasma.advancedradio)               echo "2136933";;
-        luisbocanegra.kdematerialyou.colors)        echo "2136963";;
         org.kde.plasma.Beclock)                     echo "2137016";;
         com.github.zren.dailyforecast)              echo "2137185";;
         com.github.zren.condensedweather)           echo "2137197";;
         org.kde.plasma.scpmk)                       echo "2137217";;
-        com.github.eatsu.spaceraspager)             echo "2137231";;
         zayron.simple.separator)                    echo "2137418";;
         com.github.zren.simpleweather)              echo "2137431";;
         com.gitlab.scias.advancedreboot)            echo "2137675";;
         org.zayronxio.vector.clock)                 echo "2137726";;
-        org.kde.plasma.catwalk)                     echo "2137844";;
-        ink.chyk.plasmaDesktopLyrics)               echo "2138202";;
         org.kpple.kppleMenu)                        echo "2138251";;
         ink.chyk.minimumMediaController)            echo "2138283";;
         optimus-gpu-switcher)                       echo "2138365";;
         org.kde.plasma.videocard)                   echo "2138473";;
         lenovo-conservation-mode-switcher)          echo "2138476";;
         com.github.boraerciyas.controlcentre)       echo "2138485";;
-        org.kde.plasma.pminhibition)                echo "2138746";;
         org.kde.Date.Bubble.P6)                     echo "2138853";;
         org.kde.latte.spacer)                       echo "2138907";;
         split-clock)                                echo "2139337";;
-        com.github.configurable_button)             echo "2139541";;
-        Plasma.Control.Hub)                         echo "2139890";;
-        com.github.davide-sd.ip_address)            echo "2140275";;
         d4rkwzd.colorpicker-tray)                   echo "2140856";;
         org.kde.MinimalMusic.P6)                    echo "2141133";;
-        Audio.Wave.Widget)                          echo "2142681";;
         com.github.zren.tiledmenu)                  echo "2142716";;
+        org.kde.plasma.resources-monitor)           echo "2143899";;
         AndromedaLauncher)                          echo "2144212";;
         org.previewqt.previewqt.plasmoidpreviewqt)  echo "2144426";;
         SoloDay.P6)                                 echo "2144969";;
-        com.github.liujed.rssfeeds)                 echo "2145065";;
         com.github.DenysMb.Kicker-AppsOnly)         echo "2145280";;
-        luisbocanegra.desktop.wallpaper.effects)    echo "2145723";;
+        zayron.almanac.V2)                          echo "2147850";;
+        org.kde.plasma.clearclock)                  echo "2147871";;
+        org.kde.windowtitle.Fork)                   echo "2147882";;
+        thot.observer.ram)                          echo "2148469";;
+        thot.observer.cpu)                          echo "2148472";;
+        org.kde.paneltransparencybutton)            echo "2150916";;
+        org.kde.plasma.win7showdesktop)             echo "2151247";;
     esac
 }
 
+download_xml() {
+    XML=$(mktemp)
+    page=0
+    while true; do
+        tempXML=$(mktemp)
+        url="https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=$page&pagesize=100"
+        curl -m 30 -s -o "$tempXML" --request GET --url "$url"
 
-checkPlasmoidsUpdates() {
-    [ $1 ] || exit
+        if [ -s "$tempXML" ]; then
+            statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
+            totalitems=$(xmlstarlet sel -t -m "//ocs/meta/totalitems" -v . -n "$tempXML")
 
-    for cmd in curl jq xmlstarlet; do
-        command -v "$cmd" >/dev/null || { echo 127; exit; }
-    done
+            onError() { rm "$XML" "$tempXML"; exit; }
 
-    plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
-    [ -z "$plasmoids" ] && exit
-
-    tempXML=$(mktemp)
-    curl -s -o "$tempXML" --request GET --url "https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=0&pagesize=100"
-
-    if [ -s "$tempXML" ]; then
-        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
-        if [ $statuscode = 200 ]; then
-            rm "$tempXML"
-            echo 200
-            exit
-        fi
-    else
-        exit
-    fi
-
-    xmlstarlet ed -L -d "//content[@details='summary']/*[not(self::id or self::name or self::version)]" "$tempXML"
-
-
-    declare -a lines
-    while IFS= read -r line; do
-        lines+=("$line")
-    done <<< "$plasmoids"
-
-    output=""
-    for plasmoid in "${lines[@]}"; do
-        dir="$HOME/.local/share/plasma/plasmoids/$plasmoid"
-        json="$dir/metadata.json"
-        [[ -s "$json" ]] || continue
-
-        if ! jq -e '.KPackageStructure' "$json" >/dev/null 2>&1; then
-            jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
-        fi
-
-        name=$(jq -r '.KPlugin.Name' $json)
-        contentId=$(xmlstarlet sel -t -m "//name[text()='$name']/.." -v "id" -n $tempXML)
-        [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
-        if [ -z "$contentId" ]; then
-            knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
-            if [ -f "$knsregistry" ]; then
-                contentId=$(xmlstarlet sel -t -m "//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/.." -v "id" -n $knsregistry)
+            if [[ $1 = "check" ]]; then
+                [[ $statuscode = 200 ]] && { echo 200; onError; }
+                [[ $statuscode != 100 ]] && { echo 999; onError; }
+            else
+                tput rc; tput ed
+                [[ $statuscode = 200 ]] && { print_error "$API_ERROR_TEXT"; onError; }
+                [[ $statuscode != 100 ]] && { print_error "$CHECKING_WIDGETS_TEXT"; onError; }
+                print_done "$CHECKING_WIDGETS_TEXT"
             fi
+
+        else
+            [[ $1 = "check" ]] && { echo 999; rm "$tempXML"; exit; } || { print_error "$CHECKING_WIDGETS_TEXT"; rm "$tempXML"; exit; }
         fi
-        [ -z "$contentId" ] && continue
 
-        current_version=$(jq -r '.KPlugin.Version' $json)
-        current_version_clean=$(echo $current_version | sed 's/[^0-9.]*//g')
-        current_version_clean=$(echo "$current_version_clean" | sed 's/^\.//')
-        latest_version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $tempXML)
-        latest_version_clean=$(echo $latest_version | sed 's/[^0-9.]*//g')
-        latest_version_clean=$(echo "$latest_version_clean" | sed 's/^\.//')
-        [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && continue
+        format_xml $tempXML
 
-        description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
-        [ -z "$description" ] || [ "$description" = "null" ] && description="-"
-
-        author=$(jq -r '.KPlugin.Authors[0].Name' $json)
-        [ -z "$author" ] || [ "$author" = "null" ] && author="-"
-
-        url="https://store.kde.org/p/"$contentId
-
-        if [ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]; then 
-            output+="${name}@${contentId}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
+        if [ -s $XML ]; then
+            temp2XML=$(mktemp)
+            head -n -2 $XML > $temp2XML && mv $temp2XML $XML
+            tail -n +11 $tempXML > $temp2XML && mv $temp2XML $tempXML
+            cat $tempXML >> $XML
+        else
+            cat $tempXML > $XML
         fi
+
+        rm $tempXML
+
+        items=$(((page + 1) * 100))
+        [[ $totalitems > $items ]] && { ((page++)); } || { break; }
     done
-
-    rm $tempXML
-    echo -e "$output"
 }
 
+get_widget_list() {
+    plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
+    [ -z "$plasmoids" ] && { exit; } || { while IFS= read -r line; do lines+=("$line"); done <<< "$plasmoids"; }
+}
 
-upgradePlasmoid() {
-    [ $1 ] || exit
+get_widget_info() {
+    dir="$HOME/.local/share/plasma/plasmoids/$plasmoid"
+    json="$dir/metadata.json"
+    [ -s "$json" ] || return 1
 
-    CMD_ERROR_TEXT="Required installed"
-    WARNING_TEXT_1="For some widgets you may need to Log Out or restart plasmashell after upgrade"
-    WARNING_TEXT_2="(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly."
-    FETCHING_INFO_TEXT="Fetching information about widget..."
-    DOWNLOADING_TEXT="Downloading widget..."
-    API_ERROR_TEXT="Too many API requests in the last 15 minutes from your IP address. Please try again later."
-    METADATA_ERROR_TEXT="File metadata.json not found"
-    setLanguage
-
-    for cmd in curl jq xmlstarlet unzip tar; do
-        command -v "$cmd" >/dev/null || { echo -e "\n$r\u2718 $CMD_ERROR_TEXT $cmd $c"; exit; }
-    done
-
-    if $2; then
-        echo -e "\n"
-        sleep 1
-    else
-        echo -e "\n${y}${WARNING_TEXT_1}\n${WARNING_TEXT_2}${c}\n"
-        sleep 2
+    jq . $json >/dev/null 2>&1 || return 1
+    if ! jq -e '.KPackageStructure' "$json" >/dev/null 2>&1; then
+        jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
     fi
 
-    contentId="$1"
-    tempDir=$(mktemp -d)
-    mkdir $tempDir/unpacked
-    tempXML="$tempDir/data.xml"
-
-    tput sc
-    text=$FETCHING_INFO_TEXT
-    curl -s -o $tempXML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null &
-    spinner $! "$text"
-    tput rc
-    tput ed
-
-    if [ ! -s $tempXML ]; then
-        echo -e "$r\u2718 $text$c"
-        exit
+    name=$(jq -r '.KPlugin.Name' $json)
+    contentId=$(xmlstarlet sel -t -m "//name[text()='$name']/.." -v "id" -n $XML)
+    [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
+    if [ -z "$contentId" ]; then
+        knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
+        [ -s "$knsregistry" ] && contentId=$(xmlstarlet sel -t -m "//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/.." -v "id" -n $knsregistry)
     fi
+    [ -z "$contentId" ] && return 1
 
-    statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
-    if [ $statuscode = 100 ]; then
-        echo -e "$g\u2714 $text $c"
-    elif [ $statuscode = 200 ]; then
-        echo -e "$r\u2718 $API_ERROR_TEXT $c"
-        exit
-    else
-        echo -e "$r\u2718 $text $c"
-    fi
+    current_version=$(jq -r '.KPlugin.Version' $json)
+    current_version_clean=$(echo $current_version | sed 's/[^0-9.]*//g')
+    current_version_clean=$(echo "$current_version_clean" | sed 's/^\.//')
+    latest_version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $XML)
+    latest_version_clean=$(echo $latest_version | sed 's/[^0-9.]*//g')
+    latest_version_clean=$(echo "$latest_version_clean" | sed 's/^\.//')
+    [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && return 1
 
-    tput sc
-    text=$DOWNLOADING_TEXT
-    link=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "downloadlink1[not(.='')] | downloadlink2[not(.='')] | downloadlink3[not(.='')] | downloadlink4[not(.='')] | downloadlink5[not(.='')] | downloadlink6[not(.='')]" -n $tempXML | tail -1 | tr -d '\n')
-    tempFile="$tempDir/$(basename "${link}")"
-    curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
-    spinner $! "$text"
-    tput rc
-    tput ed
+    description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
+    [ -z "$description" ] || [ "$description" = "null" ] && description="-"
 
-    if [ -s "$tempFile" ]; then
-        echo -e "$g\u2714 $text $c"
-    else
-        echo -e "$r\u2718 $text $c"
-        exit
-    fi
+    author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
+    [ -z "$author" ] || [ "$author" = "null" ] && author="-"
 
+    url="https://store.kde.org/p/"$contentId
+    return 0
+}
 
-    if [[ "$tempFile" == *.xz || "$tempFile" == *.gz ]]; then
+download_upgrade_widget() {
+    tput sc; curl -m 30 -s -o $tempFile --request GET --location "$link" 2>/dev/null &
+    spinner $! "$DOWNLOAD_TEXT $1"; tput rc; tput ed
+
+    [ -s "$tempFile" ] && { print_done "$DOWNLOAD_TEXT $1"; } || { print_error "$DOWNLOAD_TEXT $1"; return 1; }
+
+    if [[ "$tempFile" == *.xz || "$tempFile" == *.gz || "$tempFile" == *.tar ]]; then
         tar -xf "$tempFile" -C "$tempDir/unpacked"
     else
         unzip -q "$tempFile" -d "$tempDir/unpacked"
     fi
 
-
     metadata_path=$(find "$tempDir/unpacked" -name "metadata.json")
-    if [ -z "$metadata_path" ]; then
-        echo -e "$r\u2718 $METADATA_ERROR_TEXT $c"
-        exit
-    fi
+    [ -z "$metadata_path" ] && { print_error "$METADATA_ERROR_TEXT"; return 1; }
 
-    unpacked=$(dirname "$metadata_path")
-    cd "$unpacked"
+    unpacked=$(dirname "$metadata_path"); cd "$unpacked"
 
-
+    jq . metadata.json >/dev/null 2>&1 || { print_error "$METADATA_ERROR2_TEXT"; return 1; }
     if ! jq -e '.KPackageStructure' metadata.json >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
     fi
 
-    version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $tempXML | tr -d '\n')
-    jq --arg new_value "$version" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
+    jq --arg new_value "$latest_version" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
 
+    kpackagetool6 -t Plasma/Applet -u .
+    sleep 1
 
-    if [ "$1" = "2135796" ]; then
-        if [ "$2" = "true" ]; then
-            nohup kpackagetool6 -t Plasma/Applet -u . && systemctl --user restart plasma-plasmashell.service &
-        else
-            echo -e "$r Log out or restart plasmashell after upgrade $c"
-            sleep 2
-            kpackagetool6 -t Plasma/Applet -u .
-        fi
-    else
-        echo
-        kpackagetool6 -t Plasma/Applet -u .
-
-        if [ "$2" = "true" ]; then
-            sleep 2
-            systemctl --user restart plasma-plasmashell.service
-        fi
-    fi
+    return 0
 }
 
 
-checkPlasmoidsAndUpgrade() {
-    CMD_ERROR_TEXT="Required installed"
-    setLanguage
 
-    for cmd in curl jq xmlstarlet unzip tar; do
-        command -v "$cmd" >/dev/null || { echo "$CMD_ERROR_TEXT $cmd"; exit; }
-    done
 
-    plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
-    [ -z "$plasmoids" ] && exit
 
-    declare -a lines
-    while IFS= read -r line; do
-        lines+=("$line")
-    done <<< "$plasmoids"
+check_widgets_updates() {
+    define_text_icons true
+    for cmd in curl jq xmlstarlet; do command -v "$cmd" >/dev/null || { echo 127; exit; }; done
 
-    echo
-    tput sc
-    text="Checking widgets for updates..."
-    tempXML=$(mktemp)
-    curl -s -o "$tempXML" --request GET --url "https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=0&pagesize=100" &
-    spinner $! "$text"
-    tput rc
-    tput ed
-
-    if [ -s "$tempXML" ]; then
-        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
-        if [ $statuscode = 200 ]; then
-            rm "$tempXML"
-            echo 200
-            exit
-        fi
-    else
-        exit
-    fi
+    declare -a plasmoid lines; get_widget_list
+    download_xml check
 
     output=""
-    hasUpdates="false"
     for plasmoid in "${lines[@]}"; do
-        dir="$HOME/.local/share/plasma/plasmoids/$plasmoid"
-        json="$dir/metadata.json"
-        [[ -s "$json" ]] || continue
+        get_widget_info; [[ $? -ne 0 ]] && continue
 
-        if ! jq -e '.KPackageStructure' "$json" >/dev/null 2>&1; then
-            jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
-        fi
-
-        name=$(jq -r '.KPlugin.Name' $json)
-        contentId=$(xmlstarlet sel -t -m "//name[text()='$name']/.." -v "id" -n $tempXML)
-        [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
-        if [ -z "$contentId" ]; then
-            knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
-            if [ -s "$knsregistry" ]; then
-                contentId=$(xmlstarlet sel -t -m "//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/.." -v "id" -n $knsregistry)
-            fi
-        fi
-        [ -z "$contentId" ] && continue
-
-        current_version=$(jq -r '.KPlugin.Version' $json)
-        current_version_clean=$(echo $current_version | sed 's/[^0-9.]*//g')
-        current_version_clean=$(echo "$current_version_clean" | sed 's/^\.//')
-        latest_version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $tempXML)
-        latest_version_clean=$(echo $latest_version | sed 's/[^0-9.]*//g')
-        latest_version_clean=$(echo "$latest_version_clean" | sed 's/^\.//')
-        [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && continue
-
-        if [ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]; then
-            if [ "$contentId" = "2135796" ]; then
-                echo
-                echo -e "$r Upgrade Apdatifier manually $c"
-                echo
-            fi
-            [ "$contentId" = "2135796" ] && continue
-
-            tempDir=$(mktemp -d)
-            mkdir $tempDir/unpacked
-
-            tput sc
-            text="Downloading $name"
-            link=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "downloadlink1[not(.='')] | downloadlink2[not(.='')] | downloadlink3[not(.='')] | downloadlink4[not(.='')] | downloadlink5[not(.='')] | downloadlink6[not(.='')]" -n $tempXML | tail -1 | tr -d '\n')
-            tempFile="$tempDir/$(basename "${link}")"
-            curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
-            spinner $! "$text"
-            tput rc
-            tput ed
-
-            if [ -s "$tempFile" ]; then
-                echo -e "$g\u2714 $text $c"
-            else
-                echo -e "$r\u2718 $text $c"
-                exit
-            fi
-
-            if [[ "$tempFile" == *.xz || "$tempFile" == *.gz ]]; then
-                tar -xf "$tempFile" -C "$tempDir/unpacked"
-            else
-                unzip -q "$tempFile" -d "$tempDir/unpacked"
-            fi
-
-            metadata_path=$(find "$tempDir/unpacked" -name "metadata.json")
-            if [ -z "$metadata_path" ]; then
-                echo -e "$r\u2718 $METADATA_ERROR_TEXT $c"
-                exit
-            fi
-
-            unpacked=$(dirname "$metadata_path")
-            cd "$unpacked"
-
-            if ! jq -e '.KPackageStructure' metadata.json >/dev/null 2>&1; then
-                jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
-            fi
-
-            jq --arg new_value "$latest_version" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
-
-            kpackagetool6 -t Plasma/Applet -u .
-            sleep 1
-            hasUpdates="true"
+        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then 
+            output+="${name}@${contentId}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
         fi
     done
 
-    if [ "$1" = "true" ] && [ "$hasUpdates" = "true" ]; then
-        sleep 2
-        systemctl --user restart plasma-plasmashell.service
+    rm $XML
+    echo -e "$output"
+}
+
+check_widgets_and_upgrade() {
+    define_text_icons $2
+    check_pkg "curl jq xmlstarlet unzip tar"
+
+    declare -a plasmoid lines; get_widget_list
+
+    echo; tput sc; download_xml &
+    spinner $! "$CHECKING_WIDGETS_TEXT"
+
+    for plasmoid in "${lines[@]}"; do
+        get_widget_info; [[ $? -ne 0 ]] && continue
+
+        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
+            link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
+            tempDir=$(mktemp -d)
+            tempFile="$tempDir/$(basename "${link}")"
+            mkdir $tempDir/unpacked
+            download_upgrade_widget "$name"; [[ $? -ne 0 ]] && continue
+        fi
+    done
+
+    rm $XML
+
+    [ "$1" = "true" ] && [ "$hasUpdates" = "true" ] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
+}
+
+upgrade_widget() {
+    [ $1 ] || exit
+
+    define_text_icons $3
+    check_pkg "curl jq xmlstarlet unzip tar"
+
+    [[ "$2" = "true" ]] && { echo -e "\n"; } || { print_important "${WARNING_TEXT_1}\n${WARNING_TEXT_2}\n"; }; sleep 1
+
+    tempDir=$(mktemp -d); mkdir $tempDir/unpacked; XML="$tempDir/data.xml"
+
+    tput sc; curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$1" 2>/dev/null &
+    spinner $! "$FETCHING_INFO_TEXT"; tput rc; tput ed
+
+    onError() { rm -rf "$tempDir"; exit; }
+
+    if [ -s "$XML" ]; then
+        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
+        [[ $statuscode = 200 ]] && { print_error "$API_ERROR_TEXT"; onError; }
+        [[ $statuscode != 100 ]] && { print_error "$FETCHING_INFO_TEXT"; onError; }
+        print_done "$FETCHING_INFO_TEXT"
+    else
+        print_error "$FETCHING_INFO_TEXT"; onError
+    fi
+
+    format_xml $XML
+    link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
+    latest_version=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
+    tempFile="$tempDir/$(basename "${link}")"
+
+    download_upgrade_widget $4; [[ $? -ne 0 ]] && exit
+
+    [[ "$2" = "true" ]] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
+}
+
+
+
+
+
+
+define_text_icons() {
+    CMD_ERROR_TEXT="Required installed"
+
+    QUESTION_TEXT="Refresh mirrorlist?"
+    FETCHING_MIRRORS_TEXT="Fetching the latest filtered mirror list..."
+    RANKING_MIRRORS_TEXT="Ranking mirrors by their connection and opening speed..."
+    MIRRORS_ERROR_TEXT="Check your mirrorlist generator settings..."
+    MIRRORS_UPDATED_TEXT="was updated with the following servers:"
+    MIRRORLIST_SUDO_TEXT="To write to a mirrorlist file, sudo rights are required"
+    RETURN_MENU_TEXT="Press Enter to return menu"
+
+    WARNING_TEXT_1="For some widgets you may need to Log Out or restart plasmashell after upgrade"
+    WARNING_TEXT_2="(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly."
+    CHECKING_WIDGETS_TEXT="Checking widgets for updates..."
+    FETCHING_INFO_TEXT="Fetching information about widget..."
+    DOWNLOADING_TEXT="Downloading widget..."
+    DOWNLOAD_TEXT="Downloading"
+    API_ERROR_TEXT="Too many API requests in the last 15 minutes from your IP address. Please try again later."
+    METADATA_ERROR_TEXT="File metadata.json not found"
+    METADATA_ERROR2_TEXT="Errors in metadata.json file"
+    MANUALLY_TEXT="Upgrade Apdatifier manually"
+    LOGOUT_TEXT="Log out or restart plasmashell after upgrade"
+
+    LIST_ALL_TEXT="List all available packages from repositories"
+    LIST_INSTALLED_TEXT="List all installed packages"
+    LIST_EXPL_TEXT="List explicitly installed packages"
+    LIST_EXPL_NODEP_TEXT="List explicitly installed and isn't a dependency of anything"
+    LIST_DEPS="List installed as a dependency but isn't needed anymore (orphans)"
+    REMOVE_ORPHANS_TEXT="Uninstall orphans packages"
+    NO_ORPHANS_TEXT="No orphans to remove"
+    DOWNGRADE_TEXT="Downgrade package from cache"
+    REMOVE_CACHED_TEXT="Remove ALL cached packages"
+    REMOVE_CACHED_NOTINST_TEXT="Remove cached packages that are not currently installed"
+    REBUILD_PYTHON_TEXT="Rebuild python packages"
+    RESUME_TEXT="Resume?"
+    NOTHING_TEXT="Nothing to do"
+    REFRESH_MIRRORLIST_TEXT="Refresh mirrorlist"
+    EXIT_TEXT="Exit"
+    RETURN_MENU_TEXT="Press Enter to return menu"
+    EXECUTED_TEXT="Executed:"
+    SEARCH_TEXT="Search:"
+
+    LANGUAGE=${LANG:0:2}
+    MESSAGES_FILE="/home/$(logname)/.local/share/plasma/plasmoids/$applet/translate/$LANGUAGE.sh"
+    [ -f "$MESSAGES_FILE" ] && source "$MESSAGES_FILE"
+
+    if [[ $1 = "true" ]]; then
+        ERROR_ICO=""
+        DONE_ICO=""
+        IMPORTANT_ICO="󱇎"
+        QUESTION_ICO="󰆆"
+        EXECUTED_ICO="󰅱"
+        RETURN_ICO="󰄽"
+        SELECTOR_ICO="󰄾"
+        LIST_ALL_ICO="󱝩"
+        LIST_INSTALLED_ICO="󱝫"
+        LIST_EXPL_ICO="󱝭"
+        LIST_EXPL_NODEP_ICO="󱝭"
+        LIST_DEPS_ICO="󱝧"
+        REMOVE_ORPHANS_ICO=""
+        DOWNGRADE_ICO="󱝥"
+        REMOVE_CACHED_ICO="󱝝"
+        REMOVE_CACHED_NOTINST_ICO="󱝝"
+        REBUILD_PYTHON_ICO="󰌠"
+        REFRESH_MIRRORLIST_ICO="󱘴"
+        EXIT_ICO=""
+    else
+        ERROR_ICO="\u2718"
+        DONE_ICO="\u2714"
+        IMPORTANT_ICO="::"
+        QUESTION_ICO="::"
+        RETURN_ICO="::"
+        EXECUTED_ICO="::"
+        SELECTOR_ICO=">"
+        LIST_ALL_ICO=""
+        LIST_INSTALLED_ICO=""
+        LIST_EXPL_ICO=""
+        LIST_EXPL_NODEP_ICO=""
+        LIST_DEPS_ICO=""
+        REMOVE_ORPHANS_ICO=""
+        DOWNGRADE_ICO=""
+        REMOVE_CACHED_ICO=""
+        REMOVE_CACHED_NOTINST_ICO=""
+        REBUILD_PYTHON_ICO=""
+        REFRESH_MIRRORLIST_ICO=""
+        EXIT_ICO=""
     fi
 }
+
+r="\033[1;31m"; g="\033[1;32m"; b="\033[1;34m"; y="\033[0;33m"; c="\033[0m"; bold="\033[1m"
+print_menu() { tput civis; echo -e "\n${b}${RETURN_ICO}${c} ${bold}${RETURN_MENU_TEXT}${c}"; read -r; tput cnorm; }
+print_done() { echo -e "${g}${DONE_ICO} $1 ${c}"; }
+print_error() { echo -e "${r}${ERROR_ICO} $1 ${c}"; }
+print_important() { echo -e "${y}${bold}${IMPORTANT_ICO} $1 ${c}"; }
+print_question() { echo -en "\n${y}${QUESTION_ICO}${c}${y}${bold} $1 ${c}[y/${bold}N${c}]: "; }
+print_executed() { echo -e "${b}${EXECUTED_ICO}${c}${bold} ${EXECUTED_TEXT}${c} $wrapper_sudo $1 $2 \n"; }
+oneline() { tr '\n' ' ' | sed 's/ $//'; }
+check_pkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { print_error "${CMD_ERROR_TEXT} ${cmd}"; [ $2 ] && return_menu || exit; }; done; }
+spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
+format_xml() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
 
 
 
 case "$1" in
-                    "copy") copy;;
-                 "install") install;;
-               "uninstall") uninstall;;
-              "getIgnored") getIgnoredPackages;;
-              "management") management $2 $3 $4 true 0;;
-          "checkPlasmoids") checkPlasmoidsUpdates $2;;
-         "upgradePlasmoid") upgradePlasmoid $2 $3;;
-"checkPlasmoidsAndUpgrade") checkPlasmoidsAndUpgrade $2;;
-              "mirrorlist") mirrorlist_generator $2 $3;;
-                         *) exit 0;;
+                        "copy") copy;;
+                     "install") install;;
+                   "uninstall") uninstall;;
+                  "getIgnored") get_ignored_packages;;
+                  "management") shift; management $1 $2 $3 $4;;
+              "checkPlasmoids") shift; check_widgets_updates;;
+              "upgrade_widget") shift; upgrade_widget $1 $2 $3 $4;;
+   "check_widgets_and_upgrade") shift; check_widgets_and_upgrade $1 $2;;
+                  "mirrorlist") shift; mirrorlist_generator $1 $2 $3;;
+                             *) exit;;
 esac

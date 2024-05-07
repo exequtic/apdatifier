@@ -58,6 +58,15 @@ REMOVE_ORPHANS_TEXT="Удалить пакеты сироты"
 # No orphans to remove
 NO_ORPHANS_TEXT="Нет пакетов сирот для удаления"
 
+# Downgrade package from cache
+DOWNGRADE_TEXT="Понизить версию пакета установив из кэша"
+
+# Remove ALL cached packages
+REMOVE_CACHED_TEXT="Удалить ВЕСЬ кэш"
+
+# Remove cached packages that are not currently installed
+REMOVE_CACHED_NOTINST_TEXT="Удалить кэш пакетов, которые сейчас не установлены"
+
 # Executed:
 EXECUTED_TEXT="Выполнено:"
 

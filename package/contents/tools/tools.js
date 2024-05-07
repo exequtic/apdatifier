@@ -92,8 +92,10 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    const trizen = cfg.wrapper.split("/").pop() === "trizen"
-    const wrapperCmd = trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
+    cmd.trizen = cfg.wrapper.split("/").pop() === "trizen"
+    cmd.yakuake = cfg.terminal.split("/").pop() === "yakuake"
+
+    const wrapperCmd = cmd.trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
 
     const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
     cmd.news = yayOrParu ? yayOrParu + " -Pwwq" : null
@@ -104,15 +106,15 @@ function defineCommands() {
 
     if (!pkg.pacman || !cfg.archRepo) delete cmd.arch
 
-    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}';` : ""
+    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`sudo pacman -Syu ${flags}`).trim() + ";") : ""
-    const widgets = cfg.plasmoids ? `${script} checkPlasmoidsAndUpgrade ${cfg.refreshShell};` : ""
+    const widgets = cfg.plasmoids && cache.some(obj => obj.RE === "kde-store") ? `${script} check_widgets_and_upgrade ${cfg.refreshShell} ${cfg.termFont};` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
-    if (cfg.terminal.split("/").pop() === "yakuake") {
-        const qdbus = "qdbus org.kde.yakuake /yakuake/sessions"
+    if (cmd.yakuake) {
+        const qdbus = "qdbus6 org.kde.yakuake /yakuake/sessions"
         cmd.terminal = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId)`
         cmd.upgrade = `${cmd.terminal} "${commands}"`
         return
@@ -121,12 +123,13 @@ function defineCommands() {
     const init = cmd.arch ? i18n("Full system upgrade") : "Upgrade"
     const done = i18n("Press Enter to close")
     const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
-    const executed = cfg.aur && trizen ? "echo " : cmd.arch ? "echo; echo -e " + exec + arch + " echo" : "echo "
+    const execIco = cfg.termFont ? "󰅱 " : ":: "
+    const exec = blue + execIco + reset + bold + blue + i18n("Executed: ") + reset
+    const executed = cfg.aur && cmd.trizen ? "echo " : cmd.arch ? "echo; echo -e " + exec + arch + " echo" : "echo "
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
     cmd.terminal = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read"`
+    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read" &`
 }
 
 
@@ -136,35 +139,39 @@ function upgradePackage(name, id, contentID) {
     const init = i18n("Upgrade") + " " + name
     const done = i18n("Press Enter to close")
     const trap = "trap '' SIGINT"
-    const yakuake = cfg.terminal.split("/").pop() === "yakuake"
 
     if (id) {
-        yakuake ? sh.exec(`${cmd.terminal} "flatpak update ${id}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read"`)
+        cmd.yakuake ? sh.exec(`${cmd.terminal} "flatpak update ${id}"`)
+                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read" &`)
         return
     }
 
     if (contentID) {
-        yakuake ? sh.exec(`${cmd.terminal} "bash ${script} upgradePlasmoid ${contentID} ${cfg.refreshShell}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${script} upgradePlasmoid ${contentID} ${cfg.refreshShell}; ${print(done)}; read"`)
+        const commands = `${script} upgrade_widget ${contentID} ${cfg.refreshShell} ${cfg.termFont} ${name}`
+        cmd.yakuake ? sh.exec(`${cmd.terminal} "bash ${commands}"`)
+                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${commands}; ${print(done)}; read" &`)
         return
     }
 
     const red = "\x1B[1m\x1B[31m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const warning = red + i18n("Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead, perform full system upgrade.") + reset
-    const trizen = cfg.wrapper.split("/").pop() === "trizen"
-    const exec = blue + ":: " + reset + bold + i18n("Executed: ") + reset
+    const warningIco = cfg.termFont ? "  " : ":: "
+    const warning = bold + red + warningIco + i18n("Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead, perform full system upgrade.") + reset
+    const execIco = cfg.termFont ? "󰅱 " : ":: "
+    const exec = blue + execIco + reset + bold + blue + i18n("Executed: ") + reset
     const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `sudo pacman -Sy ${name}`
-    const executed = cfg.aur && trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
+    const executed = cfg.aur && cmd.trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
 
-    yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
-            : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; echo ${warning}; ${executed}; ${command}; ${print(done)}; read"`)
+    cmd.yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
+                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; echo ${warning}; ${executed}; ${command}; ${print(done)}; read" &`)
 }
 
 function management() {
     defineCommands()
     const wrapper = cfg.aur && cfg.wrapper ? cfg.wrapper : "pacman"
-    sh.exec(`${cmd.terminal} bash -c "${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${wrapper}"`)
+    const commands = `${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont} ${wrapper}`
+
+    cmd.yakuake ? sh.exec(`${cmd.terminal} "${commands}"`)
+                : sh.exec(`${cmd.terminal} bash -c "${commands}" &`)
 }
 
 
@@ -261,22 +268,21 @@ function checkUpdates() {
     })}
 
     function checkPlasmoids() {
-        statusIco = cfg.plasmoids ? "plasma-symbolic" : ""
-        statusMsg = cfg.plasmoids ? i18n("Checking widgets for updates...") : ""
+        statusIco = "plasma-symbolic"
+        statusMsg = i18n("Checking widgets for updates...")
 
-        sh.exec(`${script} checkPlasmoids ${cfg.plasmoids}`, (cmd, out, err, code) => {
+        sh.exec(`${script} checkPlasmoids`, (cmd, out, err, code) => {
             if (Error(code, err)) return
             out = out.trim()
 
-            if (out === "200") {
-                const errorText = i18n("Unable check widgets: too many API requests in the last 15 minutes from your IP address. Please try again later")
-                Error(out, errorText)
-                return
+            const errorTexts = {
+                "200": i18n("Unable check widgets: too many API requests in the last 15 minutes from your IP address. Please try again later"),
+                "127": i18n("Unable check widgets: some required utilities are not installed (curl, jq, xmlstarlet)"),
+                "999": i18n("Unable check widgets. Could not get data from the API")
             }
-
-            if (out === "127") {
-                const errorText = i18n("Unable check widgets: some required utilities are not installed (curl, jq, xmlstarlet)")
-                Error(out, errorText)
+            
+            if (out in errorTexts) {
+                Error(out, errorTexts[out])
                 return
             }
 
