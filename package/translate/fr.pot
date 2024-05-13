@@ -72,33 +72,33 @@ msgstr "Recherche de mises à jour flatpak..."
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets for updates..."
-msgstr ""
+msgstr "Vérification des mises à jour des widgets..."
 
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: too many API requests in the last 15 minutes from your IP address. Please try again later"
-msgstr ""
+msgstr "Impossible de vérifier les widgets : trop de requêtes API dans les 15 dernières minutes depuis votre adresse IP. Veuillez réessayer plus tard"
 
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr ""
+msgstr "Impossible de vérifier les widgets : certains utilitaires requis ne sont pas installés (curl, jq, xmlstarlet)"
 
 #: ../contents/tools/tools.js
 msgid "Open full article in browser"
-msgstr ""
+msgstr "Ouvrir l'article complet dans le navigateur"
 
 #: ../contents/tools/tools.js ../contents/ui/ConfigGeneral.qml
 msgid "Arch Linux News"
-msgstr ""
+msgstr "Arch Linux Actualités"
 
 #: ../contents/tools/tools.js
 msgid "<b>Latest news:</b> "
-msgstr ""
+msgstr "<b>Dernières nouvelles :</b> "
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "+%1 nouvelle mise à jour"
+msgstr[1] "+%1 nouvelles mises à jour"
 
 #: ../contents/tools/tools.js
 msgid "%1 update is pending"
