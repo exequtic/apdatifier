@@ -20,23 +20,23 @@ msgstr ""
 
 #: ../contents/config/config.qml
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #: ../contents/config/config.qml ../contents/tools/tools.js
 msgid "Upgrade"
-msgstr ""
+msgstr "Mettre à jour"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
-msgstr ""
+msgstr "Apparence"
 
 #: ../contents/config/config.qml
 msgid "Support author"
-msgstr ""
+msgstr "Soutenir l'auteur"
 
 #: ../contents/tools/tools.js
 msgid "Full system upgrade"
-msgstr ""
+msgstr "Mise à jour complète du système"
 
 #: ../contents/tools/tools.js
 msgid "Press Enter to close"
