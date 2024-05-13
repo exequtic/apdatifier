@@ -40,35 +40,35 @@ msgstr "Mise à jour complète du système"
 
 #: ../contents/tools/tools.js
 msgid "Press Enter to close"
-msgstr ""
+msgstr "Appuyez sur Entrée pour fermer"
 
 #: ../contents/tools/tools.js
 msgid "Executed: "
-msgstr ""
+msgstr "Exécuté: "
 
 #: ../contents/tools/tools.js
 msgid "Read the ArchWiki page on Partial Upgrades and understand why you should not do this! Instead, perform full system upgrade."
-msgstr ""
+msgstr "Lisez la page ArchWiki sur les mises à niveau partielles et comprenez pourquoi vous ne devriez pas faire cela ! Effectuez plutôt une mise à niveau complète du système."
 
 #: ../contents/tools/tools.js
 msgid "Full upgrade running..."
-msgstr ""
+msgstr "Mise à jour complète en cours..."
 
 #: ../contents/tools/tools.js
 msgid "Checking latest Arch Linux news..."
-msgstr ""
+msgstr "Vérification des dernières nouvelles d'Arch Linux..."
 
 #: ../contents/tools/tools.js
 msgid "Searching AUR for updates..."
-msgstr ""
+msgstr "Recherche de mises à jour dans AUR..."
 
 #: ../contents/tools/tools.js
 msgid "Searching arch repositories for updates..."
-msgstr ""
+msgstr "Recherche de mises à jour dans les référentiels Arch..."
 
 #: ../contents/tools/tools.js
 msgid "Searching for flatpak updates..."
-msgstr ""
+msgstr "Recherche de mises à jour flatpak..."
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets for updates..."
