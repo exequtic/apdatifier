@@ -9,24 +9,24 @@ ConfigModel {
     ConfigCategory {
         name: i18n("General")
         icon: "preferences-desktop"
-        source: "ConfigGeneral.qml"
+        source: "configuration/General.qml"
     }
 
     ConfigCategory {
          name: i18n("Upgrade")
          icon: "preferences-system-startup"
-         source: "ConfigUpgrade.qml"
+         source: "configuration/Upgrade.qml"
     }
 
     ConfigCategory {
          name: i18n("Appearance")
          icon: "preferences-desktop-display-color"
-         source: "ConfigAppearance.qml"
+         source: "configuration/Appearance.qml"
     }
 
     ConfigCategory {
-         name: i18n("Support author")
+         name: i18n("Support")
          icon: "system-help"
-         source: "ConfigSupport.qml"
+         source: "configuration/Support.qml"
     }
 }

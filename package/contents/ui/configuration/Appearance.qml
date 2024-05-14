@@ -8,29 +8,34 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtQuick.Controls
 
-import org.kde.kcmutils
 import org.kde.ksvg
+import org.kde.kcmutils
 import org.kde.iconthemes
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
-import "../tools/tools.js" as JS
+import "../components" as QQC
+import "../../tools/tools.js" as JS
 
 SimpleKCM {
     property alias cfg_fullView: extView.checked
     property alias cfg_spacing: spacing.value
-    property alias cfg_customIconsEnabled: customIconsEnabled.checked
-    property alias cfg_customIcons: customIcons.text
 
-    property alias cfg_showStatusBar: showStatusBar.checked
+    property alias cfg_showStatusText: showStatusText.checked
+    property alias cfg_showToolBar: showToolBar.checked
     property alias cfg_searchButton: searchButton.checked
-    property alias cfg_viewButton: viewButton.checked
+    property alias cfg_intervalButton: intervalButton.checked
     property alias cfg_sortButton: sortButton.checked
     property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
-
+    property alias cfg_showTabBar: showTabBar.checked
     property alias cfg_sortByName: sortByName.checked
+
+    property alias cfg_iconsThemeUI: iconsThemeUI.checked
+    property alias cfg_termFont: termFont.checked
+    property alias cfg_customIconsEnabled: customIconsEnabled.checked
+    property alias cfg_customIcons: customIcons.text
 
     property alias cfg_relevantIcon: relevantIcon.checked
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
@@ -109,57 +114,26 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Custom icons:")
-            CheckBox {
-                id: customIconsEnabled
-                text: i18n("Enable")
-            }
-
-            ContextualHelpButton {
-                toolTipText: i18n("You can specify which icon to use for each <b>system</b> package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update.")
-            }
-        }
-
-        ColumnLayout {
-            Layout.maximumWidth: appearancePage.width / 1.5
-            Layout.maximumHeight: 150
-            visible: customIconsEnabled.checked
-
-            ScrollView {
-                Layout.preferredWidth: appearancePage.width / 1.5
-                Layout.preferredHeight: 150
-
-                TextArea {
-                    id: customIcons
-                    width: parent.width
-                    height: parent.height
-                    font.family: "Monospace"
-                    font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                    placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > kde-symbolic\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
-                }
-            }
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
+        CheckBox {
+            id: showStatusText
+            Kirigami.FormData.label: i18n("Header:")
+            text: i18n("Show status text")
         }
 
         CheckBox {
-            id: showStatusBar
-            Kirigami.FormData.label: i18n("Status bar:")
-            text: i18n("Show status bar")
+            id: showToolBar
+            text: i18n("Show tool bar")
         }
 
         RowLayout {
-            enabled: showStatusBar.checked
+            enabled: showToolBar.checked
             CheckBox {
                 id: searchButton
                 icon.name: "search"
             }
             CheckBox {
-                id: viewButton
-                icon.name: "view-split-top-bottom"
+                id: intervalButton
+                icon.name: "media-playback-paused"
             }
             CheckBox {
                 id: sortButton
@@ -167,10 +141,10 @@ SimpleKCM {
             }
         }
         RowLayout {
-            enabled: showStatusBar.checked
+            enabled: showToolBar.checked
             CheckBox {
                 id: managementButton
-                icon.name: "run-build-configure"
+                icon.name: "tools"
             }
             CheckBox {
                 id: upgradeButton
@@ -179,6 +153,23 @@ SimpleKCM {
             CheckBox {
                 id: checkButton
                 icon.name: "view-refresh"
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Footer:")
+
+            CheckBox {
+                id: showTabBar
+                text: i18n("Show tab bar")
+            }
+
+            ContextualHelpButton {
+                toolTipText: i18n("You can also switch tabs by dragging the mouse left and right with the right mouse button held.")
             }
         }
 
@@ -216,6 +207,111 @@ SimpleKCM {
 
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Icons")
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Default UI icons:")
+            CheckBox {
+                id: iconsThemeUI
+                text: i18n("Enable")
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Icons in terminal:")
+            CheckBox {
+                id: termFont
+                text: i18n("Enable")
+            }
+
+            ContextualHelpButton {
+                toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Packages icons:")
+            CheckBox {
+                id: customIconsEnabled
+                text: i18n("Enable")
+            }
+
+            ContextualHelpButton {
+                toolTipText: i18n("You can specify which icon to use for each package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update.")
+            }
+        }
+
+        ColumnLayout {
+            Layout.maximumWidth: appearancePage.width / 2
+            Layout.maximumHeight: 150
+            visible: customIconsEnabled.checked
+
+            RowLayout {
+                ScrollView {
+                    Layout.preferredWidth: appearancePage.width / 2
+                    Layout.preferredHeight: 150
+
+                    TextArea {
+                        id: customIcons
+                        width: parent.width
+                        height: parent.height
+                        font.family: "Monospace"
+                        font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
+                        placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > start-kde-here\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
+                    }
+                }
+
+                ColumnLayout {
+                    QQC.Button {
+                        iconName: "view-list-icons"
+                        iconSize: Kirigami.Units.iconSizes.small
+                        tooltipText: i18n("Select icon and paste icon name to text area")
+                        onPressed: customIconsDialog.open()
+
+                        IconDialog {
+                            id: customIconsDialog
+                            onIconNameChanged: customIcons.text = customIcons.text + iconName
+                        }
+                    }
+
+                    QQC.Button {
+                        iconName: "document-save"
+                        iconSize: Kirigami.Units.iconSizes.small
+                        tooltipText: i18n("Backup list")
+                        onPressed: sh.exec(JS.writeFile(customIcons.text, JS.customIcons))
+                    }
+
+                    QQC.Button {
+                        iconName: "kt-restore-defaults"
+                        iconSize: Kirigami.Units.iconSizes.small
+                        tooltipText: i18n("Restore list from backup")
+                        onPressed: {
+                            sh.exec(JS.readFile(JS.customIcons), (cmd, out, err, code) => {
+                                if (out) customIcons.text = out
+                            })
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Panel Icon View")
         }
 
@@ -228,46 +324,22 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates.</p><br><p>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.</p>")
+                toolTipText: i18n("If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates. <br><br>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.")
             }
         }
 
-        Button {
-            id: iconButton
+        QQC.Button {
+            iconName: JS.setIcon(cfg_selectedIcon)
+            iconSize: Kirigami.Units.iconSizes.large
+            frameSize: iconSize * 1.5
 
-            implicitWidth: iconFrame.width + Kirigami.Units.smallSpacing
-            implicitHeight: implicitWidth
-            hoverEnabled: true
-
-            ToolTip.text: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
-            ToolTip.delay: Kirigami.Units.toolTipDelay
-            ToolTip.visible: iconButton.hovered
-
-            FrameSvgItem {
-                id: iconFrame
-                anchors.centerIn: parent
-                width: Kirigami.Units.iconSizes.medium + fixedMargins.left + fixedMargins.right
-                height: width
-                imagePath: "widgets/background"
-
-                Kirigami.Icon {
-                    anchors.centerIn: parent
-                    width: Kirigami.Units.iconSizes.medium
-                    height: width
-                    source: JS.setIcon(cfg_selectedIcon)
-                }
-            }
+            tooltipText: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
+            onPressed: menu.opened ? menu.close() : menu.open()
 
             IconDialog {
                 id: iconsDialog
                 onIconNameChanged: cfg_selectedIcon = iconName || JS.defaultIcon
             }
-
-            HoverHandler {
-                cursorShape: Qt.PointingHandCursor
-            }
-
-            onPressed: menu.opened ? menu.close() : menu.open()
 
             Menu {
                 id: menu
@@ -552,5 +624,9 @@ SimpleKCM {
         Item {
             Kirigami.FormData.isSection: true
         }
+    }
+
+    QQC.Shell {
+        id: sh
     }
 }

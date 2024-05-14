@@ -1,7 +1,7 @@
-# Translation of apdatifier in LANGUAGE
-# Copyright (C) 2024
+# Translation of apdatifier in nl
+# Copyright (C) 2023
 # This file is distributed under the same license as the apdatifier package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Heimen Stoffels <vistausss@fastmail.com>, 2023.
 #
 #, fuzzy
 msgid ""
@@ -9,18 +9,19 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-05-14 18:36+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2024-01-04 21:50+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../contents/config/config.qml
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: ../contents/config/config.qml ../contents/tools/tools.js
 msgid "Upgrade"
@@ -28,7 +29,7 @@ msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
-msgstr ""
+msgstr "Vormgeving"
 
 #: ../contents/config/config.qml
 msgid "Support"
@@ -36,15 +37,15 @@ msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Full system upgrade"
-msgstr ""
+msgstr "Systeem volledig bijwerken"
 
 #: ../contents/tools/tools.js
 msgid "Press Enter to close"
-msgstr ""
+msgstr "Druk op enter om te sluiten"
 
 #: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
 msgid "Executed:"
-msgstr ""
+msgstr "Uitgevoerd:"
 
 #: ../contents/tools/tools.js
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -75,7 +76,9 @@ msgid "Unable check widgets: "
 msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
+msgid ""
+"Too many API requests in the last 15 minutes from your IP address, please "
+"try again later"
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -101,58 +104,61 @@ msgstr ""
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "+%1 update"
+msgstr[1] "+%1 updates"
 
 #: ../contents/tools/tools.js
 msgid "%1 update is pending"
 msgid_plural "%1 updates total are pending"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 update in de wachtrij"
+msgstr[1] "%1 updates in de wachtrij"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
-msgstr ""
+msgstr "Recentste controle:"
 
 #: ../contents/tools/tools.js
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 seconde"
+msgstr[1] "%1 seconden"
 
 #: ../contents/tools/tools.js
 msgid "%1 minute"
 msgid_plural "%1 minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 minuut"
+msgstr[1] "%1 minuten"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
 msgid_plural "%1 hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 uur"
+msgstr[1] "%1 uur"
 
 #: ../contents/tools/tools.js
 msgid "ago"
-msgstr ""
+msgstr "geleden"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
 msgstr ""
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check updates"
-msgstr ""
+msgstr "Controleren op updates"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
-msgstr ""
+msgstr "Systeem bijwerken"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
 msgstr ""
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr ""
 
@@ -177,7 +183,8 @@ msgid "To write to the mirrorlist file, sudo privileges are required"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgid ""
+"For some widgets you may need to Log Out or restart plasmashell after upgrade"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
@@ -260,9 +267,10 @@ msgstr ""
 msgid "Press Enter to return menu"
 msgstr ""
 
-#: ../contents/ui/components/Messages.qml ../contents/ui/configuration/General.qml
+#: ../contents/ui/components/Messages.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Search:"
-msgstr ""
+msgstr "Zoeken:"
 
 #: ../contents/ui/components/Messages.qml
 msgid "Nothing to do"
@@ -274,7 +282,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
-msgstr ""
+msgstr "Lijstweergave"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View:"
@@ -290,7 +298,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Spacing:"
-msgstr ""
+msgstr "Afstand:"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header:"
@@ -313,20 +321,22 @@ msgid "Show tab bar"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
+msgid ""
+"You can also switch tabs by dragging the mouse left and right with the right "
+"mouse button held."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting:"
-msgstr ""
+msgstr "Sorteren:"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
-msgstr ""
+msgstr "Op naam"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr ""
+msgstr "Op pakketbron"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Icons"
@@ -336,7 +346,8 @@ msgstr ""
 msgid "Default UI icons:"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr ""
 
@@ -345,7 +356,9 @@ msgid "Icons in terminal:"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -354,8 +367,12 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
-"You can specify which icon to use for each package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: "
-"default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update."
+"You can specify which icon to use for each package.<br><br>Posible types in "
+"this order: default, repo, group, match, name<br><br><b>Syntax for rule:</"
+"b><br>type > value > icon-name<br>For default: default >> icon-"
+"name<br><br>If a package matches multiple rules, the last one will be "
+"applied to it.<br><br>Keep this list just in case; these settings might be "
+"lost after this plasmoid update."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -376,7 +393,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
-msgstr ""
+msgstr "Paneelpictogramweergave"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel icon:"
@@ -388,13 +405,14 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
-"If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates. <br><br>If the option is <b>disabled</b>, the icon in the system tray will always be "
-"<b>shown</b>."
+"If the option is <b>enabled</b>, the icon in the system tray will be "
+"<b>hidden</b> when there are no updates. <br><br>If the option is "
+"<b>disabled</b>, the icon in the system tray will always be <b>shown</b>."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default icon"
-msgstr ""
+msgstr "Standaardpictogram"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -402,7 +420,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Select..."
-msgstr ""
+msgstr "Kiezen…"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Indicators:"
@@ -418,27 +436,27 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
-msgstr ""
+msgstr "Embleem"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Circle"
-msgstr ""
+msgstr "Cirkel"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default accent color from current color scheme"
-msgstr ""
+msgstr "Standaard accentkleur uit kleurenschema"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
-msgstr ""
+msgstr "Standaardkleur"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Select circle color"
-msgstr ""
+msgstr "Kies een cirkelkleur"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Size:"
-msgstr ""
+msgstr "Grootte:"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Position:"
@@ -450,27 +468,27 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
-msgstr ""
+msgstr "Linksboven"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Right"
-msgstr ""
+msgstr "Rechtsboven"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Left"
-msgstr ""
+msgstr "Linksonder"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
-msgstr ""
+msgstr "Rechtsonder"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval:"
-msgstr ""
+msgstr "Periodiek bijwerken:"
 
 #: ../contents/ui/configuration/General.qml
 msgid "minutes"
-msgstr ""
+msgstr "minuten"
 
 #: ../contents/ui/configuration/General.qml
 msgid "The current timer is reset when either of these settings is changed."
@@ -482,8 +500,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time "
-"interval has passed since the widget was started. <b>Recommended.</b>"
+"If the option is <b>enabled</b>, update checking will begin immediately upon "
+"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
+"will be initiated after a specified time interval has passed since the "
+"widget was started. <b>Recommended.</b>"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -496,7 +516,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "found: %1"
-msgstr ""
+msgstr "gevonden: %1"
 
 #: ../contents/ui/configuration/General.qml
 msgid "It is necessary to have paru or yay installed."
@@ -506,9 +526,10 @@ msgstr ""
 msgid "Flatpak applications"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
-msgstr ""
+msgstr "Niet geïnstalleerd"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Plasma Widgets"
@@ -516,8 +537,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and "
-"specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+"To use this feature, the following installed utilities are required:"
+"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
+"<br>Don't forget to update the metadata.json and specify the name of the "
+"applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -525,7 +548,9 @@ msgid "Wrapper:"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "pacman-contrib not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
+msgid ""
+"pacman-contrib not installed! Highly recommended to install it for getting "
+"the latest updates without the need to download fresh package databases."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -533,7 +558,9 @@ msgid "Exclude packages:"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "In this field, you can specify package names that you want to ignore. <br><br>Specify names separated by space."
+msgid ""
+"In this field, you can specify package names that you want to ignore. "
+"<br><br>Specify names separated by space."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -558,15 +585,15 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Notifications:"
-msgstr ""
+msgstr "Meldingen:"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Popup"
-msgstr ""
+msgstr "Pop-up"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sound"
-msgstr ""
+msgstr "Geluid"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -574,25 +601,37 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
-"is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+"If the option is <b>enabled</b>, notifications will be sent when a new "
+"version of the package is bumped, even if the package is already on the "
+"list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
+"notifications will only be sent for packages that are not yet on the list. "
+"<b>Less notifications.</b>"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "To further configure, click the button below -> Application-specific settings -> Apdatifier"
+msgid ""
+"To further configure, click the button below -> Application-specific "
+"settings -> Apdatifier"
 msgstr ""
+"De rest van de instellingen zijn beschikbaar via onderstaande knop → "
+"Speciale programma-instellingen → Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
-msgstr ""
+msgstr "Instellen…"
 
 #: ../contents/ui/configuration/Support.qml
-msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
+msgid ""
+"Thanks for using my widget! If you appreciate my work, you can support me by "
+"starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
+"Bedankt voor het gebruik van mijn widget! Als je mijn werk waardeert, "
+"ondersteun me dan door de GitHub-pakketbron een ster te geven of me een "
+"kopje koffie te schenken. ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
-msgstr ""
+msgstr "%1 openen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal:"
@@ -600,7 +639,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options:"
-msgstr ""
+msgstr "Opties:"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets:"
@@ -612,8 +651,11 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will restart plasmashell.service. <br><br>If "
-"plasmashell is only terminating and not starting itself, then execute the command: <b>kstart plasmashell</b>"
+"After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option. "
+"It will restart plasmashell.service. <br><br>If plasmashell is only "
+"terminating and not starting itself, then execute the command: <b>kstart "
+"plasmashell</b>"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -629,7 +671,10 @@ msgid "Suggest refresh on upgrade"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgid ""
+"To use this feature, the following installed utilities are required:"
+"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
+"mirrorlist (click button to open link)"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -662,8 +707,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
-"to choose <b>1-2</b> countries closest to you."
+"You must select at least one country, otherwise all will be chosen by "
+"default. <br><br><b>The more countries you select, the longer it will take "
+"to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
+"countries closest to you."
 msgstr ""
 
 #: ../contents/ui/main.qml
@@ -712,7 +759,7 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
-msgstr ""
+msgstr "Het systeem is bijgewerkt"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"

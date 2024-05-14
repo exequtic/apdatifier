@@ -11,7 +11,7 @@
 <kcfgfile name="apdatifier"/>
     <group name="General">
         <entry name="interval" type="bool"><default>true</default></entry>
-        <entry name="time" type="int"><default>30</default></entry>
+        <entry name="time" type="int"><default>60</default></entry>
         <entry name="checkOnStartup" type="bool"><default>false</default></entry>
         <entry name="archRepo" type="bool"><default>true</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
@@ -21,8 +21,10 @@
         <entry name="plasmoids" type="bool"><default>false</default></entry>
         <entry name="wrapper" type="string"><default></default></entry>
         <entry name="exclude" type="string"><default></default></entry>
-        <entry name="middleClick" type="string"><default>switchInterval</default></entry>
-        <entry name="rightClick" type="string"><default></default></entry>
+        <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
+        <entry name="rightAction" type="string"><default></default></entry>
+        <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
+        <entry name="scrollDownAction" type="string"><default>management</default></entry>
         <entry name="notifications" type="bool"><default>true</default></entry>
         <entry name="withSound" type="bool"><default>true</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
@@ -36,20 +38,23 @@
         <entry name="refreshShell" type="bool"><default>false</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
-        <entry name="dynamicUrl" type="string"><default></default></entry>
+        <entry name="dynamicUrl" type="string"><default>null</default></entry>
     </group>
     <group name="Appearance">
         <entry name="fullView" type="bool"><default>true</default></entry>
         <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="customIconsEnabled" type="bool"><default>false</default></entry>
         <entry name="customIcons" type="string"><default></default></entry>
-        <entry name="showStatusBar" type="bool"><default>true</default></entry>
+        <entry name="iconsThemeUI" type="bool"><default>false</default></entry>
+        <entry name="showStatusText" type="bool"><default>true</default></entry>
+        <entry name="showToolBar" type="bool"><default>true</default></entry>
         <entry name="searchButton" type="bool"><default>true</default></entry>
-        <entry name="viewButton" type="bool"><default>true</default></entry>
+        <entry name="intervalButton" type="bool"><default>true</default></entry>
         <entry name="sortButton" type="bool"><default>true</default></entry>
         <entry name="managementButton" type="bool"><default>true</default></entry>
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
+        <entry name="showTabBar" type="bool"><default>true</default></entry>
         <entry name="sortByName" type="bool"><default>true</default></entry>
         <entry name="relevantIcon" type="bool"><default>false</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>

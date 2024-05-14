@@ -10,7 +10,7 @@ import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
-import "../tools/tools.js" as JS
+import "../../tools/tools.js" as JS
 
 Item {
     Kirigami.Icon {
@@ -49,8 +49,8 @@ Item {
 
         Rectangle {
             id: counterFrame
-            width: Math.round(counter.width + (counter.width / 4))
-            height: counter.height
+            width: cfg.indicatorCenter ? icon.width : Math.round(counter.width + (counter.width / 4))
+            height: cfg.indicatorCenter ? icon.height : counter.height
             radius: width * 0.35
             color: Kirigami.Theme.backgroundColor
             opacity: 0.8
@@ -105,19 +105,43 @@ Item {
     }
 
     MouseArea {
+        property bool wasExpanded: false
         id: mouseArea
         anchors.fill: parent
-        acceptedButtons: cfg.rightClick ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
         hoverEnabled: true
-        property bool wasExpanded: false
-        onPressed: wasExpanded = expanded
-        onClicked: (mouse) => {
-            if (mouse.button == Qt.LeftButton) expanded = !wasExpanded
-            if (mouse.button == Qt.MiddleButton && cfg.middleClick) JS[cfg.middleClick]()
-            if (mouse.button == Qt.RightButton && cfg.rightClick) JS[cfg.rightClick]()
-        }
+        acceptedButtons: cfg.rightAction ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
+
         onEntered: {
             lastCheck = JS.getLastCheckTime()
+        }
+
+        onPressed: mouse => {
+            wasExpanded = expanded
+            if (!cfg.rightAction && mouse.button == Qt.RightButton) mouse.accepted = false
+        }
+
+        onClicked: mouse => {
+            if (mouse.button == Qt.LeftButton) expanded = !wasExpanded
+            if (mouse.button == Qt.MiddleButton && cfg.middleAction) JS[cfg.middleAction]()
+            if (mouse.button == Qt.RightButton && cfg.rightAction) JS[cfg.rightAction]()
+        }
+
+        WheelHandler {
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            onWheel: (event) => {
+                if (srollTimer.running) return
+                srollTimer.start()
+                var action = event.angleDelta.y > 0 ? cfg.scrollUpAction : cfg.scrollDownAction
+                if (!action) return
+                JS[action]()
+            }
+        }
+
+        Timer {
+            id: srollTimer
+            interval: 500
+            running: false
+            repeat: false
         }
     }
 }

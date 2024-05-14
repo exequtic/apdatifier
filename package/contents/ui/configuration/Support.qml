@@ -51,7 +51,7 @@ Kirigami.Page {
 
         Image {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            source: "../assets/apdatifier-donate.png"
+            source: "../assets/art/apdatifier-donate.png"
             sourceSize.width: supportPage.width / 2
             sourceSize.height: supportPage.height
 
@@ -72,7 +72,7 @@ Kirigami.Page {
 
         Image {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            source: "../assets/apdatifier-githubstar.png"
+            source: "../assets/art/apdatifier-githubstar.png"
             sourceSize.width: supportPage.width / 2
             sourceSize.height: supportPage.height
 

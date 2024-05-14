@@ -11,11 +11,13 @@ import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
+import "representation" as Rep
+import "components" as DataSource
 import "../tools/tools.js" as JS
 
 PlasmoidItem {
-    compactRepresentation: CompactRepresentation {}
-    fullRepresentation: FullRepresentation {}
+    compactRepresentation: Rep.Panel {}
+    fullRepresentation: Rep.Expanded {}
 
     switchWidth: Kirigami.Units.gridUnit * 25
     switchHeight: Kirigami.Units.gridUnit * 10
@@ -32,9 +34,11 @@ PlasmoidItem {
     toolTipSubText: busy ? statusMsg : lastCheck
 
     property var listModel: listModel
+    property var count
+    property var cache
     property var cmd: []
+    property var news: []
     property bool busy: false
-    property bool upgrading: false
     property string error: ""
     property string statusMsg: ""
     property string statusIco: ""
@@ -42,9 +46,6 @@ PlasmoidItem {
     property string notifyBody: ""
     property string lastCheck
     property string timestamp
-    property var count
-    property var cache
-    property var news: []
 
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time
@@ -56,7 +57,7 @@ PlasmoidItem {
         id: listModel
     }
 
-    Shell {
+    DataSource.Shell {
         id: sh
     }
 
@@ -94,7 +95,6 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Check updates")
             icon.name: "view-refresh"
-            enabled: !upgrading
             onTriggered: JS.checkUpdates()
         },
         PlasmaCore.Action {
@@ -105,7 +105,7 @@ PlasmoidItem {
         },
         PlasmaCore.Action {
             text: i18n("Management")
-            icon.name: "run-build-configure"
+            icon.name: "tools"
             enabled: !busy && !error && pkg.pacman && cfg.terminal
             onTriggered: JS.management()
         }

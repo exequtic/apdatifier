@@ -10,11 +10,10 @@ import QtQuick.Controls
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
 
-import "../tools/tools.js" as JS
+import "../components" as QQC
+import "../../tools/tools.js" as JS
 
 SimpleKCM {
-    id: root
-
     property alias cfg_interval: interval.checked
     property alias cfg_time: time.value
     property alias cfg_checkOnStartup: checkOnStartup.checked
@@ -33,8 +32,10 @@ SimpleKCM {
     property alias cfg_withSound: withSound.checked
     property alias cfg_notifyEveryBump: notifyEveryBump.checked
 
-    property string cfg_middleClick: plasmoid.configuration.middleClick
-    property string cfg_rightClick: plasmoid.configuration.rightClick
+    property string cfg_middleAction: plasmoid.configuration.middleAction
+    property string cfg_rightAction: plasmoid.configuration.rightAction
+    property string cfg_scrollUpAction: plasmoid.configuration.scrollUpAction
+    property string cfg_scrollDownAction: plasmoid.configuration.scrollDownAction
 
     property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
@@ -52,7 +53,7 @@ SimpleKCM {
 
             SpinBox {
                 id: time
-                from: 10
+                from: 15
                 to: 1440
                 stepSize: 5
                 value: time
@@ -64,7 +65,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>The current timer is reset when either of these settings is changed.</p>")
+                toolTipText: i18n("The current timer is reset when either of these settings is changed.")
             }
         }
 
@@ -76,7 +77,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.</p><br><p>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b></p>")
+                toolTipText: i18n("If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b>")
             }
         }
 
@@ -87,11 +88,9 @@ SimpleKCM {
         RowLayout {
             Kirigami.FormData.label: i18n("Search:")
 
-            spacing: Kirigami.Units.gridUnit
-
             CheckBox {
                 id: archRepo
-                text: i18n("Arch repositories")
+                text: i18n("Arch Official Repositories")
                 enabled: pkg.pacman
 
                 Component.onCompleted: {
@@ -105,11 +104,19 @@ SimpleKCM {
 
         RowLayout {
             spacing: Kirigami.Units.gridUnit
+            visible: pkg.pacman
 
             CheckBox {
                 id: aur
-                text: "AUR"
+                text: i18n("Arch User Repository")
                 enabled: archRepo.checked && pkg.pacman && wrappers
+
+                Component.onCompleted: {
+                    if (checked && !wrappers) {
+                        checked = false
+                        cfg_aur = checked
+                    }
+                }
             }
 
             Kirigami.UrlButton {
@@ -129,6 +136,8 @@ SimpleKCM {
         }
 
         RowLayout {
+            visible: pkg.pacman
+
             CheckBox {
                 id: archNews
                 text: i18n("Arch Linux News")
@@ -136,7 +145,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>It is necessary to have paru or yay installed.</p>")
+                toolTipText: i18n("It is necessary to have paru or yay installed.")
             }
         }
 
@@ -145,7 +154,7 @@ SimpleKCM {
 
             CheckBox {
                 id: flatpak
-                text: "Flatpak"
+                text: i18n("Flatpak applications")
                 enabled: pkg.flatpak
 
                 Component.onCompleted: {
@@ -184,6 +193,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Wrapper:")
+            visible: aur.checked && wrappers && wrappers.length > 1
 
             ComboBox {
                 model: wrappers
@@ -203,8 +213,6 @@ SimpleKCM {
                     }
                 }
             }
-
-            visible: aur.checked && wrappers.length > 1
         }
 
         Kirigami.Separator {
@@ -238,7 +246,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>In this field, you can specify package names that you want to ignore.<br><b>Specify names separated by spaces.</b><br><br>If you want to ignore packages or groups during an upgrade, specify them in the settings <b>IgnorePkg</b> and <b>IgnoreGroup</b> of the /etc/pacman.conf file.</p>")
+                toolTipText: i18n("In this field, you can specify package names that you want to ignore. <br><br>Specify names separated by space.")
             }
         }
 
@@ -246,54 +254,22 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        RowLayout {
+        QQC.ComboBox {
             Kirigami.FormData.label: i18n("Mouse actions:")
-
-            ComboBox {
-                implicitWidth: 150
-                textRole: "name"
-                model: [{"name": i18n("None"), "value": ""},
-                        {"name": i18n("Check updates"), "value": "checkUpdates"},
-                        {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
-                        {"name": i18n("Switch interval"), "value": "switchInterval"},
-                        {"name": i18n("Management"), "value": "management"}]
-
-                onCurrentIndexChanged: {
-                    cfg_middleClick = model[currentIndex]["value"]
-                }
-
-                Component.onCompleted: {
-                    currentIndex = JS.setIndex(plasmoid.configuration.middleClick, model)
-                }
-            }
-
-            Label {
-                text: i18n("for middle button")
-            }
+            type: "middle"
+            labelText: i18n("middle click")
         }
-
-        RowLayout {
-            ComboBox {
-                implicitWidth: 150
-                textRole: "name"
-                model: [{"name": i18n("None"), "value": ""},
-                        {"name": i18n("Check updates"), "value": "checkUpdates"},
-                        {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
-                        {"name": i18n("Switch interval"), "value": "switchInterval"},
-                        {"name": i18n("Management"), "value": "management"}]
-
-                onCurrentIndexChanged: {
-                    cfg_rightClick = model[currentIndex]["value"]
-                }
-
-                Component.onCompleted: {
-                    currentIndex = JS.setIndex(plasmoid.configuration.rightClick, model)
-                }
-            }
-
-            Label {
-                text: i18n("for right button")
-            }
+        QQC.ComboBox {
+            type: "right"
+            labelText: i18n("right click")
+        }
+        QQC.ComboBox {
+            type: "scrollUp"
+            labelText: i18n("scroll up")
+        }
+        QQC.ComboBox {
+            type: "scrollDown"
+            labelText: i18n("scroll down")
         }
 
         Item {
@@ -323,7 +299,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b></p><br><p>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b></p>")
+                toolTipText: i18n("If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>")
             }
         }
 

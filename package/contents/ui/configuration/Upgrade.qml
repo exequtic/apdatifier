@@ -10,16 +10,15 @@ import QtQuick.Controls
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
 
-import "../tools/tools.js" as JS
+import "../../tools/tools.js" as JS
 
 SimpleKCM {
-    property alias cfg_termFont: termFont.checked
+    property string cfg_terminal: plasmoid.configuration.terminal
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_refreshShell: refreshShell.checked
-    property string cfg_terminal: plasmoid.configuration.terminal
-    property alias cfg_mirrors: mirrors.checked
 
+    property alias cfg_mirrors: mirrors.checked
     property alias cfg_mirrorCount: mirrorCount.value
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
@@ -68,19 +67,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Icons:")
-            CheckBox {
-                id: termFont
-                text: i18n("Enable")
-            }
-
-            ContextualHelpButton {
-                toolTipText: i18n("<p>If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.</p>")
-            }
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Additional flags:")
+            Kirigami.FormData.label: i18n("Options:")
             spacing: 0
             visible: pkg.pacman
 
@@ -110,7 +97,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will restart plasmashell.service. The terminal may be closed automatically as Apdatifier will also be restarted.<br><br>If plasmashell is only terminating and not starting itself, then execute the command: kstart plasmashell.</p>")
+                toolTipText: i18n("After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will restart plasmashell.service. <br><br>If plasmashell is only terminating and not starting itself, then execute the command: <b>kstart plasmashell</b>")
             }
         }
 
@@ -129,7 +116,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b></p><br><p>Also see https://archlinux.org/mirrorlist (click button to open link)</p>")
+                toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
                 onClicked: {
                     Qt.openUrlExternally("https://archlinux.org/mirrorlist")
                 }
@@ -194,7 +181,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>Number of servers to write to mirrorlist file, 0 for all</p>")
+                toolTipText: i18n("Number of servers to write to mirrorlist file. 0 for all.")
             }
         }
 
@@ -219,18 +206,18 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("<p>You must select at least one country, otherwise all will be chosen by default.<br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b><br><br>It is optimal to choose <b>1-2</b> countries closest to you.</p>")
+                toolTipText: i18n("You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> countries closest to you.")
             }
         }
 
         ColumnLayout {
             Layout.maximumWidth: upgradePage.width / 2
-            Layout.maximumHeight: 150
+            Layout.maximumHeight: 200
             enabled: mirrors.checked
 
             ScrollView {
                 Layout.preferredWidth: upgradePage.width / 2
-                Layout.preferredHeight: 150
+                Layout.preferredHeight: 200
 
                 GridLayout {
                     columns: 1
@@ -249,6 +236,10 @@ SimpleKCM {
                     }
                 }
             }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
         }
     }
 

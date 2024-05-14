@@ -9,30 +9,24 @@ localdir="$HOME/.local/share"
 plasmoid="$localdir/plasma/plasmoids/$applet"
 iconsdir="$localdir/icons/breeze/status/24"
 notifdir="$localdir/knotifications6"
-
 file1="apdatifier-plasmoid.svg"
 file2="apdatifier-packages.svg"
-file3="apdatifier.notifyrc"
+file3="apdatifier-package.svg"
 
 
 copy() {
     [ -d $iconsdir ] || mkdir -p $iconsdir
-    [ -f $iconsdir/$file1 ] || cp $plasmoid/contents/assets/$file1 $iconsdir
-    [ -f $iconsdir/$file2 ] || cp $plasmoid/contents/assets/$file2 $iconsdir
-
+    [ -f $iconsdir/$file1 ] || cp $plasmoid/contents/ui/assets/icons/$file1 $iconsdir
+    [ -f $iconsdir/$file2 ] || cp $plasmoid/contents/ui/assets/icons/$file2 $iconsdir
+    [ -f $iconsdir/$file3 ] || cp $plasmoid/contents/ui/assets/icons/$file3 $iconsdir
     [ -d $notifdir ] || mkdir -p $notifdir
-    [ -d $notifdir ] && cp $plasmoid/contents/notifyrc/$file3 $notifdir
-
+    [ -d $notifdir ] && notifyrc
     [ -d "$HOME/.cache/apdatifier" ] || mkdir -p "$HOME/.cache/apdatifier"
 }
 
 
-### Download and install with latest commit
 install() {
-    command -v git >/dev/null || { echo "git not installed" >&2; exit; }
-    command -v zip >/dev/null || { echo "zip not installed" >&2; exit; }
-    command -v kpackagetool6 >/dev/null || { echo "kpackagetool6 not installed" >&2; exit; }
-
+    getTxt; checkPkg "git zip kpackagetool6"
     if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
         echo "Plasmoid already installed"
         uninstall
@@ -56,7 +50,7 @@ install() {
 
 
 uninstall() {
-    command -v kpackagetool6 >/dev/null || { echo "kpackagetool6 not installed" >&2; exit; }
+    getTxt; checkPkg "kpackagetool6"
 
     [ ! -f $iconsdir/$file1 ] || rm -f $iconsdir/$file1
     [ ! -f $iconsdir/$file2 ] || rm -f $iconsdir/$file2
@@ -69,8 +63,27 @@ uninstall() {
     sleep 2
 }
 
+notifyrc() {
+cat > "$notifdir/apdatifier.notifyrc" << EOF
+[Global]
+IconName=apdatifier-plasmoid
+Comment=Apdatifier
 
-get_ignored_packages() {
+[Event/popup]
+Name=Only popup
+Comment=Popup option enabled
+Action=Popup
+
+[Event/sound]
+Name=Sound popup
+Comment=Popup and sound options enabled
+Action=Popup|Sound
+Sound=service-login
+EOF
+}
+
+
+getIgnorePkg() {
     conf=$(pacman -Qv | awk 'NR==2 {print $NF}')
     if [ -s "$conf" ]; then
         grep -E "^\s*IgnorePkg\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
@@ -79,15 +92,15 @@ get_ignored_packages() {
 }
 
 
-mirrorlist_generator() {
+mirrorlistGenerator() {
     count=$1; link=$2; icons=$3; wrapper=$4; menu=$5; selected=$6
-    define_text_icons $icons
+    getTxt $icons
 
-    return_menu() { print_menu; management $count $link $icons $wrapper $selected; }
+    returnMenu() { printMenu; management $count $link $icons $wrapper $selected; }
 
     if [[ "$menu" != "true" ]]; then
         while true; do
-            print_question "$QUESTION_TEXT"; read -r answer
+            printQuestion "$MNG_OPT_11?"; read -r answer
             case "$answer" in
                     [Yy]*) echo; break;;
                  [Nn]*|"") echo; exit;;
@@ -96,32 +109,32 @@ mirrorlist_generator() {
         done
     fi
 
-    check_pkg "curl rankmirrors" $5
+    checkPkg "curl rankmirrors" $5
 
     tput sc
     tempfile=$(mktemp)
     curl -m 30 -s -o $tempfile "$2" 2>/dev/null &
-    spinner $! "$FETCHING_MIRRORS_TEXT"
+    spinner $! "$MIRRORS_FETCH"
     tput rc; tput ed
     if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
-        print_done "$FETCHING_MIRRORS_TEXT"
+        printDone "$MIRRORS_FETCH"
     else
-        print_error "$FETCHING_MIRRORS_TEXT"
-        print_error "$MIRRORS_ERROR_TEXT"
-        [[ "$menu" = "true" ]] && return_menu || exit
+        printError "$MIRRORS_FETCH"
+        printError "$MIRRORS_ERR"
+        [[ "$menu" = "true" ]] && returnMenu || exit
     fi
 
     tput sc
     sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
     tempfile2=$(mktemp)
     rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
-    spinner $! "$RANKING_MIRRORS_TEXT"
+    spinner $! "$MIRRORS_RANK"
     tput rc; tput ed
     if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; then
-        print_done "$RANKING_MIRRORS_TEXT"
+        printDone "$MIRRORS_RANK"
     else
-        print_error "$RANKING_MIRRORS_TEXT"
-        [[ "$menu" = "true" ]] && return_menu || exit
+        printError "$MIRRORS_RANK"
+        [[ "$menu" = "true" ]] && returnMenu || exit
     fi
 
     mirrorfile="/etc/pacman.d/mirrorlist"
@@ -129,20 +142,20 @@ mirrorlist_generator() {
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
 
     if [[ "$menu" = "true" ]]; then
-        sudo -n true 2>/dev/null || { print_important "$MIRRORLIST_SUDO_TEXT"; }
+        sudo -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
         cat $tempfile2 | sudo tee $mirrorfile > /dev/null
     else
         cat $tempfile2 > $mirrorfile
     fi
 
     if [ $? -eq 0 ]; then
-        print_done "$mirrorfile $MIRRORS_UPDATED_TEXT"
+        printDone "$mirrorfile $MIRRORS_UPD"
         echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c\n"
         rm $tempfile; rm $tempfile2
-        [[ "$menu" = "true" ]] && return_menu
+        [[ "$menu" = "true" ]] && returnMenu
     else
-        print_error "$MIRRORLIST_SUDO_TEXT"
-        [[ "$menu" = "true" ]] && return_menu || exit
+        printError "$MIRRORS_SUDO"
+        [[ "$menu" = "true" ]] && returnMenu || exit
     fi
 }
 
@@ -153,32 +166,31 @@ management() {
     wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
     [[ $wrapper = "pacman" ]] && wrapper_sudo="sudo pacman"
 
-    define_text_icons $icons
+    getTxt $icons
 
-    return_menu() { print_menu; show_options $selected; }
+    returnMenu() { printMenu; showOptions $selected; }
 
     options=(
-        "$LIST_ALL_ICO $LIST_ALL_TEXT"
-        "$LIST_INSTALLED_ICO $LIST_INSTALLED_TEXT"
-        "$LIST_EXPL_ICO $LIST_EXPL_TEXT"
-        "$LIST_EXPL_NODEP_ICO $LIST_EXPL_NODEP_TEXT"
-        "$LIST_DEPS_ICO $LIST_DEPS"
-        "$REMOVE_ORPHANS_ICO $REMOVE_ORPHANS_TEXT"
-        "$DOWNGRADE_ICO $DOWNGRADE_TEXT"
-        "$REMOVE_CACHED_ICO $REMOVE_CACHED_TEXT"
-        "$REMOVE_CACHED_ICO $REMOVE_CACHED_NOTINST_TEXT"
-        "$REBUILD_PYTHON_ICO $REBUILD_PYTHON_TEXT"
-        "$REFRESH_MIRRORLIST_ICO $REFRESH_MIRRORLIST_TEXT"
-        "$EXIT_ICO $EXIT_TEXT"
+        "$ICO_MNG_OPT_01 $MNG_OPT_01"
+        "$ICO_MNG_OPT_02 $MNG_OPT_02"
+        "$ICO_MNG_OPT_03 $MNG_OPT_03"
+        "$ICO_MNG_OPT_04 $MNG_OPT_04"
+        "$ICO_MNG_OPT_05 $MNG_OPT_05"
+        "$ICO_MNG_OPT_06 $MNG_OPT_06"
+        "$ICO_MNG_OPT_07 $MNG_OPT_07"
+        "$ICO_MNG_OPT_08 $MNG_OPT_08"
+        "$ICO_MNG_OPT_08 $MNG_OPT_09"
+        "$ICO_MNG_OPT_10 $MNG_OPT_10"
+        "$ICO_MNG_OPT_11 $MNG_OPT_11"
+        "$ICO_MNG_OPT_12 $MNG_OPT_12"
     )
 
-    show_options() {
+    showOptions() {
         while true; do
-            clear
-            tput civis
+            clear; tput civis
             for i in "${!options[@]}"; do
                 if [[ $i -eq $selected ]]; then
-                    echo -e "${g}$SELECTOR_ICO${c} ${bold}${g}${options[$i]}${c}"
+                    echo -e "${g}$ICO_SELECT${c} ${bold}${g}${options[$i]}${c}"
                 else
                     echo -e "  ${options[$i]}"
                 fi
@@ -198,101 +210,101 @@ management() {
             fi
         done
 
-        clear
-        tput cnorm
+        clear; tput cnorm
 
         case $selected in
-            0) fzf_preview Slq;;
-            1) fzf_preview Qq;;
-            2) fzf_preview Qqe;;
-            3) fzf_preview Qqet;;
-            4) fzf_preview Qqtd;;
-            5) uninstall_orphans;;
-            6) downgrade_package;;
-            7) print_executed -Scc; $wrapper_sudo -Scc; return_menu;;
-            8) print_executed -Sc; $wrapper_sudo -Sc; return_menu;;
-            9) rebuild_python;;
-           10) mirrorlist_generator $count $link $icons $wrapper true $selected;;
+            0) fzfPreview Slq;;
+            1) fzfPreview Qq;;
+            2) fzfPreview Qqe;;
+            3) fzfPreview Qqet;;
+            4) fzfPreview Qqtd;;
+            5) uninstallOrphans;;
+            6) downgradePackage;;
+            7) printExec -Scc; $wrapper_sudo -Scc; returnMenu;;
+            8) printExec -Sc; $wrapper_sudo -Sc; returnMenu;;
+            9) rebuildPython;;
+           10) mirrorlistGenerator $count $link $icons $wrapper true $selected;;
            11) exit;;
         esac
     }
 
-    fzf_preview() {
-        check_pkg "fzf" true
+    fzfPreview() {
+        checkPkg "fzf" true
         fzf_settings="--preview-window "right:70%" --height=100% \
                       --layout=reverse --info=right --border=none \
                       --multi --track --exact  --margin=0 --padding=0 \
-                      --cycle --prompt=$SEARCH_TEXT⠀ --marker=•"
+                      --cycle --prompt=$MNG_SEARCH⠀ --marker=•"
 
         case $1 in
-                         Slq) fzf_exec -$1 -Si -S;;
-            Qq|Qqe|Qqet|Qqtd) fzf_exec -$1 -Qil -Rsn;;
+                         Slq) fzfExec -$1 -Si -S;;
+            Qq|Qqe|Qqet|Qqtd) fzfExec -$1 -Qil -Rsn;;
         esac
     }
 
-    fzf_exec() {
+    fzfExec() {
         packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper $2 {}")
         if [[ -z "$packages" ]]; then
-            show_options $selected
+            showOptions $selected
         else
-            packages=$(echo $packages | oneline)
-            print_executed $3 "$packages"
+            packages=$(echo $packages | oneLine)
+            printExec $3 "$packages"
             $wrapper_sudo $3 $packages
-            return_menu
+            returnMenu
         fi
     }
 
-    uninstall_orphans() {
-        print_executed -Rsn "$($wrapper -Qqtd | oneline)"
+    uninstallOrphans() {
         if [[ -n $($wrapper -Qdt) ]]; then
+            printExec -Rsn "$($wrapper -Qqtd | oneLine)"
             $wrapper_sudo -Rsn $($wrapper -Qqtd)
         else
-            print_done "$NO_ORPHANS_TEXT"
+            printDone "$MNG_DONE"
         fi
 
-        return_menu
+        returnMenu
     }
 
-    downgrade_package() {
+    downgradePackage() {
+        checkPkg "fzf"
         pacman_cache=$(pacman -Qv | awk 'NR==4 {print $NF}')
         wrapper_cache="$HOME/.cache/$wrapper"
 
         cache=$(find $pacman_cache $wrapper_cache -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | sort | \
-                fzf --exact --layout=reverse | oneline)
+                fzf --exact --layout=reverse | oneLine)
 
         if [[ -z "$cache" ]]; then
-            show_options $selected
+            showOptions $selected
         else
             if [ -f "${pacman_cache}${cache}" ]; then
-                print_executed -U "${pacman_cache}${cache}"
+                printExec -U "${pacman_cache}${cache}"
                 $wrapper_sudo -U "${pacman_cache}${cache}"
             else
                 cache=$(find $wrapper_cache -type f -name $cache 2>/dev/null)
-                print_executed -U "${cache}"
+                printExec -U "${cache}"
                 $wrapper_sudo -U $cache
             fi
-            return_menu
+            returnMenu
         fi
     }
 
-    rebuild_python() {
-        [[ $wrapper = "pacman" ]] && { echo "Need wrapper"; return_menu; }
-        rebuild_dir=$(find /usr/lib -type d -name "python*.*" | oneline)
+    rebuildPython() {
+        [[ $wrapper = "pacman" ]] && { echo "Need wrapper"; returnMenu; }
+        rebuild_dir=$(find /usr/lib -type d -name "python*.*" | oneLine)
 
         if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
             rebuild_dir="${rebuild_dir#* }"
-            rebuild_packages=$(pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneline)
+            rebuild_packages=$(pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneLine)
 
             if [[ -z "$rebuild_packages" ]]; then
-                print_done "$NOTHING_TEXT"
+                printDone "$MNG_DONE"
             else
-                print_executed -S "$rebuild_packages --rebuild"
+                printExec -S "$rebuild_packages --rebuild"
                 while true; do
-                    print_question "$RESUME_TEXT"
+                    printQuestion "$MNG_RESUME"
                     read -r answer
                     case "$answer" in
                            [Yy]*) echo; break;;
-                        [Nn]*|"") echo; show_options;;
+                        [Nn]*|"") echo; showOptions;;
                                *)  ;;
                     esac
                 done
@@ -300,13 +312,13 @@ management() {
             fi
             
         else
-            print_done "$NOTHING_TEXT"
+            printDone "$MNG_DONE"
         fi
 
-        return_menu
+        returnMenu
     }
 
-    show_options
+    showOptions
 }
 
 
@@ -379,8 +391,7 @@ getId() {
     esac
 }
 
-download_xml() {
-    XML=$(mktemp)
+downloadXML() {
     page=0
     while true; do
         tempXML=$(mktemp)
@@ -397,17 +408,15 @@ download_xml() {
                 [[ $statuscode = 200 ]] && { echo 200; onError; }
                 [[ $statuscode != 100 ]] && { echo 999; onError; }
             else
-                tput rc; tput ed
-                [[ $statuscode = 200 ]] && { print_error "$API_ERROR_TEXT"; onError; }
-                [[ $statuscode != 100 ]] && { print_error "$CHECKING_WIDGETS_TEXT"; onError; }
-                print_done "$CHECKING_WIDGETS_TEXT"
+                [[ $statuscode = 200 ]] && { printError "$WIDGETS_API_ERR"; onError; }
+                [[ $statuscode != 100 ]] && { printError "$WIDGETS_CHECK"; onError; }
             fi
 
         else
-            [[ $1 = "check" ]] && { echo 999; rm "$tempXML"; exit; } || { print_error "$CHECKING_WIDGETS_TEXT"; rm "$tempXML"; exit; }
+            [[ $1 = "check" ]] && { echo 999; rm "$tempXML"; exit; } || { printError "$WIDGETS_CHECK"; rm "$tempXML"; exit; }
         fi
 
-        format_xml $tempXML
+        formatXML $tempXML
 
         if [ -s $XML ]; then
             temp2XML=$(mktemp)
@@ -425,12 +434,12 @@ download_xml() {
     done
 }
 
-get_widget_list() {
+getWidgets() {
     plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
     [ -z "$plasmoids" ] && { exit; } || { while IFS= read -r line; do lines+=("$line"); done <<< "$plasmoids"; }
 }
 
-get_widget_info() {
+getWidgetInfo() {
     dir="$HOME/.local/share/plasma/plasmoids/$plasmoid"
     json="$dir/metadata.json"
     [ -s "$json" ] || return 1
@@ -441,6 +450,10 @@ get_widget_info() {
     fi
 
     name=$(jq -r '.KPlugin.Name' $json)
+
+    icon=$(jq -r '.KPlugin.Icon' $json)
+    [ -z "$icon" ] && icon="start-here-kde"
+
     contentId=$(xmlstarlet sel -t -m "//name[text()='$name']/.." -v "id" -n $XML)
     [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
     if [ -z "$contentId" ]; then
@@ -452,9 +465,11 @@ get_widget_info() {
     current_version=$(jq -r '.KPlugin.Version' $json)
     current_version_clean=$(echo $current_version | sed 's/[^0-9.]*//g')
     current_version_clean=$(echo "$current_version_clean" | sed 's/^\.//')
+
     latest_version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $XML)
     latest_version_clean=$(echo $latest_version | sed 's/[^0-9.]*//g')
     latest_version_clean=$(echo "$latest_version_clean" | sed 's/^\.//')
+
     [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && return 1
 
     description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
@@ -467,24 +482,24 @@ get_widget_info() {
     return 0
 }
 
-download_upgrade_widget() {
+downloadWidget() {
     tput sc; curl -m 30 -s -o $tempFile --request GET --location "$link" 2>/dev/null &
-    spinner $! "$DOWNLOAD_TEXT $1"; tput rc; tput ed
+    spinner $! "$WIDGETS_DOWNLOADING $1"; tput rc; tput ed
 
-    [ -s "$tempFile" ] && { print_done "$DOWNLOAD_TEXT $1"; } || { print_error "$DOWNLOAD_TEXT $1"; return 1; }
+    [ -s "$tempFile" ] && { printDone "$WIDGETS_DOWNLOADING $1"; } || { printError "$WIDGETS_DOWNLOADING $1"; return 1; }
 
-    if [[ "$tempFile" == *.xz || "$tempFile" == *.gz || "$tempFile" == *.tar ]]; then
-        tar -xf "$tempFile" -C "$tempDir/unpacked"
-    else
-        unzip -q "$tempFile" -d "$tempDir/unpacked"
-    fi
+    case "$tempFile" in
+         *.zip | *.plasmoid) unzip -q "$tempFile" -d "$tempDir/unpacked";;
+        *.xz | *.gz | *.tar) tar -xf "$tempFile" -C "$tempDir/unpacked";;
+                          *) printError "$WIDGETS_EXT_ERR"; return 1;;
+    esac
 
     metadata_path=$(find "$tempDir/unpacked" -name "metadata.json")
-    [ -z "$metadata_path" ] && { print_error "$METADATA_ERROR_TEXT"; return 1; }
+    [ -z "$metadata_path" ] && { printError "$WIDGETS_JSON_ERR"; return 1; }
 
     unpacked=$(dirname "$metadata_path"); cd "$unpacked"
 
-    jq . metadata.json >/dev/null 2>&1 || { print_error "$METADATA_ERROR2_TEXT"; return 1; }
+    jq . metadata.json >/dev/null 2>&1 || { printError "$WIDGETS_JSON_ERR2"; return 1; }
     if ! jq -e '.KPackageStructure' metadata.json >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
     fi
@@ -501,19 +516,20 @@ download_upgrade_widget() {
 
 
 
-check_widgets_updates() {
-    define_text_icons true
+checkWidgets() {
+    getTxt true
     for cmd in curl jq xmlstarlet; do command -v "$cmd" >/dev/null || { echo 127; exit; }; done
 
-    declare -a plasmoid lines; get_widget_list
-    download_xml check
+    declare -a plasmoid lines; getWidgets
+    XML=$(mktemp)
+    downloadXML check
 
     output=""
     for plasmoid in "${lines[@]}"; do
-        get_widget_info; [[ $? -ne 0 ]] && continue
+        getWidgetInfo; [[ $? -ne 0 ]] && continue
 
         if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then 
-            output+="${name}@${contentId}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
+            output+="${name}@${contentId}@${icon}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
         fi
     done
 
@@ -521,24 +537,26 @@ check_widgets_updates() {
     echo -e "$output"
 }
 
-check_widgets_and_upgrade() {
-    define_text_icons $2
-    check_pkg "curl jq xmlstarlet unzip tar"
+upgradeAllWidgets() {
+    getTxt $2
+    checkPkg "curl jq xmlstarlet unzip tar"
 
-    declare -a plasmoid lines; get_widget_list
+    declare -a plasmoid lines; getWidgets
 
-    echo; tput sc; download_xml &
-    spinner $! "$CHECKING_WIDGETS_TEXT"
+    XML=$(mktemp)
+    echo; tput sc; downloadXML &
+    spinner $! "$WIDGETS_CHECK"
+    tput rc; tput ed; printDone "$WIDGETS_CHECK"
 
     for plasmoid in "${lines[@]}"; do
-        get_widget_info; [[ $? -ne 0 ]] && continue
+        getWidgetInfo; [[ $? -ne 0 ]] && continue
 
         if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
-            link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
+            link=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "downloadlink" -n $XML)
             tempDir=$(mktemp -d)
             tempFile="$tempDir/$(basename "${link}")"
             mkdir $tempDir/unpacked
-            download_upgrade_widget "$name"; [[ $? -ne 0 ]] && continue
+            downloadWidget "$name"; [[ $? -ne 0 ]] && continue
         fi
     done
 
@@ -547,36 +565,36 @@ check_widgets_and_upgrade() {
     [ "$1" = "true" ] && [ "$hasUpdates" = "true" ] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
 }
 
-upgrade_widget() {
+upgradeWidget() {
     [ $1 ] || exit
 
-    define_text_icons $3
-    check_pkg "curl jq xmlstarlet unzip tar"
+    getTxt $3
+    checkPkg "curl jq xmlstarlet unzip tar"
 
-    [[ "$2" = "true" ]] && { echo -e "\n"; } || { print_important "${WARNING_TEXT_1}\n${WARNING_TEXT_2}\n"; }; sleep 1
+    [[ "$2" = "true" ]] && { echo -e "\n"; } || { printImportant "${WIDGETS_WARN}\n"; }; sleep 1
 
     tempDir=$(mktemp -d); mkdir $tempDir/unpacked; XML="$tempDir/data.xml"
 
     tput sc; curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$1" 2>/dev/null &
-    spinner $! "$FETCHING_INFO_TEXT"; tput rc; tput ed
+    spinner $! "$WIDGETS_FETCHING"; tput rc; tput ed
 
     onError() { rm -rf "$tempDir"; exit; }
 
     if [ -s "$XML" ]; then
         statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
-        [[ $statuscode = 200 ]] && { print_error "$API_ERROR_TEXT"; onError; }
-        [[ $statuscode != 100 ]] && { print_error "$FETCHING_INFO_TEXT"; onError; }
-        print_done "$FETCHING_INFO_TEXT"
+        [[ $statuscode = 200 ]] && { printError "$WIDGETS_API_ERR"; onError; }
+        [[ $statuscode != 100 ]] && { printError "$WIDGETS_FETCHING"; onError; }
+        printDone "$WIDGETS_FETCHING"
     else
-        print_error "$FETCHING_INFO_TEXT"; onError
+        printError "$WIDGETS_FETCHING"; onError
     fi
 
-    format_xml $XML
+    formatXML $XML
     link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
     latest_version=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
     tempFile="$tempDir/$(basename "${link}")"
 
-    download_upgrade_widget $4; [[ $? -ne 0 ]] && exit
+    downloadWidget $4; [[ $? -ne 0 ]] && exit
 
     [[ "$2" = "true" ]] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
 }
@@ -586,118 +604,58 @@ upgrade_widget() {
 
 
 
-define_text_icons() {
-    CMD_ERROR_TEXT="Required installed"
+getTxt() {
+    DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+    export TEXTDOMAINDIR="$DIR/../locale"
+    export TEXTDOMAIN="plasma_applet_${applet}"
 
-    QUESTION_TEXT="Refresh mirrorlist?"
-    FETCHING_MIRRORS_TEXT="Fetching the latest filtered mirror list..."
-    RANKING_MIRRORS_TEXT="Ranking mirrors by their connection and opening speed..."
-    MIRRORS_ERROR_TEXT="Check your mirrorlist generator settings..."
-    MIRRORS_UPDATED_TEXT="was updated with the following servers:"
-    MIRRORLIST_SUDO_TEXT="To write to a mirrorlist file, sudo rights are required"
-    RETURN_MENU_TEXT="Press Enter to return menu"
+    declare -a var_names=(
+    MIRRORS_FETCH MIRRORS_RANK MIRRORS_ERR MIRRORS_UPD MIRRORS_SUDO
+    WIDGETS_WARN WIDGETS_CHECK WIDGETS_FETCHING WIDGETS_DOWNLOADING
+    WIDGETS_API_ERR WIDGETS_JSON_ERR WIDGETS_JSON_ERR2 WIDGETS_EXT_ERR
+    MNG_OPT_01 MNG_OPT_02 MNG_OPT_03 MNG_OPT_04 MNG_OPT_05 MNG_OPT_06
+    MNG_OPT_07 MNG_OPT_08 MNG_OPT_09 MNG_OPT_10 MNG_OPT_11 MNG_OPT_12
+    MNG_RESUME MNG_RETURN MNG_SEARCH MNG_EXEC MNG_DONE NO_CMD_ERR)
 
-    WARNING_TEXT_1="For some widgets you may need to Log Out or restart plasmashell after upgrade"
-    WARNING_TEXT_2="(kquitapp6 plasmashell && kstart plasmashell) so that they work correctly."
-    CHECKING_WIDGETS_TEXT="Checking widgets for updates..."
-    FETCHING_INFO_TEXT="Fetching information about widget..."
-    DOWNLOADING_TEXT="Downloading widget..."
-    DOWNLOAD_TEXT="Downloading"
-    API_ERROR_TEXT="Too many API requests in the last 15 minutes from your IP address. Please try again later."
-    METADATA_ERROR_TEXT="File metadata.json not found"
-    METADATA_ERROR2_TEXT="Errors in metadata.json file"
-    MANUALLY_TEXT="Upgrade Apdatifier manually"
-    LOGOUT_TEXT="Log out or restart plasmashell after upgrade"
-
-    LIST_ALL_TEXT="List all available packages from repositories"
-    LIST_INSTALLED_TEXT="List all installed packages"
-    LIST_EXPL_TEXT="List explicitly installed packages"
-    LIST_EXPL_NODEP_TEXT="List explicitly installed and isn't a dependency of anything"
-    LIST_DEPS="List installed as a dependency but isn't needed anymore (orphans)"
-    REMOVE_ORPHANS_TEXT="Uninstall orphans packages"
-    NO_ORPHANS_TEXT="No orphans to remove"
-    DOWNGRADE_TEXT="Downgrade package from cache"
-    REMOVE_CACHED_TEXT="Remove ALL cached packages"
-    REMOVE_CACHED_NOTINST_TEXT="Remove cached packages that are not currently installed"
-    REBUILD_PYTHON_TEXT="Rebuild python packages"
-    RESUME_TEXT="Resume?"
-    NOTHING_TEXT="Nothing to do"
-    REFRESH_MIRRORLIST_TEXT="Refresh mirrorlist"
-    EXIT_TEXT="Exit"
-    RETURN_MENU_TEXT="Press Enter to return menu"
-    EXECUTED_TEXT="Executed:"
-    SEARCH_TEXT="Search:"
-
-    LANGUAGE=${LANG:0:2}
-    MESSAGES_FILE="/home/$(logname)/.local/share/plasma/plasmoids/$applet/translate/$LANGUAGE.sh"
-    [ -f "$MESSAGES_FILE" ] && source "$MESSAGES_FILE"
+    i=0
+    while IFS= read -r line && [ $i -lt ${#var_names[@]} ]; do
+        i=$((i+1))
+        text=$(echo "$line" | grep -oP '(?<=\().*(?=\))' | sed 's/"//g')
+        eval "${var_names[$((i-1))]}=\"$(gettext "$text")\""
+    done < "$DIR/../ui/components/Messages.qml"
 
     if [[ $1 = "true" ]]; then
-        ERROR_ICO=""
-        DONE_ICO=""
-        IMPORTANT_ICO="󱇎"
-        QUESTION_ICO="󰆆"
-        EXECUTED_ICO="󰅱"
-        RETURN_ICO="󰄽"
-        SELECTOR_ICO="󰄾"
-        LIST_ALL_ICO="󱝩"
-        LIST_INSTALLED_ICO="󱝫"
-        LIST_EXPL_ICO="󱝭"
-        LIST_EXPL_NODEP_ICO="󱝭"
-        LIST_DEPS_ICO="󱝧"
-        REMOVE_ORPHANS_ICO=""
-        DOWNGRADE_ICO="󱝥"
-        REMOVE_CACHED_ICO="󱝝"
-        REMOVE_CACHED_NOTINST_ICO="󱝝"
-        REBUILD_PYTHON_ICO="󰌠"
-        REFRESH_MIRRORLIST_ICO="󱘴"
-        EXIT_ICO=""
+        ICO_ERR=""; ICO_DONE=""; ICO_WARN="󱇎"; ICO_QUESTION=""; ICO_EXEC="󰅱"; ICO_RETURN="󰄽"; ICO_SELECT="󰄾"
+        ICO_MNG_OPT_01="󱝩"; ICO_MNG_OPT_02="󱝫"; ICO_MNG_OPT_03="󱝭"; ICO_MNG_OPT_04="󱝭"
+        ICO_MNG_OPT_05="󱝧"; ICO_MNG_OPT_06=""; ICO_MNG_OPT_07="󱝥"; ICO_MNG_OPT_08="󱝝"
+        ICO_MNG_OPT_09="󱝝"; ICO_MNG_OPT_10="󰌠"; ICO_MNG_OPT_11="󱘴"; ICO_MNG_OPT_12=""
     else
-        ERROR_ICO="\u2718"
-        DONE_ICO="\u2714"
-        IMPORTANT_ICO="::"
-        QUESTION_ICO="::"
-        RETURN_ICO="::"
-        EXECUTED_ICO="::"
-        SELECTOR_ICO=">"
-        LIST_ALL_ICO=""
-        LIST_INSTALLED_ICO=""
-        LIST_EXPL_ICO=""
-        LIST_EXPL_NODEP_ICO=""
-        LIST_DEPS_ICO=""
-        REMOVE_ORPHANS_ICO=""
-        DOWNGRADE_ICO=""
-        REMOVE_CACHED_ICO=""
-        REMOVE_CACHED_NOTINST_ICO=""
-        REBUILD_PYTHON_ICO=""
-        REFRESH_MIRRORLIST_ICO=""
-        EXIT_ICO=""
+        ICO_ERR="\u2718"; ICO_DONE="\u2714"; ICO_WARN="::"; ICO_QUESTION="::"; ICO_EXEC="::"; ICO_RETURN="<<"; ICO_SELECT=">"
     fi
 }
 
 r="\033[1;31m"; g="\033[1;32m"; b="\033[1;34m"; y="\033[0;33m"; c="\033[0m"; bold="\033[1m"
-print_menu() { tput civis; echo -e "\n${b}${RETURN_ICO}${c} ${bold}${RETURN_MENU_TEXT}${c}"; read -r; tput cnorm; }
-print_done() { echo -e "${g}${DONE_ICO} $1 ${c}"; }
-print_error() { echo -e "${r}${ERROR_ICO} $1 ${c}"; }
-print_important() { echo -e "${y}${bold}${IMPORTANT_ICO} $1 ${c}"; }
-print_question() { echo -en "\n${y}${QUESTION_ICO}${c}${y}${bold} $1 ${c}[y/${bold}N${c}]: "; }
-print_executed() { echo -e "${b}${EXECUTED_ICO}${c}${bold} ${EXECUTED_TEXT}${c} $wrapper_sudo $1 $2 \n"; }
-oneline() { tr '\n' ' ' | sed 's/ $//'; }
-check_pkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { print_error "${CMD_ERROR_TEXT} ${cmd}"; [ $2 ] && return_menu || exit; }; done; }
+printMenu() { tput civis; echo -e "\n${b}${ICO_RETURN}${c} ${bold}${MNG_RETURN}${c}"; read -r; tput cnorm; }
+printDone() { echo -e "${g}${ICO_DONE} $1 ${c}"; }
+printError() { echo -e "${r}${ICO_ERR} $1 ${c}"; }
+printImportant() { echo -e "${y}${bold}${ICO_WARN} $1 ${c}"; }
+printQuestion() { echo -en "\n${y}${ICO_QUESTION}${c}${y}${bold} $1 ${c}[y/${bold}N${c}]: "; }
+printExec() { [[ $wrapper_sudo == "trizen" ]] && { return 0; } || { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo $1 $2 \n"; } }
+oneLine() { tr '\n' ' ' | sed 's/ $//'; }
+checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${NO_CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
 spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
-format_xml() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
-
+formatXML() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
 
 
 case "$1" in
                         "copy") copy;;
                      "install") install;;
                    "uninstall") uninstall;;
-                  "getIgnored") get_ignored_packages;;
+                  "getIgnored") getIgnorePkg;;
                   "management") shift; management $1 $2 $3 $4;;
-              "checkPlasmoids") shift; check_widgets_updates;;
-              "upgrade_widget") shift; upgrade_widget $1 $2 $3 $4;;
-   "check_widgets_and_upgrade") shift; check_widgets_and_upgrade $1 $2;;
-                  "mirrorlist") shift; mirrorlist_generator $1 $2 $3;;
+                "checkWidgets") shift; checkWidgets;;
+               "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4;;
+           "upgradeAllWidgets") shift; upgradeAllWidgets $1 $2;;
+                  "mirrorlist") shift; mirrorlistGenerator $1 $2 $3;;
                              *) exit;;
 esac
