@@ -45,7 +45,7 @@
         <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="customIconsEnabled" type="bool"><default>false</default></entry>
         <entry name="customIcons" type="string"><default></default></entry>
-        <entry name="iconsThemeUI" type="bool"><default>false</default></entry>
+        <entry name="ownIconsUI" type="bool"><default>true</default></entry>
         <entry name="showStatusText" type="bool"><default>true</default></entry>
         <entry name="showToolBar" type="bool"><default>true</default></entry>
         <entry name="searchButton" type="bool"><default>true</default></entry>

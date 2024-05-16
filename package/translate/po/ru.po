@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-14 18:36+0300\n"
-"PO-Revision-Date: 2024-05-14 18:37+0300\n"
+"POT-Creation-Date: 2024-05-15 13:06+0300\n"
+"PO-Revision-Date: 2024-05-15 13:09+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -356,8 +356,8 @@ msgid "Icons"
 msgstr "Иконки"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default UI icons:"
-msgstr "Стандартные UI иконки:"
+msgid "Own UI icons:"
+msgstr "Собственные UI иконки:"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
@@ -883,6 +883,3 @@ msgstr "Дата установки"
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "Причина установки"
-
-#~ msgid "Custom icons:"
-#~ msgstr "Кастомные иконки:"

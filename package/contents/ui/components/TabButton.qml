@@ -18,9 +18,9 @@ TabButton {
         Kirigami.Icon {
             Layout.preferredHeight: height
             height: Kirigami.Units.iconSizes.small
-            source: cfg.iconsThemeUI ? root.icon.source : Qt.resolvedUrl("../assets/icons/" + root.icon.source + ".svg")
+            source: cfg.ownIconsUI ? Qt.resolvedUrl("../assets/icons/" + root.icon.source + ".svg") : root.icon.source
             color: Kirigami.Theme.colorSet
-            isMask: cfg.iconsThemeUI ? false : true
+            isMask: cfg.ownIconsUI
             smooth: true
         }
         Item { Layout.fillWidth: true }

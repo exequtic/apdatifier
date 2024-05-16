@@ -32,7 +32,7 @@ SimpleKCM {
     property alias cfg_showTabBar: showTabBar.checked
     property alias cfg_sortByName: sortByName.checked
 
-    property alias cfg_iconsThemeUI: iconsThemeUI.checked
+    property alias cfg_ownIconsUI: ownIconsUI.checked
     property alias cfg_termFont: termFont.checked
     property alias cfg_customIconsEnabled: customIconsEnabled.checked
     property alias cfg_customIcons: customIcons.text
@@ -110,6 +110,34 @@ SimpleKCM {
             }
         }
 
+        ButtonGroup {
+            id: sortGroup
+        }
+
+        RadioButton {
+            id: sortByName
+            Kirigami.FormData.label: i18n("Sorting:")
+            text: i18n("By name")
+            checked: true
+
+            Component.onCompleted: {
+                checked = plasmoid.configuration.sortByName
+            }
+
+            ButtonGroup.group: sortGroup
+        }
+
+        RadioButton {
+            id: sortByRepo
+            text: i18n("By repository")
+
+            Component.onCompleted: {
+                checked = !plasmoid.configuration.sortByName
+            }
+
+            ButtonGroup.group: sortGroup
+        }
+
         Item {
             Kirigami.FormData.isSection: true
         }
@@ -173,47 +201,15 @@ SimpleKCM {
             }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        ButtonGroup {
-            id: sortGroup
-        }
-
-        RadioButton {
-            id: sortByName
-            Kirigami.FormData.label: i18n("Sorting:")
-            text: i18n("By name")
-            checked: true
-
-            Component.onCompleted: {
-                checked = plasmoid.configuration.sortByName
-            }
-
-            ButtonGroup.group: sortGroup
-        }
-
-        RadioButton {
-            id: sortByRepo
-            text: i18n("By repository")
-
-            Component.onCompleted: {
-                checked = !plasmoid.configuration.sortByName
-            }
-
-            ButtonGroup.group: sortGroup
-        }
-
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Icons")
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Default UI icons:")
+            Kirigami.FormData.label: i18n("Own UI icons:")
             CheckBox {
-                id: iconsThemeUI
+                id: ownIconsUI
                 text: i18n("Enable")
             }
         }
@@ -295,20 +291,6 @@ SimpleKCM {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         Kirigami.Separator {
             Kirigami.FormData.isSection: true

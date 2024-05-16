@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-14 18:36+0300\n"
+"POT-Creation-Date: 2024-05-15 13:06+0300\n"
 "PO-Revision-Date: 2024-01-04 21:50+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -343,7 +343,7 @@ msgid "Icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default UI icons:"
+msgid "Own UI icons:"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml

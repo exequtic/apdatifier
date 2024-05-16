@@ -201,7 +201,7 @@ function checkUpdates() {
                     merge()
 
     function checkNews() {
-        statusIco = cfg.iconsThemeUI ? "news-subscribe" : "status_news"
+        statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         statusMsg = i18n("Checking latest news...")
 
         if (!cmd.news) checkArch()
@@ -214,7 +214,7 @@ function checkUpdates() {
     })}
 
     function checkArch() {
-        statusIco = cfg.iconsThemeUI ? "package" : "status_package"
+        statusIco = cfg.ownIconsUI ? "status_package" : "package"
         statusMsg = i18n("Checking system updates...")
 
         sh.exec(arch, (cmd, out, err, code) => {
@@ -246,7 +246,7 @@ function checkUpdates() {
     })}
 
     function checkFlatpak() {
-        statusIco = cfg.iconsThemeUI ? "flatpak-discover" : "status_flatpak"
+        statusIco = cfg.ownIconsUI ? "status_flatpak" : "flatpak-discover"
         statusMsg = i18n("Checking flatpak updates...")
         sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details",
             (cmd, out, err, code) => {
@@ -264,7 +264,7 @@ function checkUpdates() {
     })}
 
     function checkWidgets() {
-        statusIco = cfg.iconsThemeUI ? "start-here-kde" : "status_widgets"
+        statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde"
         statusMsg = i18n("Checking widgets updates...")
 
         sh.exec(`${script} checkWidgets`, (cmd, out, err, code) => {
@@ -593,7 +593,7 @@ function setIcon(icon) {
 
 
 function setPackageIcon(icons, name, repo, group, appID, widgetIcon) {
-    let icon = cfg.iconsThemeUI ? "package" : "apdatifier-package"
+    let icon = cfg.ownIconsUI ? "apdatifier-package" : "package"
     if (appID && appID === "org.libreoffice.LibreOffice") icon = appID + ".main"
     if (appID) icon = appID
     if (widgetIcon) icon = widgetIcon

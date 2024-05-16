@@ -25,11 +25,11 @@ ToolButton {
         height: parent.height
         width: parent.height
         anchors.centerIn: parent
-        source: cfg.iconsThemeUI ? root.icon.source : Qt.resolvedUrl("../assets/icons/" + root.icon.source + ".svg")
+        source: cfg.ownIconsUI ? Qt.resolvedUrl("../assets/icons/" + root.icon.source + ".svg") : root.icon.source
         color: Kirigami.Theme.colorSet
-        opacity: cfg.iconsThemeUI ? 1 : (enabled ? 1 : 0.6)
-        scale: cfg.iconsThemeUI ? 0.9 : 0.7
-        isMask: cfg.iconsThemeUI ? false : true
+        opacity: cfg.ownIconsUI ? (enabled ? 1 : 0.6) : 1
+        scale: cfg.ownIconsUI ? 0.7 : 0.9
+        isMask: cfg.ownIconsUI
         smooth: true
     }
 

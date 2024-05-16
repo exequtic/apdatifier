@@ -25,8 +25,8 @@ Representation {
     function updateVisibility() { newsVisibility = !news.dismissed; }
 
     property string statusIcon: {
-        return cfg.iconsThemeUI ? (statusIco === "0" ? "error" : (statusIco === "1" ? "accept_time_event" : (statusIco === "2" ? "" : statusIco)))
-                                : (statusIco === "0" ? "status_error" : (statusIco === "1" ? "status_pending" : (statusIco === "2" ? "status_blank" : statusIco)))
+        return cfg.ownIconsUI ? (statusIco === "0" ? "status_error" : (statusIco === "1" ? "status_pending" : (statusIco === "2" ? "status_blank" : statusIco)))
+                              : (statusIco === "0" ? "error" : (statusIco === "1" ? "accept_time_event" : (statusIco === "2" ? "" : statusIco)))
     }
 
     header: PlasmoidHeading {
@@ -63,7 +63,7 @@ Representation {
 
                 QQC.ToolButton {
                     id: searchButton
-                    icon.source: cfg.iconsThemeUI ? "search" : "toolbar_search"
+                    icon.source: cfg.ownIconsUI ? "toolbar_search" : "search"
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
                         searchFieldOpen = !searchField.visible
@@ -74,9 +74,9 @@ Representation {
                     tooltipText: i18n("Filter by package name")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.iconsThemeUI
-                                    ? (cfg.interval ? "media-playback-pause" : "media-playback-start")
-                                    : (cfg.interval ? "toolbar_pause" : "toolbar_start")
+                    icon.source: cfg.ownIconsUI
+                                    ? (cfg.interval ? "toolbar_pause" : "toolbar_start")
+                                    : (cfg.interval ? "media-playback-pause" : "media-playback-start")
                     color: !cfg.interval && !cfg.indicatorStop ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                     onClicked: JS.switchInterval()
                     enabled: !busy && !error
@@ -84,28 +84,28 @@ Representation {
                     tooltipText: cfg.interval ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.iconsThemeUI ? "sort-name" : "toolbar_sort"
+                    icon.source: cfg.ownIconsUI ? "toolbar_sort" : "sort-name"
                     onClicked: cfg.sortByName = !cfg.sortByName
                     enabled: !busy && !error && count > 0
                     visible: cfg.sortButton
                     tooltipText: cfg.sortByName ? i18n("Sort packages by repository") : i18n("Sort packages by name")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.iconsThemeUI ? "tools" : "toolbar_management"
+                    icon.source: cfg.ownIconsUI ? "toolbar_management" : "tools"
                     onClicked: JS.management()
                     enabled: !busy && !error && pkg.pacman && cfg.terminal
                     visible: cfg.managementButton
                     tooltipText: i18n("Management")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.iconsThemeUI ? "akonadiconsole" : "toolbar_upgrade"
+                    icon.source: cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
                     onClicked: JS.upgradeSystem()
                     enabled: !busy && !error && count > 0 && cfg.terminal
                     visible: cfg.upgradeButton
                     tooltipText: i18n("Upgrade system")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.iconsThemeUI ? "view-refresh" : "toolbar_check"
+                    icon.source: cfg.ownIconsUI ? "toolbar_check" : "view-refresh"
                     onClicked: JS.checkUpdates()
                     visible: cfg.checkButton
                     tooltipText: i18n("Check updates")
@@ -133,13 +133,13 @@ Representation {
 
             QQC.TabButton {
                 id: compactViewTab
-                icon.source: cfg.iconsThemeUI ? "view-split-left-right" : "tab_compact"
+                icon.source: cfg.ownIconsUI ? "tab_compact" : "view-split-left-right"
                 ToolTip { text: i18n("Compact view") }
             }
 
             QQC.TabButton {
                 id: extendViewTab
-                icon.source: cfg.iconsThemeUI ? "view-split-top-bottom" : "tab_extended"
+                icon.source: cfg.ownIconsUI ? "tab_extended" : "view-split-top-bottom"
                 ToolTip { text: i18n("Extended view") }
             }
         }
