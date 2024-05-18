@@ -126,13 +126,6 @@ SimpleKCM {
                 color: instTip.color
                 visible: pkg.pacman && !wrappers
             }
-
-            Label {
-                font.pointSize: tip.font.pointSize
-                color: Kirigami.Theme.positiveTextColor
-                text: i18n("found: %1", cfg_wrapper)
-                visible: aur.checked && wrappers && wrappers.length == 1
-            }
         }
 
         RowLayout {
@@ -193,7 +186,6 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Wrapper:")
-            visible: aur.checked && wrappers && wrappers.length > 1
 
             ComboBox {
                 model: wrappers

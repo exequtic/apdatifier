@@ -172,7 +172,6 @@ function management() {
     defineCommands()
     const wrapper = cfg.aur && cfg.wrapper ? cfg.wrapper : "pacman"
     const commands = `${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont} ${wrapper}`
-    console.log(commands)
 
     cmd.yakuake ? sh.exec(`${cmd.terminal} "${commands}"`)
                 : sh.exec(`${cmd.terminal} bash -c "${commands}" &`)

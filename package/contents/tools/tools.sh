@@ -9,16 +9,16 @@ localdir="$HOME/.local/share"
 plasmoid="$localdir/plasma/plasmoids/$applet"
 iconsdir="$localdir/icons/breeze/status/24"
 notifdir="$localdir/knotifications6"
-file1="apdatifier-plasmoid.svg"
-file2="apdatifier-packages.svg"
-file3="apdatifier-package.svg"
+icon1="apdatifier-plasmoid.svg"
+icon2="apdatifier-packages.svg"
+icon3="apdatifier-package.svg"
 
 
 copy() {
     [ -d $iconsdir ] || mkdir -p $iconsdir
-    [ -f $iconsdir/$file1 ] || cp $plasmoid/contents/ui/assets/icons/$file1 $iconsdir
-    [ -f $iconsdir/$file2 ] || cp $plasmoid/contents/ui/assets/icons/$file2 $iconsdir
-    [ -f $iconsdir/$file3 ] || cp $plasmoid/contents/ui/assets/icons/$file3 $iconsdir
+    [ -f $iconsdir/$icon1 ] || cp $plasmoid/contents/ui/assets/icons/$icon1 $iconsdir
+    [ -f $iconsdir/$icon2 ] || cp $plasmoid/contents/ui/assets/icons/$icon2 $iconsdir
+    [ -f $iconsdir/$icon3 ] || cp $plasmoid/contents/ui/assets/icons/$icon3 $iconsdir
     [ -d $notifdir ] || mkdir -p $notifdir
     [ -d $notifdir ] && notifyrc
     [ -d "$HOME/.cache/apdatifier" ] || mkdir -p "$HOME/.cache/apdatifier"
@@ -52,9 +52,9 @@ install() {
 uninstall() {
     getTxt; checkPkg "kpackagetool6"
 
-    [ ! -f $iconsdir/$file1 ] || rm -f $iconsdir/$file1
-    [ ! -f $iconsdir/$file2 ] || rm -f $iconsdir/$file2
-    [ ! -f $notifdir/$file3 ] || rm -f $notifdir/$file3
+    [ ! -f $iconsdir/$icon1 ] || rm -f $iconsdir/$icon1
+    [ ! -f $iconsdir/$icon2 ] || rm -f $iconsdir/$icon2
+    [ ! -f $notifdir/$icon3 ] || rm -f $notifdir/$icon3
     [ ! -d $iconsdir ] || rmdir -p --ignore-fail-on-non-empty $iconsdir
     [ ! -d $notifdir ] || rmdir -p --ignore-fail-on-non-empty $notifdir
 
@@ -91,7 +91,6 @@ getIgnorePkg() {
     fi
 }
 
-
 mirrorlistGenerator() {
     count=$1; link=$2; icons=$3; wrapper=$4; menu=$5; selected=$6
     getTxt $icons
@@ -110,6 +109,7 @@ mirrorlistGenerator() {
     fi
 
     checkPkg "curl rankmirrors" $5
+    rankmirrors -V >/dev/null || { printError "Not a compatible version of rankmirrors"; exit; }
 
     tput sc
     tempfile=$(mktemp)
@@ -159,7 +159,6 @@ mirrorlistGenerator() {
     fi
 }
 
-
 management() {
     trap '' SIGINT
     count=$1; link=$2; icons=$3; wrapper=$4; [ "$5" ] && selected="$5" || selected=0
@@ -171,18 +170,18 @@ management() {
     returnMenu() { printMenu; showOptions $selected; }
 
     options=(
-        "$ICO_MNG_OPT_01 $MNG_OPT_01"
-        "$ICO_MNG_OPT_02 $MNG_OPT_02"
-        "$ICO_MNG_OPT_03 $MNG_OPT_03"
-        "$ICO_MNG_OPT_04 $MNG_OPT_04"
-        "$ICO_MNG_OPT_05 $MNG_OPT_05"
-        "$ICO_MNG_OPT_06 $MNG_OPT_06"
-        "$ICO_MNG_OPT_07 $MNG_OPT_07"
-        "$ICO_MNG_OPT_08 $MNG_OPT_08"
-        "$ICO_MNG_OPT_08 $MNG_OPT_09"
-        "$ICO_MNG_OPT_10 $MNG_OPT_10"
-        "$ICO_MNG_OPT_11 $MNG_OPT_11"
-        "$ICO_MNG_OPT_12 $MNG_OPT_12"
+        "${ICO_MNG_OPT_01}${MNG_OPT_01}"
+        "${ICO_MNG_OPT_02}${MNG_OPT_02}"
+        "${ICO_MNG_OPT_03}${MNG_OPT_03}"
+        "${ICO_MNG_OPT_04}${MNG_OPT_04}"
+        "${ICO_MNG_OPT_05}${MNG_OPT_05}"
+        "${ICO_MNG_OPT_06}${MNG_OPT_06}"
+        "${ICO_MNG_OPT_07}${MNG_OPT_07}"
+        "${ICO_MNG_OPT_08}${MNG_OPT_08}"
+        "${ICO_MNG_OPT_08}${MNG_OPT_09}"
+        "${ICO_MNG_OPT_10}${MNG_OPT_10}"
+        "${ICO_MNG_OPT_11}${MNG_OPT_11}"
+        "${ICO_MNG_OPT_12}${MNG_OPT_12}"
     )
 
     showOptions() {
@@ -265,7 +264,7 @@ management() {
     }
 
     downgradePackage() {
-        checkPkg "fzf"
+        checkPkg "fzf" true
         pacman_cache=$(pacman -Qv | awk 'NR==4 {print $NF}')
         wrapper_cache="$HOME/.cache/$wrapper"
 
@@ -308,7 +307,7 @@ management() {
                                *)  ;;
                     esac
                 done
-                pacman -Qqo "$rebuild" | pacman -Qqm - | $wrapper -S --rebuild -
+                pacman -Qqo "$rebuild_dir" | pacman -Qqm - | $wrapper -S --rebuild -
             fi
             
         else
@@ -512,10 +511,6 @@ downloadWidget() {
     return 0
 }
 
-
-
-
-
 checkWidgets() {
     getTxt true
     for cmd in curl jq xmlstarlet; do command -v "$cmd" >/dev/null || { echo 127; exit; }; done
@@ -600,10 +595,6 @@ upgradeWidget() {
 }
 
 
-
-
-
-
 getTxt() {
     DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
     export TEXTDOMAINDIR="$DIR/../locale"
@@ -625,12 +616,13 @@ getTxt() {
     done < "$DIR/../ui/components/Messages.qml"
 
     if [[ $1 = "true" ]]; then
+        ICO_MNG_OPT_01="󱝩 "; ICO_MNG_OPT_02="󱝫 "; ICO_MNG_OPT_03="󱝭 "; ICO_MNG_OPT_04="󱝭 "
+        ICO_MNG_OPT_05="󱝧 "; ICO_MNG_OPT_06=" "; ICO_MNG_OPT_07="󱝥 "; ICO_MNG_OPT_08="󱝝 "
+        ICO_MNG_OPT_09="󱝝 "; ICO_MNG_OPT_10="󰌠 "; ICO_MNG_OPT_11="󱘴 "; ICO_MNG_OPT_12=" "
+        
         ICO_ERR=""; ICO_DONE=""; ICO_WARN="󱇎"; ICO_QUESTION=""; ICO_EXEC="󰅱"; ICO_RETURN="󰄽"; ICO_SELECT="󰄾"
-        ICO_MNG_OPT_01="󱝩"; ICO_MNG_OPT_02="󱝫"; ICO_MNG_OPT_03="󱝭"; ICO_MNG_OPT_04="󱝭"
-        ICO_MNG_OPT_05="󱝧"; ICO_MNG_OPT_06=""; ICO_MNG_OPT_07="󱝥"; ICO_MNG_OPT_08="󱝝"
-        ICO_MNG_OPT_09="󱝝"; ICO_MNG_OPT_10="󰌠"; ICO_MNG_OPT_11="󱘴"; ICO_MNG_OPT_12=""
     else
-        ICO_ERR="\u2718"; ICO_DONE="\u2714"; ICO_WARN="::"; ICO_QUESTION="::"; ICO_EXEC="::"; ICO_RETURN="<<"; ICO_SELECT=">"
+        ICO_ERR="✘"; ICO_DONE="✔"; ICO_WARN="::"; ICO_QUESTION="::"; ICO_EXEC="::"; ICO_RETURN="<<"; ICO_SELECT=">"
     fi
 }
 
