@@ -614,24 +614,16 @@ function setPackageIcon(icons, name, repo, group, appID, widgetIcon) {
 }
 
 
-function setFrameSize() {
-    const multiplier = cfg.indicatorCounter ? 1.1 : 0.9
-
-    return plasmoid.location === 5 || plasmoid.location === 6 ? icon.height * multiplier :     
-           plasmoid.location === 3 || plasmoid.location === 4 ? icon.width * multiplier : 0
-}
-
-
 function setAnchor(position, stopIndicator) {
     const anchor = {
-        top: cfg.indicatorBottom && !cfg.indicatorTop,
-        bottom: cfg.indicatorTop && !cfg.indicatorBottom,
-        right: cfg.indicatorLeft && !cfg.indicatorRight,
-        left: cfg.indicatorRight && !cfg.indicatorLeft
+        top: cfg.counterBottom && !cfg.counterTop,
+        bottom: cfg.counterTop && !cfg.counterBottom,
+        right: cfg.counterLeft && !cfg.counterRight,
+        left: cfg.counterRight && !cfg.counterLeft
     }
 
     const Position = stopIndicator ? anchor[position] :
-                      { parent: cfg.indicatorCenter ? parent : undefined,
+                      { parent: cfg.counterCenter ? parent : undefined,
                         top: anchor.bottom,
                         bottom: anchor.top,
                         right: anchor.left,

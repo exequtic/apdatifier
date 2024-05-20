@@ -41,17 +41,19 @@ SimpleKCM {
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
     property alias cfg_indicatorStop: indicatorStop.checked
-    property alias cfg_indicatorUpdates: indicatorUpdates.checked
-    property alias cfg_indicatorCounter: indicatorCounter.checked
-    property alias cfg_indicatorCircle: indicatorCircle.checked
-    property string cfg_indicatorColor: plasmoid.configuration.indicatorColor
-    property alias cfg_indicatorSize: indicatorSize.value
-
-    property alias cfg_indicatorCenter: indicatorCenter.checked
-    property bool cfg_indicatorTop: plasmoid.configuration.indicatorTop
-    property bool cfg_indicatorBottom: plasmoid.configuration.indicatorBottom
-    property bool cfg_indicatorRight: plasmoid.configuration.indicatorRight
-    property bool cfg_indicatorLeft: plasmoid.configuration.indicatorLeft
+    property alias cfg_counterEnabled: counterEnabled.checked
+    property alias cfg_counterBold: counterBold.checked
+    property string cfg_counterColor: plasmoid.configuration.counterColor
+    property alias cfg_counterSize: counterSize.value
+    property alias cfg_counterRadius: counterRadius.value
+    property alias cfg_counterOpacity: counterOpacity.value
+    property alias cfg_counterOffsetX: counterOffsetX.value
+    property alias cfg_counterOffsetY: counterOffsetY.value
+    property alias cfg_counterCenter: counterCenter.checked
+    property bool cfg_counterTop: plasmoid.configuration.counterTop
+    property bool cfg_counterBottom: plasmoid.configuration.counterBottom
+    property bool cfg_counterRight: plasmoid.configuration.counterRight
+    property bool cfg_counterLeft: plasmoid.configuration.counterLeft
 
     Kirigami.FormLayout {
         id: appearancePage
@@ -354,115 +356,161 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Indicators:")
+            Kirigami.FormData.label: i18n("Stopped interval") + ":"
             id: indicatorStop
-            text: i18n("Stopped interval")
-        }
-
-        CheckBox {
-            id: indicatorUpdates
-            text: i18n("Status of updates")
-        }
-
-        ColumnLayout {
-            enabled: indicatorUpdates.checked
-
-            ButtonGroup {
-                id: indicator
-            }
-
-            RadioButton {
-                id: indicatorCounter
-                text: i18n("Counter")
-                checked: true
-                ButtonGroup.group: indicator
-            }
-
-            RowLayout {
-                RadioButton {
-                    id: indicatorCircle
-                    text: i18n("Circle")
-                    ButtonGroup.group: indicator
-                }
-
-                Button {
-                    id: colorButton
-
-                    Layout.leftMargin: (indicatorCounter.width - indicatorCircle.width) + Kirigami.Units.gridUnit * 1.1
-
-                    implicitWidth: Kirigami.Units.gridUnit
-                    implicitHeight: implicitWidth
-                    visible: indicatorCircle.checked
-
-                    ToolTip.text: cfg_indicatorColor ? cfg_indicatorColor : i18n("Default accent color from current color scheme")
-                    ToolTip.delay: Kirigami.Units.toolTipDelay
-                    ToolTip.visible: colorButton.hovered
-
-                    background: Rectangle {
-                        radius: colorButton.implicitWidth / 2
-                        color: cfg_indicatorColor ? cfg_indicatorColor : Kirigami.Theme.highlightColor
-                    }
-
-                    HoverHandler {
-                        cursorShape: Qt.PointingHandCursor
-                    }
-
-                    onPressed: menuColor.opened ? menuColor.close() : menuColor.open()
-
-                    Menu {
-                        id: menuColor
-                        y: +parent.height
-
-                        MenuItem {
-                            text: i18n("Default color")
-                            icon.name: "edit-clear"
-                            enabled: cfg_indicatorColor && cfg_indicatorColor !== Kirigami.Theme.highlightColor
-                            onClicked: cfg_indicatorColor = ""
-                        }
-
-                        MenuItem {
-                            text: i18n("Select...")
-                            icon.name: "document-open-folder"
-                            onClicked: colorDialog.open()
-                        }
-                    }
-
-                    ColorDialog {
-                        id: colorDialog
-                        visible: false
-                        title: i18n("Select circle color")
-                        selectedColor: cfg_indicatorColor
-
-                        onAccepted: {
-                            cfg_indicatorColor = selectedColor
-                        }
-                    }
-                }
-            }
+            text: i18n("Enable")
         }
 
         Item {
             Kirigami.FormData.isSection: true
         }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Size:")
-            enabled: indicatorUpdates.checked
+        CheckBox {
+            Kirigami.FormData.label: i18n("Counter") + ":"
+            id: counterEnabled
+            text: i18n("Enable")
+        }
 
-            Slider {
-                id: indicatorSize
-                from: -5
-                to: 10
-                stepSize: 1
-                value: indicatorSize.value
+        CheckBox {
+            Kirigami.FormData.label: i18n("Font:")
+            enabled: counterEnabled.checked
+            id: counterBold
+            text: i18n("Bold")
+        }
 
-                onValueChanged: {
-                    plasmoid.configuration.indicatorSize = indicatorSize.value
+        Button {
+            Kirigami.FormData.label: i18n("Color:")
+            id: counterColor
+
+            Layout.leftMargin: Kirigami.Units.gridUnit
+
+            implicitWidth: Kirigami.Units.gridUnit
+            implicitHeight: implicitWidth
+            enabled: counterEnabled.checked
+
+            ToolTip.text: cfg_counterColor ? cfg_counterColor : i18n("Default background color from current theme")
+            ToolTip.delay: Kirigami.Units.toolTipDelay
+            ToolTip.visible: counterColor.hovered
+
+            background: Rectangle {
+                radius: counterRadius.value
+                border.width: 1
+                border.color: "black"
+                color: cfg_counterColor ? cfg_counterColor : Kirigami.Theme.backgroundColor
+            }
+
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            onPressed: menuColor.opened ? menuColor.close() : menuColor.open()
+
+            Menu {
+                id: menuColor
+                y: +parent.height
+
+                MenuItem {
+                    text: i18n("Default color")
+                    icon.name: "edit-clear"
+                    enabled: cfg_counterColor && cfg_counterColor !== Kirigami.Theme.backgroundColor
+                    onClicked: cfg_counterColor = ""
+                }
+
+                MenuItem {
+                    text: i18n("Select...")
+                    icon.name: "document-open-folder"
+                    onClicked: colorDialog.open()
                 }
             }
 
+            ColorDialog {
+                id: colorDialog
+                visible: false
+                title: i18n("Select counter background color")
+                selectedColor: cfg_counterColor
+
+                onAccepted: {
+                    cfg_counterColor = selectedColor
+                }
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Size:")
+            enabled: counterEnabled.checked
+
+            Slider {
+                id: counterSize
+                from: -5
+                to: 10
+                stepSize: 1
+                value: counterSize.value
+                onValueChanged: plasmoid.configuration.counterSize = counterSize.value
+            }
+
             Label {
-                text: indicatorSize.value
+                text: counterSize.value
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Radius") + ":"
+            enabled: counterEnabled.checked
+
+            Slider {
+                id: counterRadius
+                from: 0
+                to: 100
+                stepSize: 1
+                value: counterRadius.value
+                onValueChanged: plasmoid.configuration.counterRadius = counterRadius.value
+            }
+
+            Label {
+                text: counterRadius.value
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Opacity") + ":"
+            enabled: counterEnabled.checked
+
+            Slider {
+                id: counterOpacity
+                from: 0
+                to: 10
+                stepSize: 1
+                value: counterOpacity.value
+                onValueChanged: plasmoid.configuration.counterOpacity = counterOpacity.value
+            }
+
+            Label {
+                text: counterOpacity.value / 10
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Offset") + ":"
+            enabled: counterEnabled.checked
+
+            Label { text: "X:" }
+            SpinBox {
+                id: counterOffsetX
+                from: -10
+                to: 10
+                stepSize: 1
+                value: counterOffsetX.value
+                onValueChanged: plasmoid.configuration.counterOffsetX = counterOffsetX.value
+            }
+
+            Label { text: "Y:" }
+            SpinBox {
+                id: counterOffsetY
+                from: -10
+                to: 10
+                stepSize: 1
+                value: counterOffsetY.value
+                onValueChanged: plasmoid.configuration.counterOffsetY = counterOffsetY.value
             }
         }
 
@@ -472,14 +520,14 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Position:")
-            enabled: indicatorUpdates.checked
-            id: indicatorCenter
+            enabled: counterEnabled.checked
+            id: counterCenter
             text: i18n("Center")
         }
 
         GridLayout {
             Layout.fillWidth: true
-            enabled: indicatorUpdates.checked && !indicatorCenter.checked
+            enabled: counterEnabled.checked && !counterCenter.checked
             columns: 4
             rowSpacing: 0
             columnSpacing: 0
@@ -505,14 +553,14 @@ SimpleKCM {
             RadioButton {
                 id: topleft
                 ButtonGroup.group: position
-                checked: cfg_indicatorTop && cfg_indicatorLeft
+                checked: cfg_counterTop && cfg_counterLeft
 
                 onCheckedChanged: {
                     if (checked) {
-                        cfg_indicatorTop = true
-                        cfg_indicatorBottom = false
-                        cfg_indicatorRight = false
-                        cfg_indicatorLeft = true
+                        cfg_counterTop = true
+                        cfg_counterBottom = false
+                        cfg_counterRight = false
+                        cfg_counterLeft = true
                     }
                 }
             }
@@ -520,14 +568,14 @@ SimpleKCM {
             RadioButton {
                 id: topright
                 ButtonGroup.group: position
-                checked: cfg_indicatorTop && cfg_indicatorRight
+                checked: cfg_counterTop && cfg_counterRight
 
                 onCheckedChanged: {
                     if (checked) {
-                        cfg_indicatorTop = true
-                        cfg_indicatorBottom = false
-                        cfg_indicatorRight = true
-                        cfg_indicatorLeft = false
+                        cfg_counterTop = true
+                        cfg_counterBottom = false
+                        cfg_counterRight = true
+                        cfg_counterLeft = false
                     }
                 }
             }
@@ -562,14 +610,14 @@ SimpleKCM {
             RadioButton {
                 id: bottomleft
                 ButtonGroup.group: position
-                checked: cfg_indicatorBottom && cfg_indicatorLeft
+                checked: cfg_counterBottom && cfg_counterLeft
 
                 onCheckedChanged: {
                     if (checked) {
-                        cfg_indicatorTop = false
-                        cfg_indicatorBottom = true
-                        cfg_indicatorRight = false
-                        cfg_indicatorLeft = true
+                        cfg_counterTop = false
+                        cfg_counterBottom = true
+                        cfg_counterRight = false
+                        cfg_counterLeft = true
                     }
                 }
             }
@@ -577,14 +625,14 @@ SimpleKCM {
             RadioButton {
                 id: bottomright
                 ButtonGroup.group: position
-                checked: cfg_indicatorBottom && cfg_indicatorRight
+                checked: cfg_counterBottom && cfg_counterRight
 
                 onCheckedChanged: {
                     if (checked) {
-                        cfg_indicatorTop = false
-                        cfg_indicatorBottom = true
-                        cfg_indicatorRight = true
-                        cfg_indicatorLeft = false
+                        cfg_counterTop = false
+                        cfg_counterBottom = true
+                        cfg_counterRight = true
+                        cfg_counterLeft = false
                     }
                 }
             }
