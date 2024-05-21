@@ -42,7 +42,7 @@ Item {
             color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
             visible: frame.visible && cfg.counterEnabled
 
-            layer.enabled: true
+            layer.enabled: cfg.counterShadow
             layer.effect: DropShadow {
                 horizontalOffset: 0
                 verticalOffset: 0

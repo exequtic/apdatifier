@@ -47,6 +47,7 @@ SimpleKCM {
     property alias cfg_counterSize: counterSize.value
     property alias cfg_counterRadius: counterRadius.value
     property alias cfg_counterOpacity: counterOpacity.value
+    property alias cfg_counterShadow: counterShadow.checked
     property alias cfg_counterOffsetX: counterOffsetX.value
     property alias cfg_counterOffsetY: counterOffsetY.value
     property alias cfg_counterCenter: counterCenter.checked
@@ -371,13 +372,6 @@ SimpleKCM {
             text: i18n("Enable")
         }
 
-        CheckBox {
-            Kirigami.FormData.label: i18n("Font") + ":"
-            enabled: counterEnabled.checked
-            id: counterBold
-            text: i18n("Bold")
-        }
-
         Button {
             Kirigami.FormData.label: i18n("Color") + ":"
             id: counterColor
@@ -487,6 +481,21 @@ SimpleKCM {
             Label {
                 text: counterOpacity.value / 10
             }
+        }
+
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Shadow") + ":"
+            enabled: counterEnabled.checked
+            id: counterShadow
+            text: i18n("Enable")
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Bold font") + ":"
+            enabled: counterEnabled.checked
+            id: counterBold
+            text: i18n("Enable")
         }
 
         RowLayout {
