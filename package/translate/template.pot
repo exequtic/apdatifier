@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-15 13:06+0300\n"
+"POT-Creation-Date: 2024-05-20 23:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Press Enter to return menu"
 msgstr ""
 
-#: ../contents/ui/components/Messages.qml ../contents/ui/configuration/General.qml
+#: ../contents/ui/components/Messages.qml
 msgid "Search:"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgid "List View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View:"
+msgid "View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -289,35 +289,11 @@ msgid "Compact"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Spacing:"
+msgid "Spacing"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Header:"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Show status text"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Show tool bar"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Footer:"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Show tab bar"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Sorting:"
+msgid "Sorting"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -329,19 +305,43 @@ msgid "By repository"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Header"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show status text"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tool bar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Footer"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab bar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Own UI icons:"
+msgid "Build-in icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
+msgid "Terminal"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Icons in terminal:"
+msgid "Use NerdFont icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -349,7 +349,11 @@ msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Packages icons:"
+msgid "Packages"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Custom icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -379,7 +383,7 @@ msgid "Panel Icon View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel icon:"
+msgid "Panel icon"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -405,15 +409,11 @@ msgid "Select..."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Indicators:"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Status of updates"
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -421,11 +421,19 @@ msgid "Counter"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Circle"
+msgid "Font"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default accent color from current color scheme"
+msgid "Bold"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -433,15 +441,27 @@ msgid "Default color"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Select circle color"
+msgid "Select counter background color"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Size:"
+msgid "Size"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Position:"
+msgid "Radius"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -465,7 +485,7 @@ msgid "Bottom-Right"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Interval:"
+msgid "Interval"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -487,15 +507,15 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "found: %1"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -521,7 +541,7 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper:"
+msgid "Wrapper"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -529,7 +549,7 @@ msgid "pacman-contrib not installed! Highly recommended to install it for gettin
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Exclude packages:"
+msgid "Exclude packages"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -537,7 +557,7 @@ msgid "In this field, you can specify package names that you want to ignore. <br
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions:"
+msgid "Mouse actions"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -557,7 +577,7 @@ msgid "scroll down"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Notifications:"
+msgid "Notifications"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -595,15 +615,11 @@ msgid "Visit %1"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal:"
+msgid "Options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Options:"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Widgets:"
+msgid "Widgets"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -621,7 +637,7 @@ msgid "Pacman Mirrorlist Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Generator:"
+msgid "Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -633,19 +649,19 @@ msgid "To use this feature, the following installed utilities are required:<br><
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Protocol:"
+msgid "Protocol"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "IP version:"
+msgid "IP version"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Mirror status:"
+msgid "Mirror status"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Number output:"
+msgid "Number output"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -653,7 +669,7 @@ msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Country:"
+msgid "Country"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml

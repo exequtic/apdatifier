@@ -19,7 +19,7 @@ const cacheDir = "$HOME/.cache/apdatifier/"
 const cacheFile1 = cacheDir + "packages_list.json"
 const cacheFile2 = cacheDir + "packages_list_2.json"
 const newsFile = cacheDir + "latest_news.json"
-const customIcons = cacheDir + "custom_icons"
+const customIcons = cacheDir + "packages_icons"
 const timestampFile = cacheDir + "last_check_timestamp"
 
 const writeFile = (data, file) => `echo '${data}' > "${file}"`

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-15 13:06+0300\n"
-"PO-Revision-Date: 2024-05-15 13:09+0300\n"
+"POT-Creation-Date: 2024-05-20 23:43+0300\n"
+"PO-Revision-Date: 2024-05-20 23:35+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -279,7 +279,6 @@ msgid "Press Enter to return menu"
 msgstr "Нажмите Enter чтобы вернуться в меню"
 
 #: ../contents/ui/components/Messages.qml
-#: ../contents/ui/configuration/General.qml
 msgid "Search:"
 msgstr "Поиск:"
 
@@ -296,8 +295,8 @@ msgid "List View"
 msgstr "Вид списка"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View:"
-msgstr "Вид:"
+msgid "View"
+msgstr "Вид"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Extended"
@@ -308,12 +307,24 @@ msgid "Compact"
 msgstr "Компактный"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Spacing:"
-msgstr "Высота:"
+msgid "Spacing"
+msgstr "Высота"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Header:"
-msgstr "Заголовок:"
+msgid "Sorting"
+msgstr "Сортировка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By name"
+msgstr "По имени"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By repository"
+msgstr "По репозиторию"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Header"
+msgstr "Заголовок"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show status text"
@@ -324,8 +335,8 @@ msgid "Show tool bar"
 msgstr "Показывать панель инструментов"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Footer:"
-msgstr "Нижний колонтитул:"
+msgid "Footer"
+msgstr "Нижний колонтитул"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
@@ -340,33 +351,21 @@ msgstr ""
 "с зажатой правой клавишей."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Sorting:"
-msgstr "Сортировка:"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "By name"
-msgstr "По имени"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "By repository"
-msgstr "По репозиторию"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Icons"
 msgstr "Иконки"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Own UI icons:"
-msgstr "Собственные UI иконки:"
+msgid "Build-in icons"
+msgstr "Встроенные иконки"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включить"
+msgid "Terminal"
+msgstr "Терминал"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Icons in terminal:"
-msgstr "Иконки в терминале:"
+msgid "Use NerdFont icons"
+msgstr "Использовать NerdFont иконки"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
@@ -377,8 +376,12 @@ msgstr ""
 "отображаться иконки из этого шрифта."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Packages icons:"
-msgstr "Иконки пакетов:"
+msgid "Packages"
+msgstr "Пакеты"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Custom icons"
+msgstr "Пользовательские иконки"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
@@ -418,8 +421,8 @@ msgid "Panel Icon View"
 msgstr "Вид иконки на панели"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel icon:"
-msgstr "Значок в трее:"
+msgid "Panel icon"
+msgstr "Иконка на панели"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when relevant"
@@ -448,44 +451,61 @@ msgid "Select..."
 msgstr "Выбрать..."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Indicators:"
-msgstr "Индикаторы:"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
 msgstr "Выключенный интервал"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Status of updates"
-msgstr "Статус обновлений"
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включить"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Счетчик"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Circle"
-msgstr "Круг"
+msgid "Font"
+msgstr "Шрифт"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default accent color from current color scheme"
-msgstr "Стандартный акцентный цвет из текущей цветовой схемы"
+msgid "Bold"
+msgstr "Жирный"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr "Цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Стандартный цвет фона из текущей темы"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
 msgstr "Стандартный цвет"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Select circle color"
-msgstr "Выбор цвета индикатора"
+msgid "Select counter background color"
+msgstr "Выбор цвета для фона счетчика"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Size:"
-msgstr "Размер:"
+msgid "Size"
+msgstr "Размер"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Position:"
-msgstr "Позиция:"
+msgid "Radius"
+msgstr "Радиус"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr "Не прозрачность"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Смещение"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Позиция"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Center"
@@ -508,8 +528,8 @@ msgid "Bottom-Right"
 msgstr "Снизу-справа"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Interval:"
-msgstr "Интервал:"
+msgid "Interval"
+msgstr "Интервал"
 
 #: ../contents/ui/configuration/General.qml
 msgid "minutes"
@@ -536,16 +556,16 @@ msgstr ""
 "<b>Рекомендуется.</b>"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "Поиск"
+
+#: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
 msgstr "Официальные репозитории Arch"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
 msgstr "Пользовательский репозиторий Arch"
-
-#: ../contents/ui/configuration/General.qml
-msgid "found: %1"
-msgstr "найден: %1"
 
 #: ../contents/ui/configuration/General.qml
 msgid "It is necessary to have paru or yay installed."
@@ -577,8 +597,8 @@ msgstr ""
 "виджета и его версию в точности как и на сайте KDE Store."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper:"
-msgstr "Обёртка:"
+msgid "Wrapper"
+msgstr "Обертка"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -590,8 +610,8 @@ msgstr ""
 "репозиториев."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Exclude packages:"
-msgstr "Исключить пакеты:"
+msgid "Exclude packages"
+msgstr "Исключение пакетов"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -602,8 +622,8 @@ msgstr ""
 "<br><br>Указывайте имена пакетов через пробел."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions:"
-msgstr "Действия мыши:"
+msgid "Mouse actions"
+msgstr "Действия мыши"
 
 #: ../contents/ui/configuration/General.qml
 msgid "middle click"
@@ -622,8 +642,8 @@ msgid "scroll down"
 msgstr "прокрутка вниз"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Notifications:"
-msgstr "Уведомления:"
+msgid "Notifications"
+msgstr "Уведомления"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Popup"
@@ -675,16 +695,12 @@ msgid "Visit %1"
 msgstr "Посетите %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal:"
-msgstr "Терминал:"
+msgid "Options"
+msgstr "Опции"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Options:"
-msgstr "Опции:"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Widgets:"
-msgstr "Виджеты:"
+msgid "Widgets"
+msgstr "Виджеты"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -709,8 +725,8 @@ msgid "Pacman Mirrorlist Generator"
 msgstr "Генератор списка зеркал"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Generator:"
-msgstr "Генератор:"
+msgid "Generator"
+msgstr "Генератор"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest refresh on upgrade"
@@ -727,20 +743,20 @@ msgstr ""
 "org/mirrorlist (нажмите на кнопку для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Protocol:"
-msgstr "Протокол:"
+msgid "Protocol"
+msgstr "Протокол"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "IP version:"
-msgstr "IP версия:"
+msgid "IP version"
+msgstr "IP версия"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Mirror status:"
-msgstr "Статус зеркал:"
+msgid "Mirror status"
+msgstr "Статус зеркал"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Number output:"
-msgstr "Количество:"
+msgid "Number output"
+msgstr "Количество"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
@@ -749,8 +765,8 @@ msgstr ""
 "доступные."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Country:"
-msgstr "Страна:"
+msgid "Country"
+msgstr "Страна"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Select at least one!"

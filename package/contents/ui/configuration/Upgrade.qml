@@ -34,7 +34,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Terminal:")
+            Kirigami.FormData.label: i18n("Terminal") + ":"
 
             ComboBox {
                 model: terminals
@@ -67,7 +67,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Options:")
+            Kirigami.FormData.label: i18n("Options") + ":"
             spacing: 0
             visible: pkg.pacman
 
@@ -89,7 +89,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Widgets:")
+            Kirigami.FormData.label: i18n("Widgets") + ":"
 
             CheckBox {
                 id: refreshShell
@@ -107,7 +107,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Generator:")
+            Kirigami.FormData.label: i18n("Generator") + ":"
 
             CheckBox {
                 id: mirrors
@@ -124,7 +124,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Protocol:")
+            Kirigami.FormData.label: i18n("Protocol") + ":"
 
             CheckBox {
                 
@@ -143,7 +143,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("IP version:")
+            Kirigami.FormData.label: i18n("IP version") + ":"
 
             CheckBox {
                 id: ipv4
@@ -161,7 +161,7 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Mirror status:")
+            Kirigami.FormData.label: i18n("Mirror status") + ":"
             id: mirrorstatus
             text: i18n("Enable")
             onClicked: updateUrl()
@@ -169,7 +169,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Number output:")
+            Kirigami.FormData.label: i18n("Number output") + ":"
 
             SpinBox {
                 id: mirrorCount
@@ -190,7 +190,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Country:")
+            Kirigami.FormData.label: i18n("Country") + ":"
 
             Label {
                 textFormat: Text.RichText

@@ -45,7 +45,7 @@ SimpleKCM {
         id: generalPage
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Interval:")
+            Kirigami.FormData.label: i18n("Interval") + ":"
 
             CheckBox {
                 id: interval
@@ -86,7 +86,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Search:")
+            Kirigami.FormData.label: i18n("Search") + ":"
 
             CheckBox {
                 id: archRepo
@@ -185,7 +185,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Wrapper:")
+            Kirigami.FormData.label: i18n("Wrapper") + ":"
 
             ComboBox {
                 model: wrappers
@@ -230,7 +230,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Exclude packages:")
+            Kirigami.FormData.label: i18n("Exclude packages") + ":"
             spacing: 0
 
             TextField {
@@ -247,7 +247,7 @@ SimpleKCM {
         }
 
         QQC.ComboBox {
-            Kirigami.FormData.label: i18n("Mouse actions:")
+            Kirigami.FormData.label: i18n("Mouse actions") + ":"
             type: "middle"
             labelText: i18n("middle click")
         }
@@ -269,7 +269,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Notifications:")
+            Kirigami.FormData.label: i18n("Notifications") + ":"
 
             CheckBox {
                 id: notifications

@@ -68,7 +68,7 @@ SimpleKCM {
         }
 
         RadioButton {
-            Kirigami.FormData.label: i18n("View:")
+            Kirigami.FormData.label: i18n("View") + ":"
 
             ButtonGroup.group: viewGroup
             id: extView
@@ -92,7 +92,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Spacing:")
+            Kirigami.FormData.label: i18n("Spacing") + ":"
             enabled: compactView.checked
 
             Slider {
@@ -118,7 +118,7 @@ SimpleKCM {
 
         RadioButton {
             id: sortByName
-            Kirigami.FormData.label: i18n("Sorting:")
+            Kirigami.FormData.label: i18n("Sorting") + ":"
             text: i18n("By name")
             checked: true
 
@@ -146,7 +146,7 @@ SimpleKCM {
 
         CheckBox {
             id: showStatusText
-            Kirigami.FormData.label: i18n("Header:")
+            Kirigami.FormData.label: i18n("Header") + ":"
             text: i18n("Show status text")
         }
 
@@ -191,7 +191,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Footer:")
+            Kirigami.FormData.label: i18n("Footer") + ":"
 
             CheckBox {
                 id: showTabBar
@@ -209,18 +209,18 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Own UI icons:")
+            Kirigami.FormData.label: "UI:"
             CheckBox {
                 id: ownIconsUI
-                text: i18n("Enable")
+                text: i18n("Build-in icons")
             }
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Icons in terminal:")
+            Kirigami.FormData.label: i18n("Terminal") + ":"
             CheckBox {
                 id: termFont
-                text: i18n("Enable")
+                text: i18n("Use NerdFont icons")
             }
 
             ContextualHelpButton {
@@ -229,10 +229,10 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Packages icons:")
+            Kirigami.FormData.label: i18n("Packages") + ":"
             CheckBox {
                 id: customIconsEnabled
-                text: i18n("Enable")
+                text: i18n("Custom icons")
             }
 
             ContextualHelpButton {
@@ -300,7 +300,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Panel icon:")
+            Kirigami.FormData.label: i18n("Panel icon") + ":"
 
             CheckBox {
                 id: relevantIcon
@@ -372,14 +372,14 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Font:")
+            Kirigami.FormData.label: i18n("Font") + ":"
             enabled: counterEnabled.checked
             id: counterBold
             text: i18n("Bold")
         }
 
         Button {
-            Kirigami.FormData.label: i18n("Color:")
+            Kirigami.FormData.label: i18n("Color") + ":"
             id: counterColor
 
             Layout.leftMargin: Kirigami.Units.gridUnit
@@ -436,7 +436,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Size:")
+            Kirigami.FormData.label: i18n("Size") + ":"
             enabled: counterEnabled.checked
 
             Slider {
@@ -519,7 +519,7 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Position:")
+            Kirigami.FormData.label: i18n("Position") + ":"
             enabled: counterEnabled.checked
             id: counterCenter
             text: i18n("Center")

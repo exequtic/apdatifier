@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-15 13:06+0300\n"
-"PO-Revision-Date: 2024-01-04 21:50+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"POT-Creation-Date: 2024-05-20 23:43+0300\n"
+"PO-Revision-Date: 2024-05-20 22:52+0300\n"
+"Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -268,7 +268,6 @@ msgid "Press Enter to return menu"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-#: ../contents/ui/configuration/General.qml
 msgid "Search:"
 msgstr "Zoeken:"
 
@@ -285,7 +284,7 @@ msgid "List View"
 msgstr "Lijstweergave"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View:"
+msgid "View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -297,12 +296,24 @@ msgid "Compact"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Spacing:"
-msgstr "Afstand:"
+msgid "Spacing"
+msgstr "Afstand"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Header:"
-msgstr ""
+msgid "Sorting"
+msgstr "Sorteren"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By name"
+msgstr "Op naam"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By repository"
+msgstr "Op pakketbron"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Header"
+msgstr "Kop"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show status text"
@@ -313,7 +324,7 @@ msgid "Show tool bar"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Footer:"
+msgid "Footer"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -327,32 +338,20 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Sorting:"
-msgstr "Sorteren:"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "By name"
-msgstr "Op naam"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "By repository"
-msgstr "Op pakketbron"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Own UI icons:"
+msgid "Build-in icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
+msgid "Terminal"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Icons in terminal:"
+msgid "Use NerdFont icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -362,7 +361,11 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Packages icons:"
+msgid "Packages"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Custom icons"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -396,7 +399,7 @@ msgid "Panel Icon View"
 msgstr "Paneelpictogramweergave"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel icon:"
+msgid "Panel icon"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -423,15 +426,12 @@ msgid "Select..."
 msgstr "Kiezen…"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Indicators:"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Status of updates"
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -439,27 +439,47 @@ msgid "Counter"
 msgstr "Embleem"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Circle"
-msgstr "Cirkel"
+msgid "Font"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default accent color from current color scheme"
-msgstr "Standaard accentkleur uit kleurenschema"
+msgid "Bold"
+msgstr "Vetgedrukt"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
 msgstr "Standaardkleur"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Select circle color"
-msgstr "Kies een cirkelkleur"
+msgid "Select counter background color"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Size:"
-msgstr "Grootte:"
+msgid "Size"
+msgstr "Grootte"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Position:"
+msgid "Radius"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -483,8 +503,8 @@ msgid "Bottom-Right"
 msgstr "Rechtsonder"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Interval:"
-msgstr "Periodiek bijwerken:"
+msgid "Interval"
+msgstr "Periodiek bijwerken"
 
 #: ../contents/ui/configuration/General.qml
 msgid "minutes"
@@ -507,16 +527,16 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
 msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "found: %1"
-msgstr "gevonden: %1"
 
 #: ../contents/ui/configuration/General.qml
 msgid "It is necessary to have paru or yay installed."
@@ -544,7 +564,7 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper:"
+msgid "Wrapper"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -554,7 +574,7 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Exclude packages:"
+msgid "Exclude packages"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -564,7 +584,7 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions:"
+msgid "Mouse actions"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -584,8 +604,8 @@ msgid "scroll down"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Notifications:"
-msgstr "Meldingen:"
+msgid "Notifications"
+msgstr "Meldingen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Popup"
@@ -634,15 +654,11 @@ msgid "Visit %1"
 msgstr "%1 openen"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal:"
-msgstr ""
+msgid "Options"
+msgstr "Opties"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Options:"
-msgstr "Opties:"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Widgets:"
+msgid "Widgets"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -663,7 +679,7 @@ msgid "Pacman Mirrorlist Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Generator:"
+msgid "Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -678,19 +694,19 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Protocol:"
+msgid "Protocol"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "IP version:"
+msgid "IP version"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Mirror status:"
+msgid "Mirror status"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Number output:"
+msgid "Number output"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -698,7 +714,7 @@ msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Country:"
+msgid "Country"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
