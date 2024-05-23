@@ -21,6 +21,6 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 ## Status
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |     184 |       |
-| nl       |  40/184 |   21% |
-| ru       | 184/184 |  100% |
+| Template |     181 |       |
+| nl       |  39/181 |   21% |
+| ru       | 181/181 |  100% |

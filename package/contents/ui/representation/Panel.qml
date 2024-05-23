@@ -65,7 +65,6 @@ Item {
             anchors.centerIn: counterFrame
             text: error ? "🛇" : (count || "✔")
             renderType: Text.NativeRendering
-            font.bold: cfg.counterBold
             font.pixelSize: Math.max(icon.height / 4, Kirigami.Theme.smallFont.pixelSize + cfg.counterSize)
             color: Kirigami.ColorUtils.brightnessForColor(counterFrame.color) === Kirigami.ColorUtils.Dark ? "white" : "black"
             visible: counterFrame.visible

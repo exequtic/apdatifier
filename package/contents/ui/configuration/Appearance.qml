@@ -37,12 +37,11 @@ SimpleKCM {
     property alias cfg_customIconsEnabled: customIconsEnabled.checked
     property alias cfg_customIcons: customIcons.text
 
-    property alias cfg_relevantIcon: relevantIcon.checked
+    property alias cfg_relevantIcon: relevantIcon.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
     property alias cfg_indicatorStop: indicatorStop.checked
     property alias cfg_counterEnabled: counterEnabled.checked
-    property alias cfg_counterBold: counterBold.checked
     property string cfg_counterColor: plasmoid.configuration.counterColor
     property alias cfg_counterSize: counterSize.value
     property alias cfg_counterRadius: counterRadius.value
@@ -301,15 +300,18 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Panel icon") + ":"
+            Kirigami.FormData.label: i18n("Shown when")
 
-            CheckBox {
+            SpinBox {
                 id: relevantIcon
-                text: i18n("Shown when relevant")
+                from: 0
+                to: 999
+                stepSize: 1
+                value: relevantIcon.value
             }
 
-            ContextualHelpButton {
-                toolTipText: i18n("If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates. <br><br>If the option is <b>disabled</b>, the icon in the system tray will always be <b>shown</b>.")
+            Label {
+                text: i18np("update is pending", "updates are pending", relevantIcon.value)
             }
         }
 
@@ -488,13 +490,6 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Shadow") + ":"
             enabled: counterEnabled.checked
             id: counterShadow
-            text: i18n("Enable")
-        }
-
-        CheckBox {
-            Kirigami.FormData.label: i18n("Bold font") + ":"
-            enabled: counterEnabled.checked
-            id: counterBold
             text: i18n("Enable")
         }
 

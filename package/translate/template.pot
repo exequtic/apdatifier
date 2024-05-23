@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-20 23:43+0300\n"
+"POT-Creation-Date: 2024-05-23 17:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,9 +104,9 @@ msgid_plural "+%1 new updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../contents/tools/tools.js
-msgid "%1 update is pending"
-msgid_plural "%1 updates total are pending"
+#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+msgid "update is pending"
+msgid_plural "updates are pending"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -383,17 +383,7 @@ msgid "Panel Icon View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel icon"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when relevant"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"If the option is <b>enabled</b>, the icon in the system tray will be <b>hidden</b> when there are no updates. <br><br>If the option is <b>disabled</b>, the icon in the system tray will always be "
-"<b>shown</b>."
+msgid "Shown when"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -418,14 +408,6 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -454,6 +436,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Opacity"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shadow"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
