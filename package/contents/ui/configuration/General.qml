@@ -181,11 +181,12 @@ SimpleKCM {
 
         Item {
             Kirigami.FormData.isSection: true
-            visible: aur.checked && wrappers.length > 1
+            visible: aur.checked
         }
 
         RowLayout {
             Kirigami.FormData.label: i18n("Wrapper") + ":"
+            visible: aur.checked
 
             ComboBox {
                 model: wrappers

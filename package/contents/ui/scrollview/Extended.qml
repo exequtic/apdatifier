@@ -97,11 +97,11 @@ ScrollView {
                         const details = []
                         model.DE && details.push(i18n("Description"), model.DE)
                         model.AU && details.push(i18n("Author"), model.AU)
+                        model.LN && details.push("URL", model.LN)
                         model.ID && details.push(i18n("App ID"), model.ID)
                         model.BR && details.push(i18n("Branch"), model.BR)
                         model.CM && details.push(i18n("Commit"), model.CM)
                         model.RT && details.push(i18n("Runtime"), model.RT)
-                        model.LN && details.push("URL", model.LN)
                         model.GR && details.push(i18n("Groups"), model.GR)
                         model.PR && details.push(i18n("Provides"), model.PR)
                         model.DP && details.push(i18n("Depends on"), model.DP)

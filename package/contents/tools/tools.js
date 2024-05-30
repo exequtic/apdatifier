@@ -50,10 +50,18 @@ function runScript() {
 }
 
 
-function runAction() {
-    searchTimer.stop()
+function run() {
     error = null
+
+    if (busy) {
+        sh.stop()
+        setStatusBar()
+        return true
+    }
+
+    searchTimer.stop()
     busy = true
+    return false
 }
 
 
@@ -108,10 +116,10 @@ function defineCommands() {
     if (!pkg.pacman || !cfg.archRepo) delete cmd.arch
 
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
-    const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`sudo pacman -Syu ${flags}`).trim() + ";") : ""
+    const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
-    const widgets = cfg.plasmoids && cache.some(obj => obj.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.refreshShell} ${cfg.termFont};` : ""
-    const mirrorlist = cfg.mirrors ? `sudo ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
+    const widgets = cfg.plasmoids && cache.some(obj => obj.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
+    const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
     if (cmd.yakuake) {
@@ -148,7 +156,7 @@ function upgradePackage(name, id, contentID) {
     }
 
     if (contentID) {
-        const commands = `${script} upgradeWidget ${contentID} ${cfg.refreshShell} ${cfg.termFont} ${name}`
+        const commands = `${script} upgradeWidget ${contentID} ${cfg.restartShell} ${cfg.termFont} ${name} '${cfg.restartCommand}'`
         cmd.yakuake ? sh.exec(`${cmd.terminal} "tput sc; clear; bash ${commands}"`)
                     : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${commands}; ${print(done)}; read" &`)
         return
@@ -161,7 +169,7 @@ function upgradePackage(name, id, contentID) {
     const warning = "echo -e '\n" + warn1 + "\n" + warn2 + "'"
     const execIco = cfg.termFont ? "󰅱 " : ":: "
     const exec = blue + execIco + reset + bold + blue + i18n("Executed:") + " " + reset
-    const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `sudo pacman -Sy ${name}`
+    const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `${cfg.sudoBin} pacman -Sy ${name}`
     const executed = cfg.aur && cmd.trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
 
     cmd.yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
@@ -171,7 +179,7 @@ function upgradePackage(name, id, contentID) {
 function management() {
     defineCommands()
     const wrapper = cfg.aur && cfg.wrapper ? cfg.wrapper : "pacman"
-    const commands = `${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont} ${wrapper}`
+    const commands = `${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont} ${wrapper} ${cfg.sudoBin}`
 
     cmd.yakuake ? sh.exec(`${cmd.terminal} "${commands}"`)
                 : sh.exec(`${cmd.terminal} bash -c "${commands}" &`)
@@ -186,7 +194,7 @@ function upgradeSystem() {
 
 
 function checkUpdates() {
-    runAction()
+    if (run()) return
     defineCommands()
 
     let updArch, infArch, descArch, updFlpk, infFlpk, updPlasmoids, ignored
@@ -213,7 +221,7 @@ function checkUpdates() {
     })}
 
     function checkArch() {
-        statusIco = cfg.ownIconsUI ? "status_package" : "package"
+        statusIco = cfg.ownIconsUI ? "status_package" : "server-database"
         statusMsg = i18n("Checking system updates...")
 
         sh.exec(arch, (cmd, out, err, code) => {
@@ -396,7 +404,8 @@ function makeFlatpakList(updates, information) {
         const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
         return {
             NM: NM.replace(/ /g, "-").toLowerCase(),
-            DE, ID, BR, RE, CM, RT, IS, DS, AU: "", LN: "", IC: "",
+            DE, LN: "https://flathub.org/apps/" + ID,
+            ID, BR, RE, CM, RT, IS, DS, AU: "", IC: "",
             VO: list.get(ID),
             VN: list.get(ID) === VN ? "refresh " + VN : VN,
         }
@@ -449,7 +458,7 @@ function sortList(list) {
         const [nameA, repoA] = [a.NM, a.RE]
         const [nameB, repoB] = [b.NM, b.RE]
 
-        if (cfg.sortByName) return nameA.localeCompare(nameB)
+        if (!cfg.sorting) return nameA.localeCompare(nameB)
 
         const isRepoDevelA = repoA.includes("devel")
         const isRepoDevelB = repoB.includes("devel")
@@ -592,7 +601,7 @@ function setIcon(icon) {
 
 
 function setPackageIcon(icons, name, repo, group, appID, widgetIcon) {
-    let icon = cfg.ownIconsUI ? "apdatifier-package" : "package"
+    let icon = cfg.ownIconsUI ? "apdatifier-package" : "server-database"
     if (appID && appID === "org.libreoffice.LibreOffice") icon = appID + ".main"
     if (appID) icon = appID
     if (widgetIcon) icon = widgetIcon

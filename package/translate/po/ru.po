@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-23 17:06+0300\n"
-"PO-Revision-Date: 2024-05-23 15:59+0300\n"
+"POT-Creation-Date: 2024-05-29 14:48+0300\n"
+"PO-Revision-Date: 2024-05-29 14:44+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -33,8 +33,8 @@ msgid "Appearance"
 msgstr "Внешний вид"
 
 #: ../contents/config/config.qml
-msgid "Support"
-msgstr "Поддержать"
+msgid "Support me"
+msgstr "Поддержать меня"
 
 #: ../contents/tools/tools.js
 msgid "Full system upgrade"
@@ -191,6 +191,10 @@ msgid "To write to the mirrorlist file, sudo privileges are required"
 msgstr "Для записи в файл mirrorlist необходимы права администратора"
 
 #: ../contents/ui/components/Messages.qml
+msgid "Your current mirrorlist:"
+msgstr "Ваш текущий список зеркал:"
+
+#: ../contents/ui/components/Messages.qml
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
 msgstr ""
@@ -209,6 +213,10 @@ msgid "Downloading"
 msgstr "Скачивание"
 
 #: ../contents/ui/components/Messages.qml
+msgid "Restart plasmashell now?"
+msgstr "Перезапустить plasmashell сейчас?"
+
+#: ../contents/ui/components/Messages.qml
 msgid "File metadata.json not found"
 msgstr "Файл metadata.json не найден"
 
@@ -221,7 +229,7 @@ msgid "Unsupported file format"
 msgstr "Не поддерживаемый формат файла"
 
 #: ../contents/ui/components/Messages.qml
-msgid "List all available packages from repositories"
+msgid "List all available packages in repositories"
 msgstr "Список всех доступных пакетов в репозиториях"
 
 #: ../contents/ui/components/Messages.qml
@@ -230,25 +238,23 @@ msgstr "Список всех установленных пакетов"
 
 #: ../contents/ui/components/Messages.qml
 msgid "List explicitly installed packages"
-msgstr "Спискок явно установленных пакетов"
+msgstr "Список явно установленных пакетов"
 
 #: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed and isn't a dependency of anything"
-msgstr "Спискок явно установленных пакетов от которых не зависят другие пакеты"
+msgid "List explicitly installed packages and isn't a dependency of anything"
+msgstr "Список явно установленных пакетов, которые не являются зависимостями"
 
 #: ../contents/ui/components/Messages.qml
-msgid "List installed as a dependency but isn't needed anymore (orphans)"
-msgstr ""
-"Список установленных зависимостей от которых не зависят другие пакеты "
-"(сироты)"
+msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgstr "Список установленных зависимостей, которые больше не нужны (сироты)"
 
 #: ../contents/ui/components/Messages.qml
-msgid "Uninstall orphans packages"
+msgid "Uninstall orphan packages"
 msgstr "Удалить пакеты сироты"
 
 #: ../contents/ui/components/Messages.qml
-msgid "Install (or downgrade) package from cache"
-msgstr "Установить пакет (или понизить версию) из кэша"
+msgid "Install (downgrade) a package from cache"
+msgstr "Установить пакет (понизить версию) из кэша"
 
 #: ../contents/ui/components/Messages.qml
 msgid "Remove ALL cached packages"
@@ -259,8 +265,8 @@ msgid "Remove cached packages that are not currently installed"
 msgstr "Очистить кэшированные пакеты, которые не установлены"
 
 #: ../contents/ui/components/Messages.qml
-msgid "Rebuild python packages"
-msgstr "Переустановить python пакеты"
+msgid "Rebuild AUR python packages after python upgrade"
+msgstr "Пересборка python пакетов из AUR после обновления python"
 
 #: ../contents/ui/components/Messages.qml
 msgid "Refresh mirrorlist"
@@ -269,6 +275,10 @@ msgstr "Обновить список зеркал"
 #: ../contents/ui/components/Messages.qml
 msgid "Exit"
 msgstr "Выход"
+
+#: ../contents/ui/components/Messages.qml
+msgid "Review dependency warnings before removing"
+msgstr "Ознакомьтесь с предупреждениями о зависимостях перед удалением"
 
 #: ../contents/ui/components/Messages.qml
 msgid "Resume?"
@@ -299,36 +309,32 @@ msgid "View"
 msgstr "Вид"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Extended"
-msgstr "Расширенный"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Compact"
 msgstr "Компактный"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Spacing"
-msgstr "Высота"
+msgid "Extended"
+msgstr "Расширенный"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
 msgstr "Сортировка"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "By name"
-msgstr "По имени"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
 msgstr "По репозиторию"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By name"
+msgstr "По имени"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "Заголовок"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Show status text"
-msgstr "Показывать текст статуса"
+msgid "Show status"
+msgstr "Показывать статус"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
@@ -405,8 +411,8 @@ msgid "EXAMPLE:"
 msgstr "ПРИМЕР:"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Select icon and paste icon name to text area"
-msgstr "Выбрать иконку и вставить название в текстовое поле"
+msgid "Browse icons and copy icon name to clipboard"
+msgstr "Просмотр значков и копирование название значка в буфер обмена"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Backup list"
@@ -475,7 +481,7 @@ msgstr "Радиус"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Opacity"
-msgstr "Не прозрачность"
+msgstr "Непрозрачность"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shadow"
@@ -543,11 +549,11 @@ msgstr "Поиск"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
-msgstr "Официальные репозитории Arch"
+msgstr "Официальные репозитории"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr "Пользовательский репозиторий Arch"
+msgstr "Пользовательский репозиторий"
 
 #: ../contents/ui/configuration/General.qml
 msgid "It is necessary to have paru or yay installed."
@@ -681,26 +687,21 @@ msgid "Options"
 msgstr "Опции"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Widgets"
-msgstr "Виджеты"
+msgid "Restart plasmashell"
+msgstr "Перезапуск plasmashell"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
-msgstr "Перезапускать plasmashell"
+msgid "Suggest after upgrading"
+msgstr "Предлагать после обновления"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option. "
-"It will restart plasmashell.service. <br><br>If plasmashell is only "
-"terminating and not starting itself, then execute the command: <b>kstart "
-"plasmashell</b>"
+"you restart plasmashell. To avoid doing this manually, enable this option."
 msgstr ""
 "После обновления виджета, старая версия будет в памяти до тех пор пока не "
 "будет перезапущена plasmashell. Чтобы не делать это вручную, включите эту "
-"опцию. Это будет перезапускать plasmashell.service. <br><br>Если plasmashell "
-"только завершается и не запускается, тогда выполните команду: <b>kstart "
-"plasmashell.</b>"
+"опцию."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -711,8 +712,8 @@ msgid "Generator"
 msgstr "Генератор"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest refresh on upgrade"
-msgstr "Предлагать при обновлении"
+msgid "Suggest before upgrading"
+msgstr "Предлагать перед обновлением"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
@@ -782,12 +783,16 @@ msgid "Enable auto search updates"
 msgstr "Включить авто-проверку обновлений"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Sort packages by name"
+msgstr "Сортировать пакеты по имени"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr "Сортировать пакеты по репозиторию"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Sort packages by name"
-msgstr "Сортировать пакеты по имени"
+msgid "Stop checking"
+msgstr "Остановить проверку"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"

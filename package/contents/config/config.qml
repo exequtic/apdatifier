@@ -25,8 +25,8 @@ ConfigModel {
     }
 
     ConfigCategory {
-         name: i18n("Support")
-         icon: "system-help"
+         name: i18n("Support me")
+         icon: "starred-symbolic"
          source: "configuration/Support.qml"
     }
 }

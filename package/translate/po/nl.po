@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-23 17:06+0300\n"
+"POT-Creation-Date: 2024-05-29 14:48+0300\n"
 "PO-Revision-Date: 2024-05-20 22:52+0300\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -32,7 +32,7 @@ msgid "Appearance"
 msgstr "Vormgeving"
 
 #: ../contents/config/config.qml
-msgid "Support"
+msgid "Support me"
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -183,6 +183,10 @@ msgid "To write to the mirrorlist file, sudo privileges are required"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
+msgid "Your current mirrorlist:"
+msgstr ""
+
+#: ../contents/ui/components/Messages.qml
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
 msgstr ""
@@ -201,6 +205,10 @@ msgid "Downloading"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
+msgid "Restart plasmashell now?"
+msgstr ""
+
+#: ../contents/ui/components/Messages.qml
 msgid "File metadata.json not found"
 msgstr ""
 
@@ -213,7 +221,7 @@ msgid "Unsupported file format"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "List all available packages from repositories"
+msgid "List all available packages in repositories"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
@@ -225,19 +233,19 @@ msgid "List explicitly installed packages"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed and isn't a dependency of anything"
+msgid "List explicitly installed packages and isn't a dependency of anything"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "List installed as a dependency but isn't needed anymore (orphans)"
+msgid "List installed dependencies that aren't needed anymore (orphans)"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "Uninstall orphans packages"
+msgid "Uninstall orphan packages"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "Install (or downgrade) package from cache"
+msgid "Install (downgrade) a package from cache"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
@@ -249,7 +257,7 @@ msgid "Remove cached packages that are not currently installed"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
-msgid "Rebuild python packages"
+msgid "Rebuild AUR python packages after python upgrade"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
@@ -258,6 +266,10 @@ msgstr ""
 
 #: ../contents/ui/components/Messages.qml
 msgid "Exit"
+msgstr ""
+
+#: ../contents/ui/components/Messages.qml
+msgid "Review dependency warnings before removing"
 msgstr ""
 
 #: ../contents/ui/components/Messages.qml
@@ -290,35 +302,31 @@ msgid "View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Extended"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Compact"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Spacing"
-msgstr "Afstand"
+msgid "Extended"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
 msgstr "Sorteren"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "By name"
-msgstr "Op naam"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
 msgstr "Op pakketbron"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By name"
+msgstr "Op naam"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "Kop"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Show status text"
+msgid "Show status"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -385,7 +393,7 @@ msgid "EXAMPLE:"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Select icon and paste icon name to text area"
+msgid "Browse icons and copy icon name to clipboard"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -645,20 +653,17 @@ msgid "Options"
 msgstr "Opties"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Widgets"
+msgid "Restart plasmashell"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
+msgid "Suggest after upgrading"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option. "
-"It will restart plasmashell.service. <br><br>If plasmashell is only "
-"terminating and not starting itself, then execute the command: <b>kstart "
-"plasmashell</b>"
+"you restart plasmashell. To avoid doing this manually, enable this option."
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -670,7 +675,7 @@ msgid "Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest refresh on upgrade"
+msgid "Suggest before upgrading"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -733,11 +738,15 @@ msgid "Enable auto search updates"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Sort packages by name"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Sort packages by name"
+msgid "Stop checking"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml

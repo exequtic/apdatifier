@@ -11,6 +11,7 @@ import QtQuick.Controls
 import org.kde.ksvg
 import org.kde.kcmutils
 import org.kde.iconthemes
+import org.kde.kquickcontrolsaddons
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
@@ -18,9 +19,10 @@ import "../components" as QQC
 import "../../tools/tools.js" as JS
 
 SimpleKCM {
-    property alias cfg_fullView: extView.checked
+    property int cfg_listView: plasmoid.configuration.listView
     property alias cfg_spacing: spacing.value
 
+    property alias cfg_sorting: sorting.checked
     property alias cfg_showStatusText: showStatusText.checked
     property alias cfg_showToolBar: showToolBar.checked
     property alias cfg_searchButton: searchButton.checked
@@ -30,7 +32,6 @@ SimpleKCM {
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
     property alias cfg_showTabBar: showTabBar.checked
-    property alias cfg_sortByName: sortByName.checked
 
     property alias cfg_ownIconsUI: ownIconsUI.checked
     property alias cfg_termFont: termFont.checked
@@ -67,49 +68,41 @@ SimpleKCM {
             id: viewGroup
         }
 
-        RadioButton {
+        RowLayout {
             Kirigami.FormData.label: i18n("View") + ":"
 
-            ButtonGroup.group: viewGroup
-            id: extView
-            text: i18n("Extended")
+            RadioButton {
+                id: compactView
+                ButtonGroup.group: viewGroup
+                text: i18n("Compact")
+                Component.onCompleted: checked = !plasmoid.configuration.listView
+            }
 
-            onCheckedChanged: cfg_fullView = checked
+            RowLayout {
+                Slider {
+                    id: spacing
+                    from: 0
+                    to: 12
+                    stepSize: 1
+                    value: spacing.value
+                    onValueChanged: plasmoid.configuration.spacing = spacing.value
+                }
 
-            Component.onCompleted: {
-                checked = plasmoid.configuration.fullView
+                Label {
+                    text: spacing.value
+                }
             }
         }
 
         RadioButton {
-            id: compactView
             ButtonGroup.group: viewGroup
-            text: i18n("Compact")
-
-            Component.onCompleted: {
-                checked = !plasmoid.configuration.fullView
-            }
+            text: i18n("Extended")
+            onCheckedChanged: cfg_listView = checked
+            Component.onCompleted: checked = plasmoid.configuration.listView
         }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Spacing") + ":"
-            enabled: compactView.checked
-
-            Slider {
-                id: spacing
-                from: 0
-                to: 12
-                stepSize: 1
-                value: spacing.value
-
-                onValueChanged: {
-                    plasmoid.configuration.spacing = spacing.value
-                }
-            }
-
-            Label {
-                text: spacing.value
-            }
+        Item {
+            Kirigami.FormData.isSection: true
         }
 
         ButtonGroup {
@@ -117,26 +110,17 @@ SimpleKCM {
         }
 
         RadioButton {
-            id: sortByName
+            id: sorting
             Kirigami.FormData.label: i18n("Sorting") + ":"
-            text: i18n("By name")
+            text: i18n("By repository")
             checked: true
-
-            Component.onCompleted: {
-                checked = plasmoid.configuration.sortByName
-            }
-
+            Component.onCompleted: checked = plasmoid.configuration.sorting
             ButtonGroup.group: sortGroup
         }
 
         RadioButton {
-            id: sortByRepo
-            text: i18n("By repository")
-
-            Component.onCompleted: {
-                checked = !plasmoid.configuration.sortByName
-            }
-
+            text: i18n("By name")
+            Component.onCompleted: checked = !plasmoid.configuration.sorting
             ButtonGroup.group: sortGroup
         }
 
@@ -147,7 +131,7 @@ SimpleKCM {
         CheckBox {
             id: showStatusText
             Kirigami.FormData.label: i18n("Header") + ":"
-            text: i18n("Show status text")
+            text: i18n("Show status")
         }
 
         CheckBox {
@@ -261,15 +245,19 @@ SimpleKCM {
                 }
 
                 ColumnLayout {
+                    Clipboard {
+                        id: clipboard
+                    }
+
                     QQC.Button {
                         iconName: "view-list-icons"
                         iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Select icon and paste icon name to text area")
+                        tooltipText: i18n("Browse icons and copy icon name to clipboard")
                         onPressed: customIconsDialog.open()
 
                         IconDialog {
                             id: customIconsDialog
-                            onIconNameChanged: customIcons.text = customIcons.text + iconName
+                            onIconNameChanged: clipboard.content = iconName
                         }
                     }
 

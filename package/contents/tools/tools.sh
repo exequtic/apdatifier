@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
 # SPDX-License-Identifier: MIT
 
+SCRIPTDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 applet="com.github.exequtic.apdatifier"
 
 localdir="$HOME/.local/share"
@@ -12,6 +13,7 @@ notifdir="$localdir/knotifications6"
 icon1="apdatifier-plasmoid.svg"
 icon2="apdatifier-packages.svg"
 icon3="apdatifier-package.svg"
+notif="apdatifier.notifyrc"
 
 
 copy() {
@@ -51,20 +53,18 @@ install() {
 
 uninstall() {
     getTxt; checkPkg "kpackagetool6"
-
     [ ! -f $iconsdir/$icon1 ] || rm -f $iconsdir/$icon1
     [ ! -f $iconsdir/$icon2 ] || rm -f $iconsdir/$icon2
-    [ ! -f $notifdir/$icon3 ] || rm -f $notifdir/$icon3
+    [ ! -f $iconsdir/$icon3 ] || rm -f $iconsdir/$icon3
+    [ ! -f $notifdir/$notif ] || rm -f $notifdir/$notif
     [ ! -d $iconsdir ] || rmdir -p --ignore-fail-on-non-empty $iconsdir
     [ ! -d $notifdir ] || rmdir -p --ignore-fail-on-non-empty $notifdir
-
     [ -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ] || kpackagetool6 --type Plasma/Applet -r $applet 2>/dev/null
-
     sleep 2
 }
 
 notifyrc() {
-cat > "$notifdir/apdatifier.notifyrc" << EOF
+cat > "$notifdir/$notif" << EOF
 [Global]
 IconName=apdatifier-plasmoid
 Comment=Apdatifier
@@ -92,30 +92,47 @@ getIgnorePkg() {
 }
 
 mirrorlistGenerator() {
-    count=$1; link=$2; icons=$3; wrapper=$4; menu=$5; selected=$6
+    count=$1; link=$2; icons=$3; wrapper=$4; sudoCmd=$5; menu=$6; selected=$7
+    mirrorfile="/etc/pacman.d/mirrorlist"
     getTxt $icons
 
-    returnMenu() { printMenu; management $count $link $icons $wrapper $selected; }
+    returnMenu() { printMenu; management $count $link $icons $wrapper $sudoCmd $selected; }
 
-    if [[ "$menu" != "true" ]]; then
-        while true; do
-            printQuestion "$MNG_OPT_11?"; read -r answer
-            case "$answer" in
-                    [Yy]*) echo; break;;
-                 [Nn]*|"") echo; exit;;
-                        *)  ;;
-            esac
-        done
+    if [ -f $mirrorlist ]; then
+        FILE_TIME=$(date -r "$mirrorfile" +%s)
+        NORM_TIME=$(date -d @$FILE_TIME +"%d %b %H:%M:%S")
+        echo -en "\n${y}${ICO_WARN}${c}${y}${bold} ${MIRROR_TIME}${c} $NORM_TIME"
     fi
 
-    checkPkg "curl rankmirrors" $5
-    rankmirrors -V >/dev/null || { printError "Not a compatible version of rankmirrors"; exit; }
+    while true; do
+        printQuestion "$MNG_OPT_11?"; read -r answer
+        case "$answer" in
+                [Yy]*) echo; break;;
+             [Nn]*|"") [[ "$menu" = "true" ]] && { returnMenu; } || { echo; exit; };;
+                    *)  ;;
+        esac
+    done
 
-    tput sc
+    checkPkg "curl rankmirrors" $5
+    rankmirrors -V &>/dev/null || {
+        countries=$(echo "$2" | grep -oP '(?<=country=)[^&]+')
+        countries=$(echo "$countries" | tr '\n' ' ')
+        countries=$(echo "$countries" | sed 's/ *$//')
+
+        if [ -z "$countries" ]; then
+            printError "$MIRRORS_ERR"
+        else
+            echo "Selected countries: $countries"
+            ${sudoCmd} rankmirrors -c ${countries}
+            echo
+        fi
+
+        [[ "$menu" = "true" ]] && returnMenu || exit
+    }
+
     tempfile=$(mktemp)
-    curl -m 30 -s -o $tempfile "$2" 2>/dev/null &
-    spinner $! "$MIRRORS_FETCH"
-    tput rc; tput ed
+    tput sc; curl -m 30 -s -o $tempfile "$2" 2>/dev/null &
+    spinner $! "$MIRRORS_FETCH"; tput rc; tput ed
     if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
         printDone "$MIRRORS_FETCH"
     else
@@ -124,12 +141,10 @@ mirrorlistGenerator() {
         [[ "$menu" = "true" ]] && returnMenu || exit
     fi
 
-    tput sc
     sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
     tempfile2=$(mktemp)
-    rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
-    spinner $! "$MIRRORS_RANK"
-    tput rc; tput ed
+    tput sc; rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
+    spinner $! "$MIRRORS_RANK"; tput rc; tput ed
     if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; then
         printDone "$MIRRORS_RANK"
     else
@@ -137,13 +152,12 @@ mirrorlistGenerator() {
         [[ "$menu" = "true" ]] && returnMenu || exit
     fi
 
-    mirrorfile="/etc/pacman.d/mirrorlist"
     sed -i '1d' "$tempfile2"
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
 
     if [[ "$menu" = "true" ]]; then
-        sudo -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
-        cat $tempfile2 | sudo tee $mirrorfile > /dev/null
+        ${sudoCmd} -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
+        cat $tempfile2 | ${sudoCmd} tee $mirrorfile > /dev/null
     else
         cat $tempfile2 > $mirrorfile
     fi
@@ -161,9 +175,10 @@ mirrorlistGenerator() {
 
 management() {
     trap '' SIGINT
-    count=$1; link=$2; icons=$3; wrapper=$4; [ "$5" ] && selected="$5" || selected=0
+    count=$1; link=$2; icons=$3; wrapper=$4; sudoCmd=$5; [ "$6" ] && selected="$6" || selected=0
     wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
-    [[ $wrapper = "pacman" ]] && wrapper_sudo="sudo pacman"
+    [[ $wrapper = "trizen" ]] && wrapper="pacman"
+    [[ $wrapper = "pacman" ]] && wrapper_sudo="$sudoCmd pacman"
 
     getTxt $icons
 
@@ -178,7 +193,7 @@ management() {
         "${ICO_MNG_OPT_06}${MNG_OPT_06}"
         "${ICO_MNG_OPT_07}${MNG_OPT_07}"
         "${ICO_MNG_OPT_08}${MNG_OPT_08}"
-        "${ICO_MNG_OPT_08}${MNG_OPT_09}"
+        "${ICO_MNG_OPT_09}${MNG_OPT_09}"
         "${ICO_MNG_OPT_10}${MNG_OPT_10}"
         "${ICO_MNG_OPT_11}${MNG_OPT_11}"
         "${ICO_MNG_OPT_12}${MNG_OPT_12}"
@@ -222,7 +237,7 @@ management() {
             7) printExec -Scc; $wrapper_sudo -Scc; returnMenu;;
             8) printExec -Sc; $wrapper_sudo -Sc; returnMenu;;
             9) rebuildPython;;
-           10) mirrorlistGenerator $count $link $icons $wrapper true $selected;;
+           10) mirrorlistGenerator $count $link $icons $wrapper $sudoCmd true $selected;;
            11) exit;;
         esac
     }
@@ -245,7 +260,7 @@ management() {
         if [[ -z "$packages" ]]; then
             showOptions $selected
         else
-            packages=$(echo $packages | oneLine)
+            packages=$(echo "$packages" | oneLine)
             printExec $3 "$packages"
             $wrapper_sudo $3 $packages
             returnMenu
@@ -255,6 +270,7 @@ management() {
     uninstallOrphans() {
         if [[ -n $($wrapper -Qdt) ]]; then
             printExec -Rsn "$($wrapper -Qqtd | oneLine)"
+            printImportant "$MNG_WARN"; echo
             $wrapper_sudo -Rsn $($wrapper -Qqtd)
         else
             printDone "$MNG_DONE"
@@ -287,8 +303,8 @@ management() {
     }
 
     rebuildPython() {
-        [[ $wrapper = "pacman" ]] && { echo "Need wrapper"; returnMenu; }
-        rebuild_dir=$(find /usr/lib -type d -name "python*.*" | oneLine)
+        [[ $wrapper = "pacman" ]] && { printDone "$MNG_DONE"; returnMenu; }
+        rebuild_dir=$(find /usr/lib -maxdepth 1 -type d -name "python*.*" | oneLine)
 
         if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
             rebuild_dir="${rebuild_dir#* }"
@@ -299,8 +315,7 @@ management() {
             else
                 printExec -S "$rebuild_packages --rebuild"
                 while true; do
-                    printQuestion "$MNG_RESUME"
-                    read -r answer
+                    printQuestion "$MNG_RESUME"; read -r answer
                     case "$answer" in
                            [Yy]*) echo; break;;
                         [Nn]*|"") echo; showOptions;;
@@ -321,81 +336,12 @@ management() {
 }
 
 
-getId() {
-    case "$1" in
-        com.bxabi.bumblebee-indicator)              echo "998890";;
-        org.nielsvm.plasma.menupager)               echo "1898708";;
-        dev.vili.sahkoporssi)                       echo "2079446";;
-        org.kde.mcwsremote)                         echo "2100417";;
-        com.github.korapp.cloudflare-warp)          echo "2113872";;
-        de.davidhi.ddcci-brightness)                echo "2114471";;
-        org.kde.plasma.simplekickoff)               echo "2115883";;
-        com.github.stepan-zubkov.days-to-new-year)  echo "2118132";;
-        com.github.korapp.nordvpn)                  echo "2118492";;
-        plasmusic-toolbar)                          echo "2128143";;
-        org.kde.windowtitle)                        echo "2129423";;
-        luisbocanegra.panel.colorizer)              echo "2130967";;
-        com.github.dhruv8sh.year-progress-mod)      echo "2132405";;
-        com.himdek.kde.plasma.overview)             echo "2132554";;
-        com.himdek.kde.plasma.runcommand)           echo "2132555";;
-        a2n.archupdate.plasmoid)                    echo "2134470";;
-        org.kde.plasma.yesplaymusic-lyrics)         echo "2135552";;
-        com.github.prayag2.minimalistclock)         echo "2135642";;
-        com.github.prayag2.modernclock)             echo "2135653";;
-        com.github.k-donn.plasmoid-wunderground)    echo "2135799";;
-        com.dv.uswitcher)                           echo "2135898";;
-        org.kde.Big.Clock)                          echo "2136288";;
-        zayron.chaac.weather)                       echo "2136291";;
-        Clock.Asitoki.Color)                        echo "2136295";;
-        CircleClock)                                echo "2136299";;
-        zayron.almanac)                             echo "2136302";;
-        Minimal.chaac.weather)                      echo "2136307";;
-        com.Petik.clock)                            echo "2136321";;
-        weather.bicolor.widget)                     echo "2136329";;
-        com.nemmayan.clock)                         echo "2136546";;
-        com.github.zren.commandoutput)              echo "2136636";;
-        org.kde.latte.separator)                    echo "2136852";;
-        org.kde.plasma.Beclock)                     echo "2137016";;
-        com.github.zren.dailyforecast)              echo "2137185";;
-        com.github.zren.condensedweather)           echo "2137197";;
-        org.kde.plasma.scpmk)                       echo "2137217";;
-        zayron.simple.separator)                    echo "2137418";;
-        com.github.zren.simpleweather)              echo "2137431";;
-        com.gitlab.scias.advancedreboot)            echo "2137675";;
-        org.zayronxio.vector.clock)                 echo "2137726";;
-        org.kpple.kppleMenu)                        echo "2138251";;
-        ink.chyk.minimumMediaController)            echo "2138283";;
-        optimus-gpu-switcher)                       echo "2138365";;
-        org.kde.plasma.videocard)                   echo "2138473";;
-        lenovo-conservation-mode-switcher)          echo "2138476";;
-        com.github.boraerciyas.controlcentre)       echo "2138485";;
-        org.kde.Date.Bubble.P6)                     echo "2138853";;
-        org.kde.latte.spacer)                       echo "2138907";;
-        split-clock)                                echo "2139337";;
-        d4rkwzd.colorpicker-tray)                   echo "2140856";;
-        org.kde.MinimalMusic.P6)                    echo "2141133";;
-        com.github.zren.tiledmenu)                  echo "2142716";;
-        org.kde.plasma.resources-monitor)           echo "2143899";;
-        AndromedaLauncher)                          echo "2144212";;
-        org.previewqt.previewqt.plasmoidpreviewqt)  echo "2144426";;
-        SoloDay.P6)                                 echo "2144969";;
-        com.github.DenysMb.Kicker-AppsOnly)         echo "2145280";;
-        zayron.almanac.V2)                          echo "2147850";;
-        org.kde.plasma.clearclock)                  echo "2147871";;
-        org.kde.windowtitle.Fork)                   echo "2147882";;
-        thot.observer.ram)                          echo "2148469";;
-        thot.observer.cpu)                          echo "2148472";;
-        org.kde.paneltransparencybutton)            echo "2150916";;
-        org.kde.plasma.win7showdesktop)             echo "2151247";;
-    esac
-}
-
 downloadXML() {
     page=0
     while true; do
         tempXML=$(mktemp)
-        url="https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=$page&pagesize=100"
-        curl -m 30 -s -o "$tempXML" --request GET --url "$url"
+        api_url="https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=$page&pagesize=100"
+        curl -m 30 -s -o "$tempXML" --request GET --url "$api_url"
 
         if [ -s "$tempXML" ]; then
             statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
@@ -410,9 +356,12 @@ downloadXML() {
                 [[ $statuscode = 200 ]] && { printError "$WIDGETS_API_ERR"; onError; }
                 [[ $statuscode != 100 ]] && { printError "$WIDGETS_CHECK"; onError; }
             fi
-
         else
-            [[ $1 = "check" ]] && { echo 999; rm "$tempXML"; exit; } || { printError "$WIDGETS_CHECK"; rm "$tempXML"; exit; }
+            if [[ $1 = "check" ]]; then
+                echo 999; rm "$tempXML"; exit
+            else
+                printError "$WIDGETS_CHECK"; rm "$tempXML"; exit
+            fi
         fi
 
         formatXML $tempXML
@@ -429,13 +378,21 @@ downloadXML() {
         rm $tempXML
 
         items=$(((page + 1) * 100))
-        [[ $totalitems > $items ]] && { ((page++)); } || { break; }
+        if [[ $totalitems > $items ]]; then
+            ((page++))
+        else
+            break
+        fi
     done
 }
 
 getWidgets() {
-    plasmoids=$(find $HOME/.local/share/plasma/plasmoids/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
-    [ -z "$plasmoids" ] && { exit; } || { while IFS= read -r line; do lines+=("$line"); done <<< "$plasmoids"; }
+    plasmoids=$(find "$HOME/.local/share/plasma/plasmoids" -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
+    if [ -z "$plasmoids" ]; then
+        exit
+    else
+        while IFS= read -r line; do lines+=("$line"); done <<< "$plasmoids"
+    fi
 }
 
 getWidgetInfo() {
@@ -444,15 +401,11 @@ getWidgetInfo() {
     [ -s "$json" ] || return 1
 
     jq . $json >/dev/null 2>&1 || return 1
-    if ! jq -e '.KPackageStructure' "$json" >/dev/null 2>&1; then
+    if ! jq -e '.KPackageStructure == "Plasma/Applet"' "$json" >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
     fi
 
     name=$(jq -r '.KPlugin.Name' $json)
-
-    icon=$(jq -r '.KPlugin.Icon' $json)
-    [ -z "$icon" ] && icon="start-here-kde"
-
     contentId=$(xmlstarlet sel -t -m "//name[text()='$name']/.." -v "id" -n $XML)
     [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
     if [ -z "$contentId" ]; then
@@ -471,21 +424,35 @@ getWidgetInfo() {
 
     [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && return 1
 
-    description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
-    [ -z "$description" ] || [ "$description" = "null" ] && description="-"
+    if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
+        description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
+        [ -z "$description" ] || [ "$description" = "null" ] && description="-"
 
-    author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
-    [ -z "$author" ] || [ "$author" = "null" ] && author="-"
+        author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
+        [ -z "$author" ] || [ "$author" = "null" ] && author="-"
 
-    url="https://store.kde.org/p/"$contentId
+        icon=$(jq -r '.KPlugin.Icon' $json)
+        if [ -z "$icon" ]; then
+            icon="start-here-kde"
+        else
+            ! find /usr/share/icons "$HOME/.local/share/icons" -type f -name "$icon.svg" | grep -q . && icon="start-here-kde"
+        fi
+
+        url="https://store.kde.org/p/$contentId"
+    fi
+
     return 0
 }
 
 downloadWidget() {
-    tput sc; curl -m 30 -s -o $tempFile --request GET --location "$link" 2>/dev/null &
+    tput sc; curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
     spinner $! "$WIDGETS_DOWNLOADING $1"; tput rc; tput ed
 
-    [ -s "$tempFile" ] && { printDone "$WIDGETS_DOWNLOADING $1"; } || { printError "$WIDGETS_DOWNLOADING $1"; return 1; }
+    if [ -s "$tempFile" ]; then
+        printDone "$WIDGETS_DOWNLOADING $1"
+    else
+        printError "$WIDGETS_DOWNLOADING $1"; return 1
+    fi
 
     case "$tempFile" in
          *.zip | *.plasmoid) unzip -q "$tempFile" -d "$tempDir/unpacked";;
@@ -499,7 +466,7 @@ downloadWidget() {
     unpacked=$(dirname "$metadata_path"); cd "$unpacked"
 
     jq . metadata.json >/dev/null 2>&1 || { printError "$WIDGETS_JSON_ERR2"; return 1; }
-    if ! jq -e '.KPackageStructure' metadata.json >/dev/null 2>&1; then
+    if ! jq -e '.KPackageStructure == "Plasma/Applet"' metadata.json >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
     fi
 
@@ -520,10 +487,10 @@ checkWidgets() {
     downloadXML check
 
     output=""
+    source "$SCRIPTDIR/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
-
-        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then 
+        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
             output+="${name}@${contentId}@${icon}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
         fi
     done
@@ -543,6 +510,8 @@ upgradeAllWidgets() {
     spinner $! "$WIDGETS_CHECK"
     tput rc; tput ed; printDone "$WIDGETS_CHECK"
 
+    hasUpdates="false"
+    source "$SCRIPTDIR/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
 
@@ -552,12 +521,24 @@ upgradeAllWidgets() {
             tempFile="$tempDir/$(basename "${link}")"
             mkdir $tempDir/unpacked
             downloadWidget "$name"; [[ $? -ne 0 ]] && continue
+            hasUpdates="true"
         fi
     done
 
     rm $XML
 
-    [ "$1" = "true" ] && [ "$hasUpdates" = "true" ] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
+    [[ "$1" = "true" ]] && [[ "$hasUpdates" = "true" ]] && {
+        sleep 1
+        while true; do
+            printQuestion "$WIDGETS_RESTART"; read -r answer
+            case "$answer" in
+                    [Yy]*) echo; break;;
+                 [Nn]*|"") echo; exit;;
+                        *)  ;;
+            esac
+        done
+        eval ${3}
+    }
 }
 
 upgradeWidget() {
@@ -566,15 +547,13 @@ upgradeWidget() {
     getTxt $3
     checkPkg "curl jq xmlstarlet unzip tar"
 
-    [[ "$2" = "true" ]] && { echo -e "\n"; } || { printImportant "${WIDGETS_WARN}\n"; }; sleep 1
+    [[ "$2" != "true" ]] && printImportant "${WIDGETS_WARN}\n"
 
     tempDir=$(mktemp -d); mkdir $tempDir/unpacked; XML="$tempDir/data.xml"
-
     tput sc; curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$1" 2>/dev/null &
     spinner $! "$WIDGETS_FETCHING"; tput rc; tput ed
 
     onError() { rm -rf "$tempDir"; exit; }
-
     if [ -s "$XML" ]; then
         statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
         [[ $statuscode = 200 ]] && { printError "$WIDGETS_API_ERR"; onError; }
@@ -591,29 +570,39 @@ upgradeWidget() {
 
     downloadWidget $4; [[ $? -ne 0 ]] && exit
 
-    [[ "$2" = "true" ]] && { sleep 2; systemctl --user restart plasma-plasmashell.service; }
+    [[ "$2" = "true" ]] && {
+        sleep 1
+        while true; do
+            printQuestion "$WIDGETS_RESTART"; read -r answer
+            case "$answer" in
+                    [Yy]*) echo; break;;
+                 [Nn]*|"") echo; exit;;
+                        *)  ;;
+            esac
+        done
+        eval ${5}
+    }
 }
 
 
 getTxt() {
-    DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
-    export TEXTDOMAINDIR="$DIR/../locale"
+    export TEXTDOMAINDIR="$SCRIPTDIR/../locale"
     export TEXTDOMAIN="plasma_applet_${applet}"
 
     declare -a var_names=(
-    MIRRORS_FETCH MIRRORS_RANK MIRRORS_ERR MIRRORS_UPD MIRRORS_SUDO
-    WIDGETS_WARN WIDGETS_CHECK WIDGETS_FETCHING WIDGETS_DOWNLOADING
+    MIRRORS_FETCH MIRRORS_RANK MIRRORS_ERR MIRRORS_UPD MIRRORS_SUDO MIRROR_TIME
+    WIDGETS_WARN WIDGETS_CHECK WIDGETS_FETCHING WIDGETS_DOWNLOADING WIDGETS_RESTART
     WIDGETS_API_ERR WIDGETS_JSON_ERR WIDGETS_JSON_ERR2 WIDGETS_EXT_ERR
     MNG_OPT_01 MNG_OPT_02 MNG_OPT_03 MNG_OPT_04 MNG_OPT_05 MNG_OPT_06
     MNG_OPT_07 MNG_OPT_08 MNG_OPT_09 MNG_OPT_10 MNG_OPT_11 MNG_OPT_12
-    MNG_RESUME MNG_RETURN MNG_SEARCH MNG_EXEC MNG_DONE NO_CMD_ERR)
+    MNG_WARN MNG_RESUME MNG_RETURN MNG_SEARCH MNG_EXEC MNG_DONE CMD_ERR)
 
     i=0
     while IFS= read -r line && [ $i -lt ${#var_names[@]} ]; do
         i=$((i+1))
         text=$(echo "$line" | grep -oP '(?<=\().*(?=\))' | sed 's/"//g')
         eval "${var_names[$((i-1))]}=\"$(gettext "$text")\""
-    done < "$DIR/../ui/components/Messages.qml"
+    done < "$SCRIPTDIR/../ui/components/Messages.qml"
 
     if [[ $1 = "true" ]]; then
         ICO_MNG_OPT_01="󱝩 "; ICO_MNG_OPT_02="󱝫 "; ICO_MNG_OPT_03="󱝭 "; ICO_MNG_OPT_04="󱝭 "
@@ -631,12 +620,14 @@ printMenu() { tput civis; echo -e "\n${b}${ICO_RETURN}${c} ${bold}${MNG_RETURN}$
 printDone() { echo -e "${g}${ICO_DONE} $1 ${c}"; }
 printError() { echo -e "${r}${ICO_ERR} $1 ${c}"; }
 printImportant() { echo -e "${y}${bold}${ICO_WARN} $1 ${c}"; }
-printQuestion() { echo -en "\n${y}${ICO_QUESTION}${c}${y}${bold} $1 ${c}[y/${bold}N${c}]: "; }
-printExec() { [[ $wrapper_sudo == "trizen" ]] && { return 0; } || { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo $1 $2 \n"; } }
+printQuestion() { echo -en "\n${y}${ICO_QUESTION}${c}${y}${bold} $1 ${c}[y/N]: "; }
+printExec() { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo $1 $2 \n"; }
 oneLine() { tr '\n' ' ' | sed 's/ $//'; }
-checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${NO_CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
+checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
 spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
-formatXML() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
+formatXML() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; sed -i 's/details="full"/details="summary"/g' $1; \
+              xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" \
+                               -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
 
 
 case "$1" in
@@ -644,10 +635,10 @@ case "$1" in
                      "install") install;;
                    "uninstall") uninstall;;
                   "getIgnored") getIgnorePkg;;
-                  "management") shift; management $1 $2 $3 $4;;
+                  "management") shift; management $1 $2 $3 $4 $5;;
                 "checkWidgets") shift; checkWidgets;;
-               "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4;;
-           "upgradeAllWidgets") shift; upgradeAllWidgets $1 $2;;
+               "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4 "$5";;
+           "upgradeAllWidgets") shift; upgradeAllWidgets $1 $2 "$3";;
                   "mirrorlist") shift; mirrorlistGenerator $1 $2 $3;;
                              *) exit;;
 esac

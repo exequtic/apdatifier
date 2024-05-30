@@ -16,7 +16,9 @@ SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
-    property alias cfg_refreshShell: refreshShell.checked
+    property alias cfg_sudoBin: sudoBin.text
+    property alias cfg_restartShell: restartShell.checked
+    property alias cfg_restartCommand: restartCommand.text
 
     property alias cfg_mirrors: mirrors.checked
     property alias cfg_mirrorCount: mirrorCount.value
@@ -84,21 +86,36 @@ SimpleKCM {
             }
         }
 
+        RowLayout {
+            Kirigami.FormData.label: "sudobin:"
+            spacing: 0
+            enabled: pkg.pacman
+
+            TextField {
+                id: sudoBin
+            }
+        }
+
         Item {
             Kirigami.FormData.isSection: true
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Widgets") + ":"
+            Kirigami.FormData.label: i18n("Restart plasmashell") + ":"
 
             CheckBox {
-                id: refreshShell
-                text: i18n("Restart plasmashell")
+                id: restartShell
+                text: i18n("Suggest after upgrading")
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option. It will restart plasmashell.service. <br><br>If plasmashell is only terminating and not starting itself, then execute the command: <b>kstart plasmashell</b>")
+                toolTipText: i18n("After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option.")
             }
+        }
+
+        TextField {
+            id: restartCommand
+            visible: restartShell.checked
         }
 
         Kirigami.Separator {
@@ -111,7 +128,7 @@ SimpleKCM {
 
             CheckBox {
                 id: mirrors
-                text: i18n("Suggest refresh on upgrade")
+                text: i18n("Suggest before upgrading")
                 enabled: pkg.pacman
             }
 

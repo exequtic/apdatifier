@@ -25,8 +25,12 @@ Representation {
     function updateVisibility() { newsVisibility = !news.dismissed; }
 
     property string statusIcon: {
-        return cfg.ownIconsUI ? (statusIco === "0" ? "status_error" : (statusIco === "1" ? "status_pending" : (statusIco === "2" ? "status_blank" : statusIco)))
-                              : (statusIco === "0" ? "error" : (statusIco === "1" ? "accept_time_event" : (statusIco === "2" ? "" : statusIco)))
+        var icons = {
+            "0": cfg.ownIconsUI ? "status_error" : "error",
+            "1": cfg.ownIconsUI ? "status_pending" : "accept_time_event",
+            "2": cfg.ownIconsUI ? "status_blank" : ""
+        }
+        return icons[statusIco] !== undefined ? icons[statusIco] : statusIco
     }
 
     header: PlasmoidHeading {
@@ -47,16 +51,20 @@ Representation {
                     icon.source: statusIcon
                     hoverEnabled: false
                     highlighted: false
-                    enabled: false
+                    enabled: !cfg.ownIconsUI
                 }
 
                 DescriptiveLabel {
+                    Layout.maximumWidth: toolBar.width - toolBarButtons.width - Kirigami.Units.iconSizes.smallMedium
+                    Layout.alignment: Qt.AlignLeft
                     text: statusMsg
+                    elide: Text.ElideRight
                     font.bold: true
                 }
             }
 
             RowLayout {
+                id: toolBarButtons
                 Layout.alignment: Qt.AlignRight
                 spacing: Kirigami.Units.smallSpacing
                 visible: cfg.showToolBar
@@ -70,45 +78,46 @@ Representation {
                         searchField.focus = searchFieldOpen
                     }
                     enabled: !busy && !error && count > 0
-                    visible: cfg.searchButton
+                    visible: enabled && cfg.searchButton
                     tooltipText: i18n("Filter by package name")
                 }
                 QQC.ToolButton {
                     icon.source: cfg.ownIconsUI
                                     ? (cfg.interval ? "toolbar_pause" : "toolbar_start")
-                                    : (cfg.interval ? "media-playback-pause" : "media-playback-start")
+                                    : (cfg.interval ? "media-playback-paused" : "media-playback-playing")
                     color: !cfg.interval && !cfg.indicatorStop ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                     onClicked: JS.switchInterval()
                     enabled: !busy && !error
-                    visible: cfg.intervalButton
+                    visible: enabled && cfg.intervalButton
                     tooltipText: cfg.interval ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
                 }
                 QQC.ToolButton {
                     icon.source: cfg.ownIconsUI ? "toolbar_sort" : "sort-name"
-                    onClicked: cfg.sortByName = !cfg.sortByName
+                    onClicked: cfg.sorting = !cfg.sorting
                     enabled: !busy && !error && count > 0
-                    visible: cfg.sortButton
-                    tooltipText: cfg.sortByName ? i18n("Sort packages by repository") : i18n("Sort packages by name")
+                    visible: enabled && cfg.sortButton
+                    tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
                 }
                 QQC.ToolButton {
                     icon.source: cfg.ownIconsUI ? "toolbar_management" : "tools"
                     onClicked: JS.management()
                     enabled: !busy && !error && pkg.pacman && cfg.terminal
-                    visible: cfg.managementButton
+                    visible: enabled && cfg.managementButton
                     tooltipText: i18n("Management")
                 }
                 QQC.ToolButton {
                     icon.source: cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
                     onClicked: JS.upgradeSystem()
                     enabled: !busy && !error && count > 0 && cfg.terminal
-                    visible: cfg.upgradeButton
+                    visible: enabled && cfg.upgradeButton
                     tooltipText: i18n("Upgrade system")
                 }
                 QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI ? "toolbar_check" : "view-refresh"
+                    icon.source: cfg.ownIconsUI ? (busy ? "toolbar_stop" : "toolbar_check")
+                                                : (busy ? "media-playback-stopped" : "view-refresh")
                     onClicked: JS.checkUpdates()
                     visible: cfg.checkButton
-                    tooltipText: i18n("Check updates")
+                    tooltipText: busy ? i18n("Stop checking") : i18n("Check updates")
                 }
             }
         }
@@ -126,10 +135,10 @@ Representation {
             Layout.fillHeight: true
             position: TabBar.Footer
 
-            property bool fullView: cfg.fullView
-            onFullViewChanged: { currentIndex = fullView ? 1 : 0 }
-            onCurrentIndexChanged: { cfg.fullView = currentIndex ? true : false }
-            Component.onCompleted: { currentIndex = fullView ? 1 : 0 }
+            property int listView: cfg.listView
+            onListViewChanged: currentIndex = listView
+            onCurrentIndexChanged: cfg.listView = currentIndex
+            Component.onCompleted: currentIndex = listView
 
             QQC.TabButton {
                 id: compactViewTab

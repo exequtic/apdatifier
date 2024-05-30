@@ -35,13 +35,15 @@
         <entry name="termFont" type="bool"><default>false</default></entry>
         <entry name="upgradeFlags" type="bool"><default>false</default></entry>
         <entry name="upgradeFlagsText" type="string"><default></default></entry>
-        <entry name="refreshShell" type="bool"><default>false</default></entry>
+        <entry name="sudoBin" type="string"><default>sudo</default></entry>
+        <entry name="restartShell" type="bool"><default>false</default></entry>
+        <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
         <entry name="dynamicUrl" type="string"><default>null</default></entry>
     </group>
     <group name="Appearance">
-        <entry name="fullView" type="bool"><default>true</default></entry>
+        <entry name="listView" type="int"><default>0</default></entry>
         <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="customIconsEnabled" type="bool"><default>false</default></entry>
         <entry name="customIcons" type="string"><default></default></entry>
@@ -55,10 +57,10 @@
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="showTabBar" type="bool"><default>true</default></entry>
-        <entry name="sortByName" type="bool"><default>true</default></entry>
+        <entry name="sorting" type="bool"><default>true</default></entry>
         <entry name="relevantIcon" type="int"><default>0</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
-        <entry name="indicatorStop" type="bool"><default>true</default></entry>
+        <entry name="indicatorStop" type="bool"><default>false</default></entry>
         <entry name="counterEnabled" type="bool"><default>true</default></entry>
         <entry name="counterColor" type="string"><default></default></entry>
         <entry name="counterSize" type="int"><default>0</default></entry>
@@ -66,7 +68,7 @@
         <entry name="counterOpacity" type="int"><default>8</default></entry>
         <entry name="counterShadow" type="bool"><default>true</default></entry>
         <entry name="counterOffsetX" type="int"><default>0</default></entry>
-        <entry name="counterOffsetY" type="int"><default>-5</default></entry>
+        <entry name="counterOffsetY" type="int"><default>0</default></entry>
         <entry name="counterCenter" type="bool"><default>false</default></entry>
         <entry name="counterTop" type="bool"><default>true</default></entry>
         <entry name="counterBottom" type="bool"><default>false</default></entry>

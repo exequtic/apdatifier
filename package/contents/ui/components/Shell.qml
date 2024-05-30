@@ -36,4 +36,15 @@ Plasma5Support.DataSource {
         delete listeners[cmd]
         if (callback) callback(cmd, out, err, code)
     }
+
+    function stopExec(cmd) {
+        delete listeners[cmd]
+        disconnectSource(cmd)
+    }
+
+    function stop() {
+        for (var cmd in listeners) {
+            stopExec(cmd)
+        }
+    }
 }

@@ -32,8 +32,8 @@ PlasmoidItem {
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    toolTipMainText: !interval ? i18n("Auto check disabled") : ""
-    toolTipSubText: busy ? statusMsg : lastCheck
+    toolTipMainText: !interval && !busy && !error ? i18n("Auto check disabled") : ""
+    toolTipSubText: busy ? statusMsg : error ? error : lastCheck
 
     property var listModel: listModel
     property var count
@@ -51,7 +51,7 @@ PlasmoidItem {
 
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time
-    property bool sorting: plasmoid.configuration.sortByName
+    property bool sorting: plasmoid.configuration.sorting
     property var pkg: plasmoid.configuration.packages
     property var cfg: plasmoid.configuration
 
@@ -70,27 +70,6 @@ PlasmoidItem {
         title: notifyTitle
         text: notifyBody
         iconName: notifyTitle.startsWith("+") ? "apdatifier-packages" : "news-subscribe"
-    }
-
-    Timer {
-        id: searchTimer
-        interval: time * 1000 * 60
-        running: true
-        repeat: true
-        onTriggered: JS.checkUpdates()
-    }
-
-    onTimeChanged: {
-        searchTimer.restart()
-    }
-
-    onIntervalChanged: {
-        interval ? searchTimer.start()
-                 : searchTimer.stop()
-    }
-
-    onSortingChanged: {
-        JS.refreshListModel()
     }
 
     Plasmoid.contextualActions: [
@@ -113,7 +92,16 @@ PlasmoidItem {
         }
     ]
 
-	Component.onCompleted: {
-		JS.runScript()
+    Timer {
+        id: searchTimer
+        interval: time * 1000 * 60
+        running: true
+        repeat: true
+        onTriggered: JS.checkUpdates()
     }
+
+    onTimeChanged: searchTimer.restart()
+    onIntervalChanged: interval ? searchTimer.start() : searchTimer.stop()
+    onSortingChanged: JS.refreshListModel()
+	Component.onCompleted: JS.runScript()
 }

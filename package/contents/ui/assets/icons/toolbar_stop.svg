@@ -1,0 +1,10 @@
+<!--
+    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+    SPDX-License-Identifier: MIT
+
+    https://github.com/exequtic/apdatifier
+-->
+
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+    <path d="m11.76,1.5C6.23,1.5,1.76,5.98,1.76,11.5s4.48,10,10,10,10-4.48,10-10S17.28,1.5,11.76,1.5Zm3.85,12.29c0,.86-.7,1.56-1.56,1.56h-4.58c-.86,0-1.56-.7-1.56-1.56v-4.58c0-.86.7-1.56,1.56-1.56h4.58c.86,0,1.56.7,1.56,1.56v4.58Z"/>
+</svg>
