@@ -48,6 +48,7 @@ SimpleKCM {
     property alias cfg_counterRadius: counterRadius.value
     property alias cfg_counterOpacity: counterOpacity.value
     property alias cfg_counterShadow: counterShadow.checked
+    property alias cfg_counterBold: counterBold.checked
     property alias cfg_counterOffsetX: counterOffsetX.value
     property alias cfg_counterOffsetY: counterOffsetY.value
     property alias cfg_counterCenter: counterCenter.checked
@@ -220,7 +221,7 @@ SimpleKCM {
             }
 
             ContextualHelpButton {
-                toolTipText: i18n("You can specify which icon to use for each package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.<br><br>Keep this list just in case; these settings might be lost after this plasmoid update.")
+                toolTipText: i18n("You can specify which icon to use for each package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.")
             }
         }
 
@@ -274,7 +275,7 @@ SimpleKCM {
                         tooltipText: i18n("Restore list from backup")
                         onPressed: {
                             sh.exec(JS.readFile(JS.customIcons), (cmd, out, err, code) => {
-                                if (out) customIcons.text = out
+                                if (out) customIcons.text = out.trim()
                             })
                         }
                     }
@@ -478,6 +479,13 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Shadow") + ":"
             enabled: counterEnabled.checked
             id: counterShadow
+            text: i18n("Enable")
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Bold") + ":"
+            enabled: counterEnabled.checked
+            id: counterBold
             text: i18n("Enable")
         }
 

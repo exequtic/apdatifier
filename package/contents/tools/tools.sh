@@ -435,7 +435,7 @@ getWidgetInfo() {
         if [ -z "$icon" ]; then
             icon="start-here-kde"
         else
-            ! find /usr/share/icons "$HOME/.local/share/icons" -type f -name "$icon.svg" | grep -q . && icon="start-here-kde"
+            ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" | grep -q . && icon="start-here-kde"
         fi
 
         url="https://store.kde.org/p/$contentId"
@@ -625,7 +625,7 @@ printExec() { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo 
 oneLine() { tr '\n' ' ' | sed 's/ $//'; }
 checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
 spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
-formatXML() { sed -i 's/downloadlink[1-9]>/downloadlink>/g' $1; sed -i 's/details="full"/details="summary"/g' $1; \
+formatXML() { sed -i -E 's/downloadlink[0-9]+>/downloadlink>/g' $1; sed -i 's/details="full"/details="summary"/g' $1; \
               xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" \
                                -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
 

@@ -11,10 +11,12 @@ import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 import Qt5Compat.GraphicalEffects
 
+import "../components" as QQC
 import "../../tools/tools.js" as JS
 
 Item {
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
+    property int badgeSize: (horizontal ? icon.width : icon.height) / 3
     property int frameWidth: (horizontal ? icon.width : icon.height) + cfg.counterOffsetX
     property int frameHeight: (horizontal ? icon.width : icon.height) + cfg.counterOffsetY
 
@@ -23,79 +25,81 @@ Item {
         anchors.fill: parent
         source: JS.setIcon(plasmoid.icon)
         active: mouseArea.containsMouse
+    }
 
-        Rectangle {
-            id: frame
-            anchors.centerIn: parent
-            width: frameWidth
-            height: frameHeight
-            opacity: 0
-            visible: !busy && plasmoid.location !== PlasmaCore.Types.Floating
+    Rectangle {
+        id: frame
+        anchors.centerIn: icon
+        width: frameWidth
+        height: frameHeight
+        opacity: 0
+    }
+
+    Rectangle {
+        id: counterFrame
+        width: cfg.counterCenter ? frameWidth : counter.width + 2
+        height: cfg.counterCenter ? frameHeight : counter.height
+        radius: cfg.counterRadius
+        opacity: cfg.counterOpacity / 10
+        color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
+        visible: cfg.counterEnabled && !busy && !error && count > 0 && !errorBadge.visible && !checkmarkBadge.visible && plasmoid.location !== PlasmaCore.Types.Floating
+
+        layer.enabled: cfg.counterShadow
+        layer.effect: DropShadow {
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 2
+            samples: radius * 2
+            color: Qt.rgba(0, 0, 0, 0.5)
         }
 
-        Rectangle {
-            id: counterFrame
-            width: cfg.counterCenter ? frameWidth : counter.width + 2
-            height: cfg.counterCenter ? frameHeight : counter.height
-            radius: cfg.counterRadius
-            opacity: cfg.counterOpacity / 10
-            color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
-            visible: frame.visible && cfg.counterEnabled
+        anchors.centerIn: JS.setAnchor("parent")
+        anchors.top: JS.setAnchor("top")
+        anchors.bottom: JS.setAnchor("bottom")
+        anchors.right: JS.setAnchor("right")
+        anchors.left: JS.setAnchor("left")
+    }
 
-            layer.enabled: cfg.counterShadow
-            layer.effect: DropShadow {
-                horizontalOffset: 0
-                verticalOffset: 0
-                radius: 2
-                samples: radius * 2
-                color: Qt.rgba(0, 0, 0, 0.5)
-            }
+    function darkColor(color) {
+        return Kirigami.ColorUtils.brightnessForColor(color) === Kirigami.ColorUtils.Dark
+    }
+    property var isDarkText: darkColor(Kirigami.Theme.textColor)
+    property var lightText: isDarkText ? Kirigami.Theme.backgroundColor : Kirigami.Theme.textColor
+    property var darkText: isDarkText ? Kirigami.Theme.textColor : Kirigami.Theme.backgroundColor
 
-            anchors {
-                centerIn: JS.setAnchor("parent")
-                top: JS.setAnchor("top")
-                bottom: JS.setAnchor("bottom")
-                right: JS.setAnchor("right")
-                left: JS.setAnchor("left")
-            }
-        }
+    Label {
+        id: counter
+        anchors.centerIn: counterFrame
+        text: count
+        renderType: Text.NativeRendering
+        font.bold: cfg.counterBold
+        font.pixelSize: Math.max(icon.height / 4, Kirigami.Theme.smallFont.pixelSize + cfg.counterSize)
+        color: cfg.counterColor ? darkColor(counterFrame.color) ? lightText : darkText : Kirigami.Theme.textColor
+        visible: counterFrame.visible
+    }
 
-        Label {
-            id: counter
-            anchors.centerIn: counterFrame
-            text: error ? "🛇" : (count || "✔")
-            renderType: Text.NativeRendering
-            font.pixelSize: Math.max(icon.height / 4, Kirigami.Theme.smallFont.pixelSize + cfg.counterSize)
-            color: Kirigami.ColorUtils.brightnessForColor(counterFrame.color) === Kirigami.ColorUtils.Dark ? "white" : "black"
-            visible: counterFrame.visible
-        }
+    QQC.Badge {
+        id: errorBadge
+        iconName: cfg.ownIconsUI ? "status_error" : "error"
+        iconColor: Kirigami.Theme.negativeTextColor
+        visible: error
+        position: 0
+    }
 
-        Rectangle {
-            id: stopFrame
-            width: stop.width + 2
-            height: stop.height
-            radius: width / 2
-            color: counterFrame.color
-            opacity: 0.8
-            visible: frame.visible && !cfg.interval && cfg.indicatorStop
+    QQC.Badge {
+        id: checkmarkBadge
+        iconName: cfg.ownIconsUI ? "status_updated" : "checkmark"
+        iconColor: Kirigami.Theme.positiveTextColor
+        visible: !busy && !error && count === 0
+        position: 0
+    }
 
-            anchors {
-                top: JS.setAnchor("top", 1)
-                bottom: JS.setAnchor("bottom", 1)
-                right: JS.setAnchor("right", 1)
-                left: JS.setAnchor("left", 1)
-            }
-        }
-
-        Label {
-            id: stop
-            anchors.centerIn: stopFrame
-            text: "⏸"
-            renderType: Text.NativeRendering
-            font.pixelSize: Math.max(icon.height / 4, Kirigami.Theme.smallFont.pixelSize - 2)
-            color: Kirigami.Theme.neutralTextColor
-            visible: stopFrame.visible
-        }
+    QQC.Badge {
+        id: stoppedBadge
+        iconName: cfg.ownIconsUI ? "toolbar_pause" : "media-playback-paused"
+        iconColor: Kirigami.Theme.neutralTextColor
+        visible: !busy && !error && cfg.indicatorStop && !cfg.interval
+        position: 1
     }
 
     MouseArea {

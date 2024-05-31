@@ -51,6 +51,7 @@ getId() {
         com.samirgaire10.google_gemini-plasma6)     echo "2151683";;
         com.samirgaire10.Google-plasma6)            echo "2151687";;
         com.samirgaire10.GoogleTranslater-plasma6)  echo "2151694";;
+        com.samirgaire10.Ollama-plasma6)            echo "2159592";;
         com.samirgaire10.perplexityAi-plasma6)      echo "2151962";;
         com.softtechok.processmonitor)              echo "2153021";;
         com.softtechok.systemmonitorplasmoid)       echo "2154331";;
