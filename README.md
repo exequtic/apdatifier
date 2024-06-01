@@ -51,15 +51,16 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 <br>
 
 # Translation
-You can translate this widget into other languages, please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
+Feel free to help translate to new languages or update and improve the ones that are already available. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
 ### Current status:
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
 | English  |     144 |       |
-| Dutch    |  47/144 |   32% |
-| Russian  | 144/144 |  100% |
+| Dutch    |  39/185 |   21% |
+| French   | 185/185 |  100% |
+| Russian  | 185/185 |  100% |
 |----------|---------|-------|
 ```
 
