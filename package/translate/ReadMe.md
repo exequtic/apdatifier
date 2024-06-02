@@ -2,12 +2,11 @@
 
 ## New Translations
 
-1. Fill out [`template.pot`](template.pot) and [`template.sh`](template.sh) with your translations then open a [new issue](https://github.com/exequtic/apdatifier/issues/new), name the files with the extension `.txt`, attach the txt files to the issue (drag and drop).
+Fill out [`template.pot`](template.pot) with your translations then open a [new issue](https://github.com/exequtic/apdatifier/issues/new), name the file with the extension `.txt`, attach the txt file to the issue (drag and drop).
 
-Or if you know how to make a pull request
+Or if you know how to make a pull request:
 
-1. Copy the `template.pot` file and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.po`. Then fill out all the `msgstr ""`.
-2. Copy the `template.sh` file and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.sh`. Then fill out all the `VAR=""`.
+Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.po`. Then fill out all the `msgstr ""`.
 
 ## Scripts
 
@@ -22,6 +21,7 @@ Or if you know how to make a pull request
 ## Status
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |     132 |       |
-| nl       |  47/132 |   35% |
-| ru       | 132/132 |  100% |
+| Template |     185 |       |
+| fr       | 185/185 |  100% |
+| nl       | 185/185 |  100% |
+| ru       | 185/185 |  100% |

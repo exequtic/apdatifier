@@ -29,15 +29,14 @@ fi
 #---
 echo "[build] Compiling messages"
 
-catalogs=`find . -name '*.po' | sort`
+catalogs=`find ./po -name '*.po' | sort`
 for cat in $catalogs; do
-	echo "$cat"
 	catLocale=`basename ${cat%.*}`
 	msgfmt -o "${catLocale}.mo" "$cat"
 
 	installPath="$DIR/../contents/locale/${catLocale}/LC_MESSAGES/${projectName}.mo"
 
-	echo "[build] Install to ${installPath}"
+	echo "[build] Install ${cat} to ${installPath}"
 	mkdir -p "$(dirname "$installPath")"
 	mv "${catLocale}.mo" "${installPath}"
 done

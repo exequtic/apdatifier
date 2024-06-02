@@ -13,53 +13,75 @@
 
 # Features
 - Notification for new updates and [Arch Linux News](https://archlinux.org/news)
-- Searching updates for [AUR](#supported-pacman-wrappers), Plasma Widgets, Flatpak (without showing the runtime updates)
-- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
-- Two types of lists: compact and expanded with additional information
+- Searching updates for [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org) (without showing the runtime updates)
+- Bash script with useful options for managing packages
+- Two types of lists: compact and extended with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
-- Option to refresh the mirrorlist with the latest mirrors filtered by speed
+- Option to refresh the [mirrorlist](https://archlinux.org/mirrorlist) with the latest mirrors filtered by speed
 - Customizable icon on the panel and package icons in the list
+- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
 
 <br>
 
+# Screenshots
+
 <div align="center">
-<img src="./screenshots/screenshot_2.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_1.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_3.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_4.jpg" width="600px" alt="screenshot"/>
-<img src="./screenshots/screenshot_5.jpg" width="600px" alt="screenshot"/>
+
+#### Compact/Extended list
+<img src="./screenshots/screenshot_1.png" width="400px" alt="screenshot"/>
+
+<br>
+
+<img src="./screenshots/screenshot_2.png" width="400px" alt="screenshot"/>
+
+<br>
+
+#### Full system upgrade
+<img src="./screenshots/screenshot_4.png" width="400px" alt="screenshot"/>
+
+<br>
+
+#### Management
+<img src="./screenshots/screenshot_3.png" width="400px" alt="screenshot"/>
+
+<br>
+
+<video src="./screenshots/management.mp4" width=600/>
+
 </div>
 
 <br>
 
 # Requirements
-[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>recommended</b>. For checkupdates and rankmirrors scripts.
+[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>HIGHLY RECOMMENDED</b>. For checkupdates and rankmirrors scripts.
 
 ### Supported pacman wrappers
 paru, trizen, yay
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake
+alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, *yakuake
 
-*yakuake used the D-Bus method runCommand. So you need installed qdbus. But in general, I do not recommend using this terminal with this plasmoid.
+*yakuake used the D-Bus method runCommand via the qdbus6.
 
 ### Required utilities for options:
-<b>Arch Linux News:</b> paru or yay<br>
-<b>Plasma Widgets:</b> curl, jq, xmlstarlet, unzip, tar<br>
-<b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
+<b>Arch Linux News:</b> [paru](https://aur.archlinux.org/packages/paru) or [yay](https://aur.archlinux.org/packages/yay)<br>
+<b>Plasma Widgets:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [jq](https://archlinux.org/packages/extra/x86_64/jq), [xmlstarlet](https://archlinux.org/packages/extra/x86_64/xmlstarlet), [unzip](https://archlinux.org/packages/extra/x86_64/unzip), [tar](https://archlinux.org/packages/core/x86_64/tar)<br>
+<b>Mirrorlist Generator:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib)<br>
+<b>Management</b>: [fzf](https://archlinux.org/packages/extra/x86_64/fzf)<br>
 
 <br>
 
 # Translation
-You can translate this widget into other languages, please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
+Feel free to help translate to new languages or update and improve the ones that are already available. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
 ### Current status:
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| English  |     144 |       |
-| Dutch    |  47/144 |   32% |
-| Russian  | 144/144 |  100% |
+| English  |     185 |       |
+| Dutch    | 185/185 |  100% |
+| French   | 185/185 |  100% |
+| Russian  | 185/185 |  100% |
 |----------|---------|-------|
 ```
 
@@ -72,21 +94,15 @@ Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widg
 After installation, the widget icon should <b>automatically</b> appear in the system tray.
 
 >[!IMPORTANT]
->If you had the previous version installed, you may need to log out or restart plasmashell after installation for the new features to work properly.
+>If you had the previous version installed, you need to log out or restart plasmashell after installation for the new features to work properly.
 >```bash
 >kquitapp6 plasmashell && kstart plasmashell
 >```
 
 ### Uninstall
 ```bash
-sh ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
+bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
 ```
 
 <br>
 
-## Settings
-<div align="center">
-<img src="./screenshots/settings_1.png" width="300px" alt="Settings"/>
-<img src="./screenshots/settings_2.png" width="300px" alt="Settings"/>
-<img src="./screenshots/settings_3.png" width="300px" alt="Settings"/>
-</div>
