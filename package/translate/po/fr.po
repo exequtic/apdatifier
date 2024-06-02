@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-05-31 15:41+0300\n"
-"PO-Revision-Date: 2024-05-20 22:54+0300\n"
+"PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -100,7 +100,7 @@ msgstr "Lire l'article"
 
 #: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
-msgstr "Arch Linux Actualités"
+msgstr "Arch Linux Nouvelles"
 
 #: ../contents/tools/tools.js
 msgid "<b>Latest news:</b> "
@@ -560,7 +560,7 @@ msgstr "Dépôts officiels Arch"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr "Référentiel d'utilisateurs Arch"
+msgstr "Référentiel utilisateurs Arch"
 
 #: ../contents/ui/configuration/General.qml
 msgid "It is necessary to have paru or yay installed."
@@ -824,7 +824,7 @@ msgstr "Rejeter"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
-msgstr "Système mis à jour"
+msgstr "Système à jour"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
