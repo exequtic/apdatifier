@@ -18,13 +18,13 @@ import "../tools/tools.js" as JS
 PlasmoidItem {
     compactRepresentation: Rep.Panel {}
     fullRepresentation: Rep.Expanded {
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 20
+        Layout.minimumWidth: Kirigami.Units.gridUnit * 24
         Layout.minimumHeight: Kirigami.Units.gridUnit * 10
         anchors.fill: parent
         focus: true
     }
 
-    switchWidth: Kirigami.Units.gridUnit * 20
+    switchWidth: Kirigami.Units.gridUnit * 24
     switchHeight: Kirigami.Units.gridUnit * 10
 
     Plasmoid.busy: busy

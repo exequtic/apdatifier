@@ -308,12 +308,11 @@ management() {
 
         if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
             rebuild_dir="${rebuild_dir#* }"
-            rebuild_packages=$(pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneLine)
-
+            rebuild_packages=$( { pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneLine; } 2>/dev/null)
             if [[ -z "$rebuild_packages" ]]; then
                 printDone "$MNG_DONE"
             else
-                printExec -S "$rebuild_packages --rebuild"
+                printExec "-S --rebuild" "$rebuild_packages"
                 while true; do
                     printQuestion "$MNG_RESUME"; read -r answer
                     case "$answer" in
@@ -324,7 +323,6 @@ management() {
                 done
                 pacman -Qqo "$rebuild_dir" | pacman -Qqm - | $wrapper -S --rebuild -
             fi
-            
         else
             printDone "$MNG_DONE"
         fi
@@ -435,7 +433,7 @@ getWidgetInfo() {
         if [ -z "$icon" ]; then
             icon="start-here-kde"
         else
-            ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" | grep -q . && icon="start-here-kde"
+            ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" 2>/dev/null | grep -q . && icon="start-here-kde"
         fi
 
         url="https://store.kde.org/p/$contentId"
