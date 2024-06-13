@@ -27,7 +27,6 @@ ToolButton {
         anchors.centerIn: parent
         source: cfg.ownIconsUI ? Qt.resolvedUrl("../assets/icons/" + root.icon.source + ".svg") : root.icon.source
         color: Kirigami.Theme.colorSet
-        opacity: cfg.ownIconsUI ? (enabled ? 1 : 0.6) : 1
         scale: cfg.ownIconsUI ? 0.7 : 0.9
         isMask: cfg.ownIconsUI
         smooth: true
