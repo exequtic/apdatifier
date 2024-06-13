@@ -412,32 +412,27 @@ getWidgetInfo() {
     fi
     [ -z "$contentId" ] && return 1
 
-    current_version=$(jq -r '.KPlugin.Version' $json)
-    current_version_clean=$(echo $current_version | sed 's/[^0-9.]*//g')
-    current_version_clean=$(echo "$current_version_clean" | sed 's/^\.//')
+    currentVer=$(jq -r '.KPlugin.Version' $json)
+    latestVer=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $XML)
+    [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 1
 
-    latest_version=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n $XML)
-    latest_version_clean=$(echo $latest_version | sed 's/[^0-9.]*//g')
-    latest_version_clean=$(echo "$latest_version_clean" | sed 's/^\.//')
+    compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
+    [[ $? != 2 ]] && return 1
 
-    [ -z "$latest_version_clean" ] || [ -z "$current_version_clean" ] && return 1
+    description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
+    [ -z "$description" ] || [ "$description" = "null" ] && description="-"
 
-    if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
-        description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
-        [ -z "$description" ] || [ "$description" = "null" ] && description="-"
+    author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
+    [ -z "$author" ] || [ "$author" = "null" ] && author="-"
 
-        author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
-        [ -z "$author" ] || [ "$author" = "null" ] && author="-"
-
-        icon=$(jq -r '.KPlugin.Icon' $json)
-        if [ -z "$icon" ]; then
-            icon="start-here-kde"
-        else
-            ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" 2>/dev/null | grep -q . && icon="start-here-kde"
-        fi
-
-        url="https://store.kde.org/p/$contentId"
+    icon=$(jq -r '.KPlugin.Icon' $json)
+    if [ -z "$icon" ]; then
+        icon="start-here-kde"
+    else
+        ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" 2>/dev/null | grep -q . && icon="start-here-kde"
     fi
+
+    url="https://store.kde.org/p/$contentId"
 
     return 0
 }
@@ -468,7 +463,7 @@ downloadWidget() {
         jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
     fi
 
-    jq --arg new_value "$latest_version" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
+    jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
 
     kpackagetool6 -t Plasma/Applet -u .
     sleep 1
@@ -488,8 +483,9 @@ checkWidgets() {
     source "$SCRIPTDIR/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
-        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
-            output+="${name}@${contentId}@${icon}@${description}@${author}@${current_version}@${latest_version}@${url}\n"
+        compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
+        if [[ $? = 2 ]]; then
+            output+="${name}@${contentId}@${icon}@${description}@${author}@${currentVer}@${latestVer}@${url}\n"
         fi
     done
 
@@ -512,8 +508,8 @@ upgradeAllWidgets() {
     source "$SCRIPTDIR/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
-
-        if [[ "$(printf '%s\n' "$latest_version_clean" "$current_version_clean" | sort -V | head -n1)" != "$latest_version_clean" ]]; then
+        compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
+        if [[ $? = 2 ]]; then
             link=$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "downloadlink" -n $XML)
             tempDir=$(mktemp -d)
             tempFile="$tempDir/$(basename "${link}")"
@@ -563,7 +559,7 @@ upgradeWidget() {
 
     formatXML $XML
     link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
-    latest_version=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
+    latestVer=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
     tempFile="$tempDir/$(basename "${link}")"
 
     downloadWidget $4; [[ $? -ne 0 ]] && exit
@@ -620,12 +616,27 @@ printError() { echo -e "${r}${ICO_ERR} $1 ${c}"; }
 printImportant() { echo -e "${y}${bold}${ICO_WARN} $1 ${c}"; }
 printQuestion() { echo -en "\n${y}${ICO_QUESTION}${c}${y}${bold} $1 ${c}[y/N]: "; }
 printExec() { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo $1 $2 \n"; }
+
 oneLine() { tr '\n' ' ' | sed 's/ $//'; }
 checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
 spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
+
 formatXML() { sed -i -E 's/downloadlink[0-9]+>/downloadlink>/g' $1; sed -i 's/details="full"/details="summary"/g' $1; \
               xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" \
                                -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
+
+clearVer() { local ver="${1}"; ver="${ver#.}"; ver="${ver%.}"; ver="${ver//[!0-9.]}"; echo "${ver}"; }
+compareVer() {
+    [[ $1 == $2 ]] && return 0
+    local IFS=.; local i ver1=($1) ver2=($2)
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do ver1[i]=0; done
+    for ((i=0; i<${#ver1[@]}; i++)); do
+        [[ -z ${ver2[i]} ]] && ver2[i]=0
+        ((10#${ver1[i]} > 10#${ver2[i]})) && return 1
+        ((10#${ver1[i]} < 10#${ver2[i]})) && return 2
+    done
+    return 0
+}
 
 
 case "$1" in
