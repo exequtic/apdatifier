@@ -6,13 +6,16 @@ getId() {
         Almanac.Asimetric)                          echo "2158349";;
         AndromedaLauncher)                          echo "2144212";;
         Audio.Wave.Widget)                          echo "2142681";;
+        ChatAI-Plasmoid)                            echo "2163340";;
         CircleClock)                                echo "2136299";;
+        Circle.Music.Widget)                        echo "2163368";;
         Clock.Asitoki.Color)                        echo "2136295";;
         com.bxabi.bumblebee-indicator)              echo "998890";;
         com.dv.fokus)                               echo "2117117";;
         com.dv.uswitcher)                           echo "2135898";;
         com.github.antroids.application-title-bar)  echo "2135509";;
         com.github.boraerciyas.controlcentre)       echo "2138485";;
+        com.github.chrtall.kppleMenu)               echo "2164679";;
         com.github.configurable_button)             echo "2139541";;
         com.github.davide-sd.ip_address)            echo "2140275";;
         com.github.DenysMb.Kicker-AppsOnly)         echo "2145280";;
@@ -45,6 +48,7 @@ getId() {
         com.nemmayan.clock)                         echo "2136546";;
         com.Petik.clock)                            echo "2136321";;
         com.samirgaire10.blackbox.AI_plasma6)       echo "2152642";;
+        com.samirgaire10.DuckDuckGo-plasma6)        echo "2163199";;
         com.samirgaire10.Brave-plasma6)             echo "2151585";;
         com.samirgaire10.chatgpt-plasma6)           echo "2151600";;
         com.samirgaire10.Deepl-plasma6)             echo "2151622";;
@@ -53,7 +57,7 @@ getId() {
         com.samirgaire10.GoogleTranslater-plasma6)  echo "2151694";;
         com.samirgaire10.Ollama-plasma6)            echo "2159592";;
         com.samirgaire10.perplexityAi-plasma6)      echo "2151962";;
-        com.softtechok.processmonitor)              echo "2153021";;
+        com.softtechok.processmonitor)              echo "2160638";;
         com.softtechok.systemmonitorplasmoid)       echo "2154331";;
         d4rkwzd.colorpicker-tray)                   echo "2140856";;
         de.davidhi.ddcci-brightness)                echo "2114471";;
@@ -69,11 +73,13 @@ getId() {
         luisbocanegra.panelspacer.extended)         echo "2128047";;
         lyrics-on-panel-plasma6)                    echo "2148373";;
         Minimal.chaac.weather)                      echo "2136307";;
+        OnlyText.Date.Kde)                          echo "2163165";;
         optimus-gpu-switcher)                       echo "2138365";;
         org.51n7.kMenu)                             echo "2154894";;
         org.kde.archupdatechecker)                  echo "2130541";;
         org.kde.Big.Clock)                          echo "2136288";;
         org.kde.Date.Bubble.P6)                     echo "2138853";;
+        org.kde.dwardor.fanspeedmonitor)            echo "2162586";;
         org.kde.latte.separator)                    echo "2136852";;
         org.kde.latte.spacer)                       echo "2138907";;
         org.kde.losungen6)                          echo "2158358";;
@@ -91,6 +97,7 @@ getId() {
         org.kde.plasma.clearclock)                  echo "2147871";;
         org.kde.plasma.composeEmail)                echo "2150544";;
         org.kde.plasma.ginti)                       echo "2146553";;
+        org.kde.plasma.mediacontroller.panel)       echo "2164590";;
         org.kde.plasma.plasm6desktopindicator)      echo "2131462";;
         org.kde.plasma.pminhibition)                echo "2138746";;
         org.kde.plasma.private.BusyTasksPlasmoid)   echo "2153869";;
@@ -101,6 +108,7 @@ getId() {
         org.kde.plasma.videocard)                   echo "2138473";;
         org.kde.plasma.win7showdesktop)             echo "2151247";;
         org.kde.plasma.yesplaymusic-lyrics)         echo "2135552";;
+        org.kde.redshiftControl6)                   echo "2164459";;
         org.kde.windowbuttons)                      echo "2151931";;
         org.kde.windowtitle)                        echo "2129423";;
         org.kde.windowtitle.Fork)                   echo "2147882";;
@@ -116,6 +124,7 @@ getId() {
         split-clock)                                echo "2139337";;
         thot.observer.cpu)                          echo "2148472";;
         thot.observer.ram)                          echo "2148469";;
+        Weather.IntiSol.kde)                        echo "2161461";;
         weather.bicolor.widget)                     echo "2136329";;
         zayron.almanac)                             echo "2136302";;
         zayron.almanac.V2)                          echo "2147850";;
