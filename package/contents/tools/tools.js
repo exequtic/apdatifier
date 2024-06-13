@@ -53,6 +53,7 @@ function runScript() {
 function run() {
     error = null
 
+    if (upgrading) return true
     if (busy) {
         sh.stop()
         setStatusBar()
@@ -84,18 +85,8 @@ function checkDependencies() {
         const terminals = populate(output.slice(6).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
 
-        if (!cfg.interval) {
-            refreshListModel()
-            return
-        }
-    
-        if (!cfg.checkOnStartup) {
-            refreshListModel()
-            searchTimer.start()
-            return
-        }
-
-        searchTimer.triggered()
+        refreshListModel()
+        upgradingState(true)
     })
 }
 
@@ -186,9 +177,36 @@ function management() {
 }
 
 
+function enableUpgrading(state) {
+    busy = upgrading = state
+    if (state) {
+        upgradeTimer.start()
+        searchTimer.stop()
+        statusMsg = i18n("Full system upgrade")
+        statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+    } else {
+        upgradeTimer.stop()
+        searchTimer.triggered()
+    }
+}
+
+function upgradingState(startup) {
+    sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "-e bash"`, (cmd, out, err, code) => {
+        if (out) {
+            enableUpgrading(true)
+        } else if (startup) {
+            if (!cfg.interval) return
+            cfg.checkOnStartup ? searchTimer.triggered() : searchTimer.start()
+        } else {
+            enableUpgrading(false)
+        }
+    })
+}
+
 function upgradeSystem() {
+    if (upgrading) return
     defineCommands()
-    searchTimer.restart()
+    enableUpgrading(true)
     sh.exec(cmd.upgrade)
 }
 

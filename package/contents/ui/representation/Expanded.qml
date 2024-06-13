@@ -116,7 +116,7 @@ Representation {
                     icon.source: cfg.ownIconsUI ? (busy ? "toolbar_stop" : "toolbar_check")
                                                 : (busy ? "media-playback-stopped" : "view-refresh")
                     onClicked: JS.checkUpdates()
-                    visible: cfg.checkButton
+                    visible: cfg.checkButton && !upgrading
                     tooltipText: busy ? i18n("Stop checking") : i18n("Check updates")
                 }
             }

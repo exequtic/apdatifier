@@ -41,6 +41,7 @@ PlasmoidItem {
     property var cmd: []
     property var news: []
     property bool busy: false
+    property bool upgrading: false
     property string error: ""
     property string statusMsg: ""
     property string statusIco: ""
@@ -76,6 +77,7 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Check updates")
             icon.name: "view-refresh"
+            enabled: !upgrading
             onTriggered: JS.checkUpdates()
         },
         PlasmaCore.Action {
@@ -98,6 +100,14 @@ PlasmoidItem {
         running: true
         repeat: true
         onTriggered: JS.checkUpdates()
+    }
+
+    Timer {
+        id: upgradeTimer
+        interval: 2000
+        running: false
+        repeat: true
+        onTriggered: JS.upgradingState()
     }
 
     onTimeChanged: searchTimer.restart()
