@@ -29,7 +29,7 @@ copy() {
 
 install() {
     required="git zip kpackagetool6"
-    for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; exit; }; done;
+    for cmd in ${required}; do command -v "$cmd" >/dev/null || { echo -e "${r}${bold} Required installed ${cmd} ${c}"; exit; }; done;
     if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
         echo "Plasmoid already installed"
         uninstall
