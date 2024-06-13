@@ -28,25 +28,24 @@
 <div align="center">
 
 #### Compact/Extended list
-<img src="./screenshots/screenshot_1.png" width="400px" alt="screenshot"/>
-
-<br>
-
-<img src="./screenshots/screenshot_2.png" width="400px" alt="screenshot"/>
+<img src="./screenshots/screenshot_1.png" width="300px" alt="screenshot"/>
+&nbsp;&nbsp;&nbsp;
+<img src="./screenshots/screenshot_2.png" width="300px" alt="screenshot"/>
+&nbsp;&nbsp;&nbsp;
 
 <br>
 
 #### Full system upgrade
-<img src="./screenshots/screenshot_4.png" width="400px" alt="screenshot"/>
+<img src="./screenshots/screenshot_4.png" width="600px" alt="screenshot"/>
 
 <br>
 
 #### Management
-<img src="./screenshots/screenshot_3.png" width="400px" alt="screenshot"/>
+<img src="./screenshots/screenshot_3.png" width="600px" alt="screenshot"/>
 
-<br>
+<br><br>
 
-<video src="./screenshots/management.mp4" width=600/>
+https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c346c0748df3
 
 </div>
 
