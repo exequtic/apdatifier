@@ -53,6 +53,7 @@ PlasmoidItem {
     property bool interval: plasmoid.configuration.interval
     property int time: plasmoid.configuration.time
     property bool sorting: plasmoid.configuration.sorting
+    property var exclude: plasmoid.configuration.exclude
     property var pkg: plasmoid.configuration.packages
     property var cfg: plasmoid.configuration
 
@@ -113,5 +114,6 @@ PlasmoidItem {
     onTimeChanged: searchTimer.restart()
     onIntervalChanged: interval ? searchTimer.start() : searchTimer.stop()
     onSortingChanged: JS.refreshListModel()
+    onExcludeChanged: JS.refreshListModel()
 	Component.onCompleted: JS.runScript()
 }

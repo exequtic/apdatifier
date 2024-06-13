@@ -316,7 +316,7 @@ function checkUpdates() {
         updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : []
         updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : []
         updPlasmoids = updPlasmoids ? makePlasmoidsList(updPlasmoids) : []
-        finalize(sortList(excludePackages(updArch.concat(updFlpk, updPlasmoids))))
+        finalize(updArch.concat(updFlpk, updPlasmoids))
     }
 }
 
@@ -497,29 +497,20 @@ function sortList(list) {
 
 
 function setNotify(list) {
-    const newList = list.filter(el => {
-        if (!cache.some(elCache => elCache.NM === el.NM)) return true
-        if (cfg.notifyEveryBump && cache.some(elCache => elCache.NM === el.NM && elCache.VN !== el.VN)) return true
-        return false
-    })
+    const excluded = new Set(cfg.exclude.split(' '))
+    const cached = new Map(cache.map(elCache => [elCache.NM, elCache.VN]))
+    const newList = list.filter(el => !excluded.has(el.NM) && (!cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN)))
 
-    const newCount = newList.length
-
-    if (newCount > 0) {
-        let lines = ""
-        newList.forEach(item => {
-            lines += item["NM"] + "   → " + item["VN"] + "\n"
-        })
-
-        notifyTitle = i18np("+%1 new update", "+%1 new updates", newCount)
-        notifyBody = lines
+    if (newList.length > 0) {
+        notifyTitle = i18np("+%1 new update", "+%1 new updates", newList.length)
+        notifyBody = newList.map(pkg => `${pkg.NM} → ${pkg.VN}`).join("\n")
         notify.sendEvent()
     }
 }
 
 
 function refreshListModel(list) {
-    list = list || (cache ? sortList(cache) : 0)
+    list = sortList(excludePackages(list || cache)) || list
     count = list.length || 0
     setStatusBar()
 
@@ -548,7 +539,6 @@ function finalize(list) {
 
     if (cfg.notifications) setNotify(list)
 
-    count = list.length
     cache = list
 
     let json1, json2
