@@ -20,7 +20,7 @@ import "../../tools/tools.js" as JS
 Representation {
     id: root
     property bool searchFieldOpen: false
-    property var pkgIcons: cfg.customIcons
+    property var news: JSON.parse(cfg.lastNews)
     property bool newsVisibility: !busy && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
     function updateVisibility() { newsVisibility = !news.dismissed; }
 
@@ -198,7 +198,7 @@ Representation {
                     icon.name: "dialog-close"
                     onTriggered: {
                         news.dismissed = true
-                        sh.exec(JS.writeFile(JSON.stringify(news), JS.newsFile))
+                        cfg.lastNews = JSON.stringify(news)
                         updateVisibility()
                     }
                 }

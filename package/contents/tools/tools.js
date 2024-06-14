@@ -15,37 +15,65 @@ function Error(code, err) {
 
 
 const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
-const cacheDir = "$HOME/.cache/apdatifier/"
-const cacheFile1 = cacheDir + "packages_list.json"
-const cacheFile2 = cacheDir + "packages_list_2.json"
-const newsFile = cacheDir + "latest_news.json"
-const customIcons = cacheDir + "packages_icons"
-const timestampFile = cacheDir + "last_check_timestamp"
+const configDir = "$HOME/.config/apdatifier/"
+const configFile = configDir + "config.conf"
+const cacheFile1 = configDir + "updates.json"
+const cacheFile2 = configDir + "updates_2.json"
+const iconsFile = configDir + "icons"
 
 const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
 
 function runScript() {
+    loadConfig()
+    loadIcons()
     sh.exec(`${script} copy`, (cmd, out, err, code) => {
         if (Error(code, err)) return
-
         sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
             const cache2 = out ? JSON.parse(out.trim()) : []
-
             sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
                 cache = out ? cache2.concat(JSON.parse(out.trim())) : []
-                
-                sh.exec(readFile(newsFile), (cmd, out, err, code) => {
-                    news = out ? JSON.parse(out.trim()) : []
-
-                    sh.exec(readFile(timestampFile), (cmd, out, err, code) => {
-                        timestamp = out ? out.trim() : []
-                        checkDependencies()
-                    })
-                })
+                checkDependencies()
             })
         })
+    })
+}
+
+
+function saveConfig() {
+    if (saveTimer.running) return
+    let config = ""
+    Object.keys(cfg).forEach(key => {
+        if (key.endsWith("Default")) {
+            let name = key.slice(0, -7)
+            config += `${name} = ${cfg[name]}\n`
+        }
+    })
+
+    sh.exec(writeFile(config, configFile))
+}
+
+function loadConfig() {
+    sh.exec(readFile(configFile), (cmd, out, err, code) => {
+        if (!out) return
+        const config = out.trim().split("\n")
+        const convert = value => {
+            if (!isNaN(parseFloat(value))) return parseFloat(value)
+            if (value === "true" || value === "false") return value === 'true'
+            return value
+        }
+        config.forEach(line => {
+            const [key, val] = line.split(" = ")
+            plasmoid.configuration[key] = convert(val)
+        })
+    })
+}
+
+function loadIcons() {
+    sh.exec(readFile(iconsFile), (cmd, out, err, code) => {
+        if (!out) return
+        plasmoid.configuration.pkgIcons = out.trim()
     })
 }
 
@@ -329,14 +357,13 @@ function makeNewsArticle(data) {
     let lastNews = {}
     lastNews["article"] = article.split(" ").slice(1).join(" ")
 
-    const prevArticle = news ? news.article : ""
+    const prevArticle = cfg.lastNews ? JSON.parse(cfg.lastNews).article : ""
 
     if (lastNews.article !== prevArticle) {
         lastNews["date"] = article.split(" ")[0]
         lastNews["link"] = "https://archlinux.org/news/" + lastNews.article.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
         lastNews["dismissed"] = false
-        news = lastNews
-        sh.exec(writeFile(JSON.stringify(lastNews), newsFile))
+        cfg.lastNews = JSON.stringify(lastNews)
 
         if (cfg.notifications) {
             const openFull = i18n("Read article")
@@ -522,8 +549,7 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
-    timestamp = new Date().getTime().toString()
-    sh.exec(writeFile(timestamp, timestampFile))
+    cfg.timestamp = new Date().getTime().toString()
 
     if (!list) {
         listModel.clear()
@@ -571,9 +597,9 @@ function setStatusBar(code) {
 
 
 function getLastCheckTime() {
-    if (!timestamp) return ""
+    if (!cfg.timestamp) return ""
 
-    const diff = new Date().getTime() - parseInt(timestamp)
+    const diff = new Date().getTime() - parseInt(cfg.timestamp)
     const sec = Math.round((diff / 1000) % 60)
     const min = Math.floor((diff / (1000 * 60)) % 60)
     const hrs = Math.floor(diff / (1000 * 60 * 60))

@@ -39,7 +39,6 @@ PlasmoidItem {
     property var count
     property var cache
     property var cmd: []
-    property var news: []
     property bool busy: false
     property bool upgrading: false
     property string error: ""
@@ -47,15 +46,16 @@ PlasmoidItem {
     property string statusIco: ""
     property string notifyTitle: ""
     property string notifyBody: ""
-    property string lastCheck
-    property string timestamp
+    property string lastCheck: ""
 
     property bool interval: plasmoid.configuration.interval
-    property int time: plasmoid.configuration.time
     property bool sorting: plasmoid.configuration.sorting
+    property string pkgIcons: plasmoid.configuration.pkgIcons
+    property int time: plasmoid.configuration.time
     property var exclude: plasmoid.configuration.exclude
     property var pkg: plasmoid.configuration.packages
     property var cfg: plasmoid.configuration
+    property var configuration: JSON.stringify(cfg)
 
     ListModel  {
         id: listModel
@@ -98,7 +98,6 @@ PlasmoidItem {
     Timer {
         id: searchTimer
         interval: time * 1000 * 60
-        running: true
         repeat: true
         onTriggered: JS.checkUpdates()
     }
@@ -106,14 +105,20 @@ PlasmoidItem {
     Timer {
         id: upgradeTimer
         interval: 2000
-        running: false
         repeat: true
         onTriggered: JS.upgradingState()
+    }
+
+    Timer {
+        id: saveTimer
+        interval: 1000
+        onTriggered: JS.saveConfig()
     }
 
     onTimeChanged: searchTimer.restart()
     onIntervalChanged: interval ? searchTimer.start() : searchTimer.stop()
     onSortingChanged: JS.refreshListModel()
     onExcludeChanged: JS.refreshListModel()
+    onConfigurationChanged: saveTimer.start()
 	Component.onCompleted: JS.runScript()
 }

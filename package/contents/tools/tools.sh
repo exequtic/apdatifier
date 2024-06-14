@@ -3,13 +3,15 @@
 # SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
 # SPDX-License-Identifier: MIT
 
-SCRIPTDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 applet="com.github.exequtic.apdatifier"
 
-localdir="$HOME/.local/share"
-plasmoid="$localdir/plasma/plasmoids/$applet"
-iconsdir="$localdir/icons/breeze/status/24"
-notifdir="$localdir/knotifications6"
+scriptDir=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+configDir="$HOME/.config/apdatifier"
+localDir="$HOME/.local/share"
+iconsDir="$localDir/icons/breeze/status/24"
+notifDir="$localDir/knotifications6"
+appletDir="$localDir/plasma/plasmoids/$applet"
+
 icon1="apdatifier-plasmoid.svg"
 icon2="apdatifier-packages.svg"
 icon3="apdatifier-package.svg"
@@ -17,13 +19,14 @@ notif="apdatifier.notifyrc"
 
 
 copy() {
-    [ -d $iconsdir ] || mkdir -p $iconsdir
-    [ -f $iconsdir/$icon1 ] || cp $plasmoid/contents/ui/assets/icons/$icon1 $iconsdir
-    [ -f $iconsdir/$icon2 ] || cp $plasmoid/contents/ui/assets/icons/$icon2 $iconsdir
-    [ -f $iconsdir/$icon3 ] || cp $plasmoid/contents/ui/assets/icons/$icon3 $iconsdir
-    [ -d $notifdir ] || mkdir -p $notifdir
-    [ -d $notifdir ] && notifyrc
-    [ -d "$HOME/.cache/apdatifier" ] || mkdir -p "$HOME/.cache/apdatifier"
+    [ -d $iconsDir ] || mkdir -p $iconsDir
+    [ -d $notifDir ] || mkdir -p $notifDir
+    [ -d $configDir ] || mkdir -p $configDir
+    [ -d $notifDir ] && notifyrc
+
+    [ -f $iconsDir/$icon1 ] || cp $appletDir/contents/ui/assets/icons/$icon1 $iconsDir
+    [ -f $iconsDir/$icon2 ] || cp $appletDir/contents/ui/assets/icons/$icon2 $iconsDir
+    [ -f $iconsDir/$icon3 ] || cp $appletDir/contents/ui/assets/icons/$icon3 $iconsDir
 }
 
 
@@ -53,19 +56,19 @@ install() {
 
 
 uninstall() {
-    getTxt; checkPkg "kpackagetool6"
-    [ ! -f $iconsdir/$icon1 ] || rm -f $iconsdir/$icon1
-    [ ! -f $iconsdir/$icon2 ] || rm -f $iconsdir/$icon2
-    [ ! -f $iconsdir/$icon3 ] || rm -f $iconsdir/$icon3
-    [ ! -f $notifdir/$notif ] || rm -f $notifdir/$notif
-    [ ! -d $iconsdir ] || rmdir -p --ignore-fail-on-non-empty $iconsdir
-    [ ! -d $notifdir ] || rmdir -p --ignore-fail-on-non-empty $notifdir
+    for cmd in "kpackagetool6"; do command -v "$cmd" >/dev/null || { echo -e "${r}${bold} Required installed ${cmd} ${c}"; exit; }; done;
+    [ ! -f $iconsDir/$icon1 ] || rm -f $iconsDir/$icon1
+    [ ! -f $iconsDir/$icon2 ] || rm -f $iconsDir/$icon2
+    [ ! -f $iconsDir/$icon3 ] || rm -f $iconsDir/$icon3
+    [ ! -f $notifDir/$notif ] || rm -f $notifDir/$notif
+    [ ! -d $iconsDir ] || rmdir -p --ignore-fail-on-non-empty $iconsDir
+    [ ! -d $notifDir ] || rmdir -p --ignore-fail-on-non-empty $notifDir
     [ -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ] || kpackagetool6 --type Plasma/Applet -r $applet 2>/dev/null
     sleep 2
 }
 
 notifyrc() {
-cat > "$notifdir/$notif" << EOF
+cat > "$notifDir/$notif" << EOF
 [Global]
 IconName=apdatifier-plasmoid
 Comment=Apdatifier
@@ -481,7 +484,7 @@ checkWidgets() {
     downloadXML check
 
     output=""
-    source "$SCRIPTDIR/widgets.sh"
+    source "$scriptDir/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
         compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
@@ -506,7 +509,7 @@ upgradeAllWidgets() {
     tput rc; tput ed; printDone "$WIDGETS_CHECK"
 
     hasUpdates="false"
-    source "$SCRIPTDIR/widgets.sh"
+    source "$scriptDir/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
         compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
@@ -581,7 +584,7 @@ upgradeWidget() {
 
 
 getTxt() {
-    export TEXTDOMAINDIR="$SCRIPTDIR/../locale"
+    export TEXTDOMAINDIR="$scriptDir/../locale"
     export TEXTDOMAIN="plasma_applet_${applet}"
 
     declare -a var_names=(
@@ -597,7 +600,7 @@ getTxt() {
         i=$((i+1))
         text=$(echo "$line" | grep -oP '(?<=\().*(?=\))' | sed 's/"//g')
         eval "${var_names[$((i-1))]}=\"$(gettext "$text")\""
-    done < "$SCRIPTDIR/../ui/components/Messages.qml"
+    done < "$scriptDir/../ui/components/Messages.qml"
 
     if [[ $1 = "true" ]]; then
         ICO_MNG_OPT_01="󱝩 "; ICO_MNG_OPT_02="󱝫 "; ICO_MNG_OPT_03="󱝭 "; ICO_MNG_OPT_04="󱝭 "

@@ -10,6 +10,7 @@
 
 <kcfgfile name="apdatifier"/>
     <group name="General">
+        <entry name="timestamp" type="string"><default></default></entry>
         <entry name="interval" type="bool"><default>true</default></entry>
         <entry name="time" type="int"><default>60</default></entry>
         <entry name="checkOnStartup" type="bool"><default>false</default></entry>
@@ -28,7 +29,6 @@
         <entry name="notifications" type="bool"><default>true</default></entry>
         <entry name="withSound" type="bool"><default>true</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
-        <entry name="timestamp" type="string"><default></default></entry>
     </group>
     <group name="Upgrade">
         <entry name="terminal" type="string"><default></default></entry>
@@ -46,7 +46,6 @@
         <entry name="listView" type="int"><default>0</default></entry>
         <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="customIconsEnabled" type="bool"><default>false</default></entry>
-        <entry name="customIcons" type="string"><default></default></entry>
         <entry name="ownIconsUI" type="bool"><default>true</default></entry>
         <entry name="showStatusText" type="bool"><default>true</default></entry>
         <entry name="showToolBar" type="bool"><default>true</default></entry>

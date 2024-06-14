@@ -36,7 +36,6 @@ SimpleKCM {
     property alias cfg_ownIconsUI: ownIconsUI.checked
     property alias cfg_termFont: termFont.checked
     property alias cfg_customIconsEnabled: customIconsEnabled.checked
-    property alias cfg_customIcons: customIcons.text
 
     property alias cfg_relevantIcon: relevantIcon.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
@@ -245,7 +244,14 @@ SimpleKCM {
                         height: parent.height
                         font.family: "Monospace"
                         font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                        placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > start-kde-here\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
+                        placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > start-kde-here\nmatch   > linux  > preferences-system-linux\nmatch   > python > text-x-python\nname    > python > python-backend"
+                    }
+
+                    Component.onCompleted: {
+                        sh.exec(JS.readFile(JS.iconsFile), (cmd, out, err, code) => {
+                            if (!out) return
+                            customIcons.text = out.trim()
+                        })
                     }
                 }
 
@@ -258,7 +264,7 @@ SimpleKCM {
                         iconName: "view-list-icons"
                         iconSize: Kirigami.Units.iconSizes.small
                         tooltipText: i18n("Browse icons and copy icon name to clipboard")
-                        onPressed: customIconsDialog.open()
+                        onClicked: customIconsDialog.open()
 
                         IconDialog {
                             id: customIconsDialog
@@ -267,20 +273,12 @@ SimpleKCM {
                     }
 
                     QQC.Button {
-                        iconName: "document-save"
+                        iconName: "dialog-ok-apply"
                         iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Backup list")
-                        onPressed: sh.exec(JS.writeFile(customIcons.text, JS.customIcons))
-                    }
-
-                    QQC.Button {
-                        iconName: "kt-restore-defaults"
-                        iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Restore list from backup")
-                        onPressed: {
-                            sh.exec(JS.readFile(JS.customIcons), (cmd, out, err, code) => {
-                                if (out) customIcons.text = out.trim()
-                            })
+                        tooltipText: i18n("Apply and save")
+                        onClicked: {
+                            sh.exec(JS.writeFile(customIcons.text, JS.iconsFile))
+                            JS.loadIcons()
                         }
                     }
                 }
