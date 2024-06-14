@@ -19,7 +19,7 @@ ScrollView {
     contentItem: ListView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Highlight {}
+        highlight: Highlight { visible: !busy && !error }
         highlightMoveDuration: 0
         highlightResizeDuration: 0
         height: parent.height

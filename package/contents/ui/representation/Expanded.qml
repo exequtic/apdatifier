@@ -20,7 +20,7 @@ import "../../tools/tools.js" as JS
 Representation {
     id: root
     property bool searchFieldOpen: false
-    property var news: JSON.parse(cfg.lastNews)
+    property var news: cfg.lastNews ? JSON.parse(cfg.lastNews) : []
     property bool newsVisibility: !busy && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
     function updateVisibility() { newsVisibility = !news.dismissed; }
 
@@ -101,7 +101,7 @@ Representation {
                 QQC.ToolButton {
                     icon.source: cfg.ownIconsUI ? "toolbar_management" : "tools"
                     onClicked: JS.management()
-                    enabled: !busy && !error && pkg.pacman && cfg.terminal
+                    enabled: !busy && !error && pkg.pacman !== "" && cfg.terminal
                     visible: enabled && cfg.managementButton
                     tooltipText: i18n("Management")
                 }

@@ -48,12 +48,12 @@ PlasmoidItem {
     property string notifyBody: ""
     property string lastCheck: ""
 
+    property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
     property bool sorting: plasmoid.configuration.sorting
-    property string pkgIcons: plasmoid.configuration.pkgIcons
-    property int time: plasmoid.configuration.time
-    property var exclude: plasmoid.configuration.exclude
-    property var pkg: plasmoid.configuration.packages
+    property string pkgIcons: plasmoid.configuration.pkgIcons || ""
+    property string exclude: plasmoid.configuration.exclude
+    property var pkg: plasmoid.configuration.packages || ""
     property var cfg: plasmoid.configuration
     property var configuration: JSON.stringify(cfg)
 

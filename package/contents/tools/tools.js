@@ -499,6 +499,7 @@ function excludePackages(list) {
 
 
 function sortList(list) {
+    if (!list) return
     return list.sort((a, b) => {
         const [nameA, repoA] = [a.NM, a.RE]
         const [nameB, repoB] = [b.NM, b.RE]
@@ -537,7 +538,7 @@ function setNotify(list) {
 
 
 function refreshListModel(list) {
-    list = sortList(excludePackages(list || cache)) || list
+    list = sortList(excludePackages(list || cache)) || []
     count = list.length || 0
     setStatusBar()
 
