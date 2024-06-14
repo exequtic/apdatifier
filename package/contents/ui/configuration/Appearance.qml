@@ -197,7 +197,11 @@ SimpleKCM {
             Kirigami.FormData.label: "UI:"
             CheckBox {
                 id: ownIconsUI
-                text: i18n("Build-in icons")
+                text: i18n("Use built-in icons")
+            }
+            
+            ContextualHelpButton {
+                toolTipText: i18n("Override custom icon theme and use default icons instead.")
             }
         }
 
