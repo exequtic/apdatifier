@@ -44,10 +44,8 @@ PlasmoidItem {
     property string error: ""
     property string statusMsg: ""
     property string statusIco: ""
-    property string notifyTitle: ""
-    property string notifyBody: ""
     property string lastCheck: ""
-
+    property var notify: JS.notifyParams
     property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
     property bool sorting: plasmoid.configuration.sorting
@@ -61,17 +59,25 @@ PlasmoidItem {
         id: listModel
     }
 
-    DataSource.Shell {
-        id: sh
+    Notification {
+        id: notification
+        componentName: "apdatifier"
+        eventId: notify.event
+        title: notify.title
+        text: notify.body
+        iconName: notify.icon
+        flags: cfg.notifyPersistent ? Notification.Persistent : Notification.CloseOnTimeout
+        urgency: Notification[notify.urgency] || Notification.DefaultUrgency
+        actions: [
+            NotificationAction {
+                label: notify.label
+                onActivated: JS[notify.action]()
+            }
+        ]
     }
 
-    Notification {
-        id: notify
-        componentName: "apdatifier"
-        eventId: cfg.withSound ? "sound" : "popup"
-        title: notifyTitle
-        text: notifyBody
-        iconName: notifyTitle.startsWith("+") ? "apdatifier-packages" : "news-subscribe"
+    DataSource.Shell {
+        id: sh
     }
 
     Plasmoid.contextualActions: [

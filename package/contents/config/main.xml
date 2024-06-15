@@ -26,9 +26,11 @@
         <entry name="rightAction" type="string"><default></default></entry>
         <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
         <entry name="scrollDownAction" type="string"><default>management</default></entry>
-        <entry name="notifications" type="bool"><default>true</default></entry>
-        <entry name="withSound" type="bool"><default>true</default></entry>
+        <entry name="notifyUpdates" type="bool"><default>true</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
+        <entry name="notifyErrors" type="bool"><default>true</default></entry>
+        <entry name="notifySound" type="bool"><default>true</default></entry>
+        <entry name="notifyPersistent" type="bool"><default>true</default></entry>
     </group>
     <group name="Upgrade">
         <entry name="terminal" type="string"><default></default></entry>

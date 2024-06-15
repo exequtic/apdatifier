@@ -6,6 +6,7 @@
 
 function Error(code, err) {
     if (err) {
+        if (cfg.notifyErrors) sendNotify("error", i18n("Exit code") + ": " + code, err.trim())
         error = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
@@ -365,12 +366,7 @@ function makeNewsArticle(data) {
         lastNews["dismissed"] = false
         cfg.lastNews = JSON.stringify(lastNews)
 
-        if (cfg.notifications) {
-            const openFull = i18n("Read article")
-            notifyTitle = i18n("Arch Linux News")
-            notifyBody = "\n⠀\n" + i18n("<b>Latest news:</b> ") + lastNews.article + "\n⠀\n" + `<a href="${lastNews.link}">${openFull}</a>`
-            notify.sendEvent()
-        }
+        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), i18n("<b>Latest news:</b> ") + lastNews.article)
     }
 }
 
@@ -524,19 +520,6 @@ function sortList(list) {
 }
 
 
-function setNotify(list) {
-    const excluded = new Set(cfg.exclude.split(' '))
-    const cached = new Map(cache.map(elCache => [elCache.NM, elCache.VN]))
-    const newList = list.filter(el => !excluded.has(el.NM) && (!cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN)))
-
-    if (newList.length > 0) {
-        notifyTitle = i18np("+%1 new update", "+%1 new updates", newList.length)
-        notifyBody = newList.map(pkg => `${pkg.NM} → ${pkg.VN}`).join("\n")
-        notify.sendEvent()
-    }
-}
-
-
 function refreshListModel(list) {
     list = sortList(excludePackages(list || cache)) || []
     count = list.length || 0
@@ -564,7 +547,17 @@ function finalize(list) {
 
     refreshListModel(list)
 
-    if (cfg.notifications) setNotify(list)
+    if (cfg.notifyUpdates) {
+        const excluded = new Set(cfg.exclude.split(' '))
+        const cached = new Map(cache.map(elCache => [elCache.NM, elCache.VN]))
+        const newList = list.filter(el => !excluded.has(el.NM) && (!cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN)))
+    
+        if (newList.length > 0) {
+            const title = i18np("+%1 new update", "+%1 new updates", newList.length)
+            const body = newList.map(pkg => `${pkg.NM} → ${pkg.VN}`).join("\n")
+            sendNotify("updates", title, body)
+        }
+    }
 
     cache = list
 
@@ -591,9 +584,26 @@ function finalize(list) {
 
 function setStatusBar(code) {
     statusIco = error ? "0" : count > 0 ? "1" : "2"
-    statusMsg = error ? "Exit code: " + code : count > 0 ? count + " " + i18np("update is pending", "updates are pending", count) : ""
+    statusMsg = error ? i18n("Exit code") + ": " + code : count > 0 ? count + " " + i18np("update is pending", "updates are pending", count) : ""
     busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
+}
+
+
+let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "label": "", "action": "", "urgency": "" }
+function sendNotify(event, title, body) {
+    const eventParams = {
+        updates: { icon: "apdatifier-packages", label: i18n("Upgrade system"), action: "upgradeSystem", urgency: "DefaultUrgency" },
+        news: { icon: "news-subscribe", label: i18n("Read article"), action: "openNewsLink", urgency: "HighUrgency" },
+        error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "CriticalUrgency" }
+    }
+
+    let { icon, label, action, urgency } = eventParams[event]
+
+    if (cfg.notifySound) event += "Sound"
+
+    notify = { event, title, body, icon, label, action, urgency }
+    notification.sendEvent()
 }
 
 
@@ -696,4 +706,8 @@ function print(text) {
 
 function switchInterval() {
     cfg.interval = !cfg.interval
+}
+
+function openNewsLink(link) {
+    return Qt.openUrlExternally(JSON.parse(cfg.lastNews).link)
 }

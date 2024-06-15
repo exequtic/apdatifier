@@ -28,14 +28,16 @@ SimpleKCM {
 
     property alias cfg_exclude: exclude.text
 
-    property alias cfg_notifications: notifications.checked
-    property alias cfg_withSound: withSound.checked
-    property alias cfg_notifyEveryBump: notifyEveryBump.checked
-
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
     property string cfg_scrollUpAction: plasmoid.configuration.scrollUpAction
     property string cfg_scrollDownAction: plasmoid.configuration.scrollDownAction
+
+    property alias cfg_notifyUpdates: notifyUpdates.checked
+    property alias cfg_notifyErrors: notifyErrors.checked
+    property alias cfg_notifySound: notifySound.checked
+    property alias cfg_notifyEveryBump: notifyEveryBump.checked
+    property alias cfg_notifyPersistent: notifyPersistent.checked
 
     property var pkg: plasmoid.configuration.packages
     property var wrappers: plasmoid.configuration.wrappers
@@ -269,31 +271,39 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        RowLayout {
+        CheckBox {
             Kirigami.FormData.label: i18n("Notifications") + ":"
-
-            CheckBox {
-                id: notifications
-                text: i18n("Popup")
-            }
-
-            CheckBox {
-                id: withSound
-                text: i18n("Sound")
-                enabled: notifications.checked
-            }
+            id: notifyUpdates
+            text: i18n("For new updates and news")
         }
 
         RowLayout {
             CheckBox {
                 id: notifyEveryBump
                 text: i18n("For every version bump")
-                enabled: notifications.checked
+                enabled: notifyUpdates.checked
             }
 
             ContextualHelpButton {
                 toolTipText: i18n("If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>")
             }
+        }
+
+        CheckBox {
+            id: notifyErrors
+            text: i18n("For errors")
+        }
+
+        CheckBox {
+            id: notifySound
+            text: i18n("With sound")
+            enabled: notifyUpdates.checked || notifyErrors.checked
+        }
+
+        CheckBox {
+            id: notifyPersistent
+            text: i18n("Persistent")
+            enabled: notifyUpdates.checked || notifyErrors.checked
         }
 
         Kirigami.Separator {
@@ -314,7 +324,7 @@ SimpleKCM {
 
         Button {
             anchors.horizontalCenter: notifyTip.horizontalCenter
-            enabled: notifications.checked
+            enabled: notifyUpdates.checked || notifyErrors.checked
             icon.name: "settings-configure"
             text: i18n("Configure...")
             onClicked: KCMLauncher.openSystemSettings("kcm_notifications")

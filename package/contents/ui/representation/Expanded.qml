@@ -21,7 +21,7 @@ Representation {
     id: root
     property bool searchFieldOpen: false
     property var news: cfg.lastNews ? JSON.parse(cfg.lastNews) : []
-    property bool newsVisibility: !busy && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
+    property bool newsVisibility: !busy && !error && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
     function updateVisibility() { newsVisibility = !news.dismissed; }
 
     property string statusIcon: {

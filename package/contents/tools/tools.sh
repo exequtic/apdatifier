@@ -73,16 +73,38 @@ cat > "$notifDir/$notif" << EOF
 IconName=apdatifier-plasmoid
 Comment=Apdatifier
 
-[Event/popup]
-Name=Only popup
-Comment=Popup option enabled
+[Event/updates]
+Name=New updates
+Comment=Event when updates notification enabled without sound
 Action=Popup
 
-[Event/sound]
-Name=Sound popup
-Comment=Popup and sound options enabled
+[Event/updatesSound]
+Name=New updates with sound
+Comment=Event when updates notification enabled with sound
 Action=Popup|Sound
 Sound=service-login
+
+[Event/error]
+Name=Error
+Comment=Event when error notification enabled without sound
+Action=Popup
+
+[Event/errorSound]
+Name=Errors with sound
+Comment=Event when errors notification enabled with sound
+Action=Popup|Sound
+Sound=dialog-error-serious
+
+[Event/news]
+Name=News
+Comment=Event when news notification without sound
+Action=Popup
+
+[Event/newsSound]
+Name=News with sound
+Comment=Event when news notification with sound
+Action=Popup|Sound
+Sound=dialog-information
 EOF
 }
 
