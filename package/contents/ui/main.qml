@@ -27,24 +27,17 @@ PlasmoidItem {
     switchWidth: Kirigami.Units.gridUnit * 24
     switchHeight: Kirigami.Units.gridUnit * 10
 
-    Plasmoid.busy: busy
-    Plasmoid.status: cfg.relevantIcon > 0 ? (count >= cfg.relevantIcon || busy || error) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
+    Plasmoid.busy: sts.busy
+    Plasmoid.status: cfg.relevantIcon > 0 ? (sts.count >= cfg.relevantIcon || sts.busy || sts.err) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
 
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    toolTipMainText: !interval && !busy && !error ? i18n("Auto check disabled") : ""
-    toolTipSubText: busy ? statusMsg : error ? error : lastCheck
+    toolTipMainText: !interval && sts.idle ? i18n("Auto check disabled") : ""
+    toolTipSubText: sts.busy ? sts.statusMsg : sts.err ? sts.errMsg : sts.checktime
 
     property var listModel: listModel
-    property var count
-    property var cache
+    property var cache: []
     property var cmd: []
-    property bool busy: false
-    property bool upgrading: false
-    property string error: ""
-    property string statusMsg: ""
-    property string statusIco: ""
-    property string lastCheck: ""
     property var notify: JS.notifyParams
     property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
@@ -54,6 +47,21 @@ PlasmoidItem {
     property var pkg: plasmoid.configuration.packages || ""
     property var cfg: plasmoid.configuration
     property var configuration: JSON.stringify(cfg)
+
+    QtObject {
+        id: sts
+        property int count: cache.length
+        property bool busy: false
+        property bool upgrading: false
+        property bool err: !!errMsg
+        property bool idle: !busy && !err
+        property bool updated: idle && !count
+        property bool pending: idle && count
+        property string errMsg: ""
+        property string statusMsg: ""
+        property string statusIco: ""
+        property string checktime: ""
+    }
 
     ListModel  {
         id: listModel
@@ -84,19 +92,19 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Check updates")
             icon.name: "view-refresh"
-            enabled: !upgrading
+            enabled: !sts.upgrading
             onTriggered: JS.checkUpdates()
         },
         PlasmaCore.Action {
             text: i18n("Upgrade system")
             icon.name: "akonadiconsole"
-            enabled: !busy && !error && count > 0 && cfg.terminal
+            enabled: sts.pending && cfg.terminal
             onTriggered: JS.upgradeSystem()
         },
         PlasmaCore.Action {
             text: i18n("Management")
             icon.name: "tools"
-            enabled: !busy && !error && pkg.pacman && cfg.terminal
+            enabled: sts.idle && pkg.pacman && cfg.terminal
             onTriggered: JS.management()
         }
     ]

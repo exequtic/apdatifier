@@ -7,7 +7,7 @@
 function Error(code, err) {
     if (err) {
         if (cfg.notifyErrors) sendNotify("error", i18n("Exit code") + ": " + code, err.trim())
-        error = err.trim().substring(0, 150) + "..."
+        sts.errMsg = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
     }
@@ -22,8 +22,8 @@ const cacheFile1 = configDir + "updates.json"
 const cacheFile2 = configDir + "updates_2.json"
 const iconsFile = configDir + "icons"
 
-const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
+const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
 
 function runScript() {
@@ -32,8 +32,10 @@ function runScript() {
     sh.exec(`${script} copy`, (cmd, out, err, code) => {
         if (Error(code, err)) return
         sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
+            if (Error(code, err)) return
             const cache2 = out ? JSON.parse(out.trim()) : []
             sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
+                if (Error(code, err)) return
                 cache = out ? cache2.concat(JSON.parse(out.trim())) : []
                 checkDependencies()
             })
@@ -57,6 +59,7 @@ function saveConfig() {
 
 function loadConfig() {
     sh.exec(readFile(configFile), (cmd, out, err, code) => {
+        if (Error(code, err)) return
         if (!out) return
         const config = out.trim().split("\n")
         const convert = value => {
@@ -73,6 +76,7 @@ function loadConfig() {
 
 function loadIcons() {
     sh.exec(readFile(iconsFile), (cmd, out, err, code) => {
+        if (Error(code, err)) return
         if (!out) return
         plasmoid.configuration.pkgIcons = out.trim()
     })
@@ -80,17 +84,17 @@ function loadIcons() {
 
 
 function run() {
-    error = null
+    sts.errMsg = ""
 
-    if (upgrading) return true
-    if (busy) {
+    if (sts.upgrading) return true
+    if (sts.busy) {
         sh.stop()
         setStatusBar()
         return true
     }
 
     searchTimer.stop()
-    busy = true
+    sts.busy = true
     return false
 }
 
@@ -207,12 +211,12 @@ function management() {
 
 
 function enableUpgrading(state) {
-    busy = upgrading = state
+    sts.busy = sts.upgrading = state
     if (state) {
         upgradeTimer.start()
         searchTimer.stop()
-        statusMsg = i18n("Full system upgrade")
-        statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+        sts.statusMsg = i18n("Full system upgrade")
+        sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
         upgradeTimer.stop()
         searchTimer.triggered()
@@ -221,6 +225,7 @@ function enableUpgrading(state) {
 
 function upgradingState(startup) {
     sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "-e bash"`, (cmd, out, err, code) => {
+        if (Error(code, err)) return
         if (out) {
             enableUpgrading(true)
         } else if (startup) {
@@ -233,7 +238,7 @@ function upgradingState(startup) {
 }
 
 function upgradeSystem() {
-    if (upgrading) return
+    if (sts.upgrading) return
     defineCommands()
     enableUpgrading(true)
     sh.exec(cmd.upgrade)
@@ -255,8 +260,8 @@ function checkUpdates() {
                     merge()
 
     function checkNews() {
-        statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
-        statusMsg = i18n("Checking latest news...")
+        sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
+        sts.statusMsg = i18n("Checking latest news...")
 
         if (!cmd.news) checkArch()
         if (!cmd.news) return
@@ -268,8 +273,8 @@ function checkUpdates() {
     })}
 
     function checkArch() {
-        statusIco = cfg.ownIconsUI ? "status_package" : "server-database"
-        statusMsg = i18n("Checking system updates...")
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "server-database"
+        sts.statusMsg = i18n("Checking system updates...")
 
         sh.exec(arch, (cmd, out, err, code) => {
             if (Error(code, err)) return
@@ -300,26 +305,24 @@ function checkUpdates() {
     })}
 
     function checkFlatpak() {
-        statusIco = cfg.ownIconsUI ? "status_flatpak" : "flatpak-discover"
-        statusMsg = i18n("Checking flatpak updates...")
-        sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details",
-            (cmd, out, err, code) => {
+        sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "flatpak-discover"
+        sts.statusMsg = i18n("Checking flatpak updates...")
+        sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
             if (Error(code, err)) return
             updFlpk = out ? out.trim() : null
             updFlpk ? listFlatpak() : cfg.plasmoids ? checkWidgets() : merge()
     })}
 
     function listFlatpak() {
-        sh.exec("flatpak list --app --columns=application,version",
-            (cmd, out, err, code) => {
+        sh.exec("flatpak list --app --columns=application,version", (cmd, out, err, code) => {
             if (Error(code, err)) return
             infFlpk = out ? out.trim() : null
             cfg.plasmoids ? checkWidgets() : merge()
     })}
 
     function checkWidgets() {
-        statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde"
-        statusMsg = i18n("Checking widgets updates...")
+        sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde"
+        sts.statusMsg = i18n("Checking widgets updates...")
 
         sh.exec(`${script} checkWidgets`, (cmd, out, err, code) => {
             if (Error(code, err)) return
@@ -522,10 +525,9 @@ function sortList(list) {
 
 function refreshListModel(list) {
     list = sortList(excludePackages(list || cache)) || []
-    count = list.length || 0
     setStatusBar()
 
-    if (!count || !list) return
+    if (!list) return
 
     listModel.clear()
     list.forEach(item => listModel.append(item))
@@ -540,7 +542,6 @@ function finalize(list) {
         sh.exec(removeFile(cacheFile1))
         sh.exec(removeFile(cacheFile2))
         cache = []
-        count = 0
         setStatusBar()
         return
     }
@@ -583,9 +584,9 @@ function finalize(list) {
 
 
 function setStatusBar(code) {
-    statusIco = error ? "0" : count > 0 ? "1" : "2"
-    statusMsg = error ? i18n("Exit code") + ": " + code : count > 0 ? count + " " + i18np("update is pending", "updates are pending", count) : ""
-    busy = false
+    sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
+    sts.statusMsg = sts.err ? i18n("Exit code") + ": " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
+    sts.busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
 }
 

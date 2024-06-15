@@ -304,82 +304,23 @@ SimpleKCM {
         id: countryListModel
 
         function createCountryList() {
-            let countries = [
-                {text: "Australia", code: "AU"},
-                {text: "Austria", code: "AT"},
-                {text: "Azerbaijan", code: "AZ"},
-                {text: "Bangladesh", code: "BD"},
-                {text: "Belarus", code: "BY"},
-                {text: "Belgium", code: "BE"},
-                {text: "Bosnia and Herzegovina", code: "BA"},
-                {text: "Brazil", code: "BR"},
-                {text: "Bulgaria", code: "BG"},
-                {text: "Cambodia", code: "KH"},
-                {text: "Canada", code: "CA"},
-                {text: "Chile", code: "CL"},
-                {text: "China", code: "CN"},
-                {text: "Colombia", code: "CO"},
-                {text: "Croatia", code: "HR"},
-                {text: "Czech Republic", code: "CZ"},
-                {text: "Denmark", code: "DK"},
-                {text: "Ecuador", code: "EC"},
-                {text: "Estonia", code: "EE"},
-                {text: "Finland", code: "FI"},
-                {text: "France", code: "FR"},
-                {text: "Georgia", code: "GE"},
-                {text: "Germany", code: "DE"},
-                {text: "Greece", code: "GR"},
-                {text: "Hong Kong", code: "HK"},
-                {text: "Hungary", code: "HU"},
-                {text: "Iceland", code: "IS"},
-                {text: "India", code: "IN"},
-                {text: "Indonesia", code: "ID"},
-                {text: "Iran", code: "IR"},
-                {text: "Israel", code: "IL"},
-                {text: "Italy", code: "IT"},
-                {text: "Japan", code: "JP"},
-                {text: "Kazakhstan", code: "KZ"},
-                {text: "Kenya", code: "KE"},
-                {text: "Latvia", code: "LV"},
-                {text: "Lithuania", code: "LT"},
-                {text: "Luxembourg", code: "LU"},
-                {text: "Mauritius", code: "MU"},
-                {text: "Mexico", code: "MX"},
-                {text: "Moldova", code: "MD"},
-                {text: "Monaco", code: "MC"},
-                {text: "Netherlands", code: "NL"},
-                {text: "New Caledonia", code: "NC"},
-                {text: "New Zealand", code: "NZ"},
-                {text: "North Macedonia", code: "MK"},
-                {text: "Norway", code: "NO"},
-                {text: "Paraguay", code: "PY"},
-                {text: "Poland", code: "PL"},
-                {text: "Portugal", code: "PT"},
-                {text: "Romania", code: "RO"},
-                {text: "Russia", code: "RU"},
-                {text: "Réunion", code: "RE"},
-                {text: "Serbia", code: "RS"},
-                {text: "Singapore", code: "SG"},
-                {text: "Slovakia", code: "SK"},
-                {text: "Slovenia", code: "SI"},
-                {text: "South Africa", code: "ZA"},
-                {text: "South Korea", code: "KR"},
-                {text: "Spain", code: "ES"},
-                {text: "Sweden", code: "SE"},
-                {text: "Switzerland", code: "CH"},
-                {text: "Taiwan", code: "TW"},
-                {text: "Thailand", code: "TH"},
-                {text: "Turkey", code: "TR"},
-                {text: "Ukraine", code: "UA"},
-                {text: "United Kingdom", code: "GB"},
-                {text: "United States", code: "US"},
-                {text: "Uzbekistan", code: "UZ"},
-                {text: "Vietnam", code: "VN"}
-            ]
+            let countries = 
+                "Australia AU, Austria AT, Azerbaijan AZ, Bangladesh BD, Belarus BY, Belgium BE, " +
+                "Bosnia and Herzegovina BA, Brazil BR, Bulgaria BG, Cambodia KH, Canada CA, Chile CL, " +
+                "China CN, Colombia CO, Croatia HR, Czech Republic CZ, Denmark DK, Ecuador EC, " +
+                "Estonia EE, Finland FI, France FR, Georgia GE, Germany DE, Greece GR, Hong Kong HK, " +
+                "Hungary HU, Iceland IS, India IN, Indonesia ID, Iran IR, Israel IL, Italy IT, Japan JP, " +
+                "Kazakhstan KZ, Kenya KE, Latvia LV, Lithuania LT, Luxembourg LU, Mauritius MU, Mexico MX, " +
+                "Moldova MD, Monaco MC, Netherlands NL, New Caledonia NC, New Zealand NZ, North Macedonia MK, " +
+                "Norway NO, Paraguay PY, Poland PL, Portugal PT, Romania RO, Russia RU, Réunion RE, " +
+                "Serbia RS, Singapore SG, Slovakia SK, Slovenia SI, South Africa ZA, South Korea KR, Spain ES, " +
+                "Sweden SE, Switzerland CH, Taiwan TW, Thailand TH, Turkey TR, Ukraine UA, United Kingdom GB, " +
+                "United States US, Uzbekistan UZ, Vietnam VN"
 
-            for (var i = 0; i < countries.length; ++i) {
-                countryListModel.append({text: countries[i].text, code: countries[i].code, checked: false})
-            }
+            countries.split(", ").map(item => {
+                let [country, code] = item.split(" ")
+                countryListModel.append({text: country, code: code, checked: false})
+            })
         }
 
         Component.onCompleted: createCountryList()

@@ -42,7 +42,7 @@ Item {
         radius: cfg.counterRadius
         opacity: cfg.counterOpacity / 10
         color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
-        visible: cfg.counterEnabled && !busy && !error && count > 0 && !errorBadge.visible && !checkmarkBadge.visible && plasmoid.location !== PlasmaCore.Types.Floating
+        visible: cfg.counterEnabled && sts.pending && !errorBadge.visible && !checkmarkBadge.visible && plasmoid.location !== PlasmaCore.Types.Floating
 
         layer.enabled: cfg.counterShadow
         layer.effect: DropShadow {
@@ -70,7 +70,7 @@ Item {
     Label {
         id: counter
         anchors.centerIn: counterFrame
-        text: count
+        text: sts.count
         renderType: Text.NativeRendering
         font.bold: cfg.counterBold
         font.pixelSize: Math.max(icon.height / 4, Kirigami.Theme.smallFont.pixelSize + cfg.counterSize)
@@ -82,7 +82,7 @@ Item {
         id: errorBadge
         iconName: cfg.ownIconsUI ? "status_error" : "error"
         iconColor: Kirigami.Theme.negativeTextColor
-        visible: error
+        visible: sts.err
         position: 0
     }
 
@@ -90,7 +90,7 @@ Item {
         id: checkmarkBadge
         iconName: cfg.ownIconsUI ? "status_updated" : "checkmark"
         iconColor: Kirigami.Theme.positiveTextColor
-        visible: !busy && !error && count === 0
+        visible: sts.updated
         position: 0
     }
 
@@ -98,7 +98,7 @@ Item {
         id: stoppedBadge
         iconName: cfg.ownIconsUI ? "toolbar_pause" : "media-playback-paused"
         iconColor: Kirigami.Theme.neutralTextColor
-        visible: !busy && !error && cfg.indicatorStop && !cfg.interval
+        visible: sts.idle && cfg.indicatorStop && !cfg.interval
         position: 1
     }
 
@@ -109,9 +109,7 @@ Item {
         hoverEnabled: true
         acceptedButtons: cfg.rightAction ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
 
-        onEntered: {
-            lastCheck = JS.getLastCheckTime()
-        }
+        onEntered: sts.checktime = JS.getLastCheckTime()
 
         onPressed: mouse => {
             wasExpanded = expanded
@@ -138,8 +136,6 @@ Item {
         Timer {
             id: srollTimer
             interval: 500
-            running: false
-            repeat: false
         }
     }
 }

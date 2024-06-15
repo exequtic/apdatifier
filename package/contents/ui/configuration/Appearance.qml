@@ -529,7 +529,7 @@ SimpleKCM {
 
         GridLayout {
             Layout.fillWidth: true
-            enabled: counterEnabled.checked && !counterCenter.checked
+            enabled: counterEnabled.checked
             columns: 4
             rowSpacing: 0
             columnSpacing: 0

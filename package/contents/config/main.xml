@@ -30,7 +30,7 @@
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
         <entry name="notifyErrors" type="bool"><default>true</default></entry>
         <entry name="notifySound" type="bool"><default>true</default></entry>
-        <entry name="notifyPersistent" type="bool"><default>true</default></entry>
+        <entry name="notifyPersistent" type="bool"><default>false</default></entry>
     </group>
     <group name="Upgrade">
         <entry name="terminal" type="string"><default></default></entry>

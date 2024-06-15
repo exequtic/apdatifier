@@ -15,17 +15,17 @@ import org.kde.kirigami as Kirigami
 import "../../tools/tools.js" as JS
 
 ScrollView {
-    ScrollBar.vertical.policy: (count == 0 || busy || error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
+    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.err) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
     contentItem: ListView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Highlight { visible: !busy && !error }
+        highlight: Highlight { visible: sts.idle }
         highlightMoveDuration: 0
         highlightResizeDuration: 0
         height: parent.height
 
         delegate: ExpandableListItem {
-            visible: !busy && !error && count > 0
+            visible: sts.pending
             property var pkg: []
             title: model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
@@ -60,7 +60,7 @@ ScrollView {
                         Layout.fillWidth: true
                         Layout.preferredHeight: details.implicitHeight
                         acceptedButtons: Qt.RightButton
-                        activeFocusOnTab: repeater.count > 0
+                        activeFocusOnTab: repeater.sts.count > 0
 
                         GridLayout {
                             id: details

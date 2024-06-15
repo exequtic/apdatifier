@@ -14,11 +14,11 @@ import "../../tools/tools.js" as JS
 
 ScrollView {
     id: view
-    ScrollBar.vertical.policy: (count == 0 || busy || error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
+    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.err) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
     ListView {
         model: modelList
         delegate: GridLayout {
-            visible: !busy && !error && count > 0
+            visible: sts.pending
             property var heightItem: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5)
             property var column: view.width / 2
             height: heightItem + cfg.spacing
