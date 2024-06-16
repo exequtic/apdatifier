@@ -525,6 +525,7 @@ function sortList(list) {
 
 function refreshListModel(list) {
     list = sortList(excludePackages(list || cache)) || []
+    sts.count = list.length || 0
     setStatusBar()
 
     if (!list) return
@@ -542,6 +543,7 @@ function finalize(list) {
         sh.exec(removeFile(cacheFile1))
         sh.exec(removeFile(cacheFile2))
         cache = []
+        sts.count = 0
         setStatusBar()
         return
     }
@@ -596,7 +598,7 @@ function sendNotify(event, title, body) {
     const eventParams = {
         updates: { icon: "apdatifier-packages", label: i18n("Upgrade system"), action: "upgradeSystem", urgency: "DefaultUrgency" },
         news: { icon: "news-subscribe", label: i18n("Read article"), action: "openNewsLink", urgency: "HighUrgency" },
-        error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "CriticalUrgency" }
+        error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "HighUrgency" }
     }
 
     let { icon, label, action, urgency } = eventParams[event]

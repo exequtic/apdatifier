@@ -60,7 +60,7 @@ ScrollView {
                         Layout.fillWidth: true
                         Layout.preferredHeight: details.implicitHeight
                         acceptedButtons: Qt.RightButton
-                        activeFocusOnTab: repeater.sts.count > 0
+                        activeFocusOnTab: repeater.count > 0
 
                         GridLayout {
                             id: details

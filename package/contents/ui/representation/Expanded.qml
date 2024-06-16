@@ -23,6 +23,8 @@ Representation {
     property var news: cfg.lastNews ? JSON.parse(cfg.lastNews) : []
     property bool newsVisibility: sts.idle && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
     function updateVisibility() { newsVisibility = !news.dismissed; }
+    property real currVersion: 2.7
+    property string releaseLink: "https://github.com/exequtic/apdatifier/releases"
 
     property string statusIcon: {
         var icons = {
@@ -177,27 +179,72 @@ Representation {
         }
 
         Kirigami.InlineMessage {
+            id: releaseMsg
             Layout.fillWidth: true
-            visible: newsVisibility
-
-            icon.source: "news-subscribe"
-            text: news ? i18n("<b>Check out the latest news!") + " (" + news.date + ")</b>" + i18n("<br><b>Article: </b>") + news.article : ""
-            onLinkActivated: Qt.openUrlExternally(link)
+            Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
+            icon.source: "apdatifier-plasmoid"
+            text: "<b>" + i18n("Check out release notes") + "</b>"
             type: Kirigami.MessageType.Positive
+            visible: sts.idle && plasmoid.configuration.version < currVersion && !searchFieldOpen
 
             actions: [
                 Kirigami.Action {
-                    text: i18n("Read article")
-                    icon.name: "internet-web-browser"
-                    onTriggered: Qt.openUrlExternally(news.link)
-                },
+                    tooltip: i18n("Select...")
+                    icon.name: "menu_new"
+                    expandible: true
+
+                    Kirigami.Action {
+                        text: "GitHub"
+                        icon.name: "internet-web-browser"
+                        onTriggered: Qt.openUrlExternally(releaseLink)
+                    }
+                    Kirigami.Action {
+                        text: i18n("Hide")
+                        icon.name: "gnumeric-row-hide"
+                        onTriggered: releaseMsg.visible = false
+                    }
+                    Kirigami.Action {
+                        text: i18n("Dismiss")
+                        icon.name: "dialog-close"
+                        onTriggered: plasmoid.configuration.version = currVersion
+                    }
+                }
+            ]
+        }
+
+        Kirigami.InlineMessage {
+            id: newsMsg
+            Layout.fillWidth: true
+            Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
+            icon.source: "news-subscribe"
+            text: news ? i18n("<b>Check out the latest news") + " (" + news.date + ")</b>" + i18n("<br><b>Article: </b>") + news.article : ""
+            type: Kirigami.MessageType.Warning
+            visible: newsVisibility
+
+            actions: [
                 Kirigami.Action {
-                    text: i18n("Dismiss")
-                    icon.name: "dialog-close"
-                    onTriggered: {
-                        news.dismissed = true
-                        cfg.lastNews = JSON.stringify(news)
-                        updateVisibility()
+                    tooltip: i18n("Select...")
+                    icon.name: "menu_new"
+                    expandible: true
+
+                    Kirigami.Action {
+                        text: i18n("Read article")
+                        icon.name: "internet-web-browser"
+                        onTriggered: Qt.openUrlExternally(news.link)
+                    }
+                    Kirigami.Action {
+                        text: i18n("Hide")
+                        icon.name: "gnumeric-row-hide"
+                        onTriggered: newsMsg.visible = false
+                    }
+                    Kirigami.Action {
+                        text: i18n("Dismiss")
+                        icon.name: "dialog-close"
+                        onTriggered: {
+                            news.dismissed = true
+                            cfg.lastNews = JSON.stringify(news)
+                            updateVisibility()
+                        }
                     }
                 }
             ]

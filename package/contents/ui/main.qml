@@ -19,13 +19,13 @@ PlasmoidItem {
     compactRepresentation: Rep.Panel {}
     fullRepresentation: Rep.Expanded {
         Layout.minimumWidth: Kirigami.Units.gridUnit * 24
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 10
+        Layout.minimumHeight: Kirigami.Units.gridUnit * 16
         anchors.fill: parent
         focus: true
     }
 
     switchWidth: Kirigami.Units.gridUnit * 24
-    switchHeight: Kirigami.Units.gridUnit * 10
+    switchHeight: Kirigami.Units.gridUnit * 16
 
     Plasmoid.busy: sts.busy
     Plasmoid.status: cfg.relevantIcon > 0 ? (sts.count >= cfg.relevantIcon || sts.busy || sts.err) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
@@ -50,7 +50,7 @@ PlasmoidItem {
 
     QtObject {
         id: sts
-        property int count: cache.length
+        property int count: 0
         property bool busy: false
         property bool upgrading: false
         property bool err: !!errMsg
