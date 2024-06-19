@@ -23,10 +23,7 @@ SimpleKCM {
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_archNews: archNews.checked
     property alias cfg_plasmoids: plasmoids.checked
-
     property string cfg_wrapper: plasmoid.configuration.wrapper
-
-    property alias cfg_exclude: exclude.text
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -235,23 +232,6 @@ SimpleKCM {
                             plasmoid.configuration.wrapper = ""
                         }
                     }
-                }
-            }
-
-            Item {
-                Kirigami.FormData.isSection: true
-            }
-
-            RowLayout {
-                Kirigami.FormData.label: i18n("Exclude packages") + ":"
-                spacing: 0
-
-                TextField {
-                    id: exclude
-                }
-
-                ContextualHelpButton {
-                    toolTipText: i18n("In this field, you can specify package names that you want to ignore. <br><br>Specify names separated by space.")
                 }
             }
 

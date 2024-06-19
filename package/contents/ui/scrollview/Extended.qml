@@ -29,7 +29,7 @@ ScrollView {
             property var pkg: []
             title: model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
-            icon: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID, model.IC)
+            icon: model.IC
 
             contextualActions: [
                 Action {

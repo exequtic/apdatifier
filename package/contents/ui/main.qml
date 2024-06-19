@@ -42,8 +42,8 @@ PlasmoidItem {
     property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
     property bool sorting: plasmoid.configuration.sorting
-    property string pkgIcons: plasmoid.configuration.pkgIcons || ""
-    property string exclude: plasmoid.configuration.exclude
+    property string rules: plasmoid.configuration.rules || ""
+    // property string exclude: plasmoid.configuration.exclude
     property var pkg: plasmoid.configuration.packages || ""
     property var cfg: plasmoid.configuration
     property var configuration: JSON.stringify(cfg)
@@ -129,10 +129,21 @@ PlasmoidItem {
         onTriggered: JS.saveConfig()
     }
 
+    Timer {
+        id: initTimer
+        running: true
+        interval: 50
+    }
+
+    function refresh() {
+        if (initTimer.running) return
+        JS.refreshListModel()
+    }
+
     onTimeChanged: searchTimer.restart()
     onIntervalChanged: interval ? searchTimer.start() : searchTimer.stop()
-    onSortingChanged: JS.refreshListModel()
-    onExcludeChanged: JS.refreshListModel()
+    onSortingChanged: refresh()
+    onRulesChanged: refresh()
     onConfigurationChanged: saveTimer.start()
-	Component.onCompleted: JS.runScript()
+	Component.onCompleted: JS.start()
 }

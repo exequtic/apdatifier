@@ -14,6 +14,7 @@ import "../../tools/tools.js" as JS
 
 SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
+    property alias cfg_termFont: termFont.checked
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_sudoBin: sudoBin.text
@@ -65,6 +66,17 @@ SimpleKCM {
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
                 color: Kirigami.Theme.neutralTextColor
                 visible: !terminals
+            }
+        }
+
+        RowLayout {
+            CheckBox {
+                id: termFont
+                text: i18n("Use NerdFont icons")
+            }
+
+            ContextualHelpButton {
+                toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
             }
         }
 

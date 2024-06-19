@@ -31,7 +31,7 @@ ScrollView {
                     anchors.centerIn: parent
                     height: heightItem
                     width: height
-                    source: !hoverIcon.containsMouse ? JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID, model.IC) : "edit-download"
+                    source: !hoverIcon.containsMouse ? model.IC : "edit-download"
                 }
                 MouseArea {
                     id: hoverIcon

@@ -25,6 +25,12 @@ ConfigModel {
     }
 
     ConfigCategory {
+         name: i18n("Rules")
+         icon: "preferences-system-windows-behavior"
+         source: "configuration/Rules.qml"
+    }
+
+    ConfigCategory {
          name: i18n("Support me")
          icon: "starred-symbolic"
          source: "configuration/Support.qml"

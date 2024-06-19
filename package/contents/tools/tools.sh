@@ -18,7 +18,7 @@ icon3="apdatifier-package.svg"
 notif="apdatifier.notifyrc"
 
 
-copy() {
+init() {
     [ -d $iconsDir ] || mkdir -p $iconsDir
     [ -d $notifDir ] || mkdir -p $notifDir
     [ -d $configDir ] || mkdir -p $configDir
@@ -666,7 +666,7 @@ compareVer() {
 
 
 case "$1" in
-                        "copy") copy;;
+                        "init") init;;
                      "install") install;;
                    "uninstall") uninstall;;
                   "getIgnored") getIgnorePkg;;

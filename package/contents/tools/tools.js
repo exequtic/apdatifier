@@ -20,23 +20,22 @@ const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
 const cacheFile1 = configDir + "updates.json"
 const cacheFile2 = configDir + "updates_2.json"
-const iconsFile = configDir + "icons"
+const rulesFile = configDir + "rules.json"
 
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
 
-function runScript() {
+function start() {
     loadConfig()
-    loadIcons()
-    sh.exec(`${script} copy`, (cmd, out, err, code) => {
+    sh.exec(`${script} init`, (cmd, out, err, code) => {
         if (Error(code, err)) return
         sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
             if (Error(code, err)) return
             const cache2 = out ? JSON.parse(out.trim()) : []
             sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
                 if (Error(code, err)) return
-                cache = out ? cache2.concat(JSON.parse(out.trim())) : []
+                cache = out ? keys(cache2.concat(JSON.parse(out.trim()))) : []
                 checkDependencies()
             })
         })
@@ -68,17 +67,14 @@ function loadConfig() {
             return value
         }
         config.forEach(line => {
-            const [key, val] = line.split(" = ")
-            plasmoid.configuration[key] = convert(val)
+            const [key, value] = line.split(" = ")
+            plasmoid.configuration[key] = convert(value)
         })
     })
-}
 
-function loadIcons() {
-    sh.exec(readFile(iconsFile), (cmd, out, err, code) => {
+    sh.exec(readFile(rulesFile), (cmd, out, err, code) => {
         if (Error(code, err)) return
-        if (!out) return
-        plasmoid.configuration.pkgIcons = out.trim()
+        plasmoid.configuration.rules = out
     })
 }
 
@@ -142,7 +138,7 @@ function defineCommands() {
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
-    const widgets = cfg.plasmoids && cache.some(obj => obj.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
+    const widgets = cfg.plasmoids && cache.some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
     const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
@@ -348,7 +344,7 @@ function checkUpdates() {
         updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : []
         updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : []
         updPlasmoids = updPlasmoids ? makePlasmoidsList(updPlasmoids) : []
-        finalize(updArch.concat(updFlpk, updPlasmoids))
+        finalize(keys(updArch.concat(updFlpk, updPlasmoids)))
     }
 }
 
@@ -402,12 +398,8 @@ function makeArchList(updates, information, description, ignored) {
     extendedList.pop()
 
     extendedList.forEach(el => {
-        ["ID", "BR", "CM", "RT", "DS", "CN", "AU", "IC"].forEach(prop => el[prop] = "")
-    })
-
-    extendedList.forEach(el => {
         ["GR", "PR", "DP", "RQ", "CF", "RP"].forEach(prop => {
-            if (el[prop].charAt(0) === el[prop].charAt(0).toUpperCase()) el[prop] = ""
+            if (el[prop].charAt(0) === el[prop].charAt(0).toUpperCase()) delete el[prop]
         })
 
         el.LN = el.LN.replace(/\/+$/, '')
@@ -449,7 +441,7 @@ function makeFlatpakList(updates, information) {
         return {
             NM: NM.replace(/ /g, "-").toLowerCase(),
             DE, LN: "https://flathub.org/apps/" + ID,
-            ID, BR, RE, CM, RT, IS, DS, AU: "", IC: "",
+            ID, BR, RE, CM, RT, IS, DS,
             VO: list.get(ID),
             VN: list.get(ID) === VN ? "refresh " + VN : VN,
         }
@@ -459,11 +451,9 @@ function makeFlatpakList(updates, information) {
 
 function makePlasmoidsList(updates) {
     return updates.map(line => {
-        const [NM, CN, IC, DE, AU, VO, VN, LN] = line.split('@')
+        const [NM, CN, IN, DE, AU, VO, VN, LN] = line.split('@')
         return { NM: NM.replace(/ /g, "-").toLowerCase(),
-                 RE: "kde-store",
-                 IC, CN, DE, AU, VO, VN, LN, ID: "", BR: "", CM: "", RT: "", DS: "",
-                 GR: "", PR: "", DP: "", RQ: "", CF: "", RP: "", IS: "", DT: "", RN: "" }
+                 RE: "kde-store", IN, IC: IN, CN, DE, AU, VO, VN, LN }
     })
 }
 
@@ -481,16 +471,6 @@ function ignorePackagesAndGroups(list, ignored) {
     if (ignoredGroups) {
         const ignoreGroup = new Set(ignoredGroups.split(" "))
         list = list.filter(el => !ignoreGroup.has(el.GR.trim()))
-    }
-
-    return list
-}
-
-
-function excludePackages(list) {
-    if (cfg.exclude.trim() !== "" && list.length > 0) {
-        const ignorePkg = new Set(cfg.exclude.trim().split(" "))
-        list = list.filter(el => !ignorePkg.has(el.NM.trim()))
     }
 
     return list
@@ -524,7 +504,7 @@ function sortList(list) {
 
 
 function refreshListModel(list) {
-    list = sortList(excludePackages(list || cache)) || []
+    list = sortList(applyRules(list || cache)) || []
     sts.count = list.length || 0
     setStatusBar()
 
@@ -551,9 +531,8 @@ function finalize(list) {
     refreshListModel(list)
 
     if (cfg.notifyUpdates) {
-        const excluded = new Set(cfg.exclude.split(' '))
-        const cached = new Map(cache.map(elCache => [elCache.NM, elCache.VN]))
-        const newList = list.filter(el => !excluded.has(el.NM) && (!cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN)))
+        const cached = new Map(cache.map(el => [el.NM, el.VN]))
+        const newList = applyRules(list).filter(el => !cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN))
     
         if (newList.length > 0) {
             const title = i18np("+%1 new update", "+%1 new updates", newList.length)
@@ -565,7 +544,7 @@ function finalize(list) {
     cache = list
 
     let json1, json2
-    const json = JSON.stringify(list).replace(/},/g, "},\n").replace(/'/g, "")
+    const json = formatJson(JSON.stringify(keys(list)))
 
     if (json.length > 130000) {
         const lines = json.split("\n")
@@ -648,26 +627,52 @@ function setIcon(icon) {
 }
 
 
-function setPackageIcon(icons, name, repo, group, appID, widgetIcon) {
-    let icon = cfg.ownIconsUI ? "apdatifier-package" : "server-database"
-    if (appID && appID === "org.libreoffice.LibreOffice") icon = appID + ".main"
-    if (appID) icon = appID
-    if (widgetIcon) icon = widgetIcon
-    if (cfg.customIconsEnabled) {
-        icons = icons.replace(/\n+$/, '').split("\n")
-        for (let rule of icons) if (!/^([^>]*>){2}[^>]*$/.test(rule)) return icon
-        icons.filter(Boolean)
-             .map(l => ({ type: l.split(">")[0].trim(), value: l.split(">")[1].trim(), icon: l.split(">")[2].trim() }))
-             .forEach(el => {
-                icon = el.type === "default" ? el.icon : icon
-                icon = el.type === "repo" && el.value === repo ? el.icon : icon
-                icon = el.type === "group" && el.value === group ? el.icon : icon
-                icon = el.type === "match" && name.indexOf(el.value) !== -1 ? el.icon : icon
-                icon = el.type === "name" && el.value === name ? el.icon : icon
-             })
+function applyRules(list) {
+    const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
+    const def = cfg.ownIconsUI ? "apdatifier-package" : "server-database"
+
+    list.forEach(el => {
+        el.IC = el.IN ? el.IN : (el.ID ? el.ID : def)
+        el.EX = false
+    })
+
+    function applyRule(el, rule) {
+        const types = {
+            'default': () => true,
+            'repo'   : () => el.RE === rule.value,
+            'group'  : () => el.GR.includes(rule.value),
+            'match'  : () => el.NM.includes(rule.value),
+            'name'   : () => el.NM === rule.value
+        }
+
+        if (types[rule.type]()) {
+            el.IC = rule.icon
+            el.EX = rule.excluded
+        }
     }
 
-    return icon
+    rules.forEach(rule => list.forEach(el => applyRule(el, rule)))
+    return list.filter(el => !el.EX)
+}
+
+
+function keys(list) {
+    const keysList = [
+        "GR", "PR", "DP", "RQ", "CF", "RP", "IS", "DT",
+        "RN", "ID", "BR", "CM", "RT", "DS", "CN", "AU"
+    ]
+
+    list.forEach(el => {
+        keysList.forEach(key => {
+            if (!el.hasOwnProperty(key)) el[key] = ""
+            else if (el[key] === "") delete el[key]
+        })
+
+        if (el.hasOwnProperty("IC")) delete el["IC"]
+        if (el.hasOwnProperty("EX")) delete el["EX"]
+    })
+
+    return list
 }
 
 
@@ -713,4 +718,8 @@ function switchInterval() {
 
 function openNewsLink(link) {
     return Qt.openUrlExternally(JSON.parse(cfg.lastNews).link)
+}
+
+function formatJson(data) {
+    return data.replace(/},/g, "},\n").replace(/'/g, "")
 }
