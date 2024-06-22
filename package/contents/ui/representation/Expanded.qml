@@ -23,7 +23,7 @@ Representation {
     property var news: cfg.lastNews ? JSON.parse(cfg.lastNews) : []
     property bool newsVisibility: sts.idle && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
     function updateVisibility() { newsVisibility = !news.dismissed; }
-    property string currVersion: "2.7"
+    property string currVersion: "v2.7"
     property string releaseLink: "https://github.com/exequtic/apdatifier/releases"
 
     property string statusIcon: {
@@ -185,7 +185,8 @@ Representation {
             icon.source: "apdatifier-plasmoid"
             text: "<b>" + i18n("Check out release notes") + "</b>"
             type: Kirigami.MessageType.Positive
-            visible: sts.idle && parseFloat(plasmoid.configuration.version) < parseFloat(currVersion) && !searchFieldOpen
+            visible: sts.idle && !searchFieldOpen &&
+                     parseFloat(plasmoid.configuration.version.replace(/v/g, "")) < parseFloat(currVersion.replace(/v/g, ""))
 
             actions: [
                 Kirigami.Action {

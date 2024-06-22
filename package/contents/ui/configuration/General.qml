@@ -18,11 +18,11 @@ SimpleKCM {
     property alias cfg_time: time.value
     property alias cfg_checkOnStartup: checkOnStartup.checked
 
-    property alias cfg_archRepo: archRepo.checked
+    property alias cfg_arch: arch.checked
     property alias cfg_aur: aur.checked
-    property alias cfg_flatpak: flatpak.checked
     property alias cfg_archNews: archNews.checked
-    property alias cfg_plasmoids: plasmoids.checked
+    property alias cfg_flatpak: flatpak.checked
+    property alias cfg_widgets: widgets.checked
     property string cfg_wrapper: plasmoid.configuration.wrapper
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
@@ -116,14 +116,14 @@ SimpleKCM {
                 Kirigami.FormData.label: i18n("Search") + ":"
 
                 CheckBox {
-                    id: archRepo
+                    id: arch
                     text: i18n("Arch Official Repositories")
                     enabled: pkg.pacman
 
                     Component.onCompleted: {
                         if (checked && !pkg.pacman) {
                             checked = false
-                            cfg_archRepo = checked
+                            cfg_arch = checked
                         }
                     }
                 }
@@ -136,7 +136,7 @@ SimpleKCM {
                 CheckBox {
                     id: aur
                     text: i18n("Arch User Repository")
-                    enabled: archRepo.checked && pkg.pacman && wrappers
+                    enabled: arch.checked && pkg.pacman && wrappers
 
                     Component.onCompleted: {
                         if (checked && !wrappers) {
@@ -149,7 +149,7 @@ SimpleKCM {
                 Kirigami.UrlButton {
                     url: "https://github.com/exequtic/apdatifier#supported-pacman-wrappers"
                     text: instTip.text
-                    font.pointSize: tip.font.pointSize
+                    font.pointSize: instTip.font.pointSize
                     color: instTip.color
                     visible: pkg.pacman && !wrappers
                 }
@@ -189,7 +189,7 @@ SimpleKCM {
                     id: instTip
                     url: "https://flathub.org/setup"
                     text: i18n("Not installed")
-                    font.pointSize: tip.font.pointSize
+                    font.pointSize: Kirigami.Theme.smallFont.pointSize
                     color: Kirigami.Theme.neutralTextColor
                     visible: !pkg.flatpak
                 }
@@ -197,7 +197,7 @@ SimpleKCM {
 
             RowLayout {
                 CheckBox {
-                    id: plasmoids
+                    id: widgets
                     text: i18n("Plasma Widgets")
                 }
 
@@ -306,7 +306,7 @@ SimpleKCM {
                 Label {
                     horizontalAlignment: Text.AlignHCenter
                     Layout.maximumWidth: 250
-                    font.pointSize: tip.font.pointSize
+                    font.pointSize: instTip.font.pointSize
                     text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
                     wrapMode: Text.WordWrap
                 }

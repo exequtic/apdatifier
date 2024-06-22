@@ -10,19 +10,19 @@
 
 <kcfgfile name="apdatifier"/>
     <group name="General">
-        <entry name="version" type="string"><default>0</default></entry>
+        <entry name="version" type="string"><default>v0</default></entry>
         <entry name="configMsg" type="bool"><default>true</default></entry>
         <entry name="rulesMsg" type="bool"><default>true</default></entry>
         <entry name="timestamp" type="string"><default></default></entry>
         <entry name="interval" type="bool"><default>true</default></entry>
         <entry name="time" type="int"><default>60</default></entry>
         <entry name="checkOnStartup" type="bool"><default>false</default></entry>
-        <entry name="archRepo" type="bool"><default>true</default></entry>
+        <entry name="arch" type="bool"><default>true</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
         <entry name="archNews" type="bool"><default>false</default></entry>
         <entry name="lastNews" type="string"><default></default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
-        <entry name="plasmoids" type="bool"><default>false</default></entry>
+        <entry name="widgets" type="bool"><default>false</default></entry>
         <entry name="wrapper" type="string"><default></default></entry>
         <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
         <entry name="rightAction" type="string"><default></default></entry>
@@ -30,7 +30,7 @@
         <entry name="scrollDownAction" type="string"><default>management</default></entry>
         <entry name="notifyUpdates" type="bool"><default>true</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
-        <entry name="notifyErrors" type="bool"><default>true</default></entry>
+        <entry name="notifyErrors" type="bool"><default>false</default></entry>
         <entry name="notifySound" type="bool"><default>true</default></entry>
         <entry name="notifyPersistent" type="bool"><default>false</default></entry>
     </group>

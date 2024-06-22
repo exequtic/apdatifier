@@ -133,12 +133,12 @@ function defineCommands() {
                     ? cfg.aur ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"` : "checkupdates"
                     : cfg.aur ? wrapperCmd : "pacman -Qu"
 
-    if (!pkg.pacman || !cfg.archRepo) delete cmd.arch
+    if (!pkg.pacman || !cfg.arch) delete cmd.arch
 
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
-    const widgets = cfg.plasmoids && cache.some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
+    const widgets = cfg.widgets && applyRules(cache).some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
     const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
@@ -149,7 +149,7 @@ function defineCommands() {
         return
     }
 
-    const init = cmd.arch ? i18n("Full system upgrade") : "Upgrade"
+    const init = cmd.arch ? i18n("Full system upgrade") : i18n("Upgrade")
     const done = i18n("Press Enter to close")
     const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
     const execIco = cfg.termFont ? "󰅱 " : ":: "
@@ -221,8 +221,7 @@ function enableUpgrading(state) {
 
 function upgradingState(startup) {
     sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "-e bash"`, (cmd, out, err, code) => {
-        if (Error(code, err)) return
-        if (out) {
+        if (out || err) {
             enableUpgrading(true)
         } else if (startup) {
             if (!cfg.interval) return
@@ -245,14 +244,14 @@ function checkUpdates() {
     if (run()) return
     defineCommands()
 
-    let updArch, infArch, descArch, updFlpk, infFlpk, updPlasmoids, ignored
+    let arch = [], flatpak = [], widgets = []
 
-    const arch = cmd.arch
+    const archCmd = cmd.arch
 
      cfg.archNews ? checkNews() :
-             arch ? checkArch() :
+          archCmd ? checkArch() :
       cfg.flatpak ? checkFlatpak() :
-    cfg.plasmoids ? checkWidgets() :
+      cfg.widgets ? checkWidgets() :
                     merge()
 
     function checkNews() {
@@ -265,39 +264,29 @@ function checkUpdates() {
         sh.exec(cmd.news, (cmd, out, err, code) => {
             if (Error(code, err)) return
             makeNewsArticle(out)
-            arch ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkWidgets() : merge()
+            archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
     })}
 
     function checkArch() {
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "server-database"
         sts.statusMsg = i18n("Checking system updates...")
 
-        sh.exec(arch, (cmd, out, err, code) => {
+        sh.exec(archCmd, (cmd, out, err, code) => {
             if (Error(code, err)) return
-            updArch = out ? out.trim().split("\n") : null
-            updArch ? listArch() : cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkWidgets() : merge()
+            out ? allArch(out.split("\n")) : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
     })}
 
-    function listArch() {
+    function allArch(upd) {
         sh.exec("pacman -Sl", (cmd, out, err, code) => {
             if (Error(code, err)) return
-            infArch = out.trim().split("\n")
-            descriptionArch()
+            descArch(upd, out.split("\n").filter(line => /\[.*\]/.test(line)))
     })}
 
-    function descriptionArch() {
-        let list = updArch.map(s => s.split(" ")[0]).join(' ')
-        sh.exec(`pacman -Qi ${list}`, (cmd, out, err, code) => {
+    function descArch(upd, all) {
+        sh.exec(`pacman -Qi ${upd.map(s => s.split(" ")[0]).join(' ')}`, (cmd, out, err, code) => {
             if (Error(code, err)) return
-            descArch = out
-            checkIgnored()
-    })}
-
-    function checkIgnored() {
-        sh.exec(`${script} getIgnored`, (cmd, out, err, code) => {
-            if (Error(code, err)) return
-            ignored = out.trim()
-            cfg.flatpak ? checkFlatpak() : cfg.plasmoids ? checkWidgets() : merge()
+            arch = makeArchList(upd, all, out)
+            cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
     })}
 
     function checkFlatpak() {
@@ -305,15 +294,14 @@ function checkUpdates() {
         sts.statusMsg = i18n("Checking flatpak updates...")
         sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
             if (Error(code, err)) return
-            updFlpk = out ? out.trim() : null
-            updFlpk ? listFlatpak() : cfg.plasmoids ? checkWidgets() : merge()
+            out ? descFlatpak(out.trim()) : cfg.widgets ? checkWidgets() : merge()
     })}
 
-    function listFlatpak() {
+    function descFlatpak(upd) {
         sh.exec("flatpak list --app --columns=application,version", (cmd, out, err, code) => {
             if (Error(code, err)) return
-            infFlpk = out ? out.trim() : null
-            cfg.plasmoids ? checkWidgets() : merge()
+            flatpak = out ? makeFlatpakList(upd, out.trim()) : []
+            cfg.widgets ? checkWidgets() : merge()
     })}
 
     function checkWidgets() {
@@ -335,22 +323,20 @@ function checkUpdates() {
                 return
             }
 
-            updPlasmoids = out ? out.split("\n") : null
+            widgets = JSON.parse(out)
             merge()
         })
     }
 
     function merge() {
-        updArch = updArch ? makeArchList(updArch, infArch, descArch, ignored) : []
-        updFlpk = updFlpk ? makeFlatpakList(updFlpk, infFlpk) : []
-        updPlasmoids = updPlasmoids ? makePlasmoidsList(updPlasmoids) : []
-        finalize(keys(updArch.concat(updFlpk, updPlasmoids)))
+        finalize(keys(arch.concat(flatpak, widgets)))
     }
 }
 
 
-function makeNewsArticle(data) {
-    let article = data.trim().replace(/'/g, "").split("\n")
+function makeNewsArticle(news) {
+    if (!news) return
+    let article = news.trim().replace(/'/g, "").split("\n")
     if (article.length > 10) article = article.filter(line => !line.startsWith(' '))
     article = article[article.length - 1]
 
@@ -370,67 +356,51 @@ function makeNewsArticle(data) {
 }
 
 
-function makeArchList(updates, information, description, ignored) {
+function makeArchList(updates, all, description) {
+    if (!updates || !all || !description) return []
     description = description.replace(/^Installed From\s*:.+\n?/gm, '')
     const packagesData = description.split("\n\n")
-    const skip = [1, 3, 5, 9, 11, 15, 16, 19, 20]
+    const skip = new Set([1, 3, 5, 9, 11, 15, 16, 19, 20])
+    const empty = new Set([6, 7, 8, 10, 12, 13])
     const keyNames = {
          0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
         10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
     }
 
-    let extendedList = packagesData.map(function(packageData) {
-        packageData = packageData.split('\n').filter(line => line.includes(" : ")).join('\n')
-        const lines = packageData.split("\n")
-        
+    let extendedList = packagesData.map(packageData => {
+        packageData = packageData.split('\n').filter(line => line.includes(" : "))
         let packageObj = {}
-        lines.forEach(function(line, index) {
-            if (skip.includes(index)) return
-
-            const parts = line.split(/\s* : \s*/)
-            if (parts.length === 2) {
-                packageObj[keyNames[index]] = parts[1].trim()
-            }
+        packageData.forEach((line, index) => {
+            if (skip.has(index)) return
+            const [, value] = line.split(/\s* : \s*/)
+            if (empty.has(index) && value.charAt(0) === value.charAt(0).toUpperCase()) return
+            if (keyNames[index]) packageObj[keyNames[index]] = value.trim()
         })
+
+        if (Object.keys(packageObj).length > 0) {
+            const found = all.find(str => packageObj.NM === str.split(" ")[1])
+            packageObj.RE = found ? found.split(" ")[0] : (packageObj.NM.endsWith("-git") ? "devel" : "aur")
+            packageObj.LN = packageObj.LN.replace(/\/+$/, '')
+            updates.forEach(str => {
+                const [name, verold, , vernew] = str.split(" ")
+                if (packageObj.NM === name) {
+                    packageObj.VO = verold
+                    packageObj.VN = vernew
+                }
+            })
+        }
+
         return packageObj
     })
 
     extendedList.pop()
-
-    extendedList.forEach(el => {
-        ["GR", "PR", "DP", "RQ", "CF", "RP"].forEach(prop => {
-            if (el[prop].charAt(0) === el[prop].charAt(0).toUpperCase()) delete el[prop]
-        })
-
-        el.LN = el.LN.replace(/\/+$/, '')
-
-        let found = false
-        for (const str of information) {
-            const parts = str.split(" ")
-            if (el.NM === parts[1]) {
-                el.RE = parts[0]
-                found = true
-                break
-            }
-        }
-
-        if (!found) el.RE = el.NM.slice(-4) === "-git" ? "devel" : "aur"
-
-        updates.forEach(str => {
-            const parts = str.split(" ")
-            if (el.NM === parts[0]) {
-                el.VO = parts[1]
-                el.VN = parts[3]
-            }
-        })
-    })
-
-    return ignorePackagesAndGroups(extendedList, ignored)
+    return extendedList
 }
 
 
-function makeFlatpakList(updates, information) {
-    const list = information.split("\n").slice(1).reduce((map, line) => {
+function makeFlatpakList(updates, description) {
+    if (!updates || !description) return []
+    const list = description.split("\n").slice(1).reduce((map, line) => {
         const [ID, VO] = line.split("\t").map(entry => entry.trim())
         map.set(ID, VO)
         return map
@@ -438,68 +408,35 @@ function makeFlatpakList(updates, information) {
 
     return updates.split("\n").map(line => {
         const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
+        const VO = list.get(ID)
         return {
             NM: NM.replace(/ /g, "-").toLowerCase(),
             DE, LN: "https://flathub.org/apps/" + ID,
-            ID, BR, RE, CM, RT, IS, DS,
-            VO: list.get(ID),
-            VN: list.get(ID) === VN ? "refresh " + VN : VN,
+            ID, BR, RE, CM, RT, IS, DS, VO,
+            VN: VO === VN ? "refresh " + VN : VN
         }
     })
 }
 
 
-function makePlasmoidsList(updates) {
-    return updates.map(line => {
-        const [NM, CN, IN, DE, AU, VO, VN, LN] = line.split('@')
-        return { NM: NM.replace(/ /g, "-").toLowerCase(),
-                 RE: "kde-store", IN, IC: IN, CN, DE, AU, VO, VN, LN }
-    })
-}
-
-
-function ignorePackagesAndGroups(list, ignored) {
-    if (!ignored) return list
-
-    const [ignoredPkgs, ignoredGroups] = ignored.split("\n").map(str => str.trim())
-
-    if (ignoredPkgs) {
-        const ignorePkg = new Set(ignoredPkgs.split(" "))
-        list = list.filter(el => !ignorePkg.has(el.NM.trim()))
-    }
-
-    if (ignoredGroups) {
-        const ignoreGroup = new Set(ignoredGroups.split(" "))
-        list = list.filter(el => !ignoreGroup.has(el.GR.trim()))
-    }
-
-    return list
-}
-
-
-function sortList(list) {
+function sortList(list, byName) {
     if (!list) return
+
     return list.sort((a, b) => {
-        const [nameA, repoA] = [a.NM, a.RE]
-        const [nameB, repoB] = [b.NM, b.RE]
+        const name = a.NM.localeCompare(b.NM)
+        const repo = a.RE.localeCompare(b.RE)
+        if (byName || !cfg.sorting) return name
 
-        if (!cfg.sorting) return nameA.localeCompare(nameB)
+        const develA = a.RE.includes("devel")
+        const develB = b.RE.includes("devel")
+        if (develA !== develB) return develA ? -1 : 1
 
-        const isRepoDevelA = repoA.includes("devel")
-        const isRepoDevelB = repoB.includes("devel")
+        const aurA = a.RE.includes("aur")
+        const aurB = b.RE.includes("aur")
+        if (aurA !== aurB) return aurA ? -1 : 1
 
-        if (isRepoDevelA && !isRepoDevelB) return -1
-        if (!isRepoDevelA && isRepoDevelB) return 1
-
-        const isRepoAURorDevelA = repoA.includes("aur")
-        const isRepoAURorDevelB = repoB.includes("aur")
-
-        return isRepoAURorDevelA !== isRepoAURorDevelB
-            ? isRepoAURorDevelA
-                ? -1
-                : 1
-            : repoA.localeCompare(repoB) || nameA.localeCompare(nameB)
-    })    
+        return repo || name
+    })
 }
 
 
@@ -543,24 +480,19 @@ function finalize(list) {
 
     cache = list
 
-    let json1, json2
-    const json = formatJson(JSON.stringify(keys(list)))
-
+    const json = formatJson(JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))))
     if (json.length > 130000) {
+        let json1, json2
         const lines = json.split("\n")
         const half = Math.floor(lines.length / 2)
         json1 = lines.slice(0, half).join("\n").replace(/,$/, "]")
         json2 = "[" + lines.slice(half).join("\n")
+        sh.exec(writeFile(json1, cacheFile1))
+        sh.exec(writeFile(json2, cacheFile2))
     } else {
-        json1 = json
-        json2 = null
+        sh.exec(writeFile(json, cacheFile1))
         sh.exec(removeFile(cacheFile2))
     }
-
-    sh.exec(writeFile(json1, cacheFile1))
-    if (json2) sh.exec(writeFile(json2, cacheFile2))
-
-    setStatusBar()
 }
 
 
@@ -632,7 +564,7 @@ function applyRules(list) {
     const def = cfg.ownIconsUI ? "apdatifier-package" : "server-database"
 
     list.forEach(el => {
-        el.IC = el.IN ? el.IN : (el.ID ? el.ID : def)
+        el.IC = el.IN ? el.IN : el.ID ? el.ID : def
         el.EX = false
     })
 

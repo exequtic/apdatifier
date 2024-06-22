@@ -20,8 +20,8 @@ ScrollView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
         highlight: Highlight { visible: sts.idle }
-        highlightMoveDuration: 0
-        highlightResizeDuration: 0
+        highlightMoveDuration: Kirigami.Units.shortDuration
+        highlightResizeDuration: Kirigami.Units.shortDuration
         height: parent.height
 
         delegate: ExpandableListItem {

@@ -79,7 +79,7 @@ Comment=Event when updates notification enabled without sound
 Action=Popup
 
 [Event/updatesSound]
-Name=New updates with sound
+Name=New updates (with sound)
 Comment=Event when updates notification enabled with sound
 Action=Popup|Sound
 Sound=service-login
@@ -90,7 +90,7 @@ Comment=Event when error notification enabled without sound
 Action=Popup
 
 [Event/errorSound]
-Name=Errors with sound
+Name=Error (with sound)
 Comment=Event when errors notification enabled with sound
 Action=Popup|Sound
 Sound=dialog-error-serious
@@ -101,21 +101,13 @@ Comment=Event when news notification without sound
 Action=Popup
 
 [Event/newsSound]
-Name=News with sound
+Name=News (with sound)
 Comment=Event when news notification with sound
 Action=Popup|Sound
 Sound=dialog-information
 EOF
 }
 
-
-getIgnorePkg() {
-    conf=$(pacman -Qv | awk 'NR==2 {print $NF}')
-    if [ -s "$conf" ]; then
-        grep -E "^\s*IgnorePkg\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
-        grep -E "^\s*IgnoreGroup\s*=" "$conf" | grep -v "^#" | awk -F '=' '{print $2}'
-    fi
-}
 
 mirrorlistGenerator() {
     count=$1; link=$2; icons=$3; wrapper=$4; sudoCmd=$5; menu=$6; selected=$7
@@ -459,6 +451,8 @@ getWidgetInfo() {
     fi
 
     url="https://store.kde.org/p/$contentId"
+    name=$(echo "$name" | sed 's/ /-/g; s/.*/\L&/')
+    repo="kde-store"
 
     return 0
 }
@@ -505,18 +499,28 @@ checkWidgets() {
     XML=$(mktemp)
     downloadXML check
 
-    output=""
+    first=true; out="["
     source "$scriptDir/widgets.sh"
     for plasmoid in "${lines[@]}"; do
         getWidgetInfo; [[ $? -ne 0 ]] && continue
         compareVer $(clearVer "$currentVer") $(clearVer "$latestVer")
         if [[ $? = 2 ]]; then
-            output+="${name}@${contentId}@${icon}@${description}@${author}@${currentVer}@${latestVer}@${url}\n"
+            [ "$first" = false ] && out+=","
+            out+="{\"NM\": \"${name}\","
+            out+="\"RE\": \"${repo}\","
+            out+="\"CN\": \"${contentId}\","
+            out+="\"IN\": \"${icon}\","
+            out+="\"DE\": \"${description}\","
+            out+="\"AU\": \"${author}\","
+            out+="\"VO\": \"${latestVer}\","
+            out+="\"VN\": \"${latestVer}\","
+            out+="\"LN\": \"${url}\"}"
+            first=false
         fi
     done
 
     rm $XML
-    echo -e "$output"
+    echo -e "$out]"
 }
 
 upgradeAllWidgets() {
@@ -669,7 +673,6 @@ case "$1" in
                         "init") init;;
                      "install") install;;
                    "uninstall") uninstall;;
-                  "getIgnored") getIgnorePkg;;
                   "management") shift; management $1 $2 $3 $4 $5;;
                 "checkWidgets") shift; checkWidgets;;
                "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4 "$5";;
