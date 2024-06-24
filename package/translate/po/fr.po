@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-31 15:41+0300\n"
+"POT-Creation-Date: 2024-06-29 12:37+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -30,6 +30,10 @@ msgstr "Mettre à jour"
 #: ../contents/config/config.qml
 msgid "Appearance"
 msgstr "Apparence"
+
+#: ../contents/config/config.qml
+msgid "Rules"
+msgstr "Règles"
 
 #: ../contents/config/config.qml
 msgid "Support me"
@@ -94,10 +98,6 @@ msgstr ""
 msgid "could not get data from the API"
 msgstr "impossible d'obtenir des données de l'API"
 
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr "Lire l'article"
-
 #: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
 msgstr "Arch Linux Nouvelles"
@@ -117,6 +117,20 @@ msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "mise à jour disponible"
 msgstr[1] "mises à jour disponibles"
+
+#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr "Mise à niveau système"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "Read article"
+msgstr "Lire l'article"
+
+#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr "Vérifier les mises à jour"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -147,16 +161,6 @@ msgstr "depuis"
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
 msgstr "Aucune"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Check updates"
-msgstr "Vérifier les mises à jour"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Upgrade system"
-msgstr "Mise à niveau système"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
@@ -304,8 +308,116 @@ msgid "Required installed"
 msgstr "Requis installé"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon View"
+msgstr "Affichage des icônes du panneau"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shown when"
+msgstr "Affiché lorsque"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Défaut"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Sélectionner..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Icône par défaut"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Stopped interval"
+msgstr "Intervalle interrompu"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Activer"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Compteur"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr "Couleur"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Couleur par défaut"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Sélectionnez la couleur de fond du compteur"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Couleur d'arrière-plan par défaut du thème actuel"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Size"
+msgstr "Taille"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Radius"
+msgstr "Radius"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr "Opacité"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shadow"
+msgstr "Ombre"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bold"
+msgstr "Audacieux"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Décalage"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Position"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "Centre"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Left"
+msgstr "En haut à gauche"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Right"
+msgstr "En haut à droite"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Left"
+msgstr "En bas à gauche"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Right"
+msgstr "En bas à droite"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
 msgstr "Vue en liste"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Use built-in icons"
+msgstr "Icônes intégrées"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Override custom icon theme and use default Apdatifier icons instead."
+msgstr ""
+"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
+"par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -359,166 +471,29 @@ msgstr ""
 "Vous pouvez également changer d'onglet en faisant glisser la souris vers la "
 "gauche et la droite avec le bouton droit bouton de la souris maintenu."
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Icons"
-msgstr "Icônes"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Build-in icons"
-msgstr "Icônes intégrées"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Terminal"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Use NerdFont icons"
-msgstr "Utiliser les icônes NerdFont"
-
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
+"Configuration is automatically saved in a config file and loaded at every "
+"startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
-"seront utilisé."
+"La configuration est automatiquement enregistrée dans un fichier de "
+"configuration et chargée à chaque démarrage, garantissant que vous ne "
+"perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Packages"
-msgstr "Paquets"
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Dismiss"
+msgstr "Rejeter"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Custom icons"
-msgstr "Icônes personnalisées"
-
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"You can specify which icon to use for each package.<br><br>Posible types in "
-"this order: default, repo, group, match, name<br><br><b>Syntax for rule:</"
-"b><br>type > value > icon-name<br>For default: default >> icon-"
-"name<br><br>If a package matches multiple rules, the last one will be "
-"applied to it."
+" not installed! Highly recommended to install it for getting the latest "
+"updates without the need to download fresh package databases."
 msgstr ""
-"Vous pouvez spécifier quelle icône utiliser pour chaque package."
-"<br><br>Types possibles dans cet ordre : default, repo, group, match, "
-"name<br><br><b>Syntaxe pour la règle :</b><br>type > valeur > nom-"
-"icône<br>Par défaut : default >> nom-icône<br><br>Si un package correspond à "
-"plusieurs règles, la dernière lui sera appliquée."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "EXAMPLE:"
-msgstr "EXEMPLE:"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Browse icons and copy icon name to clipboard"
-msgstr ""
-"Parcourez les icônes et copiez le nom de l'icône dans le presse-papiers"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Backup list"
-msgstr "Liste de sauvegarde"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Restore list from backup"
-msgstr "Restaurer la liste à partir d'une sauvegarde"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Affichage des icônes du panneau"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Affiché lorsque"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Icône par défaut"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Défaut"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select..."
-msgstr "Sélectionner..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Intervalle interrompu"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Activer"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Compteur"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Couleur"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Couleur d'arrière-plan par défaut du thème actuel"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Couleur par défaut"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Sélectionnez la couleur de fond du compteur"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Taille"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Radius"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Opacité"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Ombre"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Audacieux"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Décalage"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Position"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "Centre"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Left"
-msgstr "En haut à gauche"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Right"
-msgstr "En haut à droite"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Left"
-msgstr "En bas à gauche"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Right"
-msgstr "En bas à droite"
+" n'est pas installé! Il est fortement recommandé de l'installer pour obtenir "
+"les dernières mises à jour sans avoir besoin de télécharger de nouvelles "
+"bases de données de paquets."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -597,27 +572,6 @@ msgid "Wrapper"
 msgstr "Wrapper"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"pacman-contrib not installed! Highly recommended to install it for getting "
-"the latest updates without the need to download fresh package databases."
-msgstr ""
-"pacman-contrib n'est pas installé! Il est fortement recommandé de "
-"l'installer pour obtenir les dernières mises à jour sans avoir besoin de "
-"télécharger de nouvelles bases de données de paquets."
-
-#: ../contents/ui/configuration/General.qml
-msgid "Exclude packages"
-msgstr "Exclure paquets"
-
-#: ../contents/ui/configuration/General.qml
-msgid ""
-"In this field, you can specify package names that you want to ignore. "
-"<br><br>Specify names separated by space."
-msgstr ""
-"Dans ce champ, vous pouvez spécifier les noms de paquets que vous souhaitez "
-"ignorer. <br><br>Spécifiez les noms séparés par des espaces."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
 msgstr "Actions de la souris"
 
@@ -642,12 +596,8 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Popup"
-msgstr "Popup"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Sound"
-msgstr "Son"
+msgid "For new updates and news"
+msgstr "Pour les nouvelles mises à jour et les actualités"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -668,6 +618,18 @@ msgstr ""
 "pas encore dans la liste. <b>Moins de notifications.</b>"
 
 #: ../contents/ui/configuration/General.qml
+msgid "For errors"
+msgstr "Pour les erreurs"
+
+#: ../contents/ui/configuration/General.qml
+msgid "With sound"
+msgstr "Son"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Persistent"
+msgstr "Persistant"
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
 "To further configure, click the button below -> Application-specific "
 "settings -> Apdatifier"
@@ -678,6 +640,60 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
 msgstr "Configurer..."
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Unimportant"
+msgstr "Sans importance"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Repository"
+msgstr "Référentiel"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact repository match"
+msgstr "Correspondance exacte du référentiel"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Group"
+msgstr "Groupe"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring group match"
+msgstr "Correspondance partielle du groupe"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring"
+msgstr "Correspondance"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring name match"
+msgstr "Correspondance partielle du nom"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Name"
+msgstr "Nom"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact name match"
+msgstr "Correspondance exacte du nom"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid ""
+"Here you can override the default package icons and/or exclude them from the "
+"list. Each rule overwrites the previous one, so the list of rules should be "
+"in this order: "
+msgstr ""
+"Ici, vous pouvez remplacer les icônes de package par défaut et les exclure "
+"de la liste. Chaque règle remplace la précédente, donc la liste des règles "
+"doit être dans cet ordre: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Add rule"
+msgstr "Ajouter une règle"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Appliquer"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -690,6 +706,22 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr "Visite %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Utiliser les icônes NerdFont"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
+"seront utilisé."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
@@ -811,16 +843,20 @@ msgid "Extended view"
 msgstr "Vue étendue"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "<b>Check out the latest news!"
-msgstr "<b>Découvrez les dernières nouvelles!"
+msgid "Check out release notes"
+msgstr "Consultez les notes de version"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Hide"
+msgstr "Masquer"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "<b>Check out the latest news"
+msgstr "<b>Découvrez les dernières nouvelles"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "<br><b>Article: </b>"
 msgstr "<br><b>Article: </b>"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Dismiss"
-msgstr "Rejeter"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"

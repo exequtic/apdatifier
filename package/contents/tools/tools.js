@@ -6,7 +6,7 @@
 
 function Error(code, err) {
     if (err) {
-        if (cfg.notifyErrors) sendNotify("error", i18n("Exit code") + ": " + code, err.trim())
+        if (cfg.notifyErrors) sendNotify("error", "Exit code" + ": " + code, err.trim())
         sts.errMsg = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
@@ -498,7 +498,7 @@ function finalize(list) {
 
 function setStatusBar(code) {
     sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
-    sts.statusMsg = sts.err ? i18n("Exit code") + ": " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
+    sts.statusMsg = sts.err ? "Exit code" + ": " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
     sts.busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
 }

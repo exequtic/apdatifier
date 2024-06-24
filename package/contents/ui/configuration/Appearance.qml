@@ -467,7 +467,7 @@ SimpleKCM {
             }
             
             ContextualHelpButton {
-                toolTipText: i18n("Override custom icon theme and use default icons instead.")
+                toolTipText: i18n("Override custom icon theme and use default Apdatifier icons instead.")
             }
         }
 

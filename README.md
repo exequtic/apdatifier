@@ -77,10 +77,10 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| English  |     185 |       |
-| Dutch    | 185/185 |  100% |
-| French   | 185/185 |  100% |
-| Russian  | 185/185 |  100% |
+| English  |     194 |       |
+| Dutch    | 194/194 |  100% |
+| French   | 194/194 |  100% |
+| Russian  | 194/194 |  100% |
 |----------|---------|-------|
 ```
 

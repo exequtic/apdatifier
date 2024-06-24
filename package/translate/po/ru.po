@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-31 15:41+0300\n"
-"PO-Revision-Date: 2024-05-29 14:44+0300\n"
+"POT-Creation-Date: 2024-06-29 12:37+0300\n"
+"PO-Revision-Date: 2024-06-29 12:37+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -31,6 +31,10 @@ msgstr "Обновление"
 #: ../contents/config/config.qml
 msgid "Appearance"
 msgstr "Внешний вид"
+
+#: ../contents/config/config.qml
+msgid "Rules"
+msgstr "Правила"
 
 #: ../contents/config/config.qml
 msgid "Support me"
@@ -92,10 +96,6 @@ msgstr "некоторые из требуемых утилит не устан�
 msgid "could not get data from the API"
 msgstr "не удалось получить данные с API"
 
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr "Читать статью"
-
 #: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
 msgstr "Новости Arch Linux"
@@ -117,6 +117,20 @@ msgid_plural "updates are pending"
 msgstr[0] "обновление доступно"
 msgstr[1] "обновления доступно"
 msgstr[2] "обновлений доступно"
+
+#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr "Обновить систему"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "Read article"
+msgstr "Читать статью"
+
+#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr "Проверить обновления"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -150,16 +164,6 @@ msgstr "назад"
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
 msgstr "Нет"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Check updates"
-msgstr "Проверить обновления"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Upgrade system"
-msgstr "Обновить систему"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
@@ -301,8 +305,114 @@ msgid "Required installed"
 msgstr "Требуется установленная утилита"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon View"
+msgstr "Вид иконки на панели"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shown when"
+msgstr "Показывать когда"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Стандартная"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Выбрать..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Стандартная иконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Stopped interval"
+msgstr "Выключенный интервал"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включить"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Счетчик"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr "Цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Стандартный цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Выбор цвета для фона счетчика"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Стандартный цвет фона из текущей темы"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Size"
+msgstr "Размер"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Radius"
+msgstr "Радиус"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr "Непрозрачность"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shadow"
+msgstr "Тень"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bold"
+msgstr "Жирный"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Смещение"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Позиция"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "По центру"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Left"
+msgstr "Сверху-слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Right"
+msgstr "Сверху-справа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Left"
+msgstr "Снизу-слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Right"
+msgstr "Снизу-справа"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
 msgstr "Вид списка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Use built-in icons"
+msgstr "Встроенные иконки"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Override custom icon theme and use default Apdatifier icons instead."
+msgstr "Использовать иконки Apdatifier вместо пользовательских иконок из темы."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -356,165 +466,28 @@ msgstr ""
 "Вы также можете переключаться между вкладками перемещая мышь влево и вправо "
 "с зажатой правой клавишей."
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Icons"
-msgstr "Иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Build-in icons"
-msgstr "Встроенные иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Терминал"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Use NerdFont icons"
-msgstr "Использовать NerdFont иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
+"Configuration is automatically saved in a config file and loaded at every "
+"startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
-"отображаться иконки из этого шрифта."
+"Конфигурация автоматически сохраняется в файл и загружается при каждом "
+"запуске, что гарантирует сохранность ваших настроек. Файл настроек хранится "
+"в "
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Packages"
-msgstr "Пакеты"
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Dismiss"
+msgstr "Отклонить"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Custom icons"
-msgstr "Пользовательские иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"You can specify which icon to use for each package.<br><br>Posible types in "
-"this order: default, repo, group, match, name<br><br><b>Syntax for rule:</"
-"b><br>type > value > icon-name<br>For default: default >> icon-"
-"name<br><br>If a package matches multiple rules, the last one will be "
-"applied to it."
+" not installed! Highly recommended to install it for getting the latest "
+"updates without the need to download fresh package databases."
 msgstr ""
-"Вы можете определить какую иконку использовать для каждого пакета. "
-"<br><br>Возможные типы правил в таком порядке: default, repo, group, match, "
-"name<br><br><b>Синтаксис для правила:</b><br>type > value > icon-name<br>Для "
-"стандартной иконки: default >> icon-name<br><br>Если пакет соответствует "
-"нескольким правилам, то он будет использовать последнее."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "EXAMPLE:"
-msgstr "ПРИМЕР:"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Browse icons and copy icon name to clipboard"
-msgstr "Просмотр значков и копирование название значка в буфер обмена"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Backup list"
-msgstr "Сохранить список"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Restore list from backup"
-msgstr "Восстановить список из резервной копии"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Вид иконки на панели"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Показывать когда"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Стандартная иконка"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Стандартная"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select..."
-msgstr "Выбрать..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Выключенный интервал"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включить"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Счетчик"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Стандартный цвет фона из текущей темы"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Стандартный цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Выбор цвета для фона счетчика"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Размер"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Радиус"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Непрозрачность"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Тень"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Жирный"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Смещение"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Позиция"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "По центру"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Left"
-msgstr "Сверху-слева"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Right"
-msgstr "Сверху-справа"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Left"
-msgstr "Снизу-слева"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Right"
-msgstr "Снизу-справа"
+" не установлен! Настоятельно рекомендуется установить его, чтобы получать "
+"последние обновления без необходимости обновлять базы данных репозиториев."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -590,27 +563,6 @@ msgid "Wrapper"
 msgstr "Обертка"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"pacman-contrib not installed! Highly recommended to install it for getting "
-"the latest updates without the need to download fresh package databases."
-msgstr ""
-"pacman-contrib не установлен! Настоятельно рекомендуется установить его, "
-"чтобы получать последние обновления без необходимости обновлять базы данных "
-"репозиториев."
-
-#: ../contents/ui/configuration/General.qml
-msgid "Exclude packages"
-msgstr "Исключение пакетов"
-
-#: ../contents/ui/configuration/General.qml
-msgid ""
-"In this field, you can specify package names that you want to ignore. "
-"<br><br>Specify names separated by space."
-msgstr ""
-"В этом поле вы можете указать имена пакетов, которые хотите игнорировать. "
-"<br><br>Указывайте имена пакетов через пробел."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
 msgstr "Действия мыши"
 
@@ -635,12 +587,8 @@ msgid "Notifications"
 msgstr "Уведомления"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Popup"
-msgstr "Сообщение"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Sound"
-msgstr "Звук"
+msgid "For new updates and news"
+msgstr "При новых обновлениях и новостях"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -660,6 +608,18 @@ msgstr ""
 "если пакета еще нет в списке. <b>Меньше уведомлений.</b>"
 
 #: ../contents/ui/configuration/General.qml
+msgid "For errors"
+msgstr "При ошибках"
+
+#: ../contents/ui/configuration/General.qml
+msgid "With sound"
+msgstr "Со звуком"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Persistent"
+msgstr "Постоянное"
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
 "To further configure, click the button below -> Application-specific "
 "settings -> Apdatifier"
@@ -670,6 +630,60 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
 msgstr "Настроить..."
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Unimportant"
+msgstr "Не имеет значения"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Repository"
+msgstr "Репозиторий"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact repository match"
+msgstr "Точное совпадение репозитория"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Group"
+msgstr "Группа"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring group match"
+msgstr "Совпадение с подстрокой в группе"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring"
+msgstr "Совпадение"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring name match"
+msgstr "Совпадение с подстрокой в имени"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Name"
+msgstr "Имя"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact name match"
+msgstr "Точное совпадение имени"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid ""
+"Here you can override the default package icons and/or exclude them from the "
+"list. Each rule overwrites the previous one, so the list of rules should be "
+"in this order: "
+msgstr ""
+"Здесь вы можете переопределить значки пакетов и исключить их из списка. "
+"Каждое правило перезаписывает предыдущее, поэтому список правил должен быть "
+"в таком порядке: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Add rule"
+msgstr "Добавить правило"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Применить"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -682,6 +696,22 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr "Посетите %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Терминал"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Использовать NerdFont иконки"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
+"отображаться иконки из этого шрифта."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
@@ -804,16 +834,20 @@ msgid "Extended view"
 msgstr "Расширенный вид"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "<b>Check out the latest news!"
-msgstr "<b>Посмотрите последние новости!"
+msgid "Check out release notes"
+msgstr "Посмотрите список изменений"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Hide"
+msgstr "Скрыть"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "<b>Check out the latest news"
+msgstr "<b>Посмотрите последние новости"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "<br><b>Article: </b>"
 msgstr "<br><b>Статья: </b>"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Dismiss"
-msgstr "Скрыть"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
@@ -883,7 +917,6 @@ msgstr "Размер загрузки"
 msgid "Install date"
 msgstr "Дата установки"
 
-# shorter!
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "Причина установки"

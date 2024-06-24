@@ -29,11 +29,11 @@ ColumnLayout {
         id: typesModel
         Component.onCompleted: {
             let types = [
-                {name: i18n("Default"), type: "default", tip: i18n("default for all")},
-                {name: i18n("Repository"), type: "repo", tip: i18n("Exact repository")},
-                {name: i18n("Group"), type: "group", tip: i18n("Includes in groups")},
-                {name: i18n("Includes"), type: "match", tip: i18n("Includes in names")},
-                {name: i18n("Name"), type: "name", tip: i18n("Exact name")}
+                {name: i18n("Unimportant"), type: "default", tip: "---"},
+                {name: i18n("Repository"), type: "repo", tip: i18n("Exact repository match")},
+                {name: i18n("Group"), type: "group", tip: i18n("Substring group match")},
+                {name: i18n("Substring"), type: "match", tip: i18n("Substring name match")},
+                {name: i18n("Name"), type: "name", tip: i18n("Exact name match")}
             ]
 
             for (var i = 0; i < types.length; ++i) {
@@ -48,7 +48,7 @@ ColumnLayout {
         Layout.leftMargin: Kirigami.Units.smallSpacing * 2
         Layout.rightMargin: Kirigami.Units.smallSpacing * 2
         icon.source: "showinfo"
-        text: i18n("Here you can override the default package icons and/or exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: ")+i18n("Default")+", "+i18n("Repository")+", "+i18n("Group")+", "+i18n("Includes")+", "+i18n("Name")
+        text: i18n("Here you can override the default package icons and/or exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: ")+i18n("Unimportant")+", "+i18n("Repository")+", "+i18n("Group")+", "+i18n("Substring")+", "+i18n("Name")
         visible: plasmoid.configuration.rulesMsg
 
         actions: [
@@ -58,37 +58,6 @@ ColumnLayout {
                 onTriggered: plasmoid.configuration.rulesMsg = false
             }
         ]
-    }
-
-    ListView {
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        id: rulesList
-        model: rulesModel
-        delegate: rule
-
-        clip: true
-        boundsBehavior: Flickable.StopAtBounds
-        move: Transition {
-            NumberAnimation { properties: "x,y"; duration: 300 }
-        }
-        moveDisplaced: Transition {
-            NumberAnimation { properties: "x,y"; duration: 300 }
-        }
-        add: Transition {
-            NumberAnimation { properties: "x"; from: 100; duration: 300 }
-        }
-        remove: Transition {
-            ParallelAnimation {
-                NumberAnimation { property: "opacity"; to: 0; duration: 300 }
-                NumberAnimation { properties: "x"; to: 100; duration: 300 }
-            }
-        }
-        removeDisplaced: Transition {
-            NumberAnimation { properties: "x,y"; duration: 300 }
-        }
-
-        ScrollBar.vertical: ScrollBar { active: true }
     }
 
     Component {
@@ -145,7 +114,6 @@ ColumnLayout {
                 ToolButton {
                     icon.name: model.excluded ? "gnumeric-visible" : "gnumeric-row-hide"
                     onClicked: model.excluded = !model.excluded
-                    ToolTip {text: i18n("Exclude or restore from the list") }
                 }
 
                 ToolButton {
@@ -166,6 +134,25 @@ ColumnLayout {
                 }
             }
         }
+    }
+
+    ListView {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        id: rulesList
+        model: rulesModel
+        delegate: rule
+        clip: true
+
+        boundsBehavior: Flickable.StopAtBounds
+        add: Transition { NumberAnimation { properties: "x"; from: 100; duration: 300 } }
+        moveDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
+        move: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
+        removeDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
+        remove: Transition { ParallelAnimation {
+            NumberAnimation { property: "opacity"; to: 0; duration: 300 }
+            NumberAnimation { properties: "x"; to: 100; duration: 300 } } }
+        ScrollBar.vertical: ScrollBar { active: true }
     }
 
     RowLayout {
