@@ -79,6 +79,7 @@ Feel free to help translate to new languages or update and improve the ones that
 |----------|---------|-------|
 | English  |     194 |       |
 | Dutch    | 194/194 |  100% |
+| German   | 194/194 |  100% |
 | French   | 194/194 |  100% |
 | Russian  | 194/194 |  100% |
 |----------|---------|-------|
