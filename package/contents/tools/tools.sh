@@ -512,7 +512,7 @@ checkWidgets() {
             out+="\"IN\": \"${icon}\","
             out+="\"DE\": \"${description}\","
             out+="\"AU\": \"${author}\","
-            out+="\"VO\": \"${latestVer}\","
+            out+="\"VO\": \"${currentVer}\","
             out+="\"VN\": \"${latestVer}\","
             out+="\"LN\": \"${url}\"}"
             first=false

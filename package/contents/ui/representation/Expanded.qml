@@ -18,13 +18,8 @@ import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
 Representation {
-    id: root
-    property bool searchFieldOpen: false
-    property var news: cfg.lastNews ? JSON.parse(cfg.lastNews) : []
-    property bool newsVisibility: sts.idle && Object.keys(news).length !== 0 && !news.dismissed && !searchFieldOpen
-    function updateVisibility() { newsVisibility = !news.dismissed; }
     property string currVersion: "v2.7"
-    property string releaseLink: "https://github.com/exequtic/apdatifier/releases"
+    property bool searchFieldOpen: false
 
     property string statusIcon: {
         var icons = {
@@ -183,9 +178,9 @@ Representation {
             Layout.fillWidth: true
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             icon.source: "apdatifier-plasmoid"
-            text: "<b>" + i18n("Check out release notes") + "</b>"
+            text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
-            visible: sts.idle && !searchFieldOpen &&
+            visible: sts.pending && !searchFieldOpen &&
                      parseFloat(plasmoid.configuration.version.replace(/v/g, "")) < parseFloat(currVersion.replace(/v/g, ""))
 
             actions: [
@@ -197,7 +192,7 @@ Representation {
                     Kirigami.Action {
                         text: "GitHub"
                         icon.name: "internet-web-browser"
-                        onTriggered: Qt.openUrlExternally(releaseLink)
+                        onTriggered: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/releases")
                     }
                     Kirigami.Action {
                         text: i18n("Hide")
@@ -218,9 +213,9 @@ Representation {
             Layout.fillWidth: true
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             icon.source: "news-subscribe"
-            text: news ? i18n("<b>Check out the latest news") + " (" + news.date + ")</b>" + i18n("<br><b>Article: </b>") + news.article : ""
+            text: cfg.news
             type: Kirigami.MessageType.Warning
-            visible: newsVisibility
+            visible: sts.pending && cfg.newsMsg && !searchFieldOpen
 
             actions: [
                 Kirigami.Action {
@@ -231,7 +226,7 @@ Representation {
                     Kirigami.Action {
                         text: i18n("Read article")
                         icon.name: "internet-web-browser"
-                        onTriggered: Qt.openUrlExternally(news.link)
+                        onTriggered: JS.openNewsLink()
                     }
                     Kirigami.Action {
                         text: i18n("Hide")
@@ -241,11 +236,7 @@ Representation {
                     Kirigami.Action {
                         text: i18n("Dismiss")
                         icon.name: "dialog-close"
-                        onTriggered: {
-                            news.dismissed = true
-                            cfg.lastNews = JSON.stringify(news)
-                            updateVisibility()
-                        }
+                        onTriggered: cfg.newsMsg = false
                     }
                 }
             ]

@@ -49,7 +49,7 @@ function saveConfig() {
     Object.keys(cfg).forEach(key => {
         if (key.endsWith("Default")) {
             let name = key.slice(0, -7)
-            config += `${name} = ${cfg[name]}\n`
+            config += `${name}="${cfg[name]}"\n`
         }
     })
 
@@ -67,8 +67,8 @@ function loadConfig() {
             return value
         }
         config.forEach(line => {
-            const [key, value] = line.split(" = ")
-            plasmoid.configuration[key] = convert(value)
+            const match = line.match(/(\w+)="([^"]*)"/)
+            if (match) plasmoid.configuration[match[1]] = convert(match[2])
         })
     })
 
@@ -263,7 +263,7 @@ function checkUpdates() {
 
         sh.exec(cmd.news, (cmd, out, err, code) => {
             if (Error(code, err)) return
-            makeNewsArticle(out)
+            if (out) makeNewsArticle(out)
             archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
     })}
 
@@ -335,23 +335,13 @@ function checkUpdates() {
 
 
 function makeNewsArticle(news) {
-    if (!news) return
-    let article = news.trim().replace(/'/g, "").split("\n")
-    if (article.length > 10) article = article.filter(line => !line.startsWith(' '))
-    article = article[article.length - 1]
-
-    let lastNews = {}
-    lastNews["article"] = article.split(" ").slice(1).join(" ")
-
-    const prevArticle = cfg.lastNews ? JSON.parse(cfg.lastNews).article : ""
-
-    if (lastNews.article !== prevArticle) {
-        lastNews["date"] = article.split(" ")[0]
-        lastNews["link"] = "https://archlinux.org/news/" + lastNews.article.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
-        lastNews["dismissed"] = false
-        cfg.lastNews = JSON.stringify(lastNews)
-
-        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), i18n("<b>Latest news:</b> ") + lastNews.article)
+    news = news.trim().replace(/'/g, "").split("\n")
+    if (news.length > 10) news = news.filter(line => !line.startsWith(' '))
+    const lastArticle = news[news.length - 1].split(" ").slice(1).join(" ")
+    if (lastArticle !== cfg.news) {
+        cfg.news = lastArticle
+        cfg.newsMsg = true
+        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), lastArticle)
     }
 }
 
@@ -383,10 +373,7 @@ function makeArchList(updates, all, description) {
             packageObj.LN = packageObj.LN.replace(/\/+$/, '')
             updates.forEach(str => {
                 const [name, verold, , vernew] = str.split(" ")
-                if (packageObj.NM === name) {
-                    packageObj.VO = verold
-                    packageObj.VN = vernew
-                }
+                if (packageObj.NM === name) Object.assign(packageObj, { VO: verold, VN: vernew })
             })
         }
 
@@ -648,8 +635,9 @@ function switchInterval() {
     cfg.interval = !cfg.interval
 }
 
-function openNewsLink(link) {
-    return Qt.openUrlExternally(JSON.parse(cfg.lastNews).link)
+function openNewsLink() {
+    const link = "https://archlinux.org/news/" + cfg.news.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
+    return Qt.openUrlExternally(link)
 }
 
 function formatJson(data) {
