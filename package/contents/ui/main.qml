@@ -117,7 +117,7 @@ PlasmoidItem {
 
     Timer {
         id: upgradeTimer
-        interval: 3000
+        interval: 5000
         repeat: true
         onTriggered: JS.upgradingState()
     }

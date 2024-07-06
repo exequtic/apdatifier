@@ -77,11 +77,12 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| English  |     194 |       |
-| Dutch    | 194/194 |  100% |
-| German   | 194/194 |  100% |
-| French   | 194/194 |  100% |
-| Russian  | 194/194 |  100% |
+| English  |     191 |       |
+| Dutch    | 191/191 |  100% |
+| French   | 191/191 |  100% |
+| German   | 191/191 |  100% |
+| Korean   | 112/191 |   58% |
+| Russian  | 191/191 |  100% |
 |----------|---------|-------|
 ```
 

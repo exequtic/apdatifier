@@ -220,7 +220,7 @@ function enableUpgrading(state) {
 }
 
 function upgradingState(startup) {
-    sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "-e bash"`, (cmd, out, err, code) => {
+    sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "${cmd.terminal}"`, (cmd, out, err, code) => {
         if (out || err) {
             enableUpgrading(true)
         } else if (startup) {
@@ -233,7 +233,7 @@ function upgradingState(startup) {
 }
 
 function upgradeSystem() {
-    if (sts.upgrading) return
+    if (run()) return
     defineCommands()
     enableUpgrading(true)
     sh.exec(cmd.upgrade)

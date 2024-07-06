@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-06-29 12:37+0300\n"
+"POT-Creation-Date: 2024-07-06 11:23+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -99,10 +99,6 @@ msgstr "De gegevens kunnen niet worden opgehaald van de api"
 #: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
 msgstr "Arch Linux-nieuws"
-
-#: ../contents/tools/tools.js
-msgid "<b>Latest news:</b> "
-msgstr "<b>Laatste nieuws:</b> "
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -843,14 +839,6 @@ msgstr "Bekijk de release-opmerkingen"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Hide"
 msgstr "Verbergen"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "<b>Check out the latest news"
-msgstr "<b>Bekijk het laatste nieuws"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "<br><b>Article: </b>"
-msgstr "<br><b>Artikel: </b>"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"

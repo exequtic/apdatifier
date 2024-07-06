@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-06-29 12:37+0300\n"
+"POT-Creation-Date: 2024-07-06 11:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,10 +92,6 @@ msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "<b>Latest news:</b> "
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -750,14 +746,6 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Hide"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "<b>Check out the latest news"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "<br><b>Article: </b>"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
