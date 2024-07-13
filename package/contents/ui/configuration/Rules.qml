@@ -29,7 +29,7 @@ ColumnLayout {
         id: typesModel
         Component.onCompleted: {
             let types = [
-                {name: i18n("Unimportant"), type: "default", tip: "---"},
+                {name: i18n("Unimportant"), type: "all", tip: "---"},
                 {name: i18n("Repository"), type: "repo", tip: i18n("Exact repository match")},
                 {name: i18n("Group"), type: "group", tip: i18n("Substring group match")},
                 {name: i18n("Substring"), type: "match", tip: i18n("Substring name match")},
@@ -174,7 +174,7 @@ ColumnLayout {
             onClicked: {
                 var array = []
                 for (var i = rulesModel.count - 1; i >= 0; --i) {
-                    if (rulesModel.get(i).type !== "default" && rulesModel.get(i).value.trim() === "") rulesModel.remove(i, 1);
+                    if (rulesModel.get(i).type !== "all" && rulesModel.get(i).value.trim() === "") rulesModel.remove(i, 1);
                 }
                 for (var i = 0; i < rulesModel.count; i++) {
                     array.push(rulesModel.get(i))

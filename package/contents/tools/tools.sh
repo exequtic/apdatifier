@@ -668,6 +668,27 @@ compareVer() {
     return 0
 }
 
+convertRules() {
+    old_file="$HOME/.cache/apdatifier/packages_icons"
+    new_file="$HOME/.config/apdatifier/rules.json"
+    [ ! -s $old_file ] && { echo -e "${r}Empty or not exist ->${c} $old_file"; exit; }
+    [ -s $new_file ] && { echo -e "${r}Already exist and not empty ->${c} $new_file"; exit; }
+    first=true; buffer=""; echo "[" > "$new_file"
+    while IFS= read -r line || [ -n "$line" ]; do
+        IFS='>' read -r type value icon <<< "$line"
+        type="${type// /}"; value="${value// /}"; icon="${icon// /}"
+        if [ -n "$type" ] && [ -n "$value" ] && [ -n "$icon" ]; then
+            if [[ "$type" =~ ^(repo|group|match|name)$ ]]; then
+                [ "$first" = false ] && buffer+=",\n"
+                first=false
+                buffer+="{\"type\":\"$type\",\"value\":\"$value\",\"icon\":\"$icon\",\"excluded\":false}"
+            fi
+        fi
+    done < "$old_file"
+    echo -e "$buffer\n]" >> "$new_file"
+    [ -s $new_file ] && { echo -e "${g}Created ->${c} $new_file"; exit; }
+}
+
 
 case "$1" in
                         "init") init;;
@@ -678,5 +699,6 @@ case "$1" in
                "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4 "$5";;
            "upgradeAllWidgets") shift; upgradeAllWidgets $1 $2 "$3";;
                   "mirrorlist") shift; mirrorlistGenerator $1 $2 $3;;
+                "convertRules") convertRules;;
                              *) exit;;
 esac

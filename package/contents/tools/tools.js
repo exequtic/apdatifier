@@ -557,7 +557,7 @@ function applyRules(list) {
 
     function applyRule(el, rule) {
         const types = {
-            'default': () => true,
+            'all'    : () => true,
             'repo'   : () => el.RE === rule.value,
             'group'  : () => el.GR.includes(rule.value),
             'match'  : () => el.NM.includes(rule.value),
