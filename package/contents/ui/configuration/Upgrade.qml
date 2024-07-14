@@ -317,20 +317,20 @@ SimpleKCM {
 
         function createCountryList() {
             let countries = 
-                "Australia AU, Austria AT, Azerbaijan AZ, Bangladesh BD, Belarus BY, Belgium BE, " +
-                "Bosnia and Herzegovina BA, Brazil BR, Bulgaria BG, Cambodia KH, Canada CA, Chile CL, " +
-                "China CN, Colombia CO, Croatia HR, Czech Republic CZ, Denmark DK, Ecuador EC, " +
-                "Estonia EE, Finland FI, France FR, Georgia GE, Germany DE, Greece GR, Hong Kong HK, " +
-                "Hungary HU, Iceland IS, India IN, Indonesia ID, Iran IR, Israel IL, Italy IT, Japan JP, " +
-                "Kazakhstan KZ, Kenya KE, Latvia LV, Lithuania LT, Luxembourg LU, Mauritius MU, Mexico MX, " +
-                "Moldova MD, Monaco MC, Netherlands NL, New Caledonia NC, New Zealand NZ, North Macedonia MK, " +
-                "Norway NO, Paraguay PY, Poland PL, Portugal PT, Romania RO, Russia RU, Réunion RE, " +
-                "Serbia RS, Singapore SG, Slovakia SK, Slovenia SI, South Africa ZA, South Korea KR, Spain ES, " +
-                "Sweden SE, Switzerland CH, Taiwan TW, Thailand TH, Turkey TR, Ukraine UA, United Kingdom GB, " +
-                "United States US, Uzbekistan UZ, Vietnam VN"
+                "Australia:AU, Austria:AT, Azerbaijan:AZ, Bangladesh:BD, Belarus:BY, Belgium:BE, " +
+                "Bosnia and Herzegovina:BA, Brazil:BR, Bulgaria:BG, Cambodia:KH, Canada:CA, Chile:CL, " +
+                "China:CN, Colombia:CO, Croatia:HR, Czech Republic:CZ, Denmark:DK, Ecuador:EC, " +
+                "Estonia:EE, Finland:FI, France:FR, Georgia:GE, Germany:DE, Greece:GR, Hong Kong:HK, " +
+                "Hungary:HU, Iceland:IS, India:IN, Indonesia:ID, Iran:IR, Israel:IL, Italy:IT, Japan:JP, " +
+                "Kazakhstan:KZ, Kenya:KE, Latvia:LV, Lithuania:LT, Luxembourg:LU, Mauritius:MU, Mexico:MX, " +
+                "Moldova:MD, Monaco:MC, Netherlands:NL, New Caledonia:NC, New Zealand:NZ, North Macedonia:MK, " +
+                "Norway:NO, Paraguay:PY, Poland:PL, Portugal:PT, Romania:RO, Russia:RU, Réunion:RE, " +
+                "Serbia:RS, Singapore:SG, Slovakia:SK, Slovenia:SI, South Africa:ZA, South Korea:KR, Spain:ES, " +
+                "Sweden:SE, Switzerland:CH, Taiwan:TW, Thailand:TH, Turkey:TR, Ukraine:UA, United Kingdom:GB, " +
+                "United States:US, Uzbekistan:UZ, Vietnam:VN"
 
             countries.split(", ").map(item => {
-                let [country, code] = item.split(" ")
+                let [country, code] = item.split(":")
                 countryListModel.append({text: country, code: code, checked: false})
             })
         }
