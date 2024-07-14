@@ -640,7 +640,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid ""
-"Here you can override the default package icons and/or exclude them from the "
+"Here you can override the default package icons and exclude them from the "
 "list. Each rule overwrites the previous one, so the list of rules should be "
 "in this order: "
 msgstr ""

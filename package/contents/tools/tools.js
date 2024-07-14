@@ -233,9 +233,9 @@ function upgradingState(startup) {
 }
 
 function upgradeSystem() {
-    if (run()) return
+    if (sts.upgrading) return
     defineCommands()
-    enableUpgrading(true)
+    if (!cmd.yakuake) enableUpgrading(true)
     sh.exec(cmd.upgrade)
 }
 
@@ -337,11 +337,11 @@ function checkUpdates() {
 function makeNewsArticle(news) {
     news = news.trim().replace(/'/g, "").split("\n")
     if (news.length > 10) news = news.filter(line => !line.startsWith(' '))
-    const lastArticle = news[news.length - 1].split(" ").slice(1).join(" ")
+    const lastArticle = news[news.length - 1].replace(/(\d{4}-\d{2}-\d{2})/, "[$1]")
     if (lastArticle !== cfg.news) {
         cfg.news = lastArticle
         cfg.newsMsg = true
-        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), lastArticle)
+        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), lastArticle.split(" ").slice(1).join(" "))
     }
 }
 
@@ -636,8 +636,8 @@ function switchInterval() {
 }
 
 function openNewsLink() {
-    const link = "https://archlinux.org/news/" + cfg.news.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
-    return Qt.openUrlExternally(link)
+    const path = cfg.news.split(" ").slice(1).join(" ").toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
+    return Qt.openUrlExternally("https://archlinux.org/news/" + path)
 }
 
 function formatJson(data) {

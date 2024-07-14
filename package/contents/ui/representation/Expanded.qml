@@ -180,7 +180,7 @@ Representation {
             icon.source: "apdatifier-plasmoid"
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
-            visible: sts.pending && !searchFieldOpen &&
+            visible: sts.idle && !searchFieldOpen &&
                      parseFloat(plasmoid.configuration.version.replace(/v/g, "")) < parseFloat(currVersion.replace(/v/g, ""))
 
             actions: [

@@ -48,7 +48,7 @@ ColumnLayout {
         Layout.leftMargin: Kirigami.Units.smallSpacing * 2
         Layout.rightMargin: Kirigami.Units.smallSpacing * 2
         icon.source: "showinfo"
-        text: i18n("Here you can override the default package icons and/or exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: ")+i18n("Unimportant")+", "+i18n("Repository")+", "+i18n("Group")+", "+i18n("Substring")+", "+i18n("Name")
+        text: i18n("Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: ")+i18n("Unimportant")+", "+i18n("Repository")+", "+i18n("Group")+", "+i18n("Substring")+", "+i18n("Name")
         visible: plasmoid.configuration.rulesMsg
 
         actions: [
