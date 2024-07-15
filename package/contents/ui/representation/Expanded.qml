@@ -18,7 +18,7 @@ import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
 Representation {
-    property string currVersion: "v2.7"
+    property string currVersion: "v2.8"
     property bool searchFieldOpen: false
 
     property string statusIcon: {
