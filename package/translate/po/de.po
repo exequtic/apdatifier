@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-06 11:23+0300\n"
+"POT-Creation-Date: 2024-07-28 19:25+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -107,7 +107,7 @@ msgid_plural "+%1 new updates"
 msgstr[0] "+%1 neues Update"
 msgstr[1] "+%1 neue Updates"
 
-#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+#: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "Update steht noch aus"
@@ -311,6 +311,12 @@ msgstr "Panel-Symbolansicht"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
 msgstr "Angezeigt, wenn"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update is pending "
+msgid_plural "updates are pending "
+msgstr[0] "Update steht noch aus"
+msgstr[1] "Updates stehen noch aus"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"

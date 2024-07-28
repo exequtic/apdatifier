@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-06 11:23+0300\n"
+"POT-Creation-Date: 2024-07-28 19:25+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -106,7 +106,7 @@ msgid_plural "+%1 new updates"
 msgstr[0] "+%1 update"
 msgstr[1] "+%1 updates"
 
-#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+#: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "update in de wachtrij"
@@ -306,6 +306,12 @@ msgstr "Paneelpictogramweergave"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
 msgstr "Getoond indien"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update is pending "
+msgid_plural "updates are pending "
+msgstr[0] "update in de wachtrij"
+msgstr[1] "updates in de wachtrij"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"

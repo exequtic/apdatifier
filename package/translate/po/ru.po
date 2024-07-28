@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-06 11:23+0300\n"
+"POT-Creation-Date: 2024-07-28 19:25+0300\n"
 "PO-Revision-Date: 2024-06-29 12:37+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -107,7 +107,7 @@ msgstr[0] "+%1 новое обновление"
 msgstr[1] "+%1 новых обновлений"
 msgstr[2] "+%1 новых обновлений"
 
-#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+#: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "обновление доступно"
@@ -307,6 +307,13 @@ msgstr "Вид иконки на панели"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
 msgstr "Показывать когда"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update is pending "
+msgid_plural "updates are pending "
+msgstr[0] "обновление доступно"
+msgstr[1] "обновления доступно"
+msgstr[2] "обновлений доступно"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-06 11:23+0300\n"
+"POT-Creation-Date: 2024-07-28 18:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,7 +100,8 @@ msgid_plural "+%1 new updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+#. Status in FullRepresantation header
+#: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] ""
@@ -291,6 +292,13 @@ msgstr ""
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
 msgstr ""
+
+#. Appearance setting: "Shown when X update(s) ..."
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update is pending "
+msgid_plural "updates are pending "
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"

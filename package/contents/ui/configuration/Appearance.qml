@@ -71,7 +71,7 @@ SimpleKCM {
             }
 
             Label {
-                text: i18np("update is pending", "updates are pending", relevantIcon.value)
+                text: i18np("update is pending ", "updates are pending ", relevantIcon.value)
             }
         }
 
