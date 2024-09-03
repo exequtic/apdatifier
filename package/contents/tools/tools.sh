@@ -110,13 +110,14 @@ EOF
 
 
 mirrorlistGenerator() {
-    count=$1; link=$2; icons=$3; wrapper=$4; sudoCmd=$5; menu=$6; selected=$7
+    source $configDir/config.conf
+    getTxt $termFont
+    returnMenu() { printMenu; management $selected; }
+
+    menu=$1; selected=$2
+
     mirrorfile="/etc/pacman.d/mirrorlist"
-    getTxt $icons
-
-    returnMenu() { printMenu; management $count $link $icons $wrapper $sudoCmd $selected; }
-
-    if [ -f $mirrorlist ]; then
+    if [ -f $mirrorfile ]; then
         FILE_TIME=$(date -r "$mirrorfile" +%s)
         NORM_TIME=$(date -d @$FILE_TIME +"%d %b %H:%M:%S")
         echo -en "\n${y}${ICO_WARN}${c}${y}${bold} ${MIRROR_TIME}${c} $NORM_TIME"
@@ -131,9 +132,9 @@ mirrorlistGenerator() {
         esac
     done
 
-    checkPkg "curl rankmirrors" $5
+    checkPkg "curl rankmirrors" true
     rankmirrors -V &>/dev/null || {
-        countries=$(echo "$2" | grep -oP '(?<=country=)[^&]+')
+        countries=$(echo "$dynamicUrl" | grep -oP '(?<=country=)[^&]+')
         countries=$(echo "$countries" | tr '\n' ' ')
         countries=$(echo "$countries" | sed 's/ *$//')
 
@@ -141,7 +142,7 @@ mirrorlistGenerator() {
             printError "$MIRRORS_ERR"
         else
             echo "Selected countries: $countries"
-            ${sudoCmd} rankmirrors -c ${countries}
+            ${sudoBin} rankmirrors -c ${countries}
             echo
         fi
 
@@ -149,7 +150,7 @@ mirrorlistGenerator() {
     }
 
     tempfile=$(mktemp)
-    tput sc; curl -m 30 -s -o $tempfile "$2" 2>/dev/null &
+    tput sc; curl -m 30 -s -o $tempfile "$dynamicUrl" 2>/dev/null &
     spinner $! "$MIRRORS_FETCH"; tput rc; tput ed
     if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
         printDone "$MIRRORS_FETCH"
@@ -161,7 +162,7 @@ mirrorlistGenerator() {
 
     sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
     tempfile2=$(mktemp)
-    tput sc; rankmirrors -n "$1" "$tempfile" > "$tempfile2" &
+    tput sc; rankmirrors -n "$mirrorCount" "$tempfile" > "$tempfile2" &
     spinner $! "$MIRRORS_RANK"; tput rc; tput ed
     if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; then
         printDone "$MIRRORS_RANK"
@@ -174,8 +175,8 @@ mirrorlistGenerator() {
     sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
 
     if [[ "$menu" = "true" ]]; then
-        ${sudoCmd} -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
-        cat $tempfile2 | ${sudoCmd} tee $mirrorfile > /dev/null
+        ${sudoBin} -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
+        cat $tempfile2 | ${sudoBin} tee $mirrorfile > /dev/null
     else
         cat $tempfile2 > $mirrorfile
     fi
@@ -193,12 +194,15 @@ mirrorlistGenerator() {
 
 management() {
     trap '' SIGINT
-    count=$1; link=$2; icons=$3; wrapper=$4; sudoCmd=$5; [ "$6" ] && selected="$6" || selected=0
+    source $configDir/config.conf
+    [ "$1" ] && selected="$1" || selected=0
+
+    [[ $aur != true || -z $wrapper ]] && wrapper="pacman"
     wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
     [[ $wrapper = "trizen" ]] && wrapper="pacman"
-    [[ $wrapper = "pacman" ]] && wrapper_sudo="$sudoCmd pacman"
+    [[ $wrapper = "pacman" ]] && wrapper_sudo="$sudoBin pacman"
 
-    getTxt $icons
+    getTxt $termFont
 
     returnMenu() { printMenu; showOptions $selected; }
 
@@ -255,7 +259,7 @@ management() {
             7) printExec -Scc; $wrapper_sudo -Scc; returnMenu;;
             8) printExec -Sc; $wrapper_sudo -Sc; returnMenu;;
             9) rebuildPython;;
-           10) mirrorlistGenerator $count $link $icons $wrapper $sudoCmd true $selected;;
+           10) mirrorlistGenerator true $selected;;
            11) exit;;
         esac
     }
@@ -492,7 +496,7 @@ downloadWidget() {
 }
 
 checkWidgets() {
-    getTxt true
+    getTxt
     for cmd in curl jq xmlstarlet; do command -v "$cmd" >/dev/null || { echo 127; exit; }; done
 
     declare -a plasmoid lines; getWidgets
@@ -524,7 +528,8 @@ checkWidgets() {
 }
 
 upgradeAllWidgets() {
-    getTxt $2
+    source $configDir/config.conf
+    getTxt $termFont
     checkPkg "curl jq xmlstarlet unzip tar"
 
     declare -a plasmoid lines; getWidgets
@@ -551,7 +556,7 @@ upgradeAllWidgets() {
 
     rm $XML
 
-    [[ "$1" = "true" ]] && [[ "$hasUpdates" = "true" ]] && {
+    [[ "$restartShell" = "true" ]] && [[ "$hasUpdates" = "true" ]] && {
         sleep 1
         while true; do
             printQuestion "$WIDGETS_RESTART"; read -r answer
@@ -561,17 +566,17 @@ upgradeAllWidgets() {
                         *)  ;;
             esac
         done
-        eval ${3}
+        eval ${restartCommand}
     }
 }
 
 upgradeWidget() {
     [ $1 ] || exit
-
-    getTxt $3
+    source $configDir/config.conf
+    getTxt $termFont
     checkPkg "curl jq xmlstarlet unzip tar"
 
-    [[ "$2" != "true" ]] && printImportant "${WIDGETS_WARN}\n"
+    [[ "$restartShell" != "true" ]] && printImportant "${WIDGETS_WARN}\n"
 
     tempDir=$(mktemp -d); mkdir $tempDir/unpacked; XML="$tempDir/data.xml"
     tput sc; curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$1" 2>/dev/null &
@@ -592,9 +597,9 @@ upgradeWidget() {
     latestVer=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
     tempFile="$tempDir/$(basename "${link}")"
 
-    downloadWidget $4; [[ $? -ne 0 ]] && exit
+    downloadWidget $2; [[ $? -ne 0 ]] && exit
 
-    [[ "$2" = "true" ]] && {
+    [[ "$restartShell" = "true" ]] && {
         sleep 1
         while true; do
             printQuestion "$WIDGETS_RESTART"; read -r answer
@@ -604,7 +609,7 @@ upgradeWidget() {
                         *)  ;;
             esac
         done
-        eval ${5}
+        eval ${restartCommand}
     }
 }
 
@@ -694,11 +699,11 @@ case "$1" in
                         "init") init;;
                      "install") install;;
                    "uninstall") uninstall;;
-                  "management") shift; management $1 $2 $3 $4 $5;;
-                "checkWidgets") shift; checkWidgets;;
-               "upgradeWidget") shift; upgradeWidget $1 $2 $3 $4 "$5";;
-           "upgradeAllWidgets") shift; upgradeAllWidgets $1 $2 "$3";;
-                  "mirrorlist") shift; mirrorlistGenerator $1 $2 $3;;
+                  "management") management;;
+                "checkWidgets") checkWidgets;;
+               "upgradeWidget") shift; upgradeWidget $1 $2;;
+           "upgradeAllWidgets") upgradeAllWidgets;;
+                  "mirrorlist") mirrorlistGenerator;;
                 "convertRules") convertRules;;
                              *) exit;;
 esac

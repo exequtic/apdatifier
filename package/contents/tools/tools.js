@@ -138,8 +138,8 @@ function defineCommands() {
     const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
-    const widgets = cfg.widgets && applyRules(cache).some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets ${cfg.restartShell} ${cfg.termFont} '${cfg.restartCommand}';` : ""
-    const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont};` : ""
+    const widgets = cfg.widgets && applyRules(cache).some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets;` : ""
+    const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist;` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
     if (cmd.yakuake) {
@@ -158,7 +158,7 @@ function defineCommands() {
     const trap = "trap '' SIGINT"
     const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
     cmd.terminal = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read" &`
+    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read"`
 }
 
 
@@ -171,14 +171,14 @@ function upgradePackage(name, id, contentID) {
 
     if (id) {
         cmd.yakuake ? sh.exec(`${cmd.terminal} "tput sc; clear; flatpak update ${id}"`)
-                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read" &`)
+                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read"`)
         return
     }
 
     if (contentID) {
-        const commands = `${script} upgradeWidget ${contentID} ${cfg.restartShell} ${cfg.termFont} ${name} '${cfg.restartCommand}'`
+        const commands = `${script} upgradeWidget ${contentID} ${name}`
         cmd.yakuake ? sh.exec(`${cmd.terminal} "tput sc; clear; bash ${commands}"`)
-                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${commands}; ${print(done)}; read" &`)
+                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${commands}; ${print(done)}; read"`)
         return
     }
 
@@ -193,16 +193,15 @@ function upgradePackage(name, id, contentID) {
     const executed = cfg.aur && cmd.trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
 
     cmd.yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${warning}; ${executed}; ${command}; ${print(done)}; read" &`)
+                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${warning}; ${executed}; ${command}; ${print(done)}; read"`)
 }
 
 function management() {
     defineCommands()
-    const wrapper = cfg.aur && cfg.wrapper ? cfg.wrapper : "pacman"
-    const commands = `${script} management ${cfg.mirrorCount} '${cfg.dynamicUrl}' ${cfg.termFont} ${wrapper} ${cfg.sudoBin}`
+    const commands = `${script} management`
 
     cmd.yakuake ? sh.exec(`${cmd.terminal} "${commands}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${commands}" &`)
+                : sh.exec(`${cmd.terminal} bash -c "${commands}"`)
 }
 
 
