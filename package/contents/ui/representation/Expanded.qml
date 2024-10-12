@@ -13,7 +13,6 @@ import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
-import "../components" as QQC
 import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
@@ -30,6 +29,10 @@ Representation {
         return icons[sts.statusIco] !== undefined ? icons[sts.statusIco] : sts.statusIco
     }
 
+    function svg(icon) {
+        return Qt.resolvedUrl("../assets/icons/" + icon + ".svg")
+    }
+
     header: PlasmoidHeading {
         visible: cfg.showStatusText || cfg.showToolBar
         contentItem: RowLayout {
@@ -44,11 +47,22 @@ Representation {
                 spacing: Kirigami.Units.smallSpacing / 2
                 visible: cfg.showStatusText
 
-                QQC.ToolButton {
-                    icon.source: statusIcon
+                ToolButton {
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                     hoverEnabled: false
                     highlighted: false
                     enabled: !cfg.ownIconsUI
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg(statusIcon) : statusIcon
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
 
                 DescriptiveLabel {
@@ -66,55 +80,137 @@ Representation {
                 spacing: Kirigami.Units.smallSpacing
                 visible: cfg.showToolBar
 
-                QQC.ToolButton {
+                ToolButton {
                     id: searchButton
-                    icon.source: cfg.ownIconsUI ? "toolbar_search" : "search"
+                    ToolTip {text: i18n("Filter by package name")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
+                    enabled: sts.pending
+                    visible: enabled && cfg.searchButton
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
                         searchFieldOpen = !searchField.visible
                         searchField.focus = searchFieldOpen
                     }
-                    enabled: sts.pending
-                    visible: enabled && cfg.searchButton
-                    tooltipText: i18n("Filter by package name")
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg("toolbar_search") : "search"
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
-                QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI
-                                    ? (cfg.interval ? "toolbar_pause" : "toolbar_start")
-                                    : (cfg.interval ? "media-playback-paused" : "media-playback-playing")
-                    color: !cfg.interval && !cfg.indicatorStop ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
-                    onClicked: JS.switchInterval()
+
+                ToolButton {
+                    ToolTip {text: cfg.interval ? i18n("Disable auto search updates") : i18n("Enable auto search updates")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
                     enabled: sts.idle
                     visible: enabled && cfg.intervalButton
-                    tooltipText: cfg.interval ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
+                    onClicked: JS.switchInterval()
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI
+                                        ? (cfg.interval ? svg("toolbar_pause") : svg("toolbar_start"))
+                                        : (cfg.interval ? "media-playback-paused" : "media-playback-playing")
+                        color: !cfg.interval && !cfg.indicatorStop ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
-                QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI ? "toolbar_sort" : "sort-name"
-                    onClicked: cfg.sorting = !cfg.sorting
+
+                ToolButton {
+                    ToolTip {text: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
                     enabled: sts.pending
                     visible: enabled && cfg.sortButton
-                    tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
+                    onClicked: cfg.sorting = !cfg.sorting
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
-                QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI ? "toolbar_management" : "tools"
-                    onClicked: JS.management()
+
+                ToolButton {
+                    ToolTip {text: i18n("Management")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
                     enabled: sts.idle && pkg.pacman !== "" && cfg.terminal
                     visible: enabled && cfg.managementButton
-                    tooltipText: i18n("Management")
+                    onClicked: JS.management()
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
-                QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
-                    onClicked: JS.upgradeSystem()
+
+                ToolButton {
+                    ToolTip {text: i18n("Upgrade system")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
                     enabled: sts.pending && cfg.terminal
                     visible: enabled && cfg.upgradeButton
-                    tooltipText: i18n("Upgrade system")
+                    onClicked: JS.upgradeSystem()
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg("toolbar_upgrade") : "akonadiconsole"
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
-                QQC.ToolButton {
-                    icon.source: cfg.ownIconsUI ? (sts.busy ? "toolbar_stop" : "toolbar_check")
-                                                : (sts.busy ? "media-playback-stopped" : "view-refresh")
-                    onClicked: JS.checkUpdates()
+
+                ToolButton {
+                    ToolTip {text: sts.busy ? i18n("Stop checking") : i18n("Check updates")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
                     visible: cfg.checkButton && !sts.upgrading
-                    tooltipText: sts.busy ? i18n("Stop checking") : i18n("Check updates")
+                    onClicked: JS.checkUpdates()
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? (sts.busy ? svg("toolbar_stop") : svg("toolbar_check"))
+                                               : (sts.busy ? "media-playback-stopped" : "view-refresh")
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
                 }
             }
         }
@@ -137,16 +233,40 @@ Representation {
             onCurrentIndexChanged: cfg.listView = currentIndex
             Component.onCompleted: currentIndex = listView
 
-            QQC.TabButton {
+            TabButton {
                 id: compactViewTab
-                icon.source: cfg.ownIconsUI ? "tab_compact" : "view-split-left-right"
                 ToolTip { text: i18n("Compact view") }
+                contentItem: RowLayout {
+                    Kirigami.Theme.inherit: true
+                    Item { Layout.fillWidth: true }
+                    Kirigami.Icon {
+                        Layout.preferredHeight: height
+                        height: Kirigami.Units.iconSizes.small
+                        source: cfg.ownIconsUI ? svg("tab_compact") : "view-split-left-right"
+                        color: Kirigami.Theme.colorSet
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
+                    Item { Layout.fillWidth: true }
+                }
             }
 
-            QQC.TabButton {
+            TabButton {
                 id: extendViewTab
-                icon.source: cfg.ownIconsUI ? "tab_extended" : "view-split-top-bottom"
                 ToolTip { text: i18n("Extended view") }
+                contentItem: RowLayout {
+                    Kirigami.Theme.inherit: true
+                    Item { Layout.fillWidth: true }
+                    Kirigami.Icon {
+                        Layout.preferredHeight: height
+                        height: Kirigami.Units.iconSizes.small
+                        source: cfg.ownIconsUI ? svg("tab_extended") : "view-split-top-bottom"
+                        color: Kirigami.Theme.colorSet
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
+                    Item { Layout.fillWidth: true }
+                }
             }
         }
     }
@@ -272,15 +392,27 @@ Representation {
             spacing: Kirigami.Units.smallSpacing
             visible: !cfg.showStatusText
 
-            QQC.ToolButton {
-                icon.source: statusIcon
+            ToolButton {
+                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
                 highlighted: false
                 enabled: false
+                Kirigami.Icon {
+                    height: parent.height
+                    width: parent.height
+                    anchors.centerIn: parent
+                    source: cfg.ownIconsUI ? svg(statusIcon) : statusIcon
+                    color: Kirigami.Theme.colorSet
+                    scale: cfg.ownIconsUI ? 0.7 : 0.9
+                    isMask: cfg.ownIconsUI
+                    smooth: true
+                }
             }
 
             DescriptiveLabel {
                 text: sts.statusMsg
+                font.bold: true
             }
         }
     }
