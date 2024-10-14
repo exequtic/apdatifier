@@ -46,7 +46,7 @@ install() {
     if [ $? -eq 0 ]; then
         cd package
         zip -rq apdatifier.plasmoid .
-        [ ! -f apdatifier.plasmoid ] || kpackagetool6 -t Plasma/Applet -i apdatifier.plasmoid
+        [ ! -f apdatifier.plasmoid ] || kpackagetool6 -t Plasma/Applet -i apdatifier.plasmoid 2>/dev/null
     fi
 
     cd $savedir
@@ -493,7 +493,7 @@ downloadWidget() {
         printImportant "Please upgrade the widget manually"
         printImportant "kpackagetool6 -t Plasma/Applet -u $unpacked"
     else
-        kpackagetool6 -t Plasma/Applet -u .
+        kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
     fi
 
     sleep 1; echo -e "\n"

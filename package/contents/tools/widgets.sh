@@ -144,5 +144,22 @@ getId() {
         zayron.almanac.V2)                                      echo "2147850";;
         zayron.chaac.weather)                                   echo "2136291";;
         zayron.simple.separator)                                echo "2137418";;
+        runcommand.fork)                                        echo "2206628";;
+        Music.Waves)                                            echo "2186442";;
+        Small.Weather.Plasma6)                                  echo "2179833";;
+        org.dr42.analogclock)                                   echo "2204865";;
+        asus-battery-health-switcher)                           echo "2185931";;
+        MusicMini)                                              echo "2187344";;
+        Lyndo.Kde)                                              echo "2188581";;
+        org.kde.osymUpdates)                                    echo "2194992";;
+        OnlyText.Date.Kde.v2)                                   echo "2184730";;
+        Bix.Plasma.Player)                                      echo "2199942";;
+        Start.11.Simple)                                        echo "2185962";;
+        Emulator.Spectrum.Audio)                                echo "2201084";;
+        MechanicalClock)                                        echo "2187962";;
+        com.kevinbburns.grammarly)                              echo "2179829";;
+        DeepinMenu.Classic)                                     echo "2180887";;
+        KdeControlStation)                                      echo "2196105";;
+        com.junongx.kde.currentlyplaying)                       echo "2188275";;
     esac
 }
