@@ -17,7 +17,7 @@ import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
 Representation {
-    property string currVersion: "v2.8"
+    property string currVersion: "v2.8.1"
     property bool searchFieldOpen: false
 
     property string statusIcon: {
@@ -301,7 +301,7 @@ Representation {
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
             visible: sts.idle && !searchFieldOpen &&
-                     parseFloat(plasmoid.configuration.version.replace(/v/g, "")) < parseFloat(currVersion.replace(/v/g, ""))
+                     plasmoid.configuration.version.localeCompare(currVersion, undefined, { numeric: true, sensitivity: 'base' }) < 0
 
             actions: [
                 Kirigami.Action {
