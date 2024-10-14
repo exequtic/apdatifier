@@ -136,6 +136,22 @@ SimpleKCM {
         }
 
         RowLayout {
+            Label {
+                horizontalAlignment: Text.AlignHCenter
+                Layout.maximumWidth: 250
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                font.bold: true
+                color: Kirigami.Theme.negativeTextColor
+                text: i18n("Only for official repositories")
+                wrapMode: Text.WordWrap
+            }
+        }
+
+        Item {
+            Layout.preferredHeight: Kirigami.Units.smallSpacing * 2
+        }
+
+        RowLayout {
             Kirigami.FormData.label: i18n("Generator") + ":"
 
             CheckBox {

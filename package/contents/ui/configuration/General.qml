@@ -247,6 +247,9 @@ SimpleKCM {
             QQC.ComboBox {
                 type: "right"
                 labelText: i18n("right click")
+                ContextualHelpButton {
+                    toolTipText: i18n("Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking.")
+                }
             }
             QQC.ComboBox {
                 type: "scrollUp"
@@ -307,7 +310,7 @@ SimpleKCM {
                     horizontalAlignment: Text.AlignHCenter
                     Layout.maximumWidth: 250
                     font.pointSize: instTip.font.pointSize
-                    text: i18n("To further configure, click the button below -> Application-specific settings -> Apdatifier")
+                    text: i18n("To further configure, click the button below -> Application Settings -> Apdatifier")
                     wrapMode: Text.WordWrap
                 }
             }
