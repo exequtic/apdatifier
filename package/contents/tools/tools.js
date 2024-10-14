@@ -139,7 +139,7 @@ function defineCommands() {
     const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
     const flatpak = cfg.flatpak ? "flatpak update;" : ""
     const widgets = cfg.widgets && applyRules(cache).some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets;` : ""
-    const mirrorlist = cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist;` : ""
+    const mirrorlist = cfg.arch && cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist;` : ""
     const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
 
     if (cmd.yakuake) {

@@ -489,8 +489,14 @@ downloadWidget() {
 
     jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
 
-    kpackagetool6 -t Plasma/Applet -u .
-    sleep 1
+    if [[ "$1" = "apdatifier" ]]; then
+        printImportant "Please upgrade the widget manually"
+        printImportant "kpackagetool6 -t Plasma/Applet -u $unpacked"
+    else
+        kpackagetool6 -t Plasma/Applet -u .
+    fi
+
+    sleep 1; echo -e "\n"
 
     return 0
 }
@@ -599,7 +605,7 @@ upgradeWidget() {
 
     downloadWidget $2; [[ $? -ne 0 ]] && exit
 
-    [[ "$restartShell" = "true" ]] && {
+    [[ "$restartShell" = "true" && "$2" != "apdatifier" ]] && {
         sleep 1
         while true; do
             printQuestion "$WIDGETS_RESTART"; read -r answer
