@@ -357,6 +357,8 @@ management() {
 
 
 downloadXML() {
+    echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
+
     page=0
     while true; do
         tempXML=$(mktemp)
@@ -384,23 +386,14 @@ downloadXML() {
             fi
         fi
 
-        formatXML $tempXML
-
-        if [ -s $XML ]; then
-            temp2XML=$(mktemp)
-            head -n -2 $XML > $temp2XML && mv $temp2XML $XML
-            tail -n +11 $tempXML > $temp2XML && mv $temp2XML $tempXML
-            cat $tempXML >> $XML
-        else
-            cat $tempXML > $XML
-        fi
-
+        xmlstarlet sel -t -m "//content[@details='summary']" -c "." "$tempXML" >> "$XML"
         rm $tempXML
 
         items=$(((page + 1) * 100))
         if [[ $totalitems > $items ]]; then
             ((page++))
         else
+            echo '</data>' >> "$XML"
             break
         fi
     done
@@ -462,6 +455,7 @@ getWidgetInfo() {
 }
 
 downloadWidget() {
+    tempFile="$tempDir/$(basename "${link}")"
     tput sc; curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
     spinner $! "$WIDGETS_DOWNLOADING $1"; tput rc; tput ed
 
@@ -496,7 +490,7 @@ downloadWidget() {
         kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
     fi
 
-    sleep 1; echo -e "\n"
+    sleep 1
 
     return 0
 }
@@ -598,11 +592,9 @@ upgradeWidget() {
         printError "$WIDGETS_FETCHING"; onError
     fi
 
-    formatXML $XML
-    link=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "downloadlink" -n $XML)
-    latestVer=$(xmlstarlet sel -t -m "//id[text()='$1']/.." -v "version" -n $XML)
-    tempFile="$tempDir/$(basename "${link}")"
-
+    latestVer=$(xmlstarlet sel -t -v "//content[id='$1']/version" "$XML")
+    
+    getLink $1; [[ $? -ne 0 ]] && exit
     downloadWidget $2; [[ $? -ne 0 ]] && exit
 
     [[ "$restartShell" = "true" && "$2" != "apdatifier" ]] && {
@@ -617,6 +609,32 @@ upgradeWidget() {
         done
         eval ${restartCommand}
     }
+}
+
+
+getLink() {
+    local id="$1"
+    local signed=()
+    local files=0
+
+    while read -r download_version; do
+        ((files++))
+        if [[ "$latestVer" == "$(xmlstarlet sel -t -v "//content[id='$id']/$download_version" "$XML")" ]]; then
+            signed+=("${download_version#download_version}")
+        fi
+    done < <(xmlstarlet sel -t -m "//content[id='$id']/*" -v "name()" -n "$XML" | grep -o 'download_version[0-9]\+')
+
+    if [[ $files -eq 1 || ${#signed[@]} -eq 1 ]]; then
+        link=$(xmlstarlet sel -t -v "//content[id='$id']/downloadlink${signed[0]:-1}" "$XML")
+        return 0
+    else
+        if [[ ${#signed[@]} -eq 0 ]]; then
+            printError "$files files are available, but none are tagged as version $latestVer. Skipped..."
+        elif [[ ${#signed[@]} > 1 ]]; then
+            printError "$files files are available for download, but all are labeled as version $latestVer. Skipped..."
+        fi
+        return 1
+    fi
 }
 
 
@@ -661,10 +679,6 @@ printExec() { echo -e "${b}${ICO_EXEC}${c}${bold} ${MNG_EXEC}${c} $wrapper_sudo 
 oneLine() { tr '\n' ' ' | sed 's/ $//'; }
 checkPkg() { for cmd in ${1}; do command -v "$cmd" >/dev/null || { printError "${CMD_ERR} ${cmd}"; [ $2 ] && returnMenu || exit; }; done; }
 spinner() { spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"; while kill -0 $1 2>/dev/null; do i=$(( (i+1) %10 )); printf "${r}\r${spin:$i:1}${c} ${b}$2${c}"; sleep .2; done; }
-
-formatXML() { sed -i -E 's/downloadlink[0-9]+>/downloadlink>/g' $1; sed -i 's/details="full"/details="summary"/g' $1; \
-              xmlstarlet ed -L -d "//content[@details='summary']/downloadlink[position() < last()]" \
-                               -d "//content[@details='summary']/*[not(self::id or self::name or self::version or self::downloadlink)]" $1; }
 
 clearVer() { local ver="${1}"; ver="${ver#.}"; ver="${ver%.}"; ver="${ver//[!0-9.]}"; echo "${ver}"; }
 compareVer() {
