@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-10-18 20:43+0300\n"
-"PO-Revision-Date: 2024-10-18 13:21-0300\n"
-"Last-Translator: João Victor Leal \n"
+"PO-Revision-Date: 2024-10-18 15:22-0300\n"
+"Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr "Pressione Enter para fechar"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "Ignorado..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list..."
@@ -110,7 +110,7 @@ msgstr "Reiniciar o plasmashell agora?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "Sem descrição"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
@@ -134,15 +134,17 @@ msgstr "Formato de arquivo não suportado"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "Não há arquivos para download"
 
 #: ../contents/tools/sh/messages
 msgid "files are available, but none are tagged as version"
-msgstr ""
+msgstr "os arquivos estão disponíveis, mas nenhum está marcado como versão"
 
 #: ../contents/tools/sh/messages
 msgid "files are available for download, but all are tagged as version"
 msgstr ""
+"os arquivos estão disponíveis para download, mas todos estão marcados como "
+"versão"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -605,6 +607,9 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
+"Não habilite esta opção se o widget não for utilizado na bandeja do sistema, "
+"caso contrário, você não conseguirá abrir as configurações clicando com o "
+"botão direito."
 
 #: ../contents/ui/configuration/General.qml
 msgid "scroll up"
@@ -657,6 +662,8 @@ msgid ""
 "To further configure, click the button below -> Application Settings -> "
 "Apdatifier"
 msgstr ""
+"Para configurar ainda mais, clique no botão abaixo -> Configurações do "
+"aplicativo -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -771,7 +778,7 @@ msgstr "Gerador de mirrorlist do pacman"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "Apenas para repositórios oficiais"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
