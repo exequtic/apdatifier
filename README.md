@@ -78,12 +78,12 @@ Feel free to help translate to new languages or update and improve the ones that
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
 | English   |     198 |       |
-| Brazilian | 190/198 |   95% |
+| Brazilian | 198/198 |  100% |
 | Dutch     | 190/198 |   95% |
 | French    | 190/198 |   95% |
 | German    | 190/198 |   95% |
 | Korean    | 112/198 |   56% |
-| Russian   | 190/198 |   95% |
+| Russian   | 198/198 |  100% |
 |-----------|---------|-------|
 ```
 

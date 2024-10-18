@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-10-18 20:43+0300\n"
-"PO-Revision-Date: 2024-06-29 12:37+0300\n"
+"PO-Revision-Date: 2024-10-18 21:46+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -58,7 +58,7 @@ msgstr "Нажмите Enter чтобы закрыть"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "Пропущено..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list..."
@@ -108,7 +108,7 @@ msgstr "Перезапустить plasmashell сейчас?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "Нет описания"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
@@ -132,15 +132,15 @@ msgstr "Не поддерживаемый формат файла"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "Нет файлов для загрузки"
 
 #: ../contents/tools/sh/messages
 msgid "files are available, but none are tagged as version"
-msgstr ""
+msgstr "файлов доступно, но ни один из них не подписан версией"
 
 #: ../contents/tools/sh/messages
 msgid "files are available for download, but all are tagged as version"
-msgstr ""
+msgstr "файлов доступно, но все они подписаны версией"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -331,9 +331,9 @@ msgstr "Показывать когда"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] "обновление доступно"
-msgstr[1] "обновления доступно"
-msgstr[2] "обновлений доступно"
+msgstr[0] "обновление доступно "
+msgstr[1] "обновления доступно "
+msgstr[2] "обновлений доступно "
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -602,6 +602,8 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
+"Не включайте эту опцию, если виджет не используется в системном трее; иначе "
+"вы не сможете открыть настройки, щелкнув правой кнопкой мыши."
 
 #: ../contents/ui/configuration/General.qml
 msgid "scroll up"
@@ -653,6 +655,8 @@ msgid ""
 "To further configure, click the button below -> Application Settings -> "
 "Apdatifier"
 msgstr ""
+"Для дополнительных настроек, нажмите кнопку ниже -> Параметры приложения -> "
+"Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -767,7 +771,7 @@ msgstr "Генератор списка зеркал"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "Только для официальных репозиториев"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
