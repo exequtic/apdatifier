@@ -78,7 +78,7 @@ function loadConfig() {
 
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -90,10 +90,10 @@ function checkDependencies() {
         const [pacman, checkupdates, flatpak] = output.map(Boolean)
         cfg.packages = { pacman, checkupdates, flatpak }
 
-        const wrappers = populate(output.slice(3, 6).filter(Boolean))
+        const wrappers = populate(output.slice(3, 5).filter(Boolean))
         cfg.wrappers = wrappers.length > 0 ? wrappers : null
 
-        const terminals = populate(output.slice(6).filter(Boolean))
+        const terminals = populate(output.slice(5).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
 
         refreshListModel()
