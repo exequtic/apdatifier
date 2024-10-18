@@ -15,7 +15,7 @@ const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
-const runInTerminal = (script, ...args) => sh.exec(bash('terminal', script, ...args))
+const runInTerminal = (script, ...args) => sh.exec('kstart ' + bash('terminal', script, ...args))
 
 function Error(code, err) {
     if (err) {
