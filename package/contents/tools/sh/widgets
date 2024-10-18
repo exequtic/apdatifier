@@ -7,7 +7,6 @@ source "$(dirname "$0")/utils"
 source "$(dirname "$0")/widgets-id"
 
 downloadXML() {
-    XML=$(mktemp)
     echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
 
     local page=0
@@ -135,6 +134,8 @@ checkWidgets() {
 
     declare -a plasmoid lines
     getWidgets
+
+    XML=$(mktemp)
     downloadXML notTerminal
 
     first=true; out="["
@@ -158,7 +159,6 @@ checkWidgets() {
 
     rm $XML
     echo -e "$out]"
-    # echo "$out]" | jq .
 }
 
 downloadWidget() {
@@ -205,9 +205,11 @@ upgradeAllWidgets() {
     declare -a plasmoid lines
     getWidgets
 
+    XML=$(mktemp)
     tput sc; downloadXML &
     spinner $! "$WIDGETS_CHECK"
     tput rc; tput ed; printDone "$WIDGETS_CHECK"
+    echo
 
     hasUpdates="false"
     for plasmoid in "${lines[@]}"; do
