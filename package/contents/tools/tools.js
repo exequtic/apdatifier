@@ -3,19 +3,7 @@
     SPDX-License-Identifier: MIT
 */
 
-
-function Error(code, err) {
-    if (err) {
-        if (cfg.notifyErrors) sendNotify("error", "Exit code" + ": " + code, err.trim())
-        sts.errMsg = err.trim().substring(0, 150) + "..."
-        setStatusBar(code)
-        return true
-    }
-    return false
-}
-
-
-const script = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh"
+const scriptDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/"
 const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
 const cacheFile1 = configDir + "updates.json"
@@ -26,22 +14,32 @@ const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, file) => `echo '${data}' > "${file}"`
 const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
 
-function start() {
+const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
+const runInTerminal = (script, ...args) => sh.exec(bash('terminal', script, ...args))
+
+function Error(code, err) {
+    if (err) {
+        cfg.notifyErrors && sendNotify("error", "Exit code" + ": " + code, err.trim())
+        sts.errMsg = err.trim().substring(0, 150) + "..."
+        setStatusBar(code)
+        return true
+    }
+    return false
+}
+
+function init() {
     loadConfig()
-    sh.exec(`${script} init`, (cmd, out, err, code) => {
+    sh.exec(bash('init'))
+    sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
         if (Error(code, err)) return
-        sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
+        const cache2 = out ? JSON.parse(out.trim()) : []
+        sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            const cache2 = out ? JSON.parse(out.trim()) : []
-            sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
-                if (Error(code, err)) return
-                cache = out ? keys(cache2.concat(JSON.parse(out.trim()))) : []
-                checkDependencies()
-            })
+            cache = out ? keys(cache2.concat(JSON.parse(out.trim()))) : []
+            checkDependencies()
         })
     })
 }
-
 
 function saveConfig() {
     if (saveTimer.running) return
@@ -79,24 +77,8 @@ function loadConfig() {
 }
 
 
-function run() {
-    sts.errMsg = ""
-
-    if (sts.upgrading) return true
-    if (sts.busy) {
-        sh.stop()
-        setStatusBar()
-        return true
-    }
-
-    searchTimer.stop()
-    sts.busy = true
-    return false
-}
-
-
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru trizen yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -121,87 +103,29 @@ function checkDependencies() {
 
 
 function defineCommands() {
-    cmd.trizen = cfg.wrapper.split("/").pop() === "trizen"
-    cmd.yakuake = cfg.terminal.split("/").pop() === "yakuake"
-
-    const wrapperCmd = cmd.trizen ? `${cfg.wrapper} -Qu; ${cfg.wrapper} -Qu -a 2> >(grep ':: Unable' >&2)` : `${cfg.wrapper} -Qu`
-
     const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
     cmd.news = yayOrParu ? yayOrParu + " -Pwwq" : null
 
     cmd.arch = pkg.checkupdates
-                    ? cfg.aur ? `bash -c "(checkupdates; ${wrapperCmd}) | sort -u -t' ' -k1,1"` : "checkupdates"
-                    : cfg.aur ? wrapperCmd : "pacman -Qu"
+                    ? cfg.aur ? `checkupdates; ${cfg.wrapper} -Qua` : "checkupdates"
+                    : cfg.aur ? cfg.wrapper + " -Qu" : "pacman -Qu"
 
     if (!pkg.pacman || !cfg.arch) delete cmd.arch
-
-    const flags = cfg.upgradeFlags ? cfg.upgradeFlagsText : ""
-    const arch = cmd.arch ? (cfg.aur ? (`${cfg.wrapper} -Syu ${flags}`).trim() + ";" : (`${cfg.sudoBin} pacman -Syu ${flags}`).trim() + ";") : ""
-    const flatpak = cfg.flatpak ? "flatpak update;" : ""
-    const widgets = cfg.widgets && applyRules(cache).some(el => el.RE === "kde-store") ? `${script} upgradeAllWidgets;` : ""
-    const mirrorlist = cfg.arch && cfg.mirrors ? `${cfg.sudoBin} ${script} mirrorlist;` : ""
-    const commands = (`${mirrorlist} ${arch} ${flatpak} ${widgets}`).trim()
-
-    if (cmd.yakuake) {
-        const qdbus = "qdbus6 org.kde.yakuake /yakuake/sessions"
-        cmd.terminal = `${qdbus} addSession; ${qdbus} runCommandInTerminal $(${qdbus} org.kde.yakuake.activeSessionId)`
-        cmd.upgrade = `${cmd.terminal} "tput sc; clear; ${commands}"`
-        return
-    }
-
-    const init = cmd.arch ? i18n("Full system upgrade") : i18n("Upgrade")
-    const done = i18n("Press Enter to close")
-    const blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const execIco = cfg.termFont ? "󰅱 " : ":: "
-    const exec = blue + execIco + reset + bold + blue + i18n("Executed:") + " " + reset
-    const executed = cmd.arch ? "echo; echo -e " + exec + arch + " echo" : "echo "
-    const trap = "trap '' SIGINT"
-    const terminalArg = { "gnome-terminal": " --", "terminator": " -x" }
-    cmd.terminal = cfg.terminal + (terminalArg[cfg.terminal.split("/").pop()] || " -e")
-    cmd.upgrade = `${cmd.terminal} bash -c "${trap}; ${print(init)}; ${executed}; ${commands} ${print(done)}; read"`
 }
 
 
 function upgradePackage(name, id, contentID) {
-    defineCommands()
-
-    const init = i18n("Upgrade") + " " + name
-    const done = i18n("Press Enter to close")
-    const trap = "trap '' SIGINT"
-
     if (id) {
-        cmd.yakuake ? sh.exec(`${cmd.terminal} "tput sc; clear; flatpak update ${id}"`)
-                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; echo; flatpak update ${id}; ${print(done)}; read"`)
-        return
+        runInTerminal("upgrade", "flatpak", id, name)
+    } else if (contentID) {
+        runInTerminal("upgrade", "widget", contentID, name)
+    } else {
+        runInTerminal("upgrade", "arch", name)
     }
-
-    if (contentID) {
-        const commands = `${script} upgradeWidget ${contentID} ${name}`
-        cmd.yakuake ? sh.exec(`${cmd.terminal} "tput sc; clear; bash ${commands}"`)
-                    : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${commands}; ${print(done)}; read"`)
-        return
-    }
-
-    const red = "\x1B[1m\x1B[31m", blue = "\x1B[1m\x1B[34m", bold = "\x1B[1m", reset = "\x1B[0m"
-    const warningIco = cfg.termFont ? "  " : ":: "
-    const warn1 = bold + red + warningIco + i18n("Read the Arch Wiki - Partial Upgrades") + reset
-    const warn2 = bold + red + warningIco + i18n("Perform full system upgrade instead partial upgrade!") + reset
-    const warning = "echo -e '\n" + warn1 + "\n" + warn2 + "'"
-    const execIco = cfg.termFont ? "󰅱 " : ":: "
-    const exec = blue + execIco + reset + bold + blue + i18n("Executed:") + " " + reset
-    const command = cfg.aur ? `${cfg.wrapper} -Sy ${name}` : `${cfg.sudoBin} pacman -Sy ${name}`
-    const executed = cfg.aur && cmd.trizen ? "echo " : "echo; echo -e " + exec + command + "; echo"
-
-    cmd.yakuake ? sh.exec(`${cmd.terminal} "${command}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${trap}; ${print(init)}; ${warning}; ${executed}; ${command}; ${print(done)}; read"`)
 }
 
 function management() {
-    defineCommands()
-    const commands = `${script} management`
-
-    cmd.yakuake ? sh.exec(`${cmd.terminal} "${commands}"`)
-                : sh.exec(`${cmd.terminal} bash -c "${commands}"`)
+    runInTerminal("management")
 }
 
 
@@ -219,7 +143,7 @@ function enableUpgrading(state) {
 }
 
 function upgradingState(startup) {
-    sh.exec(`ps aux | grep "${"[:]" + ":".repeat(47)}" | grep -v "${cmd.terminal}"`, (cmd, out, err, code) => {
+    sh.exec(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade full"`, (cmd, out, err, code) => {
         if (out || err) {
             enableUpgrading(true)
         } else if (startup) {
@@ -233,14 +157,23 @@ function upgradingState(startup) {
 
 function upgradeSystem() {
     if (sts.upgrading) return
-    defineCommands()
-    if (!cmd.yakuake) enableUpgrading(true)
-    sh.exec(cmd.upgrade)
+    enableUpgrading(true)
+    runInTerminal("upgrade", "full")
 }
 
 
 function checkUpdates() {
-    if (run()) return
+    if (sts.upgrading) return
+    if (sts.busy) {
+        sh.stop()
+        setStatusBar()
+        return
+    }
+
+    searchTimer.stop()
+    sts.busy = true
+    sts.errMsg = ""
+
     defineCommands()
 
     let arch = [], flatpak = [], widgets = []
@@ -307,7 +240,7 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde"
         sts.statusMsg = i18n("Checking widgets updates...")
 
-        sh.exec(`${script} checkWidgets`, (cmd, out, err, code) => {
+        sh.exec(bash('widgets', 'check'), (cmd, out, err, code) => {
             if (Error(code, err)) return
             out = out.trim()
 
@@ -611,24 +544,6 @@ function setAnchor(position, stopIndicator) {
     
     return Position ? frame[position] : undefined
 }
-
-
-function print(text) {
-    let ooo = ":".repeat(48)
-    let oo = ":".repeat(Math.ceil((ooo.length - text.length - 2) / 2))
-    let o = text.length % 2 !== 0 ? oo.substring(1) : oo
-
-    const green = "\x1B[1m\x1B[32m", bold = "\x1B[1m", reset = "\x1B[0m"
-    text = bold + text + reset
-    ooo = green + ooo + reset
-    oo =  green + oo + reset
-    o =  green + o + reset
-
-    return `echo; echo -e ${ooo}
-            echo -e ${oo} ${text} ${o}
-            echo -e ${ooo}`
-}
-
 
 function switchInterval() {
     cfg.interval = !cfg.interval

@@ -1,0 +1,164 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/utils"
+
+trap '' SIGINT
+
+[ "$1" ] && selected="$1" || selected=0
+
+[[ $aur != true || -z $wrapper ]] && wrapper="pacman"
+wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
+[[ $wrapper = "pacman" ]] && wrapper_sudo="$sudoBin pacman"
+
+returnMenu() {
+    printReturn
+    showOptions $selected
+    exit
+}
+
+options=(
+    "${ICO_MNG_OPT_01}${MNG_OPT_01}"
+    "${ICO_MNG_OPT_02}${MNG_OPT_02}"
+    "${ICO_MNG_OPT_03}${MNG_OPT_03}"
+    "${ICO_MNG_OPT_04}${MNG_OPT_04}"
+    "${ICO_MNG_OPT_05}${MNG_OPT_05}"
+    "${ICO_MNG_OPT_06}${MNG_OPT_06}"
+    "${ICO_MNG_OPT_07}${MNG_OPT_07}"
+    "${ICO_MNG_OPT_08}${MNG_OPT_08}"
+    "${ICO_MNG_OPT_09}${MNG_OPT_09}"
+    "${ICO_MNG_OPT_10}${MNG_OPT_10}"
+    "${ICO_MNG_OPT_11}${MNG_OPT_11}"
+    "${ICO_MNG_OPT_12}${MNG_OPT_12}"
+)
+
+showOptions() {
+    while true; do
+        clear; tput civis
+        for i in "${!options[@]}"; do
+            if [[ $i -eq $selected ]]; then
+                echo -e "$(colorize red bold $ICO_SELECT) $(colorize green bold ${options[$i]})"
+            else
+                echo -e "  ${options[$i]}"
+            fi
+        done
+
+        read -rsn1 input
+        case $input in
+            A) ((selected--));;
+            B) ((selected++));;
+           "") break;;
+        esac
+
+        if [[ $selected -lt 0 ]]; then
+            selected=$(( ${#options[@]} - 1 ))
+        elif [ $selected -ge ${#options[@]} ]; then
+            selected=0
+        fi
+    done
+
+    clear; tput cnorm
+
+    case $selected in
+        0) fzfPreview Slq;;
+        1) fzfPreview Qq;;
+        2) fzfPreview Qqe;;
+        3) fzfPreview Qqet;;
+        4) fzfPreview Qqtd;;
+        5) uninstallOrphans;;
+        6) downgradePackage;;
+        7) printExec -Scc; $wrapper_sudo -Scc; returnMenu;;
+        8) printExec -Sc; $wrapper_sudo -Sc; returnMenu;;
+        9) rebuildPython;;
+        10) $scriptDir/mirrorlist true $selected;;
+        11) exit;;
+    esac
+}
+
+fzfPreview() {
+    dependencies "fzf" true
+
+    case $1 in
+        Slq) fzfExec -$1 -Si -S;;
+          *) fzfExec -$1 -Qil -Rsn;;
+    esac
+}
+
+fzfExec() {
+    packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper $2 {}")
+    if [[ -z "$packages" ]]; then
+        showOptions $selected
+    else
+        packages=$(echo "$packages" | oneLine)
+        printExec $3 "$packages"
+        $wrapper_sudo $3 $packages
+        returnMenu
+    fi
+}
+
+uninstallOrphans() {
+    if [[ -n $($wrapper -Qdt) ]]; then
+        printExec -Rsn "$($wrapper -Qqtd | oneLine)"
+        printImportant "$MNG_WARN"; echo
+        $wrapper_sudo -Rsn $($wrapper -Qqtd)
+    else
+        printDone "$MNG_DONE"
+    fi
+
+    returnMenu
+}
+
+downgradePackage() {
+    dependencies "fzf" true
+    pacman_cache="$(pacman-conf CacheDir)"
+    wrapper_cache="$HOME/.cache/$wrapper"
+
+    cache=$(find $pacman_cache $wrapper_cache -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | sort | \
+            fzf --exact --layout=reverse | oneLine)
+
+    if [[ -z "$cache" ]]; then
+        showOptions $selected
+    else
+        if [ -f "${pacman_cache}${cache}" ]; then
+            printExec -U "${pacman_cache}${cache}"
+            $wrapper_sudo -U "${pacman_cache}${cache}"
+        else
+            cache=$(find $wrapper_cache -type f -name $cache 2>/dev/null)
+            printExec -U "${cache}"
+            $wrapper_sudo -U $cache
+        fi
+        returnMenu
+    fi
+}
+
+rebuildPython() {
+    [[ $wrapper = "pacman" ]] && { printDone "$MNG_DONE"; returnMenu; }
+    rebuild_dir=$(find /usr/lib -maxdepth 1 -type d -name "python*.*" | oneLine)
+
+    if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
+        rebuild_dir="${rebuild_dir#* }"
+        rebuild_packages=$( { pacman -Qqo "$rebuild_dir" | pacman -Qqm - | oneLine; } 2>/dev/null)
+        if [[ -z "$rebuild_packages" ]]; then
+            printDone "$MNG_DONE"
+        else
+            printExec "-S --rebuild" "$rebuild_packages"
+            while true; do
+                printQuestion "$MNG_RESUME"; read -r answer
+                case "$answer" in
+                        [Yy]*) echo; break;;
+                     [Nn]*|"") echo; showOptions;;
+                            *)  ;;
+                esac
+            done
+            pacman -Qqo "$rebuild_dir" | pacman -Qqm - | $wrapper -S --rebuild -
+        fi
+    else
+        printDone "$MNG_DONE"
+    fi
+
+    returnMenu
+}
+
+showOptions

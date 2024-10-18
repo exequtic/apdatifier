@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/vars"
+
+declare -A terminalArg
+
+terminalArg["gnome-terminal"]=" --"
+terminalArg["terminator"]=" -x"
+
+arg="${terminalArg[$(basename "$terminal")]:-" -e"}"
+cmd="$terminal$arg bash -c \"\$(dirname "$0")/$@\""
+
+eval ${cmd}

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/vars"
+
+[ -d $iconsDir ] || mkdir -p $iconsDir
+[ -d $notifDir ] || mkdir -p $notifDir
+[ -d $configDir ] || mkdir -p $configDir
+
+[ -f $iconsDir/$icon1 ] || cp $appletDir/contents/ui/assets/icons/$icon1 $iconsDir
+[ -f $iconsDir/$icon2 ] || cp $appletDir/contents/ui/assets/icons/$icon2 $iconsDir
+[ -f $iconsDir/$icon3 ] || cp $appletDir/contents/ui/assets/icons/$icon3 $iconsDir
+
+if [ -d $notifDir ]; then
+cat > "$notifDir/$notif" << EOF
+[Global]
+IconName=apdatifier-plasmoid
+Comment=Apdatifier
+
+[Event/updates]
+Name=New updates
+Comment=Event when updates notification enabled without sound
+Action=Popup
+
+[Event/updatesSound]
+Name=New updates (with sound)
+Comment=Event when updates notification enabled with sound
+Action=Popup|Sound
+Sound=service-login
+
+[Event/error]
+Name=Error
+Comment=Event when error notification enabled without sound
+Action=Popup
+
+[Event/errorSound]
+Name=Error (with sound)
+Comment=Event when errors notification enabled with sound
+Action=Popup|Sound
+Sound=dialog-error-serious
+
+[Event/news]
+Name=News
+Comment=Event when news notification without sound
+Action=Popup
+
+[Event/newsSound]
+Name=News (with sound)
+Comment=Event when news notification with sound
+Action=Popup|Sound
+Sound=dialog-information
+EOF
+fi

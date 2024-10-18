@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/utils"
+
+trap '' SIGINT
+
+fullSystemUpgrade() {
+    if [ "$arch" = true ]; then
+        printMsg "$UPGRADE_FULL"; echo
+
+        local archCmd="$wrapper -Syu"
+
+        [ "$mirrors" = true ] && $scriptDir/mirrorlist
+        [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
+        [ "$aur" = false ] && archCmd="$sudoBin $archCmd"
+
+        echo
+        printExec "$archCmd"
+
+        eval ${archCmd}
+    fi
+
+    if [ "$flatpak" = true ]; then
+        printMsg "Flatpak Upgrade"
+        echo
+
+        local flatpakCmd="flatpak update"
+
+        printExec "$flatpakCmd"
+
+        eval ${flatpakCmd}
+    fi
+
+    if [ "$widgets" = true ]; then
+        printMsg "Plasma Widgets Upgrade"
+        echo
+        $scriptDir/widgets upgradeAll
+    fi
+
+    printClose
+}
+
+arch_package() {
+    printMsg "Upgrade: $1"
+    echo
+
+    printImportant "$UPGRADE_WIKI"
+    printImportant "$UPGRADE_PARTIAL"
+    echo
+
+    printExec -Sy $1
+
+    yay -Sy $1
+
+    printClose
+}
+
+flatpak_package() {
+    printMsg "Upgrade: $2"
+    echo
+
+    printExec "flatpak update" $1
+
+    flatpak update $1
+
+    printClose
+}
+
+widget_package() {
+    printMsg "Upgrade: $2"
+    echo
+
+    $scriptDir/widgets upgrade $1 $2
+
+    printClose
+}
+
+case "$1" in
+          "full") fullSystemUpgrade ;;
+          "arch") shift; arch_package $1 ;;
+       "flatpak") shift; flatpak_package $1 $2;;
+        "widget") shift; widget_package $1 $2;;
+               *) exit;;
+esac

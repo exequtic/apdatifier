@@ -144,5 +144,5 @@ PlasmoidItem {
     onSortingChanged: refresh()
     onRulesChanged: refresh()
     onConfigurationChanged: saveTimer.start()
-	Component.onCompleted: JS.start()
+	Component.onCompleted: JS.init()
 }

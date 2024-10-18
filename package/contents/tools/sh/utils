@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/vars"
+
+colorize() {
+    local red="\033[31m"
+    local green="\033[32m"
+    local blue="\033[34m"
+    local yellow="\033[33m"
+    local white="\033[37m"
+    local clear="\033[0m"
+    local bold="\033[1m"
+
+    local color="$1"; shift
+    local style=""
+
+    if [[ "$1" == "bold" ]]; then
+        style="${!1}"
+        shift
+    fi
+
+    echo -ne "${!color}${style}$*${clear}"
+}
+
+printDone() {
+    echo -e "$(colorize green $ICO_DONE) $(colorize green bold $1)"
+}
+
+printError() {
+    echo -e "$(colorize red $ICO_ERR) $(colorize red bold $1)"
+}
+
+printImportant() {
+    echo -e "$(colorize yellow $ICO_WARN) $(colorize yellow bold $1) $2"
+}
+
+printQuestion() {
+    echo -en "$(colorize yellow $ICO_QUESTION) $(colorize yellow bold $1) [y/N]: "
+}
+
+printExec() {
+    echo -e "$(colorize blue $ICO_EXEC) $(colorize blue bold $MNG_EXEC) $(colorize white $wrapper_sudo $1 $2) \n"
+}
+
+printMsg() {
+    local text="$1"
+    local padding=$(( (48 - ${#text} - 2) / 2 ))
+    local l=$(printf ":%.0s" {1..48})
+    local s=$(printf ":%.0s" $(seq 1 $padding))
+    local p=${s}$( (( ${#text} % 2 )) && echo ":" )
+
+    echo
+    echo -e "$(colorize green bold $l)"
+    echo -e "$(colorize green bold $s) $(colorize white bold $text) $(colorize green bold $p)"
+    echo -e "$(colorize green bold $l)"
+}
+
+printReturn() {
+    tput civis
+    echo
+    echo -e "$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
+    read -r
+    tput cnorm
+}
+
+printClose() {
+    tput civis
+    printMsg "$UPGRADE_ENTER"
+    read -r
+    tput cnorm
+}
+
+dependencies() {
+    for cmd in ${1}; do
+        if ! command -v "$cmd" >/dev/null; then
+            printError "${CMD_ERR} ${cmd}"
+            [ $2 ] && returnMenu || exit
+        fi
+    done
+}
+
+oneLine() {
+    tr '\n' ' ' | sed 's/ $//'
+}
+
+spinner() {
+    local spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+    while kill -0 $1 2>/dev/null; do
+        i=$(( (i+1) %10 ))
+        printf "\r$(colorize red ${spin:$i:1}) $(colorize blue bold $2)"
+        sleep .2
+    done
+}
+
+clearVer() {
+    local ver="${1}"
+    ver="${ver#.}"
+    ver="${ver%.}"
+    ver="${ver//[!0-9.]}"
+    echo "${ver}"
+}
+
+compareVer() {
+    [[ $1 == $2 ]] && return 0
+    local IFS=.; local i ver1=($1) ver2=($2)
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do ver1[i]=0; done
+    for ((i=0; i<${#ver1[@]}; i++)); do
+        [[ -z ${ver2[i]} ]] && ver2[i]=0
+        ((10#${ver1[i]} > 10#${ver2[i]})) && return 1
+        ((10#${ver1[i]} < 10#${ver2[i]})) && return 2
+    done
+    return 0
+}
+
+restartPlasmashell() {
+    if [[ "$restartShell" = true ]]; then
+        sleep 1
+        while true; do
+            printQuestion "$WIDGETS_RESTART"; read -r answer
+            case "$answer" in
+                    [Yy]*) break;;
+                 [Nn]*|"") exit;;
+                        *)  ;;
+            esac
+        done
+        eval ${restartCommand}
+    else
+        printImportant "$WIDGETS_WARN"
+    fi
+}
