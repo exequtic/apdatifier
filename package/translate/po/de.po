@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-28 19:25+0300\n"
+"POT-Creation-Date: 2024-10-18 20:43+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "General"
 msgstr "Allgemein"
 
-#: ../contents/config/config.qml ../contents/tools/tools.js
+#: ../contents/config/config.qml
 msgid "Upgrade"
 msgstr "Aktualisierung"
 
@@ -38,26 +38,192 @@ msgstr "Regeln"
 msgid "Support me"
 msgstr "Unterstütze mich"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Full system upgrade"
 msgstr "Vollständiges System-Upgrade"
 
-#: ../contents/tools/tools.js
-msgid "Press Enter to close"
-msgstr "Eingabetaste drücken zum Beenden"
-
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid "Executed:"
-msgstr "Ausgeführt:"
-
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
 msgstr "Lesen Sie das Arch Wiki - Partielle Upgrades"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
 msgstr ""
 "Führen Sie ein vollständiges System-Upgrade statt eines Teil-Upgrades durch!"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to close"
+msgstr "Eingabetaste drücken zum Beenden"
+
+#: ../contents/tools/sh/messages
+msgid "Skipped..."
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Fetching the latest filtered mirror list..."
+msgstr "Abrufen der letzten gefilterten Spiegelserverliste..."
+
+#: ../contents/tools/sh/messages
+msgid "Ranking mirrors by their connection and opening speed..."
+msgstr ""
+"Ranking der Spiegelserver nach ihrer Verbindungs- und "
+"Öffnungsgeschwindigkeit..."
+
+#: ../contents/tools/sh/messages
+msgid "Check your mirrorlist generator settings..."
+msgstr "Überprüfen Sie die Einstellungen Ihres Spiegellistengenerators..."
+
+#: ../contents/tools/sh/messages
+msgid "was updated with the following servers:"
+msgstr "wurde mit den folgenden Servern aktualisiert:"
+
+#: ../contents/tools/sh/messages
+msgid "To write to the mirrorlist file, sudo privileges are required"
+msgstr "Um in die Mirrorlist-Datei zu schreiben, sind sudo-Rechte erforderlich"
+
+#: ../contents/tools/sh/messages
+msgid "Your current mirrorlist:"
+msgstr "Ihre aktuelle Spiegelserverliste:"
+
+#: ../contents/tools/sh/messages
+msgid ""
+"For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgstr ""
+"Nach dem Upgrade mancher Widgets, müssen Sie sich neu anmelden oder "
+"Plasmashell neu starten"
+
+#: ../contents/tools/sh/messages
+msgid "Checking widgets for updates..."
+msgstr "Prüfe Widgets auf Aktualisierungen..."
+
+#: ../contents/tools/sh/messages
+msgid "Fetching information about widget..."
+msgstr "Hole Informationen über Widget..."
+
+#: ../contents/tools/sh/messages
+msgid "Downloading"
+msgstr "Herunterladen"
+
+#: ../contents/tools/sh/messages
+msgid "Restart plasmashell now?"
+msgstr "Plasmashell jetzt neu starten?"
+
+#: ../contents/tools/sh/messages
+msgid "No description"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid ""
+"Too many API requests in the last 15 minutes from your IP address, please "
+"try again later"
+msgstr ""
+"Zu viele API-Anfragen in den letzten 15 Minuten von Ihrer IP-Adresse, bitte "
+"versuchen Sie es später noch einmal"
+
+#: ../contents/tools/sh/messages
+msgid "File metadata.json not found"
+msgstr "Die Datei metadata.json wurde nicht gefunden"
+
+#: ../contents/tools/sh/messages
+msgid "Errors in metadata.json file"
+msgstr "Fehler in der Datei metadata.json"
+
+#: ../contents/tools/sh/messages
+msgid "Unsupported file format"
+msgstr "Nicht unterstütztes Dateiformat"
+
+#: ../contents/tools/sh/messages
+msgid "No files for download"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "files are available, but none are tagged as version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "files are available for download, but all are tagged as version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "List all available packages in repositories"
+msgstr "Alle verfügbaren Pakete in Repositories auflisten"
+
+#: ../contents/tools/sh/messages
+msgid "List all installed packages"
+msgstr "Alle installierten Pakete auflisten"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages"
+msgstr "Explizit installierte Pakete auflisten"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages and isn't a dependency of anything"
+msgstr ""
+"Explizit installierte Pakete auflisten, die nicht als Abhängigkeiten "
+"installiert wurden"
+
+#: ../contents/tools/sh/messages
+msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgstr ""
+"Installierte Abhängigkeiten auflisten, die nicht mehr benötigt werden "
+"(Waisen)"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall orphan packages"
+msgstr "Verwaiste Pakete deinstallieren"
+
+#: ../contents/tools/sh/messages
+msgid "Install (downgrade) a package from cache"
+msgstr "Pakete aus dem Zwischenspeicher installieren (downgraden)"
+
+#: ../contents/tools/sh/messages
+msgid "Remove ALL cached packages"
+msgstr "ALLE zwischengespeicherten Pakete entfernen"
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached packages that are not currently installed"
+msgstr ""
+"Zwischengespeicherte Pakete entfernen, die derzeit nicht installiert sind"
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR python packages after python upgrade"
+msgstr "AUR Python-Pakete neu erstellen nach einem Python-Upgrade"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrorlist"
+msgstr "Spiegelserverliste auffrischen"
+
+#: ../contents/tools/sh/messages
+msgid "Exit"
+msgstr "Verlassen"
+
+#: ../contents/tools/sh/messages
+msgid "Review dependency warnings before removing"
+msgstr "Überprüfung von Warnungen vor dem Entfernen von Abhängigkeiten"
+
+#: ../contents/tools/sh/messages
+msgid "Resume?"
+msgstr "Fortfahren?"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to return menu"
+msgstr "Drücken Sie die Enter, um zum Menü zurückzukehren"
+
+#: ../contents/tools/sh/messages
+msgid "Search:"
+msgstr "Suche:"
+
+#: ../contents/tools/sh/messages
+msgid "Executed:"
+msgstr "Ausgeführt:"
+
+#: ../contents/tools/sh/messages
+msgid "Nothing to do"
+msgstr "Nichts zu tun"
+
+#: ../contents/tools/sh/messages
+msgid "Required installed"
+msgstr "Erforderlich installiert"
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -78,14 +244,6 @@ msgstr "Prüfe auf Widgets-Updates..."
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "Widgets können nicht überprüft werden: "
-
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid ""
-"Too many API requests in the last 15 minutes from your IP address, please "
-"try again later"
-msgstr ""
-"Zu viele API-Anfragen in den letzten 15 Minuten von Ihrer IP-Adresse, bitte "
-"versuchen Sie es später noch einmal"
 
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
@@ -165,144 +323,6 @@ msgstr "Intervall wechseln"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Verwaltung"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching the latest filtered mirror list..."
-msgstr "Abrufen der letzten gefilterten Spiegelserverliste..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Ranking mirrors by their connection and opening speed..."
-msgstr ""
-"Ranking der Spiegelserver nach ihrer Verbindungs- und "
-"Öffnungsgeschwindigkeit..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Check your mirrorlist generator settings..."
-msgstr "Überprüfen Sie die Einstellungen Ihres Spiegellistengenerators..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "was updated with the following servers:"
-msgstr "wurde mit den folgenden Servern aktualisiert:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "Um in die Mirrorlist-Datei zu schreiben, sind sudo-Rechte erforderlich"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Your current mirrorlist:"
-msgstr "Ihre aktuelle Spiegelserverliste:"
-
-#: ../contents/ui/components/Messages.qml
-msgid ""
-"For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"Nach dem Upgrade mancher Widgets, müssen Sie sich neu anmelden oder "
-"Plasmashell neu starten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Checking widgets for updates..."
-msgstr "Prüfe Widgets auf Aktualisierungen..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching information about widget..."
-msgstr "Hole Informationen über Widget..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Downloading"
-msgstr "Herunterladen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Restart plasmashell now?"
-msgstr "Plasmashell jetzt neu starten?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "File metadata.json not found"
-msgstr "Die Datei metadata.json wurde nicht gefunden"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Errors in metadata.json file"
-msgstr "Fehler in der Datei metadata.json"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Unsupported file format"
-msgstr "Nicht unterstütztes Dateiformat"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all available packages in repositories"
-msgstr "Alle verfügbaren Pakete in Repositories auflisten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all installed packages"
-msgstr "Alle installierten Pakete auflisten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages"
-msgstr "Explizit installierte Pakete auflisten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr ""
-"Explizit installierte Pakete auflisten, die nicht als Abhängigkeiten "
-"installiert wurden"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr ""
-"Installierte Abhängigkeiten auflisten, die nicht mehr benötigt werden "
-"(Waisen)"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Uninstall orphan packages"
-msgstr "Verwaiste Pakete deinstallieren"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Install (downgrade) a package from cache"
-msgstr "Pakete aus dem Zwischenspeicher installieren (downgraden)"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove ALL cached packages"
-msgstr "ALLE zwischengespeicherten Pakete entfernen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove cached packages that are not currently installed"
-msgstr ""
-"Zwischengespeicherte Pakete entfernen, die derzeit nicht installiert sind"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "AUR Python-Pakete neu erstellen nach einem Python-Upgrade"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Refresh mirrorlist"
-msgstr "Spiegelserverliste auffrischen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Exit"
-msgstr "Verlassen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Review dependency warnings before removing"
-msgstr "Überprüfung von Warnungen vor dem Entfernen von Abhängigkeiten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Resume?"
-msgstr "Fortfahren?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Press Enter to return menu"
-msgstr "Drücken Sie die Enter, um zum Menü zurückzukehren"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Search:"
-msgstr "Suche:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Nothing to do"
-msgstr "Nichts zu tun"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Required installed"
-msgstr "Erforderlich installiert"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -587,6 +607,12 @@ msgid "right click"
 msgstr "Rechtsklick"
 
 #: ../contents/ui/configuration/General.qml
+msgid ""
+"Do not enable this option if the widget is not used in the system tray; "
+"otherwise, you will not be able to open the settings by right-clicking."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "scroll up"
 msgstr "nach oben scrollen"
 
@@ -635,11 +661,9 @@ msgstr "Persistente"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To further configure, click the button below -> Application-specific "
-"settings -> Apdatifier"
+"To further configure, click the button below -> Application Settings -> "
+"Apdatifier"
 msgstr ""
-"Um weitere Einstellungen vorzunehmen, klicken Sie auf die Schaltfläche unten "
-"-> Anwendungsspezifische Einstellungen -> Apdatierer"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -752,6 +776,10 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Pacman-Spiegellisten-Generator"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Only for official repositories"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -929,3 +957,10 @@ msgstr "Installationsdatum"
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "Installationsgrund"
+
+#~ msgid ""
+#~ "To further configure, click the button below -> Application-specific "
+#~ "settings -> Apdatifier"
+#~ msgstr ""
+#~ "Um weitere Einstellungen vorzunehmen, klicken Sie auf die Schaltfläche "
+#~ "unten -> Anwendungsspezifische Einstellungen -> Apdatierer"

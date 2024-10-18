@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-07-28 19:25+0300\n"
+"POT-Creation-Date: 2024-10-18 20:43+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "General"
 msgstr "Algemeen"
 
-#: ../contents/config/config.qml ../contents/tools/tools.js
+#: ../contents/config/config.qml
 msgid "Upgrade"
 msgstr "Bijwerken"
 
@@ -39,25 +39,187 @@ msgstr "Regels"
 msgid "Support me"
 msgstr "Doneren"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Full system upgrade"
 msgstr "Systeem volledig bijwerken"
 
-#: ../contents/tools/tools.js
-msgid "Press Enter to close"
-msgstr "Druk op enter om te sluiten"
-
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid "Executed:"
-msgstr "Uitgevoerd:"
-
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
 msgstr "Lees over gedeeltelijke opwaarderingen op de Arch-wiki"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
 msgstr "Voer een volledige opwaardering uit in plaats van een gedeeltelijke!"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to close"
+msgstr "Druk op enter om te sluiten"
+
+#: ../contents/tools/sh/messages
+msgid "Skipped..."
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Fetching the latest filtered mirror list..."
+msgstr "Bezig met ophalen van recentste, gefilterde spiegelserverlijst…"
+
+#: ../contents/tools/sh/messages
+msgid "Ranking mirrors by their connection and opening speed..."
+msgstr "Bezig met classificeren van spiegelservers op verbinding en snelheid…"
+
+#: ../contents/tools/sh/messages
+msgid "Check your mirrorlist generator settings..."
+msgstr "Bezig met controleren van genereerinstellingen…"
+
+#: ../contents/tools/sh/messages
+msgid "was updated with the following servers:"
+msgstr "is voorzien van de volgende servers:"
+
+#: ../contents/tools/sh/messages
+msgid "To write to the mirrorlist file, sudo privileges are required"
+msgstr ""
+"Voor het opslaan van de spiegelserverlijst zijn beheerdersrechten vereist"
+
+#: ../contents/tools/sh/messages
+msgid "Your current mirrorlist:"
+msgstr "Huidige spiegelserverlijst:"
+
+#: ../contents/tools/sh/messages
+msgid ""
+"For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgstr ""
+"Voor enkele widgets kan het nodig zijn om je af te melden of plasmashell te "
+"herstarten"
+
+#: ../contents/tools/sh/messages
+msgid "Checking widgets for updates..."
+msgstr "Bezig met controleren op widgetupdates…"
+
+#: ../contents/tools/sh/messages
+msgid "Fetching information about widget..."
+msgstr "Bezig met ophalen van widgetinformatie…"
+
+# Downloading <widget name>
+#: ../contents/tools/sh/messages
+msgid "Downloading"
+msgstr "Bezig met downloaden"
+
+#: ../contents/tools/sh/messages
+msgid "Restart plasmashell now?"
+msgstr "Wil je plasmashell nu herstarten?"
+
+#: ../contents/tools/sh/messages
+msgid "No description"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid ""
+"Too many API requests in the last 15 minutes from your IP address, please "
+"try again later"
+msgstr ""
+"Er zijn in de afgelopen 15 minuten teveel api-verzoeken vanaf je ip-adres "
+"geweest - probeer het later opnieuw"
+
+#: ../contents/tools/sh/messages
+msgid "File metadata.json not found"
+msgstr "metadata.json is niet aangetroffen"
+
+#: ../contents/tools/sh/messages
+msgid "Errors in metadata.json file"
+msgstr "Fouten in metadata.json"
+
+#: ../contents/tools/sh/messages
+msgid "Unsupported file format"
+msgstr "Niet-ondersteund bestandstype"
+
+#: ../contents/tools/sh/messages
+msgid "No files for download"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "files are available, but none are tagged as version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "files are available for download, but all are tagged as version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "List all available packages in repositories"
+msgstr "Alle beschikbare pakketten tonen"
+
+#: ../contents/tools/sh/messages
+msgid "List all installed packages"
+msgstr "Alle geïnstalleerde pakketten tonen"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages"
+msgstr "Alle gedwongen geïnstalleerde pakketten tonen"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages and isn't a dependency of anything"
+msgstr "Alle gedwongen geïnstalleerde pakketten zonder afhankelijkheden tonen"
+
+#: ../contents/tools/sh/messages
+msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgstr "Alle onnodige geïnstalleerde afhankelijkheden (onteigend) tonen"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall orphan packages"
+msgstr "Onteigende pakketten verwijderen"
+
+#: ../contents/tools/sh/messages
+msgid "Install (downgrade) a package from cache"
+msgstr "Pakket installeren (afwaarderen) uit cache"
+
+#: ../contents/tools/sh/messages
+msgid "Remove ALL cached packages"
+msgstr "ALLE gecachete pakketten verwijderen"
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached packages that are not currently installed"
+msgstr "Alle niet-geïnstalleerde gecachete pakketten verwijderen"
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR python packages after python upgrade"
+msgstr "Python-pakketten van AUR herbouwen na Python-upgrades"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrorlist"
+msgstr "Spiegelserverlijst vernieuwen"
+
+#: ../contents/tools/sh/messages
+msgid "Exit"
+msgstr "Afsluiten"
+
+#: ../contents/tools/sh/messages
+msgid "Review dependency warnings before removing"
+msgstr "Afhankelijkheidswaarschuwingen tonen alvorens te verwijderen"
+
+#: ../contents/tools/sh/messages
+msgid "Resume?"
+msgstr "Hervatten?"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to return menu"
+msgstr "Druk op enter om terug te keren naar het menu"
+
+#: ../contents/tools/sh/messages
+msgid "Search:"
+msgstr "Zoeken:"
+
+#: ../contents/tools/sh/messages
+msgid "Executed:"
+msgstr "Uitgevoerd:"
+
+#: ../contents/tools/sh/messages
+msgid "Nothing to do"
+msgstr "Er valt niets te doen"
+
+# Required installed <util name>
+#: ../contents/tools/sh/messages
+msgid "Required installed"
+msgstr "Vereist"
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -78,14 +240,6 @@ msgstr "Bezig met controleren op widgetupdates…"
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "De widget-updatecontrole is mislukt: "
-
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid ""
-"Too many API requests in the last 15 minutes from your IP address, please "
-"try again later"
-msgstr ""
-"Er zijn in de afgelopen 15 minuten teveel api-verzoeken vanaf je ip-adres "
-"geweest - probeer het later opnieuw"
 
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
@@ -164,140 +318,6 @@ msgstr "Wisselen, iedere"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Beheer"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching the latest filtered mirror list..."
-msgstr "Bezig met ophalen van recentste, gefilterde spiegelserverlijst…"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Ranking mirrors by their connection and opening speed..."
-msgstr "Bezig met classificeren van spiegelservers op verbinding en snelheid…"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Check your mirrorlist generator settings..."
-msgstr "Bezig met controleren van genereerinstellingen…"
-
-#: ../contents/ui/components/Messages.qml
-msgid "was updated with the following servers:"
-msgstr "is voorzien van de volgende servers:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
-"Voor het opslaan van de spiegelserverlijst zijn beheerdersrechten vereist"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Your current mirrorlist:"
-msgstr "Huidige spiegelserverlijst:"
-
-#: ../contents/ui/components/Messages.qml
-msgid ""
-"For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"Voor enkele widgets kan het nodig zijn om je af te melden of plasmashell te "
-"herstarten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Checking widgets for updates..."
-msgstr "Bezig met controleren op widgetupdates…"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching information about widget..."
-msgstr "Bezig met ophalen van widgetinformatie…"
-
-# Downloading <widget name>
-#: ../contents/ui/components/Messages.qml
-msgid "Downloading"
-msgstr "Bezig met downloaden"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Restart plasmashell now?"
-msgstr "Wil je plasmashell nu herstarten?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "File metadata.json not found"
-msgstr "metadata.json is niet aangetroffen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Errors in metadata.json file"
-msgstr "Fouten in metadata.json"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Unsupported file format"
-msgstr "Niet-ondersteund bestandstype"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all available packages in repositories"
-msgstr "Alle beschikbare pakketten tonen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all installed packages"
-msgstr "Alle geïnstalleerde pakketten tonen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages"
-msgstr "Alle gedwongen geïnstalleerde pakketten tonen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Alle gedwongen geïnstalleerde pakketten zonder afhankelijkheden tonen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Alle onnodige geïnstalleerde afhankelijkheden (onteigend) tonen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Uninstall orphan packages"
-msgstr "Onteigende pakketten verwijderen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Install (downgrade) a package from cache"
-msgstr "Pakket installeren (afwaarderen) uit cache"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove ALL cached packages"
-msgstr "ALLE gecachete pakketten verwijderen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove cached packages that are not currently installed"
-msgstr "Alle niet-geïnstalleerde gecachete pakketten verwijderen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Python-pakketten van AUR herbouwen na Python-upgrades"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Refresh mirrorlist"
-msgstr "Spiegelserverlijst vernieuwen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Exit"
-msgstr "Afsluiten"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Review dependency warnings before removing"
-msgstr "Afhankelijkheidswaarschuwingen tonen alvorens te verwijderen"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Resume?"
-msgstr "Hervatten?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Press Enter to return menu"
-msgstr "Druk op enter om terug te keren naar het menu"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Search:"
-msgstr "Zoeken:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Nothing to do"
-msgstr "Er valt niets te doen"
-
-# Required installed <util name>
-#: ../contents/ui/components/Messages.qml
-msgid "Required installed"
-msgstr "Vereist"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -580,6 +600,12 @@ msgid "right click"
 msgstr "Rechtsklikken"
 
 #: ../contents/ui/configuration/General.qml
+msgid ""
+"Do not enable this option if the widget is not used in the system tray; "
+"otherwise, you will not be able to open the settings by right-clicking."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "scroll up"
 msgstr "Omhoog scrollen"
 
@@ -626,11 +652,9 @@ msgstr "Persistent"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To further configure, click the button below -> Application-specific "
-"settings -> Apdatifier"
+"To further configure, click the button below -> Application Settings -> "
+"Apdatifier"
 msgstr ""
-"De rest van de instellingen zijn beschikbaar via onderstaande knop → "
-"Speciale programma-instellingen → Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -743,6 +767,10 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Pacman-spiegelserverlijst genereren"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Only for official repositories"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -917,3 +945,10 @@ msgstr "Installatiedatum"
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "Installatiereden"
+
+#~ msgid ""
+#~ "To further configure, click the button below -> Application-specific "
+#~ "settings -> Apdatifier"
+#~ msgstr ""
+#~ "De rest van de instellingen zijn beschikbaar via onderstaande knop → "
+#~ "Speciale programma-instellingen → Apdatifier"

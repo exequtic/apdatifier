@@ -75,15 +75,16 @@ Feel free to help translate to new languages or update and improve the ones that
 
 ### Current status:
 ```markdown
-|  Locale  |  Lines  | % Done|
-|----------|---------|-------|
-| English  |     191 |       |
-| Dutch    | 191/191 |  100% |
-| French   | 191/191 |  100% |
-| German   | 191/191 |  100% |
-| Korean   | 112/191 |   58% |
-| Russian  | 191/191 |  100% |
-|----------|---------|-------|
+|   Locale  |  Lines  | % Done|
+|-----------|---------|-------|
+| English   |     198 |       |
+| Brazilian | 190/198 |   95% |
+| Dutch     | 190/198 |   95% |
+| French    | 190/198 |   95% |
+| German    | 190/198 |   95% |
+| Korean    | 112/198 |   56% |
+| Russian   | 190/198 |   95% |
+|-----------|---------|-------|
 ```
 
 <br>
