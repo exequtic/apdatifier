@@ -94,7 +94,11 @@ getWidgetInfo() {
     if [ -z "$icon" ]; then
         icon="start-here-kde"
     else
-        ! find /usr/share/icons "$HOME/.local/share/icons" -name "$icon.svg" 2>/dev/null | grep -q . && icon="start-here-kde"
+        local iconTheme=$(sed -n '/^\[Icons\]/,/^\[/s/^Theme=//p' $HOME/.config/kdeglobals)
+        local themeDir1="/usr/share/icons/$iconTheme/"
+        local themeDir2="$HOME/.local/share/icons/$iconTheme/"
+        local themeDir3="$HOME/.icons/$iconTheme/"
+        ! find -L "$themeDir1" "$themeDir2" "$themeDir3" -type f -name "$icon.svg" -print -quit 2>/dev/null | grep -q . && icon="start-here-kde"
     fi
 
     url="https://store.kde.org/p/$contentId"
