@@ -131,3 +131,15 @@ restartPlasmashell() {
         printImportant "$WIDGETS_WARN"
     fi
 }
+
+combineFiles() {
+    sleep 1
+    [ -f "$1" ] && rm "$1"
+    for cache in $(find $configDir -name "updates.json_*" | sort); do
+        cat "$cache" >> "$1"; rm "$cache"
+    done
+}
+
+case "$1" in
+    "combineFiles") shift; combineFiles $1 ;;
+esac

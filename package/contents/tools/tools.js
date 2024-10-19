@@ -6,13 +6,11 @@
 const scriptDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/"
 const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
-const cacheFile1 = configDir + "updates.json"
-const cacheFile2 = configDir + "updates_2.json"
+const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
-const writeFile = (data, file) => `echo '${data}' > "${file}"`
-const removeFile = (file) => `[ -f "${file}" ] && rm "${file}"`
+const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const runInTerminal = (script, ...args) => sh.exec('kstart ' + bash('terminal', script, ...args))
@@ -30,16 +28,12 @@ function Error(code, err) {
 function init() {
     loadConfig()
     sh.exec(bash('init'))
-    sh.exec(readFile(cacheFile2), (cmd, out, err, code) => {
+    sh.exec(readFile(cacheFile), (cmd, out, err, code) => {
         if (Error(code, err)) return
-        const cache2 = out ? JSON.parse(out.trim()) : []
-        sh.exec(readFile(cacheFile1), (cmd, out, err, code) => {
-            if (Error(code, err)) return
-            cache = out ? keys(cache2.concat(JSON.parse(out.trim()))) : []
-            checkDependencies()
-            refreshListModel()
-            upgradingState(true)
-        })
+        cache = out ? keys(JSON.parse(out.trim())) : []
+        checkDependencies()
+        refreshListModel()
+        upgradingState(true)
     })
 }
 
@@ -53,7 +47,7 @@ function saveConfig() {
         }
     })
 
-    sh.exec(writeFile(config, configFile))
+    sh.exec(writeFile(config, ">", configFile))
 }
 
 function loadConfig() {
@@ -387,8 +381,7 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        sh.exec(removeFile(cacheFile1))
-        sh.exec(removeFile(cacheFile2))
+        sh.exec(writeFile("[]", '>', cacheFile))
         cache = []
         sts.count = 0
         setStatusBar()
@@ -412,16 +405,18 @@ function finalize(list) {
 
     const json = formatJson(JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))))
     if (json.length > 130000) {
-        let json1, json2
+        let start = 0
+        const chunkSize = 200
         const lines = json.split("\n")
-        const half = Math.floor(lines.length / 2)
-        json1 = lines.slice(0, half).join("\n").replace(/,$/, "]")
-        json2 = "[" + lines.slice(half).join("\n")
-        sh.exec(writeFile(json1, cacheFile1))
-        sh.exec(writeFile(json2, cacheFile2))
+        while (start < lines.length) {
+            const chunk = lines.slice(start, start + chunkSize).join("\n")
+            const redir = start === 0 ? ">" : ">>"
+            sh.exec(writeFile(chunk, redir, `${cacheFile}_${Math.ceil(start / chunkSize)}`))
+            start += chunkSize
+        }
+        sh.exec(bash('utils', 'combineFiles', cacheFile))
     } else {
-        sh.exec(writeFile(json, cacheFile1))
-        sh.exec(removeFile(cacheFile2))
+        sh.exec(writeFile(json, '>', cacheFile))
     }
 }
 
