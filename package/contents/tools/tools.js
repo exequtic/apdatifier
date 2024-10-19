@@ -19,7 +19,7 @@ const runInTerminal = (script, ...args) => sh.exec('kstart ' + bash('terminal', 
 
 function Error(code, err) {
     if (err) {
-        cfg.notifyErrors && sendNotify("error", "Exit code" + ": " + code, err.trim())
+        cfg.notifyErrors && sendNotify("error", i18n("Exit code: ") + code, err.trim())
         sts.errMsg = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
@@ -37,6 +37,8 @@ function init() {
             if (Error(code, err)) return
             cache = out ? keys(cache2.concat(JSON.parse(out.trim()))) : []
             checkDependencies()
+            refreshListModel()
+            upgradingState(true)
         })
     })
 }
@@ -78,7 +80,7 @@ function loadConfig() {
 
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
+    const pkgs = "pacman checkupdates flatpak kstart paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -87,20 +89,26 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak }
+        const [pacman, checkupdates, flatpak, kstart] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, kstart }
 
-        const wrappers = populate(output.slice(3, 5).filter(Boolean))
+        const wrappers = populate(output.slice(4, 6).filter(Boolean))
         cfg.wrappers = wrappers.length > 0 ? wrappers : null
 
-        const terminals = populate(output.slice(5).filter(Boolean))
+        const terminals = populate(output.slice(6).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
-
-        refreshListModel()
-        upgradingState(true)
     })
 }
 
+
+function dependency(bin) {
+    checkDependencies()
+    if (!pkg[bin]) {
+        sendNotify("dependency", i18n("Exit code: ") + 127, i18n("Required installed") + " <b>" + bin + "</b>")
+        return false
+    }
+    return true
+}
 
 function defineCommands() {
     const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
@@ -115,6 +123,7 @@ function defineCommands() {
 
 
 function upgradePackage(name, id, contentID) {
+    if (!dependency("kstart")) return
     if (id) {
         runInTerminal("upgrade", "flatpak", id, name)
     } else if (contentID) {
@@ -125,6 +134,7 @@ function upgradePackage(name, id, contentID) {
 }
 
 function management() {
+    if (!dependency("kstart")) return
     runInTerminal("management")
 }
 
@@ -157,6 +167,7 @@ function upgradingState(startup) {
 
 function upgradeSystem() {
     if (sts.upgrading) return
+    if (!dependency("kstart")) return
     enableUpgrading(true)
     runInTerminal("upgrade", "full")
 }
@@ -417,7 +428,7 @@ function finalize(list) {
 
 function setStatusBar(code) {
     sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
-    sts.statusMsg = sts.err ? "Exit code" + ": " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
+    sts.statusMsg = sts.err ? i18n("Exit code: ") + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
     sts.busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
 }
@@ -426,13 +437,15 @@ function setStatusBar(code) {
 let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "label": "", "action": "", "urgency": "" }
 function sendNotify(event, title, body) {
     const eventParams = {
+        dependency: { icon: "utilities-terminal", label: i18n("Open in browser"), action: "openPackageLink", urgency: "HighUrgency" },
         updates: { icon: "apdatifier-packages", label: i18n("Upgrade system"), action: "upgradeSystem", urgency: "DefaultUrgency" },
-        news: { icon: "news-subscribe", label: i18n("Read article"), action: "openNewsLink", urgency: "HighUrgency" },
+        news: { icon: "news-subscribe", label: i18n("Open in browser"), action: "openNewsLink", urgency: "HighUrgency" },
         error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "HighUrgency" }
     }
 
     let { icon, label, action, urgency } = eventParams[event]
 
+    if (event === "dependency") event = "error"
     if (cfg.notifySound) event += "Sound"
 
     notify = { event, title, body, icon, label, action, urgency }
@@ -552,6 +565,11 @@ function switchInterval() {
 function openNewsLink() {
     const path = cfg.news.split(" ").slice(1).join(" ").toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
     return Qt.openUrlExternally("https://archlinux.org/news/" + path)
+}
+
+function openPackageLink() {
+    const path = "https://archlinux.org/packages/extra/x86_64/kde-cli-tools"
+    return Qt.openUrlExternally(path)
 }
 
 function formatJson(data) {
