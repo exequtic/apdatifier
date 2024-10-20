@@ -51,12 +51,33 @@ SimpleKCM {
     property alias cfg_checkButton: checkButton.checked
     property alias cfg_showTabBar: showTabBar.checked
 
-    Kirigami.FormLayout {
-        id: appearancePage
+    property int currentTab
+    signal tabChanged(currentTab: int)
+    onCurrentTabChanged: tabChanged(currentTab)
+ 
+    header: Kirigami.NavigationTabBar {
+        actions: [
+            Kirigami.Action {
+                icon.name: "view-list-icons"
+                text: i18n("Panel Icon View")
+                checked: currentTab === 0
+                onTriggered: currentTab = 0
+            },
+            Kirigami.Action {
+                icon.name: "view-split-left-right"
+                text: i18n("List View")
+                checked: currentTab === 1
+                onTriggered: currentTab = 1
+            }
+        ]
+    }
 
-        Kirigami.Separator {
+    Kirigami.FormLayout {
+        id: iconViewTab
+        visible: currentTab === 0
+
+        Item {
             Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Panel Icon View")
         }
 
         RowLayout {
@@ -453,10 +474,14 @@ SimpleKCM {
         Item {
             Kirigami.FormData.isSection: true
         }
+    }
 
-        Kirigami.Separator {
+    Kirigami.FormLayout {
+        id: listViewTab
+        visible: currentTab === 1
+
+        Item {
             Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("List View")
         }
 
         RowLayout {
@@ -466,7 +491,7 @@ SimpleKCM {
                 text: i18n("Use built-in icons")
             }
             
-            ContextualHelpButton {
+            Kirigami.ContextualHelpButton {
                 toolTipText: i18n("Override custom icon theme and use default Apdatifier icons instead.")
             }
         }
@@ -593,7 +618,7 @@ SimpleKCM {
                 text: i18n("Show tab bar")
             }
 
-            ContextualHelpButton {
+            Kirigami.ContextualHelpButton {
                 toolTipText: i18n("You can also switch tabs by dragging the mouse left and right with the right mouse button held.")
             }
         }

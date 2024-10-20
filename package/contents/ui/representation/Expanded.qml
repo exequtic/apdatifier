@@ -296,6 +296,7 @@ Representation {
         Kirigami.InlineMessage {
             id: releaseMsg
             Layout.fillWidth: true
+            Layout.topMargin: Kirigami.Units.smallSpacing * 2
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             icon.source: "apdatifier-plasmoid"
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
@@ -331,9 +332,10 @@ Representation {
         Kirigami.InlineMessage {
             id: newsMsg
             Layout.fillWidth: true
+            Layout.topMargin: releaseMsg.visible ? 0 : Kirigami.Units.smallSpacing * 2
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             icon.source: "news-subscribe"
-            text: "<b>" + i18n("Arch Linux News") + ": </b>" + cfg.news.split(" ").slice(1).join(" ")
+            text: "<b>" + i18n("Arch Linux News") + "</b><br>" + cfg.news.split(" ").slice(1).join(" ")
             type: Kirigami.MessageType.Warning
             visible: sts.pending && cfg.newsMsg && !searchFieldOpen
 

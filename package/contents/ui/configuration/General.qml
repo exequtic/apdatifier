@@ -23,7 +23,6 @@ SimpleKCM {
     property alias cfg_archNews: archNews.checked
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_widgets: widgets.checked
-    property string cfg_wrapper: plasmoid.configuration.wrapper
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -40,6 +39,39 @@ SimpleKCM {
     property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
     property var packageLink: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
+
+    property int currentTab
+    signal tabChanged(currentTab: int)
+    onCurrentTabChanged: tabChanged(currentTab)
+ 
+    header: Kirigami.NavigationTabBar {
+        actions: [
+            Kirigami.Action {
+                icon.name: "search"
+                text: i18n("Search")
+                checked: currentTab === 0
+                onTriggered: currentTab = 0
+            },
+            Kirigami.Action {
+                icon.name: "notification-active"
+                text: i18n("Notifications")
+                checked: currentTab === 1
+                onTriggered: currentTab = 1
+            },
+            Kirigami.Action {
+                icon.name: "followmouse-symbolic"
+                text: i18n("Mouse actions")
+                checked: currentTab === 2
+                onTriggered: currentTab = 2
+            },
+            Kirigami.Action {
+                icon.name: "documentinfo"
+                text: i18n("Misc")
+                checked: currentTab === 3
+                onTriggered: currentTab = 3
+            }
+        ]
+    }
 
     ColumnLayout {
         Kirigami.InlineMessage {
@@ -69,7 +101,12 @@ SimpleKCM {
         }
 
         Kirigami.FormLayout {
-            id: generalPage
+            id: searchTab
+            visible: currentTab === 0
+
+            Item {
+                Kirigami.FormData.isSection: true
+            }
 
             RowLayout {
                 Kirigami.FormData.label: i18n("Interval") + ":"
@@ -91,7 +128,7 @@ SimpleKCM {
                     text: i18n("minutes")
                 }
 
-                ContextualHelpButton {
+                Kirigami.ContextualHelpButton {
                     toolTipText: i18n("The current timer is reset when either of these settings is changed.")
                 }
             }
@@ -103,7 +140,7 @@ SimpleKCM {
                     enabled: interval.checked
                 }
 
-                ContextualHelpButton {
+                Kirigami.ContextualHelpButton {
                     toolTipText: i18n("If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b>")
                 }
             }
@@ -135,7 +172,7 @@ SimpleKCM {
 
                 CheckBox {
                     id: aur
-                    text: i18n("Arch User Repository")
+                    text: i18n("Arch User Repository") + " (AUR)"
                     enabled: arch.checked && pkg.pacman && wrappers
 
                     Component.onCompleted: {
@@ -164,7 +201,7 @@ SimpleKCM {
                     enabled: pkg.pacman && wrappers
                 }
 
-                ContextualHelpButton {
+                Kirigami.ContextualHelpButton {
                     toolTipText: i18n("It is necessary to have paru or yay installed.")
                 }
             }
@@ -201,64 +238,15 @@ SimpleKCM {
                     text: i18n("Plasma Widgets")
                 }
 
-                ContextualHelpButton {
+                Kirigami.ContextualHelpButton {
                     toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
                 }
             }
+        }
 
-            Item {
-                Kirigami.FormData.isSection: true
-                visible: aur.checked
-            }
-
-            RowLayout {
-                Kirigami.FormData.label: i18n("Wrapper") + ":"
-                visible: aur.checked
-
-                ComboBox {
-                    model: wrappers
-                    textRole: "name"
-                    enabled: wrappers
-                    implicitWidth: 150
-
-                    onCurrentIndexChanged: {
-                        cfg_wrapper = model[currentIndex]["value"]
-                    }
-
-                    Component.onCompleted: {
-                        if (wrappers) {
-                            currentIndex = JS.setIndex(plasmoid.configuration.wrapper, wrappers)
-                        } else {
-                            plasmoid.configuration.wrapper = ""
-                        }
-                    }
-                }
-            }
-
-            Item {
-                Kirigami.FormData.isSection: true
-            }
-
-            QQC.ComboBox {
-                Kirigami.FormData.label: i18n("Mouse actions") + ":"
-                type: "middle"
-                labelText: i18n("middle click")
-            }
-            QQC.ComboBox {
-                type: "right"
-                labelText: i18n("right click")
-                ContextualHelpButton {
-                    toolTipText: i18n("Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking.")
-                }
-            }
-            QQC.ComboBox {
-                type: "scrollUp"
-                labelText: i18n("scroll up")
-            }
-            QQC.ComboBox {
-                type: "scrollDown"
-                labelText: i18n("scroll down")
-            }
+        Kirigami.FormLayout {
+            id: notificationsTab
+            visible: currentTab === 1
 
             Item {
                 Kirigami.FormData.isSection: true
@@ -277,7 +265,7 @@ SimpleKCM {
                     enabled: notifyUpdates.checked
                 }
 
-                ContextualHelpButton {
+                Kirigami.ContextualHelpButton {
                     toolTipText: i18n("If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>")
                 }
             }
@@ -299,6 +287,10 @@ SimpleKCM {
                 enabled: notifyUpdates.checked || notifyErrors.checked
             }
 
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+
             Kirigami.Separator {
                 Layout.fillWidth: true
             }
@@ -315,6 +307,10 @@ SimpleKCM {
                 }
             }
 
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+
             Button {
                 anchors.horizontalCenter: notifyTip.horizontalCenter
                 enabled: notifyUpdates.checked || notifyErrors.checked
@@ -325,6 +321,63 @@ SimpleKCM {
 
             Item {
                 Kirigami.FormData.isSection: true
+            }
+        }
+
+        Kirigami.FormLayout {
+            id: mouseActionsTab
+            visible: currentTab === 2
+
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+
+            QQC.ComboBox {
+                Kirigami.FormData.label: i18n("middle click") + ":"
+                type: "middle"
+            }
+
+            QQC.ComboBox {
+                Kirigami.FormData.label: i18n("right click") + ":"
+                type: "right"
+                Kirigami.ContextualHelpButton {
+                    toolTipText: i18n("Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking.")
+                }
+            }
+
+            QQC.ComboBox {
+                Kirigami.FormData.label: i18n("scroll up") + ":"
+                type: "scrollUp"
+            }
+
+            QQC.ComboBox {
+                Kirigami.FormData.label: i18n("scroll down") + ":"
+                type: "scrollDown"
+            }
+
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+        }
+
+        Kirigami.FormLayout {
+            id: miscTab
+            visible: currentTab === 3
+
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+
+            Button {
+                icon.name: "backup"
+                text: i18n("Restore all dissmised messages")
+                implicitWidth: 250
+                onClicked: {
+                    plasmoid.configuration.configMsg = true
+                    plasmoid.configuration.rulesMsg = true
+                    plasmoid.configuration.newsMsg = true
+                    plasmoid.configuration.version = "v0"
+                }
             }
         }
     }
