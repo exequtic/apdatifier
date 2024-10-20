@@ -112,7 +112,7 @@ ColumnLayout {
                 }
 
                 ToolButton {
-                    icon.name: model.excluded ? "gnumeric-visible" : "gnumeric-row-hide"
+                    icon.name: model.excluded ? "view-visible" : "hint"
                     onClicked: model.excluded = !model.excluded
                 }
 

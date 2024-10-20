@@ -306,17 +306,17 @@ Representation {
             actions: [
                 Kirigami.Action {
                     tooltip: i18n("Select...")
-                    icon.name: "menu_new"
+                    icon.name: "application-menu"
                     expandible: true
 
                     Kirigami.Action {
                         text: "GitHub"
-                        icon.name: "internet-web-browser"
+                        icon.name: "internet-web-browser-symbolic"
                         onTriggered: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/releases")
                     }
                     Kirigami.Action {
                         text: i18n("Hide")
-                        icon.name: "gnumeric-row-hide"
+                        icon.name: "hint"
                         onTriggered: releaseMsg.visible = false
                     }
                     Kirigami.Action {
@@ -333,29 +333,29 @@ Representation {
             Layout.fillWidth: true
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             icon.source: "news-subscribe"
-            text: cfg.news
+            text: "<b>" + i18n("Arch Linux News") + ": </b>" + cfg.news.split(" ").slice(1).join(" ")
             type: Kirigami.MessageType.Warning
             visible: sts.pending && cfg.newsMsg && !searchFieldOpen
 
             actions: [
                 Kirigami.Action {
                     tooltip: i18n("Select...")
-                    icon.name: "menu_new"
+                    icon.name: "application-menu"
                     expandible: true
 
                     Kirigami.Action {
                         text: i18n("Read article")
-                        icon.name: "internet-web-browser"
+                        icon.name: "internet-web-browser-symbolic"
                         onTriggered: JS.openNewsLink()
                     }
                     Kirigami.Action {
                         text: i18n("Hide")
-                        icon.name: "gnumeric-row-hide"
+                        icon.name: "hint"
                         onTriggered: newsMsg.visible = false
                     }
                     Kirigami.Action {
                         text: i18n("Dismiss")
-                        icon.name: "dialog-close"
+                        icon.name: "dialog-close-symbolic"
                         onTriggered: cfg.newsMsg = false
                     }
                 }
