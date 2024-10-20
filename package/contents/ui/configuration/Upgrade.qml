@@ -20,14 +20,15 @@ SimpleKCM {
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_sudoBin: sudoBin.text
-
-    property alias cfg_restartShell: restartShell.checked
-    property alias cfg_restartCommand: restartCommand.text
-
     property alias cfg_mirrors: mirrors.checked
     property alias cfg_mirrorCount: mirrorCount.value
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
+
+    property string cfg_flatpakFlags: plasmoid.configuration.flatpakFlags
+
+    property alias cfg_restartShell: restartShell.checked
+    property alias cfg_restartCommand: restartCommand.text
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
@@ -300,6 +301,50 @@ SimpleKCM {
 
         Item {
             Kirigami.FormData.isSection: true
+        }
+
+        ButtonGroup {
+            id: flatpakFlags
+        }
+
+        RowLayout{
+            Kirigami.FormData.label: i18n("Upgrade output") + ":"
+
+            RadioButton {
+                ButtonGroup.group: flatpakFlags
+                text: i18n("Normal")
+                checked: plasmoid.configuration.flatpakFlags === ""
+                onCheckedChanged: {
+                    if (checked) cfg_flatpakFlags = ""
+                }
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: flatpakFlags
+            text: i18n("Normal, skip questions")
+            checked: plasmoid.configuration.flatpakFlags === "--assumeyes"
+            onCheckedChanged: {
+                if (checked) cfg_flatpakFlags = "--assumeyes"
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: flatpakFlags
+            text: i18n("Non interactive, skip questions")
+            checked: plasmoid.configuration.flatpakFlags === "--noninteractive"
+            onCheckedChanged: {
+                if (checked) cfg_flatpakFlags = "--noninteractive"
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: flatpakFlags
+            text: i18n("Verbose")
+            checked: plasmoid.configuration.flatpakFlags === "--verbose"
+            onCheckedChanged: {
+                if (checked) cfg_flatpakFlags = "--verbose"
+            }
         }
     }
 

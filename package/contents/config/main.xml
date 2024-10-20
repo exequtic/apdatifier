@@ -18,7 +18,6 @@
         <entry name="archNews" type="bool"><default>false</default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
         <entry name="widgets" type="bool"><default>false</default></entry>
-        <entry name="wrapper" type="string"><default></default></entry>
         <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
         <entry name="rightAction" type="string"><default></default></entry>
         <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
@@ -30,16 +29,18 @@
         <entry name="notifyPersistent" type="bool"><default>false</default></entry>
     </group>
     <group name="Upgrade">
-        <entry name="terminal" type="string"><default></default></entry>
-        <entry name="termFont" type="bool"><default>false</default></entry>
+        <entry name="wrapper" type="string"><default></default></entry>
         <entry name="upgradeFlags" type="bool"><default>false</default></entry>
         <entry name="upgradeFlagsText" type="string"><default></default></entry>
         <entry name="sudoBin" type="string"><default>sudo</default></entry>
-        <entry name="restartShell" type="bool"><default>false</default></entry>
-        <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
         <entry name="dynamicUrl" type="string"><default>null</default></entry>
+        <entry name="flatpakFlags" type="string"><default></default></entry>
+        <entry name="restartShell" type="bool"><default>false</default></entry>
+        <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
+        <entry name="terminal" type="string"><default></default></entry>
+        <entry name="termFont" type="bool"><default>false</default></entry>
     </group>
     <group name="Appearance">
         <entry name="relevantIcon" type="int"><default>0</default></entry>

@@ -27,7 +27,7 @@ fullSystemUpgrade() {
         printMsg "Flatpak Upgrade"
         echo
 
-        local flatpakCmd="flatpak update"
+        local flatpakCmd="flatpak update $flatpakFlags"
 
         printExec "$flatpakCmd"
 
