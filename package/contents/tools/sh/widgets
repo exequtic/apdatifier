@@ -234,16 +234,18 @@ upgradeAllWidgets() {
                      $(colorize white "->") \t \
                      $(colorize green bold $(echo "$widget" | jq -r '.VN'))"
         done | column -t
+        echo
 
-        while true; do
-            echo
-            printQuestion "$WIDGETS_PROCEED"; read -r answer
-            case "$answer" in
-                [Yy]*) echo; break;;
-             [Nn]*|"") return 0;;
-                    *)  ;;
-            esac
-        done
+        if [[ $widgetConfirmation = true ]]; then
+            while true; do
+                printQuestion "$WIDGETS_PROCEED"; read -r answer
+                case "$answer" in
+                    [Yy]*) echo; break;;
+                 [Nn]*|"") return 0;;
+                        *)  ;;
+                esac
+            done
+        fi
 
         jq -c '.[]' "$updatesList" | while read -r widget; do
             name=$(echo "$widget" | jq -r '.NM')

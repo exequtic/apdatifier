@@ -27,6 +27,7 @@ SimpleKCM {
 
     property string cfg_flatpakFlags: plasmoid.configuration.flatpakFlags
 
+    property alias cfg_widgetConfirmation: widgetConfirmation.checked
     property alias cfg_restartShell: restartShell.checked
     property alias cfg_restartCommand: restartCommand.text
 
@@ -357,6 +358,19 @@ SimpleKCM {
         }
 
         RowLayout {
+            Kirigami.FormData.label: i18n("Upgrade confirmation") + ":"
+
+            CheckBox {
+                id: widgetConfirmation
+                text: i18n("Enable")
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
             Kirigami.FormData.label: i18n("Restart plasmashell") + ":"
 
             CheckBox {
@@ -374,7 +388,7 @@ SimpleKCM {
 
             TextField {
                 id: restartCommand
-                visible: restartShell.checked
+                enabled: restartShell.checked
             }
         }
     }
