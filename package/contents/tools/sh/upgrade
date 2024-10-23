@@ -5,9 +5,11 @@
 
 source "$(dirname "$0")/utils"
 
-trap '' SIGINT
+trap 'echo -e "\n$UPGRADE_SKIPPED"' SIGINT
 
 fullSystemUpgrade() {
+    startTime=$(date +%s)
+
     if [ "$arch" = true ]; then
         printMsg "$UPGRADE_FULL"; echo
 
@@ -39,6 +41,13 @@ fullSystemUpgrade() {
         echo
         $scriptDir/widgets upgradeAll
     fi
+
+    trap ' ' SIGINT
+
+    endTime=$(date +%s)
+    runTime=$((endTime-startTime))
+    echo
+    printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
 
     printClose
 }
