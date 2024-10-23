@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-10-18 20:43+0300\n"
-"PO-Revision-Date: 2024-10-18 15:22-0300\n"
+"PO-Revision-Date: 2024-10-21 14:46-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -314,7 +314,7 @@ msgstr "Nenhum"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
-msgstr "Intervalo de troca"
+msgstr "Alternar intervalo"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -481,7 +481,7 @@ msgstr "Rodapé"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
-msgstr "Mostrar barra de guias"
+msgstr "Mostrar guias"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
@@ -588,7 +588,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Wrapper"
-msgstr "Auxiliar AUR"
+msgstr "Auxiliar Pacman"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
