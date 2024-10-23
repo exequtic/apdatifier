@@ -6,46 +6,46 @@
 source "$(dirname "$0")/utils"
 source "$(dirname "$0")/widgets-id"
 
-downloadXML() {
+cleanup() {
+    [ -d $tempDir ] && rm -rf $tempDir
+}
+
+fetchData() {
     echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
 
     local page=0
     local pagesize=100
+
     while true; do
-        tempXML=$(mktemp)
+        pageXML=$(mktemp "$tempDir/XXXXXX.xml")
         api_url="https://api.opendesktop.org/ocs/v1/content/data?categories=705&sort=new&page=$page&pagesize=$pagesize"
-        curl -m 30 -s -o "$tempXML" --request GET --url "$api_url"
 
-        onError() {
-            case "$1" in
-                200) [[ $2 ]] && echo $1 || printError "$WIDGETS_API_ERR" ;;
-                999) [[ $2 ]] && echo $1 || printError "$WIDGETS_CHECK" ;;
-            esac
+        curl -m 30 -s -o "$pageXML" --request GET --url "$api_url"
 
-            rm -f "$XML" "$tempXML"
-            exit
-        }
+        [ ! -s "$pageXML" ] && return 1
 
-        if [ -s "$tempXML" ]; then
-            totalitems=$(xmlstarlet sel -t -m "//ocs/meta/totalitems" -v . -n "$tempXML")
-            statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $tempXML)
-            [[ $statuscode = 200 ]] && onError 200 $1
-            [[ $statuscode != 100 ]] && onError 999 $1
-        else
-            onError 999 $1
-        fi
+        totalitems=$(xmlstarlet sel -t -m "//ocs/meta/totalitems" -v . -n "$pageXML")
+        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $pageXML)
 
-        xmlstarlet sel -t -m "//content[@details='summary']" -c "." "$tempXML" >> "$XML"
-        rm $tempXML
+        case $statuscode in
+            100)
+                xmlstarlet sel -t -m "//content[@details='summary']" -c "." "$pageXML" >> "$XML"
 
-        items=$(((page + 1) * pagesize))
-        if [[ $totalitems > $items ]]; then
-            ((page++))
-        else
-            echo '</data>' >> "$XML"
-            break
-        fi
+                items=$(((page + 1) * pagesize))
+                if [[ $totalitems > $items ]]; then
+                    ((page++))
+                else
+                    echo '</data>' >> "$XML"
+                    break
+                fi
+            ;;
+
+            200) return 2 ;;
+              *) return 3 ;;
+        esac
     done
+
+    return 0
 }
 
 getWidgets() {
@@ -62,7 +62,7 @@ getWidgetInfo() {
     local json="$dir/metadata.json"
     [ -s "$json" ] || return 1
 
-    jq . $json >/dev/null 2>&1 || return 1
+    jq . $json >/dev/null 2>&1 || return 2
     if ! jq -e '.KPackageStructure == "Plasma/Applet"' "$json" >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
     fi
@@ -76,13 +76,13 @@ getWidgetInfo() {
         local knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
         [ -s "$knsregistry" ] && contentId=$(xmlstarlet sel -t -m "//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/.." -v "id" -n $knsregistry)
     fi
-    [ -z "$contentId" ] && return 1
+    [ -z "$contentId" ] && return 3
 
     currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$json")")
     latestVer=$(clearVer "$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n "$XML")")
-    [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 1
+    [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 4
     compareVer "$currentVer" "$latestVer"
-    [[ $? != 2 ]] && return 1
+    [[ $? != 2 ]] && return 5
 
     description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
     [ -z "$description" ] || [ "$description" = "null" ] && description="$WIDGETS_NODESC"
@@ -98,7 +98,10 @@ getWidgetInfo() {
         local themeDir1="/usr/share/icons/$iconTheme/"
         local themeDir2="$HOME/.local/share/icons/$iconTheme/"
         local themeDir3="$HOME/.icons/$iconTheme/"
-        ! find -L "$themeDir1" "$themeDir2" "$themeDir3" -type f -name "$icon.svg" -print -quit 2>/dev/null | grep -q . && icon="start-here-kde"
+
+        ! find -L "$themeDir1" "$themeDir2" "$themeDir3" \
+            -type f -name "$icon.svg" -print -quit 2>/dev/null | grep -q . \
+                && icon="start-here-kde"
     fi
 
     url="https://store.kde.org/p/$contentId"
@@ -119,86 +122,88 @@ getLink() {
     done < <(xmlstarlet sel -t -m "//content[id='$contentId']/*" -v "name()" -n "$XML" | grep -o 'download_version[0-9]\+')
 
     if [[ $files -eq 1 || ${#signed[@]} -eq 1 ]]; then
-        link=$(xmlstarlet sel -t -v "//content[id='$contentId']/downloadlink${signed[0]:-1}" "$XML")
+        echo $(xmlstarlet sel -t -v "//content[id='$contentId']/downloadlink${signed[0]:-1}" "$XML") > $tempDir/link
         return 0
     else
-        if [[ $files -eq 0 ]]; then
-            printError "$WIDGETS_ERR_NOFILES. $UPGRADE_SKIPPED"
-        elif [[ ${#signed[@]} -eq 0 ]]; then
-            printError "$files $WIDGETS_ERR_NOTAGGED $latestVer. $UPGRADE_SKIPPED"
-        elif [[ ${#signed[@]} > 1 ]]; then
-            printError "$files $WIDGETS_ERR_TAGGED $latestVer. $UPGRADE_SKIPPED"
-        fi
-        return 1
+        [[ $files -eq 0 ]] && return 1
+        [[ ${#signed[@]} -eq 0 ]] && return 2
+        (( ${#signed[@]} > 1 )) && return 3
     fi
+}
+
+makeList() {
+    local out=""
+    for plasmoid in "${lines[@]}"; do
+        getWidgetInfo
+        [[ $? -ne 0 ]] && continue
+        out+="{\"NM\": \"${name}\","
+        out+="\"RE\": \"${repo}\","
+        out+="\"CN\": \"${contentId}\","
+        out+="\"IN\": \"${icon}\","
+        out+="\"DE\": \"${description}\","
+        out+="\"AU\": \"${author}\","
+        out+="\"VO\": \"${currentVer}\","
+        out+="\"VN\": \"${latestVer}\","
+        out+="\"LN\": \"${url}\"}",
+    done
+
+    echo -e "[${out%,}]" > $updatesList
 }
 
 checkWidgets() {
-    for cmd in curl jq xmlstarlet; do command -v "$cmd" >/dev/null || { echo 127; exit; }; done
-
-    declare -a plasmoid lines
-    getWidgets
-
-    XML=$(mktemp)
-    downloadXML notTerminal
-
-    first=true; out="["
-    for plasmoid in "${lines[@]}"; do
-        getWidgetInfo; [[ $? -ne 0 ]] && continue
-        compareVer "$currentVer" "$latestVer"
-        if [[ $? = 2 ]]; then
-            [ "$first" = false ] && out+=","
-            out+="{\"NM\": \"${name}\","
-            out+="\"RE\": \"${repo}\","
-            out+="\"CN\": \"${contentId}\","
-            out+="\"IN\": \"${icon}\","
-            out+="\"DE\": \"${description}\","
-            out+="\"AU\": \"${author}\","
-            out+="\"VO\": \"${currentVer}\","
-            out+="\"VN\": \"${latestVer}\","
-            out+="\"LN\": \"${url}\"}"
-            first=false
-        fi
+    for cmd in curl jq xmlstarlet; do
+        command -v "$cmd" >/dev/null || { echo 127; exit; }
     done
 
-    rm $XML
-    echo -e "$out]"
+    mkdir $tempDir
+    XML="$tempDir/api.opendesktop.xml"
+    updatesList="$tempDir/update.list.json"
+
+    trap cleanup EXIT
+
+    declare -a plasmoid lines
+
+    getWidgets
+    fetchData
+
+    case $? in
+        1) echo 1; exit ;;
+        2) echo 2; exit ;;
+        3) echo 3; exit ;;
+    esac
+
+    makeList
+
+    jq . $updatesList
 }
 
 downloadWidget() {
-    tempFile="$tempDir/$(basename "${link}")"
-    tput sc; curl -s -o $tempFile --request GET --location "$link" 2>/dev/null &
-    spinner $! "$WIDGETS_DOWNLOADING $name ($latestVer)"; tput rc; tput ed
+    mkdir -p $tempDir/$name/unpacked
+    link=$(cat $tempDir/link)
+    package="$tempDir/$name/$(basename "${link}")"
 
-    if [ -s "$tempFile" ]; then
-        printDone "$WIDGETS_DOWNLOADING $name ($latestVer)"
-    else
-        printError "$WIDGETS_DOWNLOADING $name ($latestVer)"; return 1
-    fi
+    curl -s -o $package --request GET --location "$link" 2>/dev/null
 
-    case "$tempFile" in
-         *.zip | *.plasmoid) unzip -q "$tempFile" -d "$tempDir/unpacked";;
-        *.xz | *.gz | *.tar) tar -xf "$tempFile" -C "$tempDir/unpacked";;
-                          *) printError "$WIDGETS_EXT_ERR"; return 1;;
+    [ ! -s "$package" ] && return 1
+    
+    case "$package" in
+         *.zip | *.plasmoid) unzip -q "$package" -d "$tempDir/$name/unpacked" ;;
+        *.xz | *.gz | *.tar) tar -xf "$package" -C "$tempDir/$name/unpacked" ;;
+                          *) return 2 ;;
     esac
 
-    metadata_path=$(find "$tempDir/unpacked" -name "metadata.json")
-    [ -z "$metadata_path" ] && { printError "$WIDGETS_JSON_ERR"; return 1; }
+    metadata_path=$(find "$tempDir/$name/unpacked" -name "metadata.json")
+    [ -z "$metadata_path" ] && return 3
 
-    unpacked=$(dirname "$metadata_path"); cd "$unpacked"
+    cd $(dirname "$metadata_path")
 
-    jq . metadata.json >/dev/null 2>&1 || { printError "$WIDGETS_JSON_ERR2"; return 1; }
+    jq . metadata.json >/dev/null 2>&1 || return 4
+
     if ! jq -e '.KPackageStructure == "Plasma/Applet"' metadata.json >/dev/null 2>&1; then
         jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
     fi
 
     jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
-
-    kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
-
-    sleep 1
-
-    echo
 
     return 0
 }
@@ -206,31 +211,64 @@ downloadWidget() {
 upgradeAllWidgets() {
     dependencies "curl jq xmlstarlet unzip tar"
 
+    mkdir $tempDir
+    XML="$tempDir/api.opendesktop.xml"
+    updatesList="$tempDir/update.list.json"
+
+    trap cleanup EXIT
+
     declare -a plasmoid lines
+
     getWidgets
+    fetchData & printWhile $! "$WIDGETS_FETCH"
+    [[ $exitCode -ne 0 ]] && exit
 
-    XML=$(mktemp)
-    tput sc; downloadXML &
-    spinner $! "$WIDGETS_CHECK"
-    tput rc; tput ed; printDone "$WIDGETS_CHECK"
-    echo
+    makeList & printWhile $! "$WIDGETS_CHECK"
 
-    hasUpdates="false"
-    for plasmoid in "${lines[@]}"; do
-        getWidgetInfo; [[ $? -ne 0 ]] && continue
-        compareVer "$currentVer" "$latestVer"
-        if [[ $? = 2 ]]; then
-            getLink; [[ $? -ne 0 ]] && continue
-            tempDir=$(mktemp -d)
-            mkdir $tempDir/unpacked
-            downloadWidget; [[ $? -ne 0 ]] && continue
-            hasUpdates="true"
-        fi
-    done
+    updated="false"
+    if [[ -s "$updatesList" ]] && jq -e '(. | length) > 0' "$updatesList" > /dev/null 2>&1; then
+        echo
+        jq -c '.[]' "$updatesList" | while read -r widget; do
+            echo -e "$(colorize white bold $(echo "$widget" | jq -r '.NM')) \t \
+                     $(colorize red bold $(echo "$widget" | jq -r '.VO')) \t \
+                     $(colorize white "->") \t \
+                     $(colorize green bold $(echo "$widget" | jq -r '.VN'))"
+        done | column -t
 
-    rm $XML
+        while true; do
+            echo
+            printQuestion "$WIDGETS_PROCEED"; read -r answer
+            case "$answer" in
+                [Yy]*) echo; break;;
+             [Nn]*|"") return 0;;
+                    *)  ;;
+            esac
+        done
 
-    [[ "$hasUpdates" = true ]] && restartPlasmashell
+        jq -c '.[]' "$updatesList" | while read -r widget; do
+            name=$(echo "$widget" | jq -r '.NM')
+            contentId=$(echo "$widget" | jq -r '.CN')
+            latestVer=$(echo "$widget" | jq -r '.VN')
+
+            echo "$(colorize blue bold "$ICO_EXEC $name ($latestVer)")"
+
+            getLink & printWhile $! "$WIDGETS_LINK"
+            [[ $exitCode -ne 0 ]] && { echo; continue; }
+
+            downloadWidget & printWhile $! "$WIDGETS_DOWNLOADING"
+            [[ $exitCode -ne 0 ]] && { echo; continue; }
+
+            kpackagetool6 -t Plasma/Applet -u $(dirname $(find $tempDir/$name -name "metadata.json")) 2>/dev/null
+            sleep 1
+            echo
+
+            updated="true"
+        done
+
+        [[ updated = true ]] && restartPlasmashell
+    else
+        printDone "$MNG_DONE"
+    fi
 }
 
 upgradeWidget() {
@@ -239,36 +277,44 @@ upgradeWidget() {
 
     dependencies "curl jq xmlstarlet unzip tar"
 
-    tempDir=$(mktemp -d)
-    mkdir $tempDir/unpacked
-    XML="$tempDir/data.xml"
-    tput sc; curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null &
-    spinner $! "$WIDGETS_FETCHING"; tput rc; tput ed
+    mkdir -p $tempDir/$name/unpacked
+    XML="$tempDir/$name/api.opendesktop.xml"
 
-    onError() {
-        rm -rf "$tempDir"
-        exit
-    }
+    trap cleanup EXIT
 
-    if [ -s "$XML" ]; then
-        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
-        [[ $statuscode = 200 ]] && { printError "$WIDGETS_API_ERR"; onError; }
-        [[ $statuscode != 100 ]] && { printError "$WIDGETS_FETCHING"; onError; }
-        printDone "$WIDGETS_FETCHING"
-    else
-        printError "$WIDGETS_FETCHING"; onError
-    fi
+    {
+        curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null
+        if [ -s "$XML" ]; then
+            statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
+            case $statuscode in
+                100) return 0 ;;
+                200) return 2 ;;
+                  *) return 3 ;;
+            esac
+        else
+            return 1
+        fi
+    } & printWhile $! "$WIDGETS_FETCH"
+    [[ $exitCode -ne 0 ]] && exit
 
     latestVer=$(clearVer "$(xmlstarlet sel -t -v "//content[id='$contentId']/version" "$XML")")
     
-    getLink; [[ $? -ne 0 ]] && exit
-    downloadWidget; [[ $? -ne 0 ]] && exit
+    getLink & printWhile $! "$WIDGETS_LINK"
+    [[ $exitCode -ne 0 ]] && exit
+
+    downloadWidget & printWhile $! "$WIDGETS_DOWNLOADING"
+    [[ $exitCode -ne 0 ]] && exit
+
+    kpackagetool6 -t Plasma/Applet -u $(dirname $(find $tempDir/$name -name "metadata.json")) 2>/dev/null
+    sleep 1
+    echo
+
     restartPlasmashell
 }
 
 case "$1" in
-                       "check") checkWidgets;;
-                     "upgrade") shift; upgradeWidget $1 $2;;
-                  "upgradeAll") upgradeAllWidgets;;
-                             *) exit;;
+         "check") checkWidgets;;
+       "upgrade") shift; upgradeWidget $1 $2;;
+    "upgradeAll") upgradeAllWidgets;;
+               *) exit;;
 esac

@@ -26,23 +26,23 @@ colorize() {
 }
 
 printDone() {
-    echo -e "$(colorize green $ICO_DONE) $(colorize green bold $1)"
+    echo -e "$(colorize green bold "$ICO_DONE $1")"
 }
 
 printError() {
-    echo -e "$(colorize red $ICO_ERR) $(colorize red bold $1)"
+    echo -e "$(colorize red bold "$ICO_ERR $1")"
 }
 
 printImportant() {
-    echo -e "$(colorize yellow $ICO_WARN) $(colorize yellow bold $1) $2"
+    echo -e "$(colorize yellow bold "$ICO_WARN $1") $2"
 }
 
 printQuestion() {
-    echo -en "$(colorize yellow $ICO_QUESTION) $(colorize yellow bold $1) [y/N]: "
+    echo -en "$(colorize yellow bold "$ICO_QUESTION $1") [y/N]: "
 }
 
 printExec() {
-    echo -e "$(colorize blue $ICO_EXEC) $(colorize blue bold $MNG_EXEC) $(colorize white $wrapper_sudo $1 $2) \n"
+    echo -e "$(colorize blue bold "$ICO_EXEC $MNG_EXEC") $(colorize white $wrapper_sudo $1 $2) \n"
 }
 
 printMsg() {
@@ -73,6 +73,39 @@ printClose() {
     tput cnorm
 }
 
+printWhile() {
+    tput sc
+    pid=$1
+    spinner $pid "$2"
+    wait $pid
+    exitCode=$?
+    tput rc
+    tput ed
+
+    [[ $exitCode -eq 0 ]] && printDone "$2" || printError "$2"
+
+    if [[ "$2" = "$WIDGETS_FETCH" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_API_FAIL" ;;
+            2) printError "$WIDGETS_ERR_API" ;;
+            3) printError "$WIDGETS_ERR_UNKNOWN" ;;
+        esac
+    elif [[ "$2" = "$WIDGETS_LINK" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_NOFILES. $UPGRADE_SKIPPED" ;;
+            2) printError "$WIDGETS_ERR_NOTAGGED $latestVer. $UPGRADE_SKIPPED" ;;
+            3) printError "$WIDGETS_ERR_TAGGED $latestVer. $UPGRADE_SKIPPED" ;;
+        esac
+    elif [[ "$2" = "$WIDGETS_DOWNLOADING" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_PACKAGE_FAIL" ;;
+            2) printError "$WIDGETS_ERR_EXT" ;;
+            3) printError "$WIDGETS_ERR_NO_JSON" ;;
+            4) printError "$WIDGETS_ERR_JSON" ;;
+        esac
+    fi
+}
+
 dependencies() {
     for cmd in ${1}; do
         if ! command -v "$cmd" >/dev/null; then
@@ -90,7 +123,7 @@ spinner() {
     local spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
     while kill -0 $1 2>/dev/null; do
         i=$(( (i+1) %10 ))
-        printf "\r$(colorize red ${spin:$i:1}) $(colorize blue bold $2)"
+        printf "\r$(colorize red ${spin:$i:1}) $(colorize blue bold "$2...")"
         sleep .2
     done
 }
