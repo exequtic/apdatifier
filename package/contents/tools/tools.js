@@ -95,15 +95,6 @@ function checkDependencies() {
 }
 
 
-function dependency(bin) {
-    checkDependencies()
-    if (!pkg[bin]) {
-        sendNotify("dependency", i18n("Exit code: ") + 127, i18n("Required installed") + " <b>" + bin + "</b>")
-        return false
-    }
-    return true
-}
-
 function defineCommands() {
     const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
     cmd.news = yayOrParu ? yayOrParu + " -Pwwq" : null
@@ -117,7 +108,6 @@ function defineCommands() {
 
 
 function upgradePackage(name, id, contentID) {
-    if (!dependency("kstart")) return
     if (id) {
         runInTerminal("upgrade", "flatpak", id, name)
     } else if (contentID) {
@@ -128,7 +118,6 @@ function upgradePackage(name, id, contentID) {
 }
 
 function management() {
-    if (!dependency("kstart")) return
     runInTerminal("management")
 }
 
@@ -161,7 +150,6 @@ function upgradingState(startup) {
 
 function upgradeSystem() {
     if (sts.upgrading) return
-    if (!dependency("kstart")) return
     enableUpgrading(true)
     runInTerminal("upgrade", "full")
 }
@@ -433,7 +421,6 @@ function setStatusBar(code) {
 let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "label": "", "action": "", "urgency": "" }
 function sendNotify(event, title, body) {
     const eventParams = {
-        dependency: { icon: "utilities-terminal", label: i18n("Open in browser"), action: "openPackageLink", urgency: "HighUrgency" },
         updates: { icon: "apdatifier-packages", label: i18n("Upgrade system"), action: "upgradeSystem", urgency: "DefaultUrgency" },
         news: { icon: "news-subscribe", label: i18n("Open in browser"), action: "openNewsLink", urgency: "HighUrgency" },
         error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "HighUrgency" }
@@ -441,7 +428,6 @@ function sendNotify(event, title, body) {
 
     let { icon, label, action, urgency } = eventParams[event]
 
-    if (event === "dependency") event = "error"
     if (cfg.notifySound) event += "Sound"
 
     notify = { event, title, body, icon, label, action, urgency }
