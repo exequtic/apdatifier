@@ -8,6 +8,7 @@ const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
+const newsFile = configDir + "news.json"
 
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
@@ -70,11 +71,17 @@ function loadConfig() {
         if (Error(code, err)) return
         plasmoid.configuration.rules = out
     })
+
+    sh.exec(readFile(newsFile), (cmd, out, err, code) => {
+        if (Error(code, err)) return
+        JSON.parse(out.trim()).forEach(item => newsModel.append(item))
+        updateActiveNews()
+    })
 }
 
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak kstart paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
+    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -83,27 +90,15 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, kstart] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, kstart }
+        const [pacman, checkupdates, flatpak ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak }
 
-        const wrappers = populate(output.slice(4, 6).filter(Boolean))
+        const wrappers = populate(output.slice(3, 5).filter(Boolean))
         cfg.wrappers = wrappers.length > 0 ? wrappers : null
 
-        const terminals = populate(output.slice(6).filter(Boolean))
+        const terminals = populate(output.slice(5).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
     })
-}
-
-
-function defineCommands() {
-    const yayOrParu = cfg.wrappers ? (cfg.wrappers.find(el => el.name === "paru" || el.name === "yay") || {}).value || "" : null
-    cmd.news = yayOrParu ? yayOrParu + " -Pwwq" : null
-
-    cmd.arch = pkg.checkupdates
-                    ? cfg.aur ? `checkupdates; ${cfg.wrapper} -Qua` : "checkupdates"
-                    : cfg.aur ? cfg.wrapper + " -Qu" : "pacman -Qu"
-
-    if (!pkg.pacman || !cfg.arch) delete cmd.arch
 }
 
 
@@ -167,13 +162,22 @@ function checkUpdates() {
     sts.busy = true
     sts.errMsg = ""
 
-    defineCommands()
-
     let arch = [], flatpak = [], widgets = []
 
-    const archCmd = cmd.arch
+    let archCmd = pkg.checkupdates
+                        ? cfg.aur ? `checkupdates; ${cfg.wrapper} -Qua` : "checkupdates"
+                        : cfg.aur ? cfg.wrapper + " -Qu" : "pacman -Qu"
 
-     cfg.archNews ? checkNews() :
+    if (!pkg.pacman || !cfg.arch) delete archCmd
+
+    const feeds = [
+        cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
+        cfg.newsKDE   && "'https://kde.org/index.xml'",
+        cfg.newsTWIK  && "'https://pointieststick.com/feed/'",
+        cfg.newsTWIKA && "'https://blogs.kde.org/categories/this-week-in-kde-apps/index.xml'"
+    ].filter(Boolean).join(' ')
+
+            feeds ? checkNews() :
           archCmd ? checkArch() :
       cfg.flatpak ? checkFlatpak() :
       cfg.widgets ? checkWidgets() :
@@ -183,12 +187,9 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
 
-        if (!cmd.news) checkArch()
-        if (!cmd.news) return
-
-        sh.exec(cmd.news, (cmd, out, err, code) => {
+        sh.exec(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            if (out) makeNewsArticle(out)
+            if (out) updateNews(out)
             archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
     })}
 
@@ -260,15 +261,39 @@ function checkUpdates() {
 }
 
 
-function makeNewsArticle(news) {
-    news = news.trim().replace(/'/g, "").split("\n")
-    if (news.length > 10) news = news.filter(line => !line.startsWith(' '))
-    const lastArticle = news[news.length - 1].replace(/(\d{4}-\d{2}-\d{2})/, "[$1]")
-    if (lastArticle !== cfg.news) {
-        cfg.news = lastArticle
-        cfg.newsMsg = true
-        if (cfg.notifyUpdates) sendNotify("news", i18n("Arch Linux News"), lastArticle.split(" ").slice(1).join(" "))
+function updateNews(out) {
+    const news = JSON.parse(out.trim())
+
+    if (cfg.notifyNews) {
+        const currentNews = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
+        news.forEach(item => {
+            if (!currentNews.some(currentItem => currentItem.link === item.link)) {
+                sendNotify("news", item.title, item.article)
+            }
+        })
     }
+
+    newsModel.clear()
+    news.forEach(item => newsModel.append(item))
+    updateActiveNews()
+}
+
+function updateActiveNews() {
+    const activeItems = Array.from({ length: newsModel.count }, (_, i) => newsModel.get(i)).filter(item => !item.removed)
+    activeNewsModel.clear()
+    activeItems.forEach(item => activeNewsModel.append(item))
+}
+
+function removeNewsItem(index) {
+    for (let i = 0; i < newsModel.count; i++) {
+        if (newsModel.get(i).link === activeNewsModel.get(index).link) {
+            newsModel.setProperty(i, "removed", true)
+            activeNewsModel.remove(index)
+            break
+        }
+    }
+    let array = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
+    sh.exec(writeFile(toFileFormat(array), '>', newsFile))
 }
 
 
@@ -392,7 +417,7 @@ function finalize(list) {
 
     cache = list
 
-    const json = formatJson(JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))))
+    const json = toFileFormat(keys(sortList(JSON.parse(JSON.stringify(list)), true)))
     if (json.length > 130000) {
         let start = 0
         const chunkSize = 200
@@ -418,19 +443,19 @@ function setStatusBar(code) {
 }
 
 
-let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "label": "", "action": "", "urgency": "" }
+let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "urgency": "" }
 function sendNotify(event, title, body) {
     const eventParams = {
-        updates: { icon: "apdatifier-packages", label: i18n("Upgrade system"), action: "upgradeSystem", urgency: "DefaultUrgency" },
-        news: { icon: "news-subscribe", label: i18n("Open in browser"), action: "openNewsLink", urgency: "HighUrgency" },
-        error: { icon: "error", label: i18n("Check updates"), action: "checkUpdates", urgency: "HighUrgency" }
+        updates: { icon: "apdatifier-packages", urgency: "DefaultUrgency" },
+        news: { icon: "news-subscribe", urgency: "HighUrgency" },
+        error: { icon: "error", urgency: "HighUrgency" }
     }
 
-    let { icon, label, action, urgency } = eventParams[event]
+    let { icon, urgency } = eventParams[event]
 
     if (cfg.notifySound) event += "Sound"
 
-    notify = { event, title, body, icon, label, action, urgency }
+    notify = { event, title, body, icon, urgency }
     notification.sendEvent()
 }
 
@@ -544,16 +569,8 @@ function switchInterval() {
     cfg.interval = !cfg.interval
 }
 
-function openNewsLink() {
-    const path = cfg.news.split(" ").slice(1).join(" ").toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "")
-    return Qt.openUrlExternally("https://archlinux.org/news/" + path)
-}
-
-function openPackageLink() {
-    const path = "https://archlinux.org/packages/extra/x86_64/kde-cli-tools"
-    return Qt.openUrlExternally(path)
-}
-
-function formatJson(data) {
-    return data.replace(/},/g, "},\n").replace(/'/g, "")
+function toFileFormat(obj) {
+    const jsonStringWithSpace = JSON.stringify(obj, null, 2)
+    const writebleJsonStrings = jsonStringWithSpace.replace(/'/g, "")
+    return writebleJsonStrings
 }

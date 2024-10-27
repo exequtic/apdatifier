@@ -179,9 +179,9 @@ ColumnLayout {
                 for (var i = 0; i < rulesModel.count; i++) {
                     array.push(rulesModel.get(i))
                 }
-                var rules = JSON.stringify(array)
+                var rules = JS.toFileFormat(array)
                 plasmoid.configuration.rules = rules
-                sh.exec(JS.writeFile(JS.formatJson(rules), JS.rulesFile))
+                sh.exec(JS.writeFile(rules, '>', JS.rulesFile))
             }
         }
     }

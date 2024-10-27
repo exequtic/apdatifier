@@ -5,6 +5,15 @@
 
 source "$(dirname "$0")/vars"
 
+cleanup() {
+    [ -d $tempDir ] && rm -rf $tempDir
+}
+
+makeTempDir() {
+    cleanup
+    mkdir $tempDir
+}
+
 colorize() {
     local red="\033[31m"
     local green="\033[32m"
@@ -173,6 +182,42 @@ combineFiles() {
     done
 }
 
+rss() {
+    for cmd in curl jq; do
+        command -v "$cmd" >/dev/null || { echo "${CMD_ERR} ${cmd}" >&2; return 127; }
+    done
+
+    makeTempDir
+    trap cleanup EXIT
+
+    local newsFile="$configDir/news.json"
+
+    [ ! -s "$newsFile" ] && echo '[]' > "$newsFile"
+
+    for url in "$@"; do
+        local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
+        curl -m 30 -s -o "$rssFile" "$url" 2>/dev/null
+        [ ! -s $rssFile ] && continue
+
+        local title=$(xmllint --xpath "string(/rss/channel/title)" "$rssFile")
+        local article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" "$rssFile")
+        local date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' "$rssFile")" +"%A, %d %B %Y, %H:%M")
+        local link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" "$rssFile")
+
+        if ! jq -e ".[] | select(.link == \"$link\")" "$newsFile" > /dev/null; then
+            local news_item=$(jq -n --arg title "$title" --arg article "$article" --arg date "$date" --arg link "$link" \
+                                        '{title: $title, article: $article, date: $date, link: $link, removed: false}')
+            jq "[$news_item] + ." "$newsFile" > "$newsFile.tmp" && mv "$newsFile.tmp" "$newsFile"
+
+        fi
+    done
+
+    jq 'sort_by(.date | strptime("%A, %d %B %Y, %H:%M") | mktime) | reverse' "$newsFile" > "$newsFile.tmp" && mv "$newsFile.tmp" "$newsFile"
+
+    cat "$newsFile" | jq .
+}
+
 case "$1" in
+             "rss") shift; rss "$@" ;;
     "combineFiles") shift; combineFiles $1 ;;
 esac

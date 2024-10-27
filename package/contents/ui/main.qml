@@ -66,6 +66,14 @@ PlasmoidItem {
         id: listModel
     }
 
+    ListModel  {
+        id: newsModel
+    }
+
+    ListModel {
+        id: activeNewsModel
+    }
+
     Notification {
         id: notification
         componentName: "apdatifier"
@@ -75,12 +83,6 @@ PlasmoidItem {
         iconName: notify.icon
         flags: cfg.notifyPersistent ? Notification.Persistent : Notification.CloseOnTimeout
         urgency: Notification[notify.urgency] || Notification.DefaultUrgency
-        actions: [
-            NotificationAction {
-                label: notify.label
-                onActivated: JS[notify.action]()
-            }
-        ]
     }
 
     DataSource.Shell {

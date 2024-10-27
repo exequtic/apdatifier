@@ -220,7 +220,8 @@ Representation {
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
-        visible: cfg.showTabBar && sts.pending
+        // visible: cfg.showTabBar && sts.pending
+        visible: cfg.showTabBar
 
         contentItem: TabBar {
             id: tabBar
@@ -228,10 +229,7 @@ Representation {
             Layout.fillHeight: true
             position: TabBar.Footer
 
-            property int listView: cfg.listView
-            onListViewChanged: currentIndex = listView
-            onCurrentIndexChanged: cfg.listView = currentIndex
-            Component.onCompleted: currentIndex = listView
+            Component.onCompleted: currentIndex = cfg.listView
 
             TabButton {
                 id: compactViewTab
@@ -264,6 +262,34 @@ Representation {
                         color: Kirigami.Theme.colorSet
                         isMask: cfg.ownIconsUI
                         smooth: true
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+            }
+
+            TabButton {
+                id: newsViewTab
+                ToolTip { text: i18n("News") }
+                contentItem: RowLayout {
+                    Kirigami.Theme.inherit: true
+                    Item { Layout.fillWidth: true }
+                    Kirigami.Icon {
+                        id: newsIcon
+                        Layout.preferredHeight: height
+                        height: Kirigami.Units.iconSizes.small
+                        source: cfg.ownIconsUI ? svg("status_news") : "news-subscribe"
+                        color: Kirigami.Theme.colorSet
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                        Label {
+                            anchors.right: newsIcon.right
+                            anchors.top: newsIcon.top
+                            anchors.rightMargin: 6
+                            anchors.topMargin: 4
+                            visible: activeNewsModel.count > 0
+                            text: "●"
+                            color: Kirigami.Theme.negativeTextColor
+                        }
                     }
                     Item { Layout.fillWidth: true }
                 }
@@ -329,41 +355,6 @@ Representation {
             ]
         }
 
-        Kirigami.InlineMessage {
-            id: newsMsg
-            Layout.fillWidth: true
-            Layout.topMargin: releaseMsg.visible ? 0 : Kirigami.Units.smallSpacing * 2
-            Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
-            icon.source: "news-subscribe"
-            text: "<b>" + i18n("Arch Linux News") + "</b><br>" + cfg.news.split(" ").slice(1).join(" ")
-            type: Kirigami.MessageType.Warning
-            visible: sts.pending && cfg.newsMsg && !searchFieldOpen
-
-            actions: [
-                Kirigami.Action {
-                    tooltip: i18n("Select...")
-                    icon.name: "application-menu"
-                    expandible: true
-
-                    Kirigami.Action {
-                        text: i18n("Read article")
-                        icon.name: "internet-web-browser-symbolic"
-                        onTriggered: JS.openNewsLink()
-                    }
-                    Kirigami.Action {
-                        text: i18n("Hide")
-                        icon.name: "hint"
-                        onTriggered: newsMsg.visible = false
-                    }
-                    Kirigami.Action {
-                        text: i18n("Dismiss")
-                        icon.name: "dialog-close-symbolic"
-                        onTriggered: cfg.newsMsg = false
-                    }
-                }
-            ]
-        }
-
         StackLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -371,6 +362,7 @@ Representation {
 
             View.Compact {}
             View.Extended {}
+            View.News {}
         }
     }
 
@@ -422,7 +414,7 @@ Representation {
     PlaceholderMessage {
         anchors.centerIn: parent
         width: parent.width - (Kirigami.Units.gridUnit * 4)
-        enabled: sts.updated
+        enabled: tabBar.currentIndex < 2 && sts.updated
         visible: enabled
         iconName: "checkmark"
         text: i18n("System updated")
@@ -435,6 +427,15 @@ Representation {
         visible: enabled
         iconName: "error"
         text: sts.errMsg
+    }
+
+    PlaceholderMessage {
+        anchors.centerIn: parent
+        width: parent.width - (Kirigami.Units.gridUnit * 4)
+        enabled: tabBar.currentIndex === 2 && activeNewsModel.count === 0 && sts.idle
+        visible: enabled
+        iconName: "face-cool"
+        text: "No unread news :)"
     }
 
     KSortFilterProxyModel {
@@ -470,13 +471,15 @@ Representation {
         onPositionChanged: {
             if (mouseArea.cursorShape == Qt.ClosedHandCursor) {
                 var deltaX = mouseX - startX
-                if (deltaX > 80) {
-                    tabBar.currentIndex = 1
-                } else if (deltaX < -80) {
-                    tabBar.currentIndex = 0
+                var index = tabBar.currentIndex
+                if (deltaX > 80 && index < 2) {
+                    index += 1
+                } else if (deltaX < -80 && index > 0) {
+                    index -= 1
                 } else {
                     return
                 }
+                tabBar.currentIndex = index
                 startX = mouseArea.mouseX
             }
         }

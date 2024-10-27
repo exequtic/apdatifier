@@ -20,9 +20,13 @@ SimpleKCM {
 
     property alias cfg_arch: arch.checked
     property alias cfg_aur: aur.checked
-    property alias cfg_archNews: archNews.checked
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_widgets: widgets.checked
+
+    property alias cfg_newsArch: newsArch.checked
+    property alias cfg_newsKDE: newsKDE.checked
+    property alias cfg_newsTWIK: newsTWIK.checked
+    property alias cfg_newsTWIKA: newsTWIKA.checked
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -30,9 +34,10 @@ SimpleKCM {
     property string cfg_scrollDownAction: plasmoid.configuration.scrollDownAction
 
     property alias cfg_notifyUpdates: notifyUpdates.checked
+    property alias cfg_notifyEveryBump: notifyEveryBump.checked
+    property alias cfg_notifyNews: notifyNews.checked
     property alias cfg_notifyErrors: notifyErrors.checked
     property alias cfg_notifySound: notifySound.checked
-    property alias cfg_notifyEveryBump: notifyEveryBump.checked
     property alias cfg_notifyPersistent: notifyPersistent.checked
 
     property var pkg: plasmoid.configuration.packages
@@ -150,7 +155,7 @@ SimpleKCM {
             }
 
             RowLayout {
-                Kirigami.FormData.label: i18n("Search") + ":"
+                Kirigami.FormData.label: i18n("Updates") + ":"
 
                 CheckBox {
                     id: arch
@@ -193,20 +198,6 @@ SimpleKCM {
             }
 
             RowLayout {
-                visible: pkg.pacman
-
-                CheckBox {
-                    id: archNews
-                    text: i18n("Arch Linux News")
-                    enabled: pkg.pacman && wrappers
-                }
-
-                Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("It is necessary to have paru or yay installed.")
-                }
-            }
-
-            RowLayout {
                 spacing: Kirigami.Units.gridUnit
 
                 CheckBox {
@@ -242,6 +233,34 @@ SimpleKCM {
                     toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
                 }
             }
+
+            Item {
+                Kirigami.FormData.isSection: true
+            }
+
+            RowLayout {
+                Kirigami.FormData.label: i18n("News") + ":"
+
+                CheckBox {
+                    id: newsArch
+                    text: i18n("Arch Linux News")
+                }
+            }
+
+            CheckBox {
+                id: newsKDE
+                text: i18n("KDE Announcements")
+            }
+
+            CheckBox {
+                id: newsTWIK
+                text: i18n("This Week in KDE")
+            }
+
+            CheckBox {
+                id: newsTWIKA
+                text: i18n("This Week in KDE Apps")
+            }
         }
 
         Kirigami.FormLayout {
@@ -255,7 +274,7 @@ SimpleKCM {
             CheckBox {
                 Kirigami.FormData.label: i18n("Notifications") + ":"
                 id: notifyUpdates
-                text: i18n("For new updates and news")
+                text: i18n("For new updates")
             }
 
             RowLayout {
@@ -271,6 +290,11 @@ SimpleKCM {
             }
 
             CheckBox {
+                id: notifyNews
+                text: i18n("For news")
+            }
+
+            CheckBox {
                 id: notifyErrors
                 text: i18n("For errors")
             }
@@ -278,13 +302,13 @@ SimpleKCM {
             CheckBox {
                 id: notifySound
                 text: i18n("With sound")
-                enabled: notifyUpdates.checked || notifyErrors.checked
+                enabled: notifyUpdates.checked || notifyNews.checked || notifyErrors.checked
             }
 
             CheckBox {
                 id: notifyPersistent
                 text: i18n("Persistent")
-                enabled: notifyUpdates.checked || notifyErrors.checked
+                enabled: notifyUpdates.checked || notifyNews.checked || notifyErrors.checked
             }
 
             Item {

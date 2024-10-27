@@ -6,10 +6,6 @@
 source "$(dirname "$0")/utils"
 source "$(dirname "$0")/widgets-id"
 
-cleanup() {
-    [ -d $tempDir ] && rm -rf $tempDir
-}
-
 fetchData() {
     echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
 
@@ -155,7 +151,7 @@ checkWidgets() {
         command -v "$cmd" >/dev/null || { echo 127; exit; }
     done
 
-    mkdir $tempDir
+    makeTempDir
     XML="$tempDir/api.opendesktop.xml"
     updatesList="$tempDir/update.list.json"
 
@@ -211,7 +207,7 @@ downloadWidget() {
 upgradeAllWidgets() {
     dependencies "curl jq xmlstarlet unzip tar"
 
-    mkdir $tempDir
+    makeTempDir
     XML="$tempDir/api.opendesktop.xml"
     updatesList="$tempDir/update.list.json"
 
