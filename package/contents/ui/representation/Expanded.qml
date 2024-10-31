@@ -435,7 +435,7 @@ Representation {
         enabled: tabBar.currentIndex === 2 && activeNewsModel.count === 0 && sts.idle
         visible: enabled
         iconName: "face-cool"
-        text: "No unread news :)"
+        text: i18n("No unread news")
     }
 
     KSortFilterProxyModel {

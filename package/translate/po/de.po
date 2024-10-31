@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-18 20:43+0300\n"
+"POT-Creation-Date: 2024-10-31 20:29+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -52,6 +52,10 @@ msgstr ""
 "Führen Sie ein vollständiges System-Upgrade statt eines Teil-Upgrades durch!"
 
 #: ../contents/tools/sh/messages
+msgid "Total execution time:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Press Enter to close"
 msgstr "Eingabetaste drücken zum Beenden"
 
@@ -93,16 +97,24 @@ msgstr ""
 "Plasmashell neu starten"
 
 #: ../contents/tools/sh/messages
-msgid "Checking widgets for updates..."
-msgstr "Prüfe Widgets auf Aktualisierungen..."
+msgid "Checking widgets for updates"
+msgstr "Prüfe Widgets auf Aktualisierungen"
 
 #: ../contents/tools/sh/messages
-msgid "Fetching information about widget..."
-msgstr "Hole Informationen über Widget..."
+msgid "Fetching data from the API"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Downloading"
-msgstr "Herunterladen"
+msgid "Getting the download link"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downloading package"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Proceed with upgrade?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -119,6 +131,14 @@ msgid ""
 msgstr ""
 "Zu viele API-Anfragen in den letzten 15 Minuten von Ihrer IP-Adresse, bitte "
 "versuchen Sie es später noch einmal"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Failed to retrieve data from the API"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Unkwnown error"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -137,11 +157,15 @@ msgid "No files for download"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "files are available, but none are tagged as version"
+msgid "No file tagged with version"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "files are available for download, but all are tagged as version"
+msgid "Multiple files are tagged with version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Failed to download the package"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -226,6 +250,10 @@ msgid "Required installed"
 msgstr "Erforderlich installiert"
 
 #: ../contents/tools/tools.js
+msgid "Exit code: "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Prüfe aktuelle Nachrichten..."
 
@@ -252,14 +280,6 @@ msgstr ""
 "xmlstarlet)"
 
 #: ../contents/tools/tools.js
-msgid "could not get data from the API"
-msgstr "konnte keine Daten von der API erhalten"
-
-#: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Arch Linux Nachrichten"
-
-#: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
 msgstr[0] "+%1 neues Update"
@@ -270,20 +290,6 @@ msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "Update steht noch aus"
 msgstr[1] "Updates stehen noch aus"
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Upgrade system"
-msgstr "System aktualisieren"
-
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr "Lese Artikel"
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Check updates"
-msgstr "Prüfe auf Updates"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -315,6 +321,16 @@ msgstr "vor"
 msgid "None"
 msgstr "Kein(e)"
 
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr "Prüfe auf Updates"
+
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr "System aktualisieren"
+
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
 msgstr "Intervall wechseln"
@@ -327,6 +343,10 @@ msgstr "Verwaltung"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
 msgstr "Panel-Symbolansicht"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "List View"
+msgstr "Listenansicht"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
@@ -429,10 +449,6 @@ msgid "Bottom-Right"
 msgstr "Unten rechts"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Listenansicht"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
 msgstr "Integrierte Symbole"
 
@@ -495,6 +511,22 @@ msgstr ""
 "gedrückter rechter Maustaste nach links und rechts ziehen."
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "Suche"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Mouse actions"
+msgstr "Maus-Aktionen"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Misc"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
@@ -506,6 +538,7 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
 #: ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/scrollview/News.qml
 msgid "Dismiss"
 msgstr "Ablehnen"
 
@@ -549,8 +582,8 @@ msgstr ""
 "Start des Widgets eingeleitet. <b>Empfohlen.</b>"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Search"
-msgstr "Suche"
+msgid "Updates"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -559,10 +592,6 @@ msgstr "Arch offizielle Repositorien"
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
 msgstr "Arch Nutzer Repositorien"
-
-#: ../contents/ui/configuration/General.qml
-msgid "It is necessary to have paru or yay installed."
-msgstr "Es ist erforderlich, dass paru oder yay installiert ist."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
@@ -591,12 +620,64 @@ msgstr ""
 "anzugeben, wie sie im im KDE Store erscheinen."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper"
-msgstr "Hülle"
+#: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions"
-msgstr "Maus-Aktionen"
+msgid "Arch Linux News"
+msgstr "Arch Linux Nachrichten"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For new updates"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "For every version bump"
+msgstr "Bei jedem Versionssprung"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"If the option is <b>enabled</b>, notifications will be sent when a new "
+"version of the package is bumped, even if the package is already on the "
+"list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
+"notifications will only be sent for packages that are not yet on the list. "
+"<b>Less notifications.</b>"
+msgstr ""
+"Wenn die Option <b>aktiviert</b> ist, werden Benachrichtigungen gesendet, "
+"wenn eine neue Version des Pakets veröffentlicht wird, auch wenn das Paket "
+"bereits auf der Liste steht. <b>Weitere Benachrichtigungen: </b> "
+"<br><br>Wenn die Option <b>deaktiviert</b> ist, werden Benachrichtigungen "
+"nur für Pakete gesendet, die noch nicht noch nicht auf der Liste stehen. "
+"<b>Weniger Benachrichtigungen.</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For news"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "For errors"
+msgstr "Für Fehler"
+
+#: ../contents/ui/configuration/General.qml
+msgid "With sound"
+msgstr "Ton"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Persistent"
+msgstr "Persistente"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"To further configure, click the button below -> Application Settings -> "
+"Apdatifier"
+msgstr ""
+"Um weitere Einstellungen vorzunehmen, klicken Sie auf die Schaltfläche unten "
+"-> Anwendungsspezifische Einstellungen -> Apdatierer"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Configure..."
+msgstr "Konfigurieren..."
 
 #: ../contents/ui/configuration/General.qml
 msgid "middle click"
@@ -619,55 +700,6 @@ msgstr "nach oben scrollen"
 #: ../contents/ui/configuration/General.qml
 msgid "scroll down"
 msgstr "nach unten scrollen"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Notifications"
-msgstr "Benachrichtigungen"
-
-#: ../contents/ui/configuration/General.qml
-msgid "For new updates and news"
-msgstr "Für neue Updates und Nachrichten"
-
-#: ../contents/ui/configuration/General.qml
-msgid "For every version bump"
-msgstr "Bei jedem Versionssprung"
-
-#: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, notifications will be sent when a new "
-"version of the package is bumped, even if the package is already on the "
-"list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
-"notifications will only be sent for packages that are not yet on the list. "
-"<b>Less notifications.</b>"
-msgstr ""
-"Wenn die Option <b>aktiviert</b> ist, werden Benachrichtigungen gesendet, "
-"wenn eine neue Version des Pakets veröffentlicht wird, auch wenn das Paket "
-"bereits auf der Liste steht. <b>Weitere Benachrichtigungen: </b> "
-"<br><br>Wenn die Option <b>deaktiviert</b> ist, werden Benachrichtigungen "
-"nur für Pakete gesendet, die noch nicht noch nicht auf der Liste stehen. "
-"<b>Weniger Benachrichtigungen.</b>"
-
-#: ../contents/ui/configuration/General.qml
-msgid "For errors"
-msgstr "Für Fehler"
-
-#: ../contents/ui/configuration/General.qml
-msgid "With sound"
-msgstr "Ton"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Persistent"
-msgstr "Persistente"
-
-#: ../contents/ui/configuration/General.qml
-msgid ""
-"To further configure, click the button below -> Application Settings -> "
-"Apdatifier"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "Configure..."
-msgstr "Konfigurieren..."
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -737,41 +769,16 @@ msgid "Visit %1"
 msgstr "Besuch %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Terminal"
+msgid "Wrapper"
+msgstr "Hülle"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "Benutze Nerd-Schriftartsymbole"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
+msgid "Upgrade options"
 msgstr ""
-"Wenn Ihr Terminal eine <b>Nerd-Schriftart</b> verwendet, werden die Symbole "
-"dieser Schriftart verwendet."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Optionen"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
-msgstr "Plasmashell neustarten"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr "Nach dem Upgrade vorschlagen"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr ""
-"Nach der Aktualisierung des Widgets verbleibt die alte Version im Speicher, "
-"bis SiePlasmashell neu starten. Um zu vermeiden dies manuell machen zu "
-"müssen, aktivieren Sie diese Option."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -842,6 +849,63 @@ msgstr ""
 "Spiegel zu erstellen!</b> <br><br>Optimal ist es die Länder auszuwählen,  "
 "<b>1-2</b> die Ihnen am nächsten liegen."
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Non interactive, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Verbose"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade confirmation"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Restart plasmashell"
+msgstr "Plasmashell neustarten"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "Nach dem Upgrade vorschlagen"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr ""
+"Nach der Aktualisierung des Widgets verbleibt die alte Version im Speicher, "
+"bis SiePlasmashell neu starten. Um zu vermeiden dies manuell machen zu "
+"müssen, aktivieren Sie diese Option."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Benutze Nerd-Schriftartsymbole"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Wenn Ihr Terminal eine <b>Nerd-Schriftart</b> verwendet, werden die Symbole "
+"dieser Schriftart verwendet."
+
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
 msgstr "Automatische Prüfung deaktiviert"
@@ -889,6 +953,10 @@ msgstr "Verbergen"
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
 msgstr "System aktualisiert"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "No unread news"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
@@ -958,9 +1026,6 @@ msgstr "Installationsdatum"
 msgid "Install reason"
 msgstr "Installationsgrund"
 
-#~ msgid ""
-#~ "To further configure, click the button below -> Application-specific "
-#~ "settings -> Apdatifier"
-#~ msgstr ""
-#~ "Um weitere Einstellungen vorzunehmen, klicken Sie auf die Schaltfläche "
-#~ "unten -> Anwendungsspezifische Einstellungen -> Apdatierer"
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "Lese Artikel"

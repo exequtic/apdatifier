@@ -77,13 +77,13 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
-| English   |     198 |       |
-| Brazilian | 198/198 |  100% |
-| Dutch     | 190/198 |   95% |
-| French    | 190/198 |   95% |
-| German    | 190/198 |   95% |
-| Korean    | 112/198 |   56% |
-| Russian   | 198/198 |  100% |
+| English   |     215 |       |
+| Brazilian | 191/215 |   88% |
+| Dutch     | 186/215 |   86% |
+| French    | 186/215 |   86% |
+| German    | 186/215 |   86% |
+| Korean    | 137/215 |   63% |
+| Russian   | 215/215 |  100% |
 |-----------|---------|-------|
 ```
 

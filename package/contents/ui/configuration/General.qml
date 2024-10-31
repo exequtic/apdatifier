@@ -249,17 +249,17 @@ SimpleKCM {
 
             CheckBox {
                 id: newsKDE
-                text: i18n("KDE Announcements")
+                text: "KDE Announcements"
             }
 
             CheckBox {
                 id: newsTWIK
-                text: i18n("This Week in KDE")
+                text: "This Week in KDE"
             }
 
             CheckBox {
                 id: newsTWIKA
-                text: i18n("This Week in KDE Apps")
+                text: "This Week in KDE Apps"
             }
         }
 
@@ -394,7 +394,7 @@ SimpleKCM {
 
             Button {
                 icon.name: "backup"
-                text: i18n("Restore all dissmised messages")
+                text: "Restore all dissmised messages"
                 implicitWidth: 250
                 onClicked: {
                     plasmoid.configuration.configMsg = true

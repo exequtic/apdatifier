@@ -70,10 +70,12 @@ ScrollView {
 
                         ColumnLayout {
                             Controls.Button {
+                                ToolTip { text: i18n("Read article") }
                                 icon.name: "internet-web-browser-symbolic"
                                 onClicked: Qt.openUrlExternally(model.link)
                             }
                             Controls.Button {
+                                ToolTip { text: i18n("Dismiss") }
                                 icon.name: "dialog-close"
                                 onClicked: JS.removeNewsItem(index)
                             }

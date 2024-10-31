@@ -437,7 +437,7 @@ function finalize(list) {
 
 function setStatusBar(code) {
     sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
-    sts.statusMsg = sts.err ? i18n("Exit code: ") + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
+    sts.statusMsg = sts.err ? "Exit code: " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
     sts.busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
 }

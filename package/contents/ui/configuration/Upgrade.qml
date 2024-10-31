@@ -309,7 +309,7 @@ SimpleKCM {
         }
 
         RowLayout{
-            Kirigami.FormData.label: i18n("Upgrade output") + ":"
+            Kirigami.FormData.label: i18n("Upgrade options") + ":"
 
             RadioButton {
                 ButtonGroup.group: flatpakFlags

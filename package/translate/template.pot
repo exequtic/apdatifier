@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-18 20:43+0300\n"
+"POT-Creation-Date: 2024-10-31 20:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,10 @@ msgid "Perform full system upgrade instead partial upgrade!"
 msgstr ""
 
 #: ../contents/tools/sh/messages
+msgid "Total execution time:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Press Enter to close"
 msgstr ""
 
@@ -87,15 +91,23 @@ msgid "For some widgets you may need to Log Out or restart plasmashell after upg
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Checking widgets for updates..."
+msgid "Checking widgets for updates"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Fetching information about widget..."
+msgid "Fetching data from the API"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Downloading"
+msgid "Getting the download link"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downloading package"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Proceed with upgrade?"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -108,6 +120,14 @@ msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Failed to retrieve data from the API"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Unkwnown error"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -127,11 +147,15 @@ msgid "No files for download"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "files are available, but none are tagged as version"
+msgid "No file tagged with version"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "files are available for download, but all are tagged as version"
+msgid "Multiple files are tagged with version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Failed to download the package"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -211,6 +235,10 @@ msgid "Required installed"
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Exit code: "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr ""
 
@@ -235,14 +263,6 @@ msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "could not get data from the API"
-msgstr ""
-
-#: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr ""
-
-#: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
 msgstr[0] ""
@@ -253,18 +273,6 @@ msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] ""
 msgstr[1] ""
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Upgrade system"
-msgstr ""
-
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr ""
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Check updates"
-msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -296,6 +304,14 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr ""
+
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr ""
+
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
 msgstr ""
@@ -306,6 +322,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "List View"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -407,10 +427,6 @@ msgid "Bottom-Right"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
 msgstr ""
 
@@ -467,10 +483,26 @@ msgid "You can also switch tabs by dragging the mouse left and right with the ri
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Notifications"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Mouse actions"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Misc"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml ../contents/ui/representation/Expanded.qml ../contents/ui/scrollview/News.qml
 msgid "Dismiss"
 msgstr ""
 
@@ -501,7 +533,7 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Search"
+msgid "Updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -510,10 +542,6 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "It is necessary to have paru or yay installed."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -534,40 +562,16 @@ msgid ""
 "specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
-msgid "Wrapper"
+#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
+msgid "News"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions"
+msgid "Arch Linux News"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "right click"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking."
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "scroll up"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "scroll down"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "Notifications"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "For new updates and news"
+msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -578,6 +582,10 @@ msgstr ""
 msgid ""
 "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
 "is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "For news"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -598,6 +606,26 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "middle click"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "right click"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "scroll up"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "scroll down"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -657,31 +685,15 @@ msgid "Visit %1"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
+msgid "Wrapper"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgid "Upgrade options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -738,6 +750,54 @@ msgid ""
 "to choose <b>1-2</b> countries closest to you."
 msgstr ""
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Non interactive, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Verbose"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade confirmation"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Restart plasmashell"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgstr ""
+
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
 msgstr ""
@@ -784,6 +844,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "No unread news"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
@@ -852,4 +916,8 @@ msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
+msgstr ""
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-18 20:43+0300\n"
+"POT-Creation-Date: 2024-10-31 20:29+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,6 +52,10 @@ msgid "Perform full system upgrade instead partial upgrade!"
 msgstr "부분 업그레이드 대신 전체 시스템 업그레이드를 하십시오!"
 
 #: ../contents/tools/sh/messages
+msgid "Total execution time:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Press Enter to close"
 msgstr "Enter 키를 눌러 닫기"
 
@@ -91,16 +95,24 @@ msgstr ""
 "합니다"
 
 #: ../contents/tools/sh/messages
-msgid "Checking widgets for updates..."
-msgstr "위젯 업데이트를 확인하는 중..."
+msgid "Checking widgets for updates"
+msgstr "위젯 업데이트를 확인하는 중"
 
 #: ../contents/tools/sh/messages
-msgid "Fetching information about widget..."
-msgstr "위젯 정보를 가져오는 중..."
+msgid "Fetching data from the API"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Downloading"
-msgstr "다운로드 중"
+msgid "Getting the download link"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downloading package"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Proceed with upgrade?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -116,6 +128,14 @@ msgid ""
 "try again later"
 msgstr ""
 "15분 내 당신의 IP 주소로 많은 API 요청이 들어왔습니다. 다시 시도하십시오"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Failed to retrieve data from the API"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Unkwnown error"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -134,11 +154,15 @@ msgid "No files for download"
 msgstr "다운로드 할 파일이 없습니다."
 
 #: ../contents/tools/sh/messages
-msgid "files are available, but none are tagged as version"
+msgid "No file tagged with version"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "files are available for download, but all are tagged as version"
+msgid "Multiple files are tagged with version"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Failed to download the package"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -218,6 +242,10 @@ msgid "Required installed"
 msgstr "설치에 필요"
 
 #: ../contents/tools/tools.js
+msgid "Exit code: "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "최근 소식 확인 중..."
 
@@ -242,14 +270,6 @@ msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
 msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq, xmlstarlet)"
 
 #: ../contents/tools/tools.js
-msgid "could not get data from the API"
-msgstr "API로부테 데이터를 받을 수 없음"
-
-#: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "아치 리눅스 소식"
-
-#: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
 msgstr[0] "새 업데이트 +%1"
@@ -258,20 +278,6 @@ msgstr[0] "새 업데이트 +%1"
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "업데이트 대기 중"
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Upgrade system"
-msgstr "시스템 업그레이드"
-
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr "기사 읽기"
-
-#: ../contents/tools/tools.js ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Check updates"
-msgstr "업데이트 확인"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -300,6 +306,16 @@ msgstr "전에"
 msgid "None"
 msgstr "없음"
 
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr "업데이트 확인"
+
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr "시스템 업그레이드"
+
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
 msgstr "업데이트 주기 변경"
@@ -312,6 +328,10 @@ msgstr "관리"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
 msgstr "패널 아이콘 보기"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "List View"
+msgstr "목록 보기"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
@@ -413,10 +433,6 @@ msgid "Bottom-Right"
 msgstr "우측 하단"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "목록 보기"
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
 msgstr "기본 아이콘 사용"
 
@@ -475,16 +491,33 @@ msgid ""
 msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."
 
 #: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "검색"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Notifications"
+msgstr "알림"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Mouse actions"
+msgstr "마우스 동작"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Misc"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"설정은 자동으로 설정 파일에 저장되며, 세션 시작 시마다 로드 되어 설정이 유실되지 않도록 합니다. "
-"설정 파일 위치: "
+"설정은 자동으로 설정 파일에 저장되며, 세션 시작 시마다 로드 되어 설정이 유실"
+"되지 않도록 합니다. 설정 파일 위치: "
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
 #: ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/scrollview/News.qml
 msgid "Dismiss"
 msgstr ""
 
@@ -493,8 +526,8 @@ msgid ""
 " not installed! Highly recommended to install it for getting the latest "
 "updates without the need to download fresh package databases."
 msgstr ""
-" 이(가) 설치되지 않았습니다! "
-"새 패키지를 다운 받을 필요 없이 최신 버전으로 업데이트 할 수 있으므로 적극 추천합니다."
+" 이(가) 설치되지 않았습니다! 새 패키지를 다운 받을 필요 없이 최신 버전으로 업"
+"데이트 할 수 있으므로 적극 추천합니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -524,8 +557,8 @@ msgstr ""
 "나면 업데이트 확인이 시작됩니다. <b>권장됨</b>"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Search"
-msgstr "검색"
+msgid "Updates"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -534,10 +567,6 @@ msgstr "Arch 공식 저장소"
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
 msgstr "Arch 사용자 저장소"
-
-#: ../contents/ui/configuration/General.qml
-msgid "It is necessary to have paru or yay installed."
-msgstr "paru나 yay가 설치되어 있어야 합니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
@@ -565,41 +594,16 @@ msgstr ""
 "version <b>exactly</b> as they appear on the KDE Store."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper"
-msgstr "AUR 헬퍼"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Mouse actions"
-msgstr "마우스 동작"
-
-#: ../contents/ui/configuration/General.qml
-msgid "middle click"
-msgstr "가운데 클릭"
-
-#: ../contents/ui/configuration/General.qml
-msgid "right click"
-msgstr "오른쪽 클릭"
-
-#: ../contents/ui/configuration/General.qml
-msgid ""
-"Do not enable this option if the widget is not used in the system tray; "
-"otherwise, you will not be able to open the settings by right-clicking."
+#: ../contents/ui/representation/Expanded.qml
+msgid "News"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll up"
-msgstr ""
+msgid "Arch Linux News"
+msgstr "아치 리눅스 소식"
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll down"
-msgstr ""
-
-#: ../contents/ui/configuration/General.qml
-msgid "Notifications"
-msgstr "알림"
-
-#: ../contents/ui/configuration/General.qml
-msgid "For new updates and news"
+msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -613,6 +617,10 @@ msgid ""
 "list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "For news"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -636,6 +644,28 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
 msgstr "설정..."
+
+#: ../contents/ui/configuration/General.qml
+msgid "middle click"
+msgstr "가운데 클릭"
+
+#: ../contents/ui/configuration/General.qml
+msgid "right click"
+msgstr "오른쪽 클릭"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Do not enable this option if the widget is not used in the system tray; "
+"otherwise, you will not be able to open the settings by right-clicking."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "scroll up"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "scroll down"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -699,39 +729,16 @@ msgid "Visit %1"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "터미널"
+msgid "Wrapper"
+msgstr "AUR 헬퍼"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "NerdFont 아이콘 사용"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
+msgid "Upgrade options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
-msgstr "plasmashell 재시작"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr "업그레이드 후 권장됨"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr ""
-"위젯을 업그레이드하면 이전 버전이 plasmashell을 다시 시작할 때까지 여전히 메"
-"모리에 남아있습니다. 이걸 수동으로 하는 것을 피하려면, 이 옵션을 활성화하십시"
-"오."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -795,6 +802,61 @@ msgid ""
 "countries closest to you."
 msgstr ""
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Non interactive, skip questions"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Verbose"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade confirmation"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Restart plasmashell"
+msgstr "plasmashell 재시작"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "업그레이드 후 권장됨"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr ""
+"위젯을 업그레이드하면 이전 버전이 plasmashell을 다시 시작할 때까지 여전히 메"
+"모리에 남아있습니다. 이걸 수동으로 하는 것을 피하려면, 이 옵션을 활성화하십시"
+"오."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "터미널"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "NerdFont 아이콘 사용"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
 msgstr "자동 확인 사용 안 함"
@@ -841,6 +903,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "No unread news"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
@@ -910,3 +976,7 @@ msgstr "설치 날짜"
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "설치 이유"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "기사 읽기"
