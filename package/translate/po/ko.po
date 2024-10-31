@@ -33,7 +33,7 @@ msgstr "모양새"
 
 #: ../contents/config/config.qml
 msgid "Rules"
-msgstr ""
+msgstr "규칙"
 
 #: ../contents/config/config.qml
 msgid "Support me"
@@ -61,15 +61,15 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list..."
-msgstr ""
+msgstr "필터 된 미러리스트를 받아오고 있습니다."
 
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed..."
-msgstr ""
+msgstr "연결 속도에 따라 미러의 순위를 산정하고 있습니다."
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
-msgstr ""
+msgstr "미러리스트 생성 설정을 확인해 주십시오."
 
 #: ../contents/tools/sh/messages
 msgid "was updated with the following servers:"
@@ -77,7 +77,7 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
+msgstr "미러리스트 파일을 변경하기 위해서는 sudo 권한이 필요합니다."
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -108,7 +108,7 @@ msgstr "plasmashell을 다시 시작하시겠습니까?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "설명 없음"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
@@ -127,11 +127,11 @@ msgstr "metadata.json 파일에서 오류"
 
 #: ../contents/tools/sh/messages
 msgid "Unsupported file format"
-msgstr "지원하지 않는 파일 포맷"
+msgstr "지원하지 않는 파일 포맷입니다."
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "다운로드 할 파일이 없습니다."
 
 #: ../contents/tools/sh/messages
 msgid "files are available, but none are tagged as version"
@@ -302,7 +302,7 @@ msgstr "없음"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
-msgstr ""
+msgstr "업데이트 주기 변경"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -394,23 +394,23 @@ msgstr "위치"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Center"
-msgstr ""
+msgstr "중앙"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
-msgstr ""
+msgstr "좌측 상단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Right"
-msgstr ""
+msgstr "우측 상단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Left"
-msgstr ""
+msgstr "좌측 하단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
-msgstr ""
+msgstr "우측 하단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
@@ -418,11 +418,11 @@ msgstr "목록 보기"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
-msgstr ""
+msgstr "기본 아이콘 사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr ""
+msgstr "아이콘 테마 대신 Apdatifier 아이콘 사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -438,47 +438,49 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
-msgstr ""
+msgstr "정렬"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr ""
+msgstr "저장소 이름"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
-msgstr ""
+msgstr "패키지 이름"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
-msgstr ""
+msgstr "헤더"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show status"
-msgstr ""
+msgstr "상태 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
-msgstr ""
+msgstr "툴바 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
-msgstr ""
+msgstr "푸터"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
-msgstr ""
+msgstr "탭바 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid ""
 "You can also switch tabs by dragging the mouse left and right with the right "
 "mouse button held."
-msgstr ""
+msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
+"설정은 자동으로 설정 파일에 저장되며, 세션 시작 시마다 로드 되어 설정이 유실되지 않도록 합니다. "
+"설정 파일 위치: "
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
@@ -491,10 +493,12 @@ msgid ""
 " not installed! Highly recommended to install it for getting the latest "
 "updates without the need to download fresh package databases."
 msgstr ""
+" 이(가) 설치되지 않았습니다! "
+"새 패키지를 다운 받을 필요 없이 최신 버전으로 업데이트 할 수 있으므로 적극 추천합니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
-msgstr ""
+msgstr "확인 주기"
 
 #: ../contents/ui/configuration/General.qml
 msgid "minutes"
@@ -506,7 +510,7 @@ msgstr "이러한 설정 중 하나를 변경하면 현재 타이머가 재설�
 
 #: ../contents/ui/configuration/General.qml
 msgid "Check on start up"
-msgstr ""
+msgstr "시작 시 확인하기"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -562,7 +566,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Wrapper"
-msgstr ""
+msgstr "AUR 헬퍼"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
