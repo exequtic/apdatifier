@@ -41,7 +41,11 @@ ScrollView {
                         Layout.fillHeight: true
                         Layout.maximumHeight: Kirigami.Units.iconSizes.huge
                         Layout.preferredWidth: height
-                        source: "news-subscribe"
+                        source: model.title.includes("Arch")        ? "apdatifier-plasmoid" :
+                                model.title.includes("Plasma")      ? "note-symbolic" :
+                                model.title.includes("Apps")        ? "applications-all-symbolic" :
+                                model.title.includes("Community")   ? "start-here-kde-plasma-symbolic"
+                                                                    : "news-subscribe"
                     }
 
                     RowLayout {

@@ -17,6 +17,7 @@ config="$configDir/config.conf"
 icon1="apdatifier-plasmoid.svg"
 icon2="apdatifier-packages.svg"
 icon3="apdatifier-package.svg"
+icon4="apdatifier-flatpak.svg"
 notif="apdatifier.notifyrc"
 
 export TEXTDOMAINDIR="$scriptDir/../../locale"

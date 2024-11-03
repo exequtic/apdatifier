@@ -87,17 +87,17 @@ getWidgetInfo() {
     [ -z "$author" ] || [ "$author" = "null" ] && author="-"
 
     icon=$(jq -r '.KPlugin.Icon' $json)
+    local fallbackIcon="start-here-kde-plasma-symbolic"
     if [ -z "$icon" ]; then
-        icon="start-here-kde"
+        icon=$fallbackIcon
     else
         local iconTheme=$(sed -n '/^\[Icons\]/,/^\[/s/^Theme=//p' $HOME/.config/kdeglobals)
         local themeDir1="/usr/share/icons/$iconTheme/"
         local themeDir2="$HOME/.local/share/icons/$iconTheme/"
         local themeDir3="$HOME/.icons/$iconTheme/"
-
         ! find -L "$themeDir1" "$themeDir2" "$themeDir3" \
             -type f -name "$icon.svg" -print -quit 2>/dev/null | grep -q . \
-                && icon="start-here-kde"
+                && icon=$fallbackIcon
     fi
 
     url="https://store.kde.org/p/$contentId"

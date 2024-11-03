@@ -5,13 +5,13 @@
 
 source "$(dirname "$0")/vars"
 
-[ -d $iconsDir ] || mkdir -p $iconsDir
-[ -d $notifDir ] || mkdir -p $notifDir
-[ -d $configDir ] || mkdir -p $configDir
+for dir in "$iconsDir" "$notifDir" "$configDir"; do
+    [ -d $dir ] || mkdir -p $dir
+done
 
-[ -f $iconsDir/$icon1 ] || cp $appletDir/contents/ui/assets/icons/$icon1 $iconsDir
-[ -f $iconsDir/$icon2 ] || cp $appletDir/contents/ui/assets/icons/$icon2 $iconsDir
-[ -f $iconsDir/$icon3 ] || cp $appletDir/contents/ui/assets/icons/$icon3 $iconsDir
+for icon in "$icon1" "$icon2" "$icon3" "$icon4"; do
+    [ -f $iconsDir/$icon ] || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
+done
 
 if [ -d $notifDir ]; then
 cat > "$notifDir/$notif" << EOF

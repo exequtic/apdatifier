@@ -42,19 +42,19 @@ SimpleKCM {
     header: Kirigami.NavigationTabBar {
         actions: [
             Kirigami.Action {
-                icon.name: "apdatifier-plasmoid"
+                icon.name: "apdatifier-package"
                 text: "Arch"
                 checked: currentTab === 0
                 onTriggered: currentTab = 0
             },
             Kirigami.Action {
-                icon.name: "apdatifier-package"
+                icon.name: "apdatifier-flatpak"
                 text: "Flatpak"
                 checked: currentTab === 1
                 onTriggered: currentTab = 1
             },
             Kirigami.Action {
-                icon.name: "start-here-kde-symbolic"
+                icon.name: "start-here-kde-plasma-symbolic"
                 text: "Widgets"
                 checked: currentTab === 2
                 onTriggered: currentTab = 2

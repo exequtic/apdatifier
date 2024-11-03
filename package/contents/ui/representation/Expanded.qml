@@ -434,7 +434,7 @@ Representation {
         width: parent.width - (Kirigami.Units.gridUnit * 4)
         enabled: tabBar.currentIndex === 2 && activeNewsModel.count === 0 && sts.idle
         visible: enabled
-        iconName: "face-cool"
+        iconName: "news-subscribe"
         text: i18n("No unread news")
     }
 

@@ -194,7 +194,7 @@ function checkUpdates() {
     })}
 
     function checkArch() {
-        sts.statusIco = cfg.ownIconsUI ? "status_package" : "server-database"
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking system updates...")
 
         sh.exec(archCmd, (cmd, out, err, code) => {
@@ -216,7 +216,7 @@ function checkUpdates() {
     })}
 
     function checkFlatpak() {
-        sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "flatpak-discover"
+        sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
         sts.statusMsg = i18n("Checking flatpak updates...")
         sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
             if (Error(code, err)) return
@@ -231,7 +231,7 @@ function checkUpdates() {
     })}
 
     function checkWidgets() {
-        sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde"
+        sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde-plasma-symbolic"
         sts.statusMsg = i18n("Checking widgets updates...")
 
         sh.exec(bash('widgets', 'check'), (cmd, out, err, code) => {
@@ -500,10 +500,9 @@ function setIcon(icon) {
 
 function applyRules(list) {
     const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
-    const def = cfg.ownIconsUI ? "apdatifier-package" : "server-database"
 
     list.forEach(el => {
-        el.IC = el.IN ? el.IN : el.ID ? el.ID : def
+        el.IC = el.IN ? el.IN : el.ID ? el.ID : "apdatifier-package"
         el.EX = false
     })
 
