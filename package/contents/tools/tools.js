@@ -173,7 +173,7 @@ function checkUpdates() {
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
         cfg.newsKDE   && "'https://kde.org/index.xml'",
-        cfg.newsTWIK  && "'https://pointieststick.com/feed/'",
+        cfg.newsTWIK  && "'https://blogs.kde.org/categories/this-week-in-plasma/index.xml'",
         cfg.newsTWIKA && "'https://blogs.kde.org/categories/this-week-in-kde-apps/index.xml'"
     ].filter(Boolean).join(' ')
 
