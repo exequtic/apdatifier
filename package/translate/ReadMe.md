@@ -26,5 +26,5 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | fr       | 186/215 |   86% |
 | ko       | 137/215 |   63% |
 | nl       | 186/215 |   86% |
-| pt_BR    | 191/215 |   88% |
+| pt_BR    | 215/215 |  100% |
 | ru       | 215/215 |  100% |
