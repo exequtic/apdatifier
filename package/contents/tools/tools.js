@@ -239,7 +239,7 @@ function checkUpdates() {
             out = out.trim()
 
             const errorTexts = {
-                "127": i18n("Unable check widgets: ") + i18n("some required utilities are not installed (curl, jq, xmlstarlet)"),
+                "127": i18n("Unable check widgets: ") + i18n("some required utilities are not installed (curl, jq)"),
                   "1": i18n("Unable check widgets: ") + i18n("Failed to retrieve data from the API"),
                   "2": i18n("Unable check widgets: ") + i18n("Too many API requests in the last 15 minutes from your IP address, please try again later"),
                   "3": i18n("Unable check widgets: ") + i18n("Unkwnown error")

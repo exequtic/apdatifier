@@ -64,7 +64,7 @@ alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, 
 
 ### Required utilities for options:
 <b>Arch Linux News:</b> [paru](https://aur.archlinux.org/packages/paru) or [yay](https://aur.archlinux.org/packages/yay)<br>
-<b>Plasma Widgets:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [jq](https://archlinux.org/packages/extra/x86_64/jq), [xmlstarlet](https://archlinux.org/packages/extra/x86_64/xmlstarlet), [unzip](https://archlinux.org/packages/extra/x86_64/unzip), [tar](https://archlinux.org/packages/core/x86_64/tar)<br>
+<b>Plasma Widgets:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [jq](https://archlinux.org/packages/extra/x86_64/jq), [unzip](https://archlinux.org/packages/extra/x86_64/unzip), [tar](https://archlinux.org/packages/core/x86_64/tar)<br>
 <b>Mirrorlist Generator:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib)<br>
 <b>Management</b>: [fzf](https://archlinux.org/packages/extra/x86_64/fzf)<br>
 

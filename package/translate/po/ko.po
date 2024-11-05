@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-31 20:29+0300\n"
+"POT-Creation-Date: 2024-11-05 21:32+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -266,8 +266,8 @@ msgid "Unable check widgets: "
 msgstr "위젯을 확인할 수 없음: "
 
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq, xmlstarlet)"
+msgid "some required utilities are not installed (curl, jq)"
+msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -584,14 +584,14 @@ msgstr "Plasma 위젯"
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
-"<br>Don't forget to update the metadata.json and specify the name of the "
-"applet and its version <b>exactly</b> as they appear on the KDE Store."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
+"forget to update the metadata.json and specify the name of the applet and "
+"its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 "이 기능을 사용하려면, 해당 유틸리티가 설치되어 있어야 합니다:<br><b>curl, "
-"jq, xmlstarlet, unzip, tar</b> <br><br>위젯 개발자에게:<br>metadata.json 파일"
-"을 업데이트하는 것을 잊지 마세요. and specify the name of the applet and its "
-"version <b>exactly</b> as they appear on the KDE Store."
+"jq, unzip, tar</b> <br><br>위젯 개발자에게:<br>metadata.json 파일을 업데이트"
+"하는 것을 잊지 마세요. and specify the name of the applet and its version "
+"<b>exactly</b> as they appear on the KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml

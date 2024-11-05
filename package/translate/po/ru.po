@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-31 20:29+0300\n"
+"POT-Creation-Date: 2024-11-05 21:32+0300\n"
 "PO-Revision-Date: 2024-10-31 19:22+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -267,8 +267,8 @@ msgid "Unable check widgets: "
 msgstr "Невозможно проверить виджеты: "
 
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr "некоторые из требуемых утилит не установлены (curl, jq, xmlstarlet)"
+msgid "some required utilities are not installed (curl, jq)"
+msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -601,14 +601,14 @@ msgstr "Plasma виджеты"
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
-"<br>Don't forget to update the metadata.json and specify the name of the "
-"applet and its version <b>exactly</b> as they appear on the KDE Store."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
+"forget to update the metadata.json and specify the name of the applet and "
+"its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 "Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>Для разработчиков "
-"виджетов:<br>Не забывайте обновлять файл metadata.json и указывать имя "
-"виджета и его версию в точности как и на сайте KDE Store."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>Для разработчиков виджетов:<br>Не "
+"забывайте обновлять файл metadata.json и указывать имя виджета и его версию "
+"в точности как и на сайте KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml

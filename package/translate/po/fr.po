@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-31 20:29+0300\n"
+"POT-Creation-Date: 2024-11-05 21:32+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -273,9 +273,8 @@ msgid "Unable check widgets: "
 msgstr "Impossible de vérifier les widgets: "
 
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr ""
-"certains utilitaires requis ne sont pas installés (curl, jq, xmlstarlet)"
+msgid "some required utilities are not installed (curl, jq)"
+msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -607,15 +606,15 @@ msgstr "Plasma Widgets"
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
-"<br>Don't forget to update the metadata.json and specify the name of the "
-"applet and its version <b>exactly</b> as they appear on the KDE Store."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
+"forget to update the metadata.json and specify the name of the applet and "
+"its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 "Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont "
-"requis :<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>Pour les "
-"développeurs de widgets :<br>N'oubliez pas de mettez à jour le fichier "
-"metadata.json et spécifiez le nom de l'applet et sa version <b>exactement</"
-"b> tels qu'ils apparaissent sur le KDE Store."
+"requis :<br><b>curl, jq, unzip, tar</b>.<br><br>Pour les développeurs de "
+"widgets :<br>N'oubliez pas de mettez à jour le fichier metadata.json et "
+"spécifiez le nom de l'applet et sa version <b>exactement</b> tels qu'ils "
+"apparaissent sur le KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml

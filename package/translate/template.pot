@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-31 20:29+0300\n"
+"POT-Creation-Date: 2024-11-05 21:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,7 +259,7 @@ msgid "Unable check widgets: "
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
+msgid "some required utilities are not installed (curl, jq)"
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -558,8 +558,8 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and "
-"specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+"To use this feature, the following installed utilities are required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name "
+"of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml

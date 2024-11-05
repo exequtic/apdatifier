@@ -20,12 +20,12 @@ fetchData() {
 
         [ ! -s "$pageXML" ] && return 1
 
-        totalitems=$(xmlstarlet sel -t -m "//ocs/meta/totalitems" -v . -n "$pageXML")
-        statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $pageXML)
+        totalitems=$(xmllint --xpath "string(//ocs/meta/totalitems)" $pageXML)
+        statuscode=$(xmllint --xpath "string(//ocs/meta/statuscode)" $pageXML)
 
         case $statuscode in
             100)
-                xmlstarlet sel -t -m "//content[@details='summary']" -c "." "$pageXML" >> "$XML"
+                xmllint --xpath "//content[@details='summary']" $pageXML >> $XML
 
                 items=$(((page + 1) * pagesize))
                 if [[ $totalitems > $items ]]; then
@@ -66,16 +66,16 @@ getWidgetInfo() {
     local originName=$(jq -r '.KPlugin.Name' $json)
     name=$(echo "$originName" | sed 's/ /-/g; s/.*/\L&/')
 
-    contentId=$(xmlstarlet sel -t -m "//name[text()='$originName']/.." -v "id" -n $XML)
+    contentId=$(xmllint --xpath "string(//name[text()='$originName']/../id)" $XML)
     [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
     if [ -z "$contentId" ]; then
         local knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
-        [ -s "$knsregistry" ] && contentId=$(xmlstarlet sel -t -m "//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/.." -v "id" -n $knsregistry)
+        [ -s "$knsregistry" ] && contentId=$(xmllint --xpath "string(//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/../id)" $knsregistry)
     fi
     [ -z "$contentId" ] && return 3
 
     currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$json")")
-    latestVer=$(clearVer "$(xmlstarlet sel -t -m "//id[text()='$contentId']/.." -v "version" -n "$XML")")
+    latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" $XML)")
     [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 4
     compareVer "$currentVer" "$latestVer"
     [[ $? != 2 ]] && return 5
@@ -112,13 +112,13 @@ getLink() {
 
     while read -r download_version; do
         ((files++))
-        if [[ "$latestVer" == "$(clearVer "$(xmlstarlet sel -t -v "//content[id='$contentId']/$download_version" "$XML")")" ]]; then
+        if [[ "$latestVer" == "$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../$download_version)" $XML)")" ]]; then
             signed+=("${download_version#download_version}")
         fi
-    done < <(xmlstarlet sel -t -m "//content[id='$contentId']/*" -v "name()" -n "$XML" | grep -o 'download_version[0-9]\+')
+    done < <(xmllint --xpath "//content[id='$contentId']/*" $XML | grep -o 'download_version[0-9]\+' | uniq)
 
     if [[ $files -eq 1 || ${#signed[@]} -eq 1 ]]; then
-        echo $(xmlstarlet sel -t -v "//content[id='$contentId']/downloadlink${signed[0]:-1}" "$XML") > $tempDir/link
+        echo $(xmllint --xpath "string(//id[text()='$contentId']/../downloadlink${signed[0]:-1})" $XML) > $tempDir/link
         return 0
     else
         [[ $files -eq 0 ]] && return 1
@@ -147,7 +147,7 @@ makeList() {
 }
 
 checkWidgets() {
-    for cmd in curl jq xmlstarlet; do
+    for cmd in curl jq; do
         command -v "$cmd" >/dev/null || { echo 127; exit; }
     done
 
@@ -205,7 +205,7 @@ downloadWidget() {
 }
 
 upgradeAllWidgets() {
-    dependencies "curl jq xmlstarlet unzip tar"
+    dependencies "curl jq unzip tar"
 
     makeTempDir
     XML="$tempDir/api.opendesktop.xml"
@@ -273,7 +273,7 @@ upgradeWidget() {
     [ -n "$1" ] && contentId="$1" || exit
     [ -n "$2" ] && name="$2" || exit
 
-    dependencies "curl jq xmlstarlet unzip tar"
+    dependencies "curl jq unzip tar"
 
     mkdir -p $tempDir/$name/unpacked
     XML="$tempDir/$name/api.opendesktop.xml"
@@ -283,7 +283,7 @@ upgradeWidget() {
     {
         curl -m 30 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null
         if [ -s "$XML" ]; then
-            statuscode=$(xmlstarlet sel -t -m "//ocs/meta/statuscode" -v . -n $XML)
+            statuscode=$(xmllint --xpath "string(//ocs/meta/statuscode)" $XML)
             case $statuscode in
                 100) return 0 ;;
                 200) return 2 ;;
@@ -295,7 +295,7 @@ upgradeWidget() {
     } & printWhile $! "$WIDGETS_FETCH"
     [[ $exitCode -ne 0 ]] && exit
 
-    latestVer=$(clearVer "$(xmlstarlet sel -t -v "//content[id='$contentId']/version" "$XML")")
+    latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" $XML)")
     
     getLink & printWhile $! "$WIDGETS_LINK"
     [[ $exitCode -ne 0 ]] && exit

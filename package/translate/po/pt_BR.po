@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-10-31 20:29+0300\n"
+"POT-Creation-Date: 2024-11-05 21:32+0300\n"
 "PO-Revision-Date: 2024-11-04 19:21-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -270,9 +270,8 @@ msgid "Unable check widgets: "
 msgstr "Incapaz de verificar atualizações de widgets: "
 
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr ""
-"alguns dos utilitários requeridos não estão instalados (curl, jq, xmlstarlet)"
+msgid "some required utilities are not installed (curl, jq)"
+msgstr "alguns dos utilitários requeridos não estão instalados (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -604,14 +603,14 @@ msgstr "Widgets do Plasma"
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
-"<br>Don't forget to update the metadata.json and specify the name of the "
-"applet and its version <b>exactly</b> as they appear on the KDE Store."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
+"forget to update the metadata.json and specify the name of the applet and "
+"its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 "Para usar este recurso, os seguintes utilitários instalados são necessários:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>Para desenvolvedores de "
-"widgets:<br>Não se esqueça de atualizar o metadata.json e especificar o nome "
-"do applet e sua versão <b>exatamente</b> como aparecem na Loja KDE."
+"<br><b>curl, jq, unzip, tar</b>.<br><br>Para desenvolvedores de widgets:"
+"<br>Não se esqueça de atualizar o metadata.json e especificar o nome do "
+"applet e sua versão <b>exatamente</b> como aparecem na Loja KDE."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
