@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-10-31 20:29+0300\n"
-"PO-Revision-Date: 2024-10-21 14:46-0300\n"
+"PO-Revision-Date: 2024-11-04 19:21-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
-msgstr ""
+msgstr "Tempo total de execução:"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -102,19 +102,19 @@ msgstr "Verificando por atualizações de widgets"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr ""
+msgstr "Obtendo dados da API"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
-msgstr ""
+msgstr "Obtendo o link para download"
 
 #: ../contents/tools/sh/messages
 msgid "Downloading package"
-msgstr ""
+msgstr "Baixando pacote"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Continuar com a atualização?"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -134,11 +134,11 @@ msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr ""
+msgstr "Falha ao recuperar dados da API"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
-msgstr ""
+msgstr "Erro desconhecido"
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -158,15 +158,15 @@ msgstr "Não há arquivos para download"
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr ""
+msgstr "Nenhum arquivo marcado com versão"
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr ""
+msgstr "Vários arquivos são marcados com versão"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr ""
+msgstr "Falha ao baixar o pacote"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -247,7 +247,7 @@ msgstr "Requer instalado"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr ""
+msgstr "Código de saída: "
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -519,7 +519,7 @@ msgstr "Ações do mouse"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr ""
+msgstr "Variado"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -578,7 +578,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
-msgstr ""
+msgstr "Atualizações"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -616,7 +616,7 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr ""
+msgstr "Notícias"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
@@ -624,7 +624,7 @@ msgstr "Notícias do Arch Linux"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr ""
+msgstr "Para novas atualizações"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -646,7 +646,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr ""
+msgstr "Para notícias"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
@@ -769,7 +769,7 @@ msgstr "Auxiliar Pacman"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr ""
+msgstr "Opções de atualização"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
@@ -843,23 +843,23 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr ""
+msgstr "Normal, pular perguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr ""
+msgstr "Não interativo, pular perguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr ""
+msgstr "Detalhado"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr ""
+msgstr "Confirmação de atualização"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -880,7 +880,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
@@ -948,7 +948,7 @@ msgstr "Sistema atualizado"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
-msgstr ""
+msgstr "Nenhuma notícia não lida"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
