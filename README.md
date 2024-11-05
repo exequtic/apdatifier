@@ -78,7 +78,7 @@ Feel free to help translate to new languages or update and improve the ones that
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
 | English   |     215 |       |
-| Brazilian | 191/215 |   88% |
+| Brazilian | 215/215 |  100% |
 | Dutch     | 186/215 |   86% |
 | French    | 186/215 |   86% |
 | German    | 186/215 |   86% |
