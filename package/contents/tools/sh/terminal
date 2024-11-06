@@ -5,12 +5,17 @@
 
 source "$(dirname "$0")/vars"
 
-declare -A terminalArg
+term="$(basename $terminal)"
+scr="$(dirname "$0")/$1"
+arg="${@:2}"
 
-terminalArg["gnome-terminal"]=" --"
-terminalArg["terminator"]=" -x"
-
-arg="${terminalArg[$(basename "$terminal")]:-" -e"}"
-cmd="$terminal$arg bash -c \"\$(dirname "$0")/$@\""
-
-eval ${cmd}
+if [[ $term = "yakuake" ]]; then
+    qdbusCMD() { qdbus6 org.kde.yakuake /yakuake/$1 "${@:2}"; }
+    session=$(qdbusCMD sessions addSession)
+    qdbusCMD tabs org.kde.yakuake.setTabTitle $session "Upgrade"
+    qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+else
+    declare -A termArg=( ["gnome-terminal"]=" --" ["terminator"]=" -x" )
+    cmd="$term${termArg[$term]:-" -e"} bash -c '\"$scr\" $arg'"
+    eval ${cmd}
+fi

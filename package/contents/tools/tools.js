@@ -81,7 +81,7 @@ function loadConfig() {
 
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal konsole kitty lxterminal terminator tilix xterm wezterm"
+    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 

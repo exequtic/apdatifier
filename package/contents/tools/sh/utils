@@ -80,6 +80,10 @@ printClose() {
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
+
+    if [[ $(basename $terminal) = "yakuake" ]]; then
+        qdbus6 org.kde.yakuake /yakuake/sessions removeSession $(qdbus6 org.kde.yakuake /yakuake/sessions activeSessionId)
+    fi
 }
 
 printWhile() {
