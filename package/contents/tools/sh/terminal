@@ -3,16 +3,15 @@
 # SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
 # SPDX-License-Identifier: MIT
 
-source "$(dirname "$0")/vars"
+source "$(dirname "$0")/utils"
 
 term="$(basename $terminal)"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
 if [[ $term = "yakuake" ]]; then
-    qdbusCMD() { qdbus6 org.kde.yakuake /yakuake/$1 "${@:2}"; }
     session=$(qdbusCMD sessions addSession)
-    qdbusCMD tabs org.kde.yakuake.setTabTitle $session "Upgrade"
+    qdbusCMD tabs org.kde.yakuake.setTabTitle $session ${1^}
     qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
 else
     declare -A termArg=( ["gnome-terminal"]=" --" ["terminator"]=" -x" )

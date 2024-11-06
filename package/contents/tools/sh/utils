@@ -80,10 +80,7 @@ printClose() {
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
-
-    if [[ $(basename $terminal) = "yakuake" ]]; then
-        qdbus6 org.kde.yakuake /yakuake/sessions removeSession $(qdbus6 org.kde.yakuake /yakuake/sessions activeSessionId)
-    fi
+    [[ $(basename $terminal) = "yakuake" ]] && qdbusCMD sessions removeSession $(qdbusCMD sessions activeSessionId)
 }
 
 printWhile() {
@@ -117,6 +114,10 @@ printWhile() {
             4) printError "$WIDGETS_ERR_JSON" ;;
         esac
     fi
+}
+
+qdbusCMD() {
+    qdbus6 org.kde.yakuake /yakuake/$1 "${@:2}"
 }
 
 dependencies() {
