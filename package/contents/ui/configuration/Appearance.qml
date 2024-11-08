@@ -28,7 +28,11 @@ SimpleKCM {
     property alias cfg_counterRadius: counterRadius.value
     property alias cfg_counterOpacity: counterOpacity.value
     property alias cfg_counterShadow: counterShadow.checked
-    property alias cfg_counterBold: counterBold.checked
+    property string cfg_counterFontFamily: plasmoid.configuration.counterFontFamily
+    property alias cfg_counterFontBold: counterFontBold.checked
+    property alias cfg_counterFontSize: counterFontSize.value
+    property alias cfg_counterSpacing: counterSpacing.value
+    property alias cfg_counterMargins: counterMargins.value
     property alias cfg_counterOffsetX: counterOffsetX.value
     property alias cfg_counterOffsetY: counterOffsetY.value
     property alias cfg_counterCenter: counterCenter.checked
@@ -50,6 +54,11 @@ SimpleKCM {
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
     property alias cfg_showTabBar: showTabBar.checked
+
+    property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+    property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
+    property bool counterOverlay: inTray || !horizontal
+    property bool counterRow: !inTray && horizontal
 
     property int currentTab
     signal tabChanged(currentTab: int)
@@ -189,6 +198,7 @@ SimpleKCM {
 
             implicitWidth: Kirigami.Units.gridUnit
             implicitHeight: implicitWidth
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             background: Rectangle {
@@ -242,6 +252,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Size") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -260,6 +271,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Radius") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -278,6 +290,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Opacity") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -297,20 +310,77 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Shadow") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
             id: counterShadow
             text: i18n("Enable")
         }
 
-        CheckBox {
-            Kirigami.FormData.label: i18n("Bold") + ":"
+        ComboBox {
+            Kirigami.FormData.label: "Font family" + ":"
             enabled: counterEnabled.checked
-            id: counterBold
+            implicitWidth: 300
+            textRole: "name"
+            model: {
+                let fonts = Qt.fontFamilies()
+                let arr = []
+                arr.push({"name": "Default system font", "value": ""})
+                for (let i = 0; i < fonts.length; i++) {
+                    arr.push({"name": fonts[i], "value": fonts[i]})
+                }
+                return arr
+            }
+
+            onCurrentIndexChanged: cfg_counterFontFamily = model[currentIndex]["value"]
+            Component.onCompleted: currentIndex = JS.setIndex(plasmoid.configuration.counterFontFamily, model)
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: "Font bold" + ":"
+            enabled: counterEnabled.checked
+            id: counterFontBold
             text: i18n("Enable")
+        }
+
+        Slider {
+            Kirigami.FormData.label: "Font size" + ":"
+            visible: counterRow
+            enabled: counterEnabled.checked
+            id: counterFontSize
+            from: 4
+            to: 8
+            stepSize: 1
+            value: counterFontSize.value
+            onValueChanged: plasmoid.configuration.counterFontSize = counterFontSize.value
+        }
+
+        SpinBox {
+            Kirigami.FormData.label: "Spacing" + ":"
+            visible: counterRow
+            enabled: counterEnabled.checked
+            id: counterSpacing
+            from: 0
+            to: 99
+            stepSize: 1
+            value: counterSpacing.value
+            onValueChanged: plasmoid.configuration.counterSpacing = counterSpacing.value
+        }
+
+        SpinBox {
+            Kirigami.FormData.label: "Side margins" + ":"
+            visible: counterRow
+            enabled: counterEnabled.checked
+            id: counterMargins
+            from: 0
+            to: 99
+            stepSize: 1
+            value: counterMargins.value
+            onValueChanged: plasmoid.configuration.counterMargins = counterMargins.value
         }
 
         RowLayout {
             Kirigami.FormData.label: i18n("Offset") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Label { text: "X:" }
@@ -340,6 +410,7 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Position") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
             id: counterCenter
             text: i18n("Center")
@@ -347,6 +418,7 @@ SimpleKCM {
 
         GridLayout {
             Layout.fillWidth: true
+            visible: counterOverlay
             enabled: counterEnabled.checked
             columns: 4
             rowSpacing: 0

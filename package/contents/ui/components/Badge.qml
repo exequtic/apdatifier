@@ -8,27 +8,29 @@ import org.kde.kirigami as Kirigami
 import "../../tools/tools.js" as JS
 
 Rectangle {
-    id: root
-
-    property int position: 0
+    property var position: 0
     property var iconName: ""
     property var iconColor: ""
 
-    width: badgeSize
-    height: badgeSize
+    width: (counterOverlay ? trayIconSize : panelIcon.width) / 3
+    height: width
     radius: width / 2
     color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
 
-    anchors.top: JS.setAnchor("top", position)
-    anchors.bottom: JS.setAnchor("bottom", position)
-    anchors.right: JS.setAnchor("right", position)
-    anchors.left: JS.setAnchor("left", position)
+    anchors {
+        top: counterOverlay ? JS.setAnchor("top", position) : panelIcon.top
+        bottom: counterOverlay ? JS.setAnchor("bottom", position) : undefined
+        right: counterOverlay ? JS.setAnchor("right", position) : (position === "right" ? panelIcon.right : undefined)
+        left: counterOverlay ? JS.setAnchor("left", position) : (position === "left" ? panelIcon.left : undefined)
+
+        topMargin: counterOverlay ? 0 : 5
+        bottomMargin: counterOverlay ? 0 : 0
+        leftMargin: counterOverlay ? 0 : -1
+        rightMargin: counterOverlay ? 0 : -1
+    }
 
     Kirigami.Icon {
-        id: badgeIcon
-        anchors.fill: root
-        width: badgeSize
-        height: badgeSize
+        anchors.fill: parent
         source: cfg.ownIconsUI ? Qt.resolvedUrl("../assets/icons/" + iconName + ".svg") : iconName
         color: iconColor
         isMask: cfg.ownIconsUI

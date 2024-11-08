@@ -56,6 +56,7 @@ PlasmoidItem {
         property bool idle: !busy && !err
         property bool updated: idle && !count
         property bool pending: idle && count
+        property bool paused: idle && cfg.indicatorStop && !cfg.interval
         property string errMsg: ""
         property string statusMsg: ""
         property string statusIco: ""
