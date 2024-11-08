@@ -80,7 +80,7 @@ getWidgetInfo() {
     compareVer "$currentVer" "$latestVer"
     [[ $? != 2 ]] && return 5
 
-    description=$(jq -r '.KPlugin.Description' $json | tr -d '\n')
+    description=$(jq -r '.KPlugin.Description' $json | sed 's/"/\\"/g' | tr -d '\n')
     [ -z "$description" ] || [ "$description" = "null" ] && description="$WIDGETS_NODESC"
 
     author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
