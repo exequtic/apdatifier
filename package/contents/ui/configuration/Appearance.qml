@@ -53,7 +53,8 @@ SimpleKCM {
     property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
-    property alias cfg_showTabBar: showTabBar.checked
+    property alias cfg_tabBarVisible: tabBarVisible.checked
+    property alias cfg_tabBarTexts: tabBarTexts.checked
 
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
@@ -686,13 +687,18 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Footer") + ":"
 
             CheckBox {
-                id: showTabBar
+                id: tabBarVisible
                 text: i18n("Show tab bar")
             }
 
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n("You can also switch tabs by dragging the mouse left and right with the right mouse button held.")
             }
+        }
+
+        CheckBox {
+            id: tabBarTexts
+            text: i18n("Show tab texts")
         }
 
         Item {

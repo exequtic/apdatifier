@@ -220,8 +220,7 @@ Representation {
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
-        // visible: cfg.showTabBar && sts.pending
-        visible: cfg.showTabBar
+        visible: cfg.tabBarVisible && sts.pending
 
         contentItem: TabBar {
             id: tabBar
@@ -233,7 +232,7 @@ Representation {
 
             TabButton {
                 id: compactViewTab
-                ToolTip { text: i18n("Compact view") }
+                ToolTip { text: cfg.tabBarTexts ? "" : i18n("Compact view") }
                 contentItem: RowLayout {
                     Kirigami.Theme.inherit: true
                     Item { Layout.fillWidth: true }
@@ -245,13 +244,14 @@ Representation {
                         isMask: cfg.ownIconsUI
                         smooth: true
                     }
+                    Label { text: i18n("Compact"); visible: cfg.tabBarTexts }
                     Item { Layout.fillWidth: true }
                 }
             }
 
             TabButton {
                 id: extendViewTab
-                ToolTip { text: i18n("Extended view") }
+                ToolTip { text: cfg.tabBarTexts ? "" : i18n("Extended view") }
                 contentItem: RowLayout {
                     Kirigami.Theme.inherit: true
                     Item { Layout.fillWidth: true }
@@ -263,13 +263,14 @@ Representation {
                         isMask: cfg.ownIconsUI
                         smooth: true
                     }
+                    Label { text: i18n("Extended"); visible: cfg.tabBarTexts }
                     Item { Layout.fillWidth: true }
                 }
             }
 
             TabButton {
                 id: newsViewTab
-                ToolTip { text: i18n("News") }
+                ToolTip { text: cfg.tabBarTexts ? "" : i18n("News") }
                 contentItem: RowLayout {
                     Kirigami.Theme.inherit: true
                     Item { Layout.fillWidth: true }
@@ -291,6 +292,7 @@ Representation {
                             color: Kirigami.Theme.negativeTextColor
                         }
                     }
+                    Label { text: i18n("News"); visible: cfg.tabBarTexts }
                     Item { Layout.fillWidth: true }
                 }
             }

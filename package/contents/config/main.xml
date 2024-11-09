@@ -81,7 +81,8 @@
         <entry name="managementButton" type="bool"><default>true</default></entry>
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
-        <entry name="showTabBar" type="bool"><default>true</default></entry>
+        <entry name="tabBarVisible" type="bool"><default>true</default></entry>
+        <entry name="tabBarTexts" type="bool"><default>true</default></entry>
     </group>
     <group name="Miscellaneous">
         <entry name="version" type="string"><default>v0</default></entry>
