@@ -230,6 +230,15 @@ Representation {
 
             Component.onCompleted: currentIndex = cfg.listView
 
+            property var newsTab
+            property bool relevant: cfg.tabBarNewsRelevant
+            property bool hasNews: activeNewsModel.count > 0
+            onHasNewsChanged: changeVisible()
+            onRelevantChanged: changeVisible()
+            function changeVisible() {
+                !hasNews && relevant ? newsTab = tabBar.takeItem(2) : tabBar.addItem(newsTab)
+            }
+
             TabButton {
                 id: compactViewTab
                 ToolTip { text: cfg.tabBarTexts ? "" : i18n("Compact view") }
@@ -474,7 +483,7 @@ Representation {
             if (mouseArea.cursorShape == Qt.ClosedHandCursor) {
                 var deltaX = mouseX - startX
                 var index = tabBar.currentIndex
-                if (deltaX > 80 && index < 2) {
+                if (deltaX > 80 && index < tabBar.count - 1) {
                     index += 1
                 } else if (deltaX < -80 && index > 0) {
                     index -= 1
