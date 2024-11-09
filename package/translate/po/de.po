@@ -64,14 +64,14 @@ msgid "Skipped..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Fetching the latest filtered mirror list..."
-msgstr "Abrufen der letzten gefilterten Spiegelserverliste..."
+msgid "Fetching the latest filtered mirror list"
+msgstr "Abrufen der letzten gefilterten Spiegelserverliste"
 
 #: ../contents/tools/sh/messages
-msgid "Ranking mirrors by their connection and opening speed..."
+msgid "Ranking mirrors by their connection and opening speed"
 msgstr ""
 "Ranking der Spiegelserver nach ihrer Verbindungs- und "
-"Öffnungsgeschwindigkeit..."
+"Öffnungsgeschwindigkeit"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
@@ -678,11 +678,11 @@ msgid "Configure..."
 msgstr "Konfigurieren..."
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
+msgid "Middle click"
 msgstr "Mittelklick"
 
 #: ../contents/ui/configuration/General.qml
-msgid "right click"
+msgid "Right click"
 msgstr "Rechtsklick"
 
 #: ../contents/ui/configuration/General.qml
@@ -692,12 +692,12 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll up"
-msgstr "nach oben scrollen"
+msgid "Scroll up"
+msgstr "Nach oben scrollen"
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll down"
-msgstr "nach unten scrollen"
+msgid "Scroll down"
+msgstr "Nach unten scrollen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"

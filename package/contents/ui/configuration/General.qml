@@ -27,6 +27,7 @@ SimpleKCM {
     property alias cfg_newsKDE: newsKDE.checked
     property alias cfg_newsTWIK: newsTWIK.checked
     property alias cfg_newsTWIKA: newsTWIKA.checked
+    property alias cfg_newsKeep: newsKeep.value
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -89,8 +90,8 @@ SimpleKCM {
 
             actions: [
                 Kirigami.Action {
-                    text: i18n("Dismiss")
-                    icon.name: "dialog-close"
+                    text: "OK"
+                    icon.name: "checkmark"
                     onTriggered: plasmoid.configuration.configMsg = false
                 }
             ]
@@ -261,6 +262,25 @@ SimpleKCM {
                 id: newsTWIKA
                 text: "This Week in KDE Apps"
             }
+
+            RowLayout {
+                Label {
+                    text: i18n("Keep last")
+                }
+
+                SpinBox {
+                    id: newsKeep
+                    from: 1
+                    to: 10
+                    stepSize: 1
+                    value: newsKeep
+                    enabled: newsArch.checked || newsKDE.checked || newsTWIK.checked || newsTWIKA.checked
+                }
+
+                Label {
+                    text: i18n("news per feed")
+                }
+            }
         }
 
         Kirigami.FormLayout {
@@ -357,12 +377,12 @@ SimpleKCM {
             }
 
             QQC.ComboBox {
-                Kirigami.FormData.label: i18n("middle click") + ":"
+                Kirigami.FormData.label: i18n("Middle click") + ":"
                 type: "middle"
             }
 
             QQC.ComboBox {
-                Kirigami.FormData.label: i18n("right click") + ":"
+                Kirigami.FormData.label: i18n("Right click") + ":"
                 type: "right"
                 Kirigami.ContextualHelpButton {
                     toolTipText: i18n("Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking.")
@@ -370,12 +390,12 @@ SimpleKCM {
             }
 
             QQC.ComboBox {
-                Kirigami.FormData.label: i18n("scroll up") + ":"
+                Kirigami.FormData.label: i18n("Scroll up") + ":"
                 type: "scrollUp"
             }
 
             QQC.ComboBox {
-                Kirigami.FormData.label: i18n("scroll down") + ":"
+                Kirigami.FormData.label: i18n("Scroll down") + ":"
                 type: "scrollDown"
             }
 

@@ -91,7 +91,7 @@ getWidgetInfo() {
     if [ -z "$icon" ]; then
         icon=$fallbackIcon
     else
-        local iconTheme=$(sed -n '/^\[Icons\]/,/^\[/s/^Theme=//p' $HOME/.config/kdeglobals)
+        local iconTheme=$(kreadconfig6 --file kdeglobals --group Icons --key Theme)
         local themeDir1="/usr/share/icons/$iconTheme/"
         local themeDir2="$HOME/.local/share/icons/$iconTheme/"
         local themeDir3="$HOME/.icons/$iconTheme/"

@@ -36,7 +36,7 @@ MouseArea {
     property var updatedIcon: cfg.ownIconsUI ? "status_updated" : "checkmark"
     property var pausedIcon: cfg.ownIconsUI ? "toolbar_pause" : "media-playback-paused"
 
-    Layout.preferredWidth: counterOverlay ? icon.width : panelRow.width
+    Layout.preferredWidth: counterOverlay ? trayIcon.width : panelRow.width
 
     hoverEnabled: true
     acceptedButtons: cfg.rightAction ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton

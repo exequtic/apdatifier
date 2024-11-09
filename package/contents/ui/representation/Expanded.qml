@@ -5,7 +5,6 @@
 
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 
 import org.kde.kitemmodels
 import org.kde.plasma.extras
@@ -31,6 +30,39 @@ Representation {
 
     function svg(icon) {
         return Qt.resolvedUrl("../assets/icons/" + icon + ".svg")
+    }
+
+    Timer {
+        id: delay
+        function set(callback) {
+            if (delay.running) return
+            delay.interval = Kirigami.Units.longDuration
+            delay.repeat = false
+            delay.triggered.connect(callback)
+            delay.triggered.connect(function release () {
+                delay.triggered.disconnect(callback)
+                delay.triggered.disconnect(release)
+            })
+            delay.start()
+        }
+    }
+
+    property var newsTab
+    property bool hasNews: activeNewsModel.count > 0
+    property bool relevant: cfg.tabBarNewsRelevant
+    function updateTabVisibility() {
+        if (!hasNews && relevant && tabBar.count === 3) {
+            newsTab = tabBar.takeItem(2)
+        } else if (tabBar.count === 2) {
+            tabBar.addItem(newsTab)
+        }
+    }
+
+    onHasNewsChanged: delay.set(() => updateTabVisibility())
+    onRelevantChanged: delay.set(() => updateTabVisibility())
+    Component.onCompleted: {
+        delay.set(() => updateTabVisibility())
+        tabBar.currentIndex = cfg.listView
     }
 
     header: PlasmoidHeading {
@@ -220,24 +252,13 @@ Representation {
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
-        visible: cfg.tabBarVisible && sts.pending
+        visible: cfg.tabBarVisible && !sts.err
 
         contentItem: TabBar {
             id: tabBar
             Layout.fillWidth: true
             Layout.fillHeight: true
             position: TabBar.Footer
-
-            Component.onCompleted: currentIndex = cfg.listView
-
-            property var newsTab
-            property bool relevant: cfg.tabBarNewsRelevant
-            property bool hasNews: activeNewsModel.count > 0
-            onHasNewsChanged: changeVisible()
-            onRelevantChanged: changeVisible()
-            function changeVisible() {
-                !hasNews && relevant ? newsTab = tabBar.takeItem(2) : tabBar.addItem(newsTab)
-            }
 
             TabButton {
                 id: compactViewTab
@@ -334,11 +355,11 @@ Representation {
             id: releaseMsg
             Layout.fillWidth: true
             Layout.topMargin: Kirigami.Units.smallSpacing * 2
-            Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
+            Layout.bottomMargin: tabBar.currentIndex === 2 ? 0 : Kirigami.Units.smallSpacing * 2
             icon.source: "apdatifier-plasmoid"
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
-            visible: sts.idle && !searchFieldOpen &&
+            visible: !searchFieldOpen &&
                      plasmoid.configuration.version.localeCompare(currVersion, undefined, { numeric: true, sensitivity: 'base' }) < 0
 
             actions: [
@@ -353,17 +374,25 @@ Representation {
                         onTriggered: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/releases")
                     }
                     Kirigami.Action {
-                        text: i18n("Hide")
-                        icon.name: "hint"
-                        onTriggered: releaseMsg.visible = false
-                    }
-                    Kirigami.Action {
                         text: i18n("Dismiss")
                         icon.name: "dialog-close"
                         onTriggered: plasmoid.configuration.version = currVersion
                     }
                 }
             ]
+        }
+
+        ProgressBar {
+            Layout.fillWidth: true
+            Layout.topMargin: Kirigami.Units.largeSpacing * 2
+            Layout.leftMargin: Kirigami.Units.largeSpacing * 2
+            Layout.rightMargin: Kirigami.Units.largeSpacing * 2
+            from: 0
+            to: 100
+            indeterminate: true
+            visible: sts.busy &&
+                     tabBar.currentIndex === 2 &&
+                     (sts.statusIco === "status_news" || sts.statusIco === "news-subscribe")
         }
 
         StackLayout {
@@ -382,7 +411,7 @@ Representation {
         Layout.maximumHeight: 128
         anchors.centerIn: parent
         spacing: Kirigami.Units.largeSpacing * 5
-        enabled: sts.busy && plasmoid.location !== PlasmaCore.Types.Floating
+        enabled: sts.busy && tabBar.currentIndex < 2
         visible: enabled
         
         BusyIndicator {
@@ -422,31 +451,36 @@ Representation {
         }
     }
 
-    PlaceholderMessage {
+    Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
-        width: parent.width - (Kirigami.Units.gridUnit * 4)
-        enabled: tabBar.currentIndex < 2 && sts.updated
-        visible: enabled
-        iconName: "checkmark"
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+        visible: tabBar.currentIndex < 2 && sts.updated
+        icon.name: "checkmark"
         text: i18n("System updated")
     }
 
-    PlaceholderMessage {
+    Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
-        width: parent.width - (Kirigami.Units.gridUnit * 4)
-        enabled: !sts.busy && sts.err
-        visible: enabled
-        iconName: "error"
-        text: sts.errMsg
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+        visible: !sts.busy && sts.err
+        icon.name: "error"
+        text: sts.statusMsg
+        explanation: sts.errMsg
     }
 
-    PlaceholderMessage {
+    Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
-        width: parent.width - (Kirigami.Units.gridUnit * 4)
-        enabled: tabBar.currentIndex === 2 && activeNewsModel.count === 0 && sts.idle
-        visible: enabled
-        iconName: "news-subscribe"
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+        visible: tabBar.currentIndex === 2 && activeNewsModel.count === 0 && !sts.err
+        icon.name: "news-subscribe"
         text: i18n("No unread news")
+
+        helpfulAction: Kirigami.Action {
+            enabled: newsModel.count > 0
+            icon.name: "backup"
+            text: "Restore list"
+            onTriggered: JS.restoreNewsList()
+        }
     }
 
     KSortFilterProxyModel {

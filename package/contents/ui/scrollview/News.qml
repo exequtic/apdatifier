@@ -15,15 +15,22 @@ import "../../tools/tools.js" as JS
 ScrollView {
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    Kirigami.CardsListView {
+    ListView {
         model: activeNewsModel
-        removeDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
+        spacing: Kirigami.Units.largeSpacing * 2
+        topMargin: spacing
+        rightMargin: spacing
+        leftMargin: spacing
+        bottomMargin: spacing
+
+        add: Transition { NumberAnimation { properties: "x"; from: 100; duration: Kirigami.Units.longDuration } }
+        removeDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: Kirigami.Units.longDuration } }
         remove: Transition { ParallelAnimation {
-                NumberAnimation { property: "opacity"; to: 0; duration: 300 }
-                NumberAnimation { properties: "x"; to: 100; duration: 300 }}}
+                NumberAnimation { property: "opacity"; to: 0; duration: Kirigami.Units.longDuration }
+                NumberAnimation { properties: "x"; to: 100; duration: Kirigami.Units.longDuration }}}
 
         delegate: Kirigami.AbstractCard {
-            visible: !sts.err && !sts.busy
+            visible: !sts.err
             contentItem: Item {
                 implicitWidth: delegateLayout.implicitWidth
                 implicitHeight: delegateLayout.implicitHeight
@@ -79,8 +86,8 @@ ScrollView {
                                 onClicked: Qt.openUrlExternally(model.link)
                             }
                             Controls.Button {
-                                ToolTip { text: i18n("Dismiss") }
-                                icon.name: "dialog-close"
+                                ToolTip { text: i18n("Remove") }
+                                icon.name: "delete"
                                 onClicked: JS.removeNewsItem(index)
                             }
                         }

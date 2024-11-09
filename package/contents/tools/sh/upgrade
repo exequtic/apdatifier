@@ -5,7 +5,7 @@
 
 source "$(dirname "$0")/utils"
 
-trap 'echo -e "\n$UPGRADE_SKIPPED"' SIGINT
+trap 'echo -e "\n\n$(colorize red bold $ICO_WARN $UPGRADE_SKIPPED)"' SIGINT
 
 fullSystemUpgrade() {
     startTime=$(date +%s)
@@ -13,11 +13,10 @@ fullSystemUpgrade() {
     if [ "$arch" = true ]; then
         printMsg "$UPGRADE_FULL"; echo
 
-        local archCmd="$wrapper -Syu"
-
         [ "$mirrors" = true ] && $scriptDir/mirrorlist
-        [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
-        [ "$aur" = false ] && archCmd="$sudoBin $archCmd"
+
+        local bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
+        local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
 
         echo
         printExec "$archCmd"

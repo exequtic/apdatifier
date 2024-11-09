@@ -16,6 +16,11 @@ const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const runInTerminal = (script, ...args) => sh.exec('kstart ' + bash('terminal', script, ...args))
 
+const debug = true
+function log(message) {
+    if (debug) console.log("[" + new Date().getTime().toString() + "] "+ "APDATIFIER: " + message)
+}
+
 function Error(code, err) {
     if (err) {
         cfg.notifyErrors && sendNotify("error", i18n("Exit code: ") + code, err.trim())
@@ -277,13 +282,11 @@ function updateNews(out) {
     news.forEach(item => newsModel.append(item))
     updateActiveNews()
 }
-
 function updateActiveNews() {
     const activeItems = Array.from({ length: newsModel.count }, (_, i) => newsModel.get(i)).filter(item => !item.removed)
     activeNewsModel.clear()
     activeItems.forEach(item => activeNewsModel.append(item))
 }
-
 function removeNewsItem(index) {
     for (let i = 0; i < newsModel.count; i++) {
         if (newsModel.get(i).link === activeNewsModel.get(index).link) {
@@ -294,6 +297,15 @@ function removeNewsItem(index) {
     }
     let array = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
     sh.exec(writeFile(toFileFormat(array), '>', newsFile))
+}
+function restoreNewsList() {
+    let array = []
+    for (let i = 0; i < newsModel.count; i++) {
+        newsModel.setProperty(i, "removed", false)
+        array.push(newsModel.get(i))
+    }
+    sh.exec(writeFile(toFileFormat(array), '>', newsFile))
+    updateActiveNews()
 }
 
 

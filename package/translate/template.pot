@@ -63,11 +63,11 @@ msgid "Skipped..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Fetching the latest filtered mirror list..."
+msgid "Fetching the latest filtered mirror list"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Ranking mirrors by their connection and opening speed..."
+msgid "Ranking mirrors by their connection and opening speed"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -609,11 +609,11 @@ msgid "Configure..."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
+msgid "Middle click"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "right click"
+msgid "Right click"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -621,11 +621,11 @@ msgid "Do not enable this option if the widget is not used in the system tray; o
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll up"
+msgid "Scroll up"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll down"
+msgid "Scroll down"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml

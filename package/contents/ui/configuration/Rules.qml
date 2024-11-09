@@ -53,8 +53,8 @@ ColumnLayout {
 
         actions: [
             Kirigami.Action {
-                text: i18n("Dismiss")
-                icon.name: "dialog-close"
+                text: "OK"
+                icon.name: "checkmark"
                 onTriggered: plasmoid.configuration.rulesMsg = false
             }
         ]
@@ -100,6 +100,7 @@ ColumnLayout {
                 }
 
                 ToolButton {
+                    ToolTip { text: model.icon }
                     icon.name: model.icon
                     onClicked: iconDialog.open()
 
@@ -107,11 +108,10 @@ ColumnLayout {
                         id: iconDialog
                         onIconNameChanged: model.icon = iconName
                     }
-
-                    ToolTip {text: model.icon }
                 }
 
                 ToolButton {
+                    ToolTip { text: model.excluded ? "Show" : "Exclude" }
                     icon.name: model.excluded ? "view-visible" : "hint"
                     onClicked: model.excluded = !model.excluded
                 }
@@ -129,6 +129,7 @@ ColumnLayout {
                 }
 
                 ToolButton {
+                    ToolTip { text: i18n("Remove") }
                     icon.name: 'delete'
                     onClicked: rulesList.model.remove(index)
                 }

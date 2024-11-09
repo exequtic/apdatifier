@@ -146,10 +146,21 @@ SimpleKCM {
                     enabled: cfg_selectedIcon !== JS.defaultIcon
                     onClicked: cfg_selectedIcon = JS.defaultIcon
                 }
-
                 MenuItem {
                     text: i18n("Default") + " 2"
                     icon.name: "apdatifier-packages"
+                    enabled: cfg_selectedIcon !== icon.name
+                    onClicked: cfg_selectedIcon = icon.name
+                }
+                MenuItem {
+                    text: i18n("Default") + " 3"
+                    icon.name: "apdatifier-package"
+                    enabled: cfg_selectedIcon !== icon.name
+                    onClicked: cfg_selectedIcon = icon.name
+                }
+                MenuItem {
+                    text: i18n("Default") + " 4"
+                    icon.name: "apdatifier-flatpak"
                     enabled: cfg_selectedIcon !== icon.name
                     onClicked: cfg_selectedIcon = icon.name
                 }
@@ -322,6 +333,7 @@ SimpleKCM {
             Kirigami.FormData.label: "Font family" + ":"
             enabled: counterEnabled.checked
             implicitWidth: 300
+            editable: true
             textRole: "name"
             model: {
                 let fonts = Qt.fontFamilies()
@@ -704,7 +716,7 @@ SimpleKCM {
 
         CheckBox {
             id: tabBarNewsRelevant
-            text: i18n("Show News tab as needed")
+            text: i18n("Hide News tab if no content")
         }
 
         Item {

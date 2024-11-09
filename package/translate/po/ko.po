@@ -64,12 +64,12 @@ msgid "Skipped..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Fetching the latest filtered mirror list..."
-msgstr "필터 된 미러리스트를 받아오고 있습니다."
+msgid "Fetching the latest filtered mirror list"
+msgstr "필터 된 미러리스트를 받아오고 있습니다"
 
 #: ../contents/tools/sh/messages
-msgid "Ranking mirrors by their connection and opening speed..."
-msgstr "연결 속도에 따라 미러의 순위를 산정하고 있습니다."
+msgid "Ranking mirrors by their connection and opening speed"
+msgstr "연결 속도에 따라 미러의 순위를 산정하고 있습니다"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
@@ -646,11 +646,11 @@ msgid "Configure..."
 msgstr "설정..."
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
+msgid "Middle click"
 msgstr "가운데 클릭"
 
 #: ../contents/ui/configuration/General.qml
-msgid "right click"
+msgid "Right click"
 msgstr "오른쪽 클릭"
 
 #: ../contents/ui/configuration/General.qml
@@ -660,11 +660,11 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll up"
+msgid "Scroll up"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll down"
+msgid "Scroll down"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml

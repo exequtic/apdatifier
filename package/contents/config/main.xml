@@ -21,6 +21,7 @@
         <entry name="newsKDE" type="bool"><default>false</default></entry>
         <entry name="newsTWIK" type="bool"><default>false</default></entry>
         <entry name="newsTWIKA" type="bool"><default>false</default></entry>
+        <entry name="newsKeep" type="int"><default>3</default></entry>
         <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
         <entry name="rightAction" type="string"><default></default></entry>
         <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>

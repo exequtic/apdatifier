@@ -65,12 +65,12 @@ msgid "Skipped..."
 msgstr "Пропущено..."
 
 #: ../contents/tools/sh/messages
-msgid "Fetching the latest filtered mirror list..."
-msgstr "Получение списка последних зеркал..."
+msgid "Fetching the latest filtered mirror list"
+msgstr "Получение списка последних зеркал"
 
 #: ../contents/tools/sh/messages
-msgid "Ranking mirrors by their connection and opening speed..."
-msgstr "Сортировка зеркал по их скорости..."
+msgid "Ranking mirrors by their connection and opening speed"
+msgstr "Сортировка зеркал по их скорости"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
@@ -669,12 +669,12 @@ msgid "Configure..."
 msgstr "Настроить..."
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
-msgstr "средняя кнопка"
+msgid "Middle click"
+msgstr "Средняя кнопка"
 
 #: ../contents/ui/configuration/General.qml
-msgid "right click"
-msgstr "правая кнопка"
+msgid "Right click"
+msgstr "Правая кнопка"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -685,12 +685,12 @@ msgstr ""
 "вы не сможете открыть настройки, щелкнув правой кнопкой мыши."
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll up"
-msgstr "прокрутка верх"
+msgid "Scroll up"
+msgstr "Прокрутка верх"
 
 #: ../contents/ui/configuration/General.qml
-msgid "scroll down"
-msgstr "прокрутка вниз"
+msgid "Scroll down"
+msgstr "Прокрутка вниз"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
