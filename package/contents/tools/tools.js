@@ -108,6 +108,9 @@ function checkDependencies() {
 
 
 function upgradePackage(name, id, contentID) {
+    if (sts.upgrading) return
+    enableUpgrading(true)
+
     if (id) {
         runInTerminal("upgrade", "flatpak", id, name)
     } else if (contentID) {
@@ -127,25 +130,38 @@ function enableUpgrading(state) {
     if (state) {
         upgradeTimer.start()
         searchTimer.stop()
-        sts.statusMsg = i18n("Full system upgrade")
+        sts.statusMsg = i18n("Upgrading...")
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
         upgradeTimer.stop()
-        searchTimer.triggered()
+        setStatusBar()
     }
 }
 
 function upgradingState(startup) {
-    sh.exec(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade full"`, (cmd, out, err, code) => {
+    sh.exec(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`, (cmd, out, err, code) => {
         if (out || err) {
             enableUpgrading(true)
         } else if (startup) {
             if (!cfg.interval) return
             cfg.checkOnStartup ? searchTimer.triggered() : searchTimer.start()
         } else {
-            enableUpgrading(false)
+            sh.exec(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => postUpgrade(out))
         }
     })
+}
+
+function postUpgrade(out) {
+    const newList = cache.filter(cached => {
+        const current = JSON.parse(out).find(current => current.NM.replace(/ /g, "-").toLowerCase() === cached.NM)
+        return current && current.VO === cached.VO + cached.AC
+    })
+    if (JSON.stringify(cache) !== JSON.stringify(newList)) {
+        cache = newList
+        refreshListModel()
+        saveCache(cache)
+    }
+    enableUpgrading(false)
 }
 
 function upgradeSystem() {
@@ -169,11 +185,11 @@ function checkUpdates() {
 
     let arch = [], flatpak = [], widgets = []
 
-    let archCmd = pkg.checkupdates
-                        ? cfg.aur ? `checkupdates; ${cfg.wrapper} -Qua` : "checkupdates"
-                        : cfg.aur ? cfg.wrapper + " -Qu" : "pacman -Qu"
-
-    if (!pkg.pacman || !cfg.arch) delete archCmd
+    const archCmd = 
+            !pkg.pacman || !cfg.arch ? false
+                : pkg.checkupdates
+                    ? cfg.aur ? `checkupdates; ${cfg.wrapper} -Qua` : "checkupdates"
+                    : cfg.aur ? `${cfg.wrapper} -Qu` : "pacman -Qu"
 
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
@@ -229,7 +245,7 @@ function checkUpdates() {
     })}
 
     function descFlatpak(upd) {
-        sh.exec("flatpak list --app --columns=application,version", (cmd, out, err, code) => {
+        sh.exec("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
             if (Error(code, err)) return
             flatpak = out ? makeFlatpakList(upd, out.trim()) : []
             cfg.widgets ? checkWidgets() : merge()
@@ -350,20 +366,20 @@ function makeArchList(updates, all, description) {
 
 function makeFlatpakList(updates, description) {
     if (!updates || !description) return []
-    const list = description.split("\n").slice(1).reduce((map, line) => {
-        const [ID, VO] = line.split("\t").map(entry => entry.trim())
-        map.set(ID, VO)
-        return map
-    }, new Map())
+    const list = description.split("\n").slice(1).reduce((obj, line) => {
+        const [ID, VO, AC] = line.split("\t").map(entry => entry.trim())
+        obj[ID] = { VO, AC }
+        return obj
+    }, {})
 
     return updates.split("\n").map(line => {
         const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
-        const VO = list.get(ID)
+        const { VO, AC } = list[ID]
         return {
             NM: NM.replace(/ /g, "-").toLowerCase(),
             DE, LN: "https://flathub.org/apps/" + ID,
-            ID, BR, RE, CM, RT, IS, DS, VO,
-            VN: VO === VN ? "refresh " + VN : VN
+            ID, BR, RE, AC, CM, RT, IS, DS, VO,
+            VN: VO === VN ? i18n("latest-commit") : VN
         }
     })
 }
@@ -428,7 +444,10 @@ function finalize(list) {
     }
 
     cache = list
+    saveCache(cache)
+}
 
+function saveCache(list) {
     const json = toFileFormat(keys(sortList(JSON.parse(JSON.stringify(list)), true)))
     if (json.length > 130000) {
         let start = 0
@@ -539,10 +558,7 @@ function applyRules(list) {
 
 
 function keys(list) {
-    const keysList = [
-        "GR", "PR", "DP", "RQ", "CF", "RP", "IS", "DT",
-        "RN", "ID", "BR", "CM", "RT", "DS", "CN", "AU"
-    ]
+    const keysList = ["GR", "PR", "DP", "RQ", "CF", "RP", "IS", "DT", "RN", "ID", "BR", "AC", "CM", "RT", "DS", "CN", "AU"]
 
     list.forEach(el => {
         keysList.forEach(key => {

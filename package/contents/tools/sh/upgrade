@@ -13,12 +13,11 @@ fullSystemUpgrade() {
     if [ "$arch" = true ]; then
         printMsg "$UPGRADE_FULL"; echo
 
-        [ "$mirrors" = true ] && $scriptDir/mirrorlist
+        [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
 
         local bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
         local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
 
-        echo
         printExec "$archCmd"
 
         eval ${archCmd}
@@ -70,9 +69,9 @@ flatpak_package() {
     printMsg "Upgrade: $2"
     echo
 
-    printExec "flatpak update" $1
+    printExec "flatpak update" "$1 $flatpakFlags"
 
-    flatpak update $1
+    flatpak update $1 $flatpakFlags
 
     printClose
 }
@@ -86,10 +85,19 @@ widget_package() {
     printClose
 }
 
+postUpgrade() {
+    local list=""
+    [ "$arch" = true ] && list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
+    [ "$flatpak" = true ] && list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
+    [ "$widgets" = true ] && list+=$($scriptDir/widgets list)
+    echo "[${list%,}]"
+}
+
 case "$1" in
           "full") fullSystemUpgrade ;;
           "arch") shift; arch_package $1 ;;
        "flatpak") shift; flatpak_package $1 $2;;
         "widget") shift; widget_package $1 $2;;
+   "postUpgrade") postUpgrade ;;
                *) exit;;
 esac

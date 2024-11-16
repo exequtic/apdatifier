@@ -310,7 +310,22 @@ upgradeWidget() {
     restartPlasmashell
 }
 
+listWidgets() {
+    declare -a plasmoid lines
+    getWidgets
+    local out=""
+    for plasmoid in "${lines[@]}"; do
+        local json="$HOME/.local/share/plasma/plasmoids/$plasmoid/metadata.json"; [ -s "$json" ] || continue
+        local name="$(jq -r '.KPlugin.Name' $json)"; [ -z "$name" ] && continue
+        local currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$json")"); [ -z "$currentVer" ] && continue
+        out+="{\"NM\": \"${name}\","
+        out+="\"VO\": \"${currentVer}\"},\n"
+    done
+    echo -e $out
+}
+
 case "$1" in
+          "list") listWidgets;;
          "check") checkWidgets;;
        "upgrade") shift; upgradeWidget $1 $2;;
     "upgradeAll") upgradeAllWidgets;;
