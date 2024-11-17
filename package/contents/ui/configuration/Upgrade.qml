@@ -33,7 +33,6 @@ SimpleKCM {
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
-    property var wrappers: plasmoid.configuration.wrappers
 
     property int currentTab
     signal tabChanged(currentTab: int)
@@ -78,21 +77,25 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Wrapper") + ":"
+            spacing: Kirigami.Units.largeSpacing * 2
 
-            ComboBox {
-                model: wrappers
-                textRole: "name"
-                enabled: wrappers
+            ButtonGroup {
+                id: wrappersGroup
+            }
 
-                onCurrentIndexChanged: cfg_wrapper = model[currentIndex]["value"]
+            RadioButton {
+                ButtonGroup.group: wrappersGroup
+                text: "paru"
+                enabled: pkg.paru
+                onCheckedChanged: cfg_wrapper = checked ? "paru" : "yay"
+                Component.onCompleted: checked = plasmoid.configuration.wrapper === text
+            }
 
-                Component.onCompleted: {
-                    if (wrappers) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.wrapper, wrappers)
-                    } else {
-                        plasmoid.configuration.wrapper = ""
-                    }
-                }
+            RadioButton {
+                ButtonGroup.group: wrappersGroup
+                text: "yay"
+                enabled: pkg.yay
+                Component.onCompleted: checked = plasmoid.configuration.wrapper === text
             }
         }
 

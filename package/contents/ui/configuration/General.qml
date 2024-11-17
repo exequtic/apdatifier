@@ -42,7 +42,6 @@ SimpleKCM {
     property alias cfg_notifyPersistent: notifyPersistent.checked
 
     property var pkg: plasmoid.configuration.packages
-    property var wrappers: plasmoid.configuration.wrappers
     property var terminals: plasmoid.configuration.terminals
     property var packageLink: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
 
@@ -162,9 +161,12 @@ SimpleKCM {
                     id: arch
                     text: i18n("Arch Official Repositories")
                     enabled: pkg.pacman
+                    onCheckedChanged: {
+                        if (!checked) aur.checked = false
+                    }
 
                     Component.onCompleted: {
-                        if (checked && !pkg.pacman) {
+                        if (checked && !enabled) {
                             checked = false
                             cfg_arch = checked
                         }
@@ -179,10 +181,10 @@ SimpleKCM {
                 CheckBox {
                     id: aur
                     text: i18n("Arch User Repository") + " (AUR)"
-                    enabled: arch.checked && pkg.pacman && wrappers
+                    enabled: arch.checked && (pkg.paru || pkg.yay)
 
                     Component.onCompleted: {
-                        if (checked && !wrappers) {
+                        if (checked && !enabled) {
                             checked = false
                             cfg_aur = checked
                         }
@@ -194,7 +196,7 @@ SimpleKCM {
                     text: instTip.text
                     font.pointSize: instTip.font.pointSize
                     color: instTip.color
-                    visible: pkg.pacman && !wrappers
+                    visible: !pkg.paru && !pkg.yay
                 }
             }
 

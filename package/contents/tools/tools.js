@@ -126,11 +126,8 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak }
-
-        const wrappers = populate(output.slice(3, 5).filter(Boolean))
-        cfg.wrappers = wrappers.length > 0 ? wrappers : null
+        const [pacman, checkupdates, flatpak, paru, yay ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, paru, yay }
 
         const terminals = populate(output.slice(5).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
