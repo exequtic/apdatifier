@@ -15,7 +15,6 @@ import org.kde.kquickcontrolsaddons
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
-import "../components" as DataSource
 import "../../tools/tools.js" as JS
 
 SimpleKCM {
@@ -722,9 +721,5 @@ SimpleKCM {
         Item {
             Kirigami.FormData.isSection: true
         }
-    }
-
-    DataSource.Shell {
-        id: sh
     }
 }

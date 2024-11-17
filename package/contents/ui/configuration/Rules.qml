@@ -11,14 +11,13 @@ import org.kde.iconthemes
 import org.kde.kirigami as Kirigami
 
 import "../../tools/tools.js" as JS
-import "../components" as DataSource
 
 
 ColumnLayout {
     ListModel {
         id: rulesModel
         Component.onCompleted: {
-            sh.exec(JS.readFile(JS.rulesFile), (cmd, out, err, code) => {
+            JS.execute(JS.readFile(JS.rulesFile), (cmd, out, err, code) => {
                 if (!out) return
                 JSON.parse(out).forEach(el => rulesModel.append({type: el.type, value: el.value, icon: el.icon, excluded: el.excluded}))
             })
@@ -182,12 +181,8 @@ ColumnLayout {
                 }
                 var rules = JS.toFileFormat(array)
                 plasmoid.configuration.rules = rules
-                sh.exec(JS.writeFile(rules, '>', JS.rulesFile))
+                JS.execute(JS.writeFile(rules, '>', JS.rulesFile))
             }
         }
-    }
-
-    DataSource.Shell {
-        id: sh
     }
 }

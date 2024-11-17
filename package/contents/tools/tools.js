@@ -10,11 +10,26 @@ const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
 
+function execute(command, callback, stoppable) {
+    const component = Qt.createComponent("../ui/components/Shell.qml")
+    if (component.status === Component.Ready) {
+        const componentObject = component.createObject(root)
+        if (componentObject) {
+            if (stoppable) check = componentObject
+            componentObject.exec(command, callback)
+        } else {
+            Error(1, "Failed to create executable DataSource object")
+        }
+    } else {
+        Error(1, "Executable DataSource component not ready")
+    }
+}
+
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
-const runInTerminal = (script, ...args) => sh.exec('kstart ' + bash('terminal', script, ...args))
+const runInTerminal = (script, ...args) => execute('kstart ' + bash('terminal', script, ...args))
 
 const debug = true
 function log(message) {
@@ -32,15 +47,60 @@ function Error(code, err) {
 }
 
 function init() {
-    loadConfig()
-    sh.exec(bash('init'))
-    sh.exec(readFile(cacheFile), (cmd, out, err, code) => {
+    execute(bash('init'), (cmd, out, err, code) => {
         if (Error(code, err)) return
-        cache = out ? keys(JSON.parse(out.trim())) : []
+        loadConfig()
+    })
+
+    function loadConfig() {
+        execute(readFile(configFile), (cmd, out, err, code) => {
+            if (Error(code, err)) return
+            if (!out) return
+            const config = out.trim().split("\n")
+            const convert = value => {
+                if (!isNaN(parseFloat(value))) return parseFloat(value)
+                if (value === "true" || value === "false") return value === 'true'
+                return value
+            }
+            config.forEach(line => {
+                const match = line.match(/(\w+)="([^"]*)"/)
+                if (match) plasmoid.configuration[match[1]] = convert(match[2])
+            })
+
+            loadCache()
+        })
+    }
+
+    function loadCache() {
+        execute(readFile(cacheFile), (cmd, out, err, code) => {
+            if (Error(code, err)) return
+            cache = out ? keys(JSON.parse(out.trim())) : []
+            loadRules()
+        })
+    }
+
+    function loadRules() {
+        execute(readFile(rulesFile), (cmd, out, err, code) => {
+            if (Error(code, err)) return
+            plasmoid.configuration.rules = out
+            loadNews()
+        })
+    }
+
+    function loadNews() {
+        execute(readFile(newsFile), (cmd, out, err, code) => {
+            if (Error(code, err)) return
+            JSON.parse(out.trim()).forEach(item => newsModel.append(item))
+            onStartup()
+        })
+    }
+
+    function onStartup() {
         checkDependencies()
         refreshListModel()
+        updateActiveNews()
         upgradingState(true)
-    })
+    }
 }
 
 function saveConfig() {
@@ -52,45 +112,15 @@ function saveConfig() {
             config += `${name}="${cfg[name]}"\n`
         }
     })
-
-    sh.exec(writeFile(config, ">", configFile))
+    execute(writeFile(config, ">", configFile))
 }
-
-function loadConfig() {
-    sh.exec(readFile(configFile), (cmd, out, err, code) => {
-        if (Error(code, err)) return
-        if (!out) return
-        const config = out.trim().split("\n")
-        const convert = value => {
-            if (!isNaN(parseFloat(value))) return parseFloat(value)
-            if (value === "true" || value === "false") return value === 'true'
-            return value
-        }
-        config.forEach(line => {
-            const match = line.match(/(\w+)="([^"]*)"/)
-            if (match) plasmoid.configuration[match[1]] = convert(match[2])
-        })
-    })
-
-    sh.exec(readFile(rulesFile), (cmd, out, err, code) => {
-        if (Error(code, err)) return
-        plasmoid.configuration.rules = out
-    })
-
-    sh.exec(readFile(newsFile), (cmd, out, err, code) => {
-        if (Error(code, err)) return
-        JSON.parse(out.trim()).forEach(item => newsModel.append(item))
-        updateActiveNews()
-    })
-}
-
 
 function checkDependencies() {
     const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
-    sh.exec(checkPkg(pkgs), (cmd, out, err, code) => {
+    execute(checkPkg(pkgs), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
         const output = out.split("\n")
@@ -128,6 +158,7 @@ function management() {
 function enableUpgrading(state) {
     sts.busy = sts.upgrading = state
     if (state) {
+        if (upgradeTimer.running) return
         upgradeTimer.start()
         searchTimer.stop()
         sts.statusMsg = i18n("Upgrading...")
@@ -139,14 +170,15 @@ function enableUpgrading(state) {
 }
 
 function upgradingState(startup) {
-    sh.exec(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`, (cmd, out, err, code) => {
+    execute(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`, (cmd, out, err, code) => {
         if (out || err) {
             enableUpgrading(true)
         } else if (startup) {
             if (!cfg.interval) return
             cfg.checkOnStartup ? searchTimer.triggered() : searchTimer.start()
         } else {
-            sh.exec(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => postUpgrade(out))
+            enableUpgrading(false)
+            execute(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => postUpgrade(out))
         }
     })
 }
@@ -161,7 +193,6 @@ function postUpgrade(out) {
         refreshListModel()
         saveCache(cache)
     }
-    enableUpgrading(false)
 }
 
 function upgradeSystem() {
@@ -174,7 +205,7 @@ function upgradeSystem() {
 function checkUpdates() {
     if (sts.upgrading) return
     if (sts.busy) {
-        sh.stop()
+        check.cleanup()
         setStatusBar()
         return
     }
@@ -208,54 +239,60 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
 
-        sh.exec(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
+        execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
             if (Error(code, err)) return
             if (out) updateNews(out)
             archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-    })}
+        }, true )
+    }
 
     function checkArch() {
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking system updates...")
 
-        sh.exec(archCmd, (cmd, out, err, code) => {
+        execute(archCmd, (cmd, out, err, code) => {
             if (Error(code, err)) return
             out ? allArch(out.split("\n")) : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-    })}
+        }, true )
+    }
 
     function allArch(upd) {
-        sh.exec("pacman -Sl", (cmd, out, err, code) => {
+        execute("pacman -Sl", (cmd, out, err, code) => {
             if (Error(code, err)) return
             descArch(upd, out.split("\n").filter(line => /\[.*\]/.test(line)))
-    })}
+        }, true )
+    }
 
     function descArch(upd, all) {
-        sh.exec(`pacman -Qi ${upd.map(s => s.split(" ")[0]).join(' ')}`, (cmd, out, err, code) => {
+        execute(`pacman -Qi ${upd.map(s => s.split(" ")[0]).join(' ')}`, (cmd, out, err, code) => {
             if (Error(code, err)) return
             arch = makeArchList(upd, all, out)
             cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-    })}
+        }, true )
+    }
 
     function checkFlatpak() {
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
         sts.statusMsg = i18n("Checking flatpak updates...")
-        sh.exec("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
+        execute("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
             if (Error(code, err)) return
             out ? descFlatpak(out.trim()) : cfg.widgets ? checkWidgets() : merge()
-    })}
+        }, true )
+    }
 
     function descFlatpak(upd) {
-        sh.exec("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
+        execute("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
             if (Error(code, err)) return
             flatpak = out ? makeFlatpakList(upd, out.trim()) : []
             cfg.widgets ? checkWidgets() : merge()
-    })}
+        }, true )
+    }
 
     function checkWidgets() {
         sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde-plasma-symbolic"
         sts.statusMsg = i18n("Checking widgets updates...")
 
-        sh.exec(bash('widgets', 'check'), (cmd, out, err, code) => {
+        execute(bash('widgets', 'check'), (cmd, out, err, code) => {
             if (Error(code, err)) return
             out = out.trim()
 
@@ -273,7 +310,7 @@ function checkUpdates() {
 
             widgets = JSON.parse(out)
             merge()
-        })
+        }, true )
     }
 
     function merge() {
@@ -312,7 +349,7 @@ function removeNewsItem(index) {
         }
     }
     let array = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
-    sh.exec(writeFile(toFileFormat(array), '>', newsFile))
+    execute(writeFile(toFileFormat(array), '>', newsFile))
 }
 function restoreNewsList() {
     let array = []
@@ -320,7 +357,7 @@ function restoreNewsList() {
         newsModel.setProperty(i, "removed", false)
         array.push(newsModel.get(i))
     }
-    sh.exec(writeFile(toFileFormat(array), '>', newsFile))
+    execute(writeFile(toFileFormat(array), '>', newsFile))
     updateActiveNews()
 }
 
@@ -423,7 +460,7 @@ function finalize(list) {
 
     if (!list) {
         listModel.clear()
-        sh.exec(writeFile("[]", '>', cacheFile))
+        execute(writeFile("[]", '>', cacheFile))
         cache = []
         sts.count = 0
         setStatusBar()
@@ -448,20 +485,21 @@ function finalize(list) {
 }
 
 function saveCache(list) {
-    const json = toFileFormat(keys(sortList(JSON.parse(JSON.stringify(list)), true)))
-    if (json.length > 130000) {
+    if (JSON.stringify(list).length > 130000) {
         let start = 0
         const chunkSize = 200
+        const json = JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))).replace(/},/g, "},\n").replace(/'/g, "")
         const lines = json.split("\n")
         while (start < lines.length) {
             const chunk = lines.slice(start, start + chunkSize).join("\n")
             const redir = start === 0 ? ">" : ">>"
-            sh.exec(writeFile(chunk, redir, `${cacheFile}_${Math.ceil(start / chunkSize)}`))
+            execute(writeFile(chunk, redir, `${cacheFile}_${Math.ceil(start / chunkSize)}`))
             start += chunkSize
         }
-        sh.exec(bash('utils', 'combineFiles', cacheFile))
+        execute(bash('utils', 'combineFiles', cacheFile))
     } else {
-        sh.exec(writeFile(json, '>', cacheFile))
+        const json = toFileFormat(keys(sortList(JSON.parse(JSON.stringify(list)), true)))
+        execute(writeFile(json, '>', cacheFile))
     }
 }
 

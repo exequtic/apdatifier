@@ -12,10 +12,10 @@ import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
 import "representation" as Rep
-import "components" as DataSource
 import "../tools/tools.js" as JS
 
 PlasmoidItem {
+    id: root
     compactRepresentation: Rep.Panel {}
     fullRepresentation: Rep.Expanded {
         Layout.minimumWidth: Kirigami.Units.gridUnit * 24
@@ -35,9 +35,8 @@ PlasmoidItem {
     toolTipMainText: !interval && sts.idle ? i18n("Auto check disabled") : ""
     toolTipSubText: sts.busy ? sts.statusMsg : sts.err ? sts.errMsg : sts.checktime
 
-    property var listModel: listModel
+    property var check
     property var cache: []
-    property var cmd: []
     property var notify: JS.notifyParams
     property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
@@ -86,10 +85,6 @@ PlasmoidItem {
         urgency: Notification[notify.urgency] || Notification.DefaultUrgency
     }
 
-    DataSource.Shell {
-        id: sh
-    }
-
     Plasmoid.contextualActions: [
         PlasmaCore.Action {
             text: i18n("Check updates")
@@ -120,7 +115,7 @@ PlasmoidItem {
 
     Timer {
         id: upgradeTimer
-        interval: 5000
+        interval: 1000
         repeat: true
         onTriggered: JS.upgradingState()
     }
