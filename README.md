@@ -82,6 +82,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Dutch     | 185/232 |   79% |
 | French    | 184/232 |   79% |
 | German    | 184/232 |   79% |
+| Spanish   | 184/232 |   79% |
 | Korean    | 136/232 |   58% |
 | Russian   | 232/232 |  100% |
 |-----------|---------|-------|
