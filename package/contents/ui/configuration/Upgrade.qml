@@ -54,13 +54,13 @@ SimpleKCM {
             },
             Kirigami.Action {
                 icon.name: "start-here-kde-plasma-symbolic"
-                text: "Widgets"
+                text: i18n("Widgets")
                 checked: currentTab === 2
                 onTriggered: currentTab = 2
             },
             Kirigami.Action {
                 icon.name: "akonadiconsole"
-                text: "Terminal"
+                text: i18n("Terminal")
                 checked: currentTab === 3
                 onTriggered: currentTab = 3
             }

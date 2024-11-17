@@ -1,4 +1,7 @@
 i18n("Full system upgrade")
+i18n("Flatpak Upgrade")
+i18n("Plasma Widgets Upgrade")
+i18n("Upgrade")
 i18n("Read the Arch Wiki - Partial Upgrades")
 i18n("Perform full system upgrade instead partial upgrade!")
 i18n("Total execution time:")

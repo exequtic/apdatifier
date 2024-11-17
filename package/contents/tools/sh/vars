@@ -26,7 +26,10 @@ export TEXTDOMAIN="plasma_applet_${applet}"
 source $config
 
 declare -a var_names=(
-    UPGRADE_FULL
+    UPGRADE_FULL_ARCH
+    UPGRADE_FULL_FLATPAK
+    UPGRADE_FULL_WIDGETS
+    UPGRADE_PACKAGE
     UPGRADE_WIKI
     UPGRADE_PARTIAL
     UPGRADE_EXECTIME

@@ -478,7 +478,7 @@ Representation {
         helpfulAction: Kirigami.Action {
             enabled: newsModel.count > 0
             icon.name: "backup"
-            text: "Restore list"
+            text: i18n("Restore list")
             onTriggered: JS.restoreNewsList()
         }
     }

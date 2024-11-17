@@ -329,15 +329,15 @@ SimpleKCM {
         }
 
         ComboBox {
-            Kirigami.FormData.label: "Font family" + ":"
+            Kirigami.FormData.label: i18n("Font") + ":"
             enabled: counterEnabled.checked
-            implicitWidth: 300
+            implicitWidth: 250
             editable: true
             textRole: "name"
             model: {
                 let fonts = Qt.fontFamilies()
                 let arr = []
-                arr.push({"name": "Default system font", "value": ""})
+                arr.push({"name": i18n("Default system font"), "value": ""})
                 for (let i = 0; i < fonts.length; i++) {
                     arr.push({"name": fonts[i], "value": fonts[i]})
                 }
@@ -349,14 +349,14 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: "Font bold" + ":"
+            Kirigami.FormData.label: i18n("Font bold") + ":"
             enabled: counterEnabled.checked
             id: counterFontBold
             text: i18n("Enable")
         }
 
         Slider {
-            Kirigami.FormData.label: "Font size" + ":"
+            Kirigami.FormData.label: i18n("Font size") + ":"
             visible: counterRow
             enabled: counterEnabled.checked
             id: counterFontSize
@@ -368,7 +368,7 @@ SimpleKCM {
         }
 
         SpinBox {
-            Kirigami.FormData.label: "Spacing" + ":"
+            Kirigami.FormData.label: i18n("Left spacing") + ":"
             visible: counterRow
             enabled: counterEnabled.checked
             id: counterSpacing
@@ -380,9 +380,8 @@ SimpleKCM {
         }
 
         SpinBox {
-            Kirigami.FormData.label: "Side margins" + ":"
+            Kirigami.FormData.label: i18n("Side margins") + ":"
             visible: counterRow
-            enabled: counterEnabled.checked
             id: counterMargins
             from: 0
             to: 99
@@ -715,7 +714,7 @@ SimpleKCM {
 
         CheckBox {
             id: tabBarNewsRelevant
-            text: i18n("Hide News tab if no content")
+            text: i18n("Hide \"News\" tab if no content")
         }
 
         Item {

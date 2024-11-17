@@ -18,8 +18,10 @@ ColumnLayout {
         id: rulesModel
         Component.onCompleted: {
             JS.execute(JS.readFile(JS.rulesFile), (cmd, out, err, code) => {
-                if (!out) return
-                JSON.parse(out).forEach(el => rulesModel.append({type: el.type, value: el.value, icon: el.icon, excluded: el.excluded}))
+                if (JS.Error(code, err)) return
+                if (out && JS.validJSON(out, JS.rulesFile)) {
+                    JSON.parse(out).forEach(el => rulesModel.append({type: el.type, value: el.value, icon: el.icon, excluded: el.excluded}))
+                }
             })
         }
     }
@@ -65,7 +67,7 @@ ColumnLayout {
             width: rulesList.width - Kirigami.Units.largeSpacing * 2
             contentItem: RowLayout {
                 ComboBox {
-                    Layout.fillWidth: true
+                    implicitWidth: 200
                     id: type
                     model: typesModel
                     textRole: "name"
@@ -110,7 +112,7 @@ ColumnLayout {
                 }
 
                 ToolButton {
-                    ToolTip { text: model.excluded ? "Show" : "Exclude" }
+                    ToolTip { text: model.excluded ? i18n("Show in the list") : i18n("Exclude from the list") }
                     icon.name: model.excluded ? "view-visible" : "hint"
                     onClicked: model.excluded = !model.excluded
                 }

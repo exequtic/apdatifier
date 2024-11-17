@@ -161,7 +161,7 @@ function enableUpgrading(state) {
         if (upgradeTimer.running) return
         upgradeTimer.start()
         searchTimer.stop()
-        sts.statusMsg = i18n("Upgrading...")
+        sts.statusMsg = i18n("Upgrade in progres...")
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
         upgradeTimer.stop()
@@ -389,7 +389,10 @@ function makeArchList(updates, all, description) {
             packageObj.LN = packageObj.LN.replace(/\/+$/, '')
             updates.forEach(str => {
                 const [name, verold, , vernew] = str.split(" ")
-                if (packageObj.NM === name) Object.assign(packageObj, { VO: verold, VN: vernew })
+                if (packageObj.NM === name) {
+                    const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew
+                    Object.assign(packageObj, { VO: verold, VN: verNew })
+                }
             })
         }
 
@@ -416,7 +419,7 @@ function makeFlatpakList(updates, description) {
             NM: NM.replace(/ /g, "-").toLowerCase(),
             DE, LN: "https://flathub.org/apps/" + ID,
             ID, BR, RE, AC, CM, RT, IS, DS, VO,
-            VN: VO === VN ? i18n("latest-commit") : VN
+            VN: VO === VN ? i18n("latest commit") : VN
         }
     })
 }

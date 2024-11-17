@@ -5,13 +5,14 @@
 
 source "$(dirname "$0")/utils"
 
-trap 'echo -e "\n\n$(colorize red bold $ICO_WARN $UPGRADE_SKIPPED)"' SIGINT
+trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C $UPGRADE_SKIPPED")"' SIGINT
 
 fullSystemUpgrade() {
     startTime=$(date +%s)
 
     if [ "$arch" = true ]; then
-        printMsg "$UPGRADE_FULL"; echo
+        printMsg "$UPGRADE_FULL_ARCH"
+        echo
 
         [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
 
@@ -24,7 +25,7 @@ fullSystemUpgrade() {
     fi
 
     if [ "$flatpak" = true ]; then
-        printMsg "Flatpak Upgrade"
+        printMsg "$UPGRADE_FULL_FLATPAK"
         echo
 
         local flatpakCmd="flatpak update $flatpakFlags"
@@ -35,7 +36,7 @@ fullSystemUpgrade() {
     fi
 
     if [ "$widgets" = true ]; then
-        printMsg "Plasma Widgets Upgrade"
+        printMsg "$UPGRADE_FULL_WIDGETS"
         echo
         $scriptDir/widgets upgradeAll
     fi
@@ -51,7 +52,7 @@ fullSystemUpgrade() {
 }
 
 arch_package() {
-    printMsg "Upgrade: $1"
+    printMsg "$UPGRADE_PACKAGE: $1"
     echo
 
     printImportant "$UPGRADE_WIKI"
@@ -66,7 +67,7 @@ arch_package() {
 }
 
 flatpak_package() {
-    printMsg "Upgrade: $2"
+    printMsg "$UPGRADE_PACKAGE: $2"
     echo
 
     printExec "flatpak update" "$1 $flatpakFlags"
@@ -77,7 +78,7 @@ flatpak_package() {
 }
 
 widget_package() {
-    printMsg "Upgrade: $2"
+    printMsg "$UPGRADE_PACKAGE: $2"
     echo
 
     $scriptDir/widgets upgrade $1 $2

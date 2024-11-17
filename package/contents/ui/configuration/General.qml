@@ -255,22 +255,22 @@ SimpleKCM {
 
             CheckBox {
                 id: newsKDE
-                text: "KDE Announcements"
+                text: "\"KDE Announcements\""
             }
 
             CheckBox {
                 id: newsTWIK
-                text: "This Week in KDE"
+                text: "\"This Week in KDE\""
             }
 
             CheckBox {
                 id: newsTWIKA
-                text: "This Week in KDE Apps"
+                text: "\"This Week in KDE Apps\""
             }
 
             RowLayout {
                 Label {
-                    text: i18n("Keep last")
+                    text: i18n("Keep")
                 }
 
                 SpinBox {
@@ -283,7 +283,7 @@ SimpleKCM {
                 }
 
                 Label {
-                    text: i18n("news per feed")
+                    text: i18np("news item from the feed", "news items from the feed", newsKeep.value)
                 }
             }
         }
@@ -417,15 +417,19 @@ SimpleKCM {
                 Kirigami.FormData.isSection: true
             }
 
-            Button {
-                icon.name: "backup"
-                text: "Restore all dissmised messages"
-                implicitWidth: 250
-                onClicked: {
-                    plasmoid.configuration.configMsg = true
-                    plasmoid.configuration.rulesMsg = true
-                    plasmoid.configuration.newsMsg = true
-                    plasmoid.configuration.version = "v0"
+            RowLayout {
+                Layout.preferredWidth: miscTab.width - Kirigami.Units.largeSpacing * 10
+                Button {
+                    Layout.fillWidth: true
+                    Layout.maximumWidth: 500
+                    icon.name: "backup"
+                    text: i18n("Restore hidden tooltips")
+                    onClicked: {
+                        plasmoid.configuration.configMsg = true
+                        plasmoid.configuration.rulesMsg = true
+                        plasmoid.configuration.newsMsg = true
+                        plasmoid.configuration.version = "v0"
+                    }
                 }
             }
         }

@@ -15,7 +15,7 @@ RowLayout {
 
     ComboBox {
         id: comboBox
-        implicitWidth: 180
+        implicitWidth: 250
         textRole: "name"
         model: [
             {"name": i18n("None"), "value": ""},
