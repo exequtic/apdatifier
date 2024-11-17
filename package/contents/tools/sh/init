@@ -3,18 +3,22 @@
 # SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
 # SPDX-License-Identifier: MIT
 
-source "$(dirname "$0")/vars"
+configDir=$HOME/.config/apdatifier
+config=$configDir/config.conf
+test -d $configDir || mkdir -p $configDir
+test -f $config || touch $config
 
-for dir in "$iconsDir" "$notifDir" "$configDir"; do
-    [ -d $dir ] || mkdir -p $dir
+source $(dirname "$0")/vars
+
+for dir in $iconsDir $notifDir; do
+    test -d $dir || mkdir -p $dir
 done
 
-for icon in "$icon1" "$icon2" "$icon3" "$icon4"; do
-    [ -f $iconsDir/$icon ] || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
+for icon in $icon1 $icon2 $icon3 $icon4; do
+    test -f $iconsDir/$icon || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
 done
 
-if [ -d $notifDir ]; then
-cat > "$notifDir/$notif" << EOF
+test -d $notifDir && cat > $notifDir/$notif << EOF
 [Global]
 IconName=apdatifier-plasmoid
 Comment=Apdatifier
@@ -52,4 +56,3 @@ Comment=Event when news notification with sound
 Action=Popup|Sound
 Sound=dialog-information
 EOF
-fi
