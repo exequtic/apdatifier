@@ -21,10 +21,10 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 ## Status
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |     215 |       |
-| de       | 186/215 |   86% |
-| fr       | 186/215 |   86% |
-| ko       | 137/215 |   63% |
-| nl       | 186/215 |   86% |
-| pt_BR    | 215/215 |  100% |
-| ru       | 215/215 |  100% |
+| Template |     232 |       |
+| de       | 184/232 |   79% |
+| fr       | 184/232 |   79% |
+| ko       | 136/232 |   58% |
+| nl       | 185/232 |   79% |
+| pt_BR    | 213/232 |   91% |
+| ru       | 232/232 |  100% |

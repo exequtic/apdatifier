@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-05 21:32+0300\n"
-"PO-Revision-Date: 2024-10-31 19:22+0300\n"
+"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"PO-Revision-Date: 2024-11-17 21:36+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "General"
 msgstr "Основное"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
 msgstr "Обновление"
 
@@ -40,9 +40,17 @@ msgstr "Правила"
 msgid "Support me"
 msgstr "Поддержать меня"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Full system upgrade"
 msgstr "Полное обновление системы"
+
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr "Обновление Flatpak"
+
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr "Обновление Plasma Виджетов"
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -62,7 +70,7 @@ msgstr "Нажмите Enter чтобы закрыть"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr "Пропущено..."
+msgstr "Пропуск..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -247,6 +255,10 @@ msgid "Exit code: "
 msgstr "Код ошибки: "
 
 #: ../contents/tools/tools.js
+msgid "Upgrade in progres..."
+msgstr "Выполняется обновление..."
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Проверка последних новостей..."
 
@@ -269,6 +281,10 @@ msgstr "Невозможно проверить виджеты: "
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq)"
 msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
+
+#: ../contents/tools/tools.js
+msgid "latest commit"
+msgstr "последний коммит"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -414,8 +430,28 @@ msgid "Shadow"
 msgstr "Тень"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Жирный"
+msgid "Font"
+msgstr "Шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Стандартный системный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Жирный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Размер шрифта"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left spacing"
+msgstr "Отступ слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side margins"
+msgstr "Боковые отступы"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -458,10 +494,12 @@ msgid "View"
 msgstr "Вид"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
 msgstr "Компактный"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Расширенный"
 
@@ -505,6 +543,14 @@ msgstr ""
 "Вы также можете переключаться между вкладками перемещая мышь влево и вправо "
 "с зажатой правой клавишей."
 
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr "Показывать имена вкладок"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide \"News\" tab if no content"
+msgstr "Скрывать \"Новости\" если их нет"
+
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Поиск"
@@ -529,13 +575,6 @@ msgstr ""
 "Конфигурация автоматически сохраняется в файл и загружается при каждом "
 "запуске, что гарантирует сохранность ваших настроек. Файл настроек хранится "
 "в "
-
-#: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Rules.qml
-#: ../contents/ui/representation/Expanded.qml
-#: ../contents/ui/scrollview/News.qml
-msgid "Dismiss"
-msgstr "Отклонить"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -620,6 +659,17 @@ msgid "Arch Linux News"
 msgstr "Новости Arch Linux"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Keep"
+msgstr "Хранить"
+
+#: ../contents/ui/configuration/General.qml
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] "новость с фида"
+msgstr[1] "новости с фида"
+msgstr[2] "новостей с фида"
+
+#: ../contents/ui/configuration/General.qml
 msgid "For new updates"
 msgstr "Для новых обновлений"
 
@@ -692,6 +742,10 @@ msgstr "Прокрутка верх"
 msgid "Scroll down"
 msgstr "Прокрутка вниз"
 
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr "Восстановить скрытые подсказки"
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Не имеет значения"
@@ -739,6 +793,18 @@ msgstr ""
 "в таком порядке: "
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr "Показывать в списке"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr "Исключить из списка"
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr "Удалить"
+
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
 msgstr "Добавить правило"
 
@@ -757,6 +823,14 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr "Посетите %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Widgets"
+msgstr "Виджеты"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Терминал"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -879,10 +953,6 @@ msgid "Command"
 msgstr "Команда"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Терминал"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Использовать NerdFont иконки"
 
@@ -935,8 +1005,8 @@ msgid "Check out release notes"
 msgstr "Посмотрите список изменений"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Hide"
-msgstr "Скрыть"
+msgid "Dismiss"
+msgstr "Отклонить"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
@@ -945,6 +1015,10 @@ msgstr "Система обновлена"
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
 msgstr "Нет непрочитанных новостей"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Restore list"
+msgstr "Восстановить список"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
@@ -1017,6 +1091,3 @@ msgstr "Причина установки"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Читать статью"
-
-#~ msgid "Restore all dissmised messages"
-#~ msgstr "Восстановить все скрытые сообщения"

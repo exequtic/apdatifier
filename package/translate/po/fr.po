@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-05 21:32+0300\n"
+"POT-Creation-Date: 2024-11-17 22:34+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "General"
 msgstr "Général"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
 msgstr "Mettre à jour"
 
@@ -39,9 +39,17 @@ msgstr "Règles"
 msgid "Support me"
 msgstr "Me soutenir"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Full system upgrade"
 msgstr "Mise à jour complète du système"
+
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -253,6 +261,10 @@ msgid "Exit code: "
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Upgrade in progres..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Vérifier les dernières nouvelles..."
 
@@ -275,6 +287,10 @@ msgstr "Impossible de vérifier les widgets: "
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq)"
 msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
+
+#: ../contents/tools/tools.js
+msgid "latest commit"
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -414,8 +430,28 @@ msgid "Shadow"
 msgstr "Ombre"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Audacieux"
+msgid "Font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left spacing"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side margins"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -460,10 +496,12 @@ msgid "View"
 msgstr "Vue"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
 msgstr "Compacte"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Étendue"
 
@@ -507,6 +545,14 @@ msgstr ""
 "Vous pouvez également changer d'onglet en faisant glisser la souris vers la "
 "gauche et la droite avec le bouton droit bouton de la souris maintenu."
 
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide \"News\" tab if no content"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Recherche"
@@ -531,13 +577,6 @@ msgstr ""
 "La configuration est automatiquement enregistrée dans un fichier de "
 "configuration et chargée à chaque démarrage, garantissant que vous ne "
 "perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
-
-#: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Rules.qml
-#: ../contents/ui/representation/Expanded.qml
-#: ../contents/ui/scrollview/News.qml
-msgid "Dismiss"
-msgstr "Rejeter"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -626,6 +665,16 @@ msgid "Arch Linux News"
 msgstr "Arch Linux Nouvelles"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Keep"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For new updates"
 msgstr ""
 
@@ -697,6 +746,10 @@ msgstr "Vers le haut"
 msgid "Scroll down"
 msgstr "Vers le bas"
 
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr ""
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Sans importance"
@@ -744,6 +797,18 @@ msgstr ""
 "doit être dans cet ordre: "
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
 msgstr "Ajouter une règle"
 
@@ -762,6 +827,14 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr "Visite %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Widgets"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -883,10 +956,6 @@ msgid "Command"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Terminal"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Utiliser les icônes NerdFont"
 
@@ -939,8 +1008,8 @@ msgid "Check out release notes"
 msgstr "Consultez les notes de version"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Hide"
-msgstr "Masquer"
+msgid "Dismiss"
+msgstr "Rejeter"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
@@ -948,6 +1017,10 @@ msgstr "Système à jour"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Restore list"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml

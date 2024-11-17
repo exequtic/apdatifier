@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-05 21:32+0300\n"
+"POT-Creation-Date: 2024-11-17 22:34+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "General"
 msgstr "Allgemein"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
 msgstr "Aktualisierung"
 
@@ -38,9 +38,17 @@ msgstr "Regeln"
 msgid "Support me"
 msgstr "Unterstütze mich"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Full system upgrade"
 msgstr "Vollständiges System-Upgrade"
+
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -70,8 +78,7 @@ msgstr "Abrufen der letzten gefilterten Spiegelserverliste"
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed"
 msgstr ""
-"Ranking der Spiegelserver nach ihrer Verbindungs- und "
-"Öffnungsgeschwindigkeit"
+"Ranking der Spiegelserver nach ihrer Verbindungs- und Öffnungsgeschwindigkeit"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
@@ -254,6 +261,10 @@ msgid "Exit code: "
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Upgrade in progres..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Prüfe aktuelle Nachrichten..."
 
@@ -276,6 +287,10 @@ msgstr "Widgets können nicht überprüft werden: "
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq)"
 msgstr "einige erforderliche Dienstprogramme sind nicht installiert (curl, jq)"
+
+#: ../contents/tools/tools.js
+msgid "latest commit"
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -415,8 +430,28 @@ msgid "Shadow"
 msgstr "Schatten"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Fett"
+msgid "Font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left spacing"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side margins"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -461,10 +496,12 @@ msgid "View"
 msgstr "Ansicht"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
 msgstr "Kompakt"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Erweitert"
 
@@ -508,6 +545,14 @@ msgstr ""
 "Sie können die Registerkarten auch wechseln, indem Sie die Maus mit "
 "gedrückter rechter Maustaste nach links und rechts ziehen."
 
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide \"News\" tab if no content"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Suche"
@@ -532,13 +577,6 @@ msgstr ""
 "Die Konfiguration wird automatisch in einer Konfigurationsdatei gespeichert "
 "und bei jedem Start geladen, sodass Sie Ihre Einstellungen nie verlieren. "
 "Die Konfigurationsdatei wird gespeichert in "
-
-#: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Rules.qml
-#: ../contents/ui/representation/Expanded.qml
-#: ../contents/ui/scrollview/News.qml
-msgid "Dismiss"
-msgstr "Ablehnen"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -627,6 +665,16 @@ msgid "Arch Linux News"
 msgstr "Arch Linux Nachrichten"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Keep"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For new updates"
 msgstr ""
 
@@ -699,6 +747,10 @@ msgstr "Nach oben scrollen"
 msgid "Scroll down"
 msgstr "Nach unten scrollen"
 
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr ""
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Unwichtig"
@@ -746,6 +798,18 @@ msgstr ""
 "Liste der Regeln in dieser Reihenfolge stehen: "
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
 msgstr "Regel hinzufügen"
 
@@ -765,6 +829,14 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr "Besuch %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Widgets"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -889,10 +961,6 @@ msgid "Command"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Terminal"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Benutze Nerd-Schriftartsymbole"
 
@@ -945,8 +1013,8 @@ msgid "Check out release notes"
 msgstr "Versionshinweise ansehen"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Hide"
-msgstr "Verbergen"
+msgid "Dismiss"
+msgstr "Ablehnen"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System updated"
@@ -954,6 +1022,10 @@ msgstr "System aktualisiert"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Restore list"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml

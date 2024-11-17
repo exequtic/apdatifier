@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-05 21:32+0300\n"
+"POT-Creation-Date: 2024-11-17 22:34+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "General"
 msgstr "일반"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
 msgstr "업그레이드"
 
@@ -39,9 +39,17 @@ msgstr "규칙"
 msgid "Support me"
 msgstr "지원하기"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Full system upgrade"
 msgstr "전체 시스템 업그레이드"
+
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -246,6 +254,10 @@ msgid "Exit code: "
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Upgrade in progres..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "최근 소식 확인 중..."
 
@@ -268,6 +280,10 @@ msgstr "위젯을 확인할 수 없음: "
 #: ../contents/tools/tools.js
 msgid "some required utilities are not installed (curl, jq)"
 msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq)"
+
+#: ../contents/tools/tools.js
+msgid "latest commit"
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -401,8 +417,28 @@ msgid "Shadow"
 msgstr "그림자"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "굵게"
+msgid "Font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left spacing"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side margins"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -445,10 +481,12 @@ msgid "View"
 msgstr "보기"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr ""
 
@@ -490,6 +528,14 @@ msgid ""
 "mouse button held."
 msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."
 
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide \"News\" tab if no content"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "검색"
@@ -513,13 +559,6 @@ msgid ""
 msgstr ""
 "설정은 자동으로 설정 파일에 저장되며, 세션 시작 시마다 로드 되어 설정이 유실"
 "되지 않도록 합니다. 설정 파일 위치: "
-
-#: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Rules.qml
-#: ../contents/ui/representation/Expanded.qml
-#: ../contents/ui/scrollview/News.qml
-msgid "Dismiss"
-msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -603,6 +642,15 @@ msgid "Arch Linux News"
 msgstr "아치 리눅스 소식"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Keep"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For new updates"
 msgstr ""
 
@@ -667,6 +715,10 @@ msgstr ""
 msgid "Scroll down"
 msgstr ""
 
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr ""
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr ""
@@ -711,6 +763,18 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
 msgstr ""
 
@@ -727,6 +791,14 @@ msgstr ""
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
 msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Widgets"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "터미널"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -844,10 +916,6 @@ msgid "Command"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "터미널"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "NerdFont 아이콘 사용"
 
@@ -898,7 +966,7 @@ msgid "Check out release notes"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Hide"
+msgid "Dismiss"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
@@ -907,6 +975,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Restore list"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
