@@ -41,6 +41,7 @@ SimpleKCM {
     property alias cfg_notifySound: notifySound.checked
     property alias cfg_notifyPersistent: notifyPersistent.checked
 
+    property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
     property var packageLink: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
@@ -48,6 +49,8 @@ SimpleKCM {
     property int currentTab
     signal tabChanged(currentTab: int)
     onCurrentTabChanged: tabChanged(currentTab)
+
+    Component.onCompleted: JS.checkDependencies()
  
     header: Kirigami.NavigationTabBar {
         actions: [

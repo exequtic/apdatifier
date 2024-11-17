@@ -128,9 +128,11 @@ function checkDependencies() {
 
         const [pacman, checkupdates, flatpak, paru, yay ] = output.map(Boolean)
         cfg.packages = { pacman, checkupdates, flatpak, paru, yay }
+        if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : ""
 
         const terminals = populate(output.slice(5).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
+        if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
     })
 }
 
