@@ -29,7 +29,7 @@
         <entry name="notifyUpdates" type="bool"><default>true</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
         <entry name="notifyNews" type="bool"><default>true</default></entry>
-        <entry name="notifyErrors" type="bool"><default>false</default></entry>
+        <entry name="notifyErrors" type="bool"><default>true</default></entry>
         <entry name="notifySound" type="bool"><default>true</default></entry>
         <entry name="notifyPersistent" type="bool"><default>false</default></entry>
     </group>

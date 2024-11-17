@@ -55,17 +55,18 @@ function init() {
     function loadConfig() {
         execute(readFile(configFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            if (!out) return
-            const config = out.trim().split("\n")
-            const convert = value => {
-                if (!isNaN(parseFloat(value))) return parseFloat(value)
-                if (value === "true" || value === "false") return value === 'true'
-                return value
+            if (out) {
+                const config = out.trim().split("\n")
+                const convert = value => {
+                    if (!isNaN(parseFloat(value))) return parseFloat(value)
+                    if (value === "true" || value === "false") return value === 'true'
+                    return value
+                }
+                config.forEach(line => {
+                    const match = line.match(/(\w+)="([^"]*)"/)
+                    if (match) plasmoid.configuration[match[1]] = convert(match[2])
+                })
             }
-            config.forEach(line => {
-                const match = line.match(/(\w+)="([^"]*)"/)
-                if (match) plasmoid.configuration[match[1]] = convert(match[2])
-            })
 
             loadCache()
         })
@@ -74,7 +75,7 @@ function init() {
     function loadCache() {
         execute(readFile(cacheFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            cache = out ? keys(JSON.parse(out.trim())) : []
+            if (out && validJSON(out, cacheFile)) cache = keys(JSON.parse(out.trim()))
             loadRules()
         })
     }
@@ -82,7 +83,7 @@ function init() {
     function loadRules() {
         execute(readFile(rulesFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            plasmoid.configuration.rules = out
+            if (out && validJSON(out, rulesFile)) plasmoid.configuration.rules = out
             loadNews()
         })
     }
@@ -90,7 +91,7 @@ function init() {
     function loadNews() {
         execute(readFile(newsFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            JSON.parse(out.trim()).forEach(item => newsModel.append(item))
+            if (out && validJSON(out, newsFile)) JSON.parse(out.trim()).forEach(item => newsModel.append(item))
             onStartup()
         })
     }
@@ -638,4 +639,17 @@ function toFileFormat(obj) {
     const jsonStringWithSpace = JSON.stringify(obj, null, 2)
     const writebleJsonStrings = jsonStringWithSpace.replace(/'/g, "")
     return writebleJsonStrings
+}
+
+function validJSON(string, file) {
+    try {
+        const json = JSON.parse(string)
+        if (json && typeof json === "object") return json
+    }
+    catch (e) {
+        file ? Error(1, `JSON data at ${file} is corrupted or broken and cannot be processed`)
+             : Error(1, "JSON data is broken and cannot be processed")
+    }
+
+    return false
 }
