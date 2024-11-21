@@ -2,9 +2,13 @@
 
 <img src="./screenshots/header.png" width="200px" alt="banner"/>
 
-<!-- ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
-![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
+<br>
 
+![License](https://img.shields.io/github/license/exequtic/apdatifier?style=flat&logo=gnu&logoColor=white&label=License&color=brown)&nbsp;&nbsp;
+![Downloads](https://img.shields.io/github/downloads/exequtic/apdatifier/total?style=flat&logo=kdeplasma&logoColor=white&label=Downloads&color=red)&nbsp;&nbsp;
+![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=flat&logo=github&logoColor=white&label=Stars&color=blue)
+
+<br>
 
 # Apdatifier
 ## Arch Update Notifier
@@ -12,8 +16,8 @@
 </div>
 
 # Features
-- Notification for new updates and [Arch Linux News](https://archlinux.org/news)
-- Searching updates for [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org) (without showing the runtime updates)
+- Notification for updates and news
+- Searching updates for [Arch](https://archlinux.org/packages/) (+[AUR](https://aur.archlinux.org/packages)), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org)
 - Bash script with useful options for managing packages
 - Two types of lists: compact and extended with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
@@ -55,18 +59,18 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 [pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>HIGHLY RECOMMENDED</b>. For checkupdates and rankmirrors scripts.
 
 ### Supported pacman wrappers
-paru, trizen, yay
+paru, yay
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, *yakuake
+alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake, wezterm
 
-*yakuake used the D-Bus method runCommand via the qdbus6.
+<!-- *yakuake used the D-Bus method runCommand via the qdbus6. -->
 
 ### Required utilities for options:
-<b>Arch Linux News:</b> [paru](https://aur.archlinux.org/packages/paru) or [yay](https://aur.archlinux.org/packages/yay)<br>
-<b>Plasma Widgets:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [jq](https://archlinux.org/packages/extra/x86_64/jq), [unzip](https://archlinux.org/packages/extra/x86_64/unzip), [tar](https://archlinux.org/packages/core/x86_64/tar)<br>
-<b>Mirrorlist Generator:</b> [curl](https://archlinux.org/packages/core/x86_64/curl), [pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib)<br>
-<b>Management</b>: [fzf](https://archlinux.org/packages/extra/x86_64/fzf)<br>
+<b>Plasma Widgets:</b> curl, jq, unzip, tar<br>
+<b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
+<b>Management</b>: fzf<br>
+<b>News:</b> curl, jq<br>
 
 <br>
 
@@ -97,15 +101,25 @@ Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widg
 After installation, the widget icon should <b>automatically</b> appear in the system tray.
 
 >[!IMPORTANT]
->If you had the previous version installed, you need to log out or restart plasmashell after installation for the new features to work properly.
+>If you are upgrading from a previous version, you need to log out or restart plasmashell for the new features to work properly.
 >```bash
->kquitapp6 plasmashell && kstart plasmashell
+>systemctl --user restart plasma-plasmashell.service
 >```
 
-### Uninstall
+<br>
+
+<!-- ### Uninstall
 ```bash
 bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
-```
+``` -->
+
+# Support the project
+
+If you like this project, you can
+
+<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
+  <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
+</a>
 
 <br>
 
