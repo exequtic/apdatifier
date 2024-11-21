@@ -117,7 +117,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay alacritty foot gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru yay jq curl unzip tar alacritty foot gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -126,11 +126,11 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, paru, yay ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, paru, yay }
+        const [pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : ""
 
-        const terminals = populate(output.slice(5).filter(Boolean))
+        const terminals = populate(output.slice(9).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
     })
@@ -161,7 +161,7 @@ function enableUpgrading(state) {
         if (upgradeTimer.running) return
         upgradeTimer.start()
         searchTimer.stop()
-        sts.statusMsg = i18n("Upgrade in progres...")
+        sts.statusMsg = i18n("Upgrade in progress...")
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
         upgradeTimer.stop()

@@ -92,6 +92,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Shown when")
+            enabled: counterOverlay
 
             SpinBox {
                 id: relevantIcon

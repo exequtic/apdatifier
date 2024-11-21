@@ -258,7 +258,7 @@ msgid "Exit code: "
 msgstr "Código de saída: "
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progres..."
+msgid "Upgrade in progress..."
 msgstr "Atualização em andamento..."
 
 #: ../contents/tools/tools.js

@@ -170,7 +170,8 @@ SimpleKCM {
             CheckBox {
                 id: mirrors
                 text: i18n("Suggest before upgrading")
-                enabled: pkg.pacman
+                enabled: pkg.pacman && pkg.checkupdates && pkg.curl
+                Component.onCompleted: if (checked && !enabled) checked = plasmoid.configuration.mirrors = false
             }
 
             Kirigami.ContextualHelpButton {

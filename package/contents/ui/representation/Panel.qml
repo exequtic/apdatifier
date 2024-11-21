@@ -146,7 +146,7 @@ MouseArea {
         width: trayIconSize + cfg.counterOffsetX
         height: trayIconSize + cfg.counterOffsetY
         opacity: 0
-        visible: cfg.counterEnabled && counterOverlay
+        visible: counterOverlay
     }
 
     Rectangle {
@@ -156,7 +156,7 @@ MouseArea {
         radius: cfg.counterRadius
         opacity: cfg.counterOpacity / 10
         color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
-        visible: frame.visible && sts.pending
+        visible: counterOverlay && cfg.counterEnabled && sts.pending
 
         layer.enabled: cfg.counterShadow
         layer.effect: DropShadow {
@@ -191,19 +191,19 @@ MouseArea {
     QQC.Badge {
         iconName: errorIcon
         iconColor: Kirigami.Theme.negativeTextColor
-        visible: frame.visible && sts.err
+        visible: counterOverlay && sts.err
         position: 0
     }
     QQC.Badge {
         iconName: updatedIcon
         iconColor: Kirigami.Theme.positiveTextColor
-        visible: frame.visible && sts.updated
+        visible: counterOverlay && sts.updated
         position: 0
     }
     QQC.Badge {
         iconName: pausedIcon
         iconColor: Kirigami.Theme.neutralTextColor
-        visible: frame.visible && sts.paused
+        visible: counterOverlay && sts.paused
         position: 1
     }
 }

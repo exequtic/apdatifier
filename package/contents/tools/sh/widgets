@@ -224,7 +224,7 @@ upgradeAllWidgets() {
     updated="false"
     if [[ -s "$updatesList" ]] && jq -e '(. | length) > 0' "$updatesList" > /dev/null 2>&1; then
         echo
-        jq -c '.[]' "$updatesList" | while read -r widget; do
+        jq -c 'sort_by(.NM)[]' "$updatesList" | while read -r widget; do
             echo -e "$(colorize white bold $(echo "$widget" | jq -r '.NM')) \t \
                      $(colorize red bold $(echo "$widget" | jq -r '.VO')) \t \
                      $(colorize white "->") \t \
@@ -243,7 +243,7 @@ upgradeAllWidgets() {
             done
         fi
 
-        jq -c '.[]' "$updatesList" | while read -r widget; do
+        jq -c 'sort_by(.NM)[]' "$updatesList" | while read -r widget; do
             name=$(echo "$widget" | jq -r '.NM')
             contentId=$(echo "$widget" | jq -r '.CN')
             latestVer=$(echo "$widget" | jq -r '.VN')

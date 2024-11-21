@@ -5,7 +5,7 @@
 
 source "$(dirname "$0")/utils"
 
-trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C $UPGRADE_SKIPPED")"' SIGINT
+trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C. $UPGRADE_SKIPPED")"' SIGINT
 
 fullSystemUpgrade() {
     startTime=$(date +%s)

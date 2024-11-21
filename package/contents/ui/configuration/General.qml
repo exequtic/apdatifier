@@ -50,7 +50,19 @@ SimpleKCM {
     signal tabChanged(currentTab: int)
     onCurrentTabChanged: tabChanged(currentTab)
 
-    Component.onCompleted: JS.checkDependencies()
+    property bool widgetsAvail: pkg.curl && pkg.jq && pkg.unzip && pkg.tar
+    property bool newsAvail: pkg.curl && pkg.jq
+    Component.onCompleted: {
+        JS.checkDependencies()
+        if (arch.checked && !pkg.pacman) arch.checked = plasmoid.configuration.arch = false
+        if (aur.checked && !pkg.pacman && !pkg.yay && !pkg.paru) aur.checked = plasmoid.configuration.aur = false
+        if (flatpak.checked && !pkg.flatpak) flatpak.checked = plasmoid.configuration.flatpak = false
+        if (widgets.checked && !widgetsAvail) widgets.checked = plasmoid.configuration.widgets = false
+        if (newsArch.checked && !newsAvail) newsArch.checked = plasmoid.configuration.newsArch = false
+        if (newsKDE.checked && !newsAvail) newsKDE.checked = plasmoid.configuration.newsKDE = false
+        if (newsTWIK.checked && !newsAvail) newsTWIK.checked = plasmoid.configuration.newsTWIK = false
+        if (newsTWIKA.checked && !newsAvail) newsTWIKA.checked = plasmoid.configuration.newsTWIKA = false
+    }
  
     header: Kirigami.NavigationTabBar {
         actions: [
@@ -164,16 +176,7 @@ SimpleKCM {
                     id: arch
                     text: i18n("Arch Official Repositories")
                     enabled: pkg.pacman
-                    onCheckedChanged: {
-                        if (!checked) aur.checked = false
-                    }
-
-                    Component.onCompleted: {
-                        if (checked && !enabled) {
-                            checked = false
-                            cfg_arch = checked
-                        }
-                    }
+                    onCheckedChanged: if (!checked) aur.checked = false
                 }
             }
 
@@ -185,13 +188,6 @@ SimpleKCM {
                     id: aur
                     text: i18n("Arch User Repository") + " (AUR)"
                     enabled: arch.checked && (pkg.paru || pkg.yay)
-
-                    Component.onCompleted: {
-                        if (checked && !enabled) {
-                            checked = false
-                            cfg_aur = checked
-                        }
-                    }
                 }
 
                 Kirigami.UrlButton {
@@ -210,13 +206,6 @@ SimpleKCM {
                     id: flatpak
                     text: i18n("Flatpak applications")
                     enabled: pkg.flatpak
-
-                    Component.onCompleted: {
-                        if (checked && !pkg.flatpak) {
-                            checked = false
-                            plasmoid.configuration.flatpak = checked
-                        }
-                    }
                 }
 
                 Kirigami.UrlButton {
@@ -233,6 +222,7 @@ SimpleKCM {
                 CheckBox {
                     id: widgets
                     text: i18n("Plasma Widgets")
+                    enabled: widgetsAvail
                 }
 
                 Kirigami.ContextualHelpButton {
@@ -250,22 +240,26 @@ SimpleKCM {
                 CheckBox {
                     id: newsArch
                     text: i18n("Arch Linux News")
+                    enabled: newsAvail
                 }
             }
 
             CheckBox {
                 id: newsKDE
                 text: "\"KDE Announcements\""
+                enabled: newsAvail
             }
 
             CheckBox {
                 id: newsTWIK
                 text: "\"This Week in KDE\""
+                enabled: newsAvail
             }
 
             CheckBox {
                 id: newsTWIKA
                 text: "\"This Week in KDE Apps\""
+                enabled: newsAvail
             }
 
             RowLayout {
