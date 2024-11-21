@@ -162,6 +162,11 @@ compareVer() {
     return 0
 }
 
+getId() {
+    [[ $1 =~ ^[0-9]+$ ]] && f=2 || f=1
+    grep $1 "$(dirname "$0")/widgets-id" | cut -d' ' -f$f
+}
+
 restartPlasmashell() {
     if [[ "$restartShell" = true ]]; then
         sleep 1

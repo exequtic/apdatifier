@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: MIT
 
 source "$(dirname "$0")/utils"
-source "$(dirname "$0")/widgets-id"
 
 fetchData() {
     echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
@@ -54,39 +53,36 @@ getWidgets() {
 }
 
 getWidgetInfo() {
-    local dir="$HOME/.local/share/plasma/plasmoids/$plasmoid"
-    local json="$dir/metadata.json"
-    [ -s "$json" ] || return 1
+    local metadata="$HOME/.local/share/plasma/plasmoids/$plasmoid/metadata.json"
+    [ -s "$metadata" ] || return 1
 
-    jq . $json >/dev/null 2>&1 || return 2
-    if ! jq -e '.KPackageStructure == "Plasma/Applet"' "$json" >/dev/null 2>&1; then
-        jq '. + { "KPackageStructure": "Plasma/Applet" }' $json > $dir/tmp.json && mv $dir/tmp.json $json
+    jq . $metadata >/dev/null 2>&1 || return 2
+    if ! jq -e '.KPackageStructure == "Plasma/Applet"' "$metadata" >/dev/null 2>&1; then
+        updateJson $metadata "$(jq '. + { "KPackageStructure": "Plasma/Applet" }' $metadata)"
     fi
 
-    local originName=$(jq -r '.KPlugin.Name' $json)
+    local originName=$(jq -r '.KPlugin.Name' $metadata)
     name=$(echo "$originName" | sed 's/ /-/g; s/.*/\L&/')
 
-    contentId=$(xmllint --xpath "string(//name[text()='$originName']/../id)" $XML)
-    [ -z "$contentId" ] && contentId="$(getId "$plasmoid")"
-    if [ -z "$contentId" ]; then
-        local knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
-        [ -s "$knsregistry" ] && contentId=$(xmllint --xpath "string(//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/../id)" $knsregistry)
-    fi
+    local knsregistry="$HOME/.local/share/knewstuff3/plasmoids.knsregistry"
+    [ -s "$knsregistry" ] && contentId=$(xmllint --xpath "string(//installedfile[contains(text(), 'plasma/plasmoids/$plasmoid')]/../id)" $knsregistry)
+    [ -z "$contentId" ] && contentId="$(getId "$plasmoid" | head -n 1)"
+    [ -z "$contentId" ] && contentId=$(xmllint --xpath "string(//name[text()='$originName']/../id)" $XML)
     [ -z "$contentId" ] && return 3
 
-    currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$json")")
+    currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$metadata")")
     latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" $XML)")
     [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 4
     compareVer "$currentVer" "$latestVer"
     [[ $? != 2 ]] && return 5
 
-    description=$(jq -r '.KPlugin.Description' $json | sed 's/"/\\"/g' | tr -d '\n')
+    description=$(jq -r '.KPlugin.Description' $metadata | sed 's/"/\\"/g' | tr -d '\n')
     [ -z "$description" ] || [ "$description" = "null" ] && description="$WIDGETS_NODESC"
 
-    author=$(jq -r '.KPlugin.Authors[].Name' $json | paste -sd "," - | sed 's/,/, /g')
-    [ -z "$author" ] || [ "$author" = "null" ] && author="-"
+    author=$(jq -r '.KPlugin.Authors[].Name' $metadata | paste -sd "," - | sed 's/,/, /g')
+    [ -z "$author" ] || [ "$author" = "null" ] && author="?"
 
-    icon=$(jq -r '.KPlugin.Icon' $json)
+    icon=$(jq -r '.KPlugin.Icon' $metadata)
     local fallbackIcon="start-here-kde-plasma-symbolic"
     if [ -z "$icon" ]; then
         icon=$fallbackIcon
@@ -188,18 +184,16 @@ downloadWidget() {
                           *) return 2 ;;
     esac
 
-    metadata_path=$(find "$tempDir/$name/unpacked" -name "metadata.json")
-    [ -z "$metadata_path" ] && return 3
+    metadata=$(find $tempDir/$name/unpacked -name metadata.json)
+    [ -z "metadata" ] && return 3
 
-    cd $(dirname "$metadata_path")
+    jq . $metadata >/dev/null 2>&1 || return 4
 
-    jq . metadata.json >/dev/null 2>&1 || return 4
-
-    if ! jq -e '.KPackageStructure == "Plasma/Applet"' metadata.json >/dev/null 2>&1; then
-        jq '. + { "KPackageStructure": "Plasma/Applet" }' metadata.json > tmp.json && mv tmp.json metadata.json
+    if ! jq -e '.KPackageStructure == "Plasma/Applet"' "$metadata" >/dev/null 2>&1; then
+        updateJson $metadata "$(jq '. + { "KPackageStructure": "Plasma/Applet" }' $metadata)"
     fi
 
-    jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' metadata.json > tmp.json && mv tmp.json metadata.json
+    updateJson $metadata "$(jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' $metadata)"
 
     return 0
 }
