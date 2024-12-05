@@ -7,6 +7,8 @@ source "$(dirname "$0")/utils"
 
 trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C. $UPGRADE_SKIPPED")"' SIGINT
 
+bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
+
 fullSystemUpgrade() {
     startTime=$(date +%s)
 
@@ -16,7 +18,6 @@ fullSystemUpgrade() {
 
         [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
 
-        local bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
         local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
 
         printExec "$archCmd"
@@ -59,9 +60,9 @@ arch_package() {
     printImportant "$UPGRADE_PARTIAL"
     echo
 
-    printExec -Sy $1
+    printExec "$bin -Sy" $1
 
-    yay -Sy $1
+    $bin -Sy $1
 
     printClose
 }
