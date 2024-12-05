@@ -55,7 +55,7 @@ SimpleKCM {
     Component.onCompleted: {
         JS.checkDependencies()
         if (arch.checked && !pkg.pacman) arch.checked = plasmoid.configuration.arch = false
-        if (aur.checked && !pkg.pacman && !pkg.yay && !pkg.paru) aur.checked = plasmoid.configuration.aur = false
+        if (aur.checked && (!pkg.pacman || (!pkg.yay && !pkg.paru))) aur.checked = plasmoid.configuration.aur = false
         if (flatpak.checked && !pkg.flatpak) flatpak.checked = plasmoid.configuration.flatpak = false
         if (widgets.checked && !widgetsAvail) widgets.checked = plasmoid.configuration.widgets = false
         if (newsArch.checked && !newsAvail) newsArch.checked = plasmoid.configuration.newsArch = false
