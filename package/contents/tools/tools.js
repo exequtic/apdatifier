@@ -38,7 +38,7 @@ function log(message) {
 
 function Error(code, err) {
     if (err) {
-        cfg.notifyErrors && sendNotify("error", i18n("Exit code: ") + code, err.trim())
+        cfg.notifyErrors && notify.send("error", i18n("Exit code: ") + code, err.trim())
         sts.errMsg = err.trim().substring(0, 150) + "..."
         setStatusBar(code)
         return true
@@ -326,7 +326,7 @@ function updateNews(out) {
         const currentNews = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
         news.forEach(item => {
             if (!currentNews.some(currentItem => currentItem.link === item.link)) {
-                sendNotify("news", item.title, item.article)
+                notify.send("news", item.title, item.article)
             }
         })
     }
@@ -479,7 +479,7 @@ function finalize(list) {
         if (newList.length > 0) {
             const title = i18np("+%1 new update", "+%1 new updates", newList.length)
             const body = newList.map(pkg => `${pkg.NM} → ${pkg.VN}`).join("\n")
-            sendNotify("updates", title, body)
+            notify.send("updates", title, body)
         }
     }
 
@@ -512,23 +512,6 @@ function setStatusBar(code) {
     sts.statusMsg = sts.err ? "Exit code: " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
     sts.busy = false
     !cfg.interval ? searchTimer.stop() : searchTimer.restart()
-}
-
-
-let notifyParams = { "event": "", "title": "", "body": "", "icon": "", "urgency": "" }
-function sendNotify(event, title, body) {
-    const eventParams = {
-        updates: { icon: "apdatifier-packages", urgency: "DefaultUrgency" },
-        news: { icon: "news-subscribe", urgency: "HighUrgency" },
-        error: { icon: "error", urgency: "HighUrgency" }
-    }
-
-    let { icon, urgency } = eventParams[event]
-
-    if (cfg.notifySound) event += "Sound"
-
-    notify = { event, title, body, icon, urgency }
-    notification.sendEvent()
 }
 
 

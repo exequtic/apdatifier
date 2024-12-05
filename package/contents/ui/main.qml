@@ -6,11 +6,11 @@
 import QtQuick
 import QtQuick.Layouts
 
-import org.kde.notification
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
+import "components"
 import "representation" as Rep
 import "../tools/tools.js" as JS
 
@@ -37,7 +37,6 @@ PlasmoidItem {
 
     property var check
     property var cache: []
-    property var notify: JS.notifyParams
     property int time: plasmoid.configuration.time
     property bool interval: plasmoid.configuration.interval
     property bool sorting: plasmoid.configuration.sorting
@@ -75,14 +74,7 @@ PlasmoidItem {
     }
 
     Notification {
-        id: notification
-        componentName: "apdatifier"
-        eventId: notify.event
-        title: notify.title
-        text: notify.body
-        iconName: notify.icon
-        flags: cfg.notifyPersistent ? Notification.Persistent : Notification.CloseOnTimeout
-        urgency: Notification[notify.urgency] || Notification.DefaultUrgency
+        id: notify
     }
 
     Plasmoid.contextualActions: [
