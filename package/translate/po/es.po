@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2024-11-17 22:34+0300\n"
-"PO-Revision-Date: 2024-11-02 13:51-0600\n"
+"PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
 "Language: sp\n"
@@ -44,11 +44,11 @@ msgstr "Actualización completa del sistema"
 
 #: ../contents/tools/sh/messages
 msgid "Flatpak Upgrade"
-msgstr ""
+msgstr "Actualización de Flatpak"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr ""
+msgstr "Actualización de los widgets de Plasma"
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -60,7 +60,7 @@ msgstr "¡Realiza una actualización completa del sistema en lugar de una actual
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
-msgstr ""
+msgstr "Tiempo total de ejecución:"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -68,7 +68,7 @@ msgstr "Presiona Enter para cerrar"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "Omitido..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -104,19 +104,19 @@ msgstr "Verificando widgets para actualizaciones"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr ""
+msgstr "Obteniendo datos de la API"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
-msgstr ""
+msgstr "Obteniendo el enlace de descarga"
 
 #: ../contents/tools/sh/messages
 msgid "Downloading package"
-msgstr ""
+msgstr "Descargando paquete"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "¿Proceder con la actualización?"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -124,7 +124,7 @@ msgstr "¿Reiniciar plasmashell ahora?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "Sin descripción"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
@@ -132,11 +132,11 @@ msgstr "Demasiadas solicitudes de API en los últimos 15 minutos desde tu direcc
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr ""
+msgstr "Error al obtener los datos de la API"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
-msgstr ""
+msgstr "Error desconocido"
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -152,19 +152,19 @@ msgstr "Formato de archivo no soportado"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "No hay archivos para descargar"
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr ""
+msgstr "Ningún archivo etiquetado con versión"
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr ""
+msgstr "Múltiples archivos están etiquetados con versión"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr ""
+msgstr "Error al descargar el paquete"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -244,11 +244,11 @@ msgstr "Requerido instalado"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr ""
+msgstr "Código de salida:"
 
 #: ../contents/tools/tools.js
 msgid "Upgrade in progress..."
-msgstr ""
+msgstr "Actualización en progreso..."
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -276,7 +276,7 @@ msgstr "algunas utilidades requeridas no están instaladas (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr ""
+msgstr "Ultima confirmación"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -412,27 +412,27 @@ msgstr "Sombra"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font"
-msgstr ""
+msgstr "Fuente"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default system font"
-msgstr ""
+msgstr "Fuente predeterminada del sistema"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr ""
+msgstr "Fuente en negrita"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr ""
+msgstr "Tamaño de la fuente"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr ""
+msgstr "Espaciado a la izquierda"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
-msgstr ""
+msgstr "Márgenes laterales"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -508,7 +508,7 @@ msgstr "Mostrar barra de herramientas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
-msgstr "Pie"
+msgstr "Pie de página"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
@@ -520,11 +520,11 @@ msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquie
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
-msgstr ""
+msgstr "Mostrar textos de las pestañas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Hide \"News\" tab if no content"
-msgstr ""
+msgstr "Ocultar la pestaña \"Noticias\" si no hay contenido"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -540,7 +540,7 @@ msgstr "Acciones del mouse"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr ""
+msgstr "Varios"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
@@ -572,7 +572,7 @@ msgstr "Si la opción está <b>habilitada</b>, la verificación de actualizacion
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
-msgstr ""
+msgstr "Actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -600,7 +600,7 @@ msgstr "Para usar esta función, se requieren las siguientes utilidades instalad
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr ""
+msgstr "Noticias"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
@@ -608,17 +608,17 @@ msgstr "Noticias de Arch Linux"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Keep"
-msgstr ""
+msgstr "Mantener"
 
 #: ../contents/ui/configuration/General.qml
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "artículo de noticias del canal"
+msgstr[1] "artículos de noticias del canal"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr ""
+msgstr "Para nuevas actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -630,7 +630,7 @@ msgstr "Si la opción está <b>habilitada</b>, se enviarán notificaciones cuand
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr ""
+msgstr "Para noticias"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
@@ -662,7 +662,7 @@ msgstr "Clic derecho"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking."
-msgstr ""
+msgstr "No habilites esta opción si el widget no se usa en la bandeja del sistema; de lo contrario, no podrás abrir la configuración haciendo clic derecho."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -674,7 +674,7 @@ msgstr "Desplazar hacia abajo"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr ""
+msgstr "Restaurar las descripciones emergentes ocultas"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -718,15 +718,15 @@ msgstr "Aquí puedes anular los iconos predeterminados de los paquetes y excluir
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
-msgstr ""
+msgstr "Mostrar en la lista"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exclude from the list"
-msgstr ""
+msgstr "Excluir de la lista"
 
 #: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
@@ -746,7 +746,7 @@ msgstr "Visitar %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
@@ -758,7 +758,7 @@ msgstr "Contenedor"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr ""
+msgstr "Opciones de actualización"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
@@ -770,7 +770,7 @@ msgstr "Generador de lista de espejos de Pacman"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "Solo para repositorios oficiales"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -818,23 +818,23 @@ msgstr "Debes seleccionar al menos un país, de lo contrario, se elegirán todos
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr ""
+msgstr "Normal, omitir preguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr ""
+msgstr "Sin interacción, omitir preguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr ""
+msgstr "Detallado"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr ""
+msgstr "Confirmación de actualización"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -850,7 +850,7 @@ msgstr "Después de actualizar el widget, la versión anterior seguirá en memor
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -910,11 +910,11 @@ msgstr "Sistema actualizado"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
-msgstr ""
+msgstr "No hay noticias no leídas"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Restore list"
-msgstr ""
+msgstr "Restaurar lista"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
