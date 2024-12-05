@@ -215,7 +215,6 @@ upgradeAllWidgets() {
 
     makeList & printWhile $! "$WIDGETS_CHECK"
 
-    updated="false"
     if [[ -s "$updatesList" ]] && jq -e '(. | length) > 0' "$updatesList" > /dev/null 2>&1; then
         echo
         jq -c 'sort_by(.NM)[]' "$updatesList" | while read -r widget; do
@@ -237,7 +236,8 @@ upgradeAllWidgets() {
             done
         fi
 
-        jq -c 'sort_by(.NM)[]' "$updatesList" | while read -r widget; do
+        updated=false
+        while read -r widget; do
             name=$(echo "$widget" | jq -r '.NM')
             contentId=$(echo "$widget" | jq -r '.CN')
             latestVer=$(echo "$widget" | jq -r '.VN')
@@ -251,13 +251,12 @@ upgradeAllWidgets() {
             [[ $exitCode -ne 0 ]] && { echo; continue; }
 
             kpackagetool6 -t Plasma/Applet -u $(dirname $(find $tempDir/$name -name "metadata.json")) 2>/dev/null
+            updated=true
             sleep 1
             echo
+        done < <(jq -c 'sort_by(.NM)[]' "$updatesList")
 
-            updated="true"
-        done
-
-        [[ updated = true ]] && restartPlasmashell
+        [[ $updated = true ]] && restartPlasmashell
     else
         printDone "$MNG_DONE"
     fi
