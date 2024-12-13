@@ -42,6 +42,14 @@ fullSystemUpgrade() {
         $scriptDir/widgets upgradeAll
     fi
 
+    if [ -n "$execScript" ]; then
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+
+        printExec "$execScript"
+
+        eval ${execScript}
+    fi
+
     trap ' ' SIGINT
 
     endTime=$(date +%s)

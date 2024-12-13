@@ -46,6 +46,7 @@
         <entry name="widgetConfirmation" type="bool"><default>true</default></entry>
         <entry name="restartShell" type="bool"><default>true</default></entry>
         <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
+        <entry name="execScript" type="string"><default></default></entry>
         <entry name="terminal" type="string"><default></default></entry>
         <entry name="termFont" type="bool"><default>false</default></entry>
     </group>

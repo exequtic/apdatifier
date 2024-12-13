@@ -6,6 +6,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
@@ -33,6 +34,7 @@ SimpleKCM {
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
+    property alias cfg_execScript: execScript.text
 
     property int currentTab
     signal tabChanged(currentTab: int)
@@ -41,26 +43,26 @@ SimpleKCM {
     header: Kirigami.NavigationTabBar {
         actions: [
             Kirigami.Action {
-                icon.name: "apdatifier-package"
-                text: "Arch"
+                icon.name: "akonadiconsole"
+                text: i18n("General")
                 checked: currentTab === 0
                 onTriggered: currentTab = 0
             },
             Kirigami.Action {
-                icon.name: "apdatifier-flatpak"
-                text: "Flatpak"
+                icon.name: "apdatifier-package"
+                text: "Arch"
                 checked: currentTab === 1
                 onTriggered: currentTab = 1
             },
             Kirigami.Action {
-                icon.name: "start-here-kde-plasma-symbolic"
-                text: i18n("Widgets")
+                icon.name: "apdatifier-flatpak"
+                text: "Flatpak"
                 checked: currentTab === 2
                 onTriggered: currentTab = 2
             },
             Kirigami.Action {
-                icon.name: "akonadiconsole"
-                text: i18n("Terminal")
+                icon.name: "start-here-kde-plasma-symbolic"
+                text: i18n("Widgets")
                 checked: currentTab === 3
                 onTriggered: currentTab = 3
             }
@@ -68,8 +70,91 @@ SimpleKCM {
     }
 
     Kirigami.FormLayout {
-        id: archTab
+        id: terminalTab
         visible: currentTab === 0
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Terminal") + ":"
+
+            ComboBox {
+                model: terminals
+                textRole: "name"
+                enabled: terminals
+
+                onCurrentIndexChanged: cfg_terminal = model[currentIndex]["value"]
+
+                Component.onCompleted: {
+                    if (terminals) {
+                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
+
+                        if (!plasmoid.configuration.terminal) {
+                            plasmoid.configuration.terminal = model[0]["value"]
+                        }
+                    }
+                }
+            }
+
+            Kirigami.UrlButton {
+                url: "https://github.com/exequtic/apdatifier#supported-terminals"
+                text: i18n("Not installed")
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                color: Kirigami.Theme.neutralTextColor
+                visible: !terminals
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            CheckBox {
+                id: termFont
+                text: i18n("Use NerdFont icons")
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Command or script") + ":"
+
+            TextField {
+                id: execScript
+                placeholderText: i18n("Enter command or select script")
+                placeholderTextColor: "grey"
+            }
+
+            Button {
+                icon.name: "document-open"
+                onClicked: fileDialog.open()
+            }
+
+            FileDialog {
+                id: fileDialog
+                fileMode: FileDialog.OpenFile
+                onAccepted: execScript.text = selectedFile.toString().substring(7)
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("Executing your script or command at the end of the upgrade process.")
+            }
+        }
+    }
+
+    Kirigami.FormLayout {
+        id: archTab
+        visible: currentTab === 1
 
         Item {
             Kirigami.FormData.isSection: true
@@ -302,7 +387,7 @@ SimpleKCM {
 
     Kirigami.FormLayout {
         id: flatpakTab
-        visible: currentTab === 1
+        visible: currentTab === 2
 
         Item {
             Kirigami.FormData.isSection: true
@@ -355,7 +440,7 @@ SimpleKCM {
 
     Kirigami.FormLayout {
         id: widgetsTab
-        visible: currentTab === 2
+        visible: currentTab === 3
 
         Item {
             Kirigami.FormData.isSection: true
@@ -393,60 +478,6 @@ SimpleKCM {
             TextField {
                 id: restartCommand
                 enabled: restartShell.checked
-            }
-        }
-    }
-
-    Kirigami.FormLayout {
-        id: terminalTab
-        visible: currentTab === 3
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Terminal") + ":"
-
-            ComboBox {
-                model: terminals
-                textRole: "name"
-                enabled: terminals
-
-                onCurrentIndexChanged: cfg_terminal = model[currentIndex]["value"]
-
-                Component.onCompleted: {
-                    if (terminals) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
-
-                        if (!plasmoid.configuration.terminal) {
-                            plasmoid.configuration.terminal = model[0]["value"]
-                        }
-                    }
-                }
-            }
-
-            Kirigami.UrlButton {
-                url: "https://github.com/exequtic/apdatifier#supported-terminals"
-                text: i18n("Not installed")
-                font.pointSize: Kirigami.Theme.smallFont.pointSize
-                color: Kirigami.Theme.neutralTextColor
-                visible: !terminals
-            }
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
-            CheckBox {
-                id: termFont
-                text: i18n("Use NerdFont icons")
-            }
-
-            Kirigami.ContextualHelpButton {
-                toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
             }
         }
     }
