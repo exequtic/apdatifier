@@ -11,6 +11,8 @@ bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
 
 fullSystemUpgrade() {
     startTime=$(date +%s)
+    criticalPackages=("linux" "linux-lts" "linux-zen" "linux-hardened" "linux-firmware")
+    criticalUpdated=()
 
     if [ "$arch" = true ]; then
         printMsg "$UPGRADE_FULL_ARCH"
@@ -22,7 +24,23 @@ fullSystemUpgrade() {
 
         printExec "$archCmd"
 
+        declare -A beforeVersions
+        for pkg in "${criticalPackages[@]}"; do
+            if pacman -Q $pkg &> /dev/null; then
+                beforeVersions[$pkg]=$(pacman -Q $pkg | awk '{print $2}')
+            fi
+        done
+
         eval ${archCmd}
+
+        for pkg in "${criticalPackages[@]}"; do
+            if pacman -Q $pkg &> /dev/null; then
+                afterVersion=$(pacman -Q $pkg | awk '{print $2}')
+                if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
+                    criticalUpdated+=("$pkg")
+                fi
+            fi
+        done
     fi
 
     if [ "$flatpak" = true ]; then
@@ -56,6 +74,19 @@ fullSystemUpgrade() {
     runTime=$((endTime-startTime))
     echo
     printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
+
+    if [ ${#criticalUpdated[@]} -gt 0 ]; then
+        echo
+        printImportant "Critical package(s) updated, reboot may be required:" "${criticalUpdated[*]}"
+        while true; do
+            printQuestion "Do you want to reboot now?"; read -r answer
+            case "$answer" in
+                    [Yy]*) qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot;;
+                 [Nn]*|"") break;;
+                        *)  ;;
+            esac
+        done
+    fi
 
     printClose
 }
