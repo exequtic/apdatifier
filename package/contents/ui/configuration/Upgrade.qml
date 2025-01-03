@@ -127,11 +127,11 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Command or script") + ":"
+            Kirigami.FormData.label: "Command or script" + ":"
 
             TextField {
                 id: execScript
-                placeholderText: i18n("Enter command or select script")
+                placeholderText: "Enter command or select script"
                 placeholderTextColor: "grey"
             }
 
@@ -147,7 +147,7 @@ SimpleKCM {
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: i18n("Executing your script or command at the end of the upgrade process.")
+                toolTipText: "Executing your script or command at the end of the upgrade process."
             }
         }
     }

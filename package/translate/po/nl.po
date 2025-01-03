@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "Algemeen"
 
@@ -335,7 +335,8 @@ msgstr "Geen"
 msgid "Check updates"
 msgstr "Controleren op updates"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "Systeem bijwerken"
@@ -830,6 +831,18 @@ msgid "Terminal"
 msgstr "Terminalvenster"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "NerdFont-pictogrammen gebruiken"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Als je terminalvenster gebruikmaakt van <b>Nerd Font</b>, dan worden "
+"pictogrammen daaruit gebruikt."
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Wrapper"
 
@@ -947,18 +960,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "NerdFont-pictogrammen gebruiken"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
-msgstr ""
-"Als je terminalvenster gebruikmaakt van <b>Nerd Font</b>, dan worden "
-"pictogrammen daaruit gebruikt."
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

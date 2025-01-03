@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "General"
 
@@ -324,7 +324,7 @@ msgstr "Ninguno"
 msgid "Check updates"
 msgstr "Verificar actualizaciones"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "Actualizar sistema"
 
@@ -753,6 +753,14 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Usar iconos de NerdFont"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán iconos de esa fuente."
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Contenedor"
 
@@ -851,14 +859,6 @@ msgstr "Después de actualizar el widget, la versión anterior seguirá en memor
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr "Comando"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "Usar iconos de NerdFont"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
-msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán iconos de esa fuente."
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

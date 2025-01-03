@@ -300,7 +300,7 @@ SimpleKCM {
                 }
                 CheckBox {
                     id: notifyAction
-                    text: i18n("Upgrade button")
+                    text: "Upgrade button"
                     enabled: notifyUpdates.checked
                 }
             }

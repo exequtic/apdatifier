@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: 2024-11-17 21:36+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "Основное"
 
@@ -338,7 +338,8 @@ msgstr "Нет"
 msgid "Check updates"
 msgstr "Проверить обновления"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "Обновить систему"
@@ -833,6 +834,18 @@ msgid "Terminal"
 msgstr "Терминал"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Использовать NerdFont иконки"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
+"отображаться иконки из этого шрифта."
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Обертка"
 
@@ -867,8 +880,8 @@ msgid ""
 "mirrorlist (click button to open link)"
 msgstr ""
 "Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://archlinux."
-"org/mirrorlist (нажмите на кнопку для открытия ссылки)"
+"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://"
+"archlinux.org/mirrorlist (нажмите на кнопку для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -951,18 +964,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr "Команда"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "Использовать NerdFont иконки"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
-msgstr ""
-"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
-"отображаться иконки из этого шрифта."
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

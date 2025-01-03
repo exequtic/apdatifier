@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 24.05.1\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "Allgemein"
 
@@ -339,7 +339,8 @@ msgstr "Kein(e)"
 msgid "Check updates"
 msgstr "Prüfe auf Updates"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "System aktualisieren"
@@ -839,6 +840,18 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Benutze Nerd-Schriftartsymbole"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Wenn Ihr Terminal eine <b>Nerd-Schriftart</b> verwendet, werden die Symbole "
+"dieser Schriftart verwendet."
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Hülle"
 
@@ -959,18 +972,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "Benutze Nerd-Schriftartsymbole"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
-msgstr ""
-"Wenn Ihr Terminal eine <b>Nerd-Schriftart</b> verwendet, werden die Symbole "
-"dieser Schriftart verwendet."
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

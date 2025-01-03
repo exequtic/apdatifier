@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "Général"
 
@@ -339,7 +339,8 @@ msgstr "Aucune"
 msgid "Check updates"
 msgstr "Vérifier les mises à jour"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "Mise à niveau système"
@@ -837,6 +838,18 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Utiliser les icônes NerdFont"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
+"seront utilisé."
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Wrapper"
 
@@ -954,18 +967,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr "Utiliser les icônes NerdFont"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
-msgstr ""
-"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
-"seront utilisé."
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

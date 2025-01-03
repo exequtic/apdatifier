@@ -1,5 +1,5 @@
 # Translation of apdatifier in LANGUAGE
-# Copyright (C) 2024
+# Copyright (C) 2025
 # This file is distributed under the same license as the apdatifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-11-17 22:34+0300\n"
+"POT-Creation-Date: 2025-01-03 22:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 msgid "Check updates"
 msgstr ""
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr ""
 
@@ -759,6 +759,14 @@ msgid "Terminal"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr ""
 
@@ -858,14 +866,6 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Use NerdFont icons"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
 msgstr ""
 
 #: ../contents/ui/main.qml

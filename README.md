@@ -88,6 +88,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | German    | 184/232 |   79% |
 | Spanish   | 232/232 |  100% |
 | Korean    | 136/232 |   58% |
+| Polish    | 232/232 |  100% |
 | Russian   | 232/232 |  100% |
 |-----------|---------|-------|
 ```
