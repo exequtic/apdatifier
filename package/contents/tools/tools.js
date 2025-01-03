@@ -117,7 +117,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay jq curl unzip tar alacritty foot gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru yay jq curl unzip tar alacritty foot ghostty gnome-terminal kitty konsole lxterminal terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 

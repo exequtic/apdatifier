@@ -5,7 +5,9 @@
 
 source "$(dirname "$0")/utils"
 
+declare -A termArg=( ["gnome-terminal"]="--" ["terminator"]="-x" )
 term="$(basename $terminal)"
+termArg="${termArg[$term]:-"-e"}"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
@@ -13,8 +15,8 @@ if [[ $term = "yakuake" ]]; then
     session=$(qdbusCMD sessions addSession)
     qdbusCMD tabs org.kde.yakuake.setTabTitle $session ${1^}
     qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+elif [[ $term = "ghostty" ]]; then
+    eval "$term $termArg bash -c \"'$scr $arg'\""
 else
-    declare -A termArg=( ["gnome-terminal"]=" --" ["terminator"]=" -x" )
-    cmd="$term${termArg[$term]:-" -e"} bash -c '\"$scr\" $arg'"
-    eval ${cmd}
+    eval "$term $termArg bash -c '\"$scr\" $arg'"
 fi
