@@ -236,7 +236,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Reboot system") + ":"
+            Kirigami.FormData.label: "Reboot system" + ":"
 
             CheckBox {
                 id: rebootSystem

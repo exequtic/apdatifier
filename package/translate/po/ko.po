@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-03 22:36+0300\n"
+"POT-Creation-Date: 2025-01-04 14:48+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -824,6 +824,10 @@ msgid "Options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "업그레이드 후 권장됨"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Pacman 미러리스트 생성기"
 
@@ -908,10 +912,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
 msgstr "plasmashell 재시작"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr "업그레이드 후 권장됨"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""

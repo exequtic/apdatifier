@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-03 22:36+0300\n"
+"POT-Creation-Date: 2025-01-04 14:48+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -862,6 +862,10 @@ msgid "Options"
 msgstr "Options"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "Suggérer après la mise à niveau"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Générateur de liste miroir Pacman"
 
@@ -950,10 +954,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
 msgstr "Redémarrer le plasmashell"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr "Suggérer après la mise à niveau"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""

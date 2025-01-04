@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-03 22:36+0300\n"
+"POT-Creation-Date: 2025-01-04 14:48+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -773,6 +773,10 @@ msgid "Options"
 msgstr "Opciones"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "Sugerir después de actualizar"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Generador de lista de espejos de Pacman"
 
@@ -847,10 +851,6 @@ msgstr "Confirmación de actualización"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
 msgstr "Reiniciar plasmashell"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest after upgrading"
-msgstr "Sugerir después de actualizar"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
