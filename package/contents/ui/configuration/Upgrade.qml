@@ -21,6 +21,7 @@ SimpleKCM {
     property alias cfg_upgradeFlags: upgradeFlags.checked
     property alias cfg_upgradeFlagsText: upgradeFlagsText.text
     property alias cfg_sudoBin: sudoBin.text
+    property alias cfg_rebootSystem: rebootSystem.checked
     property alias cfg_mirrors: mirrors.checked
     property alias cfg_mirrorCount: mirrorCount.value
     property var countryList: []
@@ -227,6 +228,23 @@ SimpleKCM {
 
             TextField {
                 id: sudoBin
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Reboot system") + ":"
+
+            CheckBox {
+                id: rebootSystem
+                text: i18n("Suggest after upgrading")
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: "This option suggests restarting the system after upgrading critical packages.<br><br><b>Note that not all critical packages require a full system restart; some may only need a session restart or no action at all, such as when an updated package is not currently running (e.g., an alternative kernel) or not in use (e.g., an alternative driver).</b>"
             }
         }
 

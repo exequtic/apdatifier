@@ -11,8 +11,41 @@ bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
 
 fullSystemUpgrade() {
     startTime=$(date +%s)
-    criticalPackages=("linux" "linux-lts" "linux-zen" "linux-hardened" "linux-firmware")
-    criticalUpdated=()
+    critical_updated=()
+    critical_installed=()
+    critical_packages=(
+        "amd-ucode"
+        "intel-ucode"
+        "cryptsetup"
+        "linux"
+        "linux-hardened"
+        "linux-lts"
+        "linux-zen"
+        "linux-rt"
+        "linux-rt-lts"
+        "linux-firmware*"
+        "linux-cachyos*"
+        "linux-cacule*"
+        "nvidia"
+        "nvidia-dkms"
+        "nvidia-*xx-dkms"
+        "nvidia-*xx"
+        "nvidia-*lts-dkms"
+        "nvidia*-lts"
+        "mkinitcpio*"
+        "booster*"
+        "mesa"
+        "systemd*"
+        "wayland"
+        "virtualbox-guest-utils"
+        "virtualbox-host-dkms"
+        "virtualbox-host-modules-arch"
+        "egl-wayland"
+        "xf86-video-*"
+        "xorg-server*"
+        "xorg-fonts*"
+        "winesync-dkms"
+    )
 
     if [ "$arch" = true ]; then
         printMsg "$UPGRADE_FULL_ARCH"
@@ -24,21 +57,24 @@ fullSystemUpgrade() {
 
         printExec "$archCmd"
 
-        declare -A beforeVersions
-        for pkg in "${criticalPackages[@]}"; do
-            if pacman -Q $pkg &> /dev/null; then
+        if [ "$rebootSystem" = true ]; then
+            for package in "${critical_packages[@]}"; do
+                matches=$(pacman -Qq | grep -E "^${package//\*/.*}$")
+                [ -n "$matches" ] && critical_installed+=($matches)
+            done
+
+            declare -A beforeVersions
+            for pkg in "${critical_installed[@]}"; do
                 beforeVersions[$pkg]=$(pacman -Q $pkg | awk '{print $2}')
-            fi
-        done
+            done
+        fi
 
         eval ${archCmd}
 
-        for pkg in "${criticalPackages[@]}"; do
-            if pacman -Q $pkg &> /dev/null; then
-                afterVersion=$(pacman -Q $pkg | awk '{print $2}')
-                if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
-                    criticalUpdated+=("$pkg")
-                fi
+        for pkg in "${critical_installed[@]}"; do
+            afterVersion=$(pacman -Q $pkg | awk '{print $2}')
+            if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
+                critical_updated+=("$pkg")
             fi
         done
     fi
@@ -75,9 +111,9 @@ fullSystemUpgrade() {
     echo
     printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
 
-    if [ ${#criticalUpdated[@]} -gt 0 ]; then
+    if [ ${#critical_updated[@]} -gt 0 ]; then
         echo
-        printImportant "Critical package(s) updated, reboot may be required:" "${criticalUpdated[*]}"
+        printImportant "Critical package(s) updated, reboot may be required:" "${critical_updated[*]}"
         while true; do
             printQuestion "Do you want to reboot now?"; read -r answer
             case "$answer" in
