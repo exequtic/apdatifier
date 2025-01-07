@@ -95,6 +95,7 @@ ScrollView {
 
                     Component.onCompleted: {
                         const details = []
+                        model.TP && details.push(i18n("Package type"), model.TP)
                         model.DE && details.push(i18n("Description"), model.DE)
                         model.AU && details.push(i18n("Author"), model.AU)
                         model.LN && details.push("URL", model.LN)
