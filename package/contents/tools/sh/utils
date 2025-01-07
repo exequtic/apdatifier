@@ -236,7 +236,42 @@ rss() {
     jq . $newsFile
 }
 
+install() {
+    required="git kpackagetool6"
+    for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; exit; }; done;
+
+    if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
+        printMsg "Downloading latest commit"
+        savedir=$(pwd)
+        clonedir=$(mktemp -d)
+        cd $clonedir
+        git clone -n --depth=1 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
+        cd apdatifier
+        git sparse-checkout set --no-cone package && git checkout
+
+        if [ $? -eq 0 ]; then
+            echo
+            printDone "Commit: $(git log -1 --format=%cd --date=short) $(git log -1 --format=%h)"
+            
+            printMsg "Upgrading Apdatifier"
+            cd package
+            kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
+            echo
+        fi
+
+        cd $savedir
+
+        [ ! -d $clonedir ] || rm -rf $clonedir
+
+        restartShell=true
+        restartPlasmashell
+    else
+        printError "Apdatifier not installed"
+    fi
+}
+
 case "$1" in
              "rss") shift; rss "$@" ;;
     "combineFiles") shift; combineFiles $1 ;;
+         "install") install ;;
 esac
