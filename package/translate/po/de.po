@@ -44,11 +44,11 @@ msgstr "Vollständiges System-Upgrade"
 
 #: ../contents/tools/sh/messages
 msgid "Flatpak Upgrade"
-msgstr ""
+msgstr "Flatpak Upgrade"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr ""
+msgstr "Plasma Widgets Upgrade"
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
-msgstr ""
+msgstr "Gesamtlaufzeit"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -69,7 +69,7 @@ msgstr "Eingabetaste drücken zum Beenden"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "Übersprungen..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -109,19 +109,19 @@ msgstr "Prüfe Widgets auf Aktualisierungen"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr ""
+msgstr "Daten von der API abrufen"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
-msgstr ""
+msgstr "Download-Link abrufen"
 
 #: ../contents/tools/sh/messages
 msgid "Downloading package"
-msgstr ""
+msgstr "Packet herrunterladen"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Mit dem Upgrade fortfahren?"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -129,7 +129,7 @@ msgstr "Plasmashell jetzt neu starten?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "Keine Beschreibung"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
@@ -141,11 +141,11 @@ msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr ""
+msgstr "Daten konnten nicht von der API abgerufen werden"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -161,19 +161,19 @@ msgstr "Nicht unterstütztes Dateiformat"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "Keine Dateien zum downloaden"
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr ""
+msgstr "Keine Datei mit dieser Version markiert"
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr ""
+msgstr "Mehrere Dateien sind mit dieser Version markiert"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr ""
+msgstr "Download des Packets fehlgeschlagen"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -258,11 +258,11 @@ msgstr "Erforderlich installiert"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr ""
+msgstr "Exit-Code:"
 
 #: ../contents/tools/tools.js
 msgid "Upgrade in progress..."
-msgstr ""
+msgstr "Upgrade wird durchgeführt..."
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -290,7 +290,7 @@ msgstr "einige erforderliche Dienstprogramme sind nicht installiert (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr ""
+msgstr "Letzter Commit"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -432,27 +432,27 @@ msgstr "Schatten"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font"
-msgstr ""
+msgstr "Schriftart"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default system font"
-msgstr ""
+msgstr "Standard-Systemschriftart"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr ""
+msgstr "Fettschrift"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr ""
+msgstr "Schriftgröße"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr ""
+msgstr "Linker Abstand"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
-msgstr ""
+msgstr "Seitenränder"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -548,11 +548,11 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
-msgstr ""
+msgstr "Zeige Tab Texte"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Hide \"News\" tab if no content"
-msgstr ""
+msgstr "\"News"\-Tab ausblenden, wenn kein Inhalt vorhanden ist"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -568,7 +568,7 @@ msgstr "Maus-Aktionen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr ""
+msgstr "Sonstiges"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -620,7 +620,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
-msgstr ""
+msgstr "Updates"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -659,7 +659,7 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr ""
+msgstr "Nachrichten"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
@@ -667,7 +667,7 @@ msgstr "Arch Linux Nachrichten"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Keep"
-msgstr ""
+msgstr "Behalten"
 
 #: ../contents/ui/configuration/General.qml
 msgid "news item from the feed"
@@ -677,7 +677,7 @@ msgstr[1] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr ""
+msgstr "Für neue Updates"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -700,7 +700,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr ""
+msgstr "Für Nachrichten"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
@@ -739,6 +739,11 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
+Aktivieren Sie diese Option nicht, wenn das Widget nicht im Systemtray verwendet wird;
+andernfalls können Sie die Einstellungen nicht durch Rechtsklick öffnen.
+
+
+
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -750,7 +755,7 @@ msgstr "Nach unten scrollen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr ""
+msgstr "Verborgene Tooltips wiederherstellen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -800,15 +805,15 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
-msgstr ""
+msgstr "In der Liste anzeigen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exclude from the list"
-msgstr ""
+msgstr "Von der Liste ausschließen"
 
 #: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
@@ -833,7 +838,7 @@ msgstr "Besuch %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
@@ -857,7 +862,7 @@ msgstr "Hülle"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr ""
+msgstr "Upgrade-Optionen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
@@ -873,7 +878,7 @@ msgstr "Pacman-Spiegellisten-Generator"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "Nur für offizielle Repositories"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -938,23 +943,23 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr ""
+msgstr "Normal, Fragen überspringen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr ""
+msgstr "Nicht interaktiv, Fragen überspringen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr ""
+msgstr "Ausführlich"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr ""
+msgstr "Upgrade-Bestätigung"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -971,7 +976,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr ""
+msgstr "Befehl"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -1023,11 +1028,11 @@ msgstr "System aktualisiert"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No unread news"
-msgstr ""
+msgstr "Keine ungelesene Nachrichten"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Restore list"
-msgstr ""
+msgstr "Wiederherstellungs-Liste"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
