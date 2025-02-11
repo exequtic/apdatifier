@@ -552,7 +552,7 @@ msgstr "Zeige Tab Texte"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Hide \"News\" tab if no content"
-msgstr "\"News"\-Tab ausblenden, wenn kein Inhalt vorhanden ist"
+msgstr "\"News\"-Tab ausblenden, wenn kein Inhalt vorhanden ist"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -739,8 +739,8 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
-Aktivieren Sie diese Option nicht, wenn das Widget nicht im Systemtray verwendet wird;
-andernfalls können Sie die Einstellungen nicht durch Rechtsklick öffnen.
+"Aktivieren Sie diese Option nicht, wenn das Widget nicht im Systemtray verwendet wird; "
+"andernfalls können Sie die Einstellungen nicht durch Rechtsklick öffnen."
 
 
 
