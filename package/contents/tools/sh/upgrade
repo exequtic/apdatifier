@@ -53,6 +53,12 @@ fullSystemUpgrade() {
 
         [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
 
+        if [ -n "$preExec" ]; then
+            printExec "$preExec"
+            eval ${preExec}
+            printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+        fi
+
         local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
 
         printExec "$archCmd"
@@ -96,12 +102,10 @@ fullSystemUpgrade() {
         $scriptDir/widgets upgradeAll
     fi
 
-    if [ -n "$execScript" ]; then
+    if [ -n "$postExec" ]; then
         printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
-
-        printExec "$execScript"
-
-        eval ${execScript}
+        printExec "$postExec"
+        eval ${postExec}
     fi
 
     trap ' ' SIGINT

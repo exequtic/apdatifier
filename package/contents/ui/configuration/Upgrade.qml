@@ -35,7 +35,8 @@ SimpleKCM {
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
-    property alias cfg_execScript: execScript.text
+    property alias cfg_preExec: preExec.text
+    property alias cfg_postExec: postExec.text
 
     property int currentTab
     signal tabChanged(currentTab: int)
@@ -127,28 +128,58 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Pre/post upgrade scripts")
+            Kirigami.FormData.isSection: true
+        }
+
         RowLayout {
-            Kirigami.FormData.label: "Command or script" + ":"
+            Kirigami.FormData.label: "Pre-exec" + ":"
 
             TextField {
-                id: execScript
-                placeholderText: "Enter command or select script"
+                id: preExec
+                placeholderText: "Command or script path"
                 placeholderTextColor: "grey"
             }
 
             Button {
                 icon.name: "document-open"
-                onClicked: fileDialog.open()
+                onClicked: fileDialogPreExec.open()
             }
 
             FileDialog {
-                id: fileDialog
+                id: fileDialogPreExec
                 fileMode: FileDialog.OpenFile
-                onAccepted: execScript.text = selectedFile.toString().substring(7)
+                onAccepted: preExec.text = selectedFile.toString().substring(7)
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: "Executing your script or command at the end of the upgrade process."
+                toolTipText: "Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories."
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: "Post-exec" + ":"
+
+            TextField {
+                id: postExec
+                placeholderText: "Command or script path"
+                placeholderTextColor: "grey"
+            }
+
+            Button {
+                icon.name: "document-open"
+                onClicked: fileDialogPostExec.open()
+            }
+
+            FileDialog {
+                id: fileDialogPostExec
+                fileMode: FileDialog.OpenFile
+                onAccepted: postExec.text = selectedFile.toString().substring(7)
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
             }
         }
     }
