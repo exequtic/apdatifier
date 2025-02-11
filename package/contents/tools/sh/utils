@@ -210,15 +210,15 @@ rss() {
 
     for url in "$@"; do
         local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
-        curl -m 10 -s -o "$rssFile" "$url" 2>/dev/null
-        [ ! -s $rssFile ] && continue
+        curl -m 60 -s -o "$rssFile" "$url" 2>/dev/null
+        xmllint --noout "$rssFile" 2>/dev/null || { echo $url; exit 1; }
 
         local title=$(xmllint --xpath "string(/rss/channel/title)" $rssFile)
         local article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" $rssFile)
         local date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' $rssFile)" +"%A, %d %B %Y, %H:%M")
         local link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" $rssFile)
 
-        [[ -z "$title" || -z "$article" || -z "$date" || -z "$link" ]] && continue
+        [[ -z "$title" || -z "$article" || -z "$date" || -z "$link" ]] && { echo $url; exit 1; }
 
         while (( $(jq "[.[] | select(.title == \"$title\")] | length" "$newsFile") > newsKeep )); do
             index=$(jq --arg title "$title" 'to_entries | reverse | map(select(.value.title == $title)) | .[0].key' $newsFile)

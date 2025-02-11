@@ -240,8 +240,12 @@ function checkUpdates() {
         sts.statusMsg = i18n("Checking latest news...")
 
         execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
-            if (Error(code, err)) return
-            if (out) updateNews(out)
+            if (code) {
+                cfg.notifyErrors && notify.send("error", i18n("Cannot fetch news "), out)
+            } else {
+                if (out) updateNews(out)
+            }
+
             archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
         }, true )
     }

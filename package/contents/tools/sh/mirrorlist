@@ -48,7 +48,7 @@ rankmirrors -V &>/dev/null || {
 }
 
 tempfile=$(mktemp)
-tput sc; curl -m 30 -s -o $tempfile "$dynamicUrl" 2>/dev/null &
+tput sc; curl -m 60 -s -o $tempfile "$dynamicUrl" 2>/dev/null &
 spinner $! "$MIRRORS_FETCH"; tput rc; tput ed
 if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
     printDone "$MIRRORS_FETCH"
