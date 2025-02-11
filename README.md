@@ -62,7 +62,7 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 paru, yay
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake, wezterm
+alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
 
 <!-- *yakuake used the D-Bus method runCommand via the qdbus6. -->
 
@@ -85,7 +85,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Brazilian | 232/232 |  100% |
 | Dutch     | 185/232 |   79% |
 | French    | 184/232 |   79% |
-| German    | 184/232 |  100% |
+| German    | 232/232 |  100% |
 | Spanish   | 232/232 |  100% |
 | Korean    | 136/232 |   58% |
 | Polish    | 232/232 |  100% |
