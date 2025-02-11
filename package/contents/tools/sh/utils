@@ -237,24 +237,46 @@ rss() {
 }
 
 install() {
-    required="git kpackagetool6"
+    printMsg "Downloading latest commit"
+    echo
+
+    required="git jq kpackagetool6"
     for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; exit; }; done;
 
+    commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
+
+    if [[ "github commit: $commit" = "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" ]]; then
+        printDone "Up to date"
+        printClose
+        exit
+    fi
+
+    while true; do
+        printQuestion "The version with the latest commits may be unstable. $WIDGETS_PROCEED"; read -r answer
+        case "$answer" in
+               [Yy]*) break;;
+            [Nn]*|"") printClose; exit;;
+                   *)  ;;
+        esac
+    done
+
     if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
-        printMsg "Downloading latest commit"
         savedir=$(pwd)
         clonedir=$(mktemp -d)
         cd $clonedir
+        echo
         git clone -n --depth=1 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
         cd apdatifier
         git sparse-checkout set --no-cone package && git checkout
 
         if [ $? -eq 0 ]; then
             echo
-            printDone "Commit: $(git log -1 --format=%cd --date=short) $(git log -1 --format=%h)"
-            
+            printDone "Commit: $(git log -1 --format=%cd --date=short) $commit"
+
             printMsg "Upgrading Apdatifier"
+            echo
             cd package
+            updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
             kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
             echo
         fi
@@ -268,6 +290,9 @@ install() {
     else
         printError "Apdatifier not installed"
     fi
+
+    printClose
+    exit
 }
 
 case "$1" in
