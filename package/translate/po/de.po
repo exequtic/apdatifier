@@ -829,7 +829,7 @@ msgid ""
 "starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
 "Danke für die Nutzung meines Widgets! Wenn du meine Arbeit schätzt, kannst "
-"du mich unterstützen, indem dudas GitHub-Repository unterstützst oder mir "
+"du mich unterstützen, indem du das GitHub-Repository unterstützst oder mir "
 "einen Kaffee spendierst ;)"
 
 #: ../contents/ui/configuration/Support.qml
