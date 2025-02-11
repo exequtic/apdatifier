@@ -85,7 +85,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Brazilian | 232/232 |  100% |
 | Dutch     | 185/232 |   79% |
 | French    | 184/232 |   79% |
-| German    | 184/232 |   79% |
+| German    | 184/232 |  100% |
 | Spanish   | 232/232 |  100% |
 | Korean    | 136/232 |   58% |
 | Polish    | 232/232 |  100% |
