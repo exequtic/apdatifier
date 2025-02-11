@@ -49,7 +49,7 @@ get_packages() {
         "$localDir/kwin/scripts" \
         "$localDir/plasma/plasmoids" \
         "$localDir/plasma/wallpapers" \
-        -mindepth 1 -maxdepth 1 -type d))
+        -mindepth 1 -maxdepth 1 -type d 2>/dev/null))
     [ ${#packages[@]} -eq 0 ] && exit
 }
 
