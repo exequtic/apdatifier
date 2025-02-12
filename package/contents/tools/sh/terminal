@@ -13,8 +13,10 @@ arg="${@:2}"
 
 if [[ $term = "yakuake" ]]; then
     session=$(qdbusCMD sessions addSession)
+    visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
     qdbusCMD tabs org.kde.yakuake.setTabTitle $session ${1^}
     qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+    [[ $visible = "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
 elif [[ $term = "ghostty" ]]; then
     eval "$term $termArg bash -c \"'$scr $arg'\""
 else
