@@ -376,6 +376,12 @@ function makeArchList(updates, all, description) {
          0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
         10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
     }
+    const setIcon = (packageObj) => execute(
+        `out=$(pacman -Qlq ${packageObj.NM} | grep "^/usr/share/applications/.*.desktop" | head -n 1) && [[ -n "$out" ]] && grep "^Icon=" "$out"`,
+        (cmd, out, err, code) => {
+            if (out) packageObj.IN = out.slice(5).trim()
+        }
+    )
 
     let extendedList = packagesData.map(packageData => {
         packageData = packageData.split('\n').filter(line => line.includes(" : "))
@@ -391,6 +397,7 @@ function makeArchList(updates, all, description) {
             const found = all.find(str => packageObj.NM === str.split(" ")[1])
             packageObj.RE = found ? found.split(" ")[0] : (packageObj.NM.endsWith("-git") ? "devel" : "aur")
             packageObj.LN = packageObj.LN.replace(/\/+$/, '')
+            setIcon(packageObj)
             updates.forEach(str => {
                 const [name, verold, , vernew] = str.split(" ")
                 if (packageObj.NM === name) {
