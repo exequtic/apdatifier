@@ -272,17 +272,19 @@ install() {
         if [ $? -eq 0 ]; then
             echo
             printDone "Commit: $(git log -1 --format=%cd --date=short) $commit"
-
             printMsg "Upgrading Apdatifier"
             echo
-            cd package
+            cd package || exit 1
             updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
+            cd translate || exit 1
+            bash build
+            echo
+            cd .. || exit 1
             kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
             echo
         fi
 
         cd $savedir
-
         [ ! -d $clonedir ] || rm -rf $clonedir
 
         restartShell=true
