@@ -267,8 +267,8 @@ Representation {
                     Kirigami.Theme.inherit: true
                     Item { Layout.fillWidth: true }
                     Kirigami.Icon {
-                        Layout.preferredHeight: height
-                        height: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
                         source: cfg.ownIconsUI ? svg("tab_compact") : "view-split-left-right"
                         color: Kirigami.Theme.colorSet
                         isMask: cfg.ownIconsUI
@@ -286,8 +286,8 @@ Representation {
                     Kirigami.Theme.inherit: true
                     Item { Layout.fillWidth: true }
                     Kirigami.Icon {
-                        Layout.preferredHeight: height
-                        height: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
                         source: cfg.ownIconsUI ? svg("tab_extended") : "view-split-top-bottom"
                         color: Kirigami.Theme.colorSet
                         isMask: cfg.ownIconsUI
@@ -306,21 +306,12 @@ Representation {
                     Item { Layout.fillWidth: true }
                     Kirigami.Icon {
                         id: newsIcon
-                        Layout.preferredHeight: height
-                        height: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
                         source: cfg.ownIconsUI ? svg("status_news") : "news-subscribe"
-                        color: Kirigami.Theme.colorSet
+                        color: activeNewsModel.count > 0 ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                         isMask: cfg.ownIconsUI
                         smooth: true
-                        Label {
-                            anchors.right: newsIcon.right
-                            anchors.top: newsIcon.top
-                            anchors.rightMargin: 6
-                            anchors.topMargin: 4
-                            visible: activeNewsModel.count > 0
-                            text: "●"
-                            color: Kirigami.Theme.negativeTextColor
-                        }
                     }
                     Label { text: i18n("News"); visible: cfg.tabBarTexts }
                     Item { Layout.fillWidth: true }
