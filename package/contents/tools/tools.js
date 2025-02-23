@@ -428,7 +428,7 @@ function makeArchList(updates, all, description, icons) {
 
 function makeFlatpakList(updates, description) {
     if (!updates || !description) return []
-    const list = description.split("\n").slice(1).reduce((obj, line) => {
+    const list = description.split("\n").reduce((obj, line) => {
         const [ID, VO, AC] = line.split("\t").map(entry => entry.trim())
         obj[ID] = { VO, AC }
         return obj
