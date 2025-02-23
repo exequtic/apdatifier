@@ -193,6 +193,7 @@ SimpleKCM {
         }
 
         RowLayout {
+            enabled: plasmoid.configuration.aur
             Kirigami.FormData.label: i18n("Wrapper") + ":"
             spacing: Kirigami.Units.largeSpacing * 2
 
@@ -213,6 +214,17 @@ SimpleKCM {
                 text: "yay"
                 enabled: pkg.yay
                 Component.onCompleted: checked = plasmoid.configuration.wrapper === text
+            }
+        }
+
+        RowLayout {
+            visible: !plasmoid.configuration.aur
+            Label {
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                font.bold: true
+                color: Kirigami.Theme.negativeTextColor
+                text: i18n("AUR disabled in search settings")
             }
         }
 
