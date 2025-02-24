@@ -11,6 +11,7 @@ import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 
 import "../../tools/tools.js" as JS
+import "../components"
 
 ScrollView {
     id: view
@@ -53,6 +54,10 @@ ScrollView {
                 text: model.RE + " → " + model.VN
                 elide: Text.ElideRight
             }
+        }
+
+        Placeholder {
+            anchors.fill: parent
         }
     }
 }

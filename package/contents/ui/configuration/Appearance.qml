@@ -54,7 +54,6 @@ SimpleKCM {
     property alias cfg_checkButton: checkButton.checked
     property alias cfg_tabBarVisible: tabBarVisible.checked
     property alias cfg_tabBarTexts: tabBarTexts.checked
-    property alias cfg_tabBarNewsRelevant: tabBarNewsRelevant.checked
 
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
@@ -711,11 +710,7 @@ SimpleKCM {
         CheckBox {
             id: tabBarTexts
             text: i18n("Show tab texts")
-        }
-
-        CheckBox {
-            id: tabBarNewsRelevant
-            text: i18n("Hide \"News\" tab if no content")
+            enabled: tabBarVisible.checked
         }
 
         Item {

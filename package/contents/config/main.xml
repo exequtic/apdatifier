@@ -88,7 +88,6 @@
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="tabBarVisible" type="bool"><default>true</default></entry>
         <entry name="tabBarTexts" type="bool"><default>true</default></entry>
-        <entry name="tabBarNewsRelevant" type="bool"><default>false</default></entry>
     </group>
     <group name="Miscellaneous">
         <entry name="version" type="string"><default>v0</default></entry>

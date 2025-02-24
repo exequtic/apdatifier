@@ -30,7 +30,6 @@ ScrollView {
                 NumberAnimation { properties: "x"; to: 100; duration: Kirigami.Units.longDuration }}}
 
         delegate: Kirigami.AbstractCard {
-            visible: !sts.err
             contentItem: Item {
                 implicitWidth: delegateLayout.implicitWidth
                 implicitHeight: delegateLayout.implicitHeight
@@ -92,6 +91,31 @@ ScrollView {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        Loader {
+            width: parent.width
+            active: sts.busy && (sts.statusIco === "status_news" || sts.statusIco === "news-subscribe")
+            sourceComponent: ProgressBar {
+                from: 0
+                to: 100
+                indeterminate: true
+            }
+        }
+
+        Loader {
+            anchors.centerIn: parent
+            active: activeNewsModel.count === 0
+            sourceComponent: Kirigami.PlaceholderMessage {
+                icon.name: "news-subscribe"
+                text: i18n("No unread news")
+                helpfulAction: Kirigami.Action {
+                    enabled: newsModel.count > 0
+                    icon.name: "backup"
+                    text: i18n("Restore list")
+                    onTriggered: JS.restoreNewsList()
                 }
             }
         }
