@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -61,6 +61,14 @@ msgstr "Voer een volledige opwaardering uit in plaats van een gedeeltelijke!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -265,6 +273,10 @@ msgid "Checking latest news..."
 msgstr "Bezig met ophalen van nieuws…"
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Bezig met controleren op systeemupdates…"
 
@@ -349,6 +361,10 @@ msgstr "Wisselen, iedere"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Beheer"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "Het systeem is bijgewerkt"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -546,10 +562,6 @@ msgstr ""
 msgid "Show tab texts"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr ""
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Zoeken"
@@ -673,6 +685,10 @@ msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "Bij elk nieuwe versie"
 
@@ -741,6 +757,10 @@ msgstr "Omlaag scrollen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -843,8 +863,41 @@ msgstr ""
 "pictogrammen daaruit gebruikt."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Wrapper"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -853,6 +906,10 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Opties"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -1005,21 +1062,13 @@ msgstr "Bekijk de release-opmerkingen"
 msgid "Dismiss"
 msgstr "Negeren"
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "Het systeem is bijgewerkt"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr ""
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Pakket bijwerken"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1088,3 +1137,11 @@ msgstr "Installatiereden"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Artikel lezen"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr ""

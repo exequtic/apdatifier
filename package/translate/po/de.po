@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -62,6 +62,14 @@ msgstr ""
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
 msgstr "Gesamtlaufzeit"
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -269,6 +277,10 @@ msgid "Checking latest news..."
 msgstr "Prüfe aktuelle Nachrichten..."
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Prüfe auf Systemaktualisierungen..."
 
@@ -353,6 +365,10 @@ msgstr "Intervall wechseln"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Verwaltung"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "System aktualisiert"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -550,10 +566,6 @@ msgstr ""
 msgid "Show tab texts"
 msgstr "Zeige Tab Texte"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr "\"News\"-Tab ausblenden, wenn kein Inhalt vorhanden ist"
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Suche"
@@ -680,6 +692,10 @@ msgid "For new updates"
 msgstr "Für neue Updates"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "Bei jedem Versionssprung"
 
@@ -739,11 +755,9 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
-"Aktivieren Sie diese Option nicht, wenn das Widget nicht im Systemtray verwendet wird; "
-"andernfalls können Sie die Einstellungen nicht durch Rechtsklick öffnen."
-
-
-
+"Aktivieren Sie diese Option nicht, wenn das Widget nicht im Systemtray "
+"verwendet wird; andernfalls können Sie die Einstellungen nicht durch "
+"Rechtsklick öffnen."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -756,6 +770,10 @@ msgstr "Nach unten scrollen"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Verborgene Tooltips wiederherstellen"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -857,8 +875,41 @@ msgstr ""
 "dieser Schriftart verwendet."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Hülle"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -867,6 +918,10 @@ msgstr "Upgrade-Optionen"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Optionen"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -1022,21 +1077,13 @@ msgstr "Versionshinweise ansehen"
 msgid "Dismiss"
 msgstr "Ablehnen"
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "System aktualisiert"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr "Keine ungelesene Nachrichten"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr "Wiederherstellungs-Liste"
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Upgrade Paket"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1105,3 +1152,14 @@ msgstr "Installationsgrund"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Lese Artikel"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "Keine ungelesene Nachrichten"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "Wiederherstellungs-Liste"
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "\"News\"-Tab ausblenden, wenn kein Inhalt vorhanden ist"

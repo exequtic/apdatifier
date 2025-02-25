@@ -130,15 +130,14 @@ SimpleKCM {
 
         Kirigami.Separator {
             Kirigami.FormData.label: i18n("Pre/post upgrade scripts")
-            Kirigami.FormData.isSection: true
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Pre-exec" + ":"
+            Kirigami.FormData.label: i18n("Pre-exec") + ":"
 
             TextField {
                 id: preExec
-                placeholderText: "Command or script path"
+                placeholderText: i18n("Command or script path")
                 placeholderTextColor: "grey"
             }
 
@@ -154,16 +153,16 @@ SimpleKCM {
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: "Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories."
+                toolTipText: i18n("Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories.")
             }
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Post-exec" + ":"
+            Kirigami.FormData.label: i18n("Post-exec") + ":"
 
             TextField {
                 id: postExec
-                placeholderText: "Command or script path"
+                placeholderText: i18n("Command or script path")
                 placeholderTextColor: "grey"
             }
 
@@ -179,7 +178,7 @@ SimpleKCM {
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
+                toolTipText: i18n("Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else.")
             }
         }
     }
@@ -279,7 +278,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: "Reboot system" + ":"
+            Kirigami.FormData.label: i18n("Reboot system") + ":"
 
             CheckBox {
                 id: rebootSystem

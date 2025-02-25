@@ -117,9 +117,9 @@ fullSystemUpgrade() {
 
     if [ ${#critical_updated[@]} -gt 0 ]; then
         echo
-        printImportant "Critical package(s) updated, reboot may be required:" "${critical_updated[*]}"
+        printImportant "$UPGRADE_CRITICAL" "${critical_updated[*]}"
         while true; do
-            printQuestion "Do you want to reboot now?"; read -r answer
+            printQuestion "$UPGRADE_REBOOT"; read -r answer
             case "$answer" in
                     [Yy]*) qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot;;
                  [Nn]*|"") break;;

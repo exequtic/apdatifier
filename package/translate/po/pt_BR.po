@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -64,6 +64,14 @@ msgstr ""
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
 msgstr "Tempo total de execução:"
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -266,6 +274,10 @@ msgid "Checking latest news..."
 msgstr "Verificando as últimas notícias..."
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Verificando atualizações do sistema..."
 
@@ -350,6 +362,10 @@ msgstr "Alternar intervalo"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Gerenciamento"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "Sistema atualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -547,10 +563,6 @@ msgstr ""
 msgid "Show tab texts"
 msgstr "Mostrar textos das guias"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr "Ocultar a guia \"Notícias\" se não houver conteúdo"
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Procurar"
@@ -676,6 +688,10 @@ msgid "For new updates"
 msgstr "Para novas atualizações"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "Para cada nova versão"
 
@@ -749,6 +765,10 @@ msgstr "Rolar para baixo"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Restaurar dicas de ferramentas ocultas"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -849,8 +869,41 @@ msgstr ""
 "serão usados."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Auxiliar Pacman"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -859,6 +912,10 @@ msgstr "Opções de atualização"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Opções"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -1011,21 +1068,13 @@ msgstr "Confira as notas de lançamento"
 msgid "Dismiss"
 msgstr "Recusar"
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "Sistema atualizado"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr "Nenhuma notícia não lida"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr "Restaurar lista"
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Atualizar pacote"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1094,3 +1143,14 @@ msgstr "Motivo da instalação"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Ler artigo"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "Nenhuma notícia não lida"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "Restaurar lista"
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "Ocultar a guia \"Notícias\" se não houver conteúdo"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -61,6 +61,14 @@ msgstr "부분 업그레이드 대신 전체 시스템 업그레이드를 하십
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -262,6 +270,10 @@ msgid "Checking latest news..."
 msgstr "최근 소식 확인 중..."
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "시스템 업데이트 확인 중..."
 
@@ -341,6 +353,10 @@ msgstr "업데이트 주기 변경"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "관리"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -533,10 +549,6 @@ msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."
 msgid "Show tab texts"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr ""
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "검색"
@@ -656,6 +668,10 @@ msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr ""
 
@@ -718,6 +734,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -812,8 +832,41 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "AUR 헬퍼"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -821,6 +874,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -970,21 +1027,13 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr ""
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "패키지 업그레이드"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1053,3 +1102,11 @@ msgstr "설치 이유"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "기사 읽기"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr ""

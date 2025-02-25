@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -61,6 +61,14 @@ msgstr "¡Realiza una actualización completa del sistema en lugar de una actual
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
 msgstr "Tiempo total de ejecución:"
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -255,6 +263,10 @@ msgid "Checking latest news..."
 msgstr "Verificando las últimas noticias..."
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Verificando actualizaciones del sistema..."
 
@@ -335,6 +347,10 @@ msgstr "Intervalo de conmutación"
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Gestión"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "Sistema actualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -522,10 +538,6 @@ msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquie
 msgid "Show tab texts"
 msgstr "Mostrar textos de las pestañas"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr "Ocultar la pestaña \"Noticias\" si no hay contenido"
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Buscar"
@@ -621,6 +633,10 @@ msgid "For new updates"
 msgstr "Para nuevas actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "Por cada actualización de versión"
 
@@ -675,6 +691,10 @@ msgstr "Desplazar hacia abajo"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Restaurar las descripciones emergentes ocultas"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -761,8 +781,36 @@ msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will
 msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán iconos de esa fuente."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Contenedor"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -771,6 +819,10 @@ msgstr "Opciones de actualización"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Opciones"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -904,21 +956,13 @@ msgstr "Revisa las notas de la versión"
 msgid "Dismiss"
 msgstr "Descartar"
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "Sistema actualizado"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr "No hay noticias no leídas"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr "Restaurar lista"
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Actualizar paquete"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -987,3 +1031,14 @@ msgstr "Razón de instalación"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Leer artículo"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "No hay noticias no leídas"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "Restaurar lista"
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "Ocultar la pestaña \"Noticias\" si no hay contenido"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-01-04 14:48+0300\n"
+"POT-Creation-Date: 2025-02-25 20:59+0300\n"
 "PO-Revision-Date: 2024-11-17 21:36+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -63,6 +63,14 @@ msgstr "Вместо частичного обновления выполнит�
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
 msgstr "Общее время выполнения:"
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -263,6 +271,10 @@ msgid "Checking latest news..."
 msgstr "Проверка последних новостей..."
 
 #: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Проверка системных обновлений..."
 
@@ -352,6 +364,10 @@ msgstr "Переключить интервал"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
 msgstr "Управление"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "Система обновлена"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -548,10 +564,6 @@ msgstr ""
 msgid "Show tab texts"
 msgstr "Показывать имена вкладок"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Hide \"News\" tab if no content"
-msgstr "Скрывать \"Новости\" если их нет"
-
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Поиск"
@@ -675,6 +687,10 @@ msgid "For new updates"
 msgstr "Для новых обновлений"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Upgrade button"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "При каждом изменении версии"
 
@@ -746,6 +762,10 @@ msgstr "Прокрутка вниз"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Восстановить скрытые подсказки"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install development version"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -846,8 +866,41 @@ msgstr ""
 "отображаться иконки из этого шрифта."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Обертка"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -856,6 +909,10 @@ msgstr "Опции обновления"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Options"
 msgstr "Опции"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -1009,21 +1066,13 @@ msgstr "Посмотрите список изменений"
 msgid "Dismiss"
 msgstr "Отклонить"
 
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "Система обновлена"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "No unread news"
-msgstr "Нет непрочитанных новостей"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Restore list"
-msgstr "Восстановить список"
-
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Обновить пакет"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1092,3 +1141,14 @@ msgstr "Причина установки"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Читать статью"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "Нет непрочитанных новостей"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "Восстановить список"
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "Скрывать \"Новости\" если их нет"
