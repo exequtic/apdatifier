@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-11-17 21:36+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -553,14 +553,6 @@ msgid "Show tab bar"
 msgstr "Показывать панель вкладок"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
-msgstr ""
-"Вы также можете переключаться между вкладками перемещая мышь влево и вправо "
-"с зажатой правой клавишей."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr "Показывать имена вкладок"
 
@@ -986,6 +978,10 @@ msgstr ""
 "зеркала!</b><br><br>Оптимильно выбрать <b>1-2</b> ближайших к вам стран."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr "Нормально"
 
@@ -1149,6 +1145,13 @@ msgstr "Нет непрочитанных новостей"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Восстановить список"
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Вы также можете переключаться между вкладками перемещая мышь влево и "
+#~ "вправо с зажатой правой клавишей."
 
 #~ msgid "Hide \"News\" tab if no content"
 #~ msgstr "Скрывать \"Новости\" если их нет"

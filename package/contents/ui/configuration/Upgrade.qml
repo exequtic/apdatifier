@@ -27,6 +27,7 @@ SimpleKCM {
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
 
+    property alias cfg_flatpakRemoveUnused: flatpakRemoveUnused.checked
     property string cfg_flatpakFlags: plasmoid.configuration.flatpakFlags
 
     property alias cfg_widgetConfirmation: widgetConfirmation.checked
@@ -448,6 +449,19 @@ SimpleKCM {
     Kirigami.FormLayout {
         id: flatpakTab
         visible: currentTab === 2
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Uninstall unused") + ":"
+
+            CheckBox {
+                id: flatpakRemoveUnused
+                text: i18n("Enable")
+            }
+        }
 
         Item {
             Kirigami.FormData.isSection: true

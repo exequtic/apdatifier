@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -531,10 +531,6 @@ msgid "Show tab bar"
 msgstr "Mostrar barra de pestañas"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
-msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquierda y derecha mientras mantienes presionado el botón derecho del mouse."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr "Mostrar textos de las pestañas"
 
@@ -881,6 +877,10 @@ msgid "You must select at least one country, otherwise all will be chosen by def
 msgstr "Debes seleccionar al menos un país, de lo contrario, se elegirán todos por defecto. <br><br><b>¡Cuantos más países selecciones, más tiempo tardará en generar los espejos!</b> <br><br>Es óptimo elegir <b>1-2</b> países más cercanos a ti."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr "Normal"
 
@@ -1039,6 +1039,9 @@ msgstr "No hay noticias no leídas"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
+
+#~ msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
+#~ msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquierda y derecha mientras mantienes presionado el botón derecho del mouse."
 
 #~ msgid "Hide \"News\" tab if no content"
 #~ msgstr "Ocultar la pestaña \"Noticias\" si no hay contenido"

@@ -82,14 +82,14 @@ Feel free to help translate to new languages or update and improve the ones that
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
 | English   |     245 |       |
-| Brazilian | 231/245 |   94% |
-| Dutch     | 185/245 |   75% |
-| French    | 184/245 |   75% |
-| German    | 231/245 |   94% |
-| Spanish   | 231/245 |   94% |
-| Korean    | 136/245 |   55% |
-| Polish    | 231/245 |   94% |
-| Russian   | 231/245 |   94% |
+| Brazilian | 230/245 |  93%  |
+| Dutch     | 184/245 |  75%  |
+| French    | 183/245 |  74%  |
+| German    | 230/245 |  93%  |
+| Spanish   | 230/245 |  93%  |
+| Korean    | 135/245 |  55%  |
+| Polish    | 230/245 |  93%  |
+| Russian   | 230/245 |  93%  |
 |-----------|---------|-------|
 ```
 

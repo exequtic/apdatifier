@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -540,12 +540,6 @@ msgid "Show tab bar"
 msgstr "탭바 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
-msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr ""
 
@@ -947,6 +941,10 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr ""
 
@@ -1110,3 +1108,8 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr ""
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."

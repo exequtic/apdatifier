@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -555,14 +555,6 @@ msgid "Show tab bar"
 msgstr "Registerkartenleiste anzeigen"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
-msgstr ""
-"Sie können die Registerkarten auch wechseln, indem Sie die Maus mit "
-"gedrückter rechter Maustaste nach links und rechts ziehen."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr "Zeige Tab Texte"
 
@@ -997,6 +989,10 @@ msgstr ""
 "<b>1-2</b> die Ihnen am nächsten liegen."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr "Normal"
 
@@ -1160,6 +1156,13 @@ msgstr "Keine ungelesene Nachrichten"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Wiederherstellungs-Liste"
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Sie können die Registerkarten auch wechseln, indem Sie die Maus mit "
+#~ "gedrückter rechter Maustaste nach links und rechts ziehen."
 
 #~ msgid "Hide \"News\" tab if no content"
 #~ msgstr "\"News\"-Tab ausblenden, wenn kein Inhalt vorhanden ist"

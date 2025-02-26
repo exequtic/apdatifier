@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -531,10 +531,6 @@ msgid "Show tab bar"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr ""
 
@@ -886,6 +882,10 @@ msgstr ""
 msgid ""
 "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
 "to choose <b>1-2</b> countries closest to you."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -555,14 +555,6 @@ msgid "Show tab bar"
 msgstr "Afficher la barre d'onglets"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
-msgstr ""
-"Vous pouvez également changer d'onglet en faisant glisser la souris vers la "
-"gauche et la droite avec le bouton droit bouton de la souris maintenu."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr ""
 
@@ -989,6 +981,10 @@ msgstr ""
 "les plus proches de chez vous."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr ""
 
@@ -1152,3 +1148,10 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr ""
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Vous pouvez également changer d'onglet en faisant glisser la souris vers "
+#~ "la gauche et la droite avec le bouton droit bouton de la souris maintenu."

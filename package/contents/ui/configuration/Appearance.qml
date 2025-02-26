@@ -701,10 +701,6 @@ SimpleKCM {
                 id: tabBarVisible
                 text: i18n("Show tab bar")
             }
-
-            Kirigami.ContextualHelpButton {
-                toolTipText: i18n("You can also switch tabs by dragging the mouse left and right with the right mouse button held.")
-            }
         }
 
         CheckBox {

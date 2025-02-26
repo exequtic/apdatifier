@@ -43,6 +43,7 @@
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
         <entry name="dynamicUrl" type="string"><default>null</default></entry>
+        <entry name="flatpakRemoveUnused" type="bool"><default>false</default></entry>
         <entry name="flatpakFlags" type="string"><default></default></entry>
         <entry name="widgetConfirmation" type="bool"><default>true</default></entry>
         <entry name="restartShell" type="bool"><default>true</default></entry>

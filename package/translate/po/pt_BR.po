@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-25 20:59+0300\n"
+"POT-Creation-Date: 2025-02-26 11:07+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -552,14 +552,6 @@ msgid "Show tab bar"
 msgstr "Mostrar guias"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
-msgstr ""
-"Você também pode alternar entre as guias arrastando o mouse para a esquerda "
-"e para a direita enquanto mantém o botão direito do mouse pressionado."
-
-#: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
 msgstr "Mostrar textos das guias"
 
@@ -988,6 +980,10 @@ msgstr ""
 "países mais próximos de você."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
 msgstr "Normal"
 
@@ -1151,6 +1147,14 @@ msgstr "Nenhuma notícia não lida"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Você também pode alternar entre as guias arrastando o mouse para a "
+#~ "esquerda e para a direita enquanto mantém o botão direito do mouse "
+#~ "pressionado."
 
 #~ msgid "Hide \"News\" tab if no content"
 #~ msgstr "Ocultar a guia \"Notícias\" se não houver conteúdo"

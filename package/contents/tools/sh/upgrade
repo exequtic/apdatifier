@@ -94,6 +94,13 @@ fullSystemUpgrade() {
         printExec "$flatpakCmd"
 
         eval ${flatpakCmd}
+
+        if [ "$flatpakRemoveUnused" = true ]; then
+            echo
+            local flatpakCmdUnused="flatpak uninstall --unused $flatpakFlags"
+            printExec "$flatpakCmdUnused"
+            eval ${flatpakCmdUnused}
+        fi
     fi
 
     if [ "$widgets" = true ]; then
