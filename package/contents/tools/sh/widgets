@@ -15,7 +15,7 @@ fetch_api_data() {
         pageXML=$(mktemp "$tempDir/XXXXXX.xml")
         api_url="https://api.opendesktop.org/ocs/v1/content/data?categories=705x715x719x720&sort=new&page=$page&pagesize=$pagesize"
 
-        curl -m 60 -s -o "$pageXML" --request GET --url "$api_url"
+        curl -s -o "$pageXML" --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "$api_url"
 
         ! xmllint --noout "$pageXML" 2>/dev/null && return 1
 
@@ -191,7 +191,7 @@ download_package() {
     link=$(cat $tempDir/link)
     package="$tempDir/$name/$(basename "${link}")"
 
-    curl -s -o $package --request GET --location "$link" 2>/dev/null
+    curl -s -o $package --connect-timeout 5 --retry 2 --max-time 120 --request GET --location --url "$link" 2>/dev/null
 
     [ ! -s "$package" ] && return 1
     
@@ -292,7 +292,7 @@ upgrade_package() {
     trap cleanup EXIT
 
     {
-        curl -m 60 -s -o $XML --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null
+        curl -s -o $XML --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null
         if xmllint --noout $XML 2>/dev/null; then
             statuscode=$(xmllint --xpath "string(//ocs/meta/statuscode)" $XML)
             case $statuscode in

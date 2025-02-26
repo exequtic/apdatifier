@@ -210,7 +210,7 @@ rss() {
 
     for url in "$@"; do
         local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
-        curl -m 60 -s -o "$rssFile" "$url" 2>/dev/null
+        curl -s -o "$rssFile" --connect-timeout 5 --retry 2 --max-time 60 --url "$url" 2>/dev/null
         xmllint --noout "$rssFile" 2>/dev/null || { echo $url; exit 1; }
 
         local title=$(xmllint --xpath "string(/rss/channel/title)" $rssFile)
