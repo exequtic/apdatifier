@@ -125,12 +125,9 @@ SimpleKCM {
             }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
         Kirigami.Separator {
             Kirigami.FormData.label: i18n("Pre/post upgrade scripts")
+            Kirigami.FormData.isSection: true
         }
 
         RowLayout {
