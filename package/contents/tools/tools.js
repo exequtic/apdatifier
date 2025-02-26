@@ -404,11 +404,6 @@ function makeArchList(updates, all, description, icons) {
         })
 
         if (Object.keys(packageObj).length > 0) {
-            const found = all.find(str => packageObj.NM === str.split(" ")[1])
-            packageObj.RE = found ? found.split(" ")[0] : (packageObj.NM.endsWith("-git") ? "devel" : "aur")
-            packageObj.LN = packageObj.LN.replace(/\/+$/, '')
-            const foundIcon = icons.find(item => item.NM === packageObj.NM)
-            if (foundIcon) packageObj.IN = foundIcon.IN
             updates.forEach(str => {
                 const [name, verold, , vernew] = str.split(" ")
                 if (packageObj.NM === name) {
@@ -416,6 +411,12 @@ function makeArchList(updates, all, description, icons) {
                     Object.assign(packageObj, { VO: verold, VN: verNew })
                 }
             })
+
+            const foundRepo = all.find(str => packageObj.NM === str.split(" ")[1])
+            packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
+
+            const foundIcon = icons.find(item => item.NM === packageObj.NM)
+            if (foundIcon) packageObj.IN = foundIcon.IN
         }
 
         return packageObj
