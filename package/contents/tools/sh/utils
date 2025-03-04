@@ -240,8 +240,8 @@ install() {
     printMsg "Downloading latest commit"
     echo
 
-    required="git jq kpackagetool6"
-    for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; exit; }; done;
+    required="git zip jq kpackagetool6"
+    for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; printClose; exit; }; done;
 
     commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
 
@@ -280,7 +280,8 @@ install() {
             bash build
             echo
             cd .. || exit 1
-            kpackagetool6 -t Plasma/Applet -u . 2>/dev/null
+            zip -rq apdatifier.plasmoid .
+            kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
             echo
         fi
 

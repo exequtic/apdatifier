@@ -84,7 +84,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | English   |     245 |       |
 | Brazilian | 230/245 |  93%  |
 | Dutch     | 184/245 |  75%  |
-| French    | 183/245 |  74%  |
+| French    | 245/245 | 100%  |
 | German    | 230/245 |  93%  |
 | Spanish   | 230/245 |  93%  |
 | Korean    | 135/245 |  55%  |

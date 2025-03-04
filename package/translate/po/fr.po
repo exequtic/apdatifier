@@ -56,7 +56,9 @@ msgstr "Lire le Wiki Arch - Mises à niveau partielles"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "Effectuez une mise à niveau complète du système au lieu d’une mise à niveau partielle !"
+msgstr ""
+"Effectuez une mise à niveau complète du système au lieu d’une mise à niveau "
+"partielle !"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -64,7 +66,8 @@ msgstr "Temps d'exécution total :"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr "Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
+msgstr ""
+"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -96,7 +99,8 @@ msgstr "a été mis à jour avec les serveurs suivants :"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr ""
+"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -105,7 +109,9 @@ msgstr "Votre liste de miroirs actuelle :"
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr "Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer plasmashell après la mise à niveau"
+msgstr ""
+"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
+"plasmashell après la mise à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -139,7 +145,9 @@ msgstr "Aucune description"
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
-msgstr "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. Veuillez réessayer plus tard"
+msgstr ""
+"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
+"Veuillez réessayer plus tard"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
@@ -191,11 +199,14 @@ msgstr "Répertorier les paquets explicitement installés"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Répertorie les paquets explicitement installés qui ne sont dépendances d'aucun autre paquet"
+msgstr ""
+"Répertorie les paquets explicitement installés qui ne sont dépendances "
+"d'aucun autre paquet"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
+msgstr ""
+"Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
@@ -211,7 +222,8 @@ msgstr "Supprimer TOUS les paquets en cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr "Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
+msgstr ""
+"Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
@@ -494,7 +506,9 @@ msgstr "Utiliser les icônes intégrées"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr "Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier par défaut à la place."
+msgstr ""
+"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
+"par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -566,13 +580,19 @@ msgstr "Divers"
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
-msgstr "La configuration est automatiquement enregistrée dans un fichier de configuration et chargée à chaque démarrage, garantissant que vous ne perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
+msgstr ""
+"La configuration est automatiquement enregistrée dans un fichier de "
+"configuration et chargée à chaque démarrage, garantissant que vous ne "
+"perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 " not installed! Highly recommended to install it for getting the latest "
 "updates without the need to download fresh package databases."
-msgstr " n'est pas installé ! Il est fortement recommandé de l'installer pour obtenir les dernières mises à jour sans avoir besoin de télécharger de nouvelles bases de données de paquets."
+msgstr ""
+" n'est pas installé ! Il est fortement recommandé de l'installer pour "
+"obtenir les dernières mises à jour sans avoir besoin de télécharger de "
+"nouvelles bases de données de paquets."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -584,7 +604,9 @@ msgstr "minutes"
 
 #: ../contents/ui/configuration/General.qml
 msgid "The current timer is reset when either of these settings is changed."
-msgstr "Le minuteur actuel est réinitialisé lorsque l'un de ces paramètres est modifié."
+msgstr ""
+"Le minuteur actuel est réinitialisé lorsque l'un de ces paramètres est "
+"modifié."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Check on start up"
@@ -596,7 +618,11 @@ msgid ""
 "widget startup.<br><br>If the option is <b>disabled</b>, update checking "
 "will be initiated after a specified time interval has passed since the "
 "widget was started. <b>Recommended.</b>"
-msgstr "Si l'option est <b>activée</b>, la vérification des mises à jour commencera immédiatement au démarrage du widget.<br><br>Si l'option est <b>désactivée</b>, la vérification des mises à jour sera lancée après un intervalle de temps spécifié depuis le démarrage du widget. <b>Recommandé.</b>"
+msgstr ""
+"Si l'option est <b>activée</b>, la vérification des mises à jour commencera "
+"immédiatement au démarrage du widget.<br><br>Si l'option est <b>désactivée</"
+"b>, la vérification des mises à jour sera lancée après un intervalle de "
+"temps spécifié depuis le démarrage du widget. <b>Recommandé.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -629,7 +655,12 @@ msgid ""
 "<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
 "forget to update the metadata.json and specify the name of the applet and "
 "its version <b>exactly</b> as they appear on the KDE Store."
-msgstr "Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont requis :<br><b>curl, jq, unzip, tar</b>.<br><br>Pour les développeurs de widgets :<br>N'oubliez pas de mettre à jour le fichier metadata.json et de spécifier le nom de l'applet et sa version <b>exactement</b> tels qu'ils apparaissent sur le KDE Store."
+msgstr ""
+"Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont "
+"requis :<br><b>curl, jq, unzip, tar</b>.<br><br>Pour les développeurs de "
+"widgets :<br>N'oubliez pas de mettre à jour le fichier metadata.json et de "
+"spécifier le nom de l'applet et sa version <b>exactement</b> tels qu'ils "
+"apparaissent sur le KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -654,7 +685,7 @@ msgstr[1] "éléments d'actualité du flux"
 msgid "For new updates"
 msgstr "Pour les nouvelles mises à jour"
 
-#:../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Upgrade button"
 msgstr "Bouton de mise à niveau"
 
@@ -669,7 +700,12 @@ msgid ""
 "list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
-msgstr "Si l'option est <b>activée</b>, des notifications seront envoyées lorsqu'une nouvelle version du paquet est modifiée, même si le paquet est déjà dans la liste. <b>Plus de notifications.</b> <br><br>Si l'option est <b>désactivée</b>, les notifications ne seront envoyées que pour les paquets qui ne sont pas encore dans la liste. <b>Moins de notifications.</b>"
+msgstr ""
+"Si l'option est <b>activée</b>, des notifications seront envoyées lorsqu'une "
+"nouvelle version du paquet est modifiée, même si le paquet est déjà dans la "
+"liste. <b>Plus de notifications.</b> <br><br>Si l'option est <b>désactivée</"
+"b>, les notifications ne seront envoyées que pour les paquets qui ne sont "
+"pas encore dans la liste. <b>Moins de notifications.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -691,7 +727,9 @@ msgstr "Persistant"
 msgid ""
 "To further configure, click the button below -> Application Settings -> "
 "Apdatifier"
-msgstr "Pour configurer davantage, cliquez sur le bouton ci-dessous -> Paramètres de l'application -> Apdatifier"
+msgstr ""
+"Pour configurer davantage, cliquez sur le bouton ci-dessous -> Paramètres de "
+"l'application -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -709,7 +747,10 @@ msgstr "Clic droit"
 msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
-msgstr "Ne pas activer cette option si le widget n'est pas utilisé dans la barre d'état système ; sinon, vous ne pourrez pas ouvrir les paramètres en cliquant avec le bouton droit."
+msgstr ""
+"Ne pas activer cette option si le widget n'est pas utilisé dans la barre "
+"d'état système ; sinon, vous ne pourrez pas ouvrir les paramètres en "
+"cliquant avec le bouton droit."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -768,7 +809,10 @@ msgid ""
 "Here you can override the default package icons and exclude them from the "
 "list. Each rule overwrites the previous one, so the list of rules should be "
 "in this order: "
-msgstr "Ici, vous pouvez remplacer les icônes de paquet par défaut et les exclure de la liste. Chaque règle remplace la précédente, donc la liste des règles doit être dans cet ordre : "
+msgstr ""
+"Ici, vous pouvez remplacer les icônes de paquet par défaut et les exclure de "
+"la liste. Chaque règle remplace la précédente, donc la liste des règles doit "
+"être dans cet ordre : "
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -794,7 +838,9 @@ msgstr "Appliquer"
 msgid ""
 "Thanks for using my widget! If you appreciate my work, you can support me by "
 "starring the GitHub repository or buying me a coffee ;)"
-msgstr "Merci d'utiliser mon widget ! Si vous appréciez mon travail, vous pouvez me soutenir en mettant en vedette le dépôt GitHub ou en m'offrant un café ;)"
+msgstr ""
+"Merci d'utiliser mon widget ! Si vous appréciez mon travail, vous pouvez me "
+"soutenir en mettant en vedette le dépôt GitHub ou en m'offrant un café ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
@@ -816,7 +862,9 @@ msgstr "Utiliser les icônes NerdFont"
 msgid ""
 "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
 "used."
-msgstr "Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police seront utilisées."
+msgstr ""
+"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
+"seront utilisées."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -835,7 +883,10 @@ msgid ""
 "Running your command or script BEFORE the upgrade.<br>For example, you can "
 "specify your command to update the mirrorlist if you have unofficial "
 "repositories."
-msgstr "Exécution de votre commande ou script AVANT la mise à niveau.<br>Par exemple, vous pouvez spécifier votre commande pour mettre à jour la liste des miroirs si vous avez des dépôts non officiels."
+msgstr ""
+"Exécution de votre commande ou script AVANT la mise à niveau.<br>Par "
+"exemple, vous pouvez spécifier votre commande pour mettre à jour la liste "
+"des miroirs si vous avez des dépôts non officiels."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
@@ -845,7 +896,10 @@ msgstr "Post-exécution"
 msgid ""
 "Running your command or script AFTER the upgrade.<br>For example, you can "
 "specify your command to upgrade something else."
-msgstr "Exécution de votre commande ou script APRÈS la mise à niveau.<br>Par exemple, vous pouvez spécifier votre commande pour mettre à niveau autre chose."
+msgstr ""
+"Exécution de votre commande ou script APRÈS la mise à niveau.<br>Par "
+"exemple, vous pouvez spécifier votre commande pour mettre à niveau autre "
+"chose."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -892,7 +946,10 @@ msgid ""
 "To use this feature, the following installed utilities are required:"
 "<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
 "mirrorlist (click button to open link)"
-msgstr "Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont requis :<br><b>curl, pacman-contrib.</b> <br><br>Voir également https://archlinux.org/mirrorlist (cliquez sur le bouton pour ouvrir le lien)"
+msgstr ""
+"Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont "
+"requis :<br><b>curl, pacman-contrib.</b> <br><br>Voir également https://"
+"archlinux.org/mirrorlist (cliquez sur le bouton pour ouvrir le lien)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -928,7 +985,11 @@ msgid ""
 "default. <br><br><b>The more countries you select, the longer it will take "
 "to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
 "countries closest to you."
-msgstr "Vous devez sélectionner au moins un pays, sinon tous seront choisis par défaut. <br><br><b>Plus vous sélectionnez de pays, plus la génération des miroirs sera longue !</b> <br><br>Il est optimal de choisir <b>1-2</b> pays les plus proches de chez vous."
+msgstr ""
+"Vous devez sélectionner au moins un pays, sinon tous seront choisis par "
+"défaut. <br><br><b>Plus vous sélectionnez de pays, plus la génération des "
+"miroirs sera longue !</b> <br><br>Il est optimal de choisir <b>1-2</b> pays "
+"les plus proches de chez vous."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
@@ -962,7 +1023,10 @@ msgstr "Redémarrer plasmashell"
 msgid ""
 "After upgrading widget, the old version will still remain in memory until "
 "you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr "Après la mise à niveau du widget, l'ancienne version restera en mémoire jusqu'à ce que vous redémarriez plasmashell. Pour éviter de le faire manuellement, activez cette option."
+msgstr ""
+"Après la mise à niveau du widget, l'ancienne version restera en mémoire "
+"jusqu'à ce que vous redémarriez plasmashell. Pour éviter de le faire "
+"manuellement, activez cette option."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
