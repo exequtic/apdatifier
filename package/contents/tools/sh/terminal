@@ -6,27 +6,49 @@
 source "$(dirname "$0")/utils"
 
 declare -A termArg=( ["gnome-terminal"]="--" ["ptyxis"]="--" ["terminator"]="-x" )
+name="${1^}"
 term="$(basename $terminal)"
 termArg="${termArg[$term]:-"-e"}"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
+# Ghostty requires additional quotes
+[[ $term = ghostty ]] && Q="'"
+
+_attach="${Q}tmux attach -t $name${Q}"
+_script="${Q}$scr $arg${Q}"
+
+[[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
+
+run_terminal() {
+    $term $termArg bash -c "$1"
+}
+run_yakuake() {
+    qdbusCMD sessions runCommandInTerminal $session "bash -c '$1'"
+}
+create_tmux_session() {
+    tmux new-session -d -s $name "bash -c '$scr $arg'"
+}
+
+
 if [[ $term = "yakuake" ]]; then
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
-    qdbusCMD tabs org.kde.yakuake.setTabTitle $session ${1^}
-    if [[ $tmuxSession = "true" && -x $(command -v tmux) ]]; then
-        tmux new-session -d -s ${1^} "bash -c '$scr $arg'"
-        qdbusCMD sessions runCommandInTerminal $session "bash -c 'tmux attach -t ${1^}'"
+    qdbusCMD tabs org.kde.yakuake.setTabTitle $session $name
+    if (( _TMUX )); then
+        create_tmux_session
+        run_yakuake "$_attach"
     else
-        qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+        run_yakuake "tput sc; clear; $_script"
     fi
     [[ $visible = "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
-elif [[ $term = "ghostty" ]]; then
-    eval "$term $termArg bash -c \"'$scr $arg'\""
-elif [[ $tmuxSession = "true" && -x $(command -v tmux) ]]; then
-    session="tmux new-session -s ${1^} 'bash -c \"$scr $arg\"'"
-    $term $termArg bash -c "${session}"
+elif (( _TMUX )); then
+    if tmux has-session -t $name 2>/dev/null; then
+        run_terminal "$_attach"
+    else
+        create_tmux_session
+        run_terminal "$_attach"
+    fi
 else
-    eval "$term $termArg bash -c '\"$scr\" $arg'"
+    run_terminal "$_script"
 fi

@@ -115,7 +115,6 @@ SimpleKCM {
             CheckBox {
                 id: tmuxSession
                 text: i18n("tmux session")
-                enabled: pkg.tmux && !/\/(ghostty)$/.test(cfg_terminal)
             }
 
             Kirigami.ContextualHelpButton {
