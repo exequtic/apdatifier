@@ -117,7 +117,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay jq curl unzip tar alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru yay jq curl unzip tar tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -126,11 +126,11 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar }
+        const [pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar, tmux ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, paru, yay, jq, curl, unzip, tar, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : ""
 
-        const terminals = populate(output.slice(9).filter(Boolean))
+        const terminals = populate(output.slice(10).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
     })

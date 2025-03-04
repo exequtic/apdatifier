@@ -15,10 +15,18 @@ if [[ $term = "yakuake" ]]; then
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
     qdbusCMD tabs org.kde.yakuake.setTabTitle $session ${1^}
-    qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+    if [[ $tmuxSession = "true" && -x $(command -v tmux) ]]; then
+        tmux new-session -d -s ${1^} "bash -c '$scr $arg'"
+        qdbusCMD sessions runCommandInTerminal $session "bash -c 'tmux attach -t ${1^}'"
+    else
+        qdbusCMD sessions runCommandInTerminal $session "bash -c 'tput sc; clear; $scr $arg'"
+    fi
     [[ $visible = "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
 elif [[ $term = "ghostty" ]]; then
     eval "$term $termArg bash -c \"'$scr $arg'\""
+elif [[ $tmuxSession = "true" && -x $(command -v tmux) ]]; then
+    session="tmux new-session -s ${1^} 'bash -c \"$scr $arg\"'"
+    $term $termArg bash -c "${session}"
 else
     eval "$term $termArg bash -c '\"$scr\" $arg'"
 fi

@@ -51,6 +51,7 @@
         <entry name="preExec" type="string"><default></default></entry>
         <entry name="postExec" type="string"><default></default></entry>
         <entry name="terminal" type="string"><default></default></entry>
+        <entry name="tmuxSession" type="bool"><default>false</default></entry>
         <entry name="termFont" type="bool"><default>false</default></entry>
     </group>
     <group name="Appearance">

@@ -15,6 +15,7 @@ import "../../tools/tools.js" as JS
 
 SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
+    property alias cfg_tmuxSession: tmuxSession.checked
     property alias cfg_termFont: termFont.checked
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
@@ -110,8 +111,17 @@ SimpleKCM {
             }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
+        RowLayout {
+            CheckBox {
+                id: tmuxSession
+                text: i18n("tmux session")
+                enabled: pkg.tmux && !/\/(ghostty)$/.test(cfg_terminal)
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: "Placeholder\nClick it"
+                onClicked: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/issues/83#issue-2889763335")
+            }
         }
 
         RowLayout {
@@ -554,6 +564,8 @@ SimpleKCM {
     }
 
     Component.onCompleted: {
+        if (tmuxSession.checked && !pkg.tmux) tmuxSession.checked = plasmoid.configuration.tmuxSession = false
+
         if(cfg_dynamicUrl) {
             var urlParams = plasmoid.configuration.dynamicUrl.split("?")[1].split("&")
 
