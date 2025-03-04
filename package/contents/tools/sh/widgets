@@ -72,7 +72,8 @@ get_package_info() {
     local originName=$(jq -r '.KPlugin.Name' $metadata)
     name=$(echo "$originName" | sed 's/ /-/g; s/.*/\L&/')
 
-    contentId=$(xmllint --xpath "string(//name[text()='$originName']/../id)" $XML)
+    local quotedOriginName='"'$(echo "$originName" | sed 's/"/\\"/g')'"'
+    contentId=$(xmllint --xpath "string(//name[text()=$quotedOriginName]/../id)" "$XML")
     if [[ -z "$contentId" ]]; then
         knsregistry=("plasmoids" "kwinscripts" "kwineffect" "wallpaperplugin")
         for kns in "${knsregistry[@]}"; do
