@@ -236,11 +236,11 @@ rss() {
     jq . $newsFile
 }
 
-install() {
-    printMsg "Downloading latest commit"
+install_devel() {
+    printMsg "Downloading devel"
     echo
 
-    required="git zip jq kpackagetool6"
+    required="git zip jq"
     for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; printClose; exit; }; done;
 
     commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
@@ -251,48 +251,91 @@ install() {
         exit
     fi
 
-    while true; do
-        printQuestion "The version with the latest commits may be unstable. $WIDGETS_PROCEED"; read -r answer
-        case "$answer" in
-               [Yy]*) break;;
-            [Nn]*|"") printClose; exit;;
-                   *)  ;;
-        esac
-    done
+    savedir=$(pwd)
+    clonedir=$(mktemp -d)
+    cd $clonedir
 
-    if [ ! -z "$(kpackagetool6 -t Plasma/Applet -l 2>/dev/null | grep $applet)" ]; then
-        savedir=$(pwd)
-        clonedir=$(mktemp -d)
-        cd $clonedir
+    { git clone -n --depth=5 --filter=tree:0 -b main https://github.com/exequtic/apdatifier 2>/dev/null
+    } & printWhile $! "Clone main branch"
+    [[ $exitCode -ne 0 ]] && { printClose; exit; }
+
+    cd apdatifier
+
+    { git sparse-checkout set --no-cone package 2>/dev/null && git checkout 2>/dev/null
+    } & printWhile $! "Checkout package directory"
+    [[ $exitCode -ne 0 ]] && { printClose; exit; }
+
+    echo
+    printImportant "Last 5 commits:"
+    git log --oneline
+    sleep 2
+
+    if [ $? -eq 0 ]; then
         echo
-        git clone -n --depth=1 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
-        cd apdatifier
-        git sparse-checkout set --no-cone package && git checkout
+        printMsg "Upgrading Apdatifier"
+        echo
+        cd package || exit 1
+        updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
 
-        if [ $? -eq 0 ]; then
-            echo
-            printDone "Commit: $(git log -1 --format=%cd --date=short) $commit"
-            printMsg "Upgrading Apdatifier"
-            echo
-            cd package || exit 1
-            updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
-            cd translate || exit 1
-            bash build
-            echo
-            cd .. || exit 1
-            zip -rq apdatifier.plasmoid .
-            kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
-            echo
-        fi
+        while true; do
+            printQuestion "Do you want build translations?"; read -r answer
+            case "$answer" in
+                   [Yy]*) cd translate; bash build; cd ..; break;;
+                [Nn]*|"") break;;
+                       *)  ;;
+            esac
+        done
 
-        cd $savedir
-        [ ! -d $clonedir ] || rm -rf $clonedir
-
-        restartShell=true
-        restartPlasmashell
-    else
-        printError "Apdatifier not installed"
+        echo
+        zip -rq apdatifier.plasmoid .
+        kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
+        echo
     fi
+
+    cd $savedir
+    [ ! -d $clonedir ] || rm -rf $clonedir
+
+    restartShell=true
+    restartPlasmashell
+
+    printClose
+    exit
+}
+
+install_stable() {
+    if [[ "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" = "Arch Update Notifier" ]]; then
+        while true; do
+            printImportant "It looks like you already have the stable version."
+            printQuestion "Do you still want to proceed?"; read -r answer
+            case "$answer" in
+                   [Yy]*) break;;
+                [Nn]*|"") printClose; exit;;
+                       *)  ;;
+            esac
+        done
+    fi
+
+    $scriptDir/upgrade widget "2135796" "Apdatifier"
+}
+
+uninstall() {
+    printExec "Remove icons"; sleep 1
+    for icon in $icon1 $icon2 $icon3 $icon4; do
+        test -f "$iconsDir/$icon" && rm "$iconsDir/$icon"
+    done
+    test -d "$iconsDir" && rmdir -p --ignore-fail-on-non-empty "$iconsDir"
+
+    printExec "Remove $notif"; sleep 1
+    test -f "$notifDir/$notif" && rm "$notifDir/$notif"
+    test -d "$notifDir" && rmdir -p --ignore-fail-on-non-empty "$notifDir"
+
+    printExec "Remove configuration"; sleep 1
+    test -d "$configDir" && rm -rf "$configDir"
+
+    printExec "Remove widget"; sleep 1
+    kpackagetool6 -t Plasma/Applet -r $applet 2>/dev/null
+
+    echo; echo "Bye :("; sleep 1
 
     printClose
     exit
@@ -301,5 +344,7 @@ install() {
 case "$1" in
              "rss") shift; rss "$@" ;;
     "combineFiles") shift; combineFiles $1 ;;
-         "install") install ;;
+      "installDev") install_devel ;;
+   "installStable") install_stable ;;
+       "uninstall") uninstall ;;
 esac
