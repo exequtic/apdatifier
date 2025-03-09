@@ -255,7 +255,7 @@ install_devel() {
     clonedir=$(mktemp -d)
     cd $clonedir
 
-    { git clone -n --depth=5 --filter=tree:0 -b main https://github.com/exequtic/apdatifier 2>/dev/null
+    { git clone -n --depth=10 --filter=tree:0 -b main https://github.com/exequtic/apdatifier 2>/dev/null
     } & printWhile $! "Clone main branch"
     [[ $exitCode -ne 0 ]] && { printClose; exit; }
 
@@ -265,32 +265,30 @@ install_devel() {
     } & printWhile $! "Checkout package directory"
     [[ $exitCode -ne 0 ]] && { printClose; exit; }
 
-    echo
-    printImportant "Last 5 commits:"
-    git log --oneline
-    sleep 2
-
-    if [ $? -eq 0 ]; then
+    if command -v less &>/dev/null; then
         echo
-        printMsg "Upgrading Apdatifier"
-        echo
-        cd package || exit 1
-        updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
-
-        while true; do
-            printQuestion "Do you want build translations?"; read -r answer
-            case "$answer" in
-                   [Yy]*) cd translate; bash build; cd ..; break;;
-                [Nn]*|"") break;;
-                       *)  ;;
-            esac
-        done
-
-        echo
-        zip -rq apdatifier.plasmoid .
-        kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
-        echo
+        printImportant "Last 10 commits:"
+        git log --oneline
+        sleep 2
     fi
+
+    echo
+    printMsg "Upgrading Apdatifier"
+    echo
+    cd package || exit 1
+    updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
+    while true; do
+        printQuestion "Do you want build translations?"; read -r answer
+        case "$answer" in
+               [Yy]*) cd translate; bash build; cd ..; break;;
+            [Nn]*|"") break;;
+                   *)  ;;
+        esac
+    done
+    echo
+    zip -rq apdatifier.plasmoid .
+    kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
+    echo
 
     cd $savedir
     [ ! -d $clonedir ] || rm -rf $clonedir
