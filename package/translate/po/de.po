@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-26 11:07+0300\n"
+"POT-Creation-Date: 2025-03-09 11:54+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -559,6 +559,34 @@ msgid "Show tab texts"
 msgstr "Zeige Tab Texte"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Install Development version"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Stable version"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Uninstall widget"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Note: version with the latest commits may be unstable."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Note: if you haven't installed the Devel version before, there's no need to "
+"install the Stable version."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Removal of the widget and all related files, including the directory with "
+"its configuration."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Suche"
 
@@ -763,10 +791,6 @@ msgstr "Nach unten scrollen"
 msgid "Restore hidden tooltips"
 msgstr "Verborgene Tooltips wiederherstellen"
 
-#: ../contents/ui/configuration/General.qml
-msgid "Install development version"
-msgstr ""
-
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Unwichtig"
@@ -853,6 +877,10 @@ msgstr "Widgets"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"

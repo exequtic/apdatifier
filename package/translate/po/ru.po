@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-26 11:07+0300\n"
-"PO-Revision-Date: 2025-03-09 11:14+0300\n"
+"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -557,6 +557,38 @@ msgid "Show tab texts"
 msgstr "Показывать имена вкладок"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Install Development version"
+msgstr "Установить тестовую версию"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Stable version"
+msgstr "Установить стабильную версию"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Uninstall widget"
+msgstr "Удалить виджет"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Note: version with the latest commits may be unstable."
+msgstr "Примечание: версия с последними коммитами может быть нестабильна."
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Note: if you haven't installed the Devel version before, there's no need to "
+"install the Stable version."
+msgstr ""
+"Примечание: если ранее не была установлена тестовая версия, то нет "
+"необходимости устанавливать стабильную версию."
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Removal of the widget and all related files, including the directory with "
+"its configuration."
+msgstr ""
+"Удаление виджета и всех связанных с ним файлов, включая директорию с его "
+"конфигурацией."
+
+#: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Поиск"
 
@@ -755,10 +787,6 @@ msgstr "Прокрутка вниз"
 msgid "Restore hidden tooltips"
 msgstr "Восстановить скрытые подсказки"
 
-#: ../contents/ui/configuration/General.qml
-msgid "Install development version"
-msgstr "Установить dev-версию"
-
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Не имеет значения"
@@ -844,6 +872,10 @@ msgstr "Виджеты"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Терминал"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr "tmux сессия"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -938,8 +970,8 @@ msgid ""
 "mirrorlist (click button to open link)"
 msgstr ""
 "Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://archlinux."
-"org/mirrorlist (нажмите на кнопку для открытия ссылки)"
+"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://"
+"archlinux.org/mirrorlist (нажмите на кнопку для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"

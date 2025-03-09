@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-02-26 11:07+0300\n"
+"POT-Creation-Date: 2025-03-09 11:54+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -561,6 +561,34 @@ msgid "Show tab texts"
 msgstr "Afficher les textes des onglets"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Install Development version"
+msgstr "Installer la version de développement"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Stable version"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Uninstall widget"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Note: version with the latest commits may be unstable."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Note: if you haven't installed the Devel version before, there's no need to "
+"install the Stable version."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Removal of the widget and all related files, including the directory with "
+"its configuration."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Search"
 msgstr "Recherche"
 
@@ -764,10 +792,6 @@ msgstr "Défiler vers le bas"
 msgid "Restore hidden tooltips"
 msgstr "Restaurer les info-bulles masquées"
 
-#: ../contents/ui/configuration/General.qml
-msgid "Install development version"
-msgstr "Installer la version de développement"
-
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Sans importance"
@@ -853,6 +877,10 @@ msgstr "Widgets"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
