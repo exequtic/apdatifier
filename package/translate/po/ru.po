@@ -9,17 +9,16 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-02-26 11:07+0300\n"
-"PO-Revision-Date: 2024-11-17 21:36+0300\n"
+"PO-Revision-Date: 2025-03-09 11:14+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.4\n"
-"X-Language: C\n"
-"X-Source-Language: C\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -273,7 +272,7 @@ msgstr "Проверка последних новостей..."
 
 #: ../contents/tools/tools.js
 msgid "Cannot fetch news "
-msgstr "Не могу получить новости "
+msgstr "Не удалось получить новости "
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
@@ -300,37 +299,43 @@ msgid "latest commit"
 msgstr "последний коммит"
 
 #: ../contents/tools/tools.js
-#, qt-format
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
 msgstr[0] "+%1 новое обновление"
+msgstr[1] "+%1 новых обновлений"
+msgstr[2] "+%1 новых обновлений"
 
 #: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "обновление доступно"
+msgstr[1] "обновления доступно"
+msgstr[2] "обновлений доступно"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
 msgstr "Последняя проверка:"
 
 #: ../contents/tools/tools.js
-#, qt-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "%1 секунду"
+msgstr[1] "%1 секунды"
+msgstr[2] "%1 секунд"
 
 #: ../contents/tools/tools.js
-#, qt-format
 msgid "%1 minute"
 msgid_plural "%1 minutes"
 msgstr[0] "%1 минуту"
+msgstr[1] "%1 минуты"
+msgstr[2] "%1 минут"
 
 #: ../contents/tools/tools.js
-#, qt-format
 msgid "%1 hour"
 msgid_plural "%1 hours"
 msgstr[0] "%1 час"
+msgstr[1] "%1 часа"
+msgstr[2] "%1 часов"
 
 #: ../contents/tools/tools.js
 msgid "ago"
@@ -380,6 +385,8 @@ msgstr "Показывать когда"
 msgid "update is pending "
 msgid_plural "updates are pending "
 msgstr[0] "обновление доступно "
+msgstr[1] "обновления доступно "
+msgstr[2] "обновлений доступно "
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -637,15 +644,15 @@ msgstr "Plasma виджеты"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are "
-"required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget "
-"developers:<br>Don't forget to update the metadata.json and specify the name "
-"of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+"To use this feature, the following installed utilities are required:"
+"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
+"forget to update the metadata.json and specify the name of the applet and "
+"its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
-"Для использования этой опции необходимы следующие установленные "
-"утилиты:<br><b>curl, jq, unzip, tar</b>.<br><br>Для разработчиков "
-"виджетов:<br>Не забывайте обновлять файл metadata.json и указывать имя "
-"виджета и его версию в точности как и на сайте KDE Store."
+"Для использования этой опции необходимы следующие установленные утилиты:"
+"<br><b>curl, jq, unzip, tar</b>.<br><br>Для разработчиков виджетов:<br>Не "
+"забывайте обновлять файл metadata.json и указывать имя виджета и его версию "
+"в точности как и на сайте KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -664,6 +671,8 @@ msgstr "Хранить"
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
 msgstr[0] "новость с фида"
+msgstr[1] "новости с фида"
+msgstr[2] "новостей с фида"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -686,9 +695,9 @@ msgid ""
 "<b>Less notifications.</b>"
 msgstr ""
 "Если опция <b>включена</b>, уведомления будут приходить, когда версия пакета "
-"повышается, даже если этот пакет уже есть в списке. <b>Больше "
-"уведомлений.</b> <br><br>Если опция <b>выключена</b>, уведомления будут "
-"приходить только если пакета еще нет в списке. <b>Меньше уведомлений.</b>"
+"повышается, даже если этот пакет уже есть в списке. <b>Больше уведомлений.</"
+"b> <br><br>Если опция <b>выключена</b>, уведомления будут приходить только "
+"если пакета еще нет в списке. <b>Меньше уведомлений.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -748,7 +757,7 @@ msgstr "Восстановить скрытые подсказки"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install development version"
-msgstr "Установить версию для разработки"
+msgstr "Установить dev-версию"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -825,7 +834,6 @@ msgstr ""
 "поддержать меня, нажав кнопку Star на GitHub, или купив мне кофе ;)"
 
 #: ../contents/ui/configuration/Support.qml
-#, qt-format
 msgid "Visit %1"
 msgstr "Посетите %1"
 
@@ -855,11 +863,11 @@ msgstr "Сценарии до/после обновления"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr "Предварительное выполнение"
+msgstr "До"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
-msgstr "Путь к команде или сценарию"
+msgstr "Команда или путь к скрипту"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
@@ -867,20 +875,20 @@ msgid ""
 "specify your command to update the mirrorlist if you have unofficial "
 "repositories."
 msgstr ""
-"Запустите свою команду или скрипт ПЕРЕД обновлением.Например, вы можете "
+"Запустите свою команду или скрипт ПЕРЕД обновлением.<br>Например, вы можете "
 "указать свою команду для обновления списка зеркал, если у вас есть "
 "неофициальные репозитории."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr "После выполнения"
+msgstr "После"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Running your command or script AFTER the upgrade.<br>For example, you can "
 "specify your command to upgrade something else."
 msgstr ""
-"Запустите свою команду или скрипт ПОСЛЕ обновления.Например, вы можете "
+"Запустите свою команду или скрипт ПОСЛЕ обновления.<br>Например, вы можете "
 "указать свою команду для обновления чего-либо еще."
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -925,13 +933,13 @@ msgstr "Предлагать перед обновлением"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"To use this feature, the following installed utilities are "
-"required:<br><b>curl, pacman-contrib.</b> <br><br>Also see "
-"https://archlinux.org/mirrorlist (click button to open link)"
+"To use this feature, the following installed utilities are required:"
+"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
+"mirrorlist (click button to open link)"
 msgstr ""
-"Для использования этой опции необходимы следующие установленные "
-"утилиты:<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите "
-"https://archlinux.org/mirrorlist (нажмите на кнопку для открытия ссылки)"
+"Для использования этой опции необходимы следующие установленные утилиты:"
+"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://archlinux."
+"org/mirrorlist (нажмите на кнопку для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -976,7 +984,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr "Удалить неиспользуемые файлы"
+msgstr "Удалять неиспользуемое"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
@@ -1065,7 +1073,7 @@ msgstr "Обновить пакет"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
-msgstr "Тип упаковки"
+msgstr "Тип пакета"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1142,3 +1150,13 @@ msgstr "Нет непрочитанных новостей"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Восстановить список"
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Вы также можете переключаться между вкладками перемещая мышь влево и "
+#~ "вправо с зажатой правой клавишей."
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "Скрывать \"Новости\" если их нет"

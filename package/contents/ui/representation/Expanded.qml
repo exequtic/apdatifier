@@ -317,7 +317,6 @@ Representation {
             Layout.fillWidth: true
             Layout.topMargin: Kirigami.Units.smallSpacing * 2
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
-            icon.source: "apdatifier-plasmoid"
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
             visible: !searchFieldOpen &&
