@@ -54,7 +54,7 @@ get_packages() {
 }
 
 get_package_type() {
-    case $(xmllint --xpath "string(//id[text()='$contentId']/../typeid)" $XML) in
+    case $(xmllint --xpath 'string(//id[text()="$contentId"]/../typeid)' $XML) in
         "715") echo "Plasma/Wallpaper";;
         "719") echo "KWin/Effect";;
         "720") echo "KWin/Script";;
@@ -72,13 +72,12 @@ get_package_info() {
     local originName=$(jq -r '.KPlugin.Name' $metadata)
     name=$(echo "$originName" | sed 's/ /-/g; s/.*/\L&/')
 
-    local quotedOriginName='"'$(echo "$originName" | sed 's/"/\\"/g')'"'
-    contentId=$(xmllint --xpath "string(//name[text()=$quotedOriginName]/../id)" "$XML")
+    contentId=$(xmllint --xpath 'string(//name[text()="$originName"]/../id)' $XML)
     if [[ -z "$contentId" ]]; then
         knsregistry=("plasmoids" "kwinscripts" "kwineffect" "wallpaperplugin")
         for kns in "${knsregistry[@]}"; do
             kns="$HOME/.local/share/knewstuff3/$kns.knsregistry"
-            [[ -s "$kns" ]] && contentId=$(xmllint --xpath "string(//installedfile[contains(text(), 'plasma/plasmoids/$id')]/../id)" $kns)
+            [[ -s "$kns" ]] && contentId=$(xmllint --xpath 'string(//installedfile[contains(text(), "plasma/plasmoids/$id")]/../id)' $kns)
             [[ -n "$contentId" ]] && break
         done
     fi
@@ -86,7 +85,7 @@ get_package_info() {
     [[ -z "$contentId" ]] && return 3
 
     currentVer=$(clearVer "$(jq -r '.KPlugin.Version' "$metadata")")
-    latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" $XML)")
+    latestVer=$(clearVer "$(xmllint --xpath 'string(//id[text()="$contentId"]/../version)' $XML)")
     [ -z "$currentVer" ] || [ -z "$latestVer" ] && return 4
     compareVer "$currentVer" "$latestVer"
     [[ $? != 2 ]] && return 5
@@ -128,13 +127,13 @@ get_download_link() {
 
     while read -r download_version; do
         ((files++))
-        if [[ "$latestVer" == "$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../$download_version)" $XML)")" ]]; then
+        if [[ "$latestVer" == "$(clearVer "$(xmllint --xpath "string(//id[text()="$contentId"]/../$download_version)" $XML)")" ]]; then
             signed+=("${download_version#download_version}")
         fi
     done < <(xmllint --xpath "//content[id='$contentId']/*" $XML | grep -o 'download_version[0-9]\+' | uniq)
 
     if [[ $files -eq 1 || ${#signed[@]} -eq 1 ]]; then
-        echo $(xmllint --xpath "string(//id[text()='$contentId']/../downloadlink${signed[0]:-1})" $XML) > $tempDir/link
+        echo $(xmllint --xpath "string(//id[text()="$contentId"]/../downloadlink${signed[0]:-1})" $XML) > $tempDir/link
         return 0
     else
         [[ $files -eq 0 ]] && return 1
@@ -307,7 +306,7 @@ upgrade_package() {
     } & printWhile $! "$WIDGETS_FETCH"
     [[ $exitCode -ne 0 ]] && exit
 
-    latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" $XML)")
+    latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()="$contentId"]/../version)" $XML)")
     type=$(get_package_type)
 
     get_download_link & printWhile $! "$WIDGETS_LINK"

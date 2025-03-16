@@ -59,7 +59,7 @@ fullSystemUpgrade() {
             printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
         fi
 
-        local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
+        local archCmd="$bin -Syyuu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
 
         printExec "$archCmd"
 
@@ -142,7 +142,7 @@ arch_package() {
     printMsg "$UPGRADE_PACKAGE: $1"
     echo
 
-    printImportant "$UPGRADE_WIKI"
+    printImportant "$UPGRADE_WIKI"string(//name[text()
     printImportant "$UPGRADE_PARTIAL"
     echo
 
