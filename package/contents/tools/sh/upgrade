@@ -142,7 +142,7 @@ arch_package() {
     printMsg "$UPGRADE_PACKAGE: $1"
     echo
 
-    printImportant "$UPGRADE_WIKI"string(//name[text()
+    printImportant "$UPGRADE_WIKI"
     printImportant "$UPGRADE_PARTIAL"
     echo
 
