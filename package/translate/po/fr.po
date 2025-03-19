@@ -56,9 +56,7 @@ msgstr "Lire le Wiki Arch - Mises à niveau partielles"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr ""
-"Effectuez une mise à niveau complète du système au lieu d’une mise à niveau "
-"partielle !"
+msgstr "Effectuez une mise à niveau complète du système au lieu d’une mise à niveau partielle !"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -66,8 +64,7 @@ msgstr "Temps d'exécution total :"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr ""
-"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
+msgstr "Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -99,8 +96,7 @@ msgstr "a été mis à jour avec les serveurs suivants :"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
-"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr "Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -109,9 +105,7 @@ msgstr "Votre liste de miroirs actuelle :"
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
-"plasmashell après la mise à niveau"
+msgstr "Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer plasmashell après la mise à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -145,8 +139,7 @@ msgstr "Aucune description"
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
-msgstr ""
-"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
+msgstr "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
 "Veuillez réessayer plus tard"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
@@ -199,14 +192,11 @@ msgstr "Répertorier les paquets explicitement installés"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr ""
-"Répertorie les paquets explicitement installés qui ne sont dépendances "
-"d'aucun autre paquet"
+msgstr "Répertorie les paquets explicitement installés qui ne sont dépendances d'aucun autre paquet"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr ""
-"Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
+msgstr "Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
@@ -222,8 +212,7 @@ msgstr "Supprimer TOUS les paquets en cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr ""
-"Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
+msgstr "Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
@@ -506,9 +495,7 @@ msgstr "Utiliser les icônes intégrées"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr ""
-"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
-"par défaut à la place."
+msgstr "Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -566,27 +553,31 @@ msgstr "Installer la version de développement"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Stable version"
-msgstr ""
+msgstr "Installer la version stable"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Uninstall widget"
-msgstr ""
+msgstr "Désinstaller le widget"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
-msgstr ""
+msgstr "Remarque : la version avec les derniers commits peut être instable."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Note: if you haven't installed the Devel version before, there's no need to "
 "install the Stable version."
 msgstr ""
+"Remarque : si vous n'avez pas installé la version de développement auparavant, il n'est pas nécessaire "
+"d'installer la version stable."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Removal of the widget and all related files, including the directory with "
 "its configuration."
 msgstr ""
+"Suppression du widget et de tous les fichiers associés, y compris le répertoire avec "
+"sa configuration."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -880,7 +871,7 @@ msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
-msgstr ""
+msgstr "Session tmux"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
