@@ -13,7 +13,7 @@ fetch_api_data() {
 
     while true; do
         pageXML=$(mktemp "$tempDir/XXXXXX.xml")
-        api_url="https://api.opendesktop.org/ocs/v1/content/data?categories=705x715x719x720&sort=new&page=$page&pagesize=$pagesize"
+        api_url="https://api.kde-look.org/ocs/v1/content/data?categories=705x715x719x720&sort=new&page=$page&pagesize=$pagesize"
 
         curl -s -o "$pageXML" --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "$api_url"
 
@@ -169,7 +169,7 @@ check_packages_updates() {
     done
 
     makeTempDir
-    XML="$tempDir/api.opendesktop.xml"
+    XML="$tempDir/api.kde-look.xml"
     updatesList="$tempDir/update.list.json"
     trap cleanup EXIT
 
@@ -220,7 +220,7 @@ upgrade_all_packages() {
     dependencies "curl jq unzip tar"
 
     makeTempDir
-    XML="$tempDir/api.opendesktop.xml"
+    XML="$tempDir/api.kde-look.xml"
     updatesList="$tempDir/update.list.json"
     trap cleanup EXIT
 
@@ -288,12 +288,12 @@ upgrade_package() {
     dependencies "curl jq unzip tar"
 
     mkdir -p $tempDir/$name/unpacked
-    XML="$tempDir/$name/api.opendesktop.xml"
+    XML="$tempDir/$name/api.kde-look.xml"
 
     trap cleanup EXIT
 
     {
-        curl -s -o $XML --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "https://api.opendesktop.org/ocs/v1/content/data/$contentId" 2>/dev/null
+        curl -s -o $XML --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "https://api.kde-look.org/ocs/v1/content/data/$contentId" 2>/dev/null
         if xmllint --noout $XML 2>/dev/null; then
             statuscode=$(xmllint --xpath "string(//ocs/meta/statuscode)" $XML)
             case $statuscode in
