@@ -206,8 +206,11 @@ rss() {
 
     local newsFile="$configDir/news.json"
 
-    [ ! -s $newsFile ] && echo '[]' > $newsFile
-    ! jq -e '.' "$newsFile" >/dev/null 2>&1 && { echo "$newsFile corrupted"; exit 1; }
+    if [[ ! -s "$newsFile" ]] \
+    || ! jq -e '.' "$newsFile" >/dev/null 2>&1 \
+    || ! jq -e '[.[] | .date | strptime("%d.%m.%Y | %H:%M")] | length == length' "$newsFile" >/dev/null 2>&1; then
+        echo '[]' > "$newsFile"
+    fi
 
     for url in "$@"; do
         local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
