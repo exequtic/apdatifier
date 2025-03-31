@@ -73,6 +73,7 @@ MouseArea {
     RowLayout {
         id: panelRow
 
+        layoutDirection: cfg.counterOnLeft ? Qt.RightToLeft : Qt.LeftToRight
         visible: counterRow
         spacing: 0
         anchors.centerIn: mouseArea

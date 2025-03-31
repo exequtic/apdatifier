@@ -22,6 +22,7 @@ SimpleKCM {
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
     property alias cfg_indicatorStop: indicatorStop.checked
     property alias cfg_counterEnabled: counterEnabled.checked
+    property alias cfg_counterOnLeft: counterOnLeft.checked
     property string cfg_counterColor: plasmoid.configuration.counterColor
     property alias cfg_counterSize: counterSize.value
     property alias cfg_counterRadius: counterRadius.value
@@ -200,6 +201,14 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Counter") + ":"
             id: counterEnabled
             text: i18n("Enable")
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("On left") + ":"
+            id: counterOnLeft
+            text: i18n("Enable")
+            visible: counterText
+            enabled: counterEnabled.checked
         }
 
         Button {
