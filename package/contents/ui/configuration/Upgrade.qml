@@ -16,6 +16,7 @@ import "../../tools/tools.js" as JS
 SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
     property alias cfg_tmuxSession: tmuxSession.checked
+    property alias cfg_idleInhibit: idleInhibit.checked
     property alias cfg_termFont: termFont.checked
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
@@ -120,6 +121,16 @@ SimpleKCM {
             Kirigami.ContextualHelpButton {
                 toolTipText: "Placeholder\nClick it"
                 onClicked: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/issues/83#issue-2889763335")
+            }
+        }
+        RowLayout {
+            CheckBox {
+                id: idleInhibit
+                text: i18n("Idle Inhibit")
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: "Disables automatic sleep and screen lock while upgrading."
             }
         }
 

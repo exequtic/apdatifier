@@ -7,6 +7,22 @@ source "$(dirname "$0")/utils"
 
 trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C. $UPGRADE_SKIPPED")"' SIGINT
 
+run() {
+    [[ -z $2 ]] && printExec "$1"
+
+    if [ "$idleInhibit" = true ]; then
+        (( !OSD )) && {
+            OSD=1
+            qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+            system-suspend-inhibited "Idle inhibition is active during upgrade"
+        }
+        read -ra cmd <<< "$1"
+        systemd-inhibit --what=idle:sleep:shutdown --who="Apdatifier" --why="Upgrading" "${cmd[@]}"
+    else
+        eval ${1}
+    fi
+}
+
 bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
 
 fullSystemUpgrade() {
@@ -54,14 +70,9 @@ fullSystemUpgrade() {
         [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
 
         if [ -n "$preExec" ]; then
-            printExec "$preExec"
-            eval ${preExec}
+            run "$preExec"
             printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
         fi
-
-        local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
-
-        printExec "$archCmd"
 
         if [ "$rebootSystem" = true ]; then
             for package in "${critical_packages[@]}"; do
@@ -75,7 +86,8 @@ fullSystemUpgrade() {
             done
         fi
 
-        eval ${archCmd}
+        local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
+        run "$archCmd"
 
         for pkg in "${critical_installed[@]}"; do
             afterVersion=$(pacman -Q $pkg | awk '{print $2}')
@@ -89,30 +101,23 @@ fullSystemUpgrade() {
         printMsg "$UPGRADE_FULL_FLATPAK"
         echo
 
-        local flatpakCmd="flatpak update $flatpakFlags"
-
-        printExec "$flatpakCmd"
-
-        eval ${flatpakCmd}
+        run "flatpak update $flatpakFlags"
 
         if [ "$flatpakRemoveUnused" = true ]; then
             echo
-            local flatpakCmdUnused="flatpak uninstall --unused $flatpakFlags"
-            printExec "$flatpakCmdUnused"
-            eval ${flatpakCmdUnused}
+            run "flatpak uninstall --unused $flatpakFlags"
         fi
     fi
 
     if [ "$widgets" = true ]; then
         printMsg "$UPGRADE_FULL_WIDGETS"
         echo
-        $scriptDir/widgets upgradeAll
+        run "$scriptDir/widgets upgradeAll" noPrint
     fi
 
     if [ -n "$postExec" ]; then
         printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
-        printExec "$postExec"
-        eval ${postExec}
+        run "$postExec"
     fi
 
     trap ' ' SIGINT
@@ -121,6 +126,11 @@ fullSystemUpgrade() {
     runTime=$((endTime-startTime))
     echo
     printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
+
+    if [ "$idleInhibit" = true ]; then
+        qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+        system-suspend-uninhibited "Idle inhibition has been disabled"
+    fi
 
     if [ ${#critical_updated[@]} -gt 0 ]; then
         echo
