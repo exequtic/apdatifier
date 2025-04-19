@@ -271,8 +271,8 @@ msgid "Exit code: "
 msgstr "Exit-Code:"
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progress..."
-msgstr "Upgrade wird durchgeführt..."
+msgid "Upgrade in progress"
+msgstr "Upgrade wird durchgeführt"
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."

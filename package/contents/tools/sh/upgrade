@@ -17,7 +17,7 @@ run() {
             system-suspend-inhibited "Idle inhibition is active during upgrade"
         }
         read -ra cmd <<< "$1"
-        systemd-inhibit --what=idle:sleep:shutdown --who="Apdatifier" --why="Upgrading" "${cmd[@]}"
+        systemd-inhibit --what=idle:sleep:shutdown --who="Apdatifier" --why="$UPGRADE_PROGRESS" "${cmd[@]}"
     else
         eval ${1}
     fi

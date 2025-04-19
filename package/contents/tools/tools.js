@@ -161,7 +161,7 @@ function enableUpgrading(state) {
         if (upgradeTimer.running) return
         upgradeTimer.start()
         searchTimer.stop()
-        sts.statusMsg = i18n("Upgrade in progress...")
+        sts.statusMsg = i18n("Upgrade in progress") + "..."
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
         upgradeTimer.stop()
