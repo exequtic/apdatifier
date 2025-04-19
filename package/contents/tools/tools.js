@@ -279,7 +279,7 @@ function checkUpdates() {
         const getIcons = `\
             while read -r pkg file; do
                 [[ "$processed" == *"$pkg"* ]] && continue
-                icon=$(awk -F= '/^Icon=/ {print $2; exit}' "$file") && [ -n "$icon" ] || continue
+                icon=$(awk -F= '/^Icon=/ {print $2; exit}' "$file" 2>/dev/null || true) && [ -n "$icon" ] || continue
                 processed="$processed $pkg"
                 echo "$pkg $icon"
             done < <(pacman -Ql ${pkgs} | grep '/usr/share/applications/.*\.desktop$')`
