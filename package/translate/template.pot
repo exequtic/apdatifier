@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,7 +246,7 @@ msgstr ""
 msgid "Nothing to do"
 msgstr ""
 
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr ""
 
@@ -280,10 +280,6 @@ msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -392,6 +388,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -629,9 +629,7 @@ msgid "Plasma Widgets"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"To use this feature, the following installed utilities are required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name "
-"of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
@@ -799,6 +797,10 @@ msgid "tmux session"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr ""
 
@@ -871,7 +873,7 @@ msgid "Suggest before upgrading"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml

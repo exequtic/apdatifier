@@ -116,11 +116,7 @@ SimpleKCM {
             CheckBox {
                 id: tmuxSession
                 text: i18n("tmux session")
-            }
-
-            Kirigami.ContextualHelpButton {
-                toolTipText: "Placeholder\nClick it"
-                onClicked: Qt.openUrlExternally("https://github.com/exequtic/apdatifier/issues/83#issue-2889763335")
+                enabled: pkg.tmux
             }
         }
         RowLayout {
@@ -333,12 +329,12 @@ SimpleKCM {
             CheckBox {
                 id: mirrors
                 text: i18n("Suggest before upgrading")
-                enabled: pkg.pacman && pkg.checkupdates && pkg.curl
+                enabled: pkg.pacman && pkg.checkupdates
                 Component.onCompleted: if (checked && !enabled) checked = plasmoid.configuration.mirrors = false
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
+                toolTipText: i18n("Required installed") + " pacman-contrib." + i18n("<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
                 onClicked: Qt.openUrlExternally("https://archlinux.org/mirrorlist")
             }
         }

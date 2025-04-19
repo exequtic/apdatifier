@@ -63,18 +63,16 @@ SimpleKCM {
     signal tabChanged(currentTab: int)
     onCurrentTabChanged: tabChanged(currentTab)
 
-    property bool widgetsAvail: pkg.curl && pkg.jq && pkg.unzip && pkg.tar
-    property bool newsAvail: pkg.curl && pkg.jq
     Component.onCompleted: {
         JS.checkDependencies()
         if (arch.checked && !pkg.pacman) arch.checked = plasmoid.configuration.arch = false
         if (aur.checked && (!pkg.pacman || (!pkg.yay && !pkg.paru))) aur.checked = plasmoid.configuration.aur = false
         if (flatpak.checked && !pkg.flatpak) flatpak.checked = plasmoid.configuration.flatpak = false
-        if (widgets.checked && !widgetsAvail) widgets.checked = plasmoid.configuration.widgets = false
-        if (newsArch.checked && !newsAvail) newsArch.checked = plasmoid.configuration.newsArch = false
-        if (newsKDE.checked && !newsAvail) newsKDE.checked = plasmoid.configuration.newsKDE = false
-        if (newsTWIK.checked && !newsAvail) newsTWIK.checked = plasmoid.configuration.newsTWIK = false
-        if (newsTWIKA.checked && !newsAvail) newsTWIKA.checked = plasmoid.configuration.newsTWIKA = false
+        if (widgets.checked && !pkg.jq) widgets.checked = plasmoid.configuration.widgets = false
+        if (newsArch.checked && !pkg.jq) newsArch.checked = plasmoid.configuration.newsArch = false
+        if (newsKDE.checked && !pkg.jq) newsKDE.checked = plasmoid.configuration.newsKDE = false
+        if (newsTWIK.checked && !pkg.jq) newsTWIK.checked = plasmoid.configuration.newsTWIK = false
+        if (newsTWIKA.checked && !pkg.jq) newsTWIKA.checked = plasmoid.configuration.newsTWIKA = false
     }
  
     header: Kirigami.NavigationTabBar {
@@ -235,11 +233,11 @@ SimpleKCM {
                 CheckBox {
                     id: widgets
                     text: i18n("Plasma Widgets")
-                    enabled: widgetsAvail
+                    enabled: pkg.jq
                 }
 
                 Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("To use this feature, the following installed utilities are required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
+                    toolTipText: i18n("Required installed") + " jq." + i18n("<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
                 }
             }
 
@@ -253,26 +251,26 @@ SimpleKCM {
                 CheckBox {
                     id: newsArch
                     text: i18n("Arch Linux News")
-                    enabled: newsAvail
+                    enabled: pkg.jq
                 }
             }
 
             CheckBox {
                 id: newsKDE
                 text: "\"KDE Announcements\""
-                enabled: newsAvail
+                enabled: pkg.jq
             }
 
             CheckBox {
                 id: newsTWIK
                 text: "\"This Week in KDE\""
-                enabled: newsAvail
+                enabled: pkg.jq
             }
 
             CheckBox {
                 id: newsTWIKA
                 text: "\"This Week in KDE Apps\""
-                enabled: newsAvail
+                enabled: pkg.jq
             }
 
             RowLayout {

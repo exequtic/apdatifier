@@ -67,10 +67,10 @@ alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, te
 <!-- *yakuake used the D-Bus method runCommand via the qdbus6. -->
 
 ### Required utilities for options:
-<b>Plasma Widgets:</b> curl, jq, unzip, tar<br>
-<b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
-<b>Management</b>: fzf<br>
-<b>News:</b> curl, jq<br>
+<b>Plasma Widgets:</b> jq<br>
+<b>Mirrorlist Generator:</b> pacman-contrib<br>
+<b>Management:</b> fzf<br>
+<b>News:</b> jq<br>
 
 <br>
 

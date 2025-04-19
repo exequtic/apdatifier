@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -246,7 +246,7 @@ msgstr "Ejecutado:"
 msgid "Nothing to do"
 msgstr "Nada que hacer"
 
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Requerido instalado"
 
@@ -281,10 +281,6 @@ msgstr "Verificando actualizaciones de widgets..."
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "No se puede verificar los widgets: "
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
-msgstr "algunas utilidades requeridas no están instaladas (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -393,6 +389,10 @@ msgstr "Habilitar"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Contador"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -627,8 +627,8 @@ msgid "Plasma Widgets"
 msgstr "Widgets de Plasma"
 
 #: ../contents/ui/configuration/General.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
-msgstr "Para usar esta función, se requieren las siguientes utilidades instaladas:<br><b>curl, jq, unzip, tar</b>.<br><br>Para desarrolladores de widgets:<br>No olvides actualizar el metadata.json y especificar el nombre del applet y su versión <b>exactamente</b> como aparecen en la tienda KDE."
+msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+msgstr "<br><br>Para desarrolladores de widgets:<br>No olvides actualizar el metadata.json y especificar el nombre del applet y su versión <b>exactamente</b> como aparecen en la tienda KDE."
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
@@ -793,6 +793,10 @@ msgid "tmux session"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Usar iconos de NerdFont"
 
@@ -865,8 +869,8 @@ msgid "Suggest before upgrading"
 msgstr "Sugerir antes de actualizar"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "Para usar esta función, se requieren las siguientes utilidades instaladas:<br><b>curl, pacman-contrib.</b> <br><br>También consulta https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "<br><br>También consulta https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1063,6 +1067,9 @@ msgstr "No hay noticias no leídas"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "algunas utilidades requeridas no están instaladas (curl, jq)"
 
 #~ msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
 #~ msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquierda y derecha mientras mantienes presionado el botón derecho del mouse."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Piotr Pająk <nwknt@tutanota.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,7 +246,7 @@ msgstr "Wykonano:"
 msgid "Nothing to do"
 msgstr "Nic do zrobienia"
 
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Wymagane do zainstalowania"
 
@@ -281,10 +281,6 @@ msgstr "Sprawdzanie aktualizacji widżetów..."
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "Nie można sprawdzić widżetów: "
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
-msgstr "niektóre wymagane narzędzia nie są zainstalowane (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -393,6 +389,10 @@ msgstr "Włącz"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Licznik"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -627,8 +627,8 @@ msgid "Plasma Widgets"
 msgstr "Widżety Plasma"
 
 #: ../contents/ui/configuration/General.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
-msgstr "Aby korzystać z tej funkcji, wymagane są następujące zainstalowane narzędzia:<br><b>curl, jq, unzip, tar</b>.<br><br>Dla twórców widżetów:<br>Nie zapomnij zaktualizować pliku metadata.json i określić nazwę apletu oraz jego wersję <b>dokładnie</b> tak, jak są podane w sklepie KDE."
+msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
+msgstr "<br><br>Dla twórców widżetów:<br>Nie zapomnij zaktualizować pliku metadata.json i określić nazwę apletu oraz jego wersję <b>dokładnie</b> tak, jak są podane w sklepie KDE."
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
@@ -793,6 +793,10 @@ msgid "tmux session"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Użyj ikon z NerdFont"
 
@@ -865,8 +869,8 @@ msgid "Suggest before upgrading"
 msgstr "Zalecenia przed aktualizacją"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "To use this feature, the following installed utilities are required:<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "Aby korzystać z tej funkcji, wymagane są następujące zainstalowane narzędzia:<br><b>curl, pacman-contrib.</b> <br><br>Zobacz także https://archlinux.org/mirrorlist (kliknij przycisk, aby otworzyć link)"
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "<br><br>Zobacz także https://archlinux.org/mirrorlist (kliknij przycisk, aby otworzyć link)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1063,6 +1067,9 @@ msgstr "Brak nieprzeczytanych wiadomości"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Przywróć listę"
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "niektóre wymagane narzędzia nie są zainstalowane (curl, jq)"
 
 #~ msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
 #~ msgstr "Możesz również przełączać karty, przeciągając myszką w lewo i w prawo, trzymając naciśnięty prawy przycisk myszy."

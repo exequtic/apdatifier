@@ -164,9 +164,7 @@ make_updates_list() {
 }
 
 check_packages_updates() {
-    for cmd in curl jq; do
-        command -v "$cmd" >/dev/null || { echo 127; exit; }
-    done
+    command -v jq >/dev/null || { echo 127; exit; }
 
     makeTempDir
     XML="$tempDir/api.kde-look.xml"
@@ -196,11 +194,7 @@ download_package() {
 
     [ ! -s "$package" ] && return 1
     
-    case "$package" in
-        *.zip | *.plasmoid | *.kwinscript) unzip -q "$package" -d "$tempDir/$name/unpacked" ;;
-        *.xz | *.gz | *.tar) tar -xf "$package" -C "$tempDir/$name/unpacked" ;;
-                          *) return 2 ;;
-    esac
+    bsdtar -xf "$package" -C "$tempDir/$name/unpacked" || return 2
 
     metadata=$(find $tempDir/$name/unpacked -name metadata.json)
     [ -z "metadata" ] && return 3
@@ -217,7 +211,7 @@ download_package() {
 }
 
 upgrade_all_packages() {
-    dependencies "curl jq unzip tar"
+    dependencies "jq"
 
     makeTempDir
     XML="$tempDir/api.kde-look.xml"
@@ -285,7 +279,7 @@ upgrade_package() {
     [ -n "$1" ] && contentId="$1" || exit
     [ -n "$2" ] && name="$2" || exit
 
-    dependencies "curl jq unzip tar"
+    dependencies "jq"
 
     mkdir -p $tempDir/$name/unpacked
     XML="$tempDir/$name/api.kde-look.xml"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -256,7 +256,9 @@ msgid "Nothing to do"
 msgstr "Er valt niets te doen"
 
 # Required installed <util name>
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Vereist"
 
@@ -291,10 +293,6 @@ msgstr "Bezig met controleren op widgetupdates…"
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "De widget-updatecontrole is mislukt: "
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
-msgstr "Enkele vereiste hulpmiddelen zijn niet aangetroffen (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -409,6 +407,10 @@ msgstr "Inschakelen"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Embleem"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -671,15 +673,13 @@ msgstr "Plasmawidgets"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
-"forget to update the metadata.json and specify the name of the applet and "
-"its version <b>exactly</b> as they appear on the KDE Store."
+"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
+"and specify the name of the applet and its version <b>exactly</b> as they "
+"appear on the KDE Store."
 msgstr ""
-"Voor het gebruik van deze functie zijn de volgende hulpmiddelen vereist:"
-"<br><b>curl, jq, unzip, tar</b>.<br><br>Tip voor widgetontwikkelaars:"
-"<br>vergeet niet om metadata.json bij te werken en de naam van het applet en "
-"de versie <b>precies</b> zo in te vullen als in de KDE Store."
+"<br><br>Tip voor widgetontwikkelaars:<br>vergeet niet om metadata.json bij "
+"te werken en de naam van het applet en de versie <b>precies</b> zo in te "
+"vullen als in de KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -871,6 +871,10 @@ msgid "tmux session"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "NerdFont-pictogrammen gebruiken"
 
@@ -953,13 +957,10 @@ msgstr "Vragen alvorens op te waarderen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
-"mirrorlist (click button to open link)"
+"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"Voor het gebruik van deze functie zijn de volgende hulpmiddelen vereist:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Zie ook https://archlinux.org/"
-"mirrorlist (klik op de knop om de link te openen)"
+"<br><br>Zie ook https://archlinux.org/mirrorlist (klik op de knop om de link "
+"te openen)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1169,6 +1170,9 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr ""
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "Enkele vereiste hulpmiddelen zijn niet aangetroffen (curl, jq)"
 
 #~ msgid ""
 #~ "You can also switch tabs by dragging the mouse left and right with the "

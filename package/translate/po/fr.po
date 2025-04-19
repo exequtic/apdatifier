@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -56,7 +56,9 @@ msgstr "Lire le Wiki Arch - Mises à niveau partielles"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "Effectuez une mise à niveau complète du système au lieu d’une mise à niveau partielle !"
+msgstr ""
+"Effectuez une mise à niveau complète du système au lieu d’une mise à niveau "
+"partielle !"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -64,7 +66,8 @@ msgstr "Temps d'exécution total :"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr "Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
+msgstr ""
+"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -96,7 +99,8 @@ msgstr "a été mis à jour avec les serveurs suivants :"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr ""
+"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -105,7 +109,9 @@ msgstr "Votre liste de miroirs actuelle :"
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr "Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer plasmashell après la mise à niveau"
+msgstr ""
+"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
+"plasmashell après la mise à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -139,7 +145,8 @@ msgstr "Aucune description"
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
-msgstr "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
+msgstr ""
+"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
 "Veuillez réessayer plus tard"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
@@ -192,11 +199,14 @@ msgstr "Répertorier les paquets explicitement installés"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Répertorie les paquets explicitement installés qui ne sont dépendances d'aucun autre paquet"
+msgstr ""
+"Répertorie les paquets explicitement installés qui ne sont dépendances "
+"d'aucun autre paquet"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
+msgstr ""
+"Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
@@ -212,7 +222,8 @@ msgstr "Supprimer TOUS les paquets en cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr "Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
+msgstr ""
+"Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
@@ -251,7 +262,9 @@ msgid "Nothing to do"
 msgstr "Rien à faire"
 
 # Required installed <util name>
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Installation requise"
 
@@ -286,10 +299,6 @@ msgstr "Vérification des mises à jour des widgets..."
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "Impossible de vérifier les widgets : "
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
-msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -406,6 +415,10 @@ msgid "Counter"
 msgstr "Compteur"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
 msgstr "Couleur"
 
@@ -495,7 +508,9 @@ msgstr "Utiliser les icônes intégrées"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr "Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier par défaut à la place."
+msgstr ""
+"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
+"par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -568,16 +583,16 @@ msgid ""
 "Note: if you haven't installed the Devel version before, there's no need to "
 "install the Stable version."
 msgstr ""
-"Remarque : si vous n'avez pas installé la version de développement auparavant, il n'est pas nécessaire "
-"d'installer la version stable."
+"Remarque : si vous n'avez pas installé la version de développement "
+"auparavant, il n'est pas nécessaire d'installer la version stable."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Removal of the widget and all related files, including the directory with "
 "its configuration."
 msgstr ""
-"Suppression du widget et de tous les fichiers associés, y compris le répertoire avec "
-"sa configuration."
+"Suppression du widget et de tous les fichiers associés, y compris le "
+"répertoire avec sa configuration."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -670,16 +685,13 @@ msgstr "Widgets Plasma"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
-"forget to update the metadata.json and specify the name of the applet and "
-"its version <b>exactly</b> as they appear on the KDE Store."
+"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
+"and specify the name of the applet and its version <b>exactly</b> as they "
+"appear on the KDE Store."
 msgstr ""
-"Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont "
-"requis :<br><b>curl, jq, unzip, tar</b>.<br><br>Pour les développeurs de "
-"widgets :<br>N'oubliez pas de mettre à jour le fichier metadata.json et de "
-"spécifier le nom de l'applet et sa version <b>exactement</b> tels qu'ils "
-"apparaissent sur le KDE Store."
+"<br><br>Pour les développeurs de widgets :<br>N'oubliez pas de mettre à jour "
+"le fichier metadata.json et de spécifier le nom de l'applet et sa version "
+"<b>exactement</b> tels qu'ils apparaissent sur le KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -874,6 +886,10 @@ msgid "tmux session"
 msgstr "Session tmux"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Utiliser les icônes NerdFont"
 
@@ -962,13 +978,10 @@ msgstr "Suggérer avant la mise à niveau"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
-"mirrorlist (click button to open link)"
+"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"Pour utiliser cette fonctionnalité, les utilitaires installés suivants sont "
-"requis :<br><b>curl, pacman-contrib.</b> <br><br>Voir également https://"
-"archlinux.org/mirrorlist (cliquez sur le bouton pour ouvrir le lien)"
+"<br><br>Voir également https://archlinux.org/mirrorlist (cliquez sur le "
+"bouton pour ouvrir le lien)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1178,6 +1191,9 @@ msgstr "Aucune nouvelle non lue"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurer la liste"
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
 
 #~ msgid ""
 #~ "You can also switch tabs by dragging the mouse left and right with the "

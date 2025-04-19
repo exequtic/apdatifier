@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-03-09 11:54+0300\n"
+"POT-Creation-Date: 2025-04-19 19:35+0300\n"
 "PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -254,7 +254,9 @@ msgstr "Выполнено:"
 msgid "Nothing to do"
 msgstr "Нечего делать"
 
-#: ../contents/tools/sh/messages
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Требуется установленная утилита"
 
@@ -289,10 +291,6 @@ msgstr "Проверка обновлений виджетов..."
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
 msgstr "Невозможно проверить виджеты: "
-
-#: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq)"
-msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -413,6 +411,10 @@ msgstr "Включить"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Счетчик"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "On left"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -676,15 +678,13 @@ msgstr "Plasma виджеты"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, unzip, tar</b>.<br><br>For widget developers:<br>Don't "
-"forget to update the metadata.json and specify the name of the applet and "
-"its version <b>exactly</b> as they appear on the KDE Store."
+"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
+"and specify the name of the applet and its version <b>exactly</b> as they "
+"appear on the KDE Store."
 msgstr ""
-"Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, jq, unzip, tar</b>.<br><br>Для разработчиков виджетов:<br>Не "
-"забывайте обновлять файл metadata.json и указывать имя виджета и его версию "
-"в точности как и на сайте KDE Store."
+"<br><br>Для разработчиков виджетов:<br>Не забывайте обновлять файл "
+"metadata.json и указывать имя виджета и его версию в точности как и на сайте "
+"KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -878,6 +878,10 @@ msgid "tmux session"
 msgstr "tmux сессия"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Использовать NerdFont иконки"
 
@@ -965,13 +969,10 @@ msgstr "Предлагать перед обновлением"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
-"mirrorlist (click button to open link)"
+"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://"
-"archlinux.org/mirrorlist (нажмите на кнопку для открытия ссылки)"
+"<br><br>Также смотрите https://archlinux.org/mirrorlist (нажмите на кнопку "
+"для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1182,6 +1183,9 @@ msgstr "Нет непрочитанных новостей"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Восстановить список"
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
 
 #~ msgid ""
 #~ "You can also switch tabs by dragging the mouse left and right with the "

@@ -197,9 +197,7 @@ updateJson() {
 }
 
 rss() {
-    for cmd in curl jq; do
-        command -v "$cmd" >/dev/null || { echo "${CMD_ERR} ${cmd}" >&2; return 127; }
-    done
+    command -v jq >/dev/null || { echo "${CMD_ERR} jq" >&2; return 127; }
 
     makeTempDir
     trap cleanup EXIT
@@ -244,7 +242,7 @@ install_devel() {
     printMsg "Downloading devel"
     echo
 
-    required="git zip jq"
+    required="git jq"
     for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; printClose; exit; }; done;
 
     commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
@@ -290,8 +288,8 @@ install_devel() {
         esac
     done
     echo
-    zip -rq apdatifier.plasmoid .
-    kpackagetool6 -t Plasma/Applet -u apdatifier.plasmoid 2>/dev/null
+    tar --exclude=./apdatifier.tar -cf apdatifier.tar .
+    kpackagetool6 -t Plasma/Applet -u apdatifier.tar 2>/dev/null
     echo
 
     cd $savedir

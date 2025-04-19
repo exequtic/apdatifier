@@ -30,7 +30,7 @@ while true; do
     esac
 done
 
-dependencies "curl rankmirrors" true
+dependencies "rankmirrors" true
 rankmirrors -V &>/dev/null || {
     countries=$(echo "$dynamicUrl" | grep -oP '(?<=country=)[^&]+')
     countries=$(echo "$countries" | tr '\n' ' ')
