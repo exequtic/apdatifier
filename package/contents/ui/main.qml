@@ -87,13 +87,13 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Upgrade system")
             icon.name: "akonadiconsole"
-            enabled: sts.pending && cfg.terminal
+            enabled: (cfg.terminal && cfg.tmuxSession && sts.count) || (cfg.terminal && sts.pending)
             onTriggered: JS.upgradeSystem()
         },
         PlasmaCore.Action {
             text: i18n("Management")
             icon.name: "tools"
-            enabled: sts.idle && pkg.pacman && cfg.terminal
+            enabled: cfg.terminal && pkg.pacman
             onTriggered: JS.management()
         }
     ]

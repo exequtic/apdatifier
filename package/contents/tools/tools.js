@@ -196,7 +196,7 @@ function postUpgrade(out) {
 }
 
 function upgradeSystem() {
-    if (sts.upgrading) return
+    if (sts.upgrading && !cfg.tmuxSession) return
     enableUpgrading(true)
     runInTerminal("upgrade", "full")
 }
