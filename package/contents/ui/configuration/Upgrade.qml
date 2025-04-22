@@ -20,8 +20,7 @@ SimpleKCM {
     property alias cfg_termFont: termFont.checked
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
-    property alias cfg_upgradeFlags: upgradeFlags.checked
-    property alias cfg_upgradeFlagsText: upgradeFlagsText.text
+    property alias cfg_archFlags: archFlags.text
     property alias cfg_sudoBin: sudoBin.text
     property alias cfg_rebootSystem: rebootSystem.checked
     property alias cfg_mirrors: mirrors.checked
@@ -247,28 +246,17 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Upgrade options") + ":"
-            CheckBox {
-                id: upgradeFlags
-                text: i18n("Enable")
-                enabled: terminals
-            }
-        }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Options") + ":"
-            spacing: 0
-            visible: pkg.pacman
+            Label {
+                text: plasmoid.configuration.aur ? cfg_wrapper+" "+"-Syu" : cfg_sudoBin+" "+"pacman -Syu"
+            }
 
             TextField {
-                id: upgradeFlagsText
-                placeholderText: "--noconfirm"
-                placeholderTextColor: "grey"
-                enabled: pkg.pacman && upgradeFlags.checked
-
+                id: archFlags
                 onTextChanged: {
                     var allow = /^[a-z\- ]*$/
-                    if (!allow.test(upgradeFlagsText.text))
-                        upgradeFlagsText.text = upgradeFlagsText.text.replace(/[^a-z\- ]/g, "")
+                    if (!allow.test(archFlags.text))
+                        archFlags.text = archFlags.text.replace(/[^a-z\- ]/g, "")
                 }
             }
         }

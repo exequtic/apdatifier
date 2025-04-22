@@ -86,8 +86,7 @@ fullSystemUpgrade() {
             done
         fi
 
-        local archCmd="$bin -Syu"; [ "$upgradeFlags" = true ] && archCmd="$archCmd $upgradeFlagsText"
-        run "$archCmd"
+        run "$bin -Syu $archFlags"
 
         for pkg in "${critical_installed[@]}"; do
             afterVersion=$(pacman -Q $pkg | awk '{print $2}')

@@ -36,8 +36,7 @@
     </group>
     <group name="Upgrade">
         <entry name="wrapper" type="string"><default></default></entry>
-        <entry name="upgradeFlags" type="bool"><default>false</default></entry>
-        <entry name="upgradeFlagsText" type="string"><default></default></entry>
+        <entry name="archFlags" type="string"><default></default></entry>
         <entry name="sudoBin" type="string"><default>sudo</default></entry>
         <entry name="rebootSystem" type="bool"><default>false</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
