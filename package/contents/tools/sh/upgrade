@@ -11,11 +11,11 @@ run() {
     [[ -z $2 ]] && printExec "$1"
 
     if [ "$idleInhibit" = true ]; then
-        (( !OSD )) && {
-            OSD=1
-            qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
-            system-suspend-inhibited "Idle inhibition is active during upgrade"
-        }
+        # (( !OSD )) && {
+        #     OSD=1
+        #     qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+        #     system-suspend-inhibited "Idle inhibition is active during upgrade"
+        # }
         read -ra cmd <<< "$1"
         systemd-inhibit --what=idle:sleep:shutdown --who="Apdatifier" --why="$UPGRADE_PROGRESS" "${cmd[@]}"
     else
@@ -126,10 +126,10 @@ fullSystemUpgrade() {
     echo
     printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
 
-    if [ "$idleInhibit" = true ]; then
-        qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
-        system-suspend-uninhibited "Idle inhibition has been disabled"
-    fi
+    # if [ "$idleInhibit" = true ]; then
+    #     qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+    #     system-suspend-uninhibited "Idle inhibition has been disabled"
+    # fi
 
     if [ ${#critical_updated[@]} -gt 0 ]; then
         echo

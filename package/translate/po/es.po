@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-04-19 19:35+0300\n"
+"POT-Creation-Date: 2025-05-15 21:30+0300\n"
 "PO-Revision-Date: 2024-12-04 20:21-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -37,6 +37,10 @@ msgstr "Reglas"
 #: ../contents/config/config.qml
 msgid "Support me"
 msgstr "Apóyame"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr "Actualización en progreso"
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -255,10 +259,6 @@ msgid "Exit code: "
 msgstr "Código de salida:"
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progress"
-msgstr "Actualización en progreso"
-
-#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Verificando las últimas noticias..."
 
@@ -389,10 +389,6 @@ msgstr "Habilitar"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Contador"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "On left"
-msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -789,20 +785,16 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "tmux session"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Idle Inhibit"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Usar iconos de NerdFont"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
 msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán iconos de esa fuente."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -839,10 +831,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
 msgstr "Opciones de actualización"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Options"
-msgstr "Opciones"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
@@ -1067,6 +1055,9 @@ msgstr "No hay noticias no leídas"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
+
+#~ msgid "Options"
+#~ msgstr "Opciones"
 
 #~ msgid "some required utilities are not installed (curl, jq)"
 #~ msgstr "algunas utilidades requeridas no están instaladas (curl, jq)"

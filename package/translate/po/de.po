@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-04-19 19:35+0300\n"
+"POT-Creation-Date: 2025-05-15 21:30+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -37,6 +37,10 @@ msgstr "Regeln"
 #: ../contents/config/config.qml
 msgid "Support me"
 msgstr "Unterstütze mich"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr "Upgrade wird durchgeführt"
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -271,10 +275,6 @@ msgid "Exit code: "
 msgstr "Exit-Code:"
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progress"
-msgstr "Upgrade wird durchgeführt"
-
-#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Prüfe aktuelle Nachrichten..."
 
@@ -411,10 +411,6 @@ msgstr "Aktivieren"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Zähler"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "On left"
-msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -878,14 +874,6 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "tmux session"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Idle Inhibit"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "Benutze Nerd-Schriftartsymbole"
 
@@ -896,6 +884,10 @@ msgid ""
 msgstr ""
 "Wenn Ihr Terminal eine <b>Nerd-Schriftart</b> verwendet, werden die Symbole "
 "dieser Schriftart verwendet."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -937,10 +929,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
 msgstr "Upgrade-Optionen"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Options"
-msgstr "Optionen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
@@ -1183,6 +1171,9 @@ msgstr "Keine ungelesene Nachrichten"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Wiederherstellungs-Liste"
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
 
 #~ msgid "some required utilities are not installed (curl, jq)"
 #~ msgstr ""

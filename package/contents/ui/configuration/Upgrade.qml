@@ -113,30 +113,35 @@ SimpleKCM {
 
         RowLayout {
             CheckBox {
-                id: tmuxSession
-                text: i18n("tmux session")
-                enabled: pkg.tmux
-            }
-        }
-        RowLayout {
-            CheckBox {
-                id: idleInhibit
-                text: i18n("Idle Inhibit")
-            }
-
-            Kirigami.ContextualHelpButton {
-                toolTipText: "Disables automatic sleep and screen lock while upgrading."
-            }
-        }
-
-        RowLayout {
-            CheckBox {
                 id: termFont
                 text: i18n("Use NerdFont icons")
             }
 
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            CheckBox {
+                id: tmuxSession
+                text: i18n("tmux session")
+                enabled: pkg.tmux
+            }
+        }
+
+        RowLayout {
+            CheckBox {
+                id: idleInhibit
+                text: "Idle Inhibit"
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: "Disables automatic sleep and screen lock while upgrading."
             }
         }
 

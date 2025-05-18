@@ -257,19 +257,19 @@ SimpleKCM {
 
             CheckBox {
                 id: newsKDE
-                text: "\"KDE Announcements\""
+                text: "KDE Announcements"
                 enabled: pkg.jq
             }
 
             CheckBox {
                 id: newsTWIK
-                text: "\"This Week in KDE\""
+                text: "This Week in KDE"
                 enabled: pkg.jq
             }
 
             CheckBox {
                 id: newsTWIKA
-                text: "\"This Week in KDE Apps\""
+                text: "This Week in KDE Apps"
                 enabled: pkg.jq
             }
 

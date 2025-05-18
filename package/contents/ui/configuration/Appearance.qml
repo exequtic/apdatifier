@@ -204,10 +204,10 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("On left") + ":"
+            Kirigami.FormData.label: "On left" + ":"
             id: counterOnLeft
             text: i18n("Enable")
-            visible: counterText
+            visible: counterRow
             enabled: counterEnabled.checked
         }
 

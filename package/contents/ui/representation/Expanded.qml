@@ -46,12 +46,10 @@ Representation {
                 spacing: Kirigami.Units.smallSpacing / 2
                 visible: cfg.showStatusText
 
-                ToolButton {
+                Item {
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: false
-                    highlighted: false
-                    enabled: !cfg.ownIconsUI
+
                     Kirigami.Icon {
                         height: parent.height
                         width: parent.height
@@ -64,7 +62,7 @@ Representation {
                     }
                 }
 
-                DescriptiveLabel {
+                Label {
                     Layout.maximumWidth: toolBar.width - toolBarButtons.width - Kirigami.Units.iconSizes.smallMedium
                     Layout.alignment: Qt.AlignLeft
                     text: sts.statusMsg

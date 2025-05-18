@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-04-19 19:35+0300\n"
+"POT-Creation-Date: 2025-05-15 21:30+0300\n"
 "PO-Revision-Date: 2024-06-02 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -38,6 +38,10 @@ msgstr "Regels"
 #: ../contents/config/config.qml
 msgid "Support me"
 msgstr "Doneren"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -267,10 +271,6 @@ msgid "Exit code: "
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progress"
-msgstr ""
-
-#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Bezig met ophalen van nieuws…"
 
@@ -407,10 +407,6 @@ msgstr "Inschakelen"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "Embleem"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "On left"
-msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
@@ -867,14 +863,6 @@ msgid "Terminal"
 msgstr "Terminalvenster"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "tmux session"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Idle Inhibit"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "NerdFont-pictogrammen gebruiken"
 
@@ -885,6 +873,10 @@ msgid ""
 msgstr ""
 "Als je terminalvenster gebruikmaakt van <b>Nerd Font</b>, dan worden "
 "pictogrammen daaruit gebruikt."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -926,10 +918,6 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
 msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Options"
-msgstr "Opties"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
@@ -1170,6 +1158,9 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr ""
+
+#~ msgid "Options"
+#~ msgstr "Opties"
 
 #~ msgid "some required utilities are not installed (curl, jq)"
 #~ msgstr "Enkele vereiste hulpmiddelen zijn niet aangetroffen (curl, jq)"

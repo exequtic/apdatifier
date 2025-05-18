@@ -81,15 +81,15 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
-| English   |     251 |       |
-| Brazilian | 230/251 |  91%  |
-| Dutch     | 184/251 |  73%  |
-| French    | 245/251 |  97%  |
-| German    | 230/251 |  91%  |
-| Spanish   | 230/251 |  91%  |
-| Korean    | 135/251 |  53%  |
-| Polish    | 230/251 |  91%  |
-| Russian   | 251/251 | 100%  |
+| English   |     249 |       |
+| Brazilian | 228/249 |  91%  |
+| Dutch     | 182/249 |  73%  |
+| French    | 249/249 | 100%  |
+| German    | 228/249 |  91%  |
+| Spanish   | 228/249 |  91%  |
+| Korean    | 134/249 |  53%  |
+| Polish    | 228/249 |  91%  |
+| Russian   | 249/249 | 100%  |
 |-----------|---------|-------|
 ```
 

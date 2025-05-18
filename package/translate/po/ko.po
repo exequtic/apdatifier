@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-04-19 19:35+0300\n"
+"POT-Creation-Date: 2025-05-15 21:30+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,6 +38,10 @@ msgstr "규칙"
 #: ../contents/config/config.qml
 msgid "Support me"
 msgstr "지원하기"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -264,10 +268,6 @@ msgid "Exit code: "
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "Upgrade in progress"
-msgstr ""
-
-#: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "최근 소식 확인 중..."
 
@@ -397,10 +397,6 @@ msgstr "사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "On left"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -840,14 +836,6 @@ msgid "Terminal"
 msgstr "터미널"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "tmux session"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Idle Inhibit"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
 msgstr "NerdFont 아이콘 사용"
 
@@ -855,6 +843,10 @@ msgstr "NerdFont 아이콘 사용"
 msgid ""
 "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
 "used."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -896,10 +888,6 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
