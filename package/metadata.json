@@ -12,7 +12,7 @@
         "Id": "com.github.exequtic.apdatifier",
         "Name": "Apdatifier",
         "EnabledByDefault": true,
-        "Version": "2.9.2",
+        "Version": "2.9.3",
         "License": "MIT",
         "BugReportUrl": "https://github.com/exequtic/apdatifier/issues",
         "Website": "https://github.com/exequtic/apdatifier"
