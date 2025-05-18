@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-05-15 21:30+0300\n"
-"PO-Revision-Date: 2024-06-02 14:38+0200\n"
+"PO-Revision-Date: 2025-05-18 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -41,7 +41,7 @@ msgstr "Doneren"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Upgrade in progress"
-msgstr ""
+msgstr "Bezig met bijwerken"
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -49,11 +49,11 @@ msgstr "Systeem volledig bijwerken"
 
 #: ../contents/tools/sh/messages
 msgid "Flatpak Upgrade"
-msgstr ""
+msgstr "Flatpak-update"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr ""
+msgstr "Plasmawidgets-update"
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
@@ -65,15 +65,15 @@ msgstr "Voer een volledige opwaardering uit in plaats van een gedeeltelijke!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
-msgstr ""
+msgstr "Totale uitvoertijd:"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr ""
+msgstr "Er zijn kritieke pakketten bijgewerkt - een herstart is vereist:"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
-msgstr ""
+msgstr "Wil je nu herstarten?"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -81,7 +81,7 @@ msgstr "Druk op enter om te sluiten"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "Overgeslagen…"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -121,19 +121,19 @@ msgstr "Bezig met controleren op widgetupdates"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr ""
+msgstr "Bezig met ophalen van api-gegevens"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
-msgstr ""
+msgstr "Bezig met ophalen van downloadlink"
 
 #: ../contents/tools/sh/messages
 msgid "Downloading package"
-msgstr ""
+msgstr "Bezig met downloaden van pakket"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Wil je doorgaan met bijwerken?"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -141,7 +141,7 @@ msgstr "Wil je plasmashell nu herstarten?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr ""
+msgstr "Geen beschrĳving"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
@@ -153,11 +153,11 @@ msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr ""
+msgstr "De gegevens kunnen niet worden opgehaald van de api"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
-msgstr ""
+msgstr "Onbekende foutmelding"
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
@@ -173,19 +173,19 @@ msgstr "Niet-ondersteund bestandstype"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "Er zijn geen bestanden om te downloaden"
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr ""
+msgstr "Er is geen bestand met deze versie beschikbaar"
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr ""
+msgstr "Er zijn meerdere bestanden met deze versie beschikbaar"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr ""
+msgstr "Het pakket kan niet worden opgehaald"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -268,7 +268,7 @@ msgstr "Vereist"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr ""
+msgstr "Afsluitcode: "
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -276,7 +276,7 @@ msgstr "Bezig met ophalen van nieuws…"
 
 #: ../contents/tools/tools.js
 msgid "Cannot fetch news "
-msgstr ""
+msgstr "Het nieuws kan niet worden opgehaald "
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
@@ -296,7 +296,7 @@ msgstr "De widget-updatecontrole is mislukt: "
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr ""
+msgstr "recentste commit"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -379,8 +379,8 @@ msgstr "Getoond indien"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] "update in de wachtrij"
-msgstr[1] "updates in de wachtrij"
+msgstr[0] "update in de wachtrij "
+msgstr[1] "updates in de wachtrij "
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -442,7 +442,7 @@ msgstr "Schaduw"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font"
-msgstr ""
+msgstr "Lettertype"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default system font"
@@ -450,19 +450,19 @@ msgstr "Systeemlettertype"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr ""
+msgstr "Vetgedrukt lettertype"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr ""
+msgstr "Tekstgrootte"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr ""
+msgstr "Ruimte aan linkerzijde"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
-msgstr ""
+msgstr "Marges aan zijkanten"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
@@ -550,35 +550,39 @@ msgstr "Tabbladbalk tonen"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
-msgstr ""
+msgstr "Tabbladtitels tonen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Development version"
-msgstr ""
+msgstr "Ontwikkelingsversie installeren"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Stable version"
-msgstr ""
+msgstr "Stabiele versie installeren"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Uninstall widget"
-msgstr ""
+msgstr "Widget verwijderen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
-msgstr ""
+msgstr "Let op: de versie met de recentste commits kan instabiel zijn."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Note: if you haven't installed the Devel version before, there's no need to "
 "install the Stable version."
 msgstr ""
+"Let op: als je de ontwikkelingsversie nog nooit hebt geïnstalleerd, hoef je "
+"de stabiele versie niet te gebruiken."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Removal of the widget and all related files, including the directory with "
 "its configuration."
 msgstr ""
+"De widget wordt verwijderd met inbegrip van alle bestanden en de "
+"instellingenmap."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -594,7 +598,7 @@ msgstr "Muisacties"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr ""
+msgstr "Overig"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -644,7 +648,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
-msgstr ""
+msgstr "Updates"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -680,7 +684,7 @@ msgstr ""
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr ""
+msgstr "Nieuws"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
@@ -688,21 +692,21 @@ msgstr "Arch Linux-nieuws"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Keep"
-msgstr ""
+msgstr "Behouden"
 
 #: ../contents/ui/configuration/General.qml
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "nieuwsitem op de feed"
+msgstr[1] "nieuwsitems op de feed"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr ""
+msgstr "Voor nieuwe updates"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Upgrade button"
-msgstr ""
+msgstr "Bijwerkknop"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -723,7 +727,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr ""
+msgstr "Voor nieuws"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
@@ -762,6 +766,8 @@ msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
+"Schakel deze optie niet in als de widget niet in het systeemvak staat, "
+"anders kun je de instellingen niet via het rechtermuisknopmenu openen."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -773,7 +779,7 @@ msgstr "Omlaag scrollen"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr ""
+msgstr "Verborgen hulpballonnen herstellen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -823,15 +829,15 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
-msgstr ""
+msgstr "Tonen op lijst"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exclude from the list"
-msgstr ""
+msgstr "Verbergen van lijst"
 
 #: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
@@ -856,7 +862,7 @@ msgstr "%1 openen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
@@ -876,19 +882,19 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
-msgstr ""
+msgstr "tmux-sessie"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr ""
+msgstr "Scripts voor/na bijwerken"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr ""
+msgstr "Voor bijwerken"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
-msgstr ""
+msgstr "Opdracht of scriptlocatie"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
@@ -896,16 +902,20 @@ msgid ""
 "specify your command to update the mirrorlist if you have unofficial "
 "repositories."
 msgstr ""
+"Een opdracht of script die van tevoren dient te worden uitgevoerd."
+"<br>Voorbeeld: een opdracht om de spiegelserverlijst bij te werken."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr ""
+msgstr "Na bijwerken"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Running your command or script AFTER the upgrade.<br>For example, you can "
 "specify your command to upgrade something else."
 msgstr ""
+"Een opdracht of script die nadien dient te worden uitgevoerd.<br>Voorbeeld: "
+"een opdracht om iets anders bij te werken."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -913,15 +923,15 @@ msgstr "Wrapper"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr ""
+msgstr "AUR is uitgeschakeld in de zoekinstellingen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr ""
+msgstr "Bijwerkopties"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
-msgstr ""
+msgstr "Systeem herstarten"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -933,7 +943,7 @@ msgstr "Pacman-spiegelserverlijst genereren"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "Alleen voor officiële pakketbronnen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -992,27 +1002,27 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr ""
+msgstr "Ongebruikte verwijderen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr ""
+msgstr "Normaal - vragen overslaan"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr ""
+msgstr "Niet-interactief - vragen overslaan"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr ""
+msgstr "Uitgebreid"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr ""
+msgstr "Opwaarderen bevestigen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -1029,7 +1039,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr ""
+msgstr "Opdracht"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -1081,7 +1091,7 @@ msgstr "Pakket bijwerken"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
-msgstr ""
+msgstr "Pakkettype"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -1153,11 +1163,11 @@ msgstr "Artikel lezen"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
-msgstr ""
+msgstr "Er is geen ongelezen nieuws"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
-msgstr ""
+msgstr "Lijst herstellen"
 
 #~ msgid "Options"
 #~ msgstr "Opties"
