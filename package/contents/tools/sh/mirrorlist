@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/utils"
+
+menu=$1
+selected=$2
+
+returnMenu() {
+    printReturn
+    $scriptDir/management $selected
+    exit
+}
+
+mirrorfile="/etc/pacman.d/mirrorlist"
+if [ -f $mirrorfile ]; then
+    FILE_TIME=$(date -r "$mirrorfile" +%s)
+    NORM_TIME=$(date -d @$FILE_TIME +"%d %b %H:%M:%S")
+    printImportant "$MIRROR_TIME" "$NORM_TIME"
+fi
+
+while true; do
+    printQuestion "$MNG_OPT_11?"; read -r answer
+    case "$answer" in
+           [Yy]*) echo; break;;
+        [Nn]*|"") [[ "$menu" = "true" ]] && { returnMenu; } || { exit; };;
+               *)  ;;
+    esac
+done
+
+dependencies "rankmirrors" true
+rankmirrors -V &>/dev/null || {
+    countries=$(echo "$dynamicUrl" | grep -oP '(?<=country=)[^&]+')
+    countries=$(echo "$countries" | tr '\n' ' ')
+    countries=$(echo "$countries" | sed 's/ *$//')
+
+    if [ -z "$countries" ]; then
+        printError "$MIRRORS_ERR"
+    else
+        echo "Selected countries: $countries"
+        ${sudoBin} rankmirrors -c ${countries}
+        echo
+    fi
+
+    [[ "$menu" = "true" ]] && returnMenu || exit
+}
+
+tempfile=$(mktemp)
+tput sc; curl -m 60 -s -o $tempfile "$dynamicUrl" 2>/dev/null &
+spinner $! "$MIRRORS_FETCH"; tput rc; tput ed
+if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
+    printDone "$MIRRORS_FETCH"
+else
+    printError "$MIRRORS_FETCH"
+    printError "$MIRRORS_ERR"
+    [[ "$menu" = "true" ]] && returnMenu || exit
+fi
+
+sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
+tempfile2=$(mktemp)
+tput sc; rankmirrors -n "$mirrorCount" "$tempfile" > "$tempfile2" &
+spinner $! "$MIRRORS_RANK"; tput rc; tput ed
+if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; then
+    printDone "$MIRRORS_RANK"
+else
+    printError "$MIRRORS_RANK"
+    [[ "$menu" = "true" ]] && returnMenu || exit
+fi
+
+sed -i '1d' "$tempfile2"
+sed -i "1s/^/##\n## Arch Linux repository mirrorlist\n## Generated on $(date '+%Y-%m-%d %H:%M:%S')\n##\n\n/" "$tempfile2"
+
+${sudoBin} -n true 2>/dev/null || { printImportant "$MIRRORS_SUDO"; }
+cat $tempfile2 | ${sudoBin} tee $mirrorfile > /dev/null
+
+if [ $? -eq 0 ]; then
+    printDone "$mirrorfile $MIRRORS_UPD"
+    echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c\n"
+    rm $tempfile; rm $tempfile2
+    [[ "$menu" = "true" ]] && returnMenu
+else
+    printError "$MIRRORS_SUDO"
+    [[ "$menu" = "true" ]] && returnMenu || exit
+fi

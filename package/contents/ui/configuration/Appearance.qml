@@ -15,13 +15,35 @@ import org.kde.kquickcontrolsaddons
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
-import "../components" as QQC
 import "../../tools/tools.js" as JS
 
 SimpleKCM {
+    property alias cfg_relevantIcon: relevantIcon.value
+    property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
+    property alias cfg_indicatorStop: indicatorStop.checked
+    property alias cfg_counterEnabled: counterEnabled.checked
+    property alias cfg_counterOnLeft: counterOnLeft.checked
+    property string cfg_counterColor: plasmoid.configuration.counterColor
+    property alias cfg_counterSize: counterSize.value
+    property alias cfg_counterRadius: counterRadius.value
+    property alias cfg_counterOpacity: counterOpacity.value
+    property alias cfg_counterShadow: counterShadow.checked
+    property string cfg_counterFontFamily: plasmoid.configuration.counterFontFamily
+    property alias cfg_counterFontBold: counterFontBold.checked
+    property alias cfg_counterFontSize: counterFontSize.value
+    property alias cfg_counterSpacing: counterSpacing.value
+    property alias cfg_counterMargins: counterMargins.value
+    property alias cfg_counterOffsetX: counterOffsetX.value
+    property alias cfg_counterOffsetY: counterOffsetY.value
+    property alias cfg_counterCenter: counterCenter.checked
+    property bool cfg_counterTop: plasmoid.configuration.counterTop
+    property bool cfg_counterBottom: plasmoid.configuration.counterBottom
+    property bool cfg_counterRight: plasmoid.configuration.counterRight
+    property bool cfg_counterLeft: plasmoid.configuration.counterLeft
+
+    property alias cfg_ownIconsUI: ownIconsUI.checked
     property int cfg_listView: plasmoid.configuration.listView
     property alias cfg_spacing: spacing.value
-
     property alias cfg_sorting: sorting.checked
     property alias cfg_showStatusText: showStatusText.checked
     property alias cfg_showToolBar: showToolBar.checked
@@ -31,265 +53,46 @@ SimpleKCM {
     property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
-    property alias cfg_showTabBar: showTabBar.checked
+    property alias cfg_tabBarVisible: tabBarVisible.checked
+    property alias cfg_tabBarTexts: tabBarTexts.checked
 
-    property alias cfg_ownIconsUI: ownIconsUI.checked
-    property alias cfg_termFont: termFont.checked
-    property alias cfg_customIconsEnabled: customIconsEnabled.checked
-    property alias cfg_customIcons: customIcons.text
+    property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+    property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
+    property bool counterOverlay: inTray || !horizontal
+    property bool counterRow: !inTray && horizontal
 
-    property alias cfg_relevantIcon: relevantIcon.value
-    property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
-
-    property alias cfg_indicatorStop: indicatorStop.checked
-    property alias cfg_counterEnabled: counterEnabled.checked
-    property string cfg_counterColor: plasmoid.configuration.counterColor
-    property alias cfg_counterSize: counterSize.value
-    property alias cfg_counterRadius: counterRadius.value
-    property alias cfg_counterOpacity: counterOpacity.value
-    property alias cfg_counterShadow: counterShadow.checked
-    property alias cfg_counterBold: counterBold.checked
-    property alias cfg_counterOffsetX: counterOffsetX.value
-    property alias cfg_counterOffsetY: counterOffsetY.value
-    property alias cfg_counterCenter: counterCenter.checked
-    property bool cfg_counterTop: plasmoid.configuration.counterTop
-    property bool cfg_counterBottom: plasmoid.configuration.counterBottom
-    property bool cfg_counterRight: plasmoid.configuration.counterRight
-    property bool cfg_counterLeft: plasmoid.configuration.counterLeft
+    property int currentTab
+    signal tabChanged(currentTab: int)
+    onCurrentTabChanged: tabChanged(currentTab)
+ 
+    header: Kirigami.NavigationTabBar {
+        actions: [
+            Kirigami.Action {
+                icon.name: "view-list-icons"
+                text: i18n("Panel Icon View")
+                checked: currentTab === 0
+                onTriggered: currentTab = 0
+            },
+            Kirigami.Action {
+                icon.name: "view-split-left-right"
+                text: i18n("List View")
+                checked: currentTab === 1
+                onTriggered: currentTab = 1
+            }
+        ]
+    }
 
     Kirigami.FormLayout {
-        id: appearancePage
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("List View")
-        }
-
-        ButtonGroup {
-            id: viewGroup
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("View") + ":"
-
-            RadioButton {
-                id: compactView
-                ButtonGroup.group: viewGroup
-                text: i18n("Compact")
-                Component.onCompleted: checked = !plasmoid.configuration.listView
-            }
-
-            RowLayout {
-                Slider {
-                    id: spacing
-                    from: 0
-                    to: 12
-                    stepSize: 1
-                    value: spacing.value
-                    onValueChanged: plasmoid.configuration.spacing = spacing.value
-                }
-
-                Label {
-                    text: spacing.value
-                }
-            }
-        }
-
-        RadioButton {
-            ButtonGroup.group: viewGroup
-            text: i18n("Extended")
-            onCheckedChanged: cfg_listView = checked
-            Component.onCompleted: checked = plasmoid.configuration.listView
-        }
+        id: iconViewTab
+        visible: currentTab === 0
 
         Item {
             Kirigami.FormData.isSection: true
-        }
-
-        ButtonGroup {
-            id: sortGroup
-        }
-
-        RadioButton {
-            id: sorting
-            Kirigami.FormData.label: i18n("Sorting") + ":"
-            text: i18n("By repository")
-            checked: true
-            Component.onCompleted: checked = plasmoid.configuration.sorting
-            ButtonGroup.group: sortGroup
-        }
-
-        RadioButton {
-            text: i18n("By name")
-            Component.onCompleted: checked = !plasmoid.configuration.sorting
-            ButtonGroup.group: sortGroup
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
-            id: showStatusText
-            Kirigami.FormData.label: i18n("Header") + ":"
-            text: i18n("Show status")
-        }
-
-        CheckBox {
-            id: showToolBar
-            text: i18n("Show tool bar")
-        }
-
-        RowLayout {
-            enabled: showToolBar.checked
-            CheckBox {
-                id: searchButton
-                icon.name: "search"
-            }
-            CheckBox {
-                id: intervalButton
-                icon.name: "media-playback-paused"
-            }
-            CheckBox {
-                id: sortButton
-                icon.name: "sort-name"
-            }
-        }
-        RowLayout {
-            enabled: showToolBar.checked
-            CheckBox {
-                id: managementButton
-                icon.name: "tools"
-            }
-            CheckBox {
-                id: upgradeButton
-                icon.name: "akonadiconsole"
-            }
-            CheckBox {
-                id: checkButton
-                icon.name: "view-refresh"
-            }
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Footer") + ":"
-
-            CheckBox {
-                id: showTabBar
-                text: i18n("Show tab bar")
-            }
-
-            ContextualHelpButton {
-                toolTipText: i18n("You can also switch tabs by dragging the mouse left and right with the right mouse button held.")
-            }
-        }
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Icons")
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: "UI:"
-            CheckBox {
-                id: ownIconsUI
-                text: i18n("Build-in icons")
-            }
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Terminal") + ":"
-            CheckBox {
-                id: termFont
-                text: i18n("Use NerdFont icons")
-            }
-
-            ContextualHelpButton {
-                toolTipText: i18n("If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used.")
-            }
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Packages") + ":"
-            CheckBox {
-                id: customIconsEnabled
-                text: i18n("Custom icons")
-            }
-
-            ContextualHelpButton {
-                toolTipText: i18n("You can specify which icon to use for each package.<br><br>Posible types in this order: default, repo, group, match, name<br><br><b>Syntax for rule:</b><br>type > value > icon-name<br>For default: default >> icon-name<br><br>If a package matches multiple rules, the last one will be applied to it.")
-            }
-        }
-
-        ColumnLayout {
-            Layout.maximumWidth: appearancePage.width / 2
-            Layout.maximumHeight: 150
-            visible: customIconsEnabled.checked
-
-            RowLayout {
-                ScrollView {
-                    Layout.preferredWidth: appearancePage.width / 2
-                    Layout.preferredHeight: 150
-
-                    TextArea {
-                        id: customIcons
-                        width: parent.width
-                        height: parent.height
-                        font.family: "Monospace"
-                        font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
-                        placeholderText: i18n("EXAMPLE:") + "\ndefault >> package\nrepo    > aur    > run-build\nrepo    > devel  > run-build\ngroup   > plasma > start-kde-here\nmatch   > python > text-x-python\nname    > python > python-backend\nname    > linux  > preferences-system-linux"
-                    }
-                }
-
-                ColumnLayout {
-                    Clipboard {
-                        id: clipboard
-                    }
-
-                    QQC.Button {
-                        iconName: "view-list-icons"
-                        iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Browse icons and copy icon name to clipboard")
-                        onPressed: customIconsDialog.open()
-
-                        IconDialog {
-                            id: customIconsDialog
-                            onIconNameChanged: clipboard.content = iconName
-                        }
-                    }
-
-                    QQC.Button {
-                        iconName: "document-save"
-                        iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Backup list")
-                        onPressed: sh.exec(JS.writeFile(customIcons.text, JS.customIcons))
-                    }
-
-                    QQC.Button {
-                        iconName: "kt-restore-defaults"
-                        iconSize: Kirigami.Units.iconSizes.small
-                        tooltipText: i18n("Restore list from backup")
-                        onPressed: {
-                            sh.exec(JS.readFile(JS.customIcons), (cmd, out, err, code) => {
-                                if (out) customIcons.text = out.trim()
-                            })
-                        }
-                    }
-                }
-            }
-        }
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Panel Icon View")
         }
 
         RowLayout {
             Kirigami.FormData.label: i18n("Shown when")
+            enabled: counterOverlay
 
             SpinBox {
                 id: relevantIcon
@@ -300,22 +103,38 @@ SimpleKCM {
             }
 
             Label {
-                text: i18np("update is pending", "updates are pending", relevantIcon.value)
+                text: i18np("update is pending ", "updates are pending ", relevantIcon.value)
             }
         }
 
-        QQC.Button {
-            iconName: JS.setIcon(cfg_selectedIcon)
-            iconSize: Kirigami.Units.iconSizes.large
-            frameSize: iconSize * 1.5
+        Button {
+            id: iconButton
 
-            tooltipText: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
-            onPressed: menu.opened ? menu.close() : menu.open()
+            implicitWidth: iconFrame.width + Kirigami.Units.smallSpacing
+            implicitHeight: implicitWidth
+            hoverEnabled: true
+
+            FrameSvgItem {
+                id: iconFrame
+                anchors.centerIn: parent
+                width: Kirigami.Units.iconSizes.large + fixedMargins.left + fixedMargins.right
+                height: width
+                imagePath: "widgets/background"
+
+                Kirigami.Icon {
+                    anchors.centerIn: parent
+                    width: Kirigami.Units.iconSizes.large
+                    height: width
+                    source: JS.setIcon(cfg_selectedIcon)
+                }
+            }
 
             IconDialog {
-                id: iconsDialog
+                id: iconDialog
                 onIconNameChanged: cfg_selectedIcon = iconName || JS.defaultIcon
             }
+
+            onClicked: menu.opened ? menu.close() : menu.open()
 
             Menu {
                 id: menu
@@ -327,10 +146,21 @@ SimpleKCM {
                     enabled: cfg_selectedIcon !== JS.defaultIcon
                     onClicked: cfg_selectedIcon = JS.defaultIcon
                 }
-
                 MenuItem {
                     text: i18n("Default") + " 2"
                     icon.name: "apdatifier-packages"
+                    enabled: cfg_selectedIcon !== icon.name
+                    onClicked: cfg_selectedIcon = icon.name
+                }
+                MenuItem {
+                    text: i18n("Default") + " 3"
+                    icon.name: "apdatifier-package"
+                    enabled: cfg_selectedIcon !== icon.name
+                    onClicked: cfg_selectedIcon = icon.name
+                }
+                MenuItem {
+                    text: i18n("Default") + " 4"
+                    icon.name: "apdatifier-flatpak"
                     enabled: cfg_selectedIcon !== icon.name
                     onClicked: cfg_selectedIcon = icon.name
                 }
@@ -338,8 +168,18 @@ SimpleKCM {
                 MenuItem {
                     text: i18n("Select...")
                     icon.name: "document-open-folder"
-                    onClicked: iconsDialog.open()
+                    onClicked: iconDialog.open()
                 }
+            }
+
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            ToolTip {
+                text: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
+                delay: Kirigami.Units.toolTipDelay
+                visible: iconButton.hovered
             }
         }
 
@@ -363,6 +203,14 @@ SimpleKCM {
             text: i18n("Enable")
         }
 
+        CheckBox {
+            Kirigami.FormData.label: "On left" + ":"
+            id: counterOnLeft
+            text: i18n("Enable")
+            visible: counterRow
+            enabled: counterEnabled.checked
+        }
+
         Button {
             Kirigami.FormData.label: i18n("Color") + ":"
             id: counterColor
@@ -371,21 +219,14 @@ SimpleKCM {
 
             implicitWidth: Kirigami.Units.gridUnit
             implicitHeight: implicitWidth
+            visible: counterOverlay
             enabled: counterEnabled.checked
-
-            ToolTip.text: cfg_counterColor ? cfg_counterColor : i18n("Default background color from current theme")
-            ToolTip.delay: Kirigami.Units.toolTipDelay
-            ToolTip.visible: counterColor.hovered
 
             background: Rectangle {
                 radius: counterRadius.value
                 border.width: 1
                 border.color: "black"
                 color: cfg_counterColor ? cfg_counterColor : Kirigami.Theme.backgroundColor
-            }
-
-            HoverHandler {
-                cursorShape: Qt.PointingHandCursor
             }
 
             onPressed: menuColor.opened ? menuColor.close() : menuColor.open()
@@ -418,10 +259,21 @@ SimpleKCM {
                     cfg_counterColor = selectedColor
                 }
             }
+
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            ToolTip {
+                text: cfg_counterColor ? cfg_counterColor : i18n("Default background color from current theme")
+                delay: Kirigami.Units.toolTipDelay
+                visible: counterColor.hovered
+            }
         }
 
         RowLayout {
             Kirigami.FormData.label: i18n("Size") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -440,6 +292,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Radius") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -458,6 +311,7 @@ SimpleKCM {
 
         RowLayout {
             Kirigami.FormData.label: i18n("Opacity") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Slider {
@@ -477,20 +331,77 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Shadow") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
             id: counterShadow
             text: i18n("Enable")
         }
 
-        CheckBox {
-            Kirigami.FormData.label: i18n("Bold") + ":"
+        ComboBox {
+            Kirigami.FormData.label: i18n("Font") + ":"
             enabled: counterEnabled.checked
-            id: counterBold
+            implicitWidth: 250
+            editable: true
+            textRole: "name"
+            model: {
+                let fonts = Qt.fontFamilies()
+                let arr = []
+                arr.push({"name": i18n("Default system font"), "value": ""})
+                for (let i = 0; i < fonts.length; i++) {
+                    arr.push({"name": fonts[i], "value": fonts[i]})
+                }
+                return arr
+            }
+
+            onCurrentIndexChanged: cfg_counterFontFamily = model[currentIndex]["value"]
+            Component.onCompleted: currentIndex = JS.setIndex(plasmoid.configuration.counterFontFamily, model)
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Font bold") + ":"
+            enabled: counterEnabled.checked
+            id: counterFontBold
             text: i18n("Enable")
+        }
+
+        Slider {
+            Kirigami.FormData.label: i18n("Font size") + ":"
+            visible: counterRow
+            enabled: counterEnabled.checked
+            id: counterFontSize
+            from: 4
+            to: 8
+            stepSize: 1
+            value: counterFontSize.value
+            onValueChanged: plasmoid.configuration.counterFontSize = counterFontSize.value
+        }
+
+        SpinBox {
+            Kirigami.FormData.label: i18n("Left spacing") + ":"
+            visible: counterRow
+            enabled: counterEnabled.checked
+            id: counterSpacing
+            from: 0
+            to: 99
+            stepSize: 1
+            value: counterSpacing.value
+            onValueChanged: plasmoid.configuration.counterSpacing = counterSpacing.value
+        }
+
+        SpinBox {
+            Kirigami.FormData.label: i18n("Side margins") + ":"
+            visible: counterRow
+            id: counterMargins
+            from: 0
+            to: 99
+            stepSize: 1
+            value: counterMargins.value
+            onValueChanged: plasmoid.configuration.counterMargins = counterMargins.value
         }
 
         RowLayout {
             Kirigami.FormData.label: i18n("Offset") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
 
             Label { text: "X:" }
@@ -520,6 +431,7 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Position") + ":"
+            visible: counterOverlay
             enabled: counterEnabled.checked
             id: counterCenter
             text: i18n("Center")
@@ -527,7 +439,8 @@ SimpleKCM {
 
         GridLayout {
             Layout.fillWidth: true
-            enabled: counterEnabled.checked && !counterCenter.checked
+            visible: counterOverlay
+            enabled: counterEnabled.checked
             columns: 4
             rowSpacing: 0
             columnSpacing: 0
@@ -656,7 +569,157 @@ SimpleKCM {
         }
     }
 
-    QQC.Shell {
-        id: sh
+    Kirigami.FormLayout {
+        id: listViewTab
+        visible: currentTab === 1
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: "UI:"
+            CheckBox {
+                id: ownIconsUI
+                text: i18n("Use built-in icons")
+            }
+            
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("Override custom icon theme and use default Apdatifier icons instead.")
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        ButtonGroup {
+            id: viewGroup
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("View") + ":"
+
+            RadioButton {
+                id: compactView
+                ButtonGroup.group: viewGroup
+                text: i18n("Compact")
+                Component.onCompleted: checked = !plasmoid.configuration.listView
+            }
+
+            RowLayout {
+                Slider {
+                    id: spacing
+                    from: 0
+                    to: 12
+                    stepSize: 1
+                    value: spacing.value
+                    onValueChanged: plasmoid.configuration.spacing = spacing.value
+                }
+
+                Label {
+                    text: spacing.value
+                }
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: viewGroup
+            text: i18n("Extended")
+            onCheckedChanged: cfg_listView = checked
+            Component.onCompleted: checked = plasmoid.configuration.listView
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        ButtonGroup {
+            id: sortGroup
+        }
+
+        RadioButton {
+            id: sorting
+            Kirigami.FormData.label: i18n("Sorting") + ":"
+            text: i18n("By repository")
+            checked: true
+            Component.onCompleted: checked = plasmoid.configuration.sorting
+            ButtonGroup.group: sortGroup
+        }
+
+        RadioButton {
+            text: i18n("By name")
+            Component.onCompleted: checked = !plasmoid.configuration.sorting
+            ButtonGroup.group: sortGroup
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            id: showStatusText
+            Kirigami.FormData.label: i18n("Header") + ":"
+            text: i18n("Show status")
+        }
+
+        CheckBox {
+            id: showToolBar
+            text: i18n("Show tool bar")
+        }
+
+        RowLayout {
+            enabled: showToolBar.checked
+            CheckBox {
+                id: searchButton
+                icon.name: "search"
+            }
+            CheckBox {
+                id: intervalButton
+                icon.name: "media-playback-paused"
+            }
+            CheckBox {
+                id: sortButton
+                icon.name: "sort-name"
+            }
+        }
+        RowLayout {
+            enabled: showToolBar.checked
+            CheckBox {
+                id: managementButton
+                icon.name: "tools"
+            }
+            CheckBox {
+                id: upgradeButton
+                icon.name: "akonadiconsole"
+            }
+            CheckBox {
+                id: checkButton
+                icon.name: "view-refresh"
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Footer") + ":"
+
+            CheckBox {
+                id: tabBarVisible
+                text: i18n("Show tab bar")
+            }
+        }
+
+        CheckBox {
+            id: tabBarTexts
+            text: i18n("Show tab texts")
+            enabled: tabBarVisible.checked
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
     }
 }

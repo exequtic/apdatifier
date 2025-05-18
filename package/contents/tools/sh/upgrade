@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/utils"
+
+trap 'echo -e "\n\n$(colorize red bold $ICO_WARN "CTRL+C. $UPGRADE_SKIPPED")"' SIGINT
+
+run() {
+    [[ -z $2 ]] && printExec "$1"
+
+    if [ "$idleInhibit" = true ]; then
+        # (( !OSD )) && {
+        #     OSD=1
+        #     qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+        #     system-suspend-inhibited "Idle inhibition is active during upgrade"
+        # }
+        read -ra cmd <<< "$1"
+        systemd-inhibit --what=idle:sleep:shutdown --who="Apdatifier" --why="$UPGRADE_PROGRESS" "${cmd[@]}"
+    else
+        eval ${1}
+    fi
+}
+
+bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
+
+fullSystemUpgrade() {
+    startTime=$(date +%s)
+    critical_updated=()
+    critical_installed=()
+    critical_packages=(
+        "amd-ucode"
+        "intel-ucode"
+        "cryptsetup"
+        "linux"
+        "linux-hardened"
+        "linux-lts"
+        "linux-zen"
+        "linux-rt"
+        "linux-rt-lts"
+        "linux-firmware*"
+        "linux-cachyos*"
+        "linux-cacule*"
+        "nvidia"
+        "nvidia-dkms"
+        "nvidia-*xx-dkms"
+        "nvidia-*xx"
+        "nvidia-*lts-dkms"
+        "nvidia*-lts"
+        "mkinitcpio*"
+        "booster*"
+        "mesa"
+        "systemd*"
+        "wayland"
+        "virtualbox-guest-utils"
+        "virtualbox-host-dkms"
+        "virtualbox-host-modules-arch"
+        "egl-wayland"
+        "xf86-video-*"
+        "xorg-server*"
+        "xorg-fonts*"
+        "winesync-dkms"
+    )
+
+    if [ "$arch" = true ]; then
+        printMsg "$UPGRADE_FULL_ARCH"
+        echo
+
+        [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
+
+        if [ -n "$preExec" ]; then
+            run "$preExec"
+            printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+        fi
+
+        if [ "$rebootSystem" = true ]; then
+            for package in "${critical_packages[@]}"; do
+                matches=$(pacman -Qq | grep -E "^${package//\*/.*}$")
+                [ -n "$matches" ] && critical_installed+=($matches)
+            done
+
+            declare -A beforeVersions
+            for pkg in "${critical_installed[@]}"; do
+                beforeVersions[$pkg]=$(pacman -Q $pkg | awk '{print $2}')
+            done
+        fi
+
+        run "$bin -Syu $archFlags"
+
+        for pkg in "${critical_installed[@]}"; do
+            afterVersion=$(pacman -Q $pkg | awk '{print $2}')
+            if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
+                critical_updated+=("$pkg")
+            fi
+        done
+    fi
+
+    if [ "$flatpak" = true ]; then
+        printMsg "$UPGRADE_FULL_FLATPAK"
+        echo
+
+        run "flatpak update $flatpakFlags"
+
+        if [ "$flatpakRemoveUnused" = true ]; then
+            echo
+            run "flatpak uninstall --unused $flatpakFlags"
+        fi
+    fi
+
+    if [ "$widgets" = true ]; then
+        printMsg "$UPGRADE_FULL_WIDGETS"
+        echo
+        run "$scriptDir/widgets upgradeAll" noPrint
+    fi
+
+    if [ -n "$postExec" ]; then
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+        run "$postExec"
+    fi
+
+    trap ' ' SIGINT
+
+    endTime=$(date +%s)
+    runTime=$((endTime-startTime))
+    echo
+    printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
+
+    # if [ "$idleInhibit" = true ]; then
+    #     qdbus6 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText \
+    #     system-suspend-uninhibited "Idle inhibition has been disabled"
+    # fi
+
+    if [ ${#critical_updated[@]} -gt 0 ]; then
+        echo
+        printImportant "$UPGRADE_CRITICAL" "${critical_updated[*]}"
+        while true; do
+            printQuestion "$UPGRADE_REBOOT"; read -r answer
+            case "$answer" in
+                    [Yy]*) qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot;;
+                 [Nn]*|"") break;;
+                        *)  ;;
+            esac
+        done
+    fi
+
+    printClose
+}
+
+arch_package() {
+    printMsg "$UPGRADE_PACKAGE: $1"
+    echo
+
+    printImportant "$UPGRADE_WIKI"
+    printImportant "$UPGRADE_PARTIAL"
+    echo
+
+    printExec "$bin -Sy" $1
+
+    $bin -Sy $1
+
+    printClose
+}
+
+flatpak_package() {
+    printMsg "$UPGRADE_PACKAGE: $2"
+    echo
+
+    printExec "flatpak update" "$1 $flatpakFlags"
+
+    flatpak update $1 $flatpakFlags
+
+    printClose
+}
+
+widget_package() {
+    printMsg "$UPGRADE_PACKAGE: $2"
+    echo
+
+    $scriptDir/widgets upgrade $1 $2
+
+    printClose
+}
+
+postUpgrade() {
+    local list=""
+    [ "$arch" = true ] && list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
+    [ "$flatpak" = true ] && list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
+    [ "$widgets" = true ] && list+=$($scriptDir/widgets list)
+    echo "[${list%,}]"
+}
+
+case "$1" in
+          "full") fullSystemUpgrade ;;
+          "arch") shift; arch_package $1 ;;
+       "flatpak") shift; flatpak_package $1 $2;;
+        "widget") shift; widget_package $1 $2;;
+   "postUpgrade") postUpgrade ;;
+               *) exit;;
+esac

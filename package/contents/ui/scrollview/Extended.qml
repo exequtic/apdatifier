@@ -13,23 +13,24 @@ import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 
 import "../../tools/tools.js" as JS
+import "../components"
 
 ScrollView {
-    ScrollBar.vertical.policy: (count == 0 || busy || error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
+    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.err) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
     contentItem: ListView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Highlight {}
-        highlightMoveDuration: 0
-        highlightResizeDuration: 0
+        highlight: Highlight { visible: sts.idle }
+        highlightMoveDuration: Kirigami.Units.shortDuration
+        highlightResizeDuration: Kirigami.Units.shortDuration
         height: parent.height
 
         delegate: ExpandableListItem {
-            visible: !busy && !error && count > 0
+            visible: sts.pending
             property var pkg: []
             title: model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
-            icon: JS.setPackageIcon(pkgIcons, model.NM, model.RE, model.GR, model.ID, model.IC)
+            icon: model.IC
 
             contextualActions: [
                 Action {
@@ -95,6 +96,7 @@ ScrollView {
 
                     Component.onCompleted: {
                         const details = []
+                        model.TP && details.push(i18n("Package type"), model.TP)
                         model.DE && details.push(i18n("Description"), model.DE)
                         model.AU && details.push(i18n("Author"), model.AU)
                         model.LN && details.push("URL", model.LN)
@@ -116,6 +118,10 @@ ScrollView {
                     }
                 }
             }
+        }
+
+        Placeholder {
+            anchors.fill: parent
         }
     }
 }

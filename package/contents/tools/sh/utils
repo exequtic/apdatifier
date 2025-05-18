@@ -1,0 +1,350 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/vars"
+
+cleanup() {
+    [ -d $tempDir ] && rm -rf $tempDir
+}
+
+makeTempDir() {
+    cleanup
+    mkdir $tempDir
+}
+
+colorize() {
+    local red="\033[31m"
+    local green="\033[32m"
+    local blue="\033[34m"
+    local yellow="\033[33m"
+    local white="\033[37m"
+    local clear="\033[0m"
+    local bold="\033[1m"
+
+    local color="$1"; shift
+    local style=""
+
+    if [[ "$1" == "bold" ]]; then
+        style="${!1}"
+        shift
+    fi
+
+    echo -ne "${!color}${style}$*${clear}"
+}
+
+printDone() {
+    echo -e "$(colorize green bold "$ICO_DONE $1")"
+}
+
+printError() {
+    echo -e "$(colorize red bold "$ICO_ERR $1")"
+}
+
+printImportant() {
+    echo -e "$(colorize yellow bold "$ICO_WARN $1") $2"
+}
+
+printQuestion() {
+    echo -en "$(colorize yellow bold "$ICO_QUESTION $1") [y/N]: "
+}
+
+printExec() {
+    echo -e "$(colorize blue bold "$ICO_EXEC $MNG_EXEC") $(colorize white $wrapper_sudo $1 $2) \n"
+}
+
+printMsg() {
+    local text="$1"
+    local padding=$(( (48 - ${#text} - 2) / 2 ))
+    local l=$(printf ":%.0s" {1..48})
+    local s=$(printf ":%.0s" $(seq 1 $padding))
+    local p=${s}$( (( ${#text} % 2 )) && echo ":" )
+
+    echo
+    echo -e "$(colorize green bold $l)"
+    echo -e "$(colorize green bold $s) $(colorize white bold $text) $(colorize green bold $p)"
+    echo -e "$(colorize green bold $l)"
+}
+
+printReturn() {
+    tput civis
+    echo
+    echo -e "$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
+    read -r
+    tput cnorm
+}
+
+printClose() {
+    tput civis
+    printMsg "$UPGRADE_ENTER"
+    read -r
+    tput cnorm
+    [[ $(basename $terminal) = "yakuake" ]] && qdbusCMD sessions removeSession $(qdbusCMD sessions activeSessionId)
+}
+
+printWhile() {
+    tput sc
+    pid=$1
+    spinner $pid "$2"
+    wait $pid
+    exitCode=$?
+    tput rc
+    tput ed
+
+    [[ $exitCode -eq 0 ]] && printDone "$2" || printError "$2"
+
+    if [[ "$2" = "$WIDGETS_FETCH" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_API_FAIL" ;;
+            2) printError "$WIDGETS_ERR_API" ;;
+            3) printError "$WIDGETS_ERR_UNKNOWN" ;;
+        esac
+    elif [[ "$2" = "$WIDGETS_LINK" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_NOFILES. $UPGRADE_SKIPPED" ;;
+            2) printError "$WIDGETS_ERR_NOTAGGED $latestVer. $UPGRADE_SKIPPED" ;;
+            3) printError "$WIDGETS_ERR_TAGGED $latestVer. $UPGRADE_SKIPPED" ;;
+        esac
+    elif [[ "$2" = "$WIDGETS_DOWNLOADING" ]]; then
+        case $exitCode in
+            1) printError "$WIDGETS_ERR_PACKAGE_FAIL" ;;
+            2) printError "$WIDGETS_ERR_EXT" ;;
+            3) printError "$WIDGETS_ERR_NO_JSON" ;;
+            4) printError "$WIDGETS_ERR_JSON" ;;
+        esac
+    fi
+}
+
+qdbusCMD() {
+    qdbus6 org.kde.yakuake /yakuake/$1 "${@:2}"
+}
+
+dependencies() {
+    for cmd in ${1}; do
+        if ! command -v "$cmd" >/dev/null; then
+            printError "${CMD_ERR} ${cmd}"
+            [ $2 ] && returnMenu || exit
+        fi
+    done
+}
+
+oneLine() {
+    tr '\n' ' ' | sed 's/ $//'
+}
+
+spinner() {
+    local spin="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+    while kill -0 $1 2>/dev/null; do
+        i=$(( (i+1) %10 ))
+        printf "\r$(colorize red ${spin:$i:1}) $(colorize blue bold "$2...")"
+        sleep .2
+    done
+}
+
+clearVer() {
+    local ver="${1}"
+    ver="${ver#.}"
+    ver="${ver%.}"
+    ver="${ver//[!0-9.]}"
+    echo "${ver}"
+}
+
+compareVer() {
+    [[ $1 == $2 ]] && return 0
+    local IFS=.; local i ver1=($1) ver2=($2)
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do ver1[i]=0; done
+    for ((i=0; i<${#ver1[@]}; i++)); do
+        [[ -z ${ver2[i]} ]] && ver2[i]=0
+        ((10#${ver1[i]} > 10#${ver2[i]})) && return 1
+        ((10#${ver1[i]} < 10#${ver2[i]})) && return 2
+    done
+    return 0
+}
+
+getId() {
+    [[ $1 =~ ^[0-9]+$ ]] && f=2 || f=1
+    grep $1 "$(dirname "$0")/widgets-id" | cut -d' ' -f$f
+}
+
+restartPlasmashell() {
+    if [[ "$restartShell" = true ]]; then
+        sleep 1
+        while true; do
+            printQuestion "$WIDGETS_RESTART"; read -r answer
+            case "$answer" in
+                    [Yy]*) break;;
+                 [Nn]*|"") exit;;
+                        *)  ;;
+            esac
+        done
+        eval ${restartCommand}
+    else
+        printImportant "$WIDGETS_WARN"
+    fi
+}
+
+combineFiles() {
+    sleep 1
+    [ -f "$1" ] && rm "$1"
+    for cache in $(find $configDir -name "updates.json_*" | sort); do
+        cat "$cache" >> "$1"; rm "$cache"
+    done
+}
+
+updateJson() {
+    echo "$2" > "$1.tmp" && mv "$1.tmp" "$1"
+}
+
+rss() {
+    command -v jq >/dev/null || { echo "${CMD_ERR} jq" >&2; return 127; }
+
+    makeTempDir
+    trap cleanup EXIT
+
+    local newsFile="$configDir/news.json"
+
+    if [[ ! -s "$newsFile" ]] \
+    || ! jq -e '.' "$newsFile" >/dev/null 2>&1 \
+    || ! jq -e '[.[] | .date | strptime("%d.%m.%Y | %H:%M")] | length == length' "$newsFile" >/dev/null 2>&1; then
+        echo '[]' > "$newsFile"
+    fi
+
+    for url in "$@"; do
+        local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
+        curl -s -o "$rssFile" --connect-timeout 5 --retry 2 --max-time 60 --url "$url" 2>/dev/null
+        xmllint --noout "$rssFile" 2>/dev/null || { echo $url; exit 1; }
+
+        local title=$(xmllint --xpath "string(/rss/channel/title)" $rssFile)
+        local article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" $rssFile)
+        local date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' $rssFile)" +"%d.%m.%Y | %H:%M")
+        local link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" $rssFile)
+
+        [[ -z "$title" || -z "$article" || -z "$date" || -z "$link" ]] && { echo $url; exit 1; }
+
+        while (( $(jq "[.[] | select(.title == \"$title\")] | length" "$newsFile") > newsKeep )); do
+            index=$(jq --arg title "$title" 'to_entries | reverse | map(select(.value.title == $title)) | .[0].key' $newsFile)
+            updateJson $newsFile "$(jq --argjson index "$index" "del(.[$index])" $newsFile)"
+        done
+
+        if ! jq -e ".[] | select(.link == \"$link\")" $newsFile > /dev/null; then
+            local item=$(jq -n --arg t "$title" --arg a "$article" --arg d "$date" --arg l "$link" '{title: $t, article: $a, date: $d, link: $l, removed: false}')
+            updateJson $newsFile "$(jq "[$item] + ." $newsFile)"
+        fi
+    done
+
+    updateJson $newsFile "$(jq 'sort_by(.date | strptime("%d.%m.%Y | %H:%M") | mktime) | reverse' $newsFile)"
+
+    jq . $newsFile
+}
+
+install_devel() {
+    printMsg "Downloading devel"
+    echo
+
+    required="git jq"
+    for cmd in ${required}; do command -v "$cmd" >/dev/null || { printError "Required installed ${cmd}"; printClose; exit; }; done;
+
+    commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
+
+    if [[ "github commit: $commit" = "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" ]]; then
+        printDone "Up to date"
+        printClose
+        exit
+    fi
+
+    savedir=$(pwd)
+    clonedir=$(mktemp -d)
+    cd $clonedir
+
+    { git clone -n --depth=10 --filter=tree:0 -b main https://github.com/exequtic/apdatifier 2>/dev/null
+    } & printWhile $! "Clone main branch"
+    [[ $exitCode -ne 0 ]] && { printClose; exit; }
+
+    cd apdatifier
+
+    { git sparse-checkout set --no-cone package 2>/dev/null && git checkout 2>/dev/null
+    } & printWhile $! "Checkout package directory"
+    [[ $exitCode -ne 0 ]] && { printClose; exit; }
+
+    if command -v less &>/dev/null; then
+        echo
+        printImportant "Last 10 commits:"
+        git log --oneline
+        sleep 2
+    fi
+
+    echo
+    printMsg "Upgrading Apdatifier"
+    echo
+    cd package || exit 1
+    updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
+    while true; do
+        printQuestion "Do you want build translations?"; read -r answer
+        case "$answer" in
+               [Yy]*) cd translate; bash build; cd ..; break;;
+            [Nn]*|"") break;;
+                   *)  ;;
+        esac
+    done
+    echo
+    tar --exclude=./apdatifier.tar -cf apdatifier.tar .
+    kpackagetool6 -t Plasma/Applet -u apdatifier.tar 2>/dev/null
+    echo
+
+    cd $savedir
+    [ ! -d $clonedir ] || rm -rf $clonedir
+
+    restartShell=true
+    restartPlasmashell
+
+    printClose
+    exit
+}
+
+install_stable() {
+    if [[ "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" = "Arch Update Notifier" ]]; then
+        while true; do
+            printImportant "It looks like you already have the stable version."
+            printQuestion "Do you still want to proceed?"; read -r answer
+            case "$answer" in
+                   [Yy]*) break;;
+                [Nn]*|"") printClose; exit;;
+                       *)  ;;
+            esac
+        done
+    fi
+
+    $scriptDir/upgrade widget "2135796" "Apdatifier"
+}
+
+uninstall() {
+    printExec "Remove icons"; sleep 1
+    for icon in $icon1 $icon2 $icon3 $icon4; do
+        test -f "$iconsDir/$icon" && rm "$iconsDir/$icon"
+    done
+    test -d "$iconsDir" && rmdir -p --ignore-fail-on-non-empty "$iconsDir"
+
+    printExec "Remove $notif"; sleep 1
+    test -f "$notifDir/$notif" && rm "$notifDir/$notif"
+    test -d "$notifDir" && rmdir -p --ignore-fail-on-non-empty "$notifDir"
+
+    printExec "Remove configuration"; sleep 1
+    test -d "$configDir" && rm -rf "$configDir"
+
+    printExec "Remove widget"; sleep 1
+    kpackagetool6 -t Plasma/Applet -r $applet 2>/dev/null
+
+    echo; echo "Bye :("; sleep 1
+
+    printClose
+    exit
+}
+
+case "$1" in
+             "rss") shift; rss "$@" ;;
+    "combineFiles") shift; combineFiles $1 ;;
+      "installDev") install_devel ;;
+   "installStable") install_stable ;;
+       "uninstall") uninstall ;;
+esac

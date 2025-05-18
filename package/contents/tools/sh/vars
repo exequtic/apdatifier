@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+scriptDir=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+
+applet="com.github.exequtic.apdatifier"
+configDir="$HOME/.config/apdatifier"
+localDir="$HOME/.local/share"
+iconsDir="$localDir/icons/breeze/status/24"
+notifDir="$localDir/knotifications6"
+appletDir="$localDir/plasma/plasmoids/$applet"
+tempDir="/tmp/apdatifier"
+
+config="$configDir/config.conf"
+icon1="apdatifier-plasmoid.svg"
+icon2="apdatifier-packages.svg"
+icon3="apdatifier-package.svg"
+icon4="apdatifier-flatpak.svg"
+notif="apdatifier.notifyrc"
+
+export TEXTDOMAINDIR="$scriptDir/../../locale"
+export TEXTDOMAIN="plasma_applet_${applet}"
+
+source $config
+
+declare -a var_names=(
+    UPGRADE_PROGRESS
+    UPGRADE_FULL_ARCH
+    UPGRADE_FULL_FLATPAK
+    UPGRADE_FULL_WIDGETS
+    UPGRADE_PACKAGE
+    UPGRADE_WIKI
+    UPGRADE_PARTIAL
+    UPGRADE_EXECTIME
+    UPGRADE_CRITICAL
+    UPGRADE_REBOOT
+    UPGRADE_ENTER
+    UPGRADE_SKIPPED
+    MIRRORS_FETCH
+    MIRRORS_RANK
+    MIRRORS_ERR
+    MIRRORS_UPD
+    MIRRORS_SUDO
+    MIRROR_TIME
+    WIDGETS_WARN
+    WIDGETS_CHECK
+    WIDGETS_FETCH
+    WIDGETS_LINK
+    WIDGETS_DOWNLOADING
+    WIDGETS_PROCEED
+    WIDGETS_RESTART
+    WIDGETS_NODESC
+    WIDGETS_ERR_API
+    WIDGETS_ERR_API_FAIL
+    WIDGETS_ERR_UNKNOWN
+    WIDGETS_ERR_NO_JSON
+    WIDGETS_ERR_JSON
+    WIDGETS_ERR_EXT
+    WIDGETS_ERR_NOFILES
+    WIDGETS_ERR_NOTAGGED
+    WIDGETS_ERR_TAGGED
+    WIDGETS_ERR_PACKAGE_FAIL
+    MNG_OPT_01
+    MNG_OPT_02
+    MNG_OPT_03
+    MNG_OPT_04
+    MNG_OPT_05
+    MNG_OPT_06
+    MNG_OPT_07
+    MNG_OPT_08
+    MNG_OPT_09
+    MNG_OPT_10
+    MNG_OPT_11
+    MNG_OPT_12
+    MNG_WARN
+    MNG_RESUME
+    MNG_RETURN
+    MNG_SEARCH 
+    MNG_EXEC
+    MNG_DONE
+    CMD_ERR
+)
+
+i=0
+while IFS= read -r line && [ $i -lt ${#var_names[@]} ]; do
+    i=$((i+1))
+    text=$(echo "$line" | grep -oP '(?<=\().*(?=\))' | sed 's/"//g')
+    eval "${var_names[$((i-1))]}=\"$(gettext "$text")\""
+done < "$scriptDir/messages"
+
+if [[ $termFont = "true" ]]; then
+    ICO_MNG_OPT_01="󱝩 "
+    ICO_MNG_OPT_02="󱝫 "
+    ICO_MNG_OPT_03="󱝭 "
+    ICO_MNG_OPT_04="󱝭 "
+    ICO_MNG_OPT_05="󱝧 "
+    ICO_MNG_OPT_06=" "
+    ICO_MNG_OPT_07="󱝥 "
+    ICO_MNG_OPT_08="󱝝 "
+    ICO_MNG_OPT_09="󱝝 "
+    ICO_MNG_OPT_10="󰌠 "
+    ICO_MNG_OPT_11="󱘴 "
+    ICO_MNG_OPT_12=" "
+    
+    ICO_ERR=""
+    ICO_DONE=""
+    ICO_WARN="󱇎"
+    ICO_QUESTION=""
+    ICO_EXEC="󰅱"
+    ICO_RETURN="󰄽"
+    ICO_SELECT="󰄾"
+else
+    ICO_ERR="✘"
+    ICO_DONE="✔"
+    ICO_WARN="::"
+    ICO_QUESTION="::"
+    ICO_EXEC="::"
+    ICO_RETURN="<<"
+    ICO_SELECT=">"
+fi
+
+fzf_settings="--preview-window "right:70%" --height=100% \
+              --layout=reverse --info=right --border=none \
+              --multi --track --exact  --margin=0 --padding=0 \
+              --cycle --prompt=$MNG_SEARCH⠀ --marker=•"

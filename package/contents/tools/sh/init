@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+configDir=$HOME/.config/apdatifier
+config=$configDir/config.conf
+test -d $configDir || mkdir -p $configDir
+test -f $config || touch $config
+
+source $(dirname "$0")/vars
+
+for dir in $iconsDir $notifDir; do
+    test -d $dir || mkdir -p $dir
+done
+
+for icon in $icon1 $icon2 $icon3 $icon4; do
+    test -f $iconsDir/$icon || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
+done
+
+test -d $notifDir && cat > $notifDir/$notif << EOF
+[Global]
+IconName=apdatifier-plasmoid
+Comment=Apdatifier
+
+[Event/updates]
+Name=New updates
+Comment=Event when updates notification enabled without sound
+Action=Popup
+
+[Event/updatesSound]
+Name=New updates (with sound)
+Comment=Event when updates notification enabled with sound
+Action=Popup|Sound
+Sound=service-login
+
+[Event/error]
+Name=Error
+Comment=Event when error notification enabled without sound
+Action=Popup
+
+[Event/errorSound]
+Name=Error (with sound)
+Comment=Event when errors notification enabled with sound
+Action=Popup|Sound
+Sound=dialog-error-serious
+
+[Event/news]
+Name=News
+Comment=Event when news notification without sound
+Action=Popup
+
+[Event/newsSound]
+Name=News (with sound)
+Comment=Event when news notification with sound
+Action=Popup|Sound
+Sound=dialog-information
+EOF

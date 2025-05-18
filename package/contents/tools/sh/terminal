@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
+# SPDX-License-Identifier: MIT
+
+source "$(dirname "$0")/utils"
+
+declare -A termArg=( ["gnome-terminal"]="--" ["ptyxis"]="--" ["terminator"]="-x" )
+name="${1^}"
+sess="Apdatifier"
+term="$(basename $terminal)"
+termArg="${termArg[$term]:-"-e"}"
+scr="$(dirname "$0")/$1"
+arg="${@:2}"
+
+# Ghostty requires additional quotes
+[[ $term = ghostty ]] && Q="'"
+
+_attach="${Q}tmux attach-session -t $sess \; select-window -t $name${Q}"
+_script="${Q}$scr $arg${Q}"
+
+[[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
+
+run_terminal() {
+    $term $termArg bash -c "$1"
+}
+run_yakuake() {
+    qdbusCMD sessions runCommandInTerminal $session "bash -c '$1'"
+}
+create_tmux_session() {
+    ! tmux has-session -t "$sess" 2>/dev/null && {
+        tmux new-session -d -s "$sess" -n "$name" "bash -c '$scr $arg'"
+    } || {
+        ! tmux list-windows -t "$sess" | grep -wq "$name" && {
+            tmux new-window -t "$sess:" -n "$name" "bash -c '$scr $arg'"
+        }
+    }
+}
+
+
+if [[ $term = "yakuake" ]]; then
+    session=$(qdbusCMD sessions addSession)
+    visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
+    qdbusCMD tabs org.kde.yakuake.setTabTitle $session $name
+    if (( _TMUX )); then
+        create_tmux_session
+        run_yakuake "$_attach"
+    else
+        run_yakuake "tput sc; clear; $_script"
+    fi
+    [[ $visible = "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
+elif (( _TMUX )); then
+    create_tmux_session
+    run_terminal "$_attach"
+else
+    run_terminal "$_script"
+fi

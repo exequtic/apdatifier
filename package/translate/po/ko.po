@@ -1,646 +1,621 @@
-# Translation of apdatifier in fr
-# Copyright (C) 2025
+# Translation of apdatifier in ko
+# Copyright (C) 2024
 # This file is distributed under the same license as the apdatifier package.
-# foXaCe, 2025
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-05-15 21:30+0300\n"
-"PO-Revision-Date: 2024-06-02 20:39+0200\n"
-"Last-Translator: foXaCe\n"
+"PO-Revision-Date: 2024-07-02 17:18+0900\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.4.2\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
-msgstr "Général"
+msgstr "일반"
 
 #: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
-msgstr "Mettre à jour"
+msgstr "업그레이드"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
-msgstr "Apparence"
+msgstr "모양새"
 
 #: ../contents/config/config.qml
 msgid "Rules"
-msgstr "Règles"
+msgstr "규칙"
 
 #: ../contents/config/config.qml
 msgid "Support me"
-msgstr "Me soutenir"
+msgstr "지원하기"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Upgrade in progress"
-msgstr "Mise à niveau en cours"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
-msgstr "Mise à jour complète du système"
+msgstr "전체 시스템 업그레이드"
 
 #: ../contents/tools/sh/messages
 msgid "Flatpak Upgrade"
-msgstr "Mise à jour Flatpak"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr "Mise à jour des widgets Plasma"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Lire le Wiki Arch - Mises à niveau partielles"
+msgstr "Arch Wiki를 참조 - 부분 업그레이드"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr ""
-"Effectuez une mise à niveau complète du système au lieu d’une mise à niveau "
-"partielle !"
+msgstr "부분 업그레이드 대신 전체 시스템 업그레이드를 하십시오!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
-msgstr "Temps d'exécution total :"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
 msgstr ""
-"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
-msgstr "Voulez-vous redémarrer maintenant ?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
-msgstr "Appuyez sur Entrée pour fermer"
+msgstr "Enter 키를 눌러 닫기"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr "Ignoré..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
-msgstr "Obtenir une liste des derniers miroirs filtrés"
+msgstr "필터 된 미러리스트를 받아오고 있습니다"
 
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed"
-msgstr "Trier les miroirs selon leur vitesse de connexion et d'ouverture"
+msgstr "연결 속도에 따라 미러의 순위를 산정하고 있습니다"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
-msgstr "Vérifiez les paramètres du générateur de liste de miroirs..."
+msgstr "미러리스트 생성 설정을 확인해 주십시오."
 
 #: ../contents/tools/sh/messages
 msgid "was updated with the following servers:"
-msgstr "a été mis à jour avec les serveurs suivants :"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
-"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr "미러리스트 파일을 변경하기 위해서는 sudo 권한이 필요합니다."
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
-msgstr "Votre liste de miroirs actuelle :"
+msgstr "현재 미러리스트:"
 
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
 msgstr ""
-"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
-"plasmashell après la mise à niveau"
+"일부 위젯은 업그레이드 후 로그아웃해야 하거나 plasmashell을 다시 시작하셔야 "
+"합니다"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
-msgstr "Vérification des mises à jour des widgets"
+msgstr "위젯 업데이트를 확인하는 중"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr "Récupération des données de l'API"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
-msgstr "Obtention du lien de téléchargement"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Downloading package"
-msgstr "Téléchargement du paquet"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr "Procéder à la mise à niveau ?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
-msgstr "Redémarrer plasmashell maintenant ?"
+msgstr "plasmashell을 다시 시작하시겠습니까?"
 
 #: ../contents/tools/sh/messages
 msgid "No description"
-msgstr "Aucune description"
+msgstr "설명 없음"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
 msgstr ""
-"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
-"Veuillez réessayer plus tard"
+"15분 내 당신의 IP 주소로 많은 API 요청이 들어왔습니다. 다시 시도하십시오"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr "Échec de la récupération des données de l'API"
+msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
-msgstr "Erreur inconnue"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "File metadata.json not found"
-msgstr "Fichier metadata.json introuvable"
+msgstr "metadata.json 파일을 찾을 수 없음"
 
 #: ../contents/tools/sh/messages
 msgid "Errors in metadata.json file"
-msgstr "Erreurs dans le fichier metadata.json"
+msgstr "metadata.json 파일에서 오류"
 
 #: ../contents/tools/sh/messages
 msgid "Unsupported file format"
-msgstr "Format de fichier non pris en charge"
+msgstr "지원하지 않는 파일 포맷입니다."
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr "Aucun fichier à télécharger"
+msgstr "다운로드 할 파일이 없습니다."
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr "Aucun fichier étiqueté avec la version"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr "Plusieurs fichiers sont étiquetés avec la version"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr "Échec du téléchargement du paquet"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
-msgstr "Répertorier tous les paquets disponibles dans les dépôts"
+msgstr "저장소에 있는 사용 가능한 모든 패키지 목록"
 
 #: ../contents/tools/sh/messages
 msgid "List all installed packages"
-msgstr "Lister tous les paquets installés"
+msgstr "모든 설치된 패키지 목록"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages"
-msgstr "Répertorier les paquets explicitement installés"
+msgstr "명시적으로 설치된 패키지 목록"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr ""
-"Répertorie les paquets explicitement installés qui ne sont dépendances "
-"d'aucun autre paquet"
+msgstr "의존성이 없는 명시된 패키지 목록"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr ""
-"Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
+msgstr "더 이상 필요하지 않은 의존성 설치 목록"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
-msgstr "Désinstaller les paquets orphelins"
+msgstr "실종된 패키지 삭제"
 
 #: ../contents/tools/sh/messages
 msgid "Install (downgrade) a package from cache"
-msgstr "Installer (rétrograder) un package à partir du cache"
+msgstr "캐시로부터 다운그레이드 패키지 설치"
 
 #: ../contents/tools/sh/messages
 msgid "Remove ALL cached packages"
-msgstr "Supprimer TOUS les paquets en cache"
+msgstr "모든 캐시된 패키지 제거"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr ""
-"Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
+msgstr "현재 설치되지 않은 캐시된 패키지 제거"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Reconstruire les paquets Python AUR après la mise à niveau de Python"
+msgstr "Python 업그레이드 후 AUR Python 패키지 재빌드"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrorlist"
-msgstr "Actualiser la liste de miroirs"
+msgstr "미러리스트 새로 고침"
 
 #: ../contents/tools/sh/messages
 msgid "Exit"
-msgstr "Sortir"
+msgstr "나가기"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
-msgstr "Examinez les avertissements de dépendance avant de supprimer"
+msgstr "삭제 전 의존성 경고를 확인하십시오"
 
 #: ../contents/tools/sh/messages
 msgid "Resume?"
-msgstr "Reprendre ?"
+msgstr "계속하시겠습니까?"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to return menu"
-msgstr "Appuyez sur Entrée pour revenir au menu"
+msgstr "메뉴로 돌아가려면 Enter를 누르시오"
 
 #: ../contents/tools/sh/messages
 msgid "Search:"
-msgstr "Recherche :"
+msgstr "검색:"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
-msgstr "Exécuté :"
+msgstr "실행됨:"
 
 #: ../contents/tools/sh/messages
 msgid "Nothing to do"
-msgstr "Rien à faire"
+msgstr "할 일 없음"
 
-# Required installed <util name>
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
-msgstr "Installation requise"
+msgstr "설치에 필요"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr "Code de sortie : "
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
-msgstr "Vérification des dernières nouvelles..."
+msgstr "최근 소식 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "Cannot fetch news "
-msgstr "Impossible de récupérer les actualités "
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
-msgstr "Vérification des mises à jour du système..."
+msgstr "시스템 업데이트 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
-msgstr "Vérification des mises à jour de Flatpak..."
+msgstr "Flatpak 업데이트 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets updates..."
-msgstr "Vérification des mises à jour des widgets..."
+msgstr "위젯 업데이트 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
-msgstr "Impossible de vérifier les widgets : "
+msgstr "위젯을 확인할 수 없음: "
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr "dernier commit"
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
-msgstr[0] "+%1 nouvelle mise à jour"
-msgstr[1] "+%1 nouvelles mises à jour"
+msgstr[0] "새 업데이트 +%1"
 
 #: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
-msgstr[0] "mise à jour en attente"
-msgstr[1] "mises à jour en attente"
+msgstr[0] "업데이트 대기 중"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
-msgstr "Dernière vérification :"
+msgstr "최근 확인:"
 
 #: ../contents/tools/tools.js
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] "%1 seconde"
-msgstr[1] "%1 secondes"
+msgstr[0] "%1 초"
 
 #: ../contents/tools/tools.js
 msgid "%1 minute"
 msgid_plural "%1 minutes"
-msgstr[0] "%1 minute"
-msgstr[1] "%1 minutes"
+msgstr[0] "%1 분"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
 msgid_plural "%1 hours"
-msgstr[0] "%1 heure"
-msgstr[1] "%1 heures"
+msgstr[0] "%1 시간"
 
 #: ../contents/tools/tools.js
 msgid "ago"
-msgstr "depuis"
+msgstr "전에"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
-msgstr "Aucune"
+msgstr "없음"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Check updates"
-msgstr "Vérifier les mises à jour"
+msgstr "업데이트 확인"
 
 #: ../contents/ui/components/ComboBox.qml
 #: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
-msgstr "Mise à niveau système"
+msgstr "시스템 업그레이드"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
-msgstr "Intervalle de changement"
+msgstr "업데이트 주기 변경"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Management"
-msgstr "Gestion"
+msgstr "관리"
 
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
-msgstr "Système mis à jour"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
-msgstr "Affichage des icônes du panneau"
+msgstr "패널 아이콘 보기"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
-msgstr "Vue en liste"
+msgstr "목록 보기"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
-msgstr "Affiché lorsque"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] "mise à jour en attente"
-msgstr[1] "mises à jour en attente"
+msgstr[0] "업데이트 대기 중"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
-msgstr "Défaut"
+msgstr "기본"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Select..."
-msgstr "Sélectionner..."
+msgstr "선택..."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default icon"
-msgstr "Icône par défaut"
+msgstr "기본 아이콘"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
-msgstr "Intervalle interrompu"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
-msgstr "Activer"
+msgstr "사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
-msgstr "Compteur"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Color"
-msgstr "Couleur"
+msgstr "색상"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
-msgstr "Couleur par défaut"
+msgstr "기본 색상"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Select counter background color"
-msgstr "Sélectionnez la couleur de fond du compteur"
+msgstr "카운터 배경 색상 선택"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default background color from current theme"
-msgstr "Couleur d'arrière-plan par défaut du thème actuel"
+msgstr "현재 테마로부터 기본 배경색 설정"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Size"
-msgstr "Taille"
+msgstr "크기"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Radius"
-msgstr "Rayon"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Opacity"
-msgstr "Opacité"
+msgstr "투명도"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shadow"
-msgstr "Ombre"
+msgstr "그림자"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font"
-msgstr "Police"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default system font"
-msgstr "Police système par défaut"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr "Gras"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr "Taille de police"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr "Espacement à gauche"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
-msgstr "Marges latérales"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
-msgstr "Décalage"
+msgstr "오프셋"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Position"
-msgstr "Position"
+msgstr "위치"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Center"
-msgstr "Centre"
+msgstr "중앙"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
-msgstr "En haut à gauche"
+msgstr "좌측 상단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Right"
-msgstr "En haut à droite"
+msgstr "우측 상단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Left"
-msgstr "En bas à gauche"
+msgstr "좌측 하단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
-msgstr "En bas à droite"
+msgstr "우측 하단"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
-msgstr "Utiliser les icônes intégrées"
+msgstr "기본 아이콘 사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr ""
-"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
-"par défaut à la place."
+msgstr "아이콘 테마 대신 Apdatifier 아이콘 사용"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
-msgstr "Vue"
+msgstr "보기"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
-msgstr "Compacte"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
-msgstr "Étendue"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
-msgstr "Tri"
+msgstr "정렬"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr "Par référentiel"
+msgstr "저장소 이름"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
-msgstr "Par nom"
+msgstr "패키지 이름"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
-msgstr "En-tête"
+msgstr "헤더"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show status"
-msgstr "Afficher l'état"
+msgstr "상태 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
-msgstr "Afficher la barre d'outils"
+msgstr "툴바 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
-msgstr "Pied de page"
+msgstr "푸터"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
-msgstr "Afficher la barre d'onglets"
+msgstr "탭바 표시"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
-msgstr "Afficher les textes des onglets"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Development version"
-msgstr "Installer la version de développement"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Stable version"
-msgstr "Installer la version stable"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Uninstall widget"
-msgstr "Désinstaller le widget"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
-msgstr "Remarque : la version avec les derniers commits peut être instable."
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Note: if you haven't installed the Devel version before, there's no need to "
 "install the Stable version."
 msgstr ""
-"Remarque : si vous n'avez pas installé la version de développement "
-"auparavant, il n'est pas nécessaire d'installer la version stable."
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Removal of the widget and all related files, including the directory with "
 "its configuration."
 msgstr ""
-"Suppression du widget et de tous les fichiers associés, y compris le "
-"répertoire avec sa configuration."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
-msgstr "Recherche"
+msgstr "검색"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "알림"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
-msgstr "Actions de la souris"
+msgstr "마우스 동작"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr "Divers"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"La configuration est automatiquement enregistrée dans un fichier de "
-"configuration et chargée à chaque démarrage, garantissant que vous ne "
-"perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
+"설정은 자동으로 설정 파일에 저장되며, 세션 시작 시마다 로드 되어 설정이 유실"
+"되지 않도록 합니다. 설정 파일 위치: "
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 " not installed! Highly recommended to install it for getting the latest "
 "updates without the need to download fresh package databases."
 msgstr ""
-" n'est pas installé ! Il est fortement recommandé de l'installer pour "
-"obtenir les dernières mises à jour sans avoir besoin de télécharger de "
-"nouvelles bases de données de paquets."
+" 이(가) 설치되지 않았습니다! 새 패키지를 다운 받을 필요 없이 최신 버전으로 업"
+"데이트 할 수 있으므로 적극 추천합니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
-msgstr "Intervalle"
+msgstr "확인 주기"
 
 #: ../contents/ui/configuration/General.qml
 msgid "minutes"
-msgstr "minutes"
+msgstr "분"
 
 #: ../contents/ui/configuration/General.qml
 msgid "The current timer is reset when either of these settings is changed."
-msgstr ""
-"Le minuteur actuel est réinitialisé lorsque l'un de ces paramètres est "
-"modifié."
+msgstr "이러한 설정 중 하나를 변경하면 현재 타이머가 재설정됩니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Check on start up"
-msgstr "Vérifier au démarrage"
+msgstr "시작 시 확인하기"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -649,35 +624,34 @@ msgid ""
 "will be initiated after a specified time interval has passed since the "
 "widget was started. <b>Recommended.</b>"
 msgstr ""
-"Si l'option est <b>activée</b>, la vérification des mises à jour commencera "
-"immédiatement au démarrage du widget.<br><br>Si l'option est <b>désactivée</"
-"b>, la vérification des mises à jour sera lancée après un intervalle de "
-"temps spécifié depuis le démarrage du widget. <b>Recommandé.</b>"
+"이 옵션이 <b>활성화</b>될 시, 위젯이 시작되는 즉시 업데이트 확인이 시작됩니"
+"다.<br><br>이 옵션이 <b>비활성화</b>될 시, 위젯이 시작된 후 지정된 시간이 지"
+"나면 업데이트 확인이 시작됩니다. <b>권장됨</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
-msgstr "Mises à jour"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
-msgstr "Dépôts officiels Arch"
+msgstr "Arch 공식 저장소"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr "Dépôt utilisateur Arch"
+msgstr "Arch 사용자 저장소"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
-msgstr "Applications Flatpak"
+msgstr "Flatpak 앱"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
-msgstr "Pas installé"
+msgstr "설치되지 않음"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Plasma Widgets"
-msgstr "Widgets Plasma"
+msgstr "Plasma 위젯"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -685,40 +659,39 @@ msgid ""
 "and specify the name of the applet and its version <b>exactly</b> as they "
 "appear on the KDE Store."
 msgstr ""
-"<br><br>Pour les développeurs de widgets :<br>N'oubliez pas de mettre à jour "
-"le fichier metadata.json et de spécifier le nom de l'applet et sa version "
-"<b>exactement</b> tels qu'ils apparaissent sur le KDE Store."
+"<br><br>위젯 개발자에게:<br>metadata.json 파일을 업데이트하는 것을 잊지 마세"
+"요. and specify the name of the applet and its version <b>exactly</b> as "
+"they appear on the KDE Store."
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr "Actualités"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
-msgstr "Actualités Arch Linux"
+msgstr "아치 리눅스 소식"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Keep"
-msgstr "Conserver"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
-msgstr[0] "élément d'actualité du flux"
-msgstr[1] "éléments d'actualité du flux"
+msgstr[0] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr "Pour les nouvelles mises à jour"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Upgrade button"
-msgstr "Bouton de mise à niveau"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
-msgstr "Pour chaque nouvelle version"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -728,104 +701,94 @@ msgid ""
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
 msgstr ""
-"Si l'option est <b>activée</b>, des notifications seront envoyées lorsqu'une "
-"nouvelle version du paquet est modifiée, même si le paquet est déjà dans la "
-"liste. <b>Plus de notifications.</b> <br><br>Si l'option est <b>désactivée</"
-"b>, les notifications ne seront envoyées que pour les paquets qui ne sont "
-"pas encore dans la liste. <b>Moins de notifications.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr "Pour les actualités"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
-msgstr "Pour les erreurs"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "With sound"
-msgstr "Avec du son"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Persistent"
-msgstr "Persistant"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "To further configure, click the button below -> Application Settings -> "
 "Apdatifier"
 msgstr ""
-"Pour configurer davantage, cliquez sur le bouton ci-dessous -> Paramètres de "
-"l'application -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
-msgstr "Configurer..."
+msgstr "설정..."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Middle click"
-msgstr "Clic du milieu"
+msgstr "가운데 클릭"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Right click"
-msgstr "Clic droit"
+msgstr "오른쪽 클릭"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
 msgstr ""
-"Ne pas activer cette option si le widget n'est pas utilisé dans la barre "
-"d'état système ; sinon, vous ne pourrez pas ouvrir les paramètres en "
-"cliquant avec le bouton droit."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
-msgstr "Défiler vers le haut"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll down"
-msgstr "Défiler vers le bas"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr "Restaurer les info-bulles masquées"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
-msgstr "Sans importance"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Repository"
-msgstr "Dépôt"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact repository match"
-msgstr "Correspondance exacte du dépôt"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Group"
-msgstr "Groupe"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring group match"
-msgstr "Correspondance partielle du groupe"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring"
-msgstr "Sous-chaîne"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring name match"
-msgstr "Correspondance partielle du nom"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact name match"
-msgstr "Correspondance exacte du nom"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid ""
@@ -833,77 +796,70 @@ msgid ""
 "list. Each rule overwrites the previous one, so the list of rules should be "
 "in this order: "
 msgstr ""
-"Ici, vous pouvez remplacer les icônes de paquet par défaut et les exclure de "
-"la liste. Chaque règle remplace la précédente, donc la liste des règles doit "
-"être dans cet ordre : "
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
-msgstr "Afficher dans la liste"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exclude from the list"
-msgstr "Exclure de la liste"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
 msgid "Remove"
-msgstr "Supprimer"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
-msgstr "Ajouter une règle"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
-msgstr "Appliquer"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
 "Thanks for using my widget! If you appreciate my work, you can support me by "
 "starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
-"Merci d'utiliser mon widget ! Si vous appréciez mon travail, vous pouvez me "
-"soutenir en mettant en vedette le dépôt GitHub ou en m'offrant un café ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
-msgstr "Visiter %1"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
-msgstr "Widgets"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "터미널"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
-msgstr "Utiliser les icônes NerdFont"
+msgstr "NerdFont 아이콘 사용"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
 "used."
 msgstr ""
-"Si votre terminal utilise une <b>police Nerd</b>, les icônes de cette police "
-"seront utilisées."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
-msgstr "Session tmux"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr "Scripts de pré/post-mise à niveau"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr "Pré-exécution"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
-msgstr "Chemin de la commande ou du script"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
@@ -911,93 +867,86 @@ msgid ""
 "specify your command to update the mirrorlist if you have unofficial "
 "repositories."
 msgstr ""
-"Exécution de votre commande ou script AVANT la mise à niveau.<br>Par "
-"exemple, vous pouvez spécifier votre commande pour mettre à jour la liste "
-"des miroirs si vous avez des dépôts non officiels."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr "Post-exécution"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Running your command or script AFTER the upgrade.<br>For example, you can "
 "specify your command to upgrade something else."
 msgstr ""
-"Exécution de votre commande ou script APRÈS la mise à niveau.<br>Par "
-"exemple, vous pouvez spécifier votre commande pour mettre à niveau autre "
-"chose."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
-msgstr "Wrapper"
+msgstr "AUR 헬퍼"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr "AUR désactivé dans les paramètres de recherche"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
-msgstr "Options de mise à niveau"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
-msgstr "Redémarrer le système"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
-msgstr "Suggérer après la mise à niveau"
+msgstr "업그레이드 후 권장됨"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
-msgstr "Générateur de liste de miroirs Pacman"
+msgstr "Pacman 미러리스트 생성기"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr "Uniquement pour les dépôts officiels"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
-msgstr "Générateur"
+msgstr "생성"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest before upgrading"
-msgstr "Suggérer avant la mise à niveau"
+msgstr "업그레이드 전 권장됨"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"<br><br>Voir également https://archlinux.org/mirrorlist (cliquez sur le "
-"bouton pour ouvrir le lien)"
+"<br><br>https://archlinux.org/mirrorlist 도 참조하십시오.(클릭 시 링크 열림)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
-msgstr "Protocole"
+msgstr "프로토콜"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "IP version"
-msgstr "Version IP"
+msgstr "IP 버전"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Mirror status"
-msgstr "État du miroir"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
-msgstr "Nombre de sorties"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
-msgstr "Nombre de serveurs à écrire dans le fichier mirrorlist. 0 pour tous."
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"
-msgstr "Pays"
+msgstr "국가"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Select at least one!"
-msgstr "Sélectionnez-en au moins un !"
+msgstr "적어도 한 곳을 고르시오!"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
@@ -1006,189 +955,180 @@ msgid ""
 "to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
 "countries closest to you."
 msgstr ""
-"Vous devez sélectionner au moins un pays, sinon tous seront choisis par "
-"défaut. <br><br><b>Plus vous sélectionnez de pays, plus la génération des "
-"miroirs sera longue !</b> <br><br>Il est optimal de choisir <b>1-2</b> pays "
-"les plus proches de chez vous."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr "Désinstaller les inutilisés"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr "Normal"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr "Normal, sans questions"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr "Non interactif, ignorer les questions"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr "Verbeux"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr "Confirmation de la mise à niveau"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
-msgstr "Redémarrer plasmashell"
+msgstr "plasmashell 재시작"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "After upgrading widget, the old version will still remain in memory until "
 "you restart plasmashell. To avoid doing this manually, enable this option."
 msgstr ""
-"Après la mise à niveau du widget, l'ancienne version restera en mémoire "
-"jusqu'à ce que vous redémarriez plasmashell. Pour éviter de le faire "
-"manuellement, activez cette option."
+"위젯을 업그레이드하면 이전 버전이 plasmashell을 다시 시작할 때까지 여전히 메"
+"모리에 남아있습니다. 이걸 수동으로 하는 것을 피하려면, 이 옵션을 활성화하십시"
+"오."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr "Commande"
+msgstr ""
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
-msgstr "Vérification automatique désactivée"
+msgstr "자동 확인 사용 안 함"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
-msgstr "Filtrer par nom de paquet"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Disable auto search updates"
-msgstr "Désactiver les mises à jour de recherche automatique"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
-msgstr "Activer les mises à jour de recherche automatique"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
-msgstr "Trier les paquets par nom"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
-msgstr "Trier les paquets par dépôt"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
-msgstr "Arrêter la vérification"
+msgstr "확인 중단"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
-msgstr "Vue compacte"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended view"
-msgstr "Vue étendue"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
-msgstr "Consulter les notes de version"
+msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
-msgstr "Ignorer"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
-msgstr "Mettre à niveau le paquet"
+msgstr "패키지 업그레이드"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
-msgstr "Type de paquet"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
-msgstr "Description"
+msgstr "설명"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Author"
-msgstr "Auteur"
+msgstr "원작자"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "App ID"
-msgstr "ID de l'application"
+msgstr "앱 ID"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Branch"
-msgstr "Branche"
+msgstr "브랜치"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Commit"
-msgstr "Commit"
+msgstr "커밋"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Runtime"
-msgstr "Durée d'exécution"
+msgstr "런타임"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Groups"
-msgstr "Groupes"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Provides"
-msgstr "Fournit"
+msgstr "제공"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Depends on"
-msgstr "Dépend de"
+msgstr "의존성"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Required by"
-msgstr "Requis par"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Conflicts with"
-msgstr "En conflit avec"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Replaces"
-msgstr "Remplace"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Installed size"
-msgstr "Taille installée"
+msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Download size"
-msgstr "Taille de téléchargement"
+msgstr "다운로드 크기"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install date"
-msgstr "Date d'installation"
+msgstr "설치 날짜"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
-msgstr "Motif d'installation"
+msgstr "설치 이유"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
-msgstr "Lire l'article"
+msgstr "기사 읽기"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
-msgstr "Aucune nouvelle non lue"
+msgstr ""
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
-msgstr "Restaurer la liste"
-
-#~ msgid "Options"
-#~ msgstr "Options"
+msgstr ""
 
 #~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
+#~ msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq)"
 
 #~ msgid ""
 #~ "You can also switch tabs by dragging the mouse left and right with the "
 #~ "right mouse button held."
-#~ msgstr ""
-#~ "Vous pouvez également changer d'onglet en faisant glisser la souris vers "
-#~ "la gauche et la droite avec le bouton droit bouton de la souris maintenu."
+#~ msgstr "탭을 마우스를 이용해 좌우로 이동할 수도 있습니다."

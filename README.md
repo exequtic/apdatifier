@@ -2,9 +2,13 @@
 
 <img src="./screenshots/header.png" width="200px" alt="banner"/>
 
-<!-- ![License](https://img.shields.io/github/license/exequtic/apdatifier?style=plastic&logo=gnu&color=red)
-![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=plastic&logo=github&color=blue) -->
+<br>
 
+![License](https://img.shields.io/github/license/exequtic/apdatifier?style=flat&logo=gnu&logoColor=white&label=License&color=brown)&nbsp;&nbsp;
+![Downloads](https://img.shields.io/github/downloads/exequtic/apdatifier/total?style=flat&logo=kdeplasma&logoColor=white&label=Downloads&color=red)&nbsp;&nbsp;
+![Stars](https://img.shields.io/github/stars/exequtic/apdatifier?style=flat&logo=github&logoColor=white&label=Stars&color=blue)
+
+<br>
 
 # Apdatifier
 ## Arch Update Notifier
@@ -12,41 +16,61 @@
 </div>
 
 # Features
-- Notification for new updates and [Arch Linux News](https://archlinux.org/news)
-- Searching updates for [AUR](#supported-pacman-wrappers), Plasma Widgets, Flatpak (without showing the runtime updates)
-- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
-- Two types of lists: compact and expanded with additional information
+- Notification for updates and news
+- Searching updates for [Arch](https://archlinux.org/packages/) (+[AUR](https://aur.archlinux.org/packages)), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org)
+- Bash script with useful options for managing packages
+- Two types of lists: compact and extended with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
-- Option to refresh the mirrorlist with the latest mirrors filtered by speed
+- Option to refresh the [mirrorlist](https://archlinux.org/mirrorlist) with the latest mirrors filtered by speed
 - Customizable icon on the panel and package icons in the list
+- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
 
 <br>
 
+# Screenshots
+
 <div align="center">
-<img src="./screenshots/screenshot_2.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_1.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_3.jpg" width="300px" alt="screenshot"/>
-<img src="./screenshots/screenshot_4.jpg" width="600px" alt="screenshot"/>
-<img src="./screenshots/screenshot_5.jpg" width="600px" alt="screenshot"/>
+
+#### Compact/Extended list
+<img src="./screenshots/screenshot_1.png" width="300px" alt="screenshot"/>
+&nbsp;&nbsp;&nbsp;
+<img src="./screenshots/screenshot_2.png" width="300px" alt="screenshot"/>
+&nbsp;&nbsp;&nbsp;
+
+<br>
+
+#### Full system upgrade
+<img src="./screenshots/screenshot_4.png" width="600px" alt="screenshot"/>
+
+<br>
+
+#### Management
+<img src="./screenshots/screenshot_3.png" width="600px" alt="screenshot"/>
+
+<br><br>
+
+https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c346c0748df3
+
 </div>
 
 <br>
 
 # Requirements
-[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>recommended</b>. For checkupdates and rankmirrors scripts.
+[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>HIGHLY RECOMMENDED</b>. For checkupdates and rankmirrors scripts.
 
 ### Supported pacman wrappers
-paru, trizen, yay
+paru, yay
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, konsole, kitty, lxterminal, terminator, tilix, xterm, yakuake
+alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
 
-*yakuake used the D-Bus method runCommand. So you need installed qdbus. But in general, I do not recommend using this terminal with this plasmoid.
+<!-- *yakuake used the D-Bus method runCommand via the qdbus6. -->
 
 ### Required utilities for options:
-<b>Arch Linux News:</b> paru or yay<br>
-<b>Plasma Widgets:</b> curl, jq, xmlstarlet, unzip, tar<br>
-<b>Mirrorlist Generator:</b> curl, pacman-contrib<br>
+<b>Plasma Widgets:</b> jq<br>
+<b>Mirrorlist Generator:</b> pacman-contrib<br>
+<b>Management:</b> fzf<br>
+<b>News:</b> jq<br>
 
 <br>
 
@@ -55,13 +79,18 @@ Feel free to help translate to new languages or update and improve the ones that
 
 ### Current status:
 ```markdown
-|  Locale  |  Lines  | % Done|
-|----------|---------|-------|
-| English  |     144 |       |
-| Dutch    |  39/185 |   21% |
-| French   | 185/185 |  100% |
-| Russian  | 185/185 |  100% |
-|----------|---------|-------|
+|   Locale  |  Lines  | % Done|
+|-----------|---------|-------|
+| English   |     249 |       |
+| Brazilian | 228/249 |  91%  |
+| Dutch     | 182/249 |  73%  |
+| French    | 249/249 | 100%  |
+| German    | 228/249 |  91%  |
+| Spanish   | 228/249 |  91%  |
+| Korean    | 134/249 |  53%  |
+| Polish    | 228/249 |  91%  |
+| Russian   | 249/249 | 100%  |
+|-----------|---------|-------|
 ```
 
 <br>
@@ -73,21 +102,25 @@ Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widg
 After installation, the widget icon should <b>automatically</b> appear in the system tray.
 
 >[!IMPORTANT]
->If you had the previous version installed, you may need to log out or restart plasmashell after installation for the new features to work properly.
+>If you are upgrading from a previous version, you need to log out or restart plasmashell for the new features to work properly.
 >```bash
->kquitapp6 plasmashell && kstart plasmashell
+>systemctl --user restart plasma-plasmashell.service
 >```
-
-### Uninstall
-```bash
-sh ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
-```
 
 <br>
 
-## Settings
-<div align="center">
-<img src="./screenshots/settings_1.png" width="300px" alt="Settings"/>
-<img src="./screenshots/settings_2.png" width="300px" alt="Settings"/>
-<img src="./screenshots/settings_3.png" width="300px" alt="Settings"/>
-</div>
+<!-- ### Uninstall
+```bash
+bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
+``` -->
+
+# Support the project
+
+If you like this project, you can
+
+<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
+  <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
+</a>
+
+<br>
+

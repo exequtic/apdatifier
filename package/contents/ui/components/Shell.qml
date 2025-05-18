@@ -15,12 +15,10 @@ Plasma5Support.DataSource {
         var out = data["stdout"]
         var err = data["stderr"]
         var code = data["exit code"]
-        var listener = listeners[cmd]
-
-        if (listener) listener(cmd, out, err, code)
 
         exited(cmd, out, err, code)
-        disconnectSource(sourceName)
+
+        listeners[cmd](cmd, out, err, code)
     }
 
     signal exited(string cmd, string out, string err, int code)
@@ -33,18 +31,15 @@ Plasma5Support.DataSource {
     }
 
     function execCallback(callback, cmd, out, err, code) {
-        delete listeners[cmd]
+        cleanup()
         if (callback) callback(cmd, out, err, code)
     }
 
-    function stopExec(cmd) {
-        delete listeners[cmd]
-        disconnectSource(cmd)
-    }
-
-    function stop() {
+    function cleanup() {
         for (var cmd in listeners) {
-            stopExec(cmd)
+            delete listeners[cmd]
+            disconnectSource(cmd)
         }
+        this.destroy()
     }
 }

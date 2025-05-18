@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2024-05-31 15:41+0300\n"
-"PO-Revision-Date: 2024-05-29 14:44+0300\n"
+"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -20,11 +20,11 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
 msgstr "Основное"
 
-#: ../contents/config/config.qml ../contents/tools/tools.js
+#: ../contents/config/config.qml ../contents/tools/sh/messages
 msgid "Upgrade"
 msgstr "Обновление"
 
@@ -33,32 +33,248 @@ msgid "Appearance"
 msgstr "Внешний вид"
 
 #: ../contents/config/config.qml
+msgid "Rules"
+msgstr "Правила"
+
+#: ../contents/config/config.qml
 msgid "Support me"
 msgstr "Поддержать меня"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr "Выполняется обновление"
+
+#: ../contents/tools/sh/messages
 msgid "Full system upgrade"
 msgstr "Полное обновление системы"
 
-#: ../contents/tools/tools.js
-msgid "Press Enter to close"
-msgstr "Нажмите Enter чтобы закрыть"
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr "Обновление Flatpak"
 
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid "Executed:"
-msgstr "Выполнено:"
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr "Обновление Plasma Виджетов"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
 msgstr "Прочтите Arch Wiki - Частичное обновление"
 
-#: ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
 msgstr "Вместо частичного обновления выполните полное обновление системы!"
+
+#: ../contents/tools/sh/messages
+msgid "Total execution time:"
+msgstr "Общее время выполнения:"
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr "Обновлены критические пакеты, может потребоваться перезагрузка:"
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr "Вы хотите перезагрузиться прямо сейчас?"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to close"
+msgstr "Нажмите Enter чтобы закрыть"
+
+#: ../contents/tools/sh/messages
+msgid "Skipped..."
+msgstr "Пропуск..."
+
+#: ../contents/tools/sh/messages
+msgid "Fetching the latest filtered mirror list"
+msgstr "Получение списка последних зеркал"
+
+#: ../contents/tools/sh/messages
+msgid "Ranking mirrors by their connection and opening speed"
+msgstr "Сортировка зеркал по их скорости"
+
+#: ../contents/tools/sh/messages
+msgid "Check your mirrorlist generator settings..."
+msgstr "Проверьте настройки генератора списка зеркал..."
+
+#: ../contents/tools/sh/messages
+msgid "was updated with the following servers:"
+msgstr "был обновлен следующими серверами:"
+
+#: ../contents/tools/sh/messages
+msgid "To write to the mirrorlist file, sudo privileges are required"
+msgstr "Для записи в файл mirrorlist необходимы права администратора"
+
+#: ../contents/tools/sh/messages
+msgid "Your current mirrorlist:"
+msgstr "Ваш текущий список зеркал:"
+
+#: ../contents/tools/sh/messages
+msgid ""
+"For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgstr ""
+"После обновления необходимо выйти из сессии или перезагрузить plasmashell"
+
+#: ../contents/tools/sh/messages
+msgid "Checking widgets for updates"
+msgstr "Проверка обновлений для виджетов"
+
+#: ../contents/tools/sh/messages
+msgid "Fetching data from the API"
+msgstr "Получение данных из API"
+
+#: ../contents/tools/sh/messages
+msgid "Getting the download link"
+msgstr "Получение ссылки для скачивания"
+
+#: ../contents/tools/sh/messages
+msgid "Downloading package"
+msgstr "Скачивание пакета"
+
+#: ../contents/tools/sh/messages
+msgid "Proceed with upgrade?"
+msgstr "Продолжить обновление?"
+
+#: ../contents/tools/sh/messages
+msgid "Restart plasmashell now?"
+msgstr "Перезапустить plasmashell сейчас?"
+
+#: ../contents/tools/sh/messages
+msgid "No description"
+msgstr "Нет описания"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid ""
+"Too many API requests in the last 15 minutes from your IP address, please "
+"try again later"
+msgstr ""
+"Слишком много API запросов с вашего IP за последние 15 минут, попробуйте "
+"позже"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Failed to retrieve data from the API"
+msgstr "Не удалось получить данные из API"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Unkwnown error"
+msgstr "Неизвестная ошибка"
+
+#: ../contents/tools/sh/messages
+msgid "File metadata.json not found"
+msgstr "Файл metadata.json не найден"
+
+#: ../contents/tools/sh/messages
+msgid "Errors in metadata.json file"
+msgstr "Ошибки metadata.json файле"
+
+#: ../contents/tools/sh/messages
+msgid "Unsupported file format"
+msgstr "Не поддерживаемый формат файла"
+
+#: ../contents/tools/sh/messages
+msgid "No files for download"
+msgstr "Нет файлов для загрузки"
+
+#: ../contents/tools/sh/messages
+msgid "No file tagged with version"
+msgstr "Нет файла с тегом версии"
+
+#: ../contents/tools/sh/messages
+msgid "Multiple files are tagged with version"
+msgstr "Несколько файлов имеют тег версии"
+
+#: ../contents/tools/sh/messages
+msgid "Failed to download the package"
+msgstr "Не удалось скачать пакет"
+
+#: ../contents/tools/sh/messages
+msgid "List all available packages in repositories"
+msgstr "Список всех доступных пакетов в репозиториях"
+
+#: ../contents/tools/sh/messages
+msgid "List all installed packages"
+msgstr "Список всех установленных пакетов"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages"
+msgstr "Список явно установленных пакетов"
+
+#: ../contents/tools/sh/messages
+msgid "List explicitly installed packages and isn't a dependency of anything"
+msgstr "Список явно установленных пакетов, которые не являются зависимостями"
+
+#: ../contents/tools/sh/messages
+msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgstr "Список установленных зависимостей, которые больше не нужны (сироты)"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall orphan packages"
+msgstr "Удалить пакеты сироты"
+
+#: ../contents/tools/sh/messages
+msgid "Install (downgrade) a package from cache"
+msgstr "Установить пакет (понизить версию) из кэша"
+
+#: ../contents/tools/sh/messages
+msgid "Remove ALL cached packages"
+msgstr "Очистить ВСЕ кэшированные пакеты"
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached packages that are not currently installed"
+msgstr "Очистить кэшированные пакеты, которые не установлены"
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR python packages after python upgrade"
+msgstr "Пересборка python пакетов из AUR после обновления python"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrorlist"
+msgstr "Обновить список зеркал"
+
+#: ../contents/tools/sh/messages
+msgid "Exit"
+msgstr "Выход"
+
+#: ../contents/tools/sh/messages
+msgid "Review dependency warnings before removing"
+msgstr "Ознакомьтесь с предупреждениями о зависимостях перед удалением"
+
+#: ../contents/tools/sh/messages
+msgid "Resume?"
+msgstr "Продолжить?"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to return menu"
+msgstr "Нажмите Enter чтобы вернуться в меню"
+
+#: ../contents/tools/sh/messages
+msgid "Search:"
+msgstr "Поиск:"
+
+#: ../contents/tools/sh/messages
+msgid "Executed:"
+msgstr "Выполнено:"
+
+#: ../contents/tools/sh/messages
+msgid "Nothing to do"
+msgstr "Нечего делать"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Required installed"
+msgstr "Требуется установленная утилита"
+
+#: ../contents/tools/tools.js
+msgid "Exit code: "
+msgstr "Код ошибки: "
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
 msgstr "Проверка последних новостей..."
+
+#: ../contents/tools/tools.js
+msgid "Cannot fetch news "
+msgstr "Не удалось получить новости "
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
@@ -76,33 +292,9 @@ msgstr "Проверка обновлений виджетов..."
 msgid "Unable check widgets: "
 msgstr "Невозможно проверить виджеты: "
 
-#: ../contents/tools/tools.js ../contents/ui/components/Messages.qml
-msgid ""
-"Too many API requests in the last 15 minutes from your IP address, please "
-"try again later"
-msgstr ""
-"Слишком много API запросов с вашего IP за последние 15 минут, попробуйте "
-"позже"
-
 #: ../contents/tools/tools.js
-msgid "some required utilities are not installed (curl, jq, xmlstarlet)"
-msgstr "некоторые из требуемых утилит не установлены (curl, jq, xmlstarlet)"
-
-#: ../contents/tools/tools.js
-msgid "could not get data from the API"
-msgstr "не удалось получить данные с API"
-
-#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
-msgid "Read article"
-msgstr "Читать статью"
-
-#: ../contents/tools/tools.js ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Новости Arch Linux"
-
-#: ../contents/tools/tools.js
-msgid "<b>Latest news:</b> "
-msgstr "<b>Последние новости:</b> "
+msgid "latest commit"
+msgstr "последний коммит"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -111,7 +303,7 @@ msgstr[0] "+%1 новое обновление"
 msgstr[1] "+%1 новых обновлений"
 msgstr[2] "+%1 новых обновлений"
 
-#: ../contents/tools/tools.js ../contents/ui/configuration/Appearance.qml
+#: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "обновление доступно"
@@ -156,7 +348,8 @@ msgstr "Нет"
 msgid "Check updates"
 msgstr "Проверить обновления"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
 msgstr "Обновить систему"
@@ -170,149 +363,158 @@ msgstr "Переключить интервал"
 msgid "Management"
 msgstr "Управление"
 
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching the latest filtered mirror list..."
-msgstr "Получение списка последних зеркал..."
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "Система обновлена"
 
-#: ../contents/ui/components/Messages.qml
-msgid "Ranking mirrors by their connection and opening speed..."
-msgstr "Сортировка зеркал по их скорости..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Check your mirrorlist generator settings..."
-msgstr "Проверьте настройки генератора списка зеркал..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "was updated with the following servers:"
-msgstr "был обновлен следующими серверами:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "Для записи в файл mirrorlist необходимы права администратора"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Your current mirrorlist:"
-msgstr "Ваш текущий список зеркал:"
-
-#: ../contents/ui/components/Messages.qml
-msgid ""
-"For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"После обновления необходимо выйти из сессии или перезагрузить plasmashell"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Checking widgets for updates..."
-msgstr "Проверка обновлений для виджетов..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Fetching information about widget..."
-msgstr "Получение информации о виджете..."
-
-#: ../contents/ui/components/Messages.qml
-msgid "Downloading"
-msgstr "Скачивание"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Restart plasmashell now?"
-msgstr "Перезапустить plasmashell сейчас?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "File metadata.json not found"
-msgstr "Файл metadata.json не найден"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Errors in metadata.json file"
-msgstr "Ошибки metadata.json файле"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Unsupported file format"
-msgstr "Не поддерживаемый формат файла"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all available packages in repositories"
-msgstr "Список всех доступных пакетов в репозиториях"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List all installed packages"
-msgstr "Список всех установленных пакетов"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages"
-msgstr "Список явно установленных пакетов"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Список явно установленных пакетов, которые не являются зависимостями"
-
-#: ../contents/ui/components/Messages.qml
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Список установленных зависимостей, которые больше не нужны (сироты)"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Uninstall orphan packages"
-msgstr "Удалить пакеты сироты"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Install (downgrade) a package from cache"
-msgstr "Установить пакет (понизить версию) из кэша"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove ALL cached packages"
-msgstr "Очистить ВСЕ кэшированные пакеты"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Remove cached packages that are not currently installed"
-msgstr "Очистить кэшированные пакеты, которые не установлены"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Пересборка python пакетов из AUR после обновления python"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Refresh mirrorlist"
-msgstr "Обновить список зеркал"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Exit"
-msgstr "Выход"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Review dependency warnings before removing"
-msgstr "Ознакомьтесь с предупреждениями о зависимостях перед удалением"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Resume?"
-msgstr "Продолжить?"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Press Enter to return menu"
-msgstr "Нажмите Enter чтобы вернуться в меню"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Search:"
-msgstr "Поиск:"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Nothing to do"
-msgstr "Нечего делать"
-
-#: ../contents/ui/components/Messages.qml
-msgid "Required installed"
-msgstr "Требуется установленная утилита"
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon View"
+msgstr "Вид иконки на панели"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
 msgstr "Вид списка"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Shown when"
+msgstr "Показывать когда"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update is pending "
+msgid_plural "updates are pending "
+msgstr[0] "обновление доступно "
+msgstr[1] "обновления доступно "
+msgstr[2] "обновлений доступно "
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Стандартная"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Выбрать..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Стандартная иконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Stopped interval"
+msgstr "Выключенный интервал"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включить"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Счетчик"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Color"
+msgstr "Цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Стандартный цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Выбор цвета для фона счетчика"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Стандартный цвет фона из текущей темы"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Size"
+msgstr "Размер"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Radius"
+msgstr "Радиус"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Opacity"
+msgstr "Непрозрачность"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Shadow"
+msgstr "Тень"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font"
+msgstr "Шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Стандартный системный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Жирный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Размер шрифта"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left spacing"
+msgstr "Отступ слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side margins"
+msgstr "Боковые отступы"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Смещение"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Позиция"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "По центру"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Left"
+msgstr "Сверху-слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Right"
+msgstr "Сверху-справа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Left"
+msgstr "Снизу-слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Right"
+msgstr "Снизу-справа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Use built-in icons"
+msgstr "Встроенные иконки"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Override custom icon theme and use default Apdatifier icons instead."
+msgstr "Использовать иконки Apdatifier вместо пользовательских иконок из темы."
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "View"
 msgstr "Вид"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact"
 msgstr "Компактный"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Расширенный"
 
@@ -349,172 +551,73 @@ msgid "Show tab bar"
 msgstr "Показывать панель вкладок"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr "Показывать имена вкладок"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Development version"
+msgstr "Установить тестовую версию"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Stable version"
+msgstr "Установить стабильную версию"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Uninstall widget"
+msgstr "Удалить виджет"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Note: version with the latest commits may be unstable."
+msgstr "Примечание: версия с последними коммитами может быть нестабильна."
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"You can also switch tabs by dragging the mouse left and right with the right "
-"mouse button held."
+"Note: if you haven't installed the Devel version before, there's no need to "
+"install the Stable version."
 msgstr ""
-"Вы также можете переключаться между вкладками перемещая мышь влево и вправо "
-"с зажатой правой клавишей."
+"Примечание: если ранее не была установлена тестовая версия, то нет "
+"необходимости устанавливать стабильную версию."
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Icons"
-msgstr "Иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Build-in icons"
-msgstr "Встроенные иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Terminal"
-msgstr "Терминал"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Use NerdFont icons"
-msgstr "Использовать NerdFont иконки"
-
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
+"Removal of the widget and all related files, including the directory with "
+"its configuration."
 msgstr ""
-"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
-"отображаться иконки из этого шрифта."
+"Удаление виджета и всех связанных с ним файлов, включая директорию с его "
+"конфигурацией."
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Packages"
-msgstr "Пакеты"
+#: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "Поиск"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Custom icons"
-msgstr "Пользовательские иконки"
+#: ../contents/ui/configuration/General.qml
+msgid "Notifications"
+msgstr "Уведомления"
 
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
+msgid "Mouse actions"
+msgstr "Действия мыши"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Misc"
+msgstr "Разное"
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"You can specify which icon to use for each package.<br><br>Posible types in "
-"this order: default, repo, group, match, name<br><br><b>Syntax for rule:</"
-"b><br>type > value > icon-name<br>For default: default >> icon-"
-"name<br><br>If a package matches multiple rules, the last one will be "
-"applied to it."
+"Configuration is automatically saved in a config file and loaded at every "
+"startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"Вы можете определить какую иконку использовать для каждого пакета. "
-"<br><br>Возможные типы правил в таком порядке: default, repo, group, match, "
-"name<br><br><b>Синтаксис для правила:</b><br>type > value > icon-name<br>Для "
-"стандартной иконки: default >> icon-name<br><br>Если пакет соответствует "
-"нескольким правилам, то он будет использовать последнее."
+"Конфигурация автоматически сохраняется в файл и загружается при каждом "
+"запуске, что гарантирует сохранность ваших настроек. Файл настроек хранится "
+"в "
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "EXAMPLE:"
-msgstr "ПРИМЕР:"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Browse icons and copy icon name to clipboard"
-msgstr "Просмотр значков и копирование название значка в буфер обмена"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Backup list"
-msgstr "Сохранить список"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Restore list from backup"
-msgstr "Восстановить список из резервной копии"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Вид иконки на панели"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Показывать когда"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Стандартная иконка"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Стандартная"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select..."
-msgstr "Выбрать..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Выключенный интервал"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включить"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Счетчик"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Стандартный цвет фона из текущей темы"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Стандартный цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Выбор цвета для фона счетчика"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Размер"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Радиус"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Непрозрачность"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Тень"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bold"
-msgstr "Жирный"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Смещение"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Позиция"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "По центру"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Left"
-msgstr "Сверху-слева"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Top-Right"
-msgstr "Сверху-справа"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Left"
-msgstr "Снизу-слева"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Bottom-Right"
-msgstr "Снизу-справа"
+#: ../contents/ui/configuration/General.qml
+msgid ""
+" not installed! Highly recommended to install it for getting the latest "
+"updates without the need to download fresh package databases."
+msgstr ""
+" не установлен! Настоятельно рекомендуется установить его, чтобы получать "
+"последние обновления без необходимости обновлять базы данных репозиториев."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -545,8 +648,8 @@ msgstr ""
 "<b>Рекомендуется.</b>"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Search"
-msgstr "Поиск"
+msgid "Updates"
+msgstr "Обновления"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
@@ -555,10 +658,6 @@ msgstr "Официальные репозитории"
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
 msgstr "Пользовательский репозиторий"
-
-#: ../contents/ui/configuration/General.qml
-msgid "It is necessary to have paru or yay installed."
-msgstr "Необходим установленный paru или yay."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
@@ -575,72 +674,41 @@ msgstr "Plasma виджеты"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>For widget developers:"
-"<br>Don't forget to update the metadata.json and specify the name of the "
-"applet and its version <b>exactly</b> as they appear on the KDE Store."
+"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
+"and specify the name of the applet and its version <b>exactly</b> as they "
+"appear on the KDE Store."
 msgstr ""
-"Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, jq, xmlstarlet, unzip, tar</b>.<br><br>Для разработчиков "
-"виджетов:<br>Не забывайте обновлять файл metadata.json и указывать имя "
-"виджета и его версию в точности как и на сайте KDE Store."
+"<br><br>Для разработчиков виджетов:<br>Не забывайте обновлять файл "
+"metadata.json и указывать имя виджета и его версию в точности как и на сайте "
+"KDE Store."
 
 #: ../contents/ui/configuration/General.qml
-msgid "Wrapper"
-msgstr "Обертка"
+#: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Новости"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"pacman-contrib not installed! Highly recommended to install it for getting "
-"the latest updates without the need to download fresh package databases."
-msgstr ""
-"pacman-contrib не установлен! Настоятельно рекомендуется установить его, "
-"чтобы получать последние обновления без необходимости обновлять базы данных "
-"репозиториев."
+msgid "Arch Linux News"
+msgstr "Новости Arch Linux"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Exclude packages"
-msgstr "Исключение пакетов"
+msgid "Keep"
+msgstr "Хранить"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"In this field, you can specify package names that you want to ignore. "
-"<br><br>Specify names separated by space."
-msgstr ""
-"В этом поле вы можете указать имена пакетов, которые хотите игнорировать. "
-"<br><br>Указывайте имена пакетов через пробел."
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] "новость с фида"
+msgstr[1] "новости с фида"
+msgstr[2] "новостей с фида"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Mouse actions"
-msgstr "Действия мыши"
+msgid "For new updates"
+msgstr "Для новых обновлений"
 
 #: ../contents/ui/configuration/General.qml
-msgid "middle click"
-msgstr "средняя кнопка"
-
-#: ../contents/ui/configuration/General.qml
-msgid "right click"
-msgstr "правая кнопка"
-
-#: ../contents/ui/configuration/General.qml
-msgid "scroll up"
-msgstr "прокрутка верх"
-
-#: ../contents/ui/configuration/General.qml
-msgid "scroll down"
-msgstr "прокрутка вниз"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Notifications"
-msgstr "Уведомления"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Popup"
-msgstr "Сообщение"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Sound"
-msgstr "Звук"
+msgid "Upgrade button"
+msgstr "Кнопка обновления"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -660,16 +728,126 @@ msgstr ""
 "если пакета еще нет в списке. <b>Меньше уведомлений.</b>"
 
 #: ../contents/ui/configuration/General.qml
+msgid "For news"
+msgstr "Для новостей"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For errors"
+msgstr "При ошибках"
+
+#: ../contents/ui/configuration/General.qml
+msgid "With sound"
+msgstr "Со звуком"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Persistent"
+msgstr "Постоянное"
+
+#: ../contents/ui/configuration/General.qml
 msgid ""
-"To further configure, click the button below -> Application-specific "
-"settings -> Apdatifier"
+"To further configure, click the button below -> Application Settings -> "
+"Apdatifier"
 msgstr ""
-"Для дополнительных настроек, нажмите кнопку ниже -> Индивидуальные параметры "
-"приложений -> Apdatifier"
+"Для дополнительных настроек, нажмите кнопку ниже -> Параметры приложения -> "
+"Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
 msgstr "Настроить..."
+
+#: ../contents/ui/configuration/General.qml
+msgid "Middle click"
+msgstr "Средняя кнопка"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Right click"
+msgstr "Правая кнопка"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Do not enable this option if the widget is not used in the system tray; "
+"otherwise, you will not be able to open the settings by right-clicking."
+msgstr ""
+"Не включайте эту опцию, если виджет не используется в системном трее; иначе "
+"вы не сможете открыть настройки, щелкнув правой кнопкой мыши."
+
+#: ../contents/ui/configuration/General.qml
+msgid "Scroll up"
+msgstr "Прокрутка верх"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Scroll down"
+msgstr "Прокрутка вниз"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr "Восстановить скрытые подсказки"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Unimportant"
+msgstr "Не имеет значения"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Repository"
+msgstr "Репозиторий"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact repository match"
+msgstr "Точное совпадение репозитория"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Group"
+msgstr "Группа"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring group match"
+msgstr "Совпадение с подстрокой в группе"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring"
+msgstr "Совпадение"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring name match"
+msgstr "Совпадение с подстрокой в имени"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Name"
+msgstr "Имя"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact name match"
+msgstr "Точное совпадение имени"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid ""
+"Here you can override the default package icons and exclude them from the "
+"list. Each rule overwrites the previous one, so the list of rules should be "
+"in this order: "
+msgstr ""
+"Здесь вы можете переопределить значки пакетов и исключить их из списка. "
+"Каждое правило перезаписывает предыдущее, поэтому список правил должен быть "
+"в таком порядке: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr "Показывать в списке"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr "Исключить из списка"
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr "Удалить"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Add rule"
+msgstr "Добавить правило"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Применить"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -684,29 +862,90 @@ msgid "Visit %1"
 msgstr "Посетите %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Options"
-msgstr "Опции"
+msgid "Widgets"
+msgstr "Виджеты"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Restart plasmashell"
-msgstr "Перезапуск plasmashell"
+msgid "Terminal"
+msgstr "Терминал"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "Использовать NerdFont иконки"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr ""
+"Если в вашем терминале используется любой шрифт <b>Nerd Font</b>, то будут "
+"отображаться иконки из этого шрифта."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr "tmux сессия"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr "Сценарии до/после обновления"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr "До"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr "Команда или путь к скрипту"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr ""
+"Запустите свою команду или скрипт ПЕРЕД обновлением.<br>Например, вы можете "
+"указать свою команду для обновления списка зеркал, если у вас есть "
+"неофициальные репозитории."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr "После"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr ""
+"Запустите свою команду или скрипт ПОСЛЕ обновления.<br>Например, вы можете "
+"указать свою команду для обновления чего-либо еще."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Wrapper"
+msgstr "Обертка"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr "AUR отключен в настройках поиска"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade options"
+msgstr "Опции обновления"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr "Перезагрузить систему"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
 msgstr "Предлагать после обновления"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr ""
-"После обновления виджета, старая версия будет в памяти до тех пор пока не "
-"будет перезапущена plasmashell. Чтобы не делать это вручную, включите эту "
-"опцию."
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
 msgstr "Генератор списка зеркал"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Only for official repositories"
+msgstr "Только для официальных репозиториев"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -718,13 +957,10 @@ msgstr "Предлагать перед обновлением"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
-"To use this feature, the following installed utilities are required:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Also see https://archlinux.org/"
-"mirrorlist (click button to open link)"
+"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"Для использования этой опции необходимы следующие установленные утилиты:"
-"<br><b>curl, pacman-contrib.</b> <br><br>Также смотрите https://archlinux."
-"org/mirrorlist (нажмите на кнопку для открытия ссылки)"
+"<br><br>Также смотрите https://archlinux.org/mirrorlist (нажмите на кнопку "
+"для открытия ссылки)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -767,6 +1003,47 @@ msgstr ""
 "<br><br><b>Чем больше стран вы выберете, тем дольше будут генерироваться "
 "зеркала!</b><br><br>Оптимильно выбрать <b>1-2</b> ближайших к вам стран."
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr "Удалять неиспользуемое"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal"
+msgstr "Нормально"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal, skip questions"
+msgstr "Нормально, пропуск вопросов"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Non interactive, skip questions"
+msgstr "Не интерактивно, пропуск вопросов"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Verbose"
+msgstr "Подробно"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade confirmation"
+msgstr "Подтверждение обновления"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Restart plasmashell"
+msgstr "Перезапуск plasmashell"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr ""
+"После обновления виджета, старая версия будет в памяти до тех пор пока не "
+"будет перезапущена plasmashell. Чтобы не делать это вручную, включите эту "
+"опцию."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "Команда"
+
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
 msgstr "Авто проверка выключена"
@@ -804,24 +1081,20 @@ msgid "Extended view"
 msgstr "Расширенный вид"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "<b>Check out the latest news!"
-msgstr "<b>Посмотрите последние новости!"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "<br><b>Article: </b>"
-msgstr "<br><b>Статья: </b>"
+msgid "Check out release notes"
+msgstr "Посмотрите список изменений"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
-msgstr "Скрыть"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System updated"
-msgstr "Система обновлена"
+msgstr "Отклонить"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Обновить пакет"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr "Тип пакета"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -883,7 +1156,34 @@ msgstr "Размер загрузки"
 msgid "Install date"
 msgstr "Дата установки"
 
-# shorter!
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
 msgstr "Причина установки"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "Читать статью"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "Нет непрочитанных новостей"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "Восстановить список"
+
+#~ msgid "Options"
+#~ msgstr "Опции"
+
+#~ msgid "some required utilities are not installed (curl, jq)"
+#~ msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
+
+#~ msgid ""
+#~ "You can also switch tabs by dragging the mouse left and right with the "
+#~ "right mouse button held."
+#~ msgstr ""
+#~ "Вы также можете переключаться между вкладками перемещая мышь влево и "
+#~ "вправо с зажатой правой клавишей."
+
+#~ msgid "Hide \"News\" tab if no content"
+#~ msgstr "Скрывать \"Новости\" если их нет"

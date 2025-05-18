@@ -13,41 +13,74 @@
         <entry name="interval" type="bool"><default>true</default></entry>
         <entry name="time" type="int"><default>60</default></entry>
         <entry name="checkOnStartup" type="bool"><default>false</default></entry>
-        <entry name="archRepo" type="bool"><default>true</default></entry>
+        <entry name="arch" type="bool"><default>true</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
-        <entry name="archNews" type="bool"><default>false</default></entry>
-        <entry name="lastNews" type="string"><default></default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
-        <entry name="plasmoids" type="bool"><default>false</default></entry>
-        <entry name="wrapper" type="string"><default></default></entry>
-        <entry name="exclude" type="string"><default></default></entry>
+        <entry name="widgets" type="bool"><default>false</default></entry>
+        <entry name="newsArch" type="bool"><default>false</default></entry>
+        <entry name="newsKDE" type="bool"><default>false</default></entry>
+        <entry name="newsTWIK" type="bool"><default>false</default></entry>
+        <entry name="newsTWIKA" type="bool"><default>false</default></entry>
+        <entry name="newsKeep" type="int"><default>3</default></entry>
         <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
         <entry name="rightAction" type="string"><default></default></entry>
         <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
         <entry name="scrollDownAction" type="string"><default>management</default></entry>
-        <entry name="notifications" type="bool"><default>true</default></entry>
-        <entry name="withSound" type="bool"><default>true</default></entry>
+        <entry name="notifyUpdates" type="bool"><default>true</default></entry>
+        <entry name="notifyAction" type="bool"><default>false</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
-        <entry name="timestamp" type="string"><default></default></entry>
+        <entry name="notifyNews" type="bool"><default>true</default></entry>
+        <entry name="notifyErrors" type="bool"><default>true</default></entry>
+        <entry name="notifySound" type="bool"><default>true</default></entry>
+        <entry name="notifyPersistent" type="bool"><default>false</default></entry>
     </group>
     <group name="Upgrade">
-        <entry name="terminal" type="string"><default></default></entry>
-        <entry name="termFont" type="bool"><default>false</default></entry>
-        <entry name="upgradeFlags" type="bool"><default>false</default></entry>
-        <entry name="upgradeFlagsText" type="string"><default></default></entry>
+        <entry name="wrapper" type="string"><default></default></entry>
+        <entry name="archFlags" type="string"><default></default></entry>
         <entry name="sudoBin" type="string"><default>sudo</default></entry>
-        <entry name="restartShell" type="bool"><default>false</default></entry>
-        <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
+        <entry name="rebootSystem" type="bool"><default>false</default></entry>
         <entry name="mirrors" type="bool"><default>false</default></entry>
         <entry name="mirrorCount" type="int"><default>5</default></entry>
         <entry name="dynamicUrl" type="string"><default>null</default></entry>
+        <entry name="flatpakRemoveUnused" type="bool"><default>false</default></entry>
+        <entry name="flatpakFlags" type="string"><default></default></entry>
+        <entry name="widgetConfirmation" type="bool"><default>true</default></entry>
+        <entry name="restartShell" type="bool"><default>true</default></entry>
+        <entry name="restartCommand" type="string"><default>systemctl --user restart plasma-plasmashell.service</default></entry>
+        <entry name="preExec" type="string"><default></default></entry>
+        <entry name="postExec" type="string"><default></default></entry>
+        <entry name="terminal" type="string"><default></default></entry>
+        <entry name="idleInhibit" type="bool"><default>false</default></entry>
+        <entry name="tmuxSession" type="bool"><default>false</default></entry>
+        <entry name="termFont" type="bool"><default>false</default></entry>
     </group>
     <group name="Appearance">
+        <entry name="relevantIcon" type="int"><default>0</default></entry>
+        <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
+        <entry name="indicatorStop" type="bool"><default>true</default></entry>
+        <entry name="counterEnabled" type="bool"><default>true</default></entry>
+        <entry name="counterOnLeft" type="bool"><default>false</default></entry>
+        <entry name="counterColor" type="string"><default></default></entry>
+        <entry name="counterSize" type="int"><default>0</default></entry>
+        <entry name="counterRadius" type="int"><default>3</default></entry>
+        <entry name="counterOpacity" type="int"><default>8</default></entry>
+        <entry name="counterShadow" type="bool"><default>true</default></entry>
+        <entry name="counterFontFamily" type="string"><default></default></entry>
+        <entry name="counterFontSize" type="int"><default>6</default></entry>
+        <entry name="counterFontBold" type="bool"><default>true</default></entry>
+        <entry name="counterSpacing" type="int"><default>0</default></entry>
+        <entry name="counterMargins" type="int"><default>0</default></entry>
+        <entry name="counterOffsetX" type="int"><default>0</default></entry>
+        <entry name="counterOffsetY" type="int"><default>0</default></entry>
+        <entry name="counterCenter" type="bool"><default>false</default></entry>
+        <entry name="counterTop" type="bool"><default>true</default></entry>
+        <entry name="counterBottom" type="bool"><default>false</default></entry>
+        <entry name="counterRight" type="bool"><default>true</default></entry>
+        <entry name="counterLeft" type="bool"><default>false</default></entry>
+        <entry name="ownIconsUI" type="bool"><default>true</default></entry>
         <entry name="listView" type="int"><default>0</default></entry>
         <entry name="spacing" type="int"><default>6</default></entry>
-        <entry name="customIconsEnabled" type="bool"><default>false</default></entry>
-        <entry name="customIcons" type="string"><default></default></entry>
-        <entry name="ownIconsUI" type="bool"><default>true</default></entry>
+        <entry name="sorting" type="bool"><default>true</default></entry>
         <entry name="showStatusText" type="bool"><default>true</default></entry>
         <entry name="showToolBar" type="bool"><default>true</default></entry>
         <entry name="searchButton" type="bool"><default>true</default></entry>
@@ -56,24 +89,13 @@
         <entry name="managementButton" type="bool"><default>true</default></entry>
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
-        <entry name="showTabBar" type="bool"><default>true</default></entry>
-        <entry name="sorting" type="bool"><default>true</default></entry>
-        <entry name="relevantIcon" type="int"><default>0</default></entry>
-        <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
-        <entry name="indicatorStop" type="bool"><default>true</default></entry>
-        <entry name="counterEnabled" type="bool"><default>true</default></entry>
-        <entry name="counterColor" type="string"><default></default></entry>
-        <entry name="counterSize" type="int"><default>0</default></entry>
-        <entry name="counterRadius" type="int"><default>3</default></entry>
-        <entry name="counterOpacity" type="int"><default>8</default></entry>
-        <entry name="counterShadow" type="bool"><default>true</default></entry>
-        <entry name="counterBold" type="bool"><default>true</default></entry>
-        <entry name="counterOffsetX" type="int"><default>0</default></entry>
-        <entry name="counterOffsetY" type="int"><default>0</default></entry>
-        <entry name="counterCenter" type="bool"><default>false</default></entry>
-        <entry name="counterTop" type="bool"><default>true</default></entry>
-        <entry name="counterBottom" type="bool"><default>false</default></entry>
-        <entry name="counterRight" type="bool"><default>true</default></entry>
-        <entry name="counterLeft" type="bool"><default>false</default></entry>
+        <entry name="tabBarVisible" type="bool"><default>true</default></entry>
+        <entry name="tabBarTexts" type="bool"><default>true</default></entry>
+    </group>
+    <group name="Miscellaneous">
+        <entry name="version" type="string"><default>v0</default></entry>
+        <entry name="timestamp" type="string"><default></default></entry>
+        <entry name="configMsg" type="bool"><default>true</default></entry>
+        <entry name="rulesMsg" type="bool"><default>true</default></entry>
     </group>
 </kcfg>
