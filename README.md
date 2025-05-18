@@ -83,7 +83,7 @@ Feel free to help translate to new languages or update and improve the ones that
 |-----------|---------|-------|
 | English   |     249 |       |
 | Brazilian | 228/249 |  91%  |
-| Dutch     | 182/249 |  73%  |
+| Dutch     | 249/249 | 100%  |
 | French    | 249/249 | 100%  |
 | German    | 228/249 |  91%  |
 | Spanish   | 228/249 |  91%  |
@@ -115,8 +115,6 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 ``` -->
 
 # Support the project
-
-If you like this project, you can
 
 <a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
   <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
