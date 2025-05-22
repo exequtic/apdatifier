@@ -130,7 +130,7 @@ function checkDependencies() {
         cfg.packages = { pacman, checkupdates, flatpak, paru, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : ""
 
-        const terminals = populate(output.slice(8).filter(Boolean))
+        const terminals = populate(output.slice(7).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
     })
