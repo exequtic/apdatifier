@@ -255,7 +255,7 @@ msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
 msgid "Search:"
-msgstr "Recherche :"
+msgstr "Recherche"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
