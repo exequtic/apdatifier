@@ -23,7 +23,7 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 |----------|---------|-------|
 | Template |     249 |       |
 | de       | 228/249 |   91% |
-| es       | 228/249 |   91% |
+| es       | 249/249 |  100% |
 | fr       | 249/249 |  100% |
 | ko       | 134/249 |   53% |
 | nl       | 249/249 |  100% |

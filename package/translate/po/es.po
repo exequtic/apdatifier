@@ -1,7 +1,6 @@
-# Translation of apdatifier in sp
-# Copyright (C) 2024
-# This file is distributed under the same license as the apdatifier package.
-# RodvinSanchez, 2024.
+# Traducción de apdatifier en Español
+# Copyright (C) 2025
+# Este archivo se distribuye bajo la misma licencia que el paquete apdatifier.
 #
 #, fuzzy
 msgid ""
@@ -9,14 +8,14 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-05-15 21:30+0300\n"
-"PO-Revision-Date: 2024-12-04 20:21-0600\n"
+"PO-Revision-Date: 2024-05-27 15:58-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
-"Language: sp\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -52,15 +51,15 @@ msgstr "Actualización de Flatpak"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr "Actualización de los widgets de Plasma"
+msgstr "Actualización de Widgets de Plasma"
 
 #: ../contents/tools/sh/messages
 msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Lee la Arch Wiki - Actualizaciones parciales"
+msgstr "Leer la Wiki de Arch - Actualizaciones parciales"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "¡Realiza una actualización completa del sistema en lugar de una actualización parcial!"
+msgstr "¡Realiza una actualización completa del sistema en lugar de una parcial!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -68,11 +67,11 @@ msgstr "Tiempo total de ejecución:"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr ""
+msgstr "Paquete(s) crítico(s) actualizado(s), puede ser necesario reiniciar:"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
-msgstr ""
+msgstr "¿Deseas reiniciar ahora?"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -88,11 +87,11 @@ msgstr "Obteniendo la lista de espejos filtrados más reciente"
 
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed"
-msgstr "Clasificando los espejos por su velocidad de conexión y apertura"
+msgstr "Clasificando espejos por su velocidad de conexión y apertura"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
-msgstr "Verifica la configuración de tu generador de mirrorlist..."
+msgstr "Verifica la configuración de tu generador de lista de espejos..."
 
 #: ../contents/tools/sh/messages
 msgid "was updated with the following servers:"
@@ -104,15 +103,15 @@ msgstr "Para escribir en el archivo mirrorlist, se requieren privilegios de sudo
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
-msgstr "Tu mirrorlist actual:"
+msgstr "Tu lista de espejos actual:"
 
 #: ../contents/tools/sh/messages
 msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr "Para algunos widgets puede que necesites cerrar sesión o reiniciar plasmashell después de la actualización"
+msgstr "Para algunos widgets, puede que necesites cerrar sesión o reiniciar plasmashell después de actualizar"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
-msgstr "Verificando widgets para actualizaciones"
+msgstr "Verificando actualizaciones de widgets"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
@@ -128,7 +127,7 @@ msgstr "Descargando paquete"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr "¿Proceder con la actualización?"
+msgstr "¿Continuar con la actualización?"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -140,11 +139,11 @@ msgstr "Sin descripción"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
-msgstr "Demasiadas solicitudes de API en los últimos 15 minutos desde tu dirección IP, por favor intenta de nuevo más tarde"
+msgstr "Demasiadas solicitudes a la API en los últimos 15 minutos desde tu dirección IP, por favor intenta nuevamente más tarde"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr "Error al obtener los datos de la API"
+msgstr "Error al obtener datos de la API"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
@@ -192,11 +191,11 @@ msgstr "Listar paquetes instalados explícitamente"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Listar paquetes instalados explícitamente que no son dependencia de nada"
+msgstr "Listar paquetes instalados explícitamente y que no son dependencia de nada"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Listar dependencias instaladas que ya no se necesitan (huérfanas)"
+msgstr "Listar dependencias instaladas que ya no son necesarias (huérfanos)"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
@@ -204,7 +203,7 @@ msgstr "Desinstalar paquetes huérfanos"
 
 #: ../contents/tools/sh/messages
 msgid "Install (downgrade) a package from cache"
-msgstr "Instalar (reducir versión) un paquete desde la caché"
+msgstr "Instalar (revertir) un paquete desde la caché"
 
 #: ../contents/tools/sh/messages
 msgid "Remove ALL cached packages"
@@ -212,15 +211,15 @@ msgstr "Eliminar TODOS los paquetes en caché"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr "Eliminar paquetes en caché que no están instalados actualmente"
+msgstr "Eliminar paquetes en caché que no están actualmente instalados"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Reconstruir paquetes de AUR de Python después de la actualización de Python"
+msgstr "Reconstruir paquetes Python de AUR después de actualizar Python"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrorlist"
-msgstr "Actualizar mirrorlist"
+msgstr "Actualizar lista de espejos"
 
 #: ../contents/tools/sh/messages
 msgid "Exit"
@@ -228,11 +227,11 @@ msgstr "Salir"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
-msgstr "Revisar advertencias de dependencia antes de eliminar"
+msgstr "Revisar advertencias de dependencias antes de eliminar"
 
 #: ../contents/tools/sh/messages
 msgid "Resume?"
-msgstr "¿Reanudar?"
+msgstr "¿Continuar?"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to return menu"
@@ -256,7 +255,7 @@ msgstr "Requerido instalado"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
-msgstr "Código de salida:"
+msgstr "Código de salida: "
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
@@ -264,7 +263,7 @@ msgstr "Verificando las últimas noticias..."
 
 #: ../contents/tools/tools.js
 msgid "Cannot fetch news "
-msgstr ""
+msgstr "No se pueden obtener noticias "
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
@@ -272,7 +271,7 @@ msgstr "Verificando actualizaciones del sistema..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
-msgstr "Verificando actualizaciones de flatpak..."
+msgstr "Verificando actualizaciones de Flatpak..."
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets updates..."
@@ -280,11 +279,11 @@ msgstr "Verificando actualizaciones de widgets..."
 
 #: ../contents/tools/tools.js
 msgid "Unable check widgets: "
-msgstr "No se puede verificar los widgets: "
+msgstr "No se pueden verificar widgets: "
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr "Ultima confirmación"
+msgstr "último commit"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -338,7 +337,7 @@ msgstr "Actualizar sistema"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
-msgstr "Intervalo de conmutación"
+msgstr "Cambiar intervalo"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Management"
@@ -350,7 +349,7 @@ msgstr "Sistema actualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
-msgstr "Vista de iconos del panel"
+msgstr "Vista de icono en panel"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
@@ -358,13 +357,13 @@ msgstr "Vista de lista"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
-msgstr "Mostrado cuando"
+msgstr "Mostrar cuando"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] "la actualización está pendiente "
-msgstr[1] "las actualizaciones están pendientes "
+msgstr[0] "actualización pendiente "
+msgstr[1] "actualizaciones pendientes "
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -376,7 +375,7 @@ msgstr "Seleccionar..."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default icon"
-msgstr "Ícono predeterminado"
+msgstr "Icono predeterminado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
@@ -428,7 +427,7 @@ msgstr "Fuente"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default system font"
-msgstr "Fuente predeterminada del sistema"
+msgstr "Fuente del sistema predeterminada"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
@@ -436,11 +435,11 @@ msgstr "Fuente en negrita"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr "Tamaño de la fuente"
+msgstr "Tamaño de fuente"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr "Espaciado a la izquierda"
+msgstr "Espaciado izquierdo"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
@@ -460,27 +459,27 @@ msgstr "Centro"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
-msgstr "Arriba-izquierda"
+msgstr "Arriba-Izquierda"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Right"
-msgstr "Arriba-derecha"
+msgstr "Arriba-Derecha"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Left"
-msgstr "Abajo-izquierda"
+msgstr "Abajo-Izquierda"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
-msgstr "Abajo-derecha"
+msgstr "Abajo-Derecha"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
-msgstr "Usar íconos incorporados"
+msgstr "Usar iconos integrados"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr "Anular el tema de íconos personalizado y usar los íconos predeterminados de Apdatifier."
+msgstr "Anular el tema de iconos personalizado y usar los iconos predeterminados de Apdatifier."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -496,7 +495,7 @@ msgstr "Extendido"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
-msgstr "Ordenamiento"
+msgstr "Ordenación"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
@@ -528,31 +527,31 @@ msgstr "Mostrar barra de pestañas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab texts"
-msgstr "Mostrar textos de las pestañas"
+msgstr "Mostrar textos de pestañas"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Development version"
-msgstr ""
+msgstr "Instalar versión de Desarrollo"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Install Stable version"
-msgstr ""
+msgstr "Instalar versión Estable"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Uninstall widget"
-msgstr ""
+msgstr "Desinstalar widget"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
-msgstr ""
+msgstr "Nota: la versión con los últimos commits puede ser inestable."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: if you haven't installed the Devel version before, there's no need to install the Stable version."
-msgstr ""
+msgstr "Nota: si no has instalado antes la versión Devel, no es necesario instalar la versión Estable."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Removal of the widget and all related files, including the directory with its configuration."
-msgstr ""
+msgstr "Eliminación del widget y todos los archivos relacionados, incluyendo el directorio con su configuración."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -564,7 +563,7 @@ msgstr "Notificaciones"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
-msgstr "Acciones del mouse"
+msgstr "Acciones del ratón"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
@@ -576,7 +575,7 @@ msgstr "La configuración se guarda automáticamente en un archivo de configurac
 
 #: ../contents/ui/configuration/General.qml
 msgid " not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
-msgstr " no está instalado. Se recomienda encarecidamente instalarlo para obtener las últimas actualizaciones sin necesidad de descargar nuevas bases de datos de paquetes."
+msgstr " ¡no instalado! Muy recomendado instalarlo para obtener las últimas actualizaciones sin necesidad de descargar bases de datos de paquetes nuevas."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -588,7 +587,7 @@ msgstr "minutos"
 
 #: ../contents/ui/configuration/General.qml
 msgid "The current timer is reset when either of these settings is changed."
-msgstr "El temporizador actual se restablece cuando se cambia alguna de estas configuraciones."
+msgstr "El temporizador actual se reinicia cuando se cambia cualquiera de estas configuraciones."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Check on start up"
@@ -608,7 +607,7 @@ msgstr "Repositorios Oficiales de Arch"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr "Repositorio de Usuarios de Arch"
+msgstr "Repositorio de Usuario de Arch (AUR)"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
@@ -624,7 +623,7 @@ msgstr "Widgets de Plasma"
 
 #: ../contents/ui/configuration/General.qml
 msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
-msgstr "<br><br>Para desarrolladores de widgets:<br>No olvides actualizar el metadata.json y especificar el nombre del applet y su versión <b>exactamente</b> como aparecen en la tienda KDE."
+msgstr "<br><br>Para desarrolladores de widgets:<br>No olvides actualizar el metadata.json y especificar el nombre del applet y su versión <b>exactamente</b> como aparecen en la KDE Store."
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
@@ -641,8 +640,8 @@ msgstr "Mantener"
 #: ../contents/ui/configuration/General.qml
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
-msgstr[0] "artículo de noticias del canal"
-msgstr[1] "artículos de noticias del canal"
+msgstr[0] "noticia del feed"
+msgstr[1] "noticias del feed"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -650,15 +649,15 @@ msgstr "Para nuevas actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Upgrade button"
-msgstr ""
+msgstr "Botón de actualización"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
-msgstr "Por cada actualización de versión"
+msgstr "Para cada cambio de versión"
 
 #: ../contents/ui/configuration/General.qml
 msgid "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
-msgstr "Si la opción está <b>habilitada</b>, se enviarán notificaciones cuando se actualice una nueva versión del paquete, incluso si el paquete ya está en la lista. <b>Más notificaciones.</b> <br><br>Si la opción está <b>deshabilitada</b>, las notificaciones solo se enviarán para los paquetes que aún no están en la lista. <b>Menos notificaciones.</b>"
+msgstr "Si la opción está <b>habilitada</b>, se enviarán notificaciones cuando haya un nuevo cambio de versión del paquete, incluso si el paquete ya está en la lista. <b>Más notificaciones.</b> <br><br>Si la opción está <b>deshabilitada</b>, las notificaciones solo se enviarán para paquetes que aún no están en la lista. <b>Menos notificaciones.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -678,7 +677,7 @@ msgstr "Persistente"
 
 #: ../contents/ui/configuration/General.qml
 msgid "To further configure, click the button below -> Application Settings -> Apdatifier"
-msgstr "Para configurar más, haz clic en el botón de abajo -> Configuraciones específicas de la aplicación -> Apdatifier"
+msgstr "Para configurar más, haz clic en el botón de abajo -> Configuración de la aplicación -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -698,19 +697,19 @@ msgstr "No habilites esta opción si el widget no se usa en la bandeja del siste
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
-msgstr "Desplazar hacia arriba"
+msgstr "Desplazar arriba"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll down"
-msgstr "Desplazar hacia abajo"
+msgstr "Desplazar abajo"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr "Restaurar las descripciones emergentes ocultas"
+msgstr "Restaurar tooltips ocultos"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
-msgstr "No importante"
+msgstr "Poco importante"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Repository"
@@ -726,7 +725,7 @@ msgstr "Grupo"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring group match"
-msgstr "Coincidencia de grupo por subcadena"
+msgstr "Coincidencia parcial de grupo"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring"
@@ -734,7 +733,7 @@ msgstr "Subcadena"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Substring name match"
-msgstr "Coincidencia de nombre por subcadena"
+msgstr "Coincidencia parcial de nombre"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
@@ -762,7 +761,7 @@ msgstr "Eliminar"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add rule"
-msgstr "Agregar regla"
+msgstr "Añadir regla"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
@@ -770,7 +769,7 @@ msgstr "Aplicar"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
-msgstr "¡Gracias por usar mi widget! Si aprecias mi trabajo, puedes apoyarme dándole una estrella al repositorio de GitHub o invitándome a un café ;)"
+msgstr "¡Gracias por usar mi widget! Si aprecias mi trabajo, puedes apoyarme dándole una estrella al repositorio en GitHub o invitándome un café ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
@@ -786,47 +785,47 @@ msgstr "Terminal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
-msgstr "Usar iconos de NerdFont"
+msgstr "Usar iconos NerdFont"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
-msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán iconos de esa fuente."
+msgstr "Si tu terminal utiliza alguna <b>Nerd Font</b>, se usarán los iconos de esa fuente."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
-msgstr ""
+msgstr "sesión de tmux"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr ""
+msgstr "Scripts pre/post actualización"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr ""
+msgstr "Pre-ejecución"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
-msgstr ""
+msgstr "Ruta de comando o script"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories."
-msgstr ""
+msgstr "Ejecutar tu comando o script ANTES de la actualización.<br>Por ejemplo, puedes especificar tu comando para actualizar la lista de espejos si tienes repositorios no oficiales."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr ""
+msgstr "Post-ejecución"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
-msgstr ""
+msgstr "Ejecutar tu comando o script DESPUÉS de la actualización.<br>Por ejemplo, puedes especificar tu comando para actualizar algo más."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
-msgstr "Contenedor"
+msgstr "Wrapper"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr ""
+msgstr "AUR deshabilitado en configuración de búsqueda"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -834,7 +833,7 @@ msgstr "Opciones de actualización"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Reboot system"
-msgstr ""
+msgstr "Reiniciar sistema"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
@@ -858,7 +857,7 @@ msgstr "Sugerir antes de actualizar"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "<br><br>También consulta https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
+msgstr "<br><br>Ver también https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -866,7 +865,7 @@ msgstr "Protocolo"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "IP version"
-msgstr "Versión de IP"
+msgstr "Versión IP"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Mirror status"
@@ -874,11 +873,11 @@ msgstr "Estado del espejo"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
-msgstr "Salida de número"
+msgstr "Número de salida"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
-msgstr "Número de servidores para escribir en el archivo de lista de espejos. 0 para todos."
+msgstr "Número de servidores para escribir en el archivo mirrorlist. 0 para todos."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"
@@ -894,7 +893,7 @@ msgstr "Debes seleccionar al menos un país, de lo contrario, se elegirán todos
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr ""
+msgstr "Desinstalar no utilizados"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
@@ -906,7 +905,7 @@ msgstr "Normal, omitir preguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr "Sin interacción, omitir preguntas"
+msgstr "No interactivo, omitir preguntas"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
@@ -922,7 +921,7 @@ msgstr "Reiniciar plasmashell"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr "Después de actualizar el widget, la versión anterior seguirá en memoria hasta que reinicies plasmashell. Para evitar hacerlo manualmente, habilita esta opción."
+msgstr "Después de actualizar el widget, la versión antigua permanecerá en memoria hasta que reinicies plasmashell. Para evitar hacer esto manualmente, activa esta opción."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
@@ -930,7 +929,7 @@ msgstr "Comando"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
-msgstr "Verificación automática deshabilitada"
+msgstr "Verificación automática desactivada"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -938,11 +937,11 @@ msgstr "Filtrar por nombre de paquete"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Disable auto search updates"
-msgstr "Deshabilitar búsqueda automática de actualizaciones"
+msgstr "Desactivar búsqueda automática de actualizaciones"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
-msgstr "Habilitar búsqueda automática de actualizaciones"
+msgstr "Activar búsqueda automática de actualizaciones"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
@@ -966,7 +965,7 @@ msgstr "Vista extendida"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
-msgstr "Revisa las notas de la versión"
+msgstr "Consultar notas de la versión"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
@@ -978,7 +977,7 @@ msgstr "Actualizar paquete"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
-msgstr ""
+msgstr "Tipo de paquete"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -990,7 +989,7 @@ msgstr "Autor"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "App ID"
-msgstr "ID de la aplicación"
+msgstr "ID de aplicación"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Branch"
@@ -1022,7 +1021,7 @@ msgstr "Requerido por"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Conflicts with"
-msgstr "Conflictos con"
+msgstr "Entra en conflicto con"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Replaces"
@@ -1042,7 +1041,7 @@ msgstr "Fecha de instalación"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
-msgstr "Razón de instalación"
+msgstr "Motivo de instalación"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
@@ -1050,20 +1049,8 @@ msgstr "Leer artículo"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
-msgstr "No hay noticias no leídas"
+msgstr "No hay noticias sin leer"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
-
-#~ msgid "Options"
-#~ msgstr "Opciones"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "algunas utilidades requeridas no están instaladas (curl, jq)"
-
-#~ msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
-#~ msgstr "También puedes cambiar de pestaña arrastrando el mouse hacia la izquierda y derecha mientras mantienes presionado el botón derecho del mouse."
-
-#~ msgid "Hide \"News\" tab if no content"
-#~ msgstr "Ocultar la pestaña \"Noticias\" si no hay contenido"

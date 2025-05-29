@@ -86,7 +86,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Dutch     | 249/249 | 100%  |
 | French    | 249/249 | 100%  |
 | German    | 228/249 |  91%  |
-| Spanish   | 228/249 |  91%  |
+| Spanish   | 249/249 | 100%  |
 | Korean    | 134/249 |  53%  |
 | Polish    | 228/249 |  91%  |
 | Russian   | 249/249 | 100%  |
@@ -114,11 +114,11 @@ After installation, the widget icon should <b>automatically</b> appear in the sy
 bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
 ``` -->
 
-# Support the project
+<!-- # Support the project
 
 <a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
   <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
 </a>
 
 <br>
-
+ -->
