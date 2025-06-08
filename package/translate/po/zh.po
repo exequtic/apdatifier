@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-05-15 21:30+0300\n"
-"PO-Revision-Date: 2025-06-08 19:09+0800\n"
+"PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -334,7 +334,7 @@ msgstr "更新系统"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
-msgstr ""
+msgstr "切换间隔"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Management"
@@ -375,7 +375,7 @@ msgstr "默认图标"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Stopped interval"
-msgstr ""
+msgstr "停止间隔"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
