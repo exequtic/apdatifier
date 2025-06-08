@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2025-05-15 21:30+0300\n"
-"PO-Revision-Date: 2025-06-07 23:50+0800\n"
+"PO-Revision-Date: 2025-06-08 19:09+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -41,7 +41,7 @@ msgstr "支持我"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Upgrade in progress"
-msgstr ""
+msgstr "正在升级中"
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
@@ -69,7 +69,7 @@ msgstr "总执行时间："
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr ""
+msgstr "关键软件包已更新，可能需要重启系统："
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -81,27 +81,27 @@ msgstr "按下 Enter 关闭"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
-msgstr ""
+msgstr "已跳过..."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
-msgstr ""
+msgstr "正在获取最新的筛选后镜像列表"
 
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed"
-msgstr ""
+msgstr "正在根据连接速度和打开速度对镜像进行排序"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
-msgstr ""
+msgstr "请检查您的镜像列表生成器设置…"
 
 #: ../contents/tools/sh/messages
 msgid "was updated with the following servers:"
-msgstr ""
+msgstr "已通过以下服务器进行了更新："
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
+msgstr "写入镜像列表文件需要 sudo 权限"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -113,11 +113,11 @@ msgstr "某些挂件在升级后可能需要注销或重启 plasmashell"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
-msgstr ""
+msgstr "正在检查挂件更新"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr ""
+msgstr "正在从 API 获取数据"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
@@ -129,7 +129,7 @@ msgstr "正在下载包"
 
 #: ../contents/tools/sh/messages
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "是否继续升级？"
 
 #: ../contents/tools/sh/messages
 msgid "Restart plasmashell now?"
@@ -145,7 +145,7 @@ msgstr "您的 IP 地址在过去 15 分钟内发送了过多的 API 请求，�
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Failed to retrieve data from the API"
-msgstr ""
+msgstr "从 API 获取数据失败"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Unkwnown error"
@@ -165,59 +165,59 @@ msgstr "不支持的文件格式"
 
 #: ../contents/tools/sh/messages
 msgid "No files for download"
-msgstr ""
+msgstr "无可下载文件"
 
 #: ../contents/tools/sh/messages
 msgid "No file tagged with version"
-msgstr ""
+msgstr "无标记版本的文件"
 
 #: ../contents/tools/sh/messages
 msgid "Multiple files are tagged with version"
-msgstr ""
+msgstr "有多个文件被标记了版本"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
-msgstr ""
+msgstr "包下载失败"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
-msgstr ""
+msgstr "列出仓库中所有可用的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List all installed packages"
-msgstr ""
+msgstr "列出所有已安装的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages"
-msgstr ""
+msgstr "列出显式安装的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr ""
+msgstr "列出显式安装且不是任何软件包依赖的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr ""
+msgstr "列出已安装但不再需要的依赖（孤儿包"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
-msgstr ""
+msgstr "卸载孤儿包"
 
 #: ../contents/tools/sh/messages
 msgid "Install (downgrade) a package from cache"
-msgstr ""
+msgstr "从缓存安装（降级）软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Remove ALL cached packages"
-msgstr ""
+msgstr "删除所有缓存的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached packages that are not currently installed"
-msgstr ""
+msgstr "删除当前未安装的软件包缓存"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR python packages after python upgrade"
-msgstr ""
+msgstr "Python 升级后重建 AUR Python 软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrorlist"
@@ -229,11 +229,11 @@ msgstr "退出"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
-msgstr ""
+msgstr "卸载前请检查依赖警告"
 
 #: ../contents/tools/sh/messages
 msgid "Resume?"
-msgstr ""
+msgstr "继续？"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to return menu"
@@ -245,15 +245,15 @@ msgstr "搜索："
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
-msgstr ""
+msgstr "执行："
 
 #: ../contents/tools/sh/messages
 msgid "Nothing to do"
-msgstr ""
+msgstr "无事可做"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
-msgstr ""
+msgstr "需要安装"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -285,7 +285,7 @@ msgstr "无法检查挂件："
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr ""
+msgstr "最新提交"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -295,7 +295,7 @@ msgstr[0] "+%1 项更新"
 #: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
-msgstr[0] ""
+msgstr[0] "有更新待处理"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -322,7 +322,7 @@ msgstr "前"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Check updates"
@@ -338,7 +338,7 @@ msgstr ""
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Management"
-msgstr ""
+msgstr "管理"
 
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
@@ -346,28 +346,28 @@ msgstr "系统升级"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
-msgstr ""
+msgstr "面板图标视图"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
-msgstr ""
+msgstr "列表视图"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shown when"
-msgstr ""
+msgstr "当有"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] ""
+msgstr[0] "个更新待处理时显示"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
-msgstr ""
+msgstr "默认"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Select..."
-msgstr ""
+msgstr "选择..."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default icon"
@@ -379,7 +379,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -407,11 +407,11 @@ msgstr "大小"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Radius"
-msgstr ""
+msgstr "圆角半径"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Opacity"
-msgstr ""
+msgstr "不透明度"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Shadow"
@@ -427,7 +427,7 @@ msgstr "默认系统字体"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr ""
+msgstr "字体加粗"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
@@ -435,15 +435,15 @@ msgstr "字体大小"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
-msgstr ""
+msgstr "左间距"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Side margins"
-msgstr ""
+msgstr "侧边距"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Offset"
-msgstr ""
+msgstr "偏移"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Position"
@@ -451,23 +451,23 @@ msgstr "位置"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Center"
-msgstr ""
+msgstr "中间"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
-msgstr ""
+msgstr "左上"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Right"
-msgstr ""
+msgstr "右上"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Left"
-msgstr ""
+msgstr "左下"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
-msgstr ""
+msgstr "右下"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -479,15 +479,15 @@ msgstr "覆盖自定义图标主题，改用默认的 Apdatifier 图标。"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
-msgstr ""
+msgstr "视图"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Compact"
-msgstr ""
+msgstr "紧凑"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
-msgstr ""
+msgstr "扩展"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -503,7 +503,7 @@ msgstr "根据名字"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
-msgstr ""
+msgstr "顶栏"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show status"
@@ -515,7 +515,7 @@ msgstr "显示工具栏"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
-msgstr ""
+msgstr "底栏"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tab bar"
@@ -539,15 +539,15 @@ msgstr "卸载挂件"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
-msgstr ""
+msgstr "注意：包含最新提交的版本可能不稳定。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: if you haven't installed the Devel version before, there's no need to install the Stable version."
-msgstr ""
+msgstr "注意：如果您之前未安装过开发版，则无需安装稳定版。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Removal of the widget and all related files, including the directory with its configuration."
-msgstr ""
+msgstr "卸载挂件及其所有相关文件，包括存放配置的目录。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -559,19 +559,19 @@ msgstr "通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Mouse actions"
-msgstr ""
+msgstr "鼠标操作"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Misc"
-msgstr ""
+msgstr "其他"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
-msgstr ""
+msgstr "配置会自动保存在配置文件中，并在每次启动时加载，确保您的设置不会丢失。配置文件存储在"
 
 #: ../contents/ui/configuration/General.qml
 msgid " not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
-msgstr ""
+msgstr "未安装！强烈建议安装它以便在无需下载新的软件包数据库的情况下获取最新更新。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -587,13 +587,13 @@ msgstr "当更改任一设置时，当前计时器将被重置。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Check on start up"
-msgstr ""
+msgstr "启动时检查"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time "
 "interval has passed since the widget was started. <b>Recommended.</b>"
-msgstr ""
+msgstr "如果<b>启用</b>该选项，挂件启动后将立即开始检查更新。<br><br>如果<b>禁用</b>该选项，则在挂件启动后经过设定的时间间隔才开始检查更新。<b>推荐使用此方式。</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -601,11 +601,11 @@ msgstr "更新"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
-msgstr ""
+msgstr "Arch 官方仓库"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
-msgstr ""
+msgstr "Arch 用户软件仓库"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
@@ -625,7 +625,7 @@ msgstr "<br><br>对于挂件开发者：<br>不要忘记更新 metadata.json 文
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
-msgstr "新闻"
+msgstr "新闻通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Linux News"
@@ -642,29 +642,29 @@ msgstr[0] "条来自订阅源的新闻"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr ""
+msgstr "新更新通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Upgrade button"
-msgstr ""
+msgstr "升级按钮"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
-msgstr ""
+msgstr "每次版本更新通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
 "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
 "is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
-msgstr ""
+msgstr "如果<b>启用</b>该选项，当软件包有新版本发布时，即使该软件包已在列表中，也会发送通知。<b>更多通知。</b><br><br>如果<b>禁用</b>该选项，则仅对尚未在列表中的软件包发送通知。<b>更少通知。</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr ""
+msgstr "新闻"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
-msgstr ""
+msgstr "错误通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "With sound"
@@ -672,7 +672,7 @@ msgstr "播放声音"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Persistent"
-msgstr ""
+msgstr "常驻通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "To further configure, click the button below -> Application Settings -> Apdatifier"
@@ -796,11 +796,11 @@ msgstr "tmux 会话"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr ""
+msgstr "升级前/后脚本"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr ""
+msgstr "升级前执行"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
@@ -812,19 +812,19 @@ msgstr "在升级之前运行您的命令或脚本。<br>例如，如果您使�
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr ""
+msgstr "升级后执行"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
-msgstr ""
+msgstr "在升级完成后运行您的命令或脚本。<br>例如，您可以指定用于升级其他内容的命令。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
-msgstr ""
+msgstr "封装"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr ""
+msgstr "搜索设置中已禁用 AUR"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -840,23 +840,23 @@ msgstr "建议在升级后"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
-msgstr ""
+msgstr "Pacman 镜像列表生成器"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
-msgstr ""
+msgstr "仅适用于官方仓库"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
-msgstr ""
+msgstr "生成器"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest before upgrading"
-msgstr ""
+msgstr "升级前建议"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr ""
+msgstr "<br><br>另请参见 [https://archlinux.org/mirrorlist](https://archlinux.org/mirrorlist) （点击按钮打开链接）"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -876,7 +876,7 @@ msgstr "输出数量"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
-msgstr ""
+msgstr "写入镜像列表文件的服务器数量。 0 表示全部服务器。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"
@@ -890,31 +890,31 @@ msgstr "至少选择一个！"
 msgid ""
 "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
 "to choose <b>1-2</b> countries closest to you."
-msgstr ""
+msgstr "您必须至少选择一个国家，否则默认会选择全部国家。<br><br><b>选择的国家越多，生成镜像列表所需时间越长！</b><br><br>建议选择距离您最近的<b>1-2个</b>国家，以获得最佳效果。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr ""
+msgstr "卸载未使用"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
-msgstr ""
+msgstr "正常"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr ""
+msgstr "正常，跳过询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr ""
+msgstr "非交互，跳过询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr ""
+msgstr "详细"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
-msgstr ""
+msgstr "升级确认"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Restart plasmashell"
@@ -922,11 +922,11 @@ msgstr "重启 plasmashell"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr ""
+msgstr "升级挂件后，旧版本仍会驻留在内存中，直到您重启 plasmashell。为避免手动操作，请启用此选项。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
-msgstr "评论"
+msgstr "命令"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -934,39 +934,39 @@ msgstr "禁止自动检查"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
-msgstr ""
+msgstr "按软件包名称筛选"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Disable auto search updates"
-msgstr ""
+msgstr "禁用自动搜索更新"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
-msgstr ""
+msgstr "启用自动搜索更新"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
-msgstr ""
+msgstr "按名称排序软件包"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
-msgstr ""
+msgstr "按仓库排序软件包"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
-msgstr ""
+msgstr "停止检查"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
-msgstr ""
+msgstr "紧凑视图"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended view"
-msgstr ""
+msgstr "扩展视图"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
-msgstr ""
+msgstr "查看发行说明"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
@@ -978,7 +978,7 @@ msgstr "升级包"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
-msgstr ""
+msgstr "包类型"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Description"
@@ -986,23 +986,23 @@ msgstr "描述"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "App ID"
-msgstr ""
+msgstr "App ID"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Branch"
-msgstr ""
+msgstr "分支"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Commit"
-msgstr ""
+msgstr "提交"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Runtime"
-msgstr ""
+msgstr "运行时"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Groups"
