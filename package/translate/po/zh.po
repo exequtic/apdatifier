@@ -61,7 +61,7 @@ msgstr "阅读 Arch Wiki - 部分更新"
 
 #: ../contents/tools/sh/messages
 msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "执行系统完整升级而非部分升级！"
+msgstr "请执行系统完整升级而非部分升级！"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -69,7 +69,7 @@ msgstr "总执行时间："
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr "关键软件包已更新，可能需要重启系统："
+msgstr "关键软件包已更新，可能需要重启："
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -193,11 +193,11 @@ msgstr "列出显式安装的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "列出显式安装且不是任何软件包依赖的软件包"
+msgstr "列出显式安装且未被依赖的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "列出已安装但不再需要的依赖（孤儿包"
+msgstr "列出不再需要的已安装依赖（孤儿包）"
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall orphan packages"
@@ -229,7 +229,7 @@ msgstr "退出"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
-msgstr "卸载前请检查依赖警告"
+msgstr "卸载前请查看依赖项警告"
 
 #: ../contents/tools/sh/messages
 msgid "Resume?"
@@ -295,7 +295,7 @@ msgstr[0] "+%1 项更新"
 #: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
-msgstr[0] "有更新待处理"
+msgstr[0] "项更新待处理"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -326,11 +326,11 @@ msgstr "无"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Check updates"
-msgstr "检查升级"
+msgstr "检查更新"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Upgrade system"
-msgstr "更新系统"
+msgstr "升级系统"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Switch interval"
@@ -342,7 +342,7 @@ msgstr "管理"
 
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
-msgstr "系统升级"
+msgstr "系统已更新"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
@@ -399,7 +399,7 @@ msgstr "选择计数器背景颜色"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default background color from current theme"
-msgstr "当前主题的默认背景颜色"
+msgstr "来自当前主题的默认背景颜色"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Size"
@@ -475,7 +475,7 @@ msgstr "使用内置图标"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr "覆盖自定义图标主题，改用默认的 Apdatifier 图标。"
+msgstr "覆盖自定义图标主题，改用默认 Apdatifier 图标。"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "View"
@@ -495,11 +495,11 @@ msgstr "排序"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr "根据仓库"
+msgstr "按仓库"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
-msgstr "根据名字"
+msgstr "按名称"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
@@ -543,7 +543,7 @@ msgstr "注意：包含最新提交的版本可能不稳定。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: if you haven't installed the Devel version before, there's no need to install the Stable version."
-msgstr "注意：如果您之前未安装过开发版，则无需安装稳定版。"
+msgstr "注意：如果之前未安装过开发版，则无需安装稳定版。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Removal of the widget and all related files, including the directory with its configuration."
@@ -567,11 +567,11 @@ msgstr "其他"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
-msgstr "配置会自动保存在配置文件中，并在每次启动时加载，确保您的设置不会丢失。配置文件存储在"
+msgstr "配置会自动保存至配置文件，并在每次启动时加载，确保您的设置不会丢失。配置文件存放于"
 
 #: ../contents/ui/configuration/General.qml
 msgid " not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
-msgstr "未安装！强烈建议安装它以便在无需下载新的软件包数据库的情况下获取最新更新。"
+msgstr "未安装！强烈建议安装，以便无需下载新的软件包数据库即可获取最新更新。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
@@ -692,7 +692,7 @@ msgstr "右键点击"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking."
-msgstr "如果挂件未在系统托盘中使用，请勿启用此选项；否则，您将无法通过右键点击打开设置。"
+msgstr "若挂件未在系统托盘中使用，请勿启用此选项，否则无法通过右键打开设置。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -824,7 +824,7 @@ msgstr "封装"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr "搜索设置中已禁用 AUR"
+msgstr "AUR 在搜索设置中已被禁用"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -836,7 +836,7 @@ msgstr "重启系统"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
-msgstr "建议在升级后"
+msgstr "升级后建议"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -856,7 +856,7 @@ msgstr "升级前建议"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "<br><br>另请参见 [https://archlinux.org/mirrorlist](https://archlinux.org/mirrorlist) （点击按钮打开链接）"
+msgstr "<br><br>另请参见 https://archlinux.org/mirrorlist （点击按钮打开链接）"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -890,11 +890,11 @@ msgstr "至少选择一个！"
 msgid ""
 "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
 "to choose <b>1-2</b> countries closest to you."
-msgstr "您必须至少选择一个国家，否则默认会选择全部国家。<br><br><b>选择的国家越多，生成镜像列表所需时间越长！</b><br><br>建议选择距离您最近的<b>1-2个</b>国家，以获得最佳效果。"
+msgstr "您必须至少选择一个国家，否则默认会选择全部国家。<br><br><b>选择的国家越多，生成镜像列表所需时间越长！</b><br><br>建议选择距离您最近的<b>1-2 个</b>国家以获得最佳效果。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
-msgstr "卸载未使用"
+msgstr "卸载未使用的软件包"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal"
@@ -906,11 +906,11 @@ msgstr "正常，跳过询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
-msgstr "非交互，跳过询问"
+msgstr "非交互模式，跳过询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Verbose"
-msgstr "详细"
+msgstr "详细模式"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade confirmation"
@@ -922,7 +922,7 @@ msgstr "重启 plasmashell"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr "升级挂件后，旧版本仍会驻留在内存中，直到您重启 plasmashell。为避免手动操作，请启用此选项。"
+msgstr "升级挂件后，旧版本仍会驻留在内存中，直到您重启 plasmashell。为避免手动操作，建议启用此选项"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
@@ -930,7 +930,7 @@ msgstr "命令"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
-msgstr "禁止自动检查"
+msgstr "自动检查已禁用"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -974,7 +974,7 @@ msgstr "忽略"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
-msgstr "升级包"
+msgstr "升级软件包"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Package type"
