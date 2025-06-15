@@ -83,6 +83,7 @@ Feel free to help translate to new languages or update and improve the ones that
 |-----------|---------|-------|
 | English   |     249 |       |
 | Brazilian | 228/249 |  91%  |
+| Chinese   | 249/249 | 100%  |
 | Dutch     | 249/249 | 100%  |
 | French    | 249/249 | 100%  |
 | German    | 228/249 |  91%  |

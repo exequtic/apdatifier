@@ -30,3 +30,4 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | pl       | 228/249 |   91% |
 | pt_BR    | 228/249 |   91% |
 | ru       | 249/249 |  100% |
+| zh       | 249/249 |  100% |
