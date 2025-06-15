@@ -80,9 +80,12 @@ ScrollView {
 
                         ColumnLayout {
                             Controls.Button {
-                                ToolTip { text: i18n("Read article") }
+                                ToolTip { id: tip; text: i18n("Read article") }
                                 icon.name: "internet-web-browser-symbolic"
-                                onClicked: Qt.openUrlExternally(model.link)
+                                onClicked: {
+                                    tip.hide()
+                                    Qt.openUrlExternally(model.link)
+                                }
                             }
                             Controls.Button {
                                 ToolTip { text: i18n("Remove") }
