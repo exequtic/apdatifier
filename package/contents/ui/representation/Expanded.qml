@@ -148,14 +148,14 @@ Representation {
                 }
 
                 ToolButton {
-                    ToolTip {text: i18n("Management")}
+                    ToolTip { id: managementTip; text: i18n("Management")}
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                     hoverEnabled: enabled
                     highlighted: enabled
                     enabled: sts.idle && pkg.pacman !== "" && cfg.terminal
                     visible: enabled && cfg.managementButton
-                    onClicked: JS.management()
+                    onClicked: { managementTip.hide(); JS.management() }
                     Kirigami.Icon {
                         height: parent.height
                         width: parent.height
@@ -169,14 +169,14 @@ Representation {
                 }
 
                 ToolButton {
-                    ToolTip {text: i18n("Upgrade system")}
+                    ToolTip { id: upgradeTip; text: i18n("Upgrade system")}
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                     hoverEnabled: enabled
                     highlighted: enabled
                     enabled: sts.pending && cfg.terminal
                     visible: enabled && cfg.upgradeButton
-                    onClicked: JS.upgradeSystem()
+                    onClicked: { upgradeTip.hide(); JS.upgradeSystem() }
                     Kirigami.Icon {
                         height: parent.height
                         width: parent.height
