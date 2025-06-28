@@ -302,7 +302,7 @@ function checkUpdates() {
     function checkFlatpak() {
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
         sts.statusMsg = i18n("Checking flatpak updates...")
-        execute("flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
+        execute("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
             if (Error(code, err)) return
             out ? descFlatpak(out.trim()) : cfg.widgets ? checkWidgets() : merge()
         }, true )
