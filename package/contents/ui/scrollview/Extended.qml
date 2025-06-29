@@ -28,7 +28,8 @@ ScrollView {
         delegate: ExpandableListItem {
             visible: sts.pending
             property var pkg: []
-            title: model.NM
+            allowStyledText: true
+            title: model.IM ? "<font color='red'><b>" + model.NM + "</b></font>" : model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
             icon: model.IC
 

@@ -20,7 +20,15 @@ ColumnLayout {
             JS.execute(JS.readFile(JS.rulesFile), (cmd, out, err, code) => {
                 if (JS.Error(code, err)) return
                 if (out && JS.validJSON(out, JS.rulesFile)) {
-                    JSON.parse(out).forEach(el => rulesModel.append({type: el.type, value: el.value, icon: el.icon, excluded: el.excluded}))
+                    JSON.parse(out).forEach(el =>
+                        rulesModel.append({
+                            type: el.type,
+                            value: el.value,
+                            icon: el.icon,
+                            excluded: el.excluded,
+                            important: ('important' in el) ? el.important : false
+                        })
+                    )
                 }
             })
         }
@@ -112,6 +120,12 @@ ColumnLayout {
                 }
 
                 ToolButton {
+                    ToolTip { text: i18n("Mark as important") }
+                    icon.name: model.important ? "flag-red" : "flag"
+                    onClicked: model.important = !model.important
+                }
+
+                ToolButton {
                     ToolTip { text: model.excluded ? i18n("Show in the list") : i18n("Exclude from the list") }
                     icon.name: model.excluded ? "view-visible" : "hint"
                     onClicked: model.excluded = !model.excluded
@@ -163,11 +177,13 @@ ColumnLayout {
             text: i18n("Add rule")
             icon.name: "list-add"
             onClicked: {
-                var type = "name"
-                var value = ""
-                var icon = plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database"
-                var excluded = false
-                rulesModel.append({type: type, value: value, icon: icon, excluded: excluded})
+                rulesModel.append({
+                    type: "name",
+                    value: "",
+                    icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
+                    excluded: false,
+                    important: false
+                })
             }
         }
         Button {

@@ -464,6 +464,8 @@ function sortList(list, byName) {
         const repo = a.RE.localeCompare(b.RE)
         if (byName || !cfg.sorting) return name
 
+        if (a.IM !== b.IM) return a.IM ? -1 : 1
+
         const develA = a.RE.includes("devel")
         const develB = b.RE.includes("devel")
         if (develA !== develB) return develA ? -1 : 1
@@ -590,6 +592,7 @@ function applyRules(list) {
     list.forEach(el => {
         el.IC = el.IN ? el.IN : el.ID ? el.ID : "apdatifier-package"
         el.EX = false
+        el.IM = false
     })
 
     function applyRule(el, rule) {
@@ -604,11 +607,12 @@ function applyRules(list) {
         if (types[rule.type]()) {
             el.IC = rule.icon
             el.EX = rule.excluded
+            el.IM = rule.important
         }
     }
 
     rules.forEach(rule => list.forEach(el => applyRule(el, rule)))
-    return list.filter(el => !el.EX)
+    return list
 }
 
 
@@ -623,6 +627,7 @@ function keys(list) {
 
         if (el.hasOwnProperty("IC")) delete el["IC"]
         if (el.hasOwnProperty("EX")) delete el["EX"]
+        if (el.hasOwnProperty("IM")) delete el["IM"]
     })
 
     return list
