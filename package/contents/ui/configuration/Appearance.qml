@@ -42,7 +42,8 @@ SimpleKCM {
     property bool cfg_counterLeft: plasmoid.configuration.counterLeft
 
     property alias cfg_ownIconsUI: ownIconsUI.checked
-    property int cfg_listView: plasmoid.configuration.listView
+    property int cfg_defaultTab: plasmoid.configuration.defaultTab
+    property alias cfg_switchDefaultTab: switchDefaultTab.checked
     property alias cfg_spacing: spacing.value
     property alias cfg_sorting: sorting.checked
     property alias cfg_showStatusText: showStatusText.checked
@@ -597,37 +598,41 @@ SimpleKCM {
             id: viewGroup
         }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("View") + ":"
-
-            RadioButton {
-                id: compactView
-                ButtonGroup.group: viewGroup
-                text: i18n("Compact")
-                Component.onCompleted: checked = !plasmoid.configuration.listView
-            }
-
-            RowLayout {
-                Slider {
-                    id: spacing
-                    from: 0
-                    to: 12
-                    stepSize: 1
-                    value: spacing.value
-                    onValueChanged: plasmoid.configuration.spacing = spacing.value
-                }
-
-                Label {
-                    text: spacing.value
-                }
-            }
+        RadioButton {
+            Kirigami.FormData.label: i18n("Default tab") + ":"
+            id: compactView
+            ButtonGroup.group: viewGroup
+            text: i18n("Compact")
+            Component.onCompleted: checked = !plasmoid.configuration.defaultTab
         }
 
         RadioButton {
             ButtonGroup.group: viewGroup
             text: i18n("Extended")
-            onCheckedChanged: cfg_listView = checked
-            Component.onCompleted: checked = plasmoid.configuration.listView
+            onCheckedChanged: cfg_defaultTab = checked
+            Component.onCompleted: checked = plasmoid.configuration.defaultTab
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Behavior") + ":"
+            id: switchDefaultTab
+            text: i18n("Always switch to default tab")
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Item spacing (Compact)") + ":"
+            Slider {
+                id: spacing
+                from: 0
+                to: 12
+                stepSize: 1
+                value: spacing.value
+                onValueChanged: plasmoid.configuration.spacing = spacing.value
+            }
+
+            Label {
+                text: spacing.value
+            }
         }
 
         Item {

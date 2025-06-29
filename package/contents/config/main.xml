@@ -78,7 +78,8 @@
         <entry name="counterRight" type="bool"><default>true</default></entry>
         <entry name="counterLeft" type="bool"><default>false</default></entry>
         <entry name="ownIconsUI" type="bool"><default>true</default></entry>
-        <entry name="listView" type="int"><default>0</default></entry>
+        <entry name="defaultTab" type="int"><default>0</default></entry>
+        <entry name="switchDefaultTab" type="bool"><default>false</default></entry>
         <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="sorting" type="bool"><default>true</default></entry>
         <entry name="showStatusText" type="bool"><default>true</default></entry>

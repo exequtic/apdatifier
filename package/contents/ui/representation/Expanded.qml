@@ -18,6 +18,11 @@ import "../../tools/tools.js" as JS
 Representation {
     property string currVersion: "v2.9.3"
     property bool searchFieldOpen: false
+    property bool expanded: root.expanded
+    onExpandedChanged: {
+        if (plasmoid.configuration.switchDefaultTab && !expanded)
+            swipeView.currentIndex = plasmoid.configuration.defaultTab
+    }
 
     property string statusIcon: {
         var icons = {
@@ -345,6 +350,7 @@ Representation {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
+            currentIndex: plasmoid.configuration.defaultTab
             View.Compact {}
             View.Extended {}
             View.News {}
