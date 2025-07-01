@@ -612,7 +612,7 @@ function applyRules(list) {
     }
 
     rules.forEach(rule => list.forEach(el => applyRule(el, rule)))
-    return list
+    return list.filter(el => !el.EX)
 }
 
 
