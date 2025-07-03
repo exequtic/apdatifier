@@ -5,9 +5,13 @@ import org.kde.plasma.extras
 import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 
-ColumnLayout {
+Item {
+    width: parent.width
+    height: implicitHeight
+    anchors.centerIn: parent
+
     Loader {
-        Layout.maximumWidth: parent.width - (Kirigami.Units.largeSpacing * 4)
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
         active: sts.updated
         sourceComponent: Kirigami.PlaceholderMessage {
@@ -18,7 +22,7 @@ ColumnLayout {
     }
 
     Loader {
-        Layout.maximumWidth: parent.width - (Kirigami.Units.largeSpacing * 4)
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
         active: !sts.busy && sts.err
         sourceComponent: Kirigami.PlaceholderMessage {
@@ -29,7 +33,7 @@ ColumnLayout {
     }
 
     Loader {
-        Layout.maximumWidth: parent.width - (Kirigami.Units.largeSpacing * 4)
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
         active: sts.busy
         sourceComponent: ColumnLayout {

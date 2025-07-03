@@ -103,8 +103,14 @@ ColumnLayout {
                     enabled: type.currentIndex !== 0
                     onTextChanged: {
                         var allow = /^[a-z0-9_\-+.]*$/
-                        if (!allow.test(valueField.text)) valueField.text = valueField.text.replace(/[^a-z0-9_\-+.]/g, "")
-                        model.value = valueField.text
+                        var filtered = valueField.text.replace(/[^a-z0-9_\-+.]/g, "")
+                        if (valueField.text !== filtered) {
+                            valueField.text = filtered
+                            return
+                        }
+                        if (model.value !== valueField.text) {
+                            model.value = valueField.text
+                        }
                     }
                 }
 

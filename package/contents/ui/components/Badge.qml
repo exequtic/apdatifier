@@ -5,28 +5,52 @@
 
 import QtQuick
 import org.kde.kirigami as Kirigami
-import "../../tools/tools.js" as JS
 
 Rectangle {
-    property var position: 0
     property var iconName: ""
     property var iconColor: ""
+    property bool pauseBadge: iconName === pausedIcon
 
-    width: (counterOverlay ? trayIconSize : panelIcon.width) / 3
+    function setAnchor(anchor) {
+        if (counterRow) {
+            var topLeft = { top: parent.top, bottom: undefined, left: parent.left, right: undefined }
+            var topRight = { top: parent.top, bottom: undefined, left: undefined, right: parent.right }
+            var positions = pauseBadge ? topLeft : topRight
+        } else {
+            var normal = {
+                top:    (cfg.counterTop && !cfg.counterBottom) ? parent.top : undefined,
+                bottom: (cfg.counterBottom && !cfg.counterTop) ? parent.bottom : undefined,
+                left:   (cfg.counterLeft && !cfg.counterRight) ? parent.left : undefined,
+                right:  (cfg.counterRight && !cfg.counterLeft) ? parent.right : undefined            
+            }
+            var reverse = {
+                top:    (cfg.counterBottom && !cfg.counterTop) ? parent.top : undefined,
+                bottom: (cfg.counterTop && !cfg.counterBottom) ? parent.bottom : undefined,
+                left:   (cfg.counterRight && !cfg.counterLeft) ? parent.left : undefined,
+                right:  (cfg.counterLeft && !cfg.counterRight) ? parent.right : undefined
+            }
+            var positions = pauseBadge ? reverse : normal
+        }
+
+        return positions[anchor]
+    }
+
+
+    width: (counterOverlay ? trayIconSize : parent.width) / 3
     height: width
     radius: width / 2
     color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
 
     anchors {
-        top: counterOverlay ? JS.setAnchor("top", position) : panelIcon.top
-        bottom: counterOverlay ? JS.setAnchor("bottom", position) : undefined
-        right: counterOverlay ? JS.setAnchor("right", position) : (position === "right" ? panelIcon.right : undefined)
-        left: counterOverlay ? JS.setAnchor("left", position) : (position === "left" ? panelIcon.left : undefined)
+        top:    setAnchor("top")
+        bottom: setAnchor("bottom")
+        left:   setAnchor("left")
+        right:  setAnchor("right")
 
-        topMargin: counterOverlay ? 0 : 5
+        topMargin:    counterOverlay ? 0 : 5
         bottomMargin: counterOverlay ? 0 : 0
-        leftMargin: counterOverlay ? 0 : -1
-        rightMargin: counterOverlay ? 0 : -1
+        leftMargin:   counterOverlay ? 0 : -1
+        rightMargin:  counterOverlay ? 0 : -1
     }
 
     Kirigami.Icon {

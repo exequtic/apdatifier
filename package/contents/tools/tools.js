@@ -634,24 +634,6 @@ function keys(list) {
 }
 
 
-function setAnchor(position, stopIndicator) {
-    const anchor = {
-        top: cfg.counterBottom && !cfg.counterTop,
-        bottom: cfg.counterTop && !cfg.counterBottom,
-        right: cfg.counterLeft && !cfg.counterRight,
-        left: cfg.counterRight && !cfg.counterLeft
-    }
-
-    const Position = stopIndicator ? anchor[position] :
-                      { parent: cfg.counterCenter ? parent : undefined,
-                        top: anchor.bottom,
-                        bottom: anchor.top,
-                        right: anchor.left,
-                        left: anchor.right }[position]
-    
-    return Position ? frame[position] : undefined
-}
-
 function switchInterval() {
     cfg.interval = !cfg.interval
 }

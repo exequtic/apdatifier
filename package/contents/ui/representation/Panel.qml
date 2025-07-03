@@ -97,19 +97,16 @@ MouseArea {
                     iconName: errorIcon
                     iconColor: Kirigami.Theme.negativeTextColor
                     visible: sts.err
-                    position: "right"
                 }
                 QQC.Badge {
                     iconName: updatedIcon
                     iconColor: Kirigami.Theme.positiveTextColor
                     visible: sts.updated
-                    position: "right"
                 }
                 QQC.Badge {
                     iconName: pausedIcon
                     iconColor: Kirigami.Theme.neutralTextColor
                     visible: sts.paused
-                    position: "left"
                 }
             }
         }
@@ -169,11 +166,11 @@ MouseArea {
         }
 
         anchors {
-            centerIn: JS.setAnchor("parent")
-            top: JS.setAnchor("top")
-            bottom: JS.setAnchor("bottom")
-            right: JS.setAnchor("right")
-            left: JS.setAnchor("left")
+            centerIn: cfg.counterCenter ? parent : undefined
+            top:    (!cfg.counterCenter && cfg.counterTop && !cfg.counterBottom) ? frame.top : undefined
+            bottom: (!cfg.counterCenter && cfg.counterBottom && !cfg.counterTop) ? frame.bottom : undefined
+            left:   (!cfg.counterCenter && cfg.counterLeft && !cfg.counterRight) ? frame.left : undefined
+            right:  (!cfg.counterCenter && cfg.counterRight && !cfg.counterLeft) ? frame.right : undefined
         }
     }
 
@@ -193,18 +190,15 @@ MouseArea {
         iconName: errorIcon
         iconColor: Kirigami.Theme.negativeTextColor
         visible: counterOverlay && sts.err
-        position: 0
     }
     QQC.Badge {
         iconName: updatedIcon
         iconColor: Kirigami.Theme.positiveTextColor
         visible: counterOverlay && sts.updated
-        position: 0
     }
     QQC.Badge {
         iconName: pausedIcon
         iconColor: Kirigami.Theme.neutralTextColor
         visible: counterOverlay && sts.paused
-        position: 1
     }
 }
