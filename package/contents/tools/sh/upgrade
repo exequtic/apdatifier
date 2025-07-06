@@ -86,6 +86,7 @@ fullSystemUpgrade() {
             done
         fi
 
+        test -f "$configDir/env.sh" && source "$configDir/env.sh"
         run "$bin -Syu $archFlags"
 
         for pkg in "${critical_installed[@]}"; do
