@@ -45,7 +45,7 @@ ScrollView {
             Label {
                 Layout.minimumWidth: column
                 Layout.maximumWidth: column
-                text: model.IM ? "<font color='red'><b>" + model.NM + "</b></font>" : model.NM
+                text: model.IM ? "<font color='" + Kirigami.Theme.negativeTextColor + "'><b>" + model.NM + "</b></font>" : model.NM
                 elide: Text.ElideRight
             }
             Label {

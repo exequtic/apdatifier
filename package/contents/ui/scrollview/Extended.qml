@@ -29,7 +29,7 @@ ScrollView {
             visible: sts.pending
             property var pkg: []
             allowStyledText: true
-            title: model.IM ? "<font color='red'><b>" + model.NM + "</b></font>" : model.NM
+            title: model.IM ? "<font color='" + Kirigami.Theme.negativeTextColor + "'><b>" + model.NM + "</b></font>" : model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
             icon: model.IC
 
@@ -61,7 +61,7 @@ ScrollView {
                     MouseArea {
                         Layout.fillWidth: true
                         Layout.preferredHeight: details.implicitHeight
-                        acceptedButtons: Qt.RightButton
+                        // acceptedButtons: Qt.RightButton
                         activeFocusOnTab: repeater.count > 0
 
                         GridLayout {
