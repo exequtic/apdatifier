@@ -112,25 +112,35 @@ uninstallOrphans() {
 
 downgradePackage() {
     dependencies "fzf" true
-    pacman_cache="$(pacman-conf CacheDir)"
-    wrapper_cache="$HOME/.cache/$wrapper"
+    pacman_cache_dir="$(pacman-conf CacheDir)"
+    wrapper_cache_dir="$HOME/.cache/$wrapper"
 
-    cache=$(find $pacman_cache $wrapper_cache -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | sort | \
-            fzf --exact --layout=reverse | oneLine)
+    files=$(find "$pacman_cache_dir" "$wrapper_cache_dir" -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | \
+            fzf --exact --multi --layout=reverse)
 
-    if [[ -z "$cache" ]]; then
-        showOptions $selected
-    else
-        if [ -f "${pacman_cache}${cache}" ]; then
-            printExec -U "${pacman_cache}${cache}"
-            $wrapper_sudo -U "${pacman_cache}${cache}"
-        else
-            cache=$(find $wrapper_cache -type f -name $cache 2>/dev/null)
-            printExec -U "${cache}"
-            $wrapper_sudo -U $cache
-        fi
-        returnMenu
+    if [[ -z "$files" ]]; then
+        showOptions "$selected"
+        return
     fi
+
+    file_paths=()
+
+    for file in $files; do
+        if [ -f "${pacman_cache_dir}${file}" ]; then
+            file_paths+=("${pacman_cache_dir}${file}")
+        else
+            path=$(find "$wrapper_cache_dir" -type f -name "$file" 2>/dev/null)
+            [[ -n "$path" ]] && file_paths+=("$path")
+        fi
+    done
+
+    if [ ${#file_paths[@]} -gt 0 ]; then
+        cache="${file_paths[*]}"
+        printExec -U "$cache"
+        $wrapper_sudo -U $cache
+    fi
+
+    returnMenu
 }
 
 rebuildPython() {
