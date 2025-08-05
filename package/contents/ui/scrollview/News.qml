@@ -58,13 +58,15 @@ ScrollView {
                         ColumnLayout {
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
+                                wrapMode: Text.NoWrap
+                                elide: Text.ElideRight
                                 text: model.title
                                 font.bold: true
                             }
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
+                                wrapMode: Text.NoWrap
+                                elide: Text.ElideRight
                                 text: model.date
                                 opacity: 0.6
                             }
@@ -73,7 +75,8 @@ ScrollView {
                             }
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
+                                wrapMode: Text.NoWrap
+                                elide: Text.ElideRight
                                 text: model.article
                             }
                         }
