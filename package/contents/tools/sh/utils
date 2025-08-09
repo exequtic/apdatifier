@@ -144,9 +144,12 @@ spinner() {
 
 clearVer() {
     local ver="${1}"
+    ver="${ver//[^0-9.]/.}"
+    while [[ "$ver" == *".."* ]]; do
+        ver="${ver//../.}"
+    done
     ver="${ver#.}"
     ver="${ver%.}"
-    ver="${ver//[!0-9.]}"
     echo "${ver}"
 }
 
