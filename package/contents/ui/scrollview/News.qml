@@ -23,7 +23,7 @@ ScrollView {
         leftMargin: spacing
         bottomMargin: spacing
 
-        add: Transition { NumberAnimation { properties: "x"; from: 100; duration: Kirigami.Units.longDuration } }
+        // add: Transition { NumberAnimation { properties: "x"; from: 100; duration: Kirigami.Units.longDuration } } NEWS SPACING PATCH
         removeDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: Kirigami.Units.longDuration } }
         remove: Transition { ParallelAnimation {
                 NumberAnimation { property: "opacity"; to: 0; duration: Kirigami.Units.longDuration }
@@ -58,15 +58,13 @@ ScrollView {
                         ColumnLayout {
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.NoWrap
-                                elide: Text.ElideRight
+                                wrapMode: Text.WordWrap
                                 text: model.title
                                 font.bold: true
                             }
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.NoWrap
-                                elide: Text.ElideRight
+                                wrapMode: Text.WordWrap
                                 text: model.date
                                 opacity: 0.6
                             }
@@ -75,8 +73,7 @@ ScrollView {
                             }
                             Controls.Label {
                                 Layout.fillWidth: true
-                                wrapMode: Text.NoWrap
-                                elide: Text.ElideRight
+                                wrapMode: Text.WordWrap
                                 text: model.article
                             }
                         }
