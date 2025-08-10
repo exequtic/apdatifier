@@ -51,8 +51,8 @@ Item {
 
         const { icon, urgency } = params[event]
 
-        const action = (event === "updates" && cfg.notifyAction) ? upgradeAction.createObject(root)
-                     : (event === "news" && cfg.notifyAction) ? openArticleAction.createObject(root, { link: link })
+        const action = (event === "updates" && cfg.notifyUpdatesAction) ? upgradeAction.createObject(root)
+                     : (event === "news" && cfg.notifyNewsAction) ? openArticleAction.createObject(root, { link: link })
                      : []
 
         if (cfg.notifySound) event += "Sound"

@@ -27,9 +27,10 @@
         <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
         <entry name="scrollDownAction" type="string"><default>management</default></entry>
         <entry name="notifyUpdates" type="bool"><default>true</default></entry>
-        <entry name="notifyAction" type="bool"><default>false</default></entry>
+        <entry name="notifyUpdatesAction" type="bool"><default>false</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
         <entry name="notifyNews" type="bool"><default>true</default></entry>
+        <entry name="notifyNewsAction" type="bool"><default>false</default></entry>
         <entry name="notifyErrors" type="bool"><default>true</default></entry>
         <entry name="notifySound" type="bool"><default>true</default></entry>
         <entry name="notifyPersistent" type="bool"><default>false</default></entry>
