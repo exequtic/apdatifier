@@ -81,7 +81,7 @@ fzfPreview() {
     dependencies "fzf" true
 
     case $1 in
-        Slq) fzfExec -$1 -Si -S;;
+        Slq) fzfExec -$1 -Si -Syu;;
           *) fzfExec -$1 -Qil -Rsn;;
     esac
 }
