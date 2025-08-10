@@ -354,7 +354,7 @@ function updateNews(out) {
         const currentNews = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
         news.forEach(item => {
             if (!currentNews.some(currentItem => currentItem.link === item.link)) {
-                notify.send("news", item.title, item.article)
+                notify.send("news", item.title, item.article, item.link)
             }
         })
     }

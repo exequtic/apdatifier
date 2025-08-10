@@ -301,18 +301,10 @@ SimpleKCM {
                 Kirigami.FormData.isSection: true
             }
 
-            RowLayout {
-                spacing: Kirigami.Units.largeSpacing * 2
-                CheckBox {
-                    Kirigami.FormData.label: i18n("Notifications") + ":"
-                    id: notifyUpdates
-                    text: i18n("For new updates")
-                }
-                CheckBox {
-                    id: notifyAction
-                    text: i18n("Upgrade button")
-                    enabled: notifyUpdates.checked
-                }
+            CheckBox {
+                Kirigami.FormData.label: i18n("Notifications") + ":"
+                id: notifyUpdates
+                text: i18n("For new updates")
             }
 
             RowLayout {
@@ -347,6 +339,12 @@ SimpleKCM {
                 id: notifyPersistent
                 text: i18n("Persistent")
                 enabled: notifyUpdates.checked || notifyNews.checked || notifyErrors.checked
+            }
+
+            CheckBox {
+                id: notifyAction
+                text: i18n("Action button")
+                enabled: notifyUpdates.checked || notifyNews.checked
             }
 
             Item {

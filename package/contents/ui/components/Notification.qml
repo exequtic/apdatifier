@@ -17,23 +17,43 @@ Item {
     }
 
     Component {
-        id: actionComponent
+        id: upgradeAction
         NotificationAction {
             label: i18n("Upgrade system")
             onActivated: JS.upgradeSystem()
         }
     }
 
-    function send(event, title, body) {
+    Component {
+        id: openArticleAction
+        NotificationAction {
+            property string link
+            label: i18n("Read article")
+            onActivated: Qt.openUrlExternally(link)
+        }
+    }
+
+    function send(event, title, body, link) {
         const params = {
-            news: { icon: "news-subscribe", urgency: "HighUrgency" },
-            error: { icon: "error", urgency: "HighUrgency" },
-            updates: { icon: "apdatifier-packages", urgency: "DefaultUrgency" }
+            updates: {
+                icon: "apdatifier-packages",
+                urgency: "DefaultUrgency"
+            },
+            news: {
+                icon: "news-subscribe",
+                urgency: "HighUrgency"
+            },
+            error: {
+                icon: "error",
+                urgency: "CriticalUrgency"
+            }
         }
 
         const { icon, urgency } = params[event]
 
-        const action = (event === "updates" && cfg.notifyAction) ? actionComponent.createObject(root) : []
+        const action = (event === "updates" && cfg.notifyAction) ? upgradeAction.createObject(root)
+                     : (event === "news" && cfg.notifyAction) ? openArticleAction.createObject(root, { link: link })
+                     : []
 
         if (cfg.notifySound) event += "Sound"
 
@@ -42,7 +62,8 @@ Item {
             iconName: icon,
             title: title,
             text: body,
-            actions: action
+            actions: action,
+            urgency: urgency
         })?.sendEvent()
     }
 }
