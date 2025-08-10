@@ -137,16 +137,14 @@ function checkDependencies() {
 }
 
 
-function upgradePackage(name, id, contentID) {
+function upgradePackage(name, appID, contentID) {
     if (sts.upgrading) return
     enableUpgrading(true)
 
-    if (id) {
-        runInTerminal("upgrade", "flatpak", id, name)
+    if (appID) {
+        runInTerminal("upgrade", "flatpak", appID, name)
     } else if (contentID) {
         runInTerminal("upgrade", "widget", contentID, name)
-    } else {
-        runInTerminal("upgrade", "arch", name)
     }
 }
 

@@ -148,21 +148,6 @@ fullSystemUpgrade() {
     printClose
 }
 
-arch_package() {
-    printMsg "$UPGRADE_PACKAGE: $1"
-    echo
-
-    printImportant "$UPGRADE_WIKI"
-    printImportant "$UPGRADE_PARTIAL"
-    echo
-
-    printExec "$bin -Sy" $1
-
-    $bin -Sy $1
-
-    printClose
-}
-
 flatpak_package() {
     printMsg "$UPGRADE_PACKAGE: $2"
     echo
@@ -193,7 +178,6 @@ postUpgrade() {
 
 case "$1" in
           "full") fullSystemUpgrade ;;
-          "arch") shift; arch_package $1 ;;
        "flatpak") shift; flatpak_package $1 $2;;
         "widget") shift; widget_package $1 $2;;
    "postUpgrade") postUpgrade ;;
