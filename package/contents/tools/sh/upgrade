@@ -67,7 +67,7 @@ fullSystemUpgrade() {
         printMsg "$UPGRADE_FULL_ARCH"
         echo
 
-        [ "$mirrors" = true ] && { $scriptDir/mirrorlist; echo; }
+        [ "$mirrors" != "false" ] && $scriptDir/mirrorlist
 
         if [ -n "$preExec" ]; then
             run "$preExec"

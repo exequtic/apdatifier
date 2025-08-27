@@ -5,7 +5,7 @@
 
 source "$(dirname "$0")/utils"
 
-menu=$1
+[[ "$1" == "true" ]] && MENU=1 || MENU=0
 selected=$2
 
 returnMenu() {
@@ -15,20 +15,30 @@ returnMenu() {
 }
 
 mirrorfile="/etc/pacman.d/mirrorlist"
-if [ -f $mirrorfile ]; then
+OUTDATED=false
+[[ ! -f "$mirrorfile" ]] && {
+    NORM_TIME="(no file)"
+    OUTDATED=true
+} || {
     FILE_TIME=$(date -r "$mirrorfile" +%s)
-    NORM_TIME=$(date -d @$FILE_TIME +"%d %b %H:%M:%S")
-    printImportant "$MIRROR_TIME" "$NORM_TIME"
-fi
+    NORM_TIME=$(date -d @"$FILE_TIME" +"%d %b %H:%M:%S")
+    CURR_TIME=$(date +%s)
+    [[ "$mirrors" == "age" && $MENU -eq 0 ]] && {
+        (( CURR_TIME - FILE_TIME >= mirrorsAge * 86400 )) && OUTDATED=true || exit
+    }
+}
 
-while true; do
-    printQuestion "$MNG_OPT_11?"; read -r answer
-    case "$answer" in
-           [Yy]*) echo; break;;
-        [Nn]*|"") [[ "$menu" = "true" ]] && { returnMenu; } || { exit; };;
-               *)  ;;
-    esac
-done
+[[ "$mirrors" != "force" || $MENU -eq 1 ]] && {
+    printImportant "$MIRROR_TIME" "$NORM_TIME"
+    while true; do
+        printQuestion "$MNG_OPT_11?"; read -r answer
+        case "$answer" in
+            [Yy]*) echo; break;;
+            [Nn]*|"") (( MENU )) && { returnMenu; } || { echo; exit; };;
+            *) ;;
+        esac
+    done
+}
 
 dependencies "rankmirrors" true
 rankmirrors -V &>/dev/null || {
@@ -44,7 +54,7 @@ rankmirrors -V &>/dev/null || {
         echo
     fi
 
-    [[ "$menu" = "true" ]] && returnMenu || exit
+    (( MENU )) && returnMenu || exit
 }
 
 tempfile=$(mktemp)
@@ -55,7 +65,7 @@ if [[ -s "$tempfile" && $(head -n 1 "$tempfile" | grep -c "^##") -gt 0 ]]; then
 else
     printError "$MIRRORS_FETCH"
     printError "$MIRRORS_ERR"
-    [[ "$menu" = "true" ]] && returnMenu || exit
+    (( MENU )) && returnMenu || exit
 fi
 
 sed -i -e "s/^#Server/Server/" -e "/^#/d" "$tempfile"
@@ -66,7 +76,7 @@ if [[ -s "$tempfile2" && $(head -n 1 "$tempfile2" | grep -c "^# S") -gt 0 ]]; th
     printDone "$MIRRORS_RANK"
 else
     printError "$MIRRORS_RANK"
-    [[ "$menu" = "true" ]] && returnMenu || exit
+    (( MENU )) && returnMenu || exit
 fi
 
 sed -i '1d' "$tempfile2"
@@ -79,8 +89,8 @@ if [ $? -eq 0 ]; then
     printDone "$mirrorfile $MIRRORS_UPD"
     echo -e "$y$(tail -n +6 $mirrorfile | sed 's/Server = //g')$c\n"
     rm $tempfile; rm $tempfile2
-    [[ "$menu" = "true" ]] && returnMenu
+    (( MENU )) && returnMenu
 else
     printError "$MIRRORS_SUDO"
-    [[ "$menu" = "true" ]] && returnMenu || exit
+    (( MENU )) && returnMenu || exit
 fi

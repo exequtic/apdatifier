@@ -23,7 +23,9 @@ SimpleKCM {
     property alias cfg_archFlags: archFlags.text
     property alias cfg_sudoBin: sudoBin.text
     property alias cfg_rebootSystem: rebootSystem.checked
-    property alias cfg_mirrors: mirrors.checked
+    property bool mirrorsDeps: pkg.pacman && pkg.checkupdates
+    property string cfg_mirrors: plasmoid.configuration.mirrors
+    property alias cfg_mirrorsAge: mirrorsAge.value
     property alias cfg_mirrorCount: mirrorCount.value
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
@@ -303,6 +305,7 @@ SimpleKCM {
         }
 
         RowLayout {
+            height: 30
             Label {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
@@ -310,26 +313,89 @@ SimpleKCM {
                 color: Kirigami.Theme.negativeTextColor
                 text: i18n("Only for official repositories")
             }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("Required installed") + " pacman-contrib." + i18n("<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
+                onClicked: Qt.openUrlExternally("https://archlinux.org/mirrorlist")
+            }
         }
 
         Item {
             Layout.preferredHeight: Kirigami.Units.smallSpacing * 2
         }
 
-        RowLayout {
+        ButtonGroup {
+            id: generator
+        }
+
+        RowLayout{
             Kirigami.FormData.label: i18n("Generator") + ":"
 
-            CheckBox {
-                id: mirrors
-                text: i18n("Suggest before upgrading")
-                enabled: pkg.pacman && pkg.checkupdates
-                Component.onCompleted: if (checked && !enabled) checked = plasmoid.configuration.mirrors = false
+            RadioButton {
+                ButtonGroup.group: generator
+                text: i18n("Disabled")
+                enabled: mirrorsDeps
+                checked: {
+                    plasmoid.configuration.mirrors === "false"
+                }
+                onCheckedChanged: {
+                    if (checked) cfg_mirrors = "false"
+                }
+                Component.onCompleted: {
+                    if (!checked && !enabled) {
+                        checked = true
+                        plasmoid.configuration.mirrors = "false"
+                    }
+                }
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: generator
+            text: i18n("Always ask")
+            enabled: mirrorsDeps
+            checked: plasmoid.configuration.mirrors === "alwaysAsk"
+            onCheckedChanged: {
+                if (checked) cfg_mirrors = "alwaysAsk"
+            }
+        }
+
+        RowLayout{
+            enabled: mirrorsDeps
+            RadioButton {
+                ButtonGroup.group: generator
+                text: i18n("Ask if older than")
+                checked: plasmoid.configuration.mirrors === "age"
+                onCheckedChanged: {
+                    if (checked) cfg_mirrors = "age"
+                }
             }
 
-            Kirigami.ContextualHelpButton {
-                toolTipText: i18n("Required installed") + " pacman-contrib." + i18n("<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
-                onClicked: Qt.openUrlExternally("https://archlinux.org/mirrorlist")
+            SpinBox {
+                id: mirrorsAge
+                from: 1
+                to: 999
+                stepSize: 1
+                value: mirrorsAge
             }
+
+            Label {
+                text: i18np("day", "days", mirrorsAge.value)
+            }
+        }
+
+        RadioButton {
+            ButtonGroup.group: generator
+            text: i18n("No ask, force refresh")
+            enabled: mirrorsDeps
+            checked: plasmoid.configuration.mirrors === "force"
+            onCheckedChanged: {
+                if (checked) cfg_mirrors = "force"
+            }
+        }
+
+        Item {
+            Layout.preferredHeight: Kirigami.Units.smallSpacing * 2
         }
 
         RowLayout {
@@ -340,14 +406,14 @@ SimpleKCM {
                 id: http
                 text: "http"
                 onClicked: updateUrl()
-                enabled: mirrors.checked
+                enabled: mirrorsDeps
             }
 
             CheckBox {
                 id: https
                 text: "https"
                 onClicked: updateUrl()
-                enabled: mirrors.checked
+                enabled: mirrorsDeps
             }
         }
 
@@ -358,14 +424,14 @@ SimpleKCM {
                 id: ipv4
                 text: "IPv4"
                 onClicked: updateUrl()
-                enabled: mirrors.checked
+                enabled: mirrorsDeps
             }
 
             CheckBox {
                 id: ipv6
                 text: "IPv6"
                 onClicked: updateUrl()
-                enabled: mirrors.checked
+                enabled: mirrorsDeps
             }
         }
 
@@ -374,7 +440,7 @@ SimpleKCM {
             id: mirrorstatus
             text: i18n("Enable")
             onClicked: updateUrl()
-            enabled: mirrors.checked
+            enabled: mirrorsDeps
         }
 
         RowLayout {
@@ -386,7 +452,7 @@ SimpleKCM {
                 to: 10
                 stepSize: 1
                 value: mirrorCount
-                enabled: mirrors.checked
+                enabled: mirrorsDeps
             }
 
             Kirigami.ContextualHelpButton {
@@ -422,7 +488,7 @@ SimpleKCM {
         ColumnLayout {
             Layout.maximumWidth: archTab.width / 2.5
             Layout.maximumHeight: 200
-            enabled: mirrors.checked
+            enabled: mirrorsDeps
 
             ScrollView {
                 Layout.preferredWidth: archTab.width / 2.5
