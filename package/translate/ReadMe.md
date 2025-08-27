@@ -27,7 +27,7 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | fr       | 249/249 |  100% |
 | ko       | 134/249 |   53% |
 | nl       | 249/249 |  100% |
-| pl       | 228/249 |   91% |
+| pl       | 249/249 |  100% |
 | pt_BR    | 228/249 |   91% |
 | ru       | 249/249 |  100% |
 | zh       | 249/249 |  100% |
