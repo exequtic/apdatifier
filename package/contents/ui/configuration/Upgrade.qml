@@ -23,7 +23,6 @@ SimpleKCM {
     property alias cfg_archFlags: archFlags.text
     property alias cfg_sudoBin: sudoBin.text
     property alias cfg_rebootSystem: rebootSystem.checked
-    property bool mirrorsDeps: pkg.pacman && pkg.checkupdates
     property string cfg_mirrors: plasmoid.configuration.mirrors
     property alias cfg_mirrorsAge: mirrorsAge.value
     property alias cfg_mirrorCount: mirrorCount.value
@@ -333,8 +332,9 @@ SimpleKCM {
 
             RadioButton {
                 ButtonGroup.group: generator
+                id: mirrors
                 text: i18n("Disabled")
-                enabled: mirrorsDeps
+                enabled: pkg.pacman && pkg.checkupdates
                 checked: {
                     plasmoid.configuration.mirrors === "false"
                 }
@@ -353,7 +353,7 @@ SimpleKCM {
         RadioButton {
             ButtonGroup.group: generator
             text: i18n("Always ask")
-            enabled: mirrorsDeps
+            enabled: mirrors.enabled
             checked: plasmoid.configuration.mirrors === "alwaysAsk"
             onCheckedChanged: {
                 if (checked) cfg_mirrors = "alwaysAsk"
@@ -361,7 +361,7 @@ SimpleKCM {
         }
 
         RowLayout{
-            enabled: mirrorsDeps
+            enabled: mirrors.enabled
             RadioButton {
                 ButtonGroup.group: generator
                 text: i18n("Ask if older than")
@@ -387,7 +387,7 @@ SimpleKCM {
         RadioButton {
             ButtonGroup.group: generator
             text: i18n("No ask, force refresh")
-            enabled: mirrorsDeps
+            enabled: mirrors.enabled
             checked: plasmoid.configuration.mirrors === "force"
             onCheckedChanged: {
                 if (checked) cfg_mirrors = "force"
@@ -406,14 +406,14 @@ SimpleKCM {
                 id: http
                 text: "http"
                 onClicked: updateUrl()
-                enabled: mirrorsDeps
+                enabled: mirrors.enabled
             }
 
             CheckBox {
                 id: https
                 text: "https"
                 onClicked: updateUrl()
-                enabled: mirrorsDeps
+                enabled: mirrors.enabled
             }
         }
 
@@ -424,14 +424,14 @@ SimpleKCM {
                 id: ipv4
                 text: "IPv4"
                 onClicked: updateUrl()
-                enabled: mirrorsDeps
+                enabled: mirrors.enabled
             }
 
             CheckBox {
                 id: ipv6
                 text: "IPv6"
                 onClicked: updateUrl()
-                enabled: mirrorsDeps
+                enabled: mirrors.enabled
             }
         }
 
@@ -440,7 +440,7 @@ SimpleKCM {
             id: mirrorstatus
             text: i18n("Enable")
             onClicked: updateUrl()
-            enabled: mirrorsDeps
+            enabled: mirrors.enabled
         }
 
         RowLayout {
@@ -452,7 +452,7 @@ SimpleKCM {
                 to: 10
                 stepSize: 1
                 value: mirrorCount
-                enabled: mirrorsDeps
+                enabled: mirrors.enabled
             }
 
             Kirigami.ContextualHelpButton {
@@ -488,7 +488,7 @@ SimpleKCM {
         ColumnLayout {
             Layout.maximumWidth: archTab.width / 2.5
             Layout.maximumHeight: 200
-            enabled: mirrorsDeps
+            enabled: mirrors.enabled
 
             ScrollView {
                 Layout.preferredWidth: archTab.width / 2.5

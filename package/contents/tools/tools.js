@@ -133,6 +133,19 @@ function checkDependencies() {
         const terminals = populate(output.slice(7).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
+
+        if (!pacman) plasmoid.configuration.arch = false
+        if (!pacman || (!yay && !paru)) plasmoid.configuration.aur = false
+        if (!flatpak) plasmoid.configuration.flatpak = false
+        if (!checkupdates) plasmoid.configuration.mirrors = "false"
+        if (!tmux) plasmoid.configuration.tmuxSession = false
+        if (!jq) {
+            plasmoid.configuration.widgets = false
+            plasmoid.configuration.newsArch = false
+            plasmoid.configuration.newsKDE = false
+            plasmoid.configuration.newsTWIK = false
+            plasmoid.configuration.newsTWIKA = false
+        }
     })
 }
 

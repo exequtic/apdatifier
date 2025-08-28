@@ -66,14 +66,6 @@ SimpleKCM {
 
     Component.onCompleted: {
         JS.checkDependencies()
-        if (arch.checked && !pkg.pacman) arch.checked = plasmoid.configuration.arch = false
-        if (aur.checked && (!pkg.pacman || (!pkg.yay && !pkg.paru))) aur.checked = plasmoid.configuration.aur = false
-        if (flatpak.checked && !pkg.flatpak) flatpak.checked = plasmoid.configuration.flatpak = false
-        if (widgets.checked && !pkg.jq) widgets.checked = plasmoid.configuration.widgets = false
-        if (newsArch.checked && !pkg.jq) newsArch.checked = plasmoid.configuration.newsArch = false
-        if (newsKDE.checked && !pkg.jq) newsKDE.checked = plasmoid.configuration.newsKDE = false
-        if (newsTWIK.checked && !pkg.jq) newsTWIK.checked = plasmoid.configuration.newsTWIK = false
-        if (newsTWIKA.checked && !pkg.jq) newsTWIKA.checked = plasmoid.configuration.newsTWIKA = false
     }
  
     header: Kirigami.NavigationTabBar {
