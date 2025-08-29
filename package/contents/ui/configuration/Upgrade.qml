@@ -35,6 +35,7 @@ SimpleKCM {
     property alias cfg_widgetConfirmation: widgetConfirmation.checked
     property alias cfg_restartShell: restartShell.checked
     property alias cfg_restartCommand: restartCommand.text
+    property alias cfg_trayEnabledByDefault: trayEnabledByDefault.checked
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
@@ -624,6 +625,19 @@ SimpleKCM {
             TextField {
                 id: restartCommand
                 enabled: restartShell.checked
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Apdatifier tray icon") + ":"
+
+            CheckBox {
+                id: trayEnabledByDefault
+                text: i18n("Enabled by default")
             }
         }
     }

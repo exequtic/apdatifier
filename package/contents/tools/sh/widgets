@@ -207,6 +207,12 @@ download_package() {
 
     updateJson $metadata "$(jq --arg new_value "$latestVer" '.KPlugin.Version = $new_value' $metadata)"
 
+    if [[ $name == "apdatifier" && $trayEnabledByDefault == "true" ]]; then
+        if jq -e '.KPlugin.EnabledByDefault == false' "$metadata" > /dev/null; then
+            updateJson $metadata "$(jq '.KPlugin.EnabledByDefault = true' $metadata)"
+        fi
+    fi
+
     return 0
 }
 

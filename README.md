@@ -100,7 +100,7 @@ Feel free to help translate to new languages or update and improve the ones that
 
 Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets").
 
-After installation, the widget icon should <b>automatically</b> appear in the system tray.
+After installation, you can either enable it to appear in the system tray or place it on the panel or desktop instead.
 
 >[!IMPORTANT]
 >If you are upgrading from a previous version, you need to log out or restart plasmashell for the new features to work properly.
