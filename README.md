@@ -108,18 +108,26 @@ After installation, you can either enable it to appear in the system tray or pla
 >systemctl --user restart plasma-plasmashell.service
 >```
 
+### Update to the latest commit
+```
+Settings -> General -> Misc -> Install Development version
+```
+
 <br>
 
-<!-- ### Uninstall
+# Uninstalling
+Uninstall plasmoid and remove all related files (config, icons, notifyrc):
+
 ```bash
-bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/tools.sh uninstall
-``` -->
+bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/utils uninstall
+```
 
-<!-- # Support the project
+<br>
 
+# Support the project
 <a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
   <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
 </a>
 
 <br>
- -->
+

@@ -322,23 +322,51 @@ install_stable() {
 }
 
 uninstall() {
-    printExec "Remove icons"; sleep 1
+    printMsg "Uninstall Apdatifier"
+    echo
+
+    while true; do
+        printQuestion "Continue?"; read -r answer
+        case "$answer" in
+               [Yy]*) break;;
+            [Nn]*|"") printClose; exit;;
+                   *)  ;;
+        esac
+    done
+
+    echo
+
+    showCommand() {
+        echo -e "$(colorize yellow bold "$ICO_EXEC Command:") $1"
+    }
+
+    printImportant "Remove icons"
     for icon in $icon1 $icon2 $icon3 $icon4; do
+        showCommand "rm $iconsDir/$icon"
         test -f "$iconsDir/$icon" && rm "$iconsDir/$icon"
     done
+    showCommand "rmdir -p --ignore-fail-on-non-empty $iconsDir"
     test -d "$iconsDir" && rmdir -p --ignore-fail-on-non-empty "$iconsDir"
+    sleep 1; echo
 
-    printExec "Remove $notif"; sleep 1
+    printImportant "Remove notification"
+    showCommand "rm $notifDir/$notif"
     test -f "$notifDir/$notif" && rm "$notifDir/$notif"
+    showCommand "rmdir -p --ignore-fail-on-non-empty $notifDir"
     test -d "$notifDir" && rmdir -p --ignore-fail-on-non-empty "$notifDir"
+    sleep 1; echo
 
-    printExec "Remove configuration"; sleep 1
+    printImportant "Remove configuration"
+    showCommand "rm -rf $configDir"
     test -d "$configDir" && rm -rf "$configDir"
+    sleep 1; echo
 
-    printExec "Remove widget"; sleep 1
+    printImportant "Uninstall plasmoid"
+    showCommand "kpackagetool6 -t Plasma/Applet -r $applet"
     kpackagetool6 -t Plasma/Applet -r $applet 2>/dev/null
+    sleep 1; echo
 
-    echo; echo "Bye :("; sleep 1
+    echo "Bye :("; sleep 1
 
     printClose
     exit
