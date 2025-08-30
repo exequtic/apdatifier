@@ -479,7 +479,7 @@ msgstr "Anular el tema de iconos personalizado y usar los iconos predeterminados
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "Pestaña predeterminada"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Compact"
@@ -491,15 +491,15 @@ msgstr "Extendido"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamiento"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "Siempre cambiar a la pestaña predeterminada"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "Altura de los elementos (Compacto)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -657,7 +657,7 @@ msgstr "Para nuevas actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "Botón de acción"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -757,7 +757,7 @@ msgstr "Aquí puedes anular los iconos predeterminados de los paquetes y excluir
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "Marcar como importante"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -869,25 +869,25 @@ msgstr "Generador"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "Desactivado"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "Preguntar siempre"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "Preguntar si es más antiguo que"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "día"
+msgstr[1] "días"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "No preguntar, forzar actualización"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -959,11 +959,11 @@ msgstr "Comando"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "Icono de Apdatifier en la bandeja del sistema"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "Activado por defecto"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

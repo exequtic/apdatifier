@@ -487,7 +487,7 @@ msgstr "覆盖自定义图标主题，改用默认 Apdatifier 图标。"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "默认标签页"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -501,15 +501,15 @@ msgstr "扩展"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "行为"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "始终切换到默认标签页"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "元素高度"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -690,7 +690,7 @@ msgstr "新更新通知"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "操作按钮"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -807,7 +807,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "标记为重要"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -934,24 +934,24 @@ msgstr "生成器"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "已禁用"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "始终询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "如果早于…则询问"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
+msgstr[0] "天"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "不询问，强制刷新"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1034,11 +1034,11 @@ msgstr "命令"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "系统托盘中的 Apdatifier 图标"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "默认启用"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

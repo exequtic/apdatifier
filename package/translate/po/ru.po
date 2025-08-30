@@ -503,7 +503,7 @@ msgstr "Использовать иконки Apdatifier вместо польз
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "Вкладка по умолчанию"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -517,15 +517,15 @@ msgstr "Расширенный"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "Поведение"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "Всегда переключаться на вкладку по умолчанию"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "Высота элементов (Компактный)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -717,7 +717,7 @@ msgstr "Для новых обновлений"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "Кнопка действия"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -840,7 +840,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "Отметить как важное"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -973,26 +973,26 @@ msgstr "Генератор"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "Отключено"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "Всегда спрашивать"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "Спрашивать, если старше чем"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "день"
+msgstr[1] "дня"
+msgstr[2] "дней"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "Не спрашивать, обновлять"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1078,11 +1078,11 @@ msgstr "Команда"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "Значок Apdatifier в системном трее"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "Включено по умолчанию"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

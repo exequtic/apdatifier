@@ -64,13 +64,13 @@ paru, yay
 ### Supported terminals
 alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
 
-<!-- *yakuake used the D-Bus method runCommand via the qdbus6. -->
-
-### Required utilities for options:
+### Required packages for options:
+<b>Arch User Repository (AUR):</b> paru or yay<br>
 <b>Plasma Widgets:</b> jq<br>
+<b>News:</b> jq<br>
+<b>tmux session:</b> tmux<br>
 <b>Mirrorlist Generator:</b> pacman-contrib<br>
 <b>Management:</b> fzf<br>
-<b>News:</b> jq<br>
 
 <br>
 
@@ -81,16 +81,16 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
-| English   |     249 |       |
-| Brazilian | 228/249 |  91%  |
-| Chinese   | 249/249 | 100%  |
-| Dutch     | 249/249 | 100%  |
-| French    | 249/249 | 100%  |
-| German    | 228/249 |  91%  |
-| Spanish   | 249/249 | 100%  |
-| Korean    | 134/249 |  53%  |
-| Polish    | 228/249 |  91%  |
-| Russian   | 249/249 | 100%  |
+| English   |     264 |       |
+| Brazilian | 264/264 |  100% |
+| Chinese   | 264/264 |  100% |
+| Dutch     | 264/264 |  100% |
+| French    | 264/264 |  100% |
+| German    | 264/264 |  100% |
+| Spanish   | 264/264 |  100% |
+| Korean    | 130/264 |  50%  |
+| Polish    | 264/264 |  100% |
+| Russian   | 264/264 |  100% |
 |-----------|---------|-------|
 ```
 

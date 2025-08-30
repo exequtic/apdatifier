@@ -505,7 +505,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "Onglet par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -519,15 +519,15 @@ msgstr "Étendue"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "Comportement"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "Toujours passer à l’onglet par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "Hauteur des éléments (Compacte)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -721,7 +721,7 @@ msgstr "Pour les nouvelles mises à jour"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "Bouton d’action"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -846,7 +846,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "Marquer comme important"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -980,25 +980,25 @@ msgstr "Générateur"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "Toujours demander"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "Demander si plus ancien que"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "jour"
+msgstr[1] "jours"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "Ne pas demander, forcer la mise à jour"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1083,11 +1083,11 @@ msgstr "Commande"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "Icône Apdatifier dans la barre système"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "Activé par défaut"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

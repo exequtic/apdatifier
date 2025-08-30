@@ -486,7 +486,7 @@ msgstr "Zastąp niestandardowy motyw ikon i użyj domyślnych ikon Apdatifier."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "Karta domyślna"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Compact"
@@ -498,15 +498,15 @@ msgstr "Rozszerzony"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "Zachowanie"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "Zawsze przełączaj na kartę domyślną"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "Wysokość elementów (Kompaktowy)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -665,7 +665,7 @@ msgstr "Dla nowych aktualizacji"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "Przycisk akcji"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -765,7 +765,7 @@ msgstr "Tutaj możesz nadpisać domyślne ikony pakietów i wykluczyć je z list
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "Oznacz jako ważne"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -877,26 +877,26 @@ msgstr "Generator"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączone"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "Zawsze pytaj"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "Pytać, jeśli starsze niż"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "dzień"
+msgstr[1] "dni"
+msgstr[2] "dni"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "Nie pytaj, wymuś odświeżenie"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -968,11 +968,11 @@ msgstr "Polecenie"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "Ikona Apdatifier w zasobniku systemowym"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "Domyślnie włączone"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"

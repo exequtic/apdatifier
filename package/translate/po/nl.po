@@ -501,7 +501,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
-msgstr ""
+msgstr "Standaardtabblad"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -515,15 +515,15 @@ msgstr "Uitgebreid"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
-msgstr ""
+msgstr "Gedrag"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr ""
+msgstr "Altijd naar het standaardtabblad schakelen"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr ""
+msgstr "Hoogte van items (Compact)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -715,7 +715,7 @@ msgstr "Voor nieuwe updates"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr ""
+msgstr "Actieknop"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -838,7 +838,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
-msgstr ""
+msgstr "Als belangrijk markeren"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -971,25 +971,25 @@ msgstr "Genereren"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgeschakeld"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr ""
+msgstr "Altijd vragen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr ""
+msgstr "Vragen als ouder dan"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dag"
+msgstr[1] "dagen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr ""
+msgstr "Niet vragen, geforceerd vernieuwen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1074,11 +1074,11 @@ msgstr "Opdracht"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr ""
+msgstr "Apdatifier-pictogram in het systeemvak"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
-msgstr ""
+msgstr "Standaard ingeschakeld"
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
