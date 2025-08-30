@@ -282,6 +282,7 @@ install_devel() {
     echo
     cd package || exit 1
     updateJson metadata.json "$(jq --arg new_value "github commit: $commit" '.KPlugin.Description = $new_value' metadata.json)"
+    [[ $trayEnabledByDefault == "true" ]] && updateJson $metadata "$(jq '.KPlugin.EnabledByDefault = true' $metadata)"
     while true; do
         printQuestion "Do you want build translations?"; read -r answer
         case "$answer" in
@@ -318,7 +319,7 @@ install_stable() {
         done
     fi
 
-    $scriptDir/upgrade widget "2135796" "Apdatifier"
+    $scriptDir/upgrade widget "2135796" "apdatifier"
 }
 
 uninstall() {
