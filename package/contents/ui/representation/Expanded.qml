@@ -8,6 +8,7 @@ import QtQuick.Layouts
 
 import org.kde.kitemmodels
 import org.kde.plasma.extras
+import org.kde.plasma.plasmoid
 import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
@@ -37,7 +38,11 @@ Representation {
         return Qt.resolvedUrl("../assets/icons/" + icon + ".svg")
     }
 
+    property var backgroundHidden: (Plasmoid.formFactor === PlasmaCore.Types.Planar) && (Plasmoid.userBackgroundHints === PlasmaCore.Types.ShadowBackground)
+    onBackgroundHiddenChanged: topHeader.background.visible = bottomHeader.background.visible = !backgroundHidden
+
     header: PlasmoidHeading {
+        id: topHeader
         visible: cfg.showStatusText || cfg.showToolBar
         contentItem: RowLayout {
             id: toolBar
@@ -219,6 +224,7 @@ Representation {
     }
 
     footer: PlasmoidHeading {
+        id: bottomHeader
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
