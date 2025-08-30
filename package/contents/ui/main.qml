@@ -3,6 +3,7 @@
     SPDX-License-Identifier: MIT
 */
 
+import QtQml 2.15
 import QtQuick
 import QtQuick.Layouts
 
@@ -16,6 +17,12 @@ import "../tools/tools.js" as JS
 
 PlasmoidItem {
     id: root
+    property bool inPanel: (plasmoid.location == PlasmaCore.Types.TopEdge || 
+                        plasmoid.location == PlasmaCore.Types.BottomEdge ||
+                        plasmoid.location == PlasmaCore.Types.LeftEdge ||
+                        plasmoid.location == PlasmaCore.Types.RightEdge)
+
+    Plasmoid.backgroundHints: inPanel ? PlasmaCore.Types.NoBackground : (PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground)
     compactRepresentation: Rep.Panel {}
     fullRepresentation: Rep.Expanded {
         Layout.minimumWidth: Kirigami.Units.gridUnit * 24
