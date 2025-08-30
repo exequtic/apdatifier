@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"POT-Creation-Date: 2025-08-30 18:31+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -53,15 +53,6 @@ msgstr "Flatpak Upgrade"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Plasma Widgets Upgrade"
-
-#: ../contents/tools/sh/messages
-msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Lesen Sie das Arch Wiki - Partielle Upgrades"
-
-#: ../contents/tools/sh/messages
-msgid "Perform full system upgrade instead partial upgrade!"
-msgstr ""
-"Führen Sie ein vollständiges System-Upgrade statt eines Teil-Upgrades durch!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -364,6 +355,11 @@ msgstr "Intervall wechseln"
 msgid "Management"
 msgstr "Verwaltung"
 
+#: ../contents/ui/components/Notification.qml
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "Lese Artikel"
+
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
 msgstr "System aktualisiert"
@@ -507,8 +503,8 @@ msgstr ""
 "Standardsymbole von Apdatifier verwenden."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View"
-msgstr "Ansicht"
+msgid "Default tab"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -519,6 +515,18 @@ msgstr "Kompakt"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Erweitert"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -707,7 +715,7 @@ msgid "For new updates"
 msgstr "Für neue Updates"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Upgrade button"
+msgid "Action button"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -833,6 +841,10 @@ msgstr ""
 "Liste der Regeln in dieser Reihenfolge stehen: "
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
 msgstr "In der Liste anzeigen"
 
@@ -947,19 +959,37 @@ msgid "Only for official repositories"
 msgstr "Nur für offizielle Repositories"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Generator"
-msgstr "Generator"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest before upgrading"
-msgstr "Vor einem Upgrade vorschlagen"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
 "<br><br>Siehe auch https://archlinux.org/mirrorlist (klicken Sie auf die "
 "Schaltfläche, um den Link zu öffnen)"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Generator"
+msgstr "Generator"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Disabled"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Always ask"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1043,6 +1073,14 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr "Befehl"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
+msgstr ""
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -1161,16 +1199,26 @@ msgid "Install reason"
 msgstr "Installationsgrund"
 
 #: ../contents/ui/scrollview/News.qml
-msgid "Read article"
-msgstr "Lese Artikel"
-
-#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Keine ungelesene Nachrichten"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Wiederherstellungs-Liste"
+
+#~ msgid "Read the Arch Wiki - Partial Upgrades"
+#~ msgstr "Lesen Sie das Arch Wiki - Partielle Upgrades"
+
+#~ msgid "Perform full system upgrade instead partial upgrade!"
+#~ msgstr ""
+#~ "Führen Sie ein vollständiges System-Upgrade statt eines Teil-Upgrades "
+#~ "durch!"
+
+#~ msgid "View"
+#~ msgstr "Ansicht"
+
+#~ msgid "Suggest before upgrading"
+#~ msgstr "Vor einem Upgrade vorschlagen"
 
 #~ msgid "Options"
 #~ msgstr "Optionen"

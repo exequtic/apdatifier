@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"POT-Creation-Date: 2025-08-30 18:31+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -54,14 +54,6 @@ msgstr ""
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr ""
-
-#: ../contents/tools/sh/messages
-msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Arch Wiki를 참조 - 부분 업그레이드"
-
-#: ../contents/tools/sh/messages
-msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "부분 업그레이드 대신 전체 시스템 업그레이드를 하십시오!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -352,6 +344,11 @@ msgstr "업데이트 주기 변경"
 msgid "Management"
 msgstr "관리"
 
+#: ../contents/ui/components/Notification.qml
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "기사 읽기"
+
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
 msgstr ""
@@ -492,8 +489,8 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "아이콘 테마 대신 Apdatifier 아이콘 사용"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View"
-msgstr "보기"
+msgid "Default tab"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -503,6 +500,18 @@ msgstr ""
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -686,7 +695,7 @@ msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Upgrade button"
+msgid "Action button"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -795,6 +804,10 @@ msgid ""
 "Here you can override the default package icons and exclude them from the "
 "list. Each rule overwrites the previous one, so the list of rules should be "
 "in this order: "
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -907,18 +920,35 @@ msgid "Only for official repositories"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Generator"
-msgstr "생성"
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest before upgrading"
-msgstr "업그레이드 전 권장됨"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
 "<br><br>https://archlinux.org/mirrorlist 도 참조하십시오.(클릭 시 링크 열림)"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Generator"
+msgstr "생성"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Disabled"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Always ask"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -995,6 +1025,14 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
 msgstr ""
 
 #: ../contents/ui/main.qml
@@ -1114,16 +1152,24 @@ msgid "Install reason"
 msgstr "설치 이유"
 
 #: ../contents/ui/scrollview/News.qml
-msgid "Read article"
-msgstr "기사 읽기"
-
-#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr ""
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr ""
+
+#~ msgid "Read the Arch Wiki - Partial Upgrades"
+#~ msgstr "Arch Wiki를 참조 - 부분 업그레이드"
+
+#~ msgid "Perform full system upgrade instead partial upgrade!"
+#~ msgstr "부분 업그레이드 대신 전체 시스템 업그레이드를 하십시오!"
+
+#~ msgid "View"
+#~ msgstr "보기"
+
+#~ msgid "Suggest before upgrading"
+#~ msgstr "업그레이드 전 권장됨"
 
 #~ msgid "some required utilities are not installed (curl, jq)"
 #~ msgstr "해당 유틸리티가 설치되어 있지 않음 (curl, jq)"

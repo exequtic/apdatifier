@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"POT-Creation-Date: 2025-08-30 18:31+0300\n"
 "PO-Revision-Date: 2024-05-27 15:58-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -52,14 +52,6 @@ msgstr "Actualización de Flatpak"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Actualización de Widgets de Plasma"
-
-#: ../contents/tools/sh/messages
-msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Leer la Wiki de Arch - Actualizaciones parciales"
-
-#: ../contents/tools/sh/messages
-msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "¡Realiza una actualización completa del sistema en lugar de una parcial!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -343,6 +335,10 @@ msgstr "Cambiar intervalo"
 msgid "Management"
 msgstr "Gestión"
 
+#: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "Leer artículo"
+
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
 msgstr "Sistema actualizado"
@@ -482,8 +478,8 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "Anular el tema de iconos personalizado y usar los iconos predeterminados de Apdatifier."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View"
-msgstr "Vista"
+msgid "Default tab"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Compact"
@@ -492,6 +488,18 @@ msgstr "Compacto"
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Extendido"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -648,8 +656,8 @@ msgid "For new updates"
 msgstr "Para nuevas actualizaciones"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Upgrade button"
-msgstr "Botón de actualización"
+msgid "Action button"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -746,6 +754,10 @@ msgstr "Coincidencia exacta de nombre"
 #: ../contents/ui/configuration/Rules.qml
 msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
 msgstr "Aquí puedes anular los iconos predeterminados de los paquetes y excluirlos de la lista. Cada regla sobrescribe la anterior, por lo que la lista de reglas debe estar en este orden: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -848,16 +860,34 @@ msgid "Only for official repositories"
 msgstr "Solo para repositorios oficiales"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "<br><br>Ver también https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
 msgstr "Generador"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest before upgrading"
-msgstr "Sugerir antes de actualizar"
+msgid "Disabled"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "<br><br>Ver también https://archlinux.org/mirrorlist (haz clic en el botón para abrir el enlace)"
+msgid "Always ask"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -926,6 +956,14 @@ msgstr "Después de actualizar el widget, la versión antigua permanecerá en me
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr "Comando"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
+msgstr ""
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -1044,13 +1082,24 @@ msgid "Install reason"
 msgstr "Motivo de instalación"
 
 #: ../contents/ui/scrollview/News.qml
-msgid "Read article"
-msgstr "Leer artículo"
-
-#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "No hay noticias sin leer"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
+
+#~ msgid "Read the Arch Wiki - Partial Upgrades"
+#~ msgstr "Leer la Wiki de Arch - Actualizaciones parciales"
+
+#~ msgid "Perform full system upgrade instead partial upgrade!"
+#~ msgstr "¡Realiza una actualización completa del sistema en lugar de una parcial!"
+
+#~ msgid "View"
+#~ msgstr "Vista"
+
+#~ msgid "Upgrade button"
+#~ msgstr "Botón de actualización"
+
+#~ msgid "Suggest before upgrading"
+#~ msgstr "Sugerir antes de actualizar"

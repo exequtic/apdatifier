@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"POT-Creation-Date: 2025-08-30 18:31+0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -53,14 +53,6 @@ msgstr "Aktualizacja Flatpak"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Aktualizacja widgetów Plasma"
-
-#: ../contents/tools/sh/messages
-msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr "Przeczytaj Arch Wiki - Partial Upgrades"
-
-#: ../contents/tools/sh/messages
-msgid "Perform full system upgrade instead partial upgrade!"
-msgstr "Wykonaj pełną aktualizację systemu zamiast częściowej!"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -349,6 +341,10 @@ msgstr "Zmień interwał"
 msgid "Management"
 msgstr "Zarządzanie"
 
+#: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "Przeczytaj artykuł"
+
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
 msgstr "System zaktualizowany"
@@ -489,8 +485,8 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "Zastąp niestandardowy motyw ikon i użyj domyślnych ikon Apdatifier."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View"
-msgstr "Widok"
+msgid "Default tab"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Compact"
@@ -499,6 +495,18 @@ msgstr "Kompaktowy"
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Rozszerzony"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -601,9 +609,7 @@ msgid "Check on start up"
 msgstr "Sprawdzaj przy uruchamianiu"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time "
-"interval has passed since the widget was started. <b>Recommended.</b>"
+msgid "If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b>"
 msgstr "Jeśli opcja jest <b>włączona</b>, sprawdzanie aktualizacji rozpocznie się natychmiast po uruchomieniu widżetu.<br><br>Jeśli opcja jest <b>wyłączona</b>, sprawdzanie aktualizacji rozpocznie się po upływie określonego czasu od uruchomienia widżetu. <b>Zalecane.</b>"
 
 #: ../contents/ui/configuration/General.qml
@@ -658,17 +664,15 @@ msgid "For new updates"
 msgstr "Dla nowych aktualizacji"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Upgrade button"
-msgstr "Przycisk aktualizacji"
+msgid "Action button"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
 msgstr "Dla każdej zmiany wersji"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
-"is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+msgid "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
 msgstr "Jeśli opcja jest <b>włączona</b>, powiadomienia będą wysyłane, gdy nowa wersja pakietu zostanie opublikowana, nawet jeśli pakiet jest już na liście. <b>Więcej powiadomień.</b> <br><br>Jeśli opcja jest <b>wyłączona</b>, powiadomienia będą wysyłane tylko dla pakietów, które jeszcze nie znajdują się na liście. <b>Mniej powiadomień.</b>"
 
 #: ../contents/ui/configuration/General.qml
@@ -758,6 +762,10 @@ msgstr "Dokładne dopasowanie nazwy"
 #: ../contents/ui/configuration/Rules.qml
 msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
 msgstr "Tutaj możesz nadpisać domyślne ikony pakietów i wykluczyć je z listy. Każda reguła nadpisuje poprzednią, więc lista reguł powinna być w następującej kolejności:"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Show in the list"
@@ -860,16 +868,35 @@ msgid "Only for official repositories"
 msgstr "Tylko dla oficjalnych repozytoriów"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "<br><br>Zobacz także https://archlinux.org/mirrorlist (kliknij przycisk, aby otworzyć link)"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
 msgstr "Generator"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest before upgrading"
-msgstr "Sugeruj przed aktualizacją"
+msgid "Disabled"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "<br><br>Zobacz także https://archlinux.org/mirrorlist (kliknij przycisk, aby otworzyć link)"
+msgid "Always ask"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -900,9 +927,7 @@ msgid "Select at least one!"
 msgstr "Wybierz przynajmniej jeden!"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
-"to choose <b>1-2</b> countries closest to you."
+msgid "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> countries closest to you."
 msgstr "Musisz wybrać przynajmniej jeden kraj, w przeciwnym razie wszystkie zostaną wybrane domyślnie. <br><br><b>Im więcej krajów wybierzesz, tym dłużej będzie trwało generowanie luster!</b> <br><br>Optymalnie jest wybrać <b>1-2</b> kraje najbliżej ciebie."
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -940,6 +965,14 @@ msgstr "Po zaktualizowaniu widżetu, stara wersja nadal będzie przechowywana w 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
 msgstr "Polecenie"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
+msgstr ""
 
 #: ../contents/ui/main.qml
 msgid "Auto check disabled"
@@ -1058,16 +1091,27 @@ msgid "Install reason"
 msgstr "Powód instalacji"
 
 #: ../contents/ui/scrollview/News.qml
-msgid "Read article"
-msgstr "Przeczytaj artykuł"
-
-#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Brak nieprzeczytanych wiadomości"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Przywróć listę"
+
+#~ msgid "Read the Arch Wiki - Partial Upgrades"
+#~ msgstr "Przeczytaj Arch Wiki - Partial Upgrades"
+
+#~ msgid "Perform full system upgrade instead partial upgrade!"
+#~ msgstr "Wykonaj pełną aktualizację systemu zamiast częściowej!"
+
+#~ msgid "View"
+#~ msgstr "Widok"
+
+#~ msgid "Upgrade button"
+#~ msgstr "Przycisk aktualizacji"
+
+#~ msgid "Suggest before upgrading"
+#~ msgstr "Sugeruj przed aktualizacją"
 
 #~ msgid "Options"
 #~ msgstr "Opcje"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-05-15 21:30+0300\n"
+"POT-Creation-Date: 2025-08-30 18:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,14 +52,6 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr ""
-
-#: ../contents/tools/sh/messages
-msgid "Read the Arch Wiki - Partial Upgrades"
-msgstr ""
-
-#: ../contents/tools/sh/messages
-msgid "Perform full system upgrade instead partial upgrade!"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -344,6 +336,10 @@ msgstr ""
 msgid "Management"
 msgstr ""
 
+#: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr ""
+
 #: ../contents/ui/components/Placeholder.qml
 msgid "System updated"
 msgstr ""
@@ -483,7 +479,7 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "View"
+msgid "Default tab"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
@@ -492,6 +488,18 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -651,7 +659,7 @@ msgid "For new updates"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Upgrade button"
+msgid "Action button"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -750,6 +758,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -853,15 +865,33 @@ msgid "Only for official repositories"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Suggest before upgrading"
+msgid "Disabled"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgid "Always ask"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -932,6 +962,14 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
 msgstr ""
 
 #: ../contents/ui/main.qml
@@ -1048,10 +1086,6 @@ msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install reason"
-msgstr ""
-
-#: ../contents/ui/scrollview/News.qml
-msgid "Read article"
 msgstr ""
 
 #: ../contents/ui/scrollview/News.qml
