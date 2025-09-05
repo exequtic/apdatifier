@@ -219,29 +219,26 @@ SimpleKCM {
             ButtonGroup {
                 id: wrappersGroup
             }
-
             RadioButton {
                 ButtonGroup.group: wrappersGroup
                 text: "paru"
                 enabled: pkg.paru
-                onCheckedChanged: if (checked) cfg_wrapper = "paru"
-                Component.onCompleted: checked = plasmoid.configuration.wrapper === text
+                checked: plasmoid.configuration.wrapper === text
+                onCheckedChanged: if (checked) cfg_wrapper = text
             }
-
             RadioButton {
                 ButtonGroup.group: wrappersGroup
                 text: "yay"
                 enabled: pkg.yay
-                onCheckedChanged: if (checked) cfg_wrapper = "yay"
-                Component.onCompleted: checked = plasmoid.configuration.wrapper === text
+                checked: plasmoid.configuration.wrapper === text
+                onCheckedChanged: if (checked) cfg_wrapper = text
             }
-
             RadioButton {
                 ButtonGroup.group: wrappersGroup
                 text: "pikaur"
                 enabled: pkg.pikaur
-                onCheckedChanged: if (checked) cfg_wrapper = "pikaur"
-                Component.onCompleted: checked = plasmoid.configuration.wrapper === text
+                checked: plasmoid.configuration.wrapper === text
+                onCheckedChanged: if (checked) cfg_wrapper = text
             }
         }
 
@@ -711,9 +708,9 @@ SimpleKCM {
                 "United States:US, Uzbekistan:UZ, Vietnam:VN"
 
             countries.split(", ").map(item => {
-                const [country, code] = item.split(":");
-                countryListModel.append({text: country, code: code, checked: false});
-            });
+                let [country, code] = item.split(":")
+                countryListModel.append({text: country, code: code, checked: false})
+            })
         }
 
         Component.onCompleted: createCountryList()
