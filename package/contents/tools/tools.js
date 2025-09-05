@@ -117,7 +117,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -126,16 +126,16 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, paru, yay, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, paru, yay, jq, tmux }
-        if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : ""
+        const [pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux }
+        if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = populate(output.slice(7).filter(Boolean))
+        const terminals = populate(output.slice(8).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
-        if (!pacman || (!yay && !paru)) plasmoid.configuration.aur = false
+        if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
         if (!flatpak) plasmoid.configuration.flatpak = false
         if (!checkupdates) plasmoid.configuration.mirrors = "false"
         if (!tmux) plasmoid.configuration.tmuxSession = false
@@ -225,21 +225,21 @@ function checkUpdates() {
     sts.busy = true
     sts.errMsg = ""
 
+    let arch = [], flatpak = [], widgets = []
+
     const dbPath = pkg.checkupdates ? " --dbpath /tmp/apdatifier-db" : ""
     const pkgsync = "pacman -Sl" + dbPath
     const pkginfo = "pacman -Qi" + dbPath
     const pkgfiles = "pacman -Ql" + dbPath
-
-    const checkupDB = "export CHECKUPDATES_DB=/tmp/apdatifier-db; checkupdates"
-    const checkupAUR = `${cfg.wrapper} -Qua` + dbPath
-
-    let arch = [], flatpak = [], widgets = []
-
-    const archCmd = 
-            !pkg.pacman || !cfg.arch ? false
-                : pkg.checkupdates
-                    ? cfg.aur ? `${checkupDB}; ${checkupAUR}` : `${checkupDB}`
-                    : cfg.aur ? `${cfg.wrapper} -Qu` : "pacman -Qu"
+    const pacmanCmd = "pacman -Qu"
+    const checkupCmd = "export CHECKUPDATES_DB=/tmp/apdatifier-db; checkupdates"
+    const aurCmd = cfg.wrapper === "pikaur"
+                        ? `${cfg.wrapper} -Qua ${dbPath} --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'`
+                        : `${cfg.wrapper} -Qua ${dbPath}`
+    const archCmd = !pkg.pacman || !cfg.arch ? false
+                    : pkg.checkupdates
+                        ? cfg.aur ? `${checkupCmd}; ${aurCmd}` : checkupCmd
+                        : cfg.aur ? `${pacmanCmd}; ${aurCmd}` : pacmanCmd
 
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",

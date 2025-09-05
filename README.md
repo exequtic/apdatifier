@@ -59,7 +59,7 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 [pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>HIGHLY RECOMMENDED</b>. For checkupdates and rankmirrors scripts.
 
 ### Supported pacman wrappers
-paru, yay
+paru, yay, pikaur
 
 ### Supported terminals
 alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
@@ -130,4 +130,3 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 </a>
 
 <br>
-
