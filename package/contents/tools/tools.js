@@ -117,7 +117,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru yay pikaur jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman checkupdates flatpak paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -126,8 +126,8 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, paru, yay, pikaur, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, paru, yay, pikaur, jq, tmux }
+        const [pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
+        cfg.packages = { pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
         const terminals = populate(output.slice(8).filter(Boolean))
@@ -225,21 +225,21 @@ function checkUpdates() {
     sts.busy = true
     sts.errMsg = ""
 
+    let arch = [], flatpak = [], widgets = []
+
     const dbPath = pkg.checkupdates ? " --dbpath /tmp/apdatifier-db" : ""
     const pkgsync = "pacman -Sl" + dbPath
     const pkginfo = "pacman -Qi" + dbPath
     const pkgfiles = "pacman -Ql" + dbPath
-
-    const checkupDB = "export CHECKUPDATES_DB=/tmp/apdatifier-db; checkupdates"
-    const checkupAUR = bash('check_aur', cfg.wrapper, dbPath.trim())
-
-    let arch = [], flatpak = [], widgets = []
-
-    const archCmd = 
-            !pkg.pacman || !cfg.arch ? false
-                : pkg.checkupdates
-                    ? cfg.aur ? `${checkupDB}; ${checkupAUR}` : `${checkupDB}`
-                    : cfg.aur ? `${cfg.wrapper} -Qu` : "pacman -Qu"
+    const pacmanCmd = "pacman -Qu"
+    const checkupCmd = "export CHECKUPDATES_DB=/tmp/apdatifier-db; checkupdates"
+    const aurCmd = cfg.wrapper === "pikaur"
+                        ? `${cfg.wrapper} -Qua ${dbPath} --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'`
+                        : `${cfg.wrapper} -Qua ${dbPath}`
+    const archCmd = !pkg.pacman || !cfg.arch ? false
+                    : pkg.checkupdates
+                        ? cfg.aur ? `${checkupCmd}; ${aurCmd}` : checkupCmd
+                        : cfg.aur ? `${pacmanCmd}; ${aurCmd}` : pacmanCmd
 
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
@@ -404,45 +404,45 @@ function restoreNewsList() {
 function makeArchList(updates, all, description, icons) {
     if (!updates || !all || !description) return []
     description = description.replace(/^Installed From\s*:.+\n?/gm, '')
-    const packagesData = description.trim().split("\n\n")
+    const packagesData = description.split("\n\n")
     const skip = new Set([1, 3, 5, 9, 11, 15, 16, 19, 20])
     const empty = new Set([6, 7, 8, 10, 12, 13])
     const keyNames = {
          0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
         10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
     }
-    const updatesMap = new Map(updates.map(u => {
-        const [name, verold, , vernew] = u.split(" ");
-        const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew;
-        return [name, { VO: verold, VN: verNew }];
-    }));
-    const allMap = new Map(all.map(a => {
-        const parts = a.split(" ");
-        return [parts[1], parts[0]]; // [packageName, repoName]
-    }));
-    const iconsMap = new Map(icons.map(i => [i.NM, i.IN]));
 
     let extendedList = packagesData.map(packageData => {
-        const packageLines = packageData.split('\n').filter(line => line.includes(" : "))
+        packageData = packageData.split('\n').filter(line => line.includes(" : "))
         let packageObj = {}
-        packageLines.forEach((line, index) => {
+        packageData.forEach((line, index) => {
             if (skip.has(index)) return
             const [, value] = line.split(/\s* : \s*/)
             if (empty.has(index) && value.charAt(0) === value.charAt(0).toUpperCase()) return
             if (keyNames[index]) packageObj[keyNames[index]] = value.trim()
         })
 
-        if (packageObj.NM) {
-            const updateInfo = updatesMap.get(packageObj.NM);
-            if (updateInfo) Object.assign(packageObj, updateInfo);
+        if (Object.keys(packageObj).length > 0) {
+            updates.forEach(str => {
+                const [name, verold, , vernew] = str.split(" ")
+                if (packageObj.NM === name) {
+                    const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew
+                    Object.assign(packageObj, { VO: verold, VN: verNew })
+                }
+            })
 
-            packageObj.RE = allMap.get(packageObj.NM) || (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur");
-            packageObj.IN = iconsMap.get(packageObj.NM);
+            const foundRepo = all.find(str => packageObj.NM === str.split(" ")[1])
+            packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
+
+            const foundIcon = icons.find(item => item.NM === packageObj.NM)
+            if (foundIcon) packageObj.IN = foundIcon.IN
         }
 
         return packageObj
     })
-    return extendedList.filter(p => p.NM && p.VN);
+
+    extendedList.pop()
+    return extendedList
 }
 
 
