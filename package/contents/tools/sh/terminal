@@ -13,11 +13,8 @@ termArg="${termArg[$term]:-"-e"}"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
-# Ghostty requires additional quotes
-[[ $term = ghostty ]] && Q="'"
-
-_attach="${Q}tmux attach-session -t $sess \; select-window -t $name${Q}"
-_script="${Q}$scr $arg${Q}"
+_attach="tmux attach-session -t $sess \; select-window -t $name"
+_script="$scr $arg"
 
 [[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
 
