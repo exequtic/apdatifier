@@ -20,7 +20,8 @@ import "../../tools/tools.js" as JS
 SimpleKCM {
     property alias cfg_relevantIcon: relevantIcon.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
-    property alias cfg_indicatorStop: indicatorStop.checked
+    property alias cfg_badgePaused: badgePaused.checked
+    property alias cfg_badgeUpdated: badgeUpdated.checked
     property alias cfg_counterEnabled: counterEnabled.checked
     property alias cfg_counterOnLeft: counterOnLeft.checked
     property string cfg_counterColor: plasmoid.configuration.counterColor
@@ -189,8 +190,14 @@ SimpleKCM {
         }
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Stopped interval") + ":"
-            id: indicatorStop
+            Kirigami.FormData.label: i18n("Pause badge") + ":"
+            id: badgePaused
+            text: i18n("Enable")
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Updated badge") + ":"
+            id: badgeUpdated
             text: i18n("Enable")
         }
 

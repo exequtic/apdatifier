@@ -101,12 +101,12 @@ MouseArea {
                 QQC.Badge {
                     iconName: updatedIcon
                     iconColor: Kirigami.Theme.positiveTextColor
-                    visible: sts.updated
+                    visible: sts.updated && cfg.badgeUpdated
                 }
                 QQC.Badge {
                     iconName: pausedIcon
                     iconColor: Kirigami.Theme.neutralTextColor
-                    visible: sts.paused
+                    visible: sts.paused && cfg.badgePaused
                 }
             }
         }
@@ -194,11 +194,11 @@ MouseArea {
     QQC.Badge {
         iconName: updatedIcon
         iconColor: Kirigami.Theme.positiveTextColor
-        visible: counterOverlay && sts.updated
+        visible: counterOverlay && sts.updated && cfg.badgeUpdated
     }
     QQC.Badge {
         iconName: pausedIcon
         iconColor: Kirigami.Theme.neutralTextColor
-        visible: counterOverlay && sts.paused
+        visible: counterOverlay && sts.paused && cfg.badgePaused
     }
 }

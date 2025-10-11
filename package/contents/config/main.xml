@@ -60,7 +60,8 @@
     <group name="Appearance">
         <entry name="relevantIcon" type="int"><default>0</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
-        <entry name="indicatorStop" type="bool"><default>true</default></entry>
+        <entry name="badgePaused" type="bool"><default>true</default></entry>
+        <entry name="badgeUpdated" type="bool"><default>true</default></entry>
         <entry name="counterEnabled" type="bool"><default>true</default></entry>
         <entry name="counterOnLeft" type="bool"><default>false</default></entry>
         <entry name="counterColor" type="string"><default></default></entry>

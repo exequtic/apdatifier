@@ -129,7 +129,7 @@ Representation {
                         source: cfg.ownIconsUI
                                         ? (cfg.interval ? svg("toolbar_pause") : svg("toolbar_start"))
                                         : (cfg.interval ? "media-playback-paused" : "media-playback-playing")
-                        color: !cfg.interval && !cfg.indicatorStop ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
+                        color: !cfg.interval && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                         scale: cfg.ownIconsUI ? 0.7 : 0.9
                         isMask: cfg.ownIconsUI
                         smooth: true
