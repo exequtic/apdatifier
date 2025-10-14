@@ -5,7 +5,7 @@
 
 const scriptDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/"
 const configDir = "$HOME/.config/apdatifier/"
-const configFile = configDir + "config.conf"
+const configFile = configDir + "config.json"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
@@ -55,19 +55,10 @@ function init() {
     function loadConfig() {
         execute(readFile(configFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            if (out) {
-                const config = out.trim().split("\n")
-                const convert = value => {
-                    if (!isNaN(parseFloat(value))) return parseFloat(value)
-                    if (value === "true" || value === "false") return value === 'true'
-                    return value
-                }
-                config.forEach(line => {
-                    const match = line.match(/(\w+)="([^"]*)"/)
-                    if (match) plasmoid.configuration[match[1]] = convert(match[2])
-                })
+            if (out && validJSON(out, configFile)) {
+                const config = JSON.parse(out.trim())
+                Object.keys(config).forEach(key => plasmoid.configuration[key] = config[key])
             }
-
             loadCache()
         })
     }
@@ -106,14 +97,14 @@ function init() {
 
 function saveConfig() {
     if (saveTimer.running) return
-    let config = ""
+    let config = {}
     Object.keys(cfg).forEach(key => {
         if (key.endsWith("Default")) {
             let name = key.slice(0, -7)
-            config += `${name}="${cfg[name]}"\n`
+            config[name] = cfg[name]
         }
     })
-    execute(writeFile(config, ">", configFile))
+    execute(writeFile(toFileFormat(config), ">", configFile))
 }
 
 function checkDependencies() {
