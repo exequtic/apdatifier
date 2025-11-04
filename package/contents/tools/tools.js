@@ -227,15 +227,15 @@ function checkUpdates() {
 
     let arch = [], flatpak = [], widgets = []
 
-    const dbPath = pkg.checkupdates ? " --dbpath /tmp/apdatifier-db" : ""
-    const pkgsync = "pacman -Sl" + dbPath
-    const pkginfo = "pacman -Qi" + dbPath
-    const pkgfiles = "pacman -Ql" + dbPath
+    const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
+    const pkgsync = "pacman -Sl" + (pkg.checkupdates ? ` --dbpath ${dbPath}` : "")
+    const pkginfo = "pacman -Qi"
+    const pkgfiles = "pacman -Ql"
     const pacmanCmd = "pacman -Qu"
-    const checkupCmd = "export CHECKUPDATES_DB=/tmp/apdatifier-db; checkupdates"
+    const checkupCmd = `CHECKUPDATES_DB=${dbPath} checkupdates`
     const aurCmd = cfg.wrapper === "pikaur"
-                        ? `${cfg.wrapper} -Qua ${dbPath} --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'`
-                        : `${cfg.wrapper} -Qua ${dbPath}`
+                        ? `${cfg.wrapper} -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'`
+                        : `${cfg.wrapper} -Qua`
     const archCmd = !pkg.pacman || !cfg.arch ? false
                     : pkg.checkupdates
                         ? cfg.aur ? `${checkupCmd}; ${aurCmd}` : checkupCmd
@@ -442,7 +442,7 @@ function makeArchList(updates, all, description, icons) {
     })
 
     extendedList.pop()
-    return extendedList
+    return [...new Map(extendedList.map(item => [item.NM, item])).values()]
 }
 
 
