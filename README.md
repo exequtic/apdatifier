@@ -91,6 +91,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Korean    | 130/264 |  50%  |
 | Polish    | 264/264 |  100% |
 | Russian   | 264/264 |  100% |
+| Ukrainian | 264/264 |  100% |
 |-----------|---------|-------|
 ```
 
