@@ -32,7 +32,7 @@ ConfigModel {
 
     ConfigCategory {
          name: i18n("Support me")
-         icon: "starred-symbolic"
+         icon: "donate"
          source: "configuration/Support.qml"
     }
 }

@@ -126,8 +126,12 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 <br>
 
 # Support the project
-<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee">
-  <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-yellow-badge" style="width: 192px;">
+<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee.com">
+  <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-badge" style="width: 256px;">
+</a>
+
+<a href="https://nowpayments.io/donation/exequtic" target="_blank" title="nowpayments.io">
+   <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="nowpayments-badge" style="width: 256px;">
 </a>
 
 <br>

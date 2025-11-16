@@ -27,8 +27,24 @@ Kirigami.Page {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 text: i18n("Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)")
+                font.bold: true
                 wrapMode: Text.WordWrap
             }
+        }
+    }
+
+    Menu {
+        id: menu
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+        MenuItem {
+            text: i18n("buymeacoffee.com")
+            icon.name: "internet-web-browser-symbolic"
+            onTriggered: Qt.openUrlExternally("https://buymeacoffee.com/evgk")
+        }
+        MenuItem {
+            text: i18n("nowpayments.io (crypto)")
+            icon.name: "internet-web-browser-symbolic"
+            onTriggered: Qt.openUrlExternally("https://nowpayments.io/donation/exequtic")
         }
     }
 
@@ -37,18 +53,6 @@ Kirigami.Page {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        Kirigami.UrlButton {
-            id: buymeacoffee
-            url: "https://buymeacoffee.com/evgk"
-            visible: false
-        }
-
-        Kirigami.UrlButton {
-            id: github
-            url: "https://github.com/exequtic/apdatifier"
-            visible: false
-        }
-
         Image {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             source: "../assets/art/apdatifier-donate.png"
@@ -56,17 +60,20 @@ Kirigami.Page {
             sourceSize.height: supportPage.height
 
             HoverHandler {
-                id: handlerCoffee
-                cursorShape: Qt.PointingHandCursor
+                id: handlerDonate
+                cursorShape: menu.opened ? Qt.ArrowCursor : Qt.PointingHandCursor
             }
 
             TapHandler {
-                onTapped: Qt.openUrlExternally(buymeacoffee.url)
+                onTapped: (event) => menu.opened ? menu.close() : menu.popup(event.position.x, event.position.y)
             }
 
-            ToolTip {
-                visible: handlerCoffee.hovered
-                text: i18n("Visit %1", buymeacoffee.url)
+            Label {
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Donate"
+                font.bold: true
+                visible: handlerDonate.hovered && !menu.opened
             }
         }
 
@@ -82,12 +89,15 @@ Kirigami.Page {
             }
 
             TapHandler {
-                onTapped: Qt.openUrlExternally(github.url)
+                onTapped: Qt.openUrlExternally("https://github.com/exequtic/apdatifier")
             }
 
-            ToolTip {
+            Label {
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.bold: true
                 visible: handlerGithub.hovered
-                text: i18n("Visit %1", github.url)
+                text: i18n("Visit %1", "github")
             }
         }
     }
