@@ -35,8 +35,11 @@ options=(
 )
 
 showOptions() {
-    while true; do
-        clear; tput civis
+    clear
+    tput civis
+
+    drawMenu() {
+        tput home
         for i in "${!options[@]}"; do
             if [[ $i -eq $selected ]]; then
                 echo -e "$(colorize red bold $ICO_SELECT) $(colorize green bold ${options[$i]})"
@@ -44,7 +47,11 @@ showOptions() {
                 echo -e "  ${options[$i]}"
             fi
         done
+    }
 
+    drawMenu
+
+    while true; do
         read -rsn1 input
         case $input in
             A) ((selected--));;
@@ -57,9 +64,12 @@ showOptions() {
         elif [ $selected -ge ${#options[@]} ]; then
             selected=0
         fi
+
+        drawMenu
     done
 
-    clear; tput cnorm
+    clear
+    tput cnorm
 
     case $selected in
         0) fzfPreview Slq;;
