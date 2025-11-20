@@ -14,9 +14,13 @@ import "../components" as QQC
 import "../../tools/tools.js" as JS
 
 SimpleKCM {
-    property alias cfg_interval: interval.checked
-    property alias cfg_time: time.value
-    property alias cfg_checkOnStartup: checkOnStartup.checked
+    property string cfg_checkMode: plasmoid.configuration.checkMode
+    property alias cfg_intervalMinutes: intervalMinutes.value
+    property alias cfg_dailyHour: dailyHour.value
+    property alias cfg_dailyMinute: dailyMinute.value
+    property alias cfg_weeklyDay: weeklyDay.currentIndex
+    property alias cfg_weeklyHour: weeklyHour.value
+    property alias cfg_weeklyMinute: weeklyMinute.value
 
     property alias cfg_arch: arch.checked
     property alias cfg_aur: aur.checked
@@ -133,39 +137,115 @@ SimpleKCM {
             }
 
             RowLayout {
-                Kirigami.FormData.label: i18n("Interval") + ":"
+                Kirigami.FormData.label: i18n("Check mode") + ":"
 
-                CheckBox {
-                    id: interval
-                }
-
-                SpinBox {
-                    id: time
-                    from: 15
-                    to: 1440
-                    stepSize: 5
-                    value: time
-                    enabled: interval.checked
-                }
-
-                Label {
-                    text: i18n("minutes")
+                ComboBox {
+                    id: checkMode
+                    textRole: "name"
+                    model: [
+                        { name: i18n("Manual"), value: "manual" },
+                        { name: i18n("Interval"), value: "interval" },
+                        { name: i18n("Daily"), value: "daily" },
+                        { name: i18n("Weekly"), value: "weekly" }]
+                    currentIndex: JS.setIndex(cfg_checkMode, model)
+                    onCurrentIndexChanged: cfg_checkMode = model[currentIndex].value
                 }
 
                 Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("The current timer is reset when either of these settings is changed.")
+                    toolTipText: i18n("Choose how automatic checks are scheduled: manual, periodic interval (minutes, max 43200 - 30 days), daily at specific time or weekly at specific day/time.")
                 }
             }
 
             RowLayout {
-                CheckBox {
-                    id: checkOnStartup
-                    text: i18n("Check on start up")
-                    enabled: interval.checked
+                visible: cfg_checkMode === "interval"
+                Kirigami.FormData.label: i18n("Interval") + ":"
+
+                SpinBox {
+                    id: intervalMinutes
+                    from: 30
+                    to: 43200
+                    stepSize: 5
+                    value: intervalMinutes.value
+                    onValueChanged: cfg_intervalMinutes = value
                 }
 
-                Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b>")
+                Label { text: i18n("minutes") }
+            }
+
+            RowLayout {
+                visible: cfg_checkMode === "daily"
+                Kirigami.FormData.label: i18n("Daily time") + ":"
+
+                SpinBox {
+                    id: dailyHour
+                    from: 0
+                    to: 23
+                    stepSize: 1
+                    value: dailyHour.value
+                    onValueChanged: cfg_dailyHour = value
+                    Layout.preferredWidth: 50
+                }
+
+                Label { text: ":" }
+
+                SpinBox {
+                    id: dailyMinute
+                    from: 0
+                    to: 59
+                    stepSize: 1
+                    value: dailyMinute.value
+                    onValueChanged: cfg_dailyMinute = value
+                    Layout.preferredWidth: 50
+                }
+            }
+
+            RowLayout {
+                visible: cfg_checkMode === "weekly"
+                Kirigami.FormData.label: i18n("Weekly schedule") + ":"
+
+                ComboBox {
+                    id: weeklyDay
+                    textRole: "name"
+                    model: [
+                        { name: i18n("Sunday"), value: 0 },
+                        { name: i18n("Monday"), value: 1 },
+                        { name: i18n("Tuesday"), value: 2 },
+                        { name: i18n("Wednesday"), value: 3 },
+                        { name: i18n("Thursday"), value: 4 },
+                        { name: i18n("Friday"), value: 5 },
+                        { name: i18n("Saturday"), value: 6 }
+                    ]
+                    currentIndex: JS.setIndex(plasmoid.configuration.weeklyDay, model)
+                    onCurrentIndexChanged: plasmoid.configuration.weeklyDay = model[currentIndex].value
+                }
+
+                RowLayout {
+                    spacing: Kirigami.Units.smallSpacing
+
+                    SpinBox {
+                        id: weeklyHour
+                        from: 0
+                        to: 23
+                        stepSize: 1
+                        value: weeklyHour.value
+                        onValueChanged: cfg_weeklyHour = value
+                        Layout.preferredWidth: 50
+                    }
+
+                    Label {
+                        text: ":"
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    SpinBox {
+                        id: weeklyMinute
+                        from: 0
+                        to: 59
+                        stepSize: 1
+                        value: weeklyMinute.value
+                        onValueChanged: cfg_weeklyMinute = value
+                        Layout.preferredWidth: 50
+                    }
                 }
             }
 

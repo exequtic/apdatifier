@@ -10,9 +10,13 @@
 
 <kcfgfile name="apdatifier"/>
     <group name="General">
-        <entry name="interval" type="bool"><default>true</default></entry>
-        <entry name="time" type="int"><default>60</default></entry>
-        <entry name="checkOnStartup" type="bool"><default>false</default></entry>
+        <entry name="checkMode" type="string"><default>interval</default></entry>
+        <entry name="intervalMinutes" type="int"><default>120</default></entry>
+        <entry name="dailyHour" type="int"><default>20</default></entry>
+        <entry name="dailyMinute" type="int"><default>30</default></entry>
+        <entry name="weeklyDay" type="int"><default>0</default></entry>
+        <entry name="weeklyHour" type="int"><default>20</default></entry>
+        <entry name="weeklyMinute" type="int"><default>30</default></entry>
         <entry name="arch" type="bool"><default>true</default></entry>
         <entry name="aur" type="bool"><default>false</default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
@@ -24,7 +28,7 @@
         <entry name="newsKeep" type="int"><default>3</default></entry>
         <entry name="middleAction" type="string"><default>upgradeSystem</default></entry>
         <entry name="rightAction" type="string"><default></default></entry>
-        <entry name="scrollUpAction" type="string"><default>switchInterval</default></entry>
+        <entry name="scrollUpAction" type="string"><default>switchScheduler</default></entry>
         <entry name="scrollDownAction" type="string"><default>management</default></entry>
         <entry name="notifyUpdates" type="bool"><default>true</default></entry>
         <entry name="notifyUpdatesAction" type="bool"><default>false</default></entry>

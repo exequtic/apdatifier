@@ -100,7 +100,7 @@ function init() {
         checkDependencies()
         refreshListModel()
         updateActiveNews()
-        upgradingState(true)
+        upgradingState()
     }
 }
 
@@ -167,36 +167,32 @@ function management() {
 
 
 function enableUpgrading(state) {
+    if (sts.upgrading === state) return
     sts.busy = sts.upgrading = state
     if (state) {
-        if (upgradeTimer.running) return
         upgradeTimer.start()
-        searchTimer.stop()
+        scheduler.stop()
         sts.statusMsg = i18n("Upgrade in progress") + "..."
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     } else {
-        upgradeTimer.stop()
-        setStatusBar()
+        execute(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => {
+            upgradeTimer.stop()
+            if (!Error(code, err) && out) postUpgrade(out)
+            setStatusBar()
+        })
     }
 }
 
-function upgradingState(startup) {
-    execute(`ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`, (cmd, out, err, code) => {
-        if (out || err) {
-            enableUpgrading(true)
-        } else if (startup) {
-            if (!cfg.interval) return
-            cfg.checkOnStartup ? searchTimer.triggered() : searchTimer.start()
-        } else {
-            enableUpgrading(false)
-            execute(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => postUpgrade(out))
-        }
-    })
+function upgradingState() {
+    const checkProc = `ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`
+    execute(checkProc, (cmd, out, err, code) => enableUpgrading(!!(out || err)))
 }
 
 function postUpgrade(out) {
+    if (!out || !validJSON(out)) return
+    const updated = JSON.parse(out)
     const newList = cache.filter(cached => {
-        const current = JSON.parse(out).find(current => current.NM.replace(/ /g, "-").toLowerCase() === cached.NM)
+        const current = updated.find(pkg => pkg.NM.replace(/ /g, "-").toLowerCase() === cached.NM)
         return current && current.VO === cached.VO + cached.AC
     })
     if (JSON.stringify(cache) !== JSON.stringify(newList)) {
@@ -221,7 +217,7 @@ function checkUpdates() {
         return
     }
 
-    searchTimer.stop()
+    scheduler.stop()
     sts.busy = true
     sts.errMsg = ""
 
@@ -555,28 +551,83 @@ function setStatusBar(code) {
     sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
     sts.statusMsg = sts.err ? "Exit code: " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
     sts.busy = false
-    !cfg.interval ? searchTimer.stop() : searchTimer.restart()
+    if (code) return
+    if (cfg.checkMode !== "manual") scheduler.start()
+}
+
+function searchScheduler(options) {
+    const mode = cfg.checkMode
+    if (mode === "manual") {
+        scheduler.stop()
+        return
+    }
+
+    const currTime = new Date().getTime()
+    const lastCheck = parseInt(cfg.timestamp) || 0
+    let nextCheck = null
+
+    if (mode === "interval") {
+        const interval = parseFloat(cfg.intervalMinutes)
+        const intervalMs = interval * 60 * 1000
+        nextCheck = lastCheck ? (lastCheck + intervalMs) : (currTime + intervalMs)
+    } else if (mode === "daily") {
+        const scheduled = new Date(currTime)
+        scheduled.setHours(cfg.dailyHour, cfg.dailyMinute, 0, 0)
+        if (scheduled.getTime() <= currTime) scheduled.setDate(scheduled.getDate() + 1)
+        nextCheck = scheduled.getTime()
+    } else if (mode === "weekly") {
+        const scheduled = new Date(currTime)
+        const targetDay = Number(cfg.weeklyDay)
+        const daysAhead = (targetDay - scheduled.getDay() + 7) % 7
+        scheduled.setDate(scheduled.getDate() + daysAhead)
+        scheduled.setHours(cfg.weeklyHour, cfg.weeklyMinute, 0, 0)
+        if (scheduled.getTime() <= currTime) scheduled.setDate(scheduled.getDate() + 7)
+        nextCheck = scheduled.getTime()
+    }
+
+    options = options || {}
+    if (options.simulate) return nextCheck
+
+    if (nextCheck && nextCheck <= (currTime + 10000) && nextCheck > lastCheck) {
+        checkUpdates()
+    }
+
+    return
 }
 
 
-function getLastCheckTime() {
-    if (!cfg.timestamp) return ""
+function getCheckTime() {
+    const currTime = new Date().getTime()
+    const lastCheck = parseInt(cfg.timestamp) || currTime
 
-    const diff = new Date().getTime() - parseInt(cfg.timestamp)
-    const sec = Math.round((diff / 1000) % 60)
-    const min = Math.floor((diff / (1000 * 60)) % 60)
-    const hrs = Math.floor(diff / (1000 * 60 * 60))
+    const formatDelta = (ms1, ms2) => {
+        const diff = Math.max(0, Math.floor((ms1 - ms2) / 1000))
+        const days = Math.floor(diff / 86400)
+        const hours = Math.floor((diff % 86400) / 3600)
+        const minutes = Math.floor((diff % 3600) / 60)
+        const seconds = diff % 60
+        const parts = []
+        if (days > 0) parts.push([days, i18np("%1 day", "%1 days", days)])
+        if (hours > 0) parts.push([hours, i18np("%1 hour", "%1 hours", hours)])
+        if (minutes > 0) parts.push([minutes, i18np("%1 minute", "%1 minutes", minutes)])
+        if (parts.length === 0 && seconds > 0) return i18n("less than a minute")
+        if (seconds > 0) parts.push([seconds, i18np("%1 second", "%1 seconds", seconds)])
+        const take = parts.slice(0, 2).map(p => p[1])
+        return take.join(' ')
+    }
 
-    const lastcheck = i18n("Last check:")
-    const second = i18np("%1 second", "%1 seconds", sec)
-    const minute = i18np("%1 minute", "%1 minutes", min)
-    const hour = i18np("%1 hour", "%1 hours", hrs)
-    const ago = i18n("ago")
+    const lastCheckStr = (currTime > lastCheck) ? `${i18n("Last check:")} ${formatDelta(currTime, lastCheck)} ${i18n("ago")}` : ""
 
-    if (hrs === 0 && min === 0) return `${lastcheck} ${second} ${ago}`
-    if (hrs === 0) return `${lastcheck} ${minute} ${second} ${ago}`
-    if (min === 0) return `${lastcheck} ${hour} ${ago}`
-    return `${lastcheck} ${hour} ${minute} ${ago}`
+    if (!scheduler.running) return lastCheckStr
+
+    const nextCheck = searchScheduler({ simulate: true })
+    if (!nextCheck) return lastCheckStr
+
+    const nextCheckStr = (currTime < nextCheck) ? `${i18n("Next check in:")} ${formatDelta(nextCheck, currTime)}` : ""
+
+    if (lastCheckStr && nextCheckStr) return `${lastCheckStr}\n${nextCheckStr}`
+    if (lastCheckStr && !nextCheckStr) return lastCheckStr
+    if (!lastCheckStr && nextCheckStr) return nextCheckStr
 }
 
 
@@ -645,8 +696,9 @@ function keys(list) {
 }
 
 
-function switchInterval() {
-    cfg.interval = !cfg.interval
+function switchScheduler() {
+    if (cfg.checkMode === "manual" || sts.busy) return
+    scheduler.running ? scheduler.stop() : scheduler.start()
 }
 
 function toFileFormat(obj) {

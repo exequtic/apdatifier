@@ -32,13 +32,12 @@ PlasmoidItem {
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
-    toolTipMainText: !interval && sts.idle ? i18n("Auto check disabled") : ""
+    toolTipMainText: sts.paused ? i18n("Auto check disabled") : ""
     toolTipSubText: sts.busy ? sts.statusMsg : sts.err ? sts.errMsg : sts.checktime
 
     property var check
     property var cache: []
-    property int time: plasmoid.configuration.time
-    property bool interval: plasmoid.configuration.interval
+    property string checkMode: plasmoid.configuration.checkMode
     property bool sorting: plasmoid.configuration.sorting
     property string rules: plasmoid.configuration.rules || ""
     property var pkg: plasmoid.configuration.packages || ""
@@ -54,7 +53,7 @@ PlasmoidItem {
         property bool idle: !busy && !err
         property bool updated: idle && !count
         property bool pending: idle && count
-        property bool paused: idle && !cfg.interval
+        property bool paused: idle && !scheduler.running
         property string errMsg: ""
         property string statusMsg: ""
         property string statusIco: ""
@@ -99,10 +98,11 @@ PlasmoidItem {
     ]
 
     Timer {
-        id: searchTimer
-        interval: time * 1000 * 60
+        id: scheduler
+        interval: 10 * 1000
         repeat: true
-        onTriggered: JS.checkUpdates()
+        triggeredOnStart: true
+        onTriggered: JS.searchScheduler()
     }
 
     Timer {
@@ -129,8 +129,7 @@ PlasmoidItem {
         JS.refreshListModel()
     }
 
-    onTimeChanged: searchTimer.restart()
-    onIntervalChanged: interval ? searchTimer.start() : searchTimer.stop()
+    onCheckModeChanged: scheduler.restart()
     onSortingChanged: refresh()
     onRulesChanged: refresh()
     onConfigurationChanged: saveTimer.start()

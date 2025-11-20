@@ -21,7 +21,7 @@ RowLayout {
             {"name": i18n("None"), "value": ""},
             {"name": i18n("Check updates"), "value": "checkUpdates"},
             {"name": i18n("Upgrade system"), "value": "upgradeSystem"},
-            {"name": i18n("Switch interval"), "value": "switchInterval"},
+            {"name": i18n("Pause auto check"), "value": "switchScheduler"},
             {"name": i18n("Management"), "value": "management"}
         ]
 

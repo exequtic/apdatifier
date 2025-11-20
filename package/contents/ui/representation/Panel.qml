@@ -41,7 +41,7 @@ MouseArea {
     hoverEnabled: true
     acceptedButtons: cfg.rightAction ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
 
-    onEntered: sts.checktime = JS.getLastCheckTime()
+    onEntered: sts.checktime = JS.getCheckTime()
 
     onPressed: mouse => {
         wasExpanded = expanded
@@ -106,7 +106,7 @@ MouseArea {
                 QQC.Badge {
                     iconName: pausedIcon
                     iconColor: Kirigami.Theme.neutralTextColor
-                    visible: sts.paused && cfg.badgePaused
+                    visible: sts.paused && cfg.checkMode !== "manual" && cfg.badgePaused
                 }
             }
         }
@@ -199,6 +199,6 @@ MouseArea {
     QQC.Badge {
         iconName: pausedIcon
         iconColor: Kirigami.Theme.neutralTextColor
-        visible: counterOverlay && sts.paused && cfg.badgePaused
+        visible: counterOverlay && sts.paused && cfg.checkMode !== "manual" && cfg.badgePaused
     }
 }

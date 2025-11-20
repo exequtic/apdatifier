@@ -114,22 +114,22 @@ Representation {
                 }
 
                 ToolButton {
-                    ToolTip {text: cfg.interval ? i18n("Disable auto search updates") : i18n("Enable auto search updates")}
+                    ToolTip {text: sts.paused ? i18n("Disable auto search updates") : i18n("Enable auto search updates")}
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                     hoverEnabled: enabled
                     highlighted: enabled
                     enabled: sts.idle
-                    visible: enabled && cfg.intervalButton
-                    onClicked: JS.switchInterval()
+                    visible: enabled && cfg.intervalButton && cfg.checkMode !== "manual"
+                    onClicked: JS.switchScheduler()
                     Kirigami.Icon {
                         height: parent.height
                         width: parent.height
                         anchors.centerIn: parent
                         source: cfg.ownIconsUI
-                                        ? (cfg.interval ? svg("toolbar_pause") : svg("toolbar_start"))
-                                        : (cfg.interval ? "media-playback-paused" : "media-playback-playing")
-                        color: !cfg.interval && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
+                                        ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
+                                        : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
+                        color: sts.paused && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                         scale: cfg.ownIconsUI ? 0.7 : 0.9
                         isMask: cfg.ownIconsUI
                         smooth: true
