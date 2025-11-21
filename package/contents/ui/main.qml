@@ -35,6 +35,11 @@ PlasmoidItem {
     toolTipMainText: sts.paused ? i18n("Auto check disabled") : ""
     toolTipSubText: sts.busy ? sts.statusMsg : sts.err ? sts.errMsg : sts.checktime
 
+    hideOnWindowDeactivate: !pinned
+
+    property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+    property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
+    property bool pinned: false
     property var check
     property var cache: []
     property string checkMode: plasmoid.configuration.checkMode

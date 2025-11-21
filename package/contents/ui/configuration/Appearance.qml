@@ -55,10 +55,12 @@ SimpleKCM {
     property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
+    property alias cfg_pinButton: pinButton.checked
     property alias cfg_tabBarVisible: tabBarVisible.checked
     property alias cfg_tabBarTexts: tabBarTexts.checked
 
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+    property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
     property bool counterOverlay: inTray || !horizontal
     property bool counterRow: !inTray && horizontal
@@ -708,6 +710,11 @@ SimpleKCM {
             CheckBox {
                 id: checkButton
                 icon.name: "view-refresh"
+            }
+            CheckBox {
+                id: pinButton
+                icon.name: "pin"
+                visible: !inTray && !onDesktop
             }
         }
 

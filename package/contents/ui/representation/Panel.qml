@@ -19,7 +19,6 @@ MouseArea {
     id: mouseArea
 
     property bool wasExpanded: false
-    property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
     property int trayIconSize: horizontal ? trayIcon.width : trayIcon.height
     property bool counterOverlay: inTray || !horizontal

@@ -219,6 +219,26 @@ Representation {
                         smooth: true
                     }
                 }
+
+                ToolButton {
+                    ToolTip {text: pinned ? i18n("Unpin window") : i18n("Keep open")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
+                    visible: cfg.pinButton && !inTray && !onDesktop
+                    onClicked: pinned = !pinned
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: pinned ? "window-unpin" : "window-pin"
+                        color: Kirigami.Theme.colorSet
+                        scale: Config.ownIconsUI ? 0.7 : 0.9
+                        isMask: Config.ownIconsUI
+                        smooth: true
+                    }
+                }
             }
         }
     }
