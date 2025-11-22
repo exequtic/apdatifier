@@ -99,6 +99,7 @@
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="pinButton" type="bool"><default>true</default></entry>
+        <entry name="settingsButton" type="bool"><default>true</default></entry>
         <entry name="tabBarVisible" type="bool"><default>true</default></entry>
         <entry name="tabBarTexts" type="bool"><default>true</default></entry>
     </group>

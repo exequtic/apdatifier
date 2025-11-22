@@ -221,6 +221,26 @@ Representation {
                 }
 
                 ToolButton {
+                    ToolTip {text: i18n("Open settings")}
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    hoverEnabled: enabled
+                    highlighted: enabled
+                    visible: cfg.settingsButton && !inTray && sts.idle
+                    onClicked: plasmoid.internalAction("configure").trigger()
+                    Kirigami.Icon {
+                        height: parent.height
+                        width: parent.height
+                        anchors.centerIn: parent
+                        source: cfg.ownIconsUI ? svg("toolbar_settings") : "settings-configure"
+                        color: Kirigami.Theme.colorSet
+                        scale: cfg.ownIconsUI ? 0.7 : 0.9
+                        isMask: cfg.ownIconsUI
+                        smooth: true
+                    }
+                }
+
+                ToolButton {
                     ToolTip {text: pinned ? i18n("Unpin window") : i18n("Keep open")}
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
@@ -232,7 +252,8 @@ Representation {
                         height: parent.height
                         width: parent.height
                         anchors.centerIn: parent
-                        source: pinned ? "window-unpin" : "window-pin"
+                        source: cfg.ownIconsUI ? (pinned ? svg("toolbar_unpin") : svg("toolbar_pin"))
+                                               : (pinned ? "window-unpin" : "window-pin")
                         color: Kirigami.Theme.colorSet
                         scale: Config.ownIconsUI ? 0.7 : 0.9
                         isMask: Config.ownIconsUI

@@ -56,6 +56,7 @@ SimpleKCM {
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
     property alias cfg_pinButton: pinButton.checked
+    property alias cfg_settingsButton: settingsButton.checked
     property alias cfg_tabBarVisible: tabBarVisible.checked
     property alias cfg_tabBarTexts: tabBarTexts.checked
 
@@ -696,13 +697,13 @@ SimpleKCM {
                 id: sortButton
                 icon.name: "sort-name"
             }
-        }
-        RowLayout {
-            enabled: showToolBar.checked
             CheckBox {
                 id: managementButton
                 icon.name: "tools"
             }
+        }
+        RowLayout {
+            enabled: showToolBar.checked
             CheckBox {
                 id: upgradeButton
                 icon.name: "akonadiconsole"
@@ -712,9 +713,14 @@ SimpleKCM {
                 icon.name: "view-refresh"
             }
             CheckBox {
+                id: settingsButton
+                icon.name: "settings-configure"
+                enabled: !inTray
+            }
+            CheckBox {
                 id: pinButton
                 icon.name: "pin"
-                visible: !inTray && !onDesktop
+                enabled: !inTray && !onDesktop
             }
         }
 
