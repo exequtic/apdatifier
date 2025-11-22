@@ -13,6 +13,7 @@ import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 
+import "../components"
 import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
@@ -87,13 +88,10 @@ Representation {
                 spacing: Kirigami.Units.smallSpacing
                 visible: cfg.showToolBar
 
-                ToolButton {
+                ToolbarButton {
                     id: searchButton
-                    ToolTip {text: i18n("Filter by package name")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                    tooltipText: i18n("Filter by package name")
+                    iconSource: cfg.ownIconsUI ? svg("toolbar_search") : "search"
                     visible: cfg.searchButton && sts.pending
                     enabled: visible && swipeView.currentIndex != 2
                     onClicked: {
@@ -101,164 +99,65 @@ Representation {
                         searchFieldOpen = !searchField.visible
                         searchField.focus = searchFieldOpen
                     }
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg("toolbar_search") : "search"
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
                 }
 
-                ToolButton {
-                    ToolTip {text: sts.paused ? i18n("Disable auto search updates") : i18n("Enable auto search updates")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    tooltipText: sts.paused ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
+                    iconSource: cfg.ownIconsUI ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
+                                               : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
+                    iconColor: sts.paused && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                     enabled: sts.idle
                     visible: enabled && cfg.intervalButton && cfg.checkMode !== "manual"
                     onClicked: JS.switchScheduler()
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI
-                                        ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
-                                        : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
-                        color: sts.paused && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
                 }
 
-                ToolButton {
-                    ToolTip {text: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
+                    iconSource: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
                     visible: cfg.sortButton && sts.pending
                     enabled: visible && swipeView.currentIndex != 2
                     onClicked: cfg.sorting = !cfg.sorting
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
                 }
 
-                ToolButton {
-                    ToolTip { id: managementTip; text: i18n("Management")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    id: managementButton
+                    tooltipText: i18n("Management")
+                    iconSource: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
                     enabled: sts.idle && pkg.pacman !== "" && cfg.terminal
                     visible: enabled && cfg.managementButton
-                    onClicked: { managementTip.hide(); JS.management() }
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
+                    onClicked: { buttonTooltip.hide(); JS.management() }
                 }
 
-                ToolButton {
-                    ToolTip { id: upgradeTip; text: i18n("Upgrade system")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    id: upgradeButton
+                    tooltipText: i18n("Upgrade system")
+                    iconSource: cfg.ownIconsUI ? svg("toolbar_upgrade") : "akonadiconsole"
                     enabled: sts.pending && cfg.terminal
                     visible: enabled && cfg.upgradeButton
-                    onClicked: { upgradeTip.hide(); JS.upgradeSystem() }
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg("toolbar_upgrade") : "akonadiconsole"
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
+                    onClicked: { buttonTooltip.hide(); JS.upgradeSystem() }
                 }
 
-                ToolButton {
-                    ToolTip {text: sts.busy ? i18n("Stop checking") : i18n("Check updates")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    tooltipText: sts.busy ? i18n("Stop checking") : i18n("Check updates")
+                    iconSource: cfg.ownIconsUI ? (sts.busy ? svg("toolbar_stop") : svg("toolbar_check"))
+                                               : (sts.busy ? "media-playback-stopped" : "view-refresh")
                     visible: cfg.checkButton && !sts.upgrading
                     onClicked: JS.checkUpdates()
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? (sts.busy ? svg("toolbar_stop") : svg("toolbar_check"))
-                                               : (sts.busy ? "media-playback-stopped" : "view-refresh")
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
                 }
 
-                ToolButton {
-                    ToolTip {text: i18n("Open settings")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    tooltipText: i18n("Open settings")
+                    iconSource: cfg.ownIconsUI ? svg("toolbar_settings") : "settings-configure"
                     visible: cfg.settingsButton && !inTray && sts.idle
                     onClicked: plasmoid.internalAction("configure").trigger()
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg("toolbar_settings") : "settings-configure"
-                        color: Kirigami.Theme.colorSet
-                        scale: cfg.ownIconsUI ? 0.7 : 0.9
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
                 }
 
-                ToolButton {
-                    ToolTip {text: pinned ? i18n("Unpin window") : i18n("Keep open")}
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    hoverEnabled: enabled
-                    highlighted: enabled
+                ToolbarButton {
+                    tooltipText: pinned ? i18n("Unpin window") : i18n("Keep open")
+                    iconSource: cfg.ownIconsUI ? (pinned ? svg("toolbar_unpin") : svg("toolbar_pin"))
+                                               : (pinned ? "window-unpin" : "window-pin")
                     visible: cfg.pinButton && !inTray && !onDesktop
                     onClicked: pinned = !pinned
-                    Kirigami.Icon {
-                        height: parent.height
-                        width: parent.height
-                        anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? (pinned ? svg("toolbar_unpin") : svg("toolbar_pin"))
-                                               : (pinned ? "window-unpin" : "window-pin")
-                        color: Kirigami.Theme.colorSet
-                        scale: Config.ownIconsUI ? 0.7 : 0.9
-                        isMask: Config.ownIconsUI
-                        smooth: true
-                    }
                 }
             }
         }
