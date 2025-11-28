@@ -15,7 +15,7 @@ function execute(command, callback, stoppable) {
     if (component.status === Component.Ready) {
         const componentObject = component.createObject(root)
         if (componentObject) {
-            if (stoppable) check = componentObject
+            sts.proc = componentObject
             componentObject.exec(command, callback)
         } else {
             Error(1, "Failed to create executable DataSource object")
@@ -212,7 +212,7 @@ function upgradeSystem() {
 function checkUpdates() {
     if (sts.upgrading) return
     if (sts.busy) {
-        check.cleanup()
+        sts.proc.cleanup()
         setStatusBar()
         return
     }
@@ -221,21 +221,7 @@ function checkUpdates() {
     sts.busy = true
     sts.errMsg = ""
 
-    let arch = [], flatpak = [], widgets = []
-
-    const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
-    const pkgsync = "pacman -Sl" + (pkg.checkupdates ? ` --dbpath ${dbPath}` : "")
-    const pkginfo = "pacman -Qi"
-    const pkgfiles = "pacman -Ql"
-    const pacmanCmd = "pacman -Qu"
-    const checkupCmd = `CHECKUPDATES_DB=${dbPath} checkupdates`
-    const aurCmd = cfg.wrapper === "pikaur"
-                        ? `${cfg.wrapper} -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'`
-                        : `${cfg.wrapper} -Qua`
-    const archCmd = !pkg.pacman || !cfg.arch ? false
-                    : pkg.checkupdates
-                        ? cfg.aur ? `${checkupCmd}; ${aurCmd}` : checkupCmd
-                        : cfg.aur ? `${pacmanCmd}; ${aurCmd}` : pacmanCmd
+    let archRepos = [], archAur = [], flatpak = [], widgets = []
 
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
@@ -245,7 +231,8 @@ function checkUpdates() {
     ].filter(Boolean).join(' ')
 
             feeds ? checkNews() :
-          archCmd ? checkArch() :
+         cfg.arch ? checkRepos() :
+          cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
       cfg.widgets ? checkWidgets() :
                     merge()
@@ -261,66 +248,57 @@ function checkUpdates() {
                 if (out) updateNews(out)
             }
 
-            archCmd ? checkArch() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-        }, true )
+            cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+         })
     }
 
-    function checkArch() {
+    function checkRepos() {
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking system updates...")
+        const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
+        const cmd = pkg.checkupdates ? `CHECKUPDATES_DB=${dbPath} checkupdates` : "pacman -Qu"
 
-        execute(archCmd, (cmd, out, err, code) => {
+        execute(cmd, (cmd, out, err, code) => {
             if (Error(code, err)) return
-            out ? allArch(out.split("\n")) : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-        }, true )
+            const updates = out ? out.split("\n") : []
+            makeArchList(updates).then(result => {
+                archRepos = result
+                cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+            })
+        })
     }
 
-    function allArch(upd) {
-        execute(pkgsync, (cmd, out, err, code) => {
+    function checkAur() {
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
+        sts.statusMsg = i18n("Checking AUR updates...")
+        const cmd = cfg.wrapper === "pikaur" ? `${cfg.wrapper} -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'` : `${cfg.wrapper} -Qua`
+
+        execute(cmd, (cmd, out, err, code) => {
             if (Error(code, err)) return
-            descArch(upd, out.split("\n").filter(line => /\[.*\]/.test(line)))
-        }, true )
-    }
-
-    function descArch(upd, all) {
-        const pkgs = upd.map(l => l.split(" ")[0]).join(' ')
-        execute(`${pkginfo} ${pkgs}`, (cmd, out, err, code) => {
-            if (Error(code, err)) return
-            iconsArch(upd, all, out, pkgs)
-        }, true )
-    }
-
-    function iconsArch(upd, all, desc, pkgs) {
-        const getIcons = `\
-            while read -r pkg file; do
-                [[ "$processed" == *"$pkg"* ]] && continue
-                icon=$(awk -F= '/^Icon=/ {print $2; exit}' "$file" 2>/dev/null || true) && [ -n "$icon" ] || continue
-                processed="$processed $pkg"
-                echo "$pkg $icon"
-            done < <(${pkgfiles} ${pkgs} | grep '/usr/share/applications/.*\.desktop$')`
-
-        execute(getIcons, (cmd, out, err, code) => {
-            const icons = (out && !err) ? out.split('\n').map(l => ({ NM: l.split(' ')[0], IN: l.split(' ')[1] })) : []
-            arch = makeArchList(upd, all, desc, icons)
-            cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
-        }, true )
+            const updates = out ? out.split("\n") : []
+            makeArchList(updates).then(result => {
+                archAur = result
+                cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+            })
+        })
     }
 
     function checkFlatpak() {
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
-        sts.statusMsg = i18n("Checking flatpak updates...")
-        execute("flatpak update --appstream >/dev/null 2>&1; flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
+        sts.statusMsg = i18n("Updating flatpak appstream data...")
+        execute("flatpak update --appstream >/dev/null 2>&1", (cmd, out, err, code) => {
             if (Error(code, err)) return
-            out ? descFlatpak(out.trim()) : cfg.widgets ? checkWidgets() : merge()
-        }, true )
-    }
-
-    function descFlatpak(upd) {
-        execute("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
-            if (Error(code, err)) return
-            flatpak = out ? makeFlatpakList(upd, out.trim()) : []
-            cfg.widgets ? checkWidgets() : merge()
-        }, true )
+            sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
+            sts.statusMsg = i18n("Checking flatpak updates...")
+            execute("flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
+                if (Error(code, err)) return
+                const updates = out.trim()
+                makeFlatpakList(updates).then(result => {
+                    flatpak = result
+                    cfg.widgets ? checkWidgets() : merge()
+                })
+            })
+        })
     }
 
     function checkWidgets() {
@@ -345,11 +323,11 @@ function checkUpdates() {
 
             widgets = JSON.parse(out)
             merge()
-        }, true )
+        })
     }
 
     function merge() {
-        finalize(keys(arch.concat(flatpak, widgets)))
+        finalize(keys(archRepos.concat(archAur, flatpak, widgets)))
     }
 }
 
@@ -397,67 +375,96 @@ function restoreNewsList() {
 }
 
 
-function makeArchList(updates, all, description, icons) {
-    if (!updates || !all || !description) return []
-    description = description.replace(/^Installed From\s*:.+\n?/gm, '')
-    const packagesData = description.split("\n\n")
-    const skip = new Set([1, 3, 5, 9, 11, 15, 16, 19, 20])
-    const empty = new Set([6, 7, 8, 10, 12, 13])
-    const keyNames = {
-         0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
-        10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
-    }
+function makeArchList(updates) {
+    return new Promise((resolve) => {
+        if (!updates) {
+            resolve({})
+        } else {
+            const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
+            const pkgsync = "pacman -Sl" + (pkg.checkupdates ? ` --dbpath ${dbPath}` : "")
+            const pkginfo = "pacman -Qi"
+            const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
+            execute(pkgsync, (cmd, out, err, code) => {
+                if (Error(code, err)) return
+                const all = out.split("\n").filter(line => /\[.*\]/.test(line))
+                execute(`${pkginfo} ${pkgs}`, (cmd, out, err, code) => {
+                    if (Error(code, err)) return
+                    const desc = out.trim()
+                    execute(bash('utils', 'getIcons', pkgs), (cmd, out, err, code) => {
+                        const icons = (out && !err) ? out.split('\n').map(l => ({ NM: l.split(' ')[0], IN: l.split(' ')[1] })) : []
+                        const description = desc.replace(/^Installed From\s*:.+\n?/gm, '')
+                        const packagesData = description.split("\n\n")
+                        const skip = new Set([1, 3, 5, 9, 11, 15, 16, 19, 20])
+                        const empty = new Set([6, 7, 8, 10, 12, 13])
+                        const keyNames = {
+                            0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
+                            10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
+                        }
 
-    let extendedList = packagesData.map(packageData => {
-        packageData = packageData.split('\n').filter(line => line.includes(" : "))
-        let packageObj = {}
-        packageData.forEach((line, index) => {
-            if (skip.has(index)) return
-            const [, value] = line.split(/\s* : \s*/)
-            if (empty.has(index) && value.charAt(0) === value.charAt(0).toUpperCase()) return
-            if (keyNames[index]) packageObj[keyNames[index]] = value.trim()
-        })
+                        let extendedList = packagesData.map(packageData => {
+                            packageData = packageData.split('\n').filter(line => line.includes(" : "))
+                            let packageObj = {}
+                            packageData.forEach((line, index) => {
+                                if (skip.has(index)) return
+                                const [, value] = line.split(/\s* : \s*/)
+                                if (empty.has(index) && value.charAt(0) === value.charAt(0).toUpperCase()) return
+                                if (keyNames[index]) packageObj[keyNames[index]] = value.trim()
+                            })
 
-        if (Object.keys(packageObj).length > 0) {
-            updates.forEach(str => {
-                const [name, verold, , vernew] = str.split(" ")
-                if (packageObj.NM === name) {
-                    const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew
-                    Object.assign(packageObj, { VO: verold, VN: verNew })
-                }
+                            if (Object.keys(packageObj).length > 0) {
+                                updates.forEach(str => {
+                                    const [name, verold, , vernew] = str.split(" ")
+                                    if (packageObj.NM === name) {
+                                        const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew
+                                        Object.assign(packageObj, { VO: verold, VN: verNew })
+                                    }
+                                })
+
+                                const foundRepo = all.find(str => packageObj.NM === str.split(" ")[1])
+                                packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
+
+                                const foundIcon = icons.find(item => item.NM === packageObj.NM)
+                                if (foundIcon) packageObj.IN = foundIcon.IN
+                            }
+
+                            return packageObj
+                        })
+
+                        extendedList.pop()
+
+                        resolve([...new Map(extendedList.map(item => [item.NM, item])).values()])
+                    })
+                })
             })
-
-            const foundRepo = all.find(str => packageObj.NM === str.split(" ")[1])
-            packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
-
-            const foundIcon = icons.find(item => item.NM === packageObj.NM)
-            if (foundIcon) packageObj.IN = foundIcon.IN
         }
-
-        return packageObj
     })
-
-    extendedList.pop()
-    return [...new Map(extendedList.map(item => [item.NM, item])).values()]
 }
 
 
-function makeFlatpakList(updates, description) {
-    if (!updates || !description) return []
-    const list = description.split("\n").reduce((obj, line) => {
-        const [ID, VO, AC] = line.split("\t").map(entry => entry.trim())
-        obj[ID] = { VO, AC }
-        return obj
-    }, {})
-
-    return updates.split("\n").map(line => {
-        const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
-        const { VO, AC } = list[ID]
-        return {
-            NM: NM.replace(/ /g, "-").toLowerCase(),
-            DE, LN: "https://flathub.org/apps/" + ID,
-            ID, BR, RE, AC, CM, RT, IS, DS, VO,
-            VN: VO === VN ? i18n("latest commit") : VN
+function makeFlatpakList(updates) {
+    return new Promise((resolve) => {
+        if (!updates) {
+            resolve({})
+        } else {
+            execute("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
+                if (Error(code, err)) return
+                const description = out.trim().split("\n").reduce((obj, line) => {
+                    const [ID, VO, AC] = line.split("\t").map(entry => entry.trim())
+                    obj[ID] = { VO, AC }
+                    return obj
+                }, {})
+                const extendedList = updates.split("\n").map(line => {
+                    const [NM, DE, ID, VN, BR, , RE, , CM, RT, IS, DS] = line.split("\t").map(entry => entry.trim())
+                    const { VO, AC } = description[ID]
+                    return {
+                        NM: NM.replace(/ /g, "-").toLowerCase(),
+                        DE, LN: "https://flathub.org/apps/" + ID,
+                        ID, BR, RE, AC, CM, RT, IS, DS, VO,
+                        VN: VO === VN ? i18n("latest commit") : VN
+                    }
+                })
+                resolve(extendedList)
+            })
         }
     })
 }

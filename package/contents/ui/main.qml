@@ -40,7 +40,6 @@ PlasmoidItem {
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
     property bool pinned: false
-    property var check
     property var cache: []
     property string checkMode: plasmoid.configuration.checkMode
     property bool sorting: plasmoid.configuration.sorting
@@ -63,6 +62,7 @@ PlasmoidItem {
         property string statusMsg: ""
         property string statusIco: ""
         property string checktime: ""
+        property var proc: null
     }
 
     ListModel  {
