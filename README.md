@@ -56,21 +56,11 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 <br>
 
 # Requirements
-[pacman-contrib](https://archlinux.org/packages/extra/x86_64/pacman-contrib) - optional, but <b>HIGHLY RECOMMENDED</b>. For checkupdates and rankmirrors scripts.
-
 ### Supported pacman wrappers
 paru, yay, pikaur
 
 ### Supported terminals
 alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
-
-### Required packages for options:
-<b>Arch User Repository (AUR):</b> paru or yay<br>
-<b>Plasma Widgets:</b> jq<br>
-<b>News:</b> jq<br>
-<b>tmux session:</b> tmux<br>
-<b>Mirrorlist Generator:</b> pacman-contrib<br>
-<b>Management:</b> fzf<br>
 
 <br>
 
@@ -129,7 +119,7 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 <a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee.com">
   <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-badge" style="width: 256px;">
 </a>
-
+<br>
 <a href="https://nowpayments.io/donation/exequtic" target="_blank" title="nowpayments.io">
    <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="nowpayments-badge" style="width: 256px;">
 </a>

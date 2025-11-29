@@ -9,6 +9,7 @@ const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
+const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
 
 function execute(command, callback, stoppable) {
     const component = Qt.createComponent("../ui/components/Shell.qml")
@@ -117,7 +118,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman checkupdates flatpak paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman flatpak paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -126,18 +127,17 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, checkupdates, flatpak, paru, pikaur, yay, jq, tmux }
+        const [pacman, flatpak, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
+        cfg.packages = { pacman, flatpak, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = populate(output.slice(8).filter(Boolean))
+        const terminals = populate(output.slice(7).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
         if (!flatpak) plasmoid.configuration.flatpak = false
-        if (!checkupdates) plasmoid.configuration.mirrors = "false"
         if (!tmux) plasmoid.configuration.tmuxSession = false
         if (!jq) {
             plasmoid.configuration.widgets = false
@@ -254,16 +254,20 @@ function checkUpdates() {
 
     function checkRepos() {
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
-        sts.statusMsg = i18n("Checking system updates...")
-        const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
-        const cmd = pkg.checkupdates ? `CHECKUPDATES_DB=${dbPath} checkupdates` : "pacman -Qu"
+        sts.statusMsg = i18n("Synchronizing pacman databases...")
 
-        execute(cmd, (cmd, out, err, code) => {
+        execute(bash('utils', 'syncdb'), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            const updates = out ? out.split("\n") : []
-            makeArchList(updates).then(result => {
-                archRepos = result
-                cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+
+            sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
+            sts.statusMsg = i18n("Checking system updates...")
+            execute(`pacman -Qu --dbpath "${dbPath}" 2>&1`, (cmd, out, err, code) => {
+                if (Error(code, err)) return
+                const updates = out ? out.split("\n") : []
+                makeArchList(updates).then(result => {
+                    archRepos = result
+                    cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+                })
             })
         })
     }
@@ -285,7 +289,7 @@ function checkUpdates() {
 
     function checkFlatpak() {
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
-        sts.statusMsg = i18n("Updating flatpak appstream data...")
+        sts.statusMsg = i18n("Synchronizing flatpak appstream...")
         execute("flatpak update --appstream >/dev/null 2>&1", (cmd, out, err, code) => {
             if (Error(code, err)) return
             sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
@@ -380,14 +384,11 @@ function makeArchList(updates) {
         if (!updates) {
             resolve({})
         } else {
-            const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
-            const pkgsync = "pacman -Sl" + (pkg.checkupdates ? ` --dbpath ${dbPath}` : "")
-            const pkginfo = "pacman -Qi"
             const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
-            execute(pkgsync, (cmd, out, err, code) => {
+            execute("pacman -Sl --dbpath " + dbPath, (cmd, out, err, code) => {
                 if (Error(code, err)) return
                 const all = out.split("\n").filter(line => /\[.*\]/.test(line))
-                execute(`${pkginfo} ${pkgs}`, (cmd, out, err, code) => {
+                execute("pacman -Qi " + pkgs, (cmd, out, err, code) => {
                     if (Error(code, err)) return
                     const desc = out.trim()
                     execute(bash('utils', 'getIcons', pkgs), (cmd, out, err, code) => {

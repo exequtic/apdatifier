@@ -50,7 +50,6 @@ SimpleKCM {
     property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
-    property var packageLink: "https://archlinux.org/packages/extra/x86_64/pacman-contrib"
 
     property int installButton
     property var dialogTitles: {
@@ -117,15 +116,6 @@ SimpleKCM {
                     onTriggered: plasmoid.configuration.configMsg = false
                 }
             ]
-        }
-
-        Kirigami.InlineMessage {
-            Layout.fillWidth: true
-            icon.source: "apdatifier-package"
-            text: "<b>" + "<a href=\"" + packageLink + "\">checkupdates</a>" + i18n(" not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases.") + "</b>"
-            type: Kirigami.MessageType.Error
-            onLinkActivated: Qt.openUrlExternally(packageLink)
-            visible: !pkg.checkupdates
         }
 
         Kirigami.FormLayout {

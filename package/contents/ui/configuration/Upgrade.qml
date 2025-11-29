@@ -341,7 +341,7 @@ SimpleKCM {
                 ButtonGroup.group: generator
                 id: mirrors
                 text: i18n("Disabled")
-                enabled: pkg.pacman && pkg.checkupdates
+                enabled: pkg.pacman
                 checked: {
                     plasmoid.configuration.mirrors === "false"
                 }

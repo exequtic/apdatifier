@@ -250,6 +250,21 @@ rss() {
     jq . $newsFile
 }
 
+sync_dbs() {
+    ! type -p fakeroot >/dev/null && {
+        echo "fakeroot not found" >&2
+        exit 127
+    }
+    db_conf="$(pacman-conf DBPath)"
+    dbPath="${TMPDIR:-/tmp}/checkup-db-${UID}"
+    mkdir -p "$dbPath"
+    ln -sf "${db_conf}/local" "$dbPath" &> /dev/null
+    ! fakeroot -- pacman -Sy --dbpath "$dbPath" --logfile /dev/null 2>/dev/null && {
+        echo "Failed to synchronize pacman databases" >&2
+        exit 1
+    }
+}
+
 install_devel() {
     printMsg "Downloading devel"
     echo
@@ -383,6 +398,7 @@ uninstall() {
 }
 
 case "$1" in
+          "syncdb") sync_dbs ;;
              "rss") shift; rss "$@" ;;
     "combineFiles") shift; combineFiles $1 ;;
         "getIcons") shift; getIcons "$@" ;;
