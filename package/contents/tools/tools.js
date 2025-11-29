@@ -308,24 +308,9 @@ function checkUpdates() {
     function checkWidgets() {
         sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde-plasma-symbolic"
         sts.statusMsg = i18n("Checking widgets updates...")
-
         execute(bash('widgets', 'check'), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            out = out.trim()
-
-            const errorTexts = {
-                "127": i18n("Unable check widgets: ") + i18n("Required installed") + " jq",
-                  "1": i18n("Unable check widgets: ") + i18n("Failed to retrieve data from the API"),
-                  "2": i18n("Unable check widgets: ") + i18n("Too many API requests in the last 15 minutes from your IP address, please try again later"),
-                  "3": i18n("Unable check widgets: ") + i18n("Unkwnown error")
-            }
-            
-            if (out in errorTexts) {
-                Error(out, errorTexts[out])
-                return
-            }
-
-            widgets = JSON.parse(out)
+            widgets = JSON.parse(out.trim())
             merge()
         })
     }
