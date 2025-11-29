@@ -11,7 +11,7 @@ localDir="$HOME/.local/share"
 iconsDir="$localDir/icons/breeze/status/24"
 notifDir="$localDir/knotifications6"
 appletDir="$localDir/plasma/plasmoids/$applet"
-tempDir="/tmp/apdatifier"
+tempDir="${TMPDIR:-/tmp}/apdatifier"
 
 config="$configDir/config.conf"
 icon1="apdatifier-plasmoid.svg"
