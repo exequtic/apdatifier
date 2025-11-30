@@ -95,7 +95,7 @@ MouseArea {
                 QQC.Badge {
                     iconName: errorIcon
                     iconColor: Kirigami.Theme.negativeTextColor
-                    visible: sts.err
+                    visible: sts.error
                 }
                 QQC.Badge {
                     iconName: updatedIcon
@@ -188,7 +188,7 @@ MouseArea {
     QQC.Badge {
         iconName: errorIcon
         iconColor: Kirigami.Theme.negativeTextColor
-        visible: counterOverlay && sts.err
+        visible: counterOverlay && sts.error
     }
     QQC.Badge {
         iconName: updatedIcon

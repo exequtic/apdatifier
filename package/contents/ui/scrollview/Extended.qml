@@ -16,7 +16,7 @@ import "../../tools/tools.js" as JS
 import "../components"
 
 ScrollView {
-    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.err) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
+    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
     contentItem: ListView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds

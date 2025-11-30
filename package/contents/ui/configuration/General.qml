@@ -250,7 +250,6 @@ SimpleKCM {
                     id: arch
                     text: i18n("Arch Official Repositories")
                     enabled: pkg.pacman
-                    onCheckedChanged: if (!checked) aur.checked = false
                 }
             }
 
@@ -261,7 +260,7 @@ SimpleKCM {
                 CheckBox {
                     id: aur
                     text: i18n("Arch User Repository") + " (AUR)"
-                    enabled: arch.checked && (pkg.paru || pkg.yay)
+                    enabled: pkg.paru || pkg.yay
                 }
 
                 Kirigami.UrlButton {

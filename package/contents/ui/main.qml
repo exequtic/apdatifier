@@ -28,12 +28,12 @@ PlasmoidItem {
     switchHeight: Kirigami.Units.gridUnit * 16
 
     Plasmoid.busy: plasmoid.location === PlasmaCore.Types.Floating ? false : sts.busy
-    Plasmoid.status: cfg.relevantIcon > 0 ? (sts.count >= cfg.relevantIcon || sts.busy || sts.err) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
+    Plasmoid.status: cfg.relevantIcon > 0 ? (sts.count >= cfg.relevantIcon || sts.busy || sts.error) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 
     toolTipMainText: sts.paused ? i18n("Auto check disabled") : ""
-    toolTipSubText: sts.busy ? sts.statusMsg : sts.err ? sts.errMsg : sts.checktime
+    toolTipSubText: sts.busy ? sts.statusMsg : sts.checktime
 
     hideOnWindowDeactivate: !pinned
 
@@ -50,15 +50,15 @@ PlasmoidItem {
 
     QtObject {
         id: sts
+        property var errors: []
         property int count: 0
         property bool busy: false
         property bool upgrading: false
-        property bool err: !!errMsg
-        property bool idle: !busy && !err
+        property bool error: !busy && errors.length > 0
+        property bool idle: !busy && !error
         property bool updated: idle && !count
         property bool pending: idle && count
         property bool paused: idle && !scheduler.running
-        property string errMsg: ""
         property string statusMsg: ""
         property string statusIco: ""
         property string checktime: ""

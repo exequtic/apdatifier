@@ -39,9 +39,18 @@ function log(message) {
 
 function Error(code, err) {
     if (err) {
+        sts.errors = sts.errors.concat([{code: code, message: err.trim(), type: ""}])
         cfg.notifyErrors && notify.send("error", i18n("Exit code: ") + code, err.trim())
-        sts.errMsg = err.trim().substring(0, 150) + "..."
-        setStatusBar(code)
+        setStatusBar()
+        return true
+    }
+    return false
+}
+
+function handleError(code, err, type, onError) {
+    if (err) {
+        sts.errors = sts.errors.concat([{code: code, message: err.trim(), type: type}])
+        onError()
         return true
     }
     return false
@@ -179,6 +188,7 @@ function enableUpgrading(state) {
             upgradeTimer.stop()
             if (!Error(code, err) && out) postUpgrade(out)
             setStatusBar()
+            resumeScheduler()
         })
     }
 }
@@ -211,15 +221,19 @@ function upgradeSystem() {
 
 function checkUpdates() {
     if (sts.upgrading) return
+
+    sts.errors = []
+
     if (sts.busy) {
+        sts.busy = false
         sts.proc.cleanup()
         setStatusBar()
+        resumeScheduler()
         return
     }
 
     scheduler.stop()
     sts.busy = true
-    sts.errMsg = ""
 
     let archRepos = [], archAur = [], flatpak = [], widgets = []
 
@@ -238,68 +252,63 @@ function checkUpdates() {
                     merge()
 
     function checkNews() {
+        const next = () => cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
-
         execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
-            if (code) {
-                cfg.notifyErrors && notify.send("error", i18n("Cannot fetch news "), out)
-            } else {
-                if (out) updateNews(out)
-            }
-
-            cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+            if (out) updateNews(out)
+            if (handleError(code, err, "news", next)) return
+            next()
          })
     }
 
     function checkRepos() {
+        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Synchronizing pacman databases...")
-
         execute(bash('utils', 'syncdb'), (cmd, out, err, code) => {
-            if (Error(code, err)) return
-
+            if (handleError(code, err, "repositories", next)) return
             sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
             sts.statusMsg = i18n("Checking system updates...")
             execute(`pacman -Qu --dbpath "${dbPath}" 2>&1`, (cmd, out, err, code) => {
-                if (Error(code, err)) return
+                if (handleError(code, err, "repositories", next)) return
                 const updates = out ? out.split("\n") : []
-                makeArchList(updates).then(result => {
+                makeArchList(updates, "repositories").then(result => {
                     archRepos = result
-                    cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+                    next()
                 })
             })
         })
     }
 
     function checkAur() {
+        const next = () => cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking AUR updates...")
-        const cmd = cfg.wrapper === "pikaur" ? `${cfg.wrapper} -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'` : `${cfg.wrapper} -Qua`
-
-        execute(cmd, (cmd, out, err, code) => {
-            if (Error(code, err)) return
+        execute(cfg.wrapper + " -Qua", (cmd, out, err, code) => {
+            if (handleError(code, err, "aur", next)) return
             const updates = out ? out.split("\n") : []
-            makeArchList(updates).then(result => {
+            makeArchList(updates, "aur").then(result => {
                 archAur = result
-                cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+                next()
             })
         })
     }
 
     function checkFlatpak() {
+        const next = () => cfg.widgets ? checkWidgets() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
         sts.statusMsg = i18n("Synchronizing flatpak appstream...")
         execute("flatpak update --appstream >/dev/null 2>&1", (cmd, out, err, code) => {
-            if (Error(code, err)) return
+            if (handleError(code, err, "flatpak", next)) return
             sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
             sts.statusMsg = i18n("Checking flatpak updates...")
             execute("flatpak remote-ls --app --updates --show-details", (cmd, out, err, code) => {
-                if (Error(code, err)) return
+                if (handleError(code, err, "flatpak", next)) return
                 const updates = out.trim()
-                makeFlatpakList(updates).then(result => {
+                makeFlatpakList(updates, "flatpak").then(result => {
                     flatpak = result
-                    cfg.widgets ? checkWidgets() : merge()
+                    next()
                 })
             })
         })
@@ -309,7 +318,7 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde-plasma-symbolic"
         sts.statusMsg = i18n("Checking widgets updates...")
         execute(bash('widgets', 'check'), (cmd, out, err, code) => {
-            if (Error(code, err)) return
+            if (handleError(code, err, "widgets", merge)) return
             widgets = JSON.parse(out.trim())
             merge()
         })
@@ -364,17 +373,17 @@ function restoreNewsList() {
 }
 
 
-function makeArchList(updates) {
+function makeArchList(updates, source) {
     return new Promise((resolve) => {
         if (!updates) {
-            resolve({})
+            resolve([])
         } else {
             const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
             execute("pacman -Sl --dbpath " + dbPath, (cmd, out, err, code) => {
-                if (Error(code, err)) return
-                const all = out.split("\n").filter(line => /\[.*\]/.test(line))
+                if (code && handleError(code, err, source, () => resolve([]))) return
+                const syncInfo = out.split("\n").filter(line => /\[.*\]/.test(line))
                 execute("pacman -Qi " + pkgs, (cmd, out, err, code) => {
-                    if (Error(code, err)) return
+                    if (code && handleError(code, err, source, () => resolve([]))) return
                     const desc = out.trim()
                     execute(bash('utils', 'getIcons', pkgs), (cmd, out, err, code) => {
                         const icons = (out && !err) ? out.split('\n').map(l => ({ NM: l.split(' ')[0], IN: l.split(' ')[1] })) : []
@@ -406,7 +415,7 @@ function makeArchList(updates) {
                                     }
                                 })
 
-                                const foundRepo = all.find(str => packageObj.NM === str.split(" ")[1])
+                                const foundRepo = syncInfo.find(str => packageObj.NM === str.split(" ")[1])
                                 packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
 
                                 const foundIcon = icons.find(item => item.NM === packageObj.NM)
@@ -430,10 +439,10 @@ function makeArchList(updates) {
 function makeFlatpakList(updates) {
     return new Promise((resolve) => {
         if (!updates) {
-            resolve({})
+            resolve([])
         } else {
             execute("flatpak list --app --columns=application,version,active", (cmd, out, err, code) => {
-                if (Error(code, err)) return
+                if (code && handleError(code, err, "flatpak", () => resolve([]))) return
                 const description = out.trim().split("\n").reduce((obj, line) => {
                     const [ID, VO, AC] = line.split("\t").map(entry => entry.trim())
                     obj[ID] = { VO, AC }
@@ -492,7 +501,15 @@ function refreshListModel(list) {
 
 
 function finalize(list) {
+    sts.busy = false
+    resumeScheduler()
+
     cfg.timestamp = new Date().getTime().toString()
+
+    if (cfg.notifyErrors && sts.error) {
+        const notifyMsg = sts.errors.map(err => `<b>${err.type}</b> => ${err.message} (Exit code ${err.code})`).join('\n\n')
+        notify.send("error", i18np("%1 error occurred", "%1 errors occurred", sts.errors.length), notifyMsg)
+    }
 
     if (!list) {
         listModel.clear()
@@ -501,6 +518,32 @@ function finalize(list) {
         sts.count = 0
         setStatusBar()
         return
+    }
+
+    if (sts.error && cache.length > 0) {
+        var errorTypes = {}
+        for (var i = 0; i < sts.errors.length; i++) errorTypes[sts.errors[i].type] = true
+
+        var currentNames = {}
+        for (var j = 0; j < list.length; j++) currentNames[list[j].NM] = true
+        
+        var cachedPackages = []
+        for (var k = 0; k < cache.length; k++) {
+            var cached = cache[k]
+            if (currentNames[cached.NM]) continue
+            
+            if (errorTypes.repositories && cached.RE && cached.RE !== "aur" && cached.RE !== "devel") {
+                cachedPackages.push(cached)
+            } else if (errorTypes.aur && (cached.RE === "aur" || cached.RE === "devel")) {
+                cachedPackages.push(cached)
+            } else if (errorTypes.flatpak && cached.ID) { 
+                cachedPackages.push(cached)
+            } else if (errorTypes.widgets && cached.CN) {
+                cachedPackages.push(cached)
+            }
+        }
+
+        list = list.concat(cachedPackages)
     }
 
     refreshListModel(list)
@@ -540,12 +583,20 @@ function saveCache(list) {
 }
 
 
-function setStatusBar(code) {
-    sts.statusIco = sts.err ? "0" : sts.count > 0 ? "1" : "2"
-    sts.statusMsg = sts.err ? "Exit code: " + code : sts.count > 0 ? sts.count + " " + i18np("update is pending", "updates are pending", sts.count) : ""
-    sts.busy = false
-    if (code) return
-    if (cfg.checkMode !== "manual") scheduler.start()
+function setStatusBar() {
+    if (sts.count > 0) {
+        sts.statusIco = cfg.ownIconsUI ? "status_pending" : "accept_time_event"
+        sts.statusMsg = sts.count + " " + i18np("update is pending", "updates are pending", sts.count)
+    } else {
+        sts.statusIco = cfg.ownIconsUI ? "status_blank" : ""
+        sts.statusMsg = ""
+    }
+}
+
+function resumeScheduler() {
+    if (cfg.checkMode !== "manual") {
+        scheduler.start()
+    }
 }
 
 function searchScheduler(options) {

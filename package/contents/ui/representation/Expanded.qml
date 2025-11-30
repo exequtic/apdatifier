@@ -26,15 +26,6 @@ Representation {
             swipeView.currentIndex = plasmoid.configuration.defaultTab
     }
 
-    property string statusIcon: {
-        var icons = {
-            "0": cfg.ownIconsUI ? "status_error" : "error",
-            "1": cfg.ownIconsUI ? "status_pending" : "accept_time_event",
-            "2": cfg.ownIconsUI ? "status_blank" : ""
-        }
-        return icons[sts.statusIco] !== undefined ? icons[sts.statusIco] : sts.statusIco
-    }
-
     function svg(icon) {
         return Qt.resolvedUrl("../assets/icons/" + icon + ".svg")
     }
@@ -44,7 +35,7 @@ Representation {
 
     header: PlasmoidHeading {
         id: topHeader
-        visible: cfg.showStatusText || cfg.showToolBar
+        visible: (cfg.showStatusText || cfg.showToolBar) && !sts.error
         contentItem: RowLayout {
             id: toolBar
             Layout.fillWidth: true
@@ -65,7 +56,7 @@ Representation {
                         height: parent.height
                         width: parent.height
                         anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg(statusIcon) : statusIcon
+                        source: cfg.ownIconsUI ? svg(sts.statusIco) : sts.statusIco
                         color: Kirigami.Theme.colorSet
                         scale: cfg.ownIconsUI ? 0.7 : 0.9
                         isMask: cfg.ownIconsUI
@@ -168,7 +159,7 @@ Representation {
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
-        visible: cfg.tabBarVisible
+        visible: cfg.tabBarVisible && !sts.error
 
         contentItem: TabBar {
             id: tabBar
@@ -300,6 +291,65 @@ Representation {
             View.Compact {}
             View.Extended {}
             View.News {}
+        }
+    }
+
+    Rectangle {
+        z: 9998
+        anchors.fill: parent
+        color: Kirigami.Theme.backgroundColor
+        visible: errorLoader.active
+    }
+    Loader {
+        z: 9999
+        id: errorLoader
+        anchors.centerIn: parent
+        active: !sts.busy && sts.error
+        sourceComponent: ColumnLayout {
+            spacing: Kirigami.Units.largeSpacing * 2
+            Layout.fillWidth: true
+
+            Kirigami.Icon {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: Math.round(Kirigami.Units.iconSizes.huge * 1.5)
+                Layout.preferredHeight: Math.round(Kirigami.Units.iconSizes.huge * 1.5)
+                color: Kirigami.Theme.textColor
+                source: "error"
+            }
+            Kirigami.Heading {
+                text: i18np("%1 error occurred", "%1 errors occurred", sts.errors.length)
+                type: Kirigami.Heading.Primary   
+                Layout.fillWidth: true
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                wrapMode: Text.WordWrap
+            }
+
+            ScrollView {
+                Layout.preferredWidth: Kirigami.Units.gridUnit * 20
+                Layout.preferredHeight: Kirigami.Units.gridUnit * 8
+
+                TextArea {
+                    width: parent.width
+                    height: parent.height
+                    readOnly: true
+                    wrapMode: Text.Wrap
+                    font.family: "Monospace"
+                    font.pointSize: Kirigami.Theme.smallFont.pointSize
+                    text: sts.errors.map(err => `${err.type}: ${err.message}`).join('\n')
+                    color: Kirigami.Theme.textColor
+                }
+            }
+
+            Button {
+                Layout.alignment: Qt.AlignHCenter
+                icon.name: "checkmark"
+                text: i18n("Ok")
+                onClicked: {
+                    sts.errors = []
+                    JS.setStatusBar()
+                }
+            }
         }
     }
 

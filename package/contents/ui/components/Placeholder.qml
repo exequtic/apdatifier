@@ -24,17 +24,6 @@ Item {
     Loader {
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
-        active: !sts.busy && sts.err
-        sourceComponent: Kirigami.PlaceholderMessage {
-            icon.name: "error"
-            text: sts.statusMsg
-            explanation: sts.errMsg
-        }
-    }
-
-    Loader {
-        width: parent.width - (Kirigami.Units.largeSpacing * 4)
-        anchors.centerIn: parent
         active: sts.busy
         sourceComponent: ColumnLayout {
             spacing: Kirigami.Units.largeSpacing * 4
@@ -61,7 +50,7 @@ Item {
                         height: parent.height
                         width: parent.height
                         anchors.centerIn: parent
-                        source: cfg.ownIconsUI ? svg(statusIcon) : statusIcon
+                        source: cfg.ownIconsUI ? svg(sts.statusIco) : sts.statusIco
                         color: Kirigami.Theme.colorSet
                         scale: cfg.ownIconsUI ? 0.7 : 0.9
                         isMask: cfg.ownIconsUI
