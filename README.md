@@ -71,17 +71,17 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
-| English   |     264 |       |
-| Brazilian | 264/264 |  100% |
-| Chinese   | 264/264 |  100% |
-| Dutch     | 264/264 |  100% |
-| French    | 264/264 |  100% |
-| German    | 264/264 |  100% |
-| Spanish   | 264/264 |  100% |
-| Korean    | 130/264 |  50%  |
-| Polish    | 264/264 |  100% |
-| Russian   | 264/264 |  100% |
-| Ukrainian | 264/264 |  100% |
+| English   |     275 |       |
+| Brazilian | 275/275 |  100% |
+| Chinese   | 275/275 |  100% |
+| Dutch     | 275/275 |  100% |
+| French    | 275/275 |  100% |
+| German    | 275/275 |  100% |
+| Spanish   | 275/275 |  100% |
+| Korean    | 275/275 |  100% |
+| Polish    | 275/275 |  100% |
+| Russian   | 275/275 |  100% |
+| Ukrainian | 275/275 |  100% |
 |-----------|---------|-------|
 ```
 

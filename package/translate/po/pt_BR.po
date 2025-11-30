@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -135,7 +135,11 @@ msgstr "Reiniciar o plasmashell agora?"
 msgid "No description"
 msgstr "Sem descrição"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "Incapaz de verificar atualizações de widgets: "
+
+#: ../contents/tools/sh/messages
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
@@ -143,11 +147,11 @@ msgstr ""
 "Muitas solicitações de API do seu endereço IP nos últimos 15 minutos, tente "
 "novamente mais tarde"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "Falha ao recuperar dados da API"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "Erro desconhecido"
 
@@ -178,6 +182,10 @@ msgstr "Vários arquivos são marcados com versão"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "Falha ao baixar o pacote"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Não foi possível obter as notícias "
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -252,8 +260,7 @@ msgstr "Executado:"
 msgid "Nothing to do"
 msgstr "Nada a fazer"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
-#: ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Requer instalado"
@@ -267,12 +274,20 @@ msgid "Checking latest news..."
 msgstr "Verificando as últimas notícias..."
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "Não foi possível obter as notícias "
+msgid "Synchronizing pacman databases..."
+msgstr "Sincronizando bancos de dados do pacman..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Verificando atualizações do sistema..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "Verificando atualizações do AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "Sincronizando flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -283,12 +298,14 @@ msgid "Checking widgets updates..."
 msgstr "Verificando atualizações de widgets..."
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "Incapaz de verificar atualizações de widgets: "
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "último commit"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "%1 erro ocorreu"
+msgstr[1] "%1 erros ocorreram"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -303,20 +320,10 @@ msgstr[0] "atualização está pendente"
 msgstr[1] "atualizações estão pendentes"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "Última verificação:"
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 segundo"
-msgstr[1] "%1 segundos"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 minuto"
-msgstr[1] "%1 minutos"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 dia"
+msgstr[1] "%1 dias"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
@@ -325,8 +332,32 @@ msgstr[0] "%1 hora"
 msgstr[1] "%1 horas"
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 minuto"
+msgstr[1] "%1 minutos"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "menos de um minuto"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 segundo"
+msgstr[1] "%1 segundos"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Última verificação:"
+
+#: ../contents/tools/tools.js
 msgid "ago"
 msgstr "atrás"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "Próxima verificação em:"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -344,8 +375,8 @@ msgid "Upgrade system"
 msgstr "Atualizar sistema"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "Alternar intervalo"
+msgid "Pause auto check"
+msgstr "Pausar verificação automática"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -393,13 +424,17 @@ msgid "Default icon"
 msgstr "Ícone padrão"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Intervalo parado"
+msgid "Pause badge"
+msgstr "Emblema de pausa"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "Habilitar"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "Emblema de atualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -619,43 +654,74 @@ msgstr ""
 "configurações. O arquivo de configuração é armazenado em "
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-" not installed! Highly recommended to install it for getting the latest "
-"updates without the need to download fresh package databases."
-msgstr ""
-" não instalado! É altamente recomendável instalá-lo para obter as últimas "
-"atualizações sem a necessidade de baixar novos bancos de dados de pacotes."
+msgid "Check mode"
+msgstr "Modo de verificação"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "Manual"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "Intervalo"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "Diário"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "Semanal"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr ""
+"Escolha como as verificações automáticas são agendadas: manual, intervalo "
+"periódico (minutos, máx. 43200 - 30 dias), diário em horário específico ou "
+"semanal em dia/horário específicos."
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minutos"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr ""
-"O temporizador atual é reiniciado quando qualquer uma dessas configurações é "
-"alterada."
+msgid "Daily time"
+msgstr "Horário diário"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "Verifique na inicialização"
+msgid "Weekly schedule"
+msgstr "Agendamento semanal"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon "
-"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
-"will be initiated after a specified time interval has passed since the "
-"widget was started. <b>Recommended.</b>"
-msgstr ""
-"Se a opção estiver <b>habilitada</b>, a verificação de atualizações começará "
-"imediatamente após a inicialização do widget.<br><br>Se a opção estiver "
-"<b>desabilitada</b>, a verificação de atualizações será iniciada após um "
-"intervalo de tempo especificado desde que o widget foi iniciado. "
-"<b>Recomendado.</b>"
+msgid "Sunday"
+msgstr "Domingo"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "Segunda-feira"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "Sexta-feira"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "Sábado"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -966,7 +1032,7 @@ msgstr "Apenas para repositórios oficiais"
 msgid ""
 "<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"<br><br>Veja também https:/archlinux.org/mirrorlist (clique no botão para "
+"<br><br>Veja também https://archlinux.org/mirrorlist (clique no botão para "
 "abrir o link)"
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1113,6 +1179,18 @@ msgid "Stop checking"
 msgstr "Pare a verificação"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "Abrir configurações"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "Desafixar janela"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "Manter aberto"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "Visualização compacta"
 
@@ -1207,34 +1285,3 @@ msgstr "Nenhuma notícia não lida"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurar lista"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "Leia a wiki do Arch - Atualizações parciais"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr ""
-#~ "Realize uma atualização completa do sistema ao invés de uma atualização "
-#~ "parcial!"
-
-#~ msgid "View"
-#~ msgstr "Visualização"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "Sugerir antes de atualizar"
-
-#~ msgid "Options"
-#~ msgstr "Opções"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "alguns dos utilitários requeridos não estão instalados (curl, jq)"
-
-#~ msgid ""
-#~ "You can also switch tabs by dragging the mouse left and right with the "
-#~ "right mouse button held."
-#~ msgstr ""
-#~ "Você também pode alternar entre as guias arrastando o mouse para a "
-#~ "esquerda e para a direita enquanto mantém o botão direito do mouse "
-#~ "pressionado."
-
-#~ msgid "Hide \"News\" tab if no content"
-#~ msgstr "Ocultar a guia \"Notícias\" se não houver conteúdo"

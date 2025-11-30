@@ -37,12 +37,12 @@ Kirigami.Page {
         id: menu
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
         MenuItem {
-            text: i18n("buymeacoffee.com")
+            text: "buymeacoffee.com"
             icon.name: "internet-web-browser-symbolic"
             onTriggered: Qt.openUrlExternally("https://buymeacoffee.com/evgk")
         }
         MenuItem {
-            text: i18n("nowpayments.io (crypto)")
+            text: "nowpayments.io (crypto)"
             icon.name: "internet-web-browser-symbolic"
             onTriggered: Qt.openUrlExternally("https://nowpayments.io/donation/exequtic")
         }

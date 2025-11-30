@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,15 +130,19 @@ msgstr ""
 msgid "No description"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr ""
 
@@ -168,6 +172,10 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -242,7 +250,7 @@ msgstr ""
 msgid "Nothing to do"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr ""
 
@@ -255,11 +263,19 @@ msgid "Checking latest news..."
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
+msgid "Synchronizing pacman databases..."
 msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -271,12 +287,14 @@ msgid "Checking widgets updates..."
 msgstr ""
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr ""
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr ""
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -291,18 +309,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
+msgid "%1 day"
+msgid_plural "%1 days"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -313,7 +321,31 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "ago"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
 msgstr ""
 
 #: ../contents/ui/components/ComboBox.qml
@@ -329,7 +361,7 @@ msgid "Upgrade system"
 msgstr ""
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
+msgid "Pause auto check"
 msgstr ""
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
@@ -375,11 +407,15 @@ msgid "Default icon"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
+msgid "Pause badge"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -583,7 +619,11 @@ msgid "Configuration is automatically saved in a config file and loaded at every
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid " not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
+msgid "Check mode"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -591,21 +631,55 @@ msgid "Interval"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Choose how automatic checks are scheduled: manual, periodic interval (minutes, max 43200 - 30 days), daily at specific time or weekly at specific day/time."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
+msgid "Daily time"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
+msgid "Weekly schedule"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time "
-"interval has passed since the widget was started. <b>Recommended.</b>"
+msgid "Sunday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -998,6 +1072,18 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -60,7 +60,7 @@ msgstr "Загальний час виконання:"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr "Оновлені критичні пакети, может знадобитись перезавантаження:"
+msgstr "Оновлені критичні пакети, може знадобитися перезавантаження:"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -84,7 +84,7 @@ msgstr "Сортування дзеркал за швидкістю"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
-msgstr "Провірте налаштування генератора списку дзеркал..."
+msgstr "Перевірте налаштування генератора списку дзеркал..."
 
 #: ../contents/tools/sh/messages
 msgid "was updated with the following servers:"
@@ -130,15 +130,19 @@ msgstr "Перезавантажити plasmashell зараз?"
 msgid "No description"
 msgstr "Немає опису"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "Неможливо перевірити віджети: "
+
+#: ../contents/tools/sh/messages
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
 msgstr "Занадто багато API запитів з вашого IP за останні 15 хвилин, спробуйте пізніше"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "Не вдалось отримати дані API"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "Невідома помилка"
 
@@ -148,7 +152,7 @@ msgstr "Файл metadata.json не знайдено"
 
 #: ../contents/tools/sh/messages
 msgid "Errors in metadata.json file"
-msgstr "Помилка в файлі metadata.json"
+msgstr "Помилки в файлі metadata.json"
 
 #: ../contents/tools/sh/messages
 msgid "Unsupported file format"
@@ -169,6 +173,10 @@ msgstr "Декілька файлів мають тег версії"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "Не вдалось завантажити пакет"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Не вдалося отримати новини "
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -242,7 +250,7 @@ msgstr "Вконано:"
 msgid "Nothing to do"
 msgstr "Нічого робити"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Потребує обов'язкового встановлення"
 
@@ -255,12 +263,20 @@ msgid "Checking latest news..."
 msgstr "Перевірка останніх новин..."
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "Не вдалося отримати новини "
+msgid "Synchronizing pacman databases..."
+msgstr "Синхронізація баз даних pacman..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Перевірка системних оновлень..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "Перевірка оновлень AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "Синхронізація flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -271,59 +287,73 @@ msgid "Checking widgets updates..."
 msgstr "Перевірка оновлень віджетів..."
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "Нможливо перевірити віджети: "
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "останній внесок"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "Виникла %1 помилка"
+msgstr[1] "Виникло %1 помилки"
+msgstr[2] "Виникло %1 помилок"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
 msgid_plural "+%1 new updates"
 msgstr[0] "+%1 нове оновлення"
 msgstr[1] "+%1 нових оновлень"
+msgstr[2] "+%1 нових оновлень"
 
 #: ../contents/tools/tools.js
 msgid "update is pending"
 msgid_plural "updates are pending"
 msgstr[0] "доступне оновлення"
 msgstr[1] "доступних оновлень"
+msgstr[2] "доступних оновлень"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "Остання перевірка:"
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 секунду"
-msgstr[1] "%1 секунди"
-msgstr[2] "%1 секунди"
-msgstr[3] "%1 секунди"
-msgstr[4] "%1 секунд"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 хвилину"
-msgstr[1] "%1 хвилини"
-msgstr[2] "%1 хвилини"
-msgstr[3] "%1 хвилини"
-msgstr[4] "%1 хвилин"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 день"
+msgstr[1] "%1 дні"
+msgstr[2] "%1 днів"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
 msgid_plural "%1 hours"
 msgstr[0] "%1 годину"
 msgstr[1] "%1 години"
-msgstr[2] "%1 години"
-msgstr[3] "%1 години"
-msgstr[4] "%1 годин"
+msgstr[2] "%1 годин"
+
+#: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 хвилину"
+msgstr[1] "%1 хвилини"
+msgstr[2] "%1 хвилин"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "менше хвилини"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 секунду"
+msgstr[1] "%1 секунди"
+msgstr[2] "%1 секунд"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Остання перевірка:"
 
 #: ../contents/tools/tools.js
 msgid "ago"
 msgstr "тому"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "Наступна перевірка через:"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -338,8 +368,8 @@ msgid "Upgrade system"
 msgstr "Оновити систему"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "Переключити інтервал"
+msgid "Pause auto check"
+msgstr "Призупинити автоматичну перевірку"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Management"
@@ -355,7 +385,7 @@ msgstr "Система оновлена"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Panel Icon View"
-msgstr "Вид иконки на панели"
+msgstr "Вид іконки на панелі"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "List View"
@@ -368,11 +398,9 @@ msgstr "Показувати коли"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "update is pending "
 msgid_plural "updates are pending "
-msgstr[0] "новлення доступне "
+msgstr[0] "оновлення доступне "
 msgstr[1] "оновлення доступно "
-msgstr[2] "оновлення доступно "
-msgstr[3] "оновлення доступно "
-msgstr[4] "оновлень доступно "
+msgstr[2] "оновлень доступно "
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
@@ -387,12 +415,16 @@ msgid "Default icon"
 msgstr "Стандартна іконка"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Виключений інтервал"
+msgid "Pause badge"
+msgstr "Значок паузи"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "Включити"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "Значок оновлення"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -440,11 +472,11 @@ msgstr "Стандартний системний шрифт"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font bold"
-msgstr "Жирныйи шрифт"
+msgstr "Жирний шрифт"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Font size"
-msgstr "Размер шрифту"
+msgstr "Розмір шрифту"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Left spacing"
@@ -512,7 +544,7 @@ msgstr "Завжди переключатись на вкладку за зам�
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr "Висота елементів (Компактный)"
+msgstr "Висота елементів (Компактний)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -568,11 +600,11 @@ msgstr "Примітка: версія з останніми відповідн�
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: if you haven't installed the Devel version before, there's no need to install the Stable version."
-msgstr "Примітка: якщо раніше не була встановлена тестова версія,то немає необхідності всьановлювати стабільну."
+msgstr "Примітка: якщо раніше не була встановлена тестова версія, то немає необхідності встановлювати стабільну."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Removal of the widget and all related files, including the directory with its configuration."
-msgstr "Видалення віджета і всіх зв'язаниз з ним файлів, включаючи директорію з його конфігурацією."
+msgstr "Видалення віджета і всіх зв'язаних з ним файлів, включаючи директорію з його конфігурацією."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -592,31 +624,71 @@ msgstr "Різне"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
-msgstr "Конфігурація автоматично зберігається в файл і завантажується при кожному запуску, що гарантує збереження ваших налаштувань. файл налаштувань зберігається в "
+msgstr "Конфігурація автоматично зберігається в файл і завантажується при кожному запуску, що гарантує збереження ваших налаштувань. Файл налаштувань зберігається в "
 
 #: ../contents/ui/configuration/General.qml
-msgid " not installed! Highly recommended to install it for getting the latest updates without the need to download fresh package databases."
-msgstr " не встановлений! Рекомендується встановити його, щоб отримати останні оновлення без небхітності оновлення бази даних репозиторіїв."
+msgid "Check mode"
+msgstr "Режим перевірки"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "Вручну"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "Інтервал"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "Щоденно"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "Щотижня"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Choose how automatic checks are scheduled: manual, periodic interval (minutes, max 43200 - 30 days), daily at specific time or weekly at specific day/time."
+msgstr "Виберіть, як плануються автоматичні перевірки: вручну, періодичний інтервал (хвилини, максимум 43200 - 30 днів), щодня в певний час або щотижня в певний день/час."
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "хвилин"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr "Після зміни цих параметрів поточний таймер буде зкинутий."
+msgid "Daily time"
+msgstr "Щоденний час"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "Перевіряти при запуску"
+msgid "Weekly schedule"
+msgstr "Тижневий розклад"
 
 #: ../contents/ui/configuration/General.qml
-msgid "If the option is <b>enabled</b>, update checking will begin immediately upon widget startup.<br><br>If the option is <b>disabled</b>, update checking will be initiated after a specified time interval has passed since the widget was started. <b>Recommended.</b>"
-msgstr "Якщо параметр <b>увімкнуто</b>, то пошук оновлень почнеться одразу після запуска віджета.<br><br>Якщо параметр  <b>вимкнуто</b>, то пошук оновлень буде запущений через заданий інтервал з моменту запуску віджета. <b>Рекомендовано.</b>"
+msgid "Sunday"
+msgstr "Неділя"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "Понеділок"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "Вівторок"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "Середа"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "Четвер"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "П'ятниця"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "Субота"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -707,7 +779,7 @@ msgstr "Налаштувати..."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Middle click"
-msgstr "Средня кнопка"
+msgstr "Середня кнопка"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Right click"
@@ -731,7 +803,7 @@ msgstr "Відновити приховані підказки"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
-msgstr "Не  має значення"
+msgstr "Не має значення"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Repository"
@@ -867,7 +939,7 @@ msgstr "Пропонувати після оновлення"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
-msgstr "Генератор спииску дзеркал"
+msgstr "Генератор списку дзеркал"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Only for official repositories"
@@ -891,16 +963,14 @@ msgstr "Завжди питати"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr "Питати, якщо старіши на"
+msgstr "Питати, якщо старіше ніж"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дні"
-msgstr[2] "дні"
-msgstr[3] "дні"
-msgstr[4] "днів"
+msgstr[2] "днів"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
@@ -1011,6 +1081,18 @@ msgid "Stop checking"
 msgstr "Зупинити перевірку"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "Відкрити налаштування"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "Відкріпити вікно"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "Тримати відкритим"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "Компактний вигляд"
 
@@ -1084,11 +1166,11 @@ msgstr "Заміняє"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Installed size"
-msgstr "Размір"
+msgstr "Розмір"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Download size"
-msgstr "Размір звантаження"
+msgstr "Розмір завантаження"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Install date"
@@ -1105,30 +1187,3 @@ msgstr "Немає непрочитаних новин"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Відновити список"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "Прочитайте Arch Wiki - Часткове оновлення"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr "Замість часткового оновлення виконайте повне оновлення системи!"
-
-#~ msgid "View"
-#~ msgstr "Вигляд"
-
-#~ msgid "Upgrade button"
-#~ msgstr "Кнопка оновлення"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "Пропонувати перед оновленням"
-
-#~ msgid "Options"
-#~ msgstr "Параметри"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "деякі з потрібних утиліт не встановлені (curl, jq)"
-
-#~ msgid "You can also switch tabs by dragging the mouse left and right with the right mouse button held."
-#~ msgstr "Ви також можете перключатись між вкладками рухаючи мишку вліво і вправо з натиснутою правою клавішою."
-
-#~ msgid "Hide \"News\" tab if no content"
-#~ msgstr "Приховувати \"Новини\" якщо їх нема"

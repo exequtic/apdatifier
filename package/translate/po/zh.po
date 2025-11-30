@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -132,17 +132,21 @@ msgstr "立即重启 plasmashell ？"
 msgid "No description"
 msgstr "暂无描述"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "无法检查挂件："
+
+#: ../contents/tools/sh/messages
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
 msgstr "您的 IP 地址在过去 15 分钟内发送了过多的 API 请求，请稍后再试"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "从 API 获取数据失败"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "未知错误"
 
@@ -173,6 +177,10 @@ msgstr "有多个文件被标记了版本"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "包下载失败"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "无法获取新闻"
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -246,8 +254,7 @@ msgstr "执行："
 msgid "Nothing to do"
 msgstr "无事可做"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
-#: ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "需要安装"
@@ -261,12 +268,20 @@ msgid "Checking latest news..."
 msgstr "正在检查最新新闻..."
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "无法获取新闻"
+msgid "Synchronizing pacman databases..."
+msgstr "正在同步 pacman 数据库..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "正在检查系统更新..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "正在检查 AUR 更新..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "正在同步 flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -277,12 +292,13 @@ msgid "Checking widgets updates..."
 msgstr "正在检查挂件更新..."
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "无法检查挂件："
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "最新提交"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "发生了 %1 个错误"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -295,18 +311,9 @@ msgid_plural "updates are pending"
 msgstr[0] "项更新待处理"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "上次检查："
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 秒"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 分钟"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 天"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
@@ -314,8 +321,30 @@ msgid_plural "%1 hours"
 msgstr[0] "%1 小时"
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 分钟"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "不到一分钟"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 秒"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "上次检查："
+
+#: ../contents/tools/tools.js
 msgid "ago"
 msgstr "前"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "下次检查："
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -333,8 +362,8 @@ msgid "Upgrade system"
 msgstr "升级系统"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "切换间隔"
+msgid "Pause auto check"
+msgstr "暂停自动检查"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -381,13 +410,17 @@ msgid "Default icon"
 msgstr "默认图标"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "停止间隔"
+msgid "Pause badge"
+msgstr "暂停徽章"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "启用"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "已更新徽章"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -600,37 +633,73 @@ msgstr ""
 "存放于"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-" not installed! Highly recommended to install it for getting the latest "
-"updates without the need to download fresh package databases."
-msgstr "未安装！强烈建议安装，以便无需下载新的软件包数据库即可获取最新更新。"
+msgid "Check mode"
+msgstr "检查模式"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "手动"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "间隔"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "每日"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "每周"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr ""
+"选择自动检查的调度方式：手动、定期间隔（分钟，最多 43200 - 30 天）、每日特定"
+"时间或每周特定日期/时间。"
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "分钟"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr "当更改任一设置时，当前计时器将被重置。"
+msgid "Daily time"
+msgstr "每日时间"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "启动时检查"
+msgid "Weekly schedule"
+msgstr "每周计划"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon "
-"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
-"will be initiated after a specified time interval has passed since the "
-"widget was started. <b>Recommended.</b>"
-msgstr ""
-"如果<b>启用</b>该选项，挂件启动后将立即开始检查更新。<br><br>如果<b>禁用</b>"
-"该选项，则在挂件启动后经过设定的时间间隔才开始检查更新。<b>推荐使用此方式。</"
-"b>"
+msgid "Sunday"
+msgstr "星期日"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "星期一"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "星期二"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "星期三"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "星期四"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "星期五"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "星期六"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -1069,6 +1138,18 @@ msgid "Stop checking"
 msgstr "停止检查"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "打开设置"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "取消固定窗口"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "保持打开"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "紧凑视图"
 
@@ -1163,18 +1244,3 @@ msgstr "无未读新闻"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "恢复列表"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "阅读 Arch Wiki - 部分更新"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr "请执行系统完整升级而非部分升级！"
-
-#~ msgid "View"
-#~ msgstr "视图"
-
-#~ msgid "Upgrade button"
-#~ msgstr "升级按钮"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "升级前建议"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2025-05-18 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -135,7 +135,11 @@ msgstr "Wil je plasmashell nu herstarten?"
 msgid "No description"
 msgstr "Geen beschrĳving"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "De widget-updatecontrole is mislukt: "
+
+#: ../contents/tools/sh/messages
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
@@ -143,11 +147,11 @@ msgstr ""
 "Er zijn in de afgelopen 15 minuten teveel api-verzoeken vanaf je ip-adres "
 "geweest - probeer het later opnieuw"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "De gegevens kunnen niet worden opgehaald van de api"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "Onbekende foutmelding"
 
@@ -178,6 +182,10 @@ msgstr "Er zijn meerdere bestanden met deze versie beschikbaar"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "Het pakket kan niet worden opgehaald"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Het nieuws kan niet worden opgehaald "
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -252,8 +260,7 @@ msgid "Nothing to do"
 msgstr "Er valt niets te doen"
 
 # Required installed <util name>
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
-#: ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Vereist"
@@ -267,12 +274,20 @@ msgid "Checking latest news..."
 msgstr "Bezig met ophalen van nieuws…"
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "Het nieuws kan niet worden opgehaald "
+msgid "Synchronizing pacman databases..."
+msgstr "Bezig met synchroniseren van pacman-databanken..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Bezig met controleren op systeemupdates…"
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "Bezig met controleren op AUR-updates..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "Bezig met synchroniseren van flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -283,12 +298,14 @@ msgid "Checking widgets updates..."
 msgstr "Bezig met controleren op widgetupdates…"
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "De widget-updatecontrole is mislukt: "
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "recentste commit"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "%1 fout opgetreden"
+msgstr[1] "%1 fouten opgetreden"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -303,20 +320,10 @@ msgstr[0] "update in de wachtrij"
 msgstr[1] "updates in de wachtrij"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "Recentste controle:"
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 seconde"
-msgstr[1] "%1 seconden"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 minuut"
-msgstr[1] "%1 minuten"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 dag"
+msgstr[1] "%1 dagen"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
@@ -325,8 +332,32 @@ msgstr[0] "%1 uur"
 msgstr[1] "%1 uur"
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 minuut"
+msgstr[1] "%1 minuten"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "minder dan een minuut"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 seconde"
+msgstr[1] "%1 seconden"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Recentste controle:"
+
+#: ../contents/tools/tools.js
 msgid "ago"
 msgstr "geleden"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "Volgende controle over:"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -344,8 +375,8 @@ msgid "Upgrade system"
 msgstr "Systeem bijwerken"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "Wisselen, iedere"
+msgid "Pause auto check"
+msgstr "Automatische controle pauzeren"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -393,13 +424,17 @@ msgid "Default icon"
 msgstr "Standaardpictogram"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Stoptussenpoos"
+msgid "Pause badge"
+msgstr "Pauze-embleem"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "Inschakelen"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "Bijgewerkt-embleem"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -619,41 +654,74 @@ msgstr ""
 "configuratiebestand is opgeslagen in "
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-" not installed! Highly recommended to install it for getting the latest "
-"updates without the need to download fresh package databases."
-msgstr ""
-" is niet geïnstalleerd! Dit pakket wordt sterk aanbevolen voor het "
-"controleren op updates zonder de databanken te hoeven vernieuwen."
+msgid "Check mode"
+msgstr "Controlemode"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "Handmatig"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "Periodiek bijwerken"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "Dagelijks"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "Wekelijks"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr ""
+"Kies hoe automatische controles worden gepland: handmatig, periodiek "
+"interval (minuten, max. 43200 - 30 dagen), dagelijks op een specifiek "
+"tijdstip of wekelijks op een specifieke dag/tijd."
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minuten"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr ""
-"De huidige tijdklok wordt op nul ingesteld indien een van deze instellingen "
-"wordt gewijzigd."
+msgid "Daily time"
+msgstr "Dagelijkse tijd"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "Controleren na opstarten"
+msgid "Weekly schedule"
+msgstr "Wekelijks schema"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon "
-"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
-"will be initiated after a specified time interval has passed since the "
-"widget was started. <b>Recommended.</b>"
-msgstr ""
-"<b>Schakel in</b> om te controleren op updates zodra de widget geladen is."
-"<br><br><b>Schakel uit</b> om te controleren op het opgegeven tijdstip. "
-"<b>Aanbevolen.</b>"
+msgid "Sunday"
+msgstr "Zondag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "Maandag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "Donderdag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "Vrijdag"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "Zaterdag"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -1109,6 +1177,18 @@ msgid "Stop checking"
 msgstr "Controle afbreken"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "Instellingen openen"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "Venster losmaken"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "Open houden"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "Compacte weergave"
 
@@ -1203,32 +1283,3 @@ msgstr "Er is geen ongelezen nieuws"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Lijst herstellen"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "Lees over gedeeltelijke opwaarderingen op de Arch-wiki"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr ""
-#~ "Voer een volledige opwaardering uit in plaats van een gedeeltelijke!"
-
-#~ msgid "View"
-#~ msgstr "Weergave"
-
-#~ msgid "Upgrade button"
-#~ msgstr "Bijwerkknop"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "Vragen alvorens op te waarderen"
-
-#~ msgid "Options"
-#~ msgstr "Opties"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "Enkele vereiste hulpmiddelen zijn niet aangetroffen (curl, jq)"
-
-#~ msgid ""
-#~ "You can also switch tabs by dragging the mouse left and right with the "
-#~ "right mouse button held."
-#~ msgstr ""
-#~ "Tip: wisselen van tabblad kan ook door de muis naar links en rechts te "
-#~ "verplaatsen en de rechtermuisknop ingedrukt te houden."

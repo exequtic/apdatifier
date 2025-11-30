@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -134,7 +134,11 @@ msgstr "Перезапустить plasmashell сейчас?"
 msgid "No description"
 msgstr "Нет описания"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "Невозможно проверить виджеты: "
+
+#: ../contents/tools/sh/messages
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
@@ -142,11 +146,11 @@ msgstr ""
 "Слишком много API запросов с вашего IP за последние 15 минут, попробуйте "
 "позже"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "Не удалось получить данные из API"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "Неизвестная ошибка"
 
@@ -177,6 +181,10 @@ msgstr "Несколько файлов имеют тег версии"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "Не удалось скачать пакет"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Не удалось получить новости "
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -250,8 +258,7 @@ msgstr "Выполнено:"
 msgid "Nothing to do"
 msgstr "Нечего делать"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
-#: ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Требуется установленная утилита"
@@ -265,12 +272,20 @@ msgid "Checking latest news..."
 msgstr "Проверка последних новостей..."
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "Не удалось получить новости "
+msgid "Synchronizing pacman databases..."
+msgstr "Синхронизация баз данных pacman..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Проверка системных обновлений..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "Проверка обновлений AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "Синхронизация flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -281,12 +296,15 @@ msgid "Checking widgets updates..."
 msgstr "Проверка обновлений виджетов..."
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "Невозможно проверить виджеты: "
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "последний коммит"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "Произошла %1 ошибка"
+msgstr[1] "Произошло %1 ошибки"
+msgstr[2] "Произошло %1 ошибок"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -303,22 +321,11 @@ msgstr[1] "обновления доступно"
 msgstr[2] "обновлений доступно"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "Последняя проверка:"
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 секунду"
-msgstr[1] "%1 секунды"
-msgstr[2] "%1 секунд"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 минуту"
-msgstr[1] "%1 минуты"
-msgstr[2] "%1 минут"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 день"
+msgstr[1] "%1 дня"
+msgstr[2] "%1 дней"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
@@ -328,8 +335,34 @@ msgstr[1] "%1 часа"
 msgstr[2] "%1 часов"
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 минуту"
+msgstr[1] "%1 минуты"
+msgstr[2] "%1 минут"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "меньше минуты"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 секунду"
+msgstr[1] "%1 секунды"
+msgstr[2] "%1 секунд"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Последняя проверка:"
+
+#: ../contents/tools/tools.js
 msgid "ago"
 msgstr "назад"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "Следующая проверка через:"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -347,8 +380,8 @@ msgid "Upgrade system"
 msgstr "Обновить систему"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "Переключить интервал"
+msgid "Pause auto check"
+msgstr "Приостановить авто-проверку"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -397,13 +430,17 @@ msgid "Default icon"
 msgstr "Стандартная иконка"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Выключенный интервал"
+msgid "Pause badge"
+msgstr "Значок паузы"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "Включить"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "Значок обновления"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -621,40 +658,74 @@ msgstr ""
 "в "
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-" not installed! Highly recommended to install it for getting the latest "
-"updates without the need to download fresh package databases."
-msgstr ""
-" не установлен! Настоятельно рекомендуется установить его, чтобы получать "
-"последние обновления без необходимости обновлять базы данных репозиториев."
+msgid "Check mode"
+msgstr "Режим проверки"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "Вручную"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "Интервал"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "Ежедневно"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "Еженедельно"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr ""
+"Выберите, как планируются автоматические проверки: вручную, периодический "
+"интервал (минуты, максимум 43200 - 30 дней), ежедневно в определенное время "
+"или еженедельно в определенный день/время."
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "минут"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr "Текущий таймер будет сброшен при изменении этих настроек."
+msgid "Daily time"
+msgstr "Ежедневное время"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "Проверять при запуске"
+msgid "Weekly schedule"
+msgstr "Еженедельное расписание"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon "
-"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
-"will be initiated after a specified time interval has passed since the "
-"widget was started. <b>Recommended.</b>"
-msgstr ""
-"Если опция <b>включена</b>, то поиск обновлений будет запущен сразу после "
-"запуска виджета.<br><br>Если опция  <b>выключена</b>, то поиск обновлений "
-"будет запущен через заданный интервал с момента запуска виджета. "
-"<b>Рекомендуется.</b>"
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "Понедельник"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "Среда"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "Четверг"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "Пятница"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "Суббота"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -1113,6 +1184,18 @@ msgid "Stop checking"
 msgstr "Остановить проверку"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "Открыть настройки"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "Открепить окно"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "Оставить открытым"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "Компактный вид"
 
@@ -1207,34 +1290,3 @@ msgstr "Нет непрочитанных новостей"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Восстановить список"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "Прочтите Arch Wiki - Частичное обновление"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr "Вместо частичного обновления выполните полное обновление системы!"
-
-#~ msgid "View"
-#~ msgstr "Вид"
-
-#~ msgid "Upgrade button"
-#~ msgstr "Кнопка обновления"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "Предлагать перед обновлением"
-
-#~ msgid "Options"
-#~ msgstr "Опции"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "некоторые из требуемых утилит не установлены (curl, jq)"
-
-#~ msgid ""
-#~ "You can also switch tabs by dragging the mouse left and right with the "
-#~ "right mouse button held."
-#~ msgstr ""
-#~ "Вы также можете переключаться между вкладками перемещая мышь влево и "
-#~ "вправо с зажатой правой клавишей."
-
-#~ msgid "Hide \"News\" tab if no content"
-#~ msgstr "Скрывать \"Новости\" если их нет"

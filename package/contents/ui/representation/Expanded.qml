@@ -344,7 +344,7 @@ Representation {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 icon.name: "checkmark"
-                text: i18n("Ok")
+                text: "Ok"
                 onClicked: {
                     sts.errors = []
                     JS.setStatusBar()

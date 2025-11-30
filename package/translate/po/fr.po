@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-08-30 18:31+0300\n"
+"POT-Creation-Date: 2025-11-30 19:41+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -135,7 +135,11 @@ msgstr "Redémarrer plasmashell maintenant ?"
 msgid "No description"
 msgstr "Aucune description"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "Impossible de vérifier les widgets : "
+
+#: ../contents/tools/sh/messages
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
@@ -143,11 +147,11 @@ msgstr ""
 "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
 "Veuillez réessayer plus tard"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
 msgstr "Échec de la récupération des données de l'API"
 
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
+#: ../contents/tools/sh/messages
 msgid "Unkwnown error"
 msgstr "Erreur inconnue"
 
@@ -178,6 +182,10 @@ msgstr "Plusieurs fichiers sont étiquetés avec la version"
 #: ../contents/tools/sh/messages
 msgid "Failed to download the package"
 msgstr "Échec du téléchargement du paquet"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Impossible de récupérer les actualités "
 
 #: ../contents/tools/sh/messages
 msgid "List all available packages in repositories"
@@ -256,8 +264,7 @@ msgid "Nothing to do"
 msgstr "Rien à faire"
 
 # Required installed <util name>
-#: ../contents/tools/sh/messages ../contents/tools/tools.js
-#: ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Installation requise"
@@ -271,12 +278,20 @@ msgid "Checking latest news..."
 msgstr "Vérification des dernières nouvelles..."
 
 #: ../contents/tools/tools.js
-msgid "Cannot fetch news "
-msgstr "Impossible de récupérer les actualités "
+msgid "Synchronizing pacman databases..."
+msgstr "Synchronisation des bases de données pacman..."
 
 #: ../contents/tools/tools.js
 msgid "Checking system updates..."
 msgstr "Vérification des mises à jour du système..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "Vérification des mises à jour AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "Synchronisation de flatpak appstream..."
 
 #: ../contents/tools/tools.js
 msgid "Checking flatpak updates..."
@@ -287,12 +302,14 @@ msgid "Checking widgets updates..."
 msgstr "Vérification des mises à jour des widgets..."
 
 #: ../contents/tools/tools.js
-msgid "Unable check widgets: "
-msgstr "Impossible de vérifier les widgets : "
-
-#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "dernier commit"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "%1 erreur s'est produite"
+msgstr[1] "%1 erreurs se sont produites"
 
 #: ../contents/tools/tools.js
 msgid "+%1 new update"
@@ -307,20 +324,10 @@ msgstr[0] "mise à jour en attente"
 msgstr[1] "mises à jour en attente"
 
 #: ../contents/tools/tools.js
-msgid "Last check:"
-msgstr "Dernière vérification :"
-
-#: ../contents/tools/tools.js
-msgid "%1 second"
-msgid_plural "%1 seconds"
-msgstr[0] "%1 seconde"
-msgstr[1] "%1 secondes"
-
-#: ../contents/tools/tools.js
-msgid "%1 minute"
-msgid_plural "%1 minutes"
-msgstr[0] "%1 minute"
-msgstr[1] "%1 minutes"
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 jour"
+msgstr[1] "%1 jours"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
@@ -329,8 +336,32 @@ msgstr[0] "%1 heure"
 msgstr[1] "%1 heures"
 
 #: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 minute"
+msgstr[1] "%1 minutes"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "moins d'une minute"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 seconde"
+msgstr[1] "%1 secondes"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "Dernière vérification :"
+
+#: ../contents/tools/tools.js
 msgid "ago"
 msgstr "depuis"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "Prochaine vérification dans :"
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "None"
@@ -348,8 +379,8 @@ msgid "Upgrade system"
 msgstr "Mise à niveau système"
 
 #: ../contents/ui/components/ComboBox.qml
-msgid "Switch interval"
-msgstr "Intervalle de changement"
+msgid "Pause auto check"
+msgstr "Mettre en pause la vérification automatique"
 
 #: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -397,13 +428,17 @@ msgid "Default icon"
 msgstr "Icône par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Stopped interval"
-msgstr "Intervalle interrompu"
+msgid "Pause badge"
+msgstr "Badge de pause"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enable"
 msgstr "Activer"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated badge"
+msgstr "Badge mis à jour"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -623,43 +658,74 @@ msgstr ""
 "perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-" not installed! Highly recommended to install it for getting the latest "
-"updates without the need to download fresh package databases."
-msgstr ""
-" n'est pas installé ! Il est fortement recommandé de l'installer pour "
-"obtenir les dernières mises à jour sans avoir besoin de télécharger de "
-"nouvelles bases de données de paquets."
+msgid "Check mode"
+msgstr "Mode de vérification"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "Manuel"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Interval"
 msgstr "Intervalle"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "Quotidien"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "Hebdomadaire"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr ""
+"Choisissez comment les vérifications automatiques sont planifiées : manuel, "
+"intervalle périodique (minutes, max 43200 - 30 jours), quotidien à une heure "
+"spécifique ou hebdomadaire à un jour/heure spécifique."
+
+#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minutes"
 
 #: ../contents/ui/configuration/General.qml
-msgid "The current timer is reset when either of these settings is changed."
-msgstr ""
-"Le minuteur actuel est réinitialisé lorsque l'un de ces paramètres est "
-"modifié."
+msgid "Daily time"
+msgstr "Heure quotidienne"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check on start up"
-msgstr "Vérifier au démarrage"
+msgid "Weekly schedule"
+msgstr "Planification hebdomadaire"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, update checking will begin immediately upon "
-"widget startup.<br><br>If the option is <b>disabled</b>, update checking "
-"will be initiated after a specified time interval has passed since the "
-"widget was started. <b>Recommended.</b>"
-msgstr ""
-"Si l'option est <b>activée</b>, la vérification des mises à jour commencera "
-"immédiatement au démarrage du widget.<br><br>Si l'option est <b>désactivée</"
-"b>, la vérification des mises à jour sera lancée après un intervalle de "
-"temps spécifié depuis le démarrage du widget. <b>Recommandé.</b>"
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "Lundi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "Vendredi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "Samedi"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Updates"
@@ -1118,6 +1184,18 @@ msgid "Stop checking"
 msgstr "Arrêter la vérification"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "Ouvrir les paramètres"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "Détacher la fenêtre"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "Garder ouvert"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Compact view"
 msgstr "Vue compacte"
 
@@ -1212,33 +1290,3 @@ msgstr "Aucune nouvelle non lue"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurer la liste"
-
-#~ msgid "Read the Arch Wiki - Partial Upgrades"
-#~ msgstr "Lire le Wiki Arch - Mises à niveau partielles"
-
-#~ msgid "Perform full system upgrade instead partial upgrade!"
-#~ msgstr ""
-#~ "Effectuez une mise à niveau complète du système au lieu d’une mise à "
-#~ "niveau partielle !"
-
-#~ msgid "View"
-#~ msgstr "Vue"
-
-#~ msgid "Upgrade button"
-#~ msgstr "Bouton de mise à niveau"
-
-#~ msgid "Suggest before upgrading"
-#~ msgstr "Suggérer avant la mise à niveau"
-
-#~ msgid "Options"
-#~ msgstr "Options"
-
-#~ msgid "some required utilities are not installed (curl, jq)"
-#~ msgstr "certains utilitaires requis ne sont pas installés (curl, jq)"
-
-#~ msgid ""
-#~ "You can also switch tabs by dragging the mouse left and right with the "
-#~ "right mouse button held."
-#~ msgstr ""
-#~ "Vous pouvez également changer d'onglet en faisant glisser la souris vers "
-#~ "la gauche et la droite avec le bouton droit bouton de la souris maintenu."
