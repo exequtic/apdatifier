@@ -16,7 +16,7 @@ function execute(command, callback, stoppable) {
     if (component.status === Component.Ready) {
         const componentObject = component.createObject(root)
         if (componentObject) {
-            sts.proc = componentObject
+            if (typeof sts !== "undefined") sts.proc = componentObject
             componentObject.exec(command, callback)
         } else {
             Error(1, "Failed to create executable DataSource object")
