@@ -260,7 +260,7 @@ SimpleKCM {
                 CheckBox {
                     id: aur
                     text: i18n("Arch User Repository") + " (AUR)"
-                    enabled: pkg.paru || pkg.yay
+                    enabled: pkg.paru || pkg.yay || pkg.pikaur
                 }
 
                 Kirigami.UrlButton {
@@ -268,7 +268,7 @@ SimpleKCM {
                     text: instTip.text
                     font.pointSize: instTip.font.pointSize
                     color: instTip.color
-                    visible: !pkg.paru && !pkg.yay
+                    visible: !aur.enabled
                 }
             }
 
