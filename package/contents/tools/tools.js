@@ -375,7 +375,7 @@ function restoreNewsList() {
 
 function makeArchList(updates, source) {
     return new Promise((resolve) => {
-        if (!updates) {
+        if (updates.length === 0) {
             resolve([])
         } else {
             const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
