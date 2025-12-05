@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-11-30 19:41+0300\n"
+"POT-Creation-Date: 2025-12-05 08:45+0300\n"
 "PO-Revision-Date: 2024-06-15 01:04+0200\n"
 "Last-Translator: Peter Boos <mizu@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -265,7 +265,6 @@ msgid "Nothing to do"
 msgstr "Nichts zu tun"
 
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "Erforderlich installiert"
 
@@ -1035,10 +1034,9 @@ msgid "Only for official repositories"
 msgstr "Nur für offizielle Repositories"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgid "Also see https://archlinux.org/mirrorlist (click button to open link)"
 msgstr ""
-"<br><br>Siehe auch https://archlinux.org/mirrorlist (klicken Sie auf die "
+"Siehe auch https://archlinux.org/mirrorlist (klicken Sie auf die "
 "Schaltfläche, um den Link zu öffnen)"
 
 #: ../contents/ui/configuration/Upgrade.qml

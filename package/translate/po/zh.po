@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-11-30 19:41+0300\n"
+"POT-Creation-Date: 2025-12-05 08:45+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -255,7 +255,6 @@ msgid "Nothing to do"
 msgstr "无事可做"
 
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "需要安装"
 
@@ -993,9 +992,8 @@ msgid "Only for official repositories"
 msgstr "仅适用于官方仓库"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr "<br><br>另请参见 https://archlinux.org/mirrorlist （点击按钮打开链接）"
+msgid "Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "另请参见 https://archlinux.org/mirrorlist （点击按钮打开链接）"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"

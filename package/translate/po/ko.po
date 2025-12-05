@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-11-30 19:41+0300\n"
+"POT-Creation-Date: 2025-12-05 08:45+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -258,7 +258,6 @@ msgid "Nothing to do"
 msgstr "할 일 없음"
 
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Required installed"
 msgstr "설치에 필요"
 
@@ -1005,10 +1004,8 @@ msgid "Only for official repositories"
 msgstr "공식 저장소만"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr ""
-"<br><br>https://archlinux.org/mirrorlist 도 참조하십시오.(클릭 시 링크 열림)"
+msgid "Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "https://archlinux.org/mirrorlist 도 참조하십시오.(클릭 시 링크 열림)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"

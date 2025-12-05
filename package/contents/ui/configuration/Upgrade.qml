@@ -321,7 +321,7 @@ SimpleKCM {
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: i18n("Required installed") + " pacman-contrib." + i18n("<br><br>Also see https://archlinux.org/mirrorlist (click button to open link)")
+                toolTipText: i18n("Also see https://archlinux.org/mirrorlist (click button to open link)")
                 onClicked: Qt.openUrlExternally("https://archlinux.org/mirrorlist")
             }
         }
