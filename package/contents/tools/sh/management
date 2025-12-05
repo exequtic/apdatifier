@@ -32,6 +32,8 @@ options=(
     "${ICO_MNG_OPT_10}${MNG_OPT_10}"
     "${ICO_MNG_OPT_11}${MNG_OPT_11}"
     "${ICO_MNG_OPT_12}${MNG_OPT_12}"
+    "${ICO_MNG_OPT_13}$(gettext "Search Flatpak packages")"
+    "${ICO_MNG_OPT_14}$(gettext "Uninstall Flatpak packages")"
 )
 
 showOptions() {
@@ -84,6 +86,8 @@ showOptions() {
         9) rebuildPython;;
         10) $scriptDir/mirrorlist true $selected;;
         11) exit;;
+        12) flatpakSearch;;
+        13) flatpakUninstall;;
     esac
 }
 
@@ -179,6 +183,133 @@ rebuildPython() {
     fi
 
     returnMenu
+}
+
+flatpakSearch() {
+    dependencies "fzf flatpak" true  # Check both fzf and flatpak are available
+
+    # List all available Flatpak packages
+    available_packages=$(flatpak remote-ls --app --columns=name,application,version,description,origin 2>/dev/null)
+
+    if [[ -z "$available_packages" ]]; then
+        echo "No Flatpak packages available or Flatpak not properly configured"
+        printReturn
+        showOptions $selected
+        return
+    fi
+
+    # Select package to install
+    selected_package=$(echo "$available_packages" | \
+               fzf $fzf_settings --prompt="Search and select Flatpak package to install> " \
+               --preview="flatpak info {2} 2>/dev/null || echo 'Package details not available'" \
+               --header="Use fuzzy search to find packages. Columns: Name | Application ID | Version | Description | Origin")
+
+    if [[ -n "$selected_package" ]]; then
+        # Extract application ID (second column in the output)
+        app_id=$(echo "$selected_package" | awk '{print $2}')
+
+        if [[ -n "$app_id" ]]; then
+            echo "Selected package: $app_id"
+            while true; do
+                echo "Choose action:"
+                echo "1) Install $app_id"
+                echo "2) Show package details"
+                echo "3) Back to menu"
+                read -r choice
+                case "$choice" in
+                    1)
+                        echo "Installing $app_id..."
+                        flatpak install --noninteractive "$app_id"
+                        echo "Installation complete. Press Enter to continue."
+                        read
+                        showOptions $selected
+                        return
+                        ;;
+                    2)
+                        flatpak info "$app_id" 2>/dev/null
+                        echo
+                        printReturn
+                        ;;
+                    3)
+                        showOptions $selected
+                        return
+                        ;;
+                    *) echo "Invalid choice. Please enter 1, 2, or 3.";;
+                esac
+            done
+        fi
+    else
+        showOptions $selected
+    fi
+}
+
+flatpakUninstall() {
+    dependencies "fzf flatpak" true  # Check both fzf and flatpak are available
+
+    # List installed Flatpak packages
+    installed_packages=$(flatpak list --app --columns=name,application,version,active 2>/dev/null)
+
+    if [[ -z "$installed_packages" ]]; then
+        echo "No Flatpak packages installed"
+        printReturn
+        showOptions $selected
+        return
+    fi
+
+    # Select packages to uninstall
+    packages_to_remove=$(echo "$installed_packages" | \
+                        fzf $fzf_settings --prompt="Select Flatpak packages to uninstall> " --multi \
+                        --preview="flatpak info {2} 2>/dev/null || echo 'Package info not available'" \
+                        --header="Select packages to uninstall. Columns: Name | Application ID | Version | Active")
+
+    if [[ -n "$packages_to_remove" ]]; then
+        # Extract application IDs (second column)
+        app_ids=$(echo "$packages_to_remove" | awk '{print $2}' | xargs)
+
+        if [[ -n "$app_ids" ]]; then
+            echo "Selected for uninstall: $app_ids"
+            while true; do
+                echo "Choose action:"
+                echo "1) Uninstall packages (with dependencies)"
+                echo "2) Uninstall packages (keep dependencies)"
+                echo "3) Show package details"
+                echo "4) Back to menu"
+                read -r choice
+                case "$choice" in
+                    1)
+                        echo "Uninstalling $app_ids with dependencies..."
+                        flatpak uninstall --noninteractive --delete-data $app_ids
+                        echo "Uninstall complete. Press Enter to continue."
+                        read
+                        showOptions $selected
+                        return
+                        ;;
+                    2)
+                        echo "Uninstalling $app_ids keeping dependencies..."
+                        flatpak uninstall --noninteractive --keep-ref --delete-data $app_ids
+                        echo "Uninstall complete. Press Enter to continue."
+                        read
+                        showOptions $selected
+                        return
+                        ;;
+                    3)
+                        for app_id in $app_ids; do
+                            flatpak info "$app_id" 2>/dev/null
+                            echo "---"
+                        done
+                        printReturn
+                        ;;
+                    4)
+                        showOptions $selected
+                        return
+                        ;;
+                    *) echo "Invalid choice. Please enter 1, 2, 3, or 4.";;
+                esac
+            done
+        fi
+    else
+        showOptions $selected
+    fi
 }
 
 showOptions
