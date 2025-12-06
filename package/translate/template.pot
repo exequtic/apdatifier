@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 23:38+0300\n"
+"POT-Creation-Date: 2025-12-06 09:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,6 +260,94 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Uninstall Flatpak packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "No Flatpak packages available or Flatpak not properly configured"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Use fuzzy search to find packages. Columns: Name | Application ID | Version | Description | Origin"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Search and select Flatpak package to install> "
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Package details not available"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Selected package: "
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Choose action:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Install"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Show package details"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Back to menu"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Installing"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Installation complete. Press Enter to continue."
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Invalid choice. Please enter 1, 2, or 3."
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "No Flatpak packages installed"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages to uninstall. Columns: Name | Application ID | Version | Active"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select Flatpak packages to uninstall> "
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Package info not available"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Selected for uninstall: "
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall packages (with dependencies)"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall packages (keep dependencies)"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Uninstalling"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall complete. Press Enter to continue."
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Invalid choice. Please enter 1, 2, 3, or 4."
 msgstr ""
 
 #: ../contents/tools/tools.js

@@ -192,7 +192,7 @@ flatpakSearch() {
     available_packages=$(flatpak remote-ls --app --columns=name,application,version,description,origin 2>/dev/null)
 
     if [[ -z "$available_packages" ]]; then
-        echo "No Flatpak packages available or Flatpak not properly configured"
+        echo "$MNG_FLATPAK_NA"
         printReturn
         showOptions $selected
         return
@@ -200,27 +200,27 @@ flatpakSearch() {
 
     # Select package to install
     selected_package=$(echo "$available_packages" | \
-               fzf $fzf_settings --prompt="Search and select Flatpak package to install> " \
-               --preview="flatpak info {2} 2>/dev/null || echo 'Package details not available'" \
-               --header="Use fuzzy search to find packages. Columns: Name | Application ID | Version | Description | Origin")
+               fzf $fzf_settings --delimiter='\t' --prompt="$MNG_FLATPAK_PROMPT_INSTALL" \
+               --preview="flatpak info {2} 2>/dev/null || echo '$MNG_FLATPAK_NO_DETAILS'" \
+               --header="$MNG_FLATPAK_HEADER")
 
     if [[ -n "$selected_package" ]]; then
-        # Extract application ID (second column in the output)
-        app_id=$(echo "$selected_package" | awk '{print $2}')
+        # Extract application ID (second column in the output) - using tab delimiter
+        app_id=$(echo "$selected_package" | awk -F'\t' '{print $2}')
 
         if [[ -n "$app_id" ]]; then
-            echo "Selected package: $app_id"
+            echo "$MNG_FLATPAK_SELECTED$app_id"
             while true; do
-                echo "Choose action:"
-                echo "1) Install $app_id"
-                echo "2) Show package details"
-                echo "3) Back to menu"
+                echo "$MNG_FLATPAK_CHOOSE_ACTION"
+                echo "1) $MNG_FLATPAK_INSTALL_OPT $app_id"
+                echo "2) $MNG_FLATPAK_SHOW_DETAILS_OPT"
+                echo "3) $MNG_FLATPAK_BACK_OPT"
                 read -r choice
                 case "$choice" in
                     1)
-                        echo "Installing $app_id..."
-                        flatpak install --noninteractive "$app_id"
-                        echo "Installation complete. Press Enter to continue."
+                        echo "$MNG_FLATPAK_INSTALLING$app_id..."
+                        flatpak install --noninteractive --assumeyes "$app_id"
+                        echo "$MNG_FLATPAK_INSTALL_DONE"
                         read
                         showOptions $selected
                         return
@@ -234,7 +234,7 @@ flatpakSearch() {
                         showOptions $selected
                         return
                         ;;
-                    *) echo "Invalid choice. Please enter 1, 2, or 3.";;
+                    *) echo "$MNG_FLATPAK_INVALID_CHOICE_3";;
                 esac
             done
         fi
@@ -250,7 +250,7 @@ flatpakUninstall() {
     installed_packages=$(flatpak list --app --columns=name,application,version,active 2>/dev/null)
 
     if [[ -z "$installed_packages" ]]; then
-        echo "No Flatpak packages installed"
+        echo "$MNG_FLATPAK_NO_INSTALLED"
         printReturn
         showOptions $selected
         return
@@ -258,36 +258,36 @@ flatpakUninstall() {
 
     # Select packages to uninstall
     packages_to_remove=$(echo "$installed_packages" | \
-                        fzf $fzf_settings --prompt="Select Flatpak packages to uninstall> " --multi \
-                        --preview="flatpak info {2} 2>/dev/null || echo 'Package info not available'" \
-                        --header="Select packages to uninstall. Columns: Name | Application ID | Version | Active")
+                        fzf $fzf_settings --delimiter='\t' --prompt="$MNG_FLATPAK_PROMPT_UNINSTALL" --multi \
+                        --preview="flatpak info {2} 2>/dev/null || echo '$MNG_FLATPAK_NO_INFO'" \
+                        --header="$MNG_FLATPAK_HEADER_UNINSTALL")
 
     if [[ -n "$packages_to_remove" ]]; then
-        # Extract application IDs (second column)
-        app_ids=$(echo "$packages_to_remove" | awk '{print $2}' | xargs)
+        # Extract application IDs (second column) - using tab delimiter
+        app_ids=$(echo "$packages_to_remove" | awk -F'\t' '{print $2}' | xargs)
 
         if [[ -n "$app_ids" ]]; then
-            echo "Selected for uninstall: $app_ids"
+            echo "$MNG_FLATPAK_SELECTED_UNINSTALL$app_ids"
             while true; do
-                echo "Choose action:"
-                echo "1) Uninstall packages (with dependencies)"
-                echo "2) Uninstall packages (keep dependencies)"
-                echo "3) Show package details"
-                echo "4) Back to menu"
+                echo "$MNG_FLATPAK_CHOOSE_ACTION"
+                echo "1) $MNG_FLATPAK_UNINSTALL_DEPS_OPT"
+                echo "2) $MNG_FLATPAK_UNINSTALL_KEEP_OPT"
+                echo "3) $MNG_FLATPAK_SHOW_DETAILS_OPT"
+                echo "4) $MNG_FLATPAK_BACK_OPT"
                 read -r choice
                 case "$choice" in
                     1)
-                        echo "Uninstalling $app_ids with dependencies..."
-                        flatpak uninstall --noninteractive --delete-data $app_ids
-                        echo "Uninstall complete. Press Enter to continue."
+                        echo "$MNG_FLATPAK_UNINSTALLING$app_ids $MNG_FLATPAK_UNINSTALL_DEPS_OPT..."
+                        flatpak uninstall --noninteractive --delete-data "$app_ids"
+                        echo "$MNG_FLATPAK_UNINSTALL_DONE"
                         read
                         showOptions $selected
                         return
                         ;;
                     2)
-                        echo "Uninstalling $app_ids keeping dependencies..."
-                        flatpak uninstall --noninteractive --keep-ref --delete-data $app_ids
-                        echo "Uninstall complete. Press Enter to continue."
+                        echo "$MNG_FLATPAK_UNINSTALLING$app_ids $MNG_FLATPAK_UNINSTALL_KEEP_OPT..."
+                        flatpak uninstall --noninteractive --keep-ref --delete-data "$app_ids"
+                        echo "$MNG_FLATPAK_UNINSTALL_DONE"
                         read
                         showOptions $selected
                         return
@@ -303,7 +303,7 @@ flatpakUninstall() {
                         showOptions $selected
                         return
                         ;;
-                    *) echo "Invalid choice. Please enter 1, 2, 3, or 4.";;
+                    *) echo "$MNG_FLATPAK_INVALID_CHOICE_4";;
                 esac
             done
         fi

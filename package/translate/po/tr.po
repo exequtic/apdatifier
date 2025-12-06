@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 23:38+0300\n"
+"POT-Creation-Date: 2025-12-06 09:27+0300\n"
 "PO-Revision-Date: 2025-12-05 11:00+0300\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: Turkish <LL@li.org>\n"
@@ -261,6 +261,94 @@ msgstr "Flatpak paketlerini ara"
 #: ../contents/tools/sh/messages
 msgid "Uninstall Flatpak packages"
 msgstr "Flatpak paketlerini kaldır"
+
+#: ../contents/tools/sh/messages
+msgid "No Flatpak packages available or Flatpak not properly configured"
+msgstr "Hiçbir Flatpak paketi mevcut değil veya Flatpak düzgün yapılandırılmamış"
+
+#: ../contents/tools/sh/messages
+msgid "Use fuzzy search to find packages. Columns: Name | Application ID | Version | Description | Origin"
+msgstr "Paketleri bulmak için bulanık arama kullanın. Sütunlar: Ad | Uygulama Kimliği | Sürüm | Açıklama | Kaynak"
+
+#: ../contents/tools/sh/messages
+msgid "Search and select Flatpak package to install> "
+msgstr "Kurulacak Flatpak paketini arayın ve seçin> "
+
+#: ../contents/tools/sh/messages
+msgid "Package details not available"
+msgstr "Paket detayları mevcut değil"
+
+#: ../contents/tools/sh/messages
+msgid "Selected package: "
+msgstr "Seçilen paket: "
+
+#: ../contents/tools/sh/messages
+msgid "Choose action:"
+msgstr "Eylem seçin:"
+
+#: ../contents/tools/sh/messages
+msgid "Install"
+msgstr "Kur"
+
+#: ../contents/tools/sh/messages
+msgid "Show package details"
+msgstr "Paket detaylarını göster"
+
+#: ../contents/tools/sh/messages
+msgid "Back to menu"
+msgstr "Menüye dön"
+
+#: ../contents/tools/sh/messages
+msgid "Installing"
+msgstr "Kuruluyor"
+
+#: ../contents/tools/sh/messages
+msgid "Installation complete. Press Enter to continue."
+msgstr "Kurulum tamamlandı. Devam etmek için Enter tuşuna basın."
+
+#: ../contents/tools/sh/messages
+msgid "Invalid choice. Please enter 1, 2, or 3."
+msgstr "Geçersiz seçim. Lütfen 1, 2 veya 3 girin."
+
+#: ../contents/tools/sh/messages
+msgid "No Flatpak packages installed"
+msgstr "Hiçbir Flatpak paketi kurulu değil"
+
+#: ../contents/tools/sh/messages
+msgid "Select packages to uninstall. Columns: Name | Application ID | Version | Active"
+msgstr "Kaldırılacak paketleri seçin. Sütunlar: Ad | Uygulama Kimliği | Sürüm | Aktif"
+
+#: ../contents/tools/sh/messages
+msgid "Select Flatpak packages to uninstall> "
+msgstr "Kaldırılacak Flatpak paketlerini seçin> "
+
+#: ../contents/tools/sh/messages
+msgid "Package info not available"
+msgstr "Paket bilgisi mevcut değil"
+
+#: ../contents/tools/sh/messages
+msgid "Selected for uninstall: "
+msgstr "Kaldırma için seçildi: "
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall packages (with dependencies)"
+msgstr "Paketleri kaldır (bağımlılıklarıyla birlikte)"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall packages (keep dependencies)"
+msgstr "Paketleri kaldır (bağımlılıkları koru)"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstalling"
+msgstr "Kaldırılıyor"
+
+#: ../contents/tools/sh/messages
+msgid "Uninstall complete. Press Enter to continue."
+msgstr "Kaldırma işlemi tamamlandı. Devam etmek için Enter tuşuna basın."
+
+#: ../contents/tools/sh/messages
+msgid "Invalid choice. Please enter 1, 2, 3, or 4."
+msgstr "Geçersiz seçim. Lütfen 1, 2, 3 veya 4 girin."
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
