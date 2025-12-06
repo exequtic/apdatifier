@@ -741,12 +741,8 @@ msgid "For every version bump"
 msgstr "Her sürüm yükseltmesi için"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
-"is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
-msgstr ""
-"Seçenek <b>etkinleştirilirse</b>, paket zaten listede olsa bile yeni bir paket sürümü yayınlandığında bildirimler gönderilecektir. <b>Daha fazla bildirim.</b> <br><br>Seçenek "
-"<b>devre dışı bırakılırsa</b>, sadece henüz listede olmayan paketler için bildirimler gönderilecektir. <b>Daha az bildirim.</b>"
+msgid "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+msgstr "Seçenek <b>etkinleştirilirse</b>, paket zaten listede olsa bile yeni bir paket sürümü yayınlandığında bildirimler gönderilecektir. <b>Daha fazla bildirim.</b> <br><br>Seçenek <b>devre dışı bırakılırsa</b>, sadece henüz listede olmayan paketler için bildirimler gönderilecektir. <b>Daha az bildirim.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -999,12 +995,8 @@ msgid "Select at least one!"
 msgstr "En az birini seçin!"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal "
-"to choose <b>1-2</b> countries closest to you."
-msgstr ""
-"En az bir ülke seçmelisiniz, aksi takdirde hepsi varsayılan olarak seçilecektir. <br><br><b>Ne kadar çok ülke seçerseniz, yansılama oluşturmak o kadar uzun sürecektir!</b> <br><br>En uygunu "
-"size en yakın <b>1-2</b> ülke seçmektir."
+msgid "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> countries closest to you."
+msgstr "En az bir ülke seçmelisiniz, aksi takdirde hepsi varsayılan olarak seçilecektir. <br><br><b>Ne kadar çok ülke seçerseniz, yansılama oluşturmak o kadar uzun sürecektir!</b> <br><br>En uygunu size en yakın <b>1-2</b> ülke seçmektir."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"

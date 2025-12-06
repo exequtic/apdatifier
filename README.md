@@ -81,6 +81,7 @@ Feel free to help translate to new languages or update and improve the ones that
 | Korean    | 275/275 |  100% |
 | Polish    | 275/275 |  100% |
 | Russian   | 275/275 |  100% |
+| Turkish   | 275/275 |  100% |
 | Ukrainian | 275/275 |  100% |
 |-----------|---------|-------|
 ```

@@ -30,5 +30,6 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | pl       | 275/275 |  100% |
 | pt_BR    | 275/275 |  100% |
 | ru       | 275/275 |  100% |
+| tr       | 275/275 |  100% |
 | uk       | 275/275 |  100% |
 | zh       | 275/275 |  100% |
