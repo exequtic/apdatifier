@@ -9,7 +9,7 @@ const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
-const dbPath = "${TMPDIR:-/tmp}/checkup-db-${UID}"
+const dbPath = "${TMPDIR:-/tmp}/checkup-db-$(id -u)"
 
 function execute(command, callback, stoppable) {
     const component = Qt.createComponent("../ui/components/Shell.qml")
