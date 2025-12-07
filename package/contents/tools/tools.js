@@ -48,7 +48,7 @@ function Error(code, err) {
 }
 
 function handleError(code, err, type, onError) {
-    if (err) {
+    if (code && err) {
         sts.errors = sts.errors.concat([{code: code, message: err.trim(), type: type}])
         onError()
         return true
@@ -272,7 +272,7 @@ function checkUpdates() {
             sts.statusMsg = i18n("Checking system updates...")
             execute(`pacman -Qu --dbpath "${dbPath}" 2>&1`, (cmd, out, err, code) => {
                 if (handleError(code, err, "repositories", next)) return
-                const updates = out ? out.split("\n") : []
+                const updates = out ? out.trim().split("\n") : []
                 makeArchList(updates, "repositories").then(result => {
                     archRepos = result
                     next()
@@ -285,9 +285,10 @@ function checkUpdates() {
         const next = () => cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking AUR updates...")
-        execute(cfg.wrapper + " -Qua", (cmd, out, err, code) => {
+        const cmdArg = cfg.wrapper === "pikaur" ? " -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'" : " -Qua"
+        execute(cfg.wrapper + cmdArg, (cmd, out, err, code) => {
             if (handleError(code, err, "aur", next)) return
-            const updates = out ? out.split("\n") : []
+            const updates = out ? out.trim().split("\n") : []
             makeArchList(updates, "aur").then(result => {
                 archAur = result
                 next()
@@ -424,8 +425,6 @@ function makeArchList(updates, source) {
 
                             return packageObj
                         })
-
-                        extendedList.pop()
 
                         resolve([...new Map(extendedList.map(item => [item.NM, item])).values()])
                     })
