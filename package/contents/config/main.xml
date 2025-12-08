@@ -108,5 +108,6 @@
         <entry name="timestamp" type="string"><default></default></entry>
         <entry name="configMsg" type="bool"><default>true</default></entry>
         <entry name="rulesMsg" type="bool"><default>true</default></entry>
+        <entry name="dbPath" type="string"><default>${TMPDIR:-/tmp}/checkup-db-$(id -u)</default></entry>
     </group>
 </kcfg>

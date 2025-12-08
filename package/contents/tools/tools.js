@@ -9,7 +9,6 @@ const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
-const dbPath = "${TMPDIR:-/tmp}/checkup-db-$(id -u)"
 
 function execute(command, callback, stoppable) {
     const component = Qt.createComponent("../ui/components/Shell.qml")
@@ -270,7 +269,7 @@ function checkUpdates() {
             if (handleError(code, err, "repositories", next)) return
             sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
             sts.statusMsg = i18n("Checking system updates...")
-            execute(`pacman -Qu --dbpath "${dbPath}" 2>&1`, (cmd, out, err, code) => {
+            execute(`pacman -Qu --dbpath "${cfg.dbPath}" 2>&1`, (cmd, out, err, code) => {
                 if (handleError(code, err, "repositories", next)) return
                 const updates = out ? out.trim().split("\n") : []
                 makeArchList(updates, "repositories").then(result => {
@@ -380,7 +379,7 @@ function makeArchList(updates, source) {
             resolve([])
         } else {
             const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
-            execute("pacman -Sl --dbpath " + dbPath, (cmd, out, err, code) => {
+            execute("pacman -Sl --dbpath " + cfg.dbPath, (cmd, out, err, code) => {
                 if (code && handleError(code, err, source, () => resolve([]))) return
                 const syncInfo = out.split("\n").filter(line => /\[.*\]/.test(line))
                 execute("pacman -Qi " + pkgs, (cmd, out, err, code) => {

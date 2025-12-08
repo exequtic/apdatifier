@@ -269,11 +269,21 @@ sync_dbs() {
         echo "fakeroot not found" >&2
         exit 127
     }
+
+    ! mkdir -p "$dbPath" && {
+        echo "Failed to create directory $dbPath" >&2
+        exit 1
+    }
+
     db_conf="$(pacman-conf DBPath)"
-    dbPath="${TMPDIR:-/tmp}/checkup-db-${UID}"
+    db_conf="${db_conf%/}"
+    ! ln -sf "${db_conf}/local" "$dbPath" &> /dev/null && {
+        echo "Failed to create symlink to $db_conf/local" >&2
+        exit 1
+    }
+
     test -f $dbPath/db.lck && rm -f $dbPath/db.lck
-    mkdir -p "$dbPath"
-    ln -sf "${db_conf}/local" "$dbPath" &> /dev/null
+
     ! fakeroot -- pacman -Sy --dbpath "$dbPath" --logfile /dev/null 2>/dev/null && {
         echo "Failed to synchronize pacman databases" >&2
         exit 1
