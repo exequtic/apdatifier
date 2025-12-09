@@ -21,6 +21,7 @@
         <entry name="aur" type="bool"><default>false</default></entry>
         <entry name="flatpak" type="bool"><default>false</default></entry>
         <entry name="widgets" type="bool"><default>false</default></entry>
+        <entry name="fwupd" type="bool"><default>false</default></entry>
         <entry name="newsArch" type="bool"><default>false</default></entry>
         <entry name="newsKDE" type="bool"><default>false</default></entry>
         <entry name="newsTWIK" type="bool"><default>false</default></entry>

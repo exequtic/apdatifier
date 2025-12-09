@@ -126,7 +126,7 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman flatpak paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = "pacman flatpak fwupdmgr paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
     const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
 
@@ -135,17 +135,18 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, flatpak, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, flatpak, paru, pikaur, yay, jq, tmux }
+        const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
+        cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = populate(output.slice(7).filter(Boolean))
+        const terminals = populate(output.slice(8).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
         if (!flatpak) plasmoid.configuration.flatpak = false
+        if (!fwupdmgr) plasmoid.configuration.fwupd = false
         if (!tmux) plasmoid.configuration.tmuxSession = false
         if (!jq) {
             plasmoid.configuration.widgets = false
@@ -234,7 +235,7 @@ function checkUpdates() {
     scheduler.stop()
     sts.busy = true
 
-    let archRepos = [], archAur = [], flatpak = [], widgets = []
+    let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
 
     const feeds = [
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
@@ -248,10 +249,12 @@ function checkUpdates() {
           cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
       cfg.widgets ? checkWidgets() :
+        cfg.fwupd ? checkFirmwares() :
                     merge()
 
     function checkNews() {
-        const next = () => cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+        const next = () => cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+                           cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
         execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
@@ -262,7 +265,8 @@ function checkUpdates() {
     }
 
     function checkRepos() {
-        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+                           cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Synchronizing pacman databases...")
         execute(bash('utils', 'syncdb'), (cmd, out, err, code) => {
@@ -281,7 +285,7 @@ function checkUpdates() {
     }
 
     function checkAur() {
-        const next = () => cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : merge()
+        const next = () => cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking AUR updates...")
         const cmdArg = cfg.wrapper === "pikaur" ? " -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'" : " -Qua"
@@ -296,7 +300,7 @@ function checkUpdates() {
     }
 
     function checkFlatpak() {
-        const next = () => cfg.widgets ? checkWidgets() : merge()
+        const next = () => cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_flatpak" : "apdatifier-flatpak"
         sts.statusMsg = i18n("Synchronizing flatpak appstream...")
         execute("flatpak update --appstream >/dev/null 2>&1", (cmd, out, err, code) => {
@@ -315,17 +319,40 @@ function checkUpdates() {
     }
 
     function checkWidgets() {
+        const next = () => cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_widgets" : "start-here-kde-plasma-symbolic"
         sts.statusMsg = i18n("Checking widgets updates...")
         execute(bash('widgets', 'check'), (cmd, out, err, code) => {
-            if (handleError(code, err, "widgets", merge)) return
+            if (handleError(code, err, "widgets", next)) return
             widgets = JSON.parse(out.trim())
-            merge()
+            next()
+        })
+    }
+
+    function checkFirmwares() {
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
+        sts.statusMsg = i18n("Checking firmware updates...")
+        execute("fwupdmgr refresh --force", (cmd, out, err, code) => {
+            if (handleError(code, err, "fwupdmgr", merge)) return
+            execute("fwupdmgr get-updates --json", (cmd, out, err, code) => {
+                if (handleError(code, err, "fwupdmgr", merge)) return
+                firmwares = JSON.parse(out).Devices.map(device => ({
+                    NM: `${device.Vendor}-${device.Name}`.replace(/ /g, "-").toLowerCase(),
+                    RE: "fwupd",
+                    DE: device.Releases?.[0]?.Summary || "",
+                    LN: device.Releases?.[0]?.Homepage || "",
+                    IN: device.Icons?.[0] || "",
+                    VO: device.Version || "",
+                    VN: device.Releases?.[0]?.Version || ""
+                }))
+
+                merge()
+            })
         })
     }
 
     function merge() {
-        finalize(keys(archRepos.concat(archAur, flatpak, widgets)))
+        finalize(keys(archRepos.concat(archAur, flatpak, widgets, firmwares)))
     }
 }
 

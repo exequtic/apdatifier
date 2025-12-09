@@ -115,6 +115,12 @@ fullSystemUpgrade() {
         run "$scriptDir/widgets upgradeAll" noPrint
     fi
 
+    if [ "$fwupd" = true ]; then
+        printMsg "fwupdmgr"
+        echo
+        run "$sudoBin fwupdmgr update"
+    fi
+
     if [ -n "$postExec" ]; then
         printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
         run "$postExec"
@@ -173,6 +179,11 @@ postUpgrade() {
     [ "$arch" = true ] && list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
     [ "$flatpak" = true ] && list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
     [ "$widgets" = true ] && list+=$($scriptDir/widgets list)
+    if [ "$fwupd" = true ]; then
+        if command -v jq >/dev/null 2>&1; then
+            list+=$(fwupdmgr get-updates --json | jq -cr '.Devices | map({NM: ((.Vendor + "-" + .Name) | gsub(" "; "-") | ascii_downcase), VO: (.Version // "")}) | .[] | @json + ","')
+        fi
+    fi
     echo "[${list%,}]"
 }
 

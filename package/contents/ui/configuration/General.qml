@@ -26,6 +26,7 @@ SimpleKCM {
     property alias cfg_arch: arch.checked
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
+    property alias cfg_fwupd: fwupd.checked
     property alias cfg_widgets: widgets.checked
 
     property alias cfg_newsArch: newsArch.checked
@@ -302,6 +303,16 @@ SimpleKCM {
 
                 Kirigami.ContextualHelpButton {
                     toolTipText: i18n("Required installed") + " jq." + i18n("<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
+                }
+            }
+
+            RowLayout {
+                spacing: Kirigami.Units.gridUnit
+
+                CheckBox {
+                    id: fwupd
+                    text: i18n("Firmware")
+                    enabled: pkg.fwupdmgr
                 }
             }
 
