@@ -26,6 +26,7 @@ SimpleKCM {
     property string cfg_mirrors: plasmoid.configuration.mirrors
     property alias cfg_mirrorsAge: mirrorsAge.value
     property alias cfg_mirrorCount: mirrorCount.value
+    property alias cfg_mirrorProgress: mirrorProgress.checked
     property var countryList: []
     property string cfg_dynamicUrl: plasmoid.configuration.dynamicUrl
 
@@ -465,6 +466,13 @@ SimpleKCM {
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n("Number of servers to write to mirrorlist file. 0 for all.")
             }
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Show progress") + ":"
+            id: mirrorProgress
+            text: i18n("Enable")
+            enabled: mirrors.enabled
         }
 
         Item {

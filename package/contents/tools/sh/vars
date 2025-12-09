@@ -109,6 +109,7 @@ if [[ $termFont = "true" ]]; then
     ICO_WARN="󱇎"
     ICO_QUESTION=""
     ICO_EXEC="󰅱"
+    ICO_MIRRORS="󰓅"
     ICO_RETURN="󰄽"
     ICO_SELECT="󰄾"
 else
@@ -117,6 +118,7 @@ else
     ICO_WARN="::"
     ICO_QUESTION="::"
     ICO_EXEC="::"
+    ICO_MIRRORS="::"
     ICO_RETURN="<<"
     ICO_SELECT=">"
 fi
