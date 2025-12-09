@@ -282,7 +282,7 @@ sync_dbs() {
         exit 1
     }
 
-    test -f $dbPath/db.lck && rm -f $dbPath/db.lck
+    test -f "$dbPath/db.lck" && rm -f "$dbPath/db.lck"
 
     ! fakeroot -- pacman -Sy --dbpath "$dbPath" --logfile /dev/null 2>/dev/null && {
         echo "Failed to synchronize pacman databases" >&2

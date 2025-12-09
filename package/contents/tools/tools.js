@@ -379,7 +379,7 @@ function makeArchList(updates, source) {
             resolve([])
         } else {
             const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
-            execute("pacman -Sl --dbpath " + cfg.dbPath, (cmd, out, err, code) => {
+            execute(`pacman -Sl --dbpath "${cfg.dbPath}"`, (cmd, out, err, code) => {
                 if (code && handleError(code, err, source, () => resolve([]))) return
                 const syncInfo = out.split("\n").filter(line => /\[.*\]/.test(line))
                 execute("pacman -Qi " + pkgs, (cmd, out, err, code) => {
