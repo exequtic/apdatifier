@@ -588,16 +588,33 @@ SimpleKCM {
                 }
                 Button {
                     icon.name: "edit-reset"
-                    onClicked: dbPath.text = plasmoid.configuration.dbPathDefault
                     ToolTip.delay: 0
                     ToolTip.visible: hovered
                     ToolTip.text: i18n("Reset to default. By default, the path is the same as for checkupdates.")
+                    onClicked: {
+                        dbPath.text = plasmoid.configuration.dbPathDefault
+                        pathError.visible = false
+                    }
                 }
                 FolderDialog {
                     id: folderDialog
-                    currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-                    onAccepted: dbPath.text = selectedFolder.toString().substring(7)
+                    onAccepted: {
+                        const path = selectedFolder.toString().substring(7)
+                        if (path.includes(' ')) {
+                            pathError.visible = true
+                        } else {
+                            dbPath.text = path
+                            pathError.visible = false
+                        }
+                    }
                 }
+            }
+
+            Label {
+                id: pathError
+                text: i18n("Path must not contain spaces")
+                color: Kirigami.Theme.negativeTextColor
+                visible: false
             }
 
             Kirigami.PromptDialog {
