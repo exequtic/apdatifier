@@ -14,11 +14,6 @@ returnMenu() {
     exit
 }
 
-rankmirrors_mirrorlist="$tempDir/rankmirrors_mirrorlist"
-rankmirrors_time="$tempDir/rankmirrors_time"
-
-trap 'rm -f $rankmirrors_mirrorlist $rankmirrors_time' INT TERM EXIT
-
 rank_mirrors() {
     while IFS= read -r line <&3; do
         [[ "$line" =~ ^[[:space:]]*#?[[:space:]]*Server[[:space:]]*=[[:space:]]*(.+) ]] || continue
@@ -100,6 +95,11 @@ OUTDATED=false
         esac
     done
 }
+
+rankmirrors_mirrorlist="$(mktemp)"
+rankmirrors_time="$(mktemp)"
+
+trap 'rm -f $rankmirrors_mirrorlist $rankmirrors_time' INT TERM EXIT
 
 curl -s -m 10 -o $rankmirrors_mirrorlist "$dynamicUrl" 2>/dev/null & printWhile $! "$MIRRORS_FETCH"
 if ! validate "$rankmirrors_mirrorlist"; then
