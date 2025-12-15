@@ -405,54 +405,77 @@ function makeArchList(updates, source) {
         if (updates.length === 0) {
             resolve([])
         } else {
-            const pkgs = updates.map(l => l.split(" ")[0]).join(' ')
+            const pkgs = updates.map(l => l.split(' ')[0]).join(' ')
             execute(`pacman -Sl --dbpath "${cfg.dbPath}"`, (cmd, out, err, code) => {
                 if (code && handleError(code, err, source, () => resolve([]))) return
-                const syncInfo = out.split("\n").filter(line => /\[.*\]/.test(line))
-                execute("pacman -Qi " + pkgs, (cmd, out, err, code) => {
+                const repositories = out.trim().split('\n').filter(line => /\[.*\]/.test(line))
+
+                execute("LC_ALL=C.UTF-8 pacman -Qi " + pkgs, (cmd, out, err, code) => {
                     if (code && handleError(code, err, source, () => resolve([]))) return
-                    const desc = out.trim()
+                    const descriptions = out.trim().split('\n\n')
+
                     execute(bash('utils', 'getIcons', pkgs), (cmd, out, err, code) => {
-                        const icons = (out && !err) ? out.split('\n').map(l => ({ NM: l.split(' ')[0], IN: l.split(' ')[1] })) : []
-                        const description = desc.replace(/^Installed From\s*:.+\n?/gm, '')
-                        const packagesData = description.split("\n\n")
-                        const skip = new Set([1, 3, 5, 9, 11, 15, 16, 19, 20])
-                        const empty = new Set([6, 7, 8, 10, 12, 13])
-                        const keyNames = {
-                            0: "NM",  2: "DE",  4: "LN",  6: "GR",  7: "PR",  8: "DP",
-                            10: "RQ", 12: "CF", 13: "RP", 14: "IS", 17: "DT", 18: "RN"
-                        }
+                        if (code && handleError(code, err, source, () => resolve([]))) return
+                        const icons = out.split('\n')
 
-                        let extendedList = packagesData.map(packageData => {
-                            packageData = packageData.split('\n').filter(line => line.includes(" : "))
-                            let packageObj = {}
-                            packageData.forEach((line, index) => {
-                                if (skip.has(index)) return
-                                const [, value] = line.split(/\s* : \s*/)
-                                if (empty.has(index) && value.charAt(0) === value.charAt(0).toUpperCase()) return
-                                if (keyNames[index]) packageObj[keyNames[index]] = value.trim()
-                            })
+                        const iconsMap = new Map()
+                        icons.map(l => l.split(' ', 2))
+                             .filter(([name, icon]) => name && icon)
+                             .forEach(([name, icon]) => iconsMap.set(name, icon))
 
-                            if (Object.keys(packageObj).length > 0) {
-                                updates.forEach(str => {
-                                    const [name, verold, , vernew] = str.split(" ")
-                                    if (packageObj.NM === name) {
-                                        const verNew = (vernew === "latest-commit") ? i18n("latest commit") : vernew
-                                        Object.assign(packageObj, { VO: verold, VN: verNew })
-                                    }
-                                })
-
-                                const foundRepo = syncInfo.find(str => packageObj.NM === str.split(" ")[1])
-                                packageObj.RE = foundRepo ? foundRepo.split(" ")[0] : (packageObj.NM.endsWith("-git") || packageObj.VN === i18n("latest commit") ? "devel" : "aur")
-
-                                const foundIcon = icons.find(item => item.NM === packageObj.NM)
-                                if (foundIcon) packageObj.IN = foundIcon.IN
-                            }
-
-                            return packageObj
+                        const versionsMap = new Map()
+                        updates.forEach(update => {
+                            const [name, currentVer, , newVer] = update.split(' ')
+                            versionsMap.set(name, { currentVer, newVer })
                         })
 
-                        resolve([...new Map(extendedList.map(item => [item.NM, item])).values()])
+                        const repositoriesMap = new Map()
+                        repositories.forEach(line => {
+                            const parts = line.trim().split(/\s+/)
+                            if (parts.length >= 2) repositoriesMap.set(parts[1], parts[0])
+                        })
+
+                        const keyMap = {
+                            'Name':           'NM',
+                            'Description':    'DE',
+                            'URL':            'LN',
+                            'Groups':         'GR',
+                            'Provides':       'PR',
+                            'Depends On':     'DP',
+                            'Required By':    'RQ',
+                            'Conflicts With': 'CF',
+                            'Replaces':       'RP',
+                            'Installed Size': 'IS',
+                            'Install Date':   'DT',
+                            'Install Reason': 'RN'
+                        }
+
+                        const packagesData = descriptions.map(description => {
+                            const pkg = {}
+                            const lines = description.split('\n')
+                            for (const line of lines) {
+                                const match = line.match(/^(\w+(?:\s+\w+)*)\s+:\s*(.*)/)
+                                if (match) {
+                                    const key = match[1].trim()
+                                    const value = match[2].trim()
+                                    if (value === "None") continue
+                                    const mappedKey = keyMap[key]
+                                    if (mappedKey) pkg[mappedKey] = value
+                                }
+                            }
+
+                            if (iconsMap.has(pkg.NM)) pkg.IN = iconsMap.get(pkg.NM)
+
+                            const versions = versionsMap.get(pkg.NM)
+                            pkg.VO = versions.currentVer
+                            pkg.VN = (versions.newVer === "latest-commit") ? i18n("latest commit") : versions.newVer
+                            pkg.RE = repositoriesMap.get(pkg.NM) || (pkg.NM.endsWith("-git") || pkg.VN === i18n("latest commit") ? "devel" : "aur")
+                            pkg.RN = pkg.RN.includes("Explicitly") ? i18n("Explicitly installed") : i18n("Installed as a dependency")
+
+                            return pkg
+                        })
+
+                        resolve([...new Map(packagesData.map(item => [item.NM, item])).values()])
                     })
                 })
             })
