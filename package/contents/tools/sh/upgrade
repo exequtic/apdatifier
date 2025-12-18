@@ -174,23 +174,10 @@ widget_package() {
     printClose
 }
 
-postUpgrade() {
-    local list=""
-    [ "$arch" = true ] && list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
-    [ "$flatpak" = true ] && list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
-    [ "$widgets" = true ] && list+=$($scriptDir/widgets list)
-    if [ "$fwupd" = true ]; then
-        if command -v jq >/dev/null 2>&1; then
-            list+=$(fwupdmgr get-updates --json | jq -cr '.Devices | map({NM: ((.Vendor + "-" + .Name) | gsub(" "; "-") | ascii_downcase), VO: (.Version // "")}) | .[] | @json + ","')
-        fi
-    fi
-    echo "[${list%,}]"
-}
 
 case "$1" in
           "full") fullSystemUpgrade ;;
        "flatpak") shift; flatpak_package $1 $2;;
         "widget") shift; widget_package $1 $2;;
-   "postUpgrade") postUpgrade ;;
                *) exit;;
 esac

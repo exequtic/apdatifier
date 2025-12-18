@@ -29,7 +29,10 @@ const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
-const runInTerminal = (script, ...args) => execute('kstart ' + bash('terminal', script, ...args))
+const runInTerminal = (script, ...args) => {
+    execute('kstart ' + bash('terminal', script, ...args))
+    script === "upgrade" && upgradeTimer.start()
+}
 
 const debug = true
 function log(message) {
@@ -161,7 +164,6 @@ function checkDependencies() {
 
 function upgradePackage(name, appID, contentID) {
     if (sts.upgrading) return
-    enableUpgrading(true)
 
     if (appID) {
         runInTerminal("upgrade", "flatpak", appID, name)
@@ -175,46 +177,42 @@ function management() {
 }
 
 
-function enableUpgrading(state) {
-    if (sts.upgrading === state) return
-    sts.busy = sts.upgrading = state
-    if (state) {
-        upgradeTimer.start()
-        scheduler.stop()
-        sts.statusMsg = i18n("Upgrade in progress") + "..."
-        sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
-    } else {
-        execute(bash('upgrade', "postUpgrade"), (cmd, out, err, code) => {
-            upgradeTimer.stop()
-            if (!Error(code, err) && out) postUpgrade(out)
-            setStatusBar()
-            resumeScheduler()
-        })
-    }
-}
-
 function upgradingState() {
     const checkProc = `ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`
-    execute(checkProc, (cmd, out, err, code) => enableUpgrading(!!(out || err)))
+    execute(checkProc, (cmd, out, err, code) => {
+        const state = !!(out || err)
+        sts.busy = sts.upgrading = state
+
+        if (state) {
+            upgradeTimer.start()
+            scheduler.stop()
+            sts.statusMsg = i18n("Upgrade in progress") + "..."
+            sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+        } else {
+            upgradeTimer.stop()
+            execute(bash('utils', "currentVersions"), (cmd, out, err, code) => {
+                if (Error(code, err)) return
+                if (!out || !validJSON(out)) return
+                const currentVersions = JSON.parse(out)
+                const newList = cache.filter(cached => {
+                    const current = currentVersions.find(pkg => pkg.NM.replace(/ /g, "-").toLowerCase() === cached.NM)
+                    return current && current.VO === cached.VO + cached.AC
+                })
+                if (JSON.stringify(cache) !== JSON.stringify(newList)) {
+                    cache = newList
+                    refreshListModel()
+                    saveCache(cache)
+                }
+                setStatusBar()
+                resumeScheduler()
+            })
+        }
+    })
 }
 
-function postUpgrade(out) {
-    if (!out || !validJSON(out)) return
-    const updated = JSON.parse(out)
-    const newList = cache.filter(cached => {
-        const current = updated.find(pkg => pkg.NM.replace(/ /g, "-").toLowerCase() === cached.NM)
-        return current && current.VO === cached.VO + cached.AC
-    })
-    if (JSON.stringify(cache) !== JSON.stringify(newList)) {
-        cache = newList
-        refreshListModel()
-        saveCache(cache)
-    }
-}
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    enableUpgrading(true)
     runInTerminal("upgrade", "full")
 }
 

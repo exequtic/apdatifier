@@ -290,6 +290,30 @@ sync_dbs() {
     }
 }
 
+checkCurrentVersions() {
+    local list
+
+    if [ "$arch" = true ]; then
+        list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
+    fi
+
+    if [ "$flatpak" = true ]; then
+        list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
+    fi
+
+    if [ "$widgets" = true ]; then
+        list+=$($scriptDir/widgets list)
+    fi
+
+    if [ "$fwupd" = true ]; then
+        if command -v jq >/dev/null 2>&1; then
+            list+=$(fwupdmgr get-devices --json | jq -cr '.Devices | map({NM: ((.Vendor + " " + .Name)), VO: (.Version // "")}) | .[] | @json + ","')
+        fi
+    fi
+
+    echo "[${list%,}]"
+}
+
 install_devel() {
     printMsg "Downloading devel"
     echo
@@ -426,6 +450,7 @@ case "$1" in
           "syncdb") sync_dbs ;;
              "rss") shift; rss "$@" ;;
     "combineFiles") shift; combineFiles $1 ;;
+ "currentVersions") checkCurrentVersions ;;
         "getIcons") shift; getIcons "$@" ;;
       "installDev") install_devel ;;
    "installStable") install_stable ;;
