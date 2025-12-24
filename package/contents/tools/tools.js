@@ -109,6 +109,7 @@ function init() {
     }
 
     function onStartup() {
+        sts.init = true
         checkDependencies()
         refreshListModel()
         updateActiveNews()
