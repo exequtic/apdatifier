@@ -1,5 +1,5 @@
 # Translation of apdatifier in LANGUAGE
-# Copyright (C) 2025
+# Copyright (C) 2026
 # This file is distributed under the same license as the apdatifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 08:45+0300\n"
+"POT-Creation-Date: 2026-01-02 16:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,7 +287,19 @@ msgid "Checking widgets updates..."
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "latest commit"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
 msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
@@ -710,6 +722,10 @@ msgstr ""
 msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr ""
 
+#: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr ""
@@ -792,6 +808,14 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -986,6 +1010,10 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml

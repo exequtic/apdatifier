@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 08:45+0300\n"
+"POT-Creation-Date: 2026-01-02 16:32+0300\n"
 "PO-Revision-Date: 2025-12-05 11:00+0300\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: Turkish <LL@li.org>\n"
@@ -287,8 +287,20 @@ msgid "Checking widgets updates..."
 msgstr "Widget güncellemeleri kontrol ediliyor..."
 
 #: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "en son commit"
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
+msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -710,6 +722,10 @@ msgstr "Plasma Widget'ları"
 msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr "<br><br>Widget geliştiricileri için:<br>metadata.json dosyasını güncellemeyi ve applet adını ve sürümünü KDE Store'da göründüğü gibi <b>tam olarak</b> belirtmeyi unutmayın."
 
+#: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Haberler"
@@ -791,6 +807,14 @@ msgstr "Aşağı kaydır"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Gizlenmiş araç ipuçlarını geri yükle"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -985,6 +1009,10 @@ msgstr "Sayı çıktısı"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr "Yansı listesi dosyasına yazılacak sunucu sayısı. Tümü için 0."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

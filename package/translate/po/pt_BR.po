@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 08:45+0300\n"
+"POT-Creation-Date: 2026-01-02 16:32+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -297,8 +297,20 @@ msgid "Checking widgets updates..."
 msgstr "Verificando atualizações de widgets..."
 
 #: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "último commit"
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
+msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -758,6 +770,10 @@ msgstr ""
 "como aparecem na Loja KDE."
 
 #: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Notícias"
@@ -858,6 +874,14 @@ msgstr "Rolar para baixo"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Restaurar dicas de ferramentas ocultas"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1078,6 +1102,10 @@ msgstr "Número de servidores"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr "Número de servidores para gravar no arquivo mirrorlist. 0 para todos."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

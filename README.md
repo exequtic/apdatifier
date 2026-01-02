@@ -71,18 +71,18 @@ Feel free to help translate to new languages or update and improve the ones that
 ```markdown
 |   Locale  |  Lines  | % Done|
 |-----------|---------|-------|
-| English   |     275 |       |
-| Brazilian | 275/275 |  100% |
-| Chinese   | 275/275 |  100% |
-| Dutch     | 275/275 |  100% |
-| French    | 275/275 |  100% |
-| German    | 275/275 |  100% |
-| Spanish   | 275/275 |  100% |
-| Korean    | 275/275 |  100% |
-| Polish    | 275/275 |  100% |
-| Russian   | 275/275 |  100% |
-| Turkish   | 275/275 |  100% |
-| Ukrainian | 275/275 |  100% |
+| English   |     282 |       |
+| Brazilian | 275/282 |   97% |
+| Chinese   | 275/282 |   97% |
+| Dutch     | 275/282 |   97% |
+| French    | 275/282 |   97% |
+| German    | 275/282 |   97% |
+| Spanish   | 275/282 |   97% |
+| Korean    | 275/282 |   97% |
+| Polish    | 275/282 |   97% |
+| Russian   | 275/282 |   97% |
+| Turkish   | 275/282 |   97% |
+| Ukrainian | 275/282 |   97% |
 |-----------|---------|-------|
 ```
 

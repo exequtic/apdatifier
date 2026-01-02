@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 08:45+0300\n"
+"POT-Creation-Date: 2026-01-02 16:32+0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -287,8 +287,20 @@ msgid "Checking widgets updates..."
 msgstr "Sprawdzanie aktualizacji widżetów..."
 
 #: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "najnowszy commit"
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
+msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -718,6 +730,10 @@ msgstr "Widżety Plasma"
 msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
 msgstr "<br><br>Dla twórców widżetów:<br>Nie zapomnij zaktualizować pliku metadata.json i określić nazwę apletu oraz jego wersję <b>dokładnie</b> tak, jak są podane w sklepie KDE."
 
+#: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr ""
+
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Wiadomości"
@@ -800,6 +816,14 @@ msgstr "Przewiń w dół"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "Przywróć ukryte podpowiedzi"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -995,6 +1019,10 @@ msgstr "Wynik liczbowy"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr "Liczba serwerów do zapisania w pliku mirrorlist. 0 dla wszystkich."
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

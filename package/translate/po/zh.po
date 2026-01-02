@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2025-12-05 08:45+0300\n"
+"POT-Creation-Date: 2026-01-02 16:32+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -291,8 +291,20 @@ msgid "Checking widgets updates..."
 msgstr "正在检查挂件更新..."
 
 #: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "最新提交"
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
+msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -735,6 +747,10 @@ msgstr ""
 "挂件的名称及版本号，需与 KDE 商店中显示的完全一致。"
 
 #: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "新闻通知"
@@ -827,6 +843,14 @@ msgstr "向下滚动"
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
 msgstr "恢复隐藏的工具提示"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1039,6 +1063,10 @@ msgstr "输出数量"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
 msgstr "写入镜像列表文件的服务器数量。 0 表示全部服务器。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"
