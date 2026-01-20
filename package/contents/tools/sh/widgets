@@ -144,23 +144,28 @@ get_download_link() {
 }
 
 make_updates_list() {
-    local out=""
+    local tmp="$tempDir/update.list.lines.json"
+    : > "$tmp"
+
     for package in "${packages[@]}"; do
         get_package_info
         [[ $? -ne 0 ]] && continue
-        out+="{\"NM\": \"${name}\","
-        out+="\"RE\": \"${repo}\","
-        out+="\"TP\": \"${type}\","
-        out+="\"CN\": \"${contentId}\","
-        out+="\"IN\": \"${icon}\","
-        out+="\"DE\": \"${description}\","
-        out+="\"AU\": \"${author}\","
-        out+="\"VO\": \"${currentVer}\","
-        out+="\"VN\": \"${latestVer}\","
-        out+="\"LN\": \"${url}\"}",
+
+        jq -cn \
+          --arg NM "$name" \
+          --arg RE "$repo" \
+          --arg TP "$type" \
+          --arg CN "$contentId" \
+          --arg IN "$icon" \
+          --arg DE "$description" \
+          --arg AU "$author" \
+          --arg VO "$currentVer" \
+          --arg VN "$latestVer" \
+          --arg LN "$url" \
+          '{NM:$NM,RE:$RE,TP:$TP,CN:$CN,IN:$IN,DE:$DE,AU:$AU,VO:$VO,VN:$VN,LN:$LN}' >> "$tmp"
     done
 
-    echo -e "[${out%,}]" > $updatesList
+    jq -s '.' "$tmp" > "$updatesList"
 }
 
 check_packages_updates() {
