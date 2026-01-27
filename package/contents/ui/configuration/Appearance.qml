@@ -20,9 +20,6 @@ import "../../tools/tools.js" as JS
 SimpleKCM {
     property alias cfg_relevantIcon: relevantIcon.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
-    property alias cfg_badgePaused: badgePaused.checked
-    property alias cfg_badgeUpdated: badgeUpdated.checked
-    property alias cfg_counterEnabled: counterEnabled.checked
     property alias cfg_counterOnLeft: counterOnLeft.checked
     property string cfg_counterColor: plasmoid.configuration.counterColor
     property alias cfg_counterSize: counterSize.value
@@ -36,11 +33,9 @@ SimpleKCM {
     property alias cfg_counterMargins: counterMargins.value
     property alias cfg_counterOffsetX: counterOffsetX.value
     property alias cfg_counterOffsetY: counterOffsetY.value
-    property alias cfg_counterCenter: counterCenter.checked
-    property bool cfg_counterTop: plasmoid.configuration.counterTop
-    property bool cfg_counterBottom: plasmoid.configuration.counterBottom
-    property bool cfg_counterRight: plasmoid.configuration.counterRight
-    property bool cfg_counterLeft: plasmoid.configuration.counterLeft
+    property string cfg_counterPosition: plasmoid.configuration.counterPosition
+    property string cfg_pauseBadgePosition: plasmoid.configuration.pauseBadgePosition
+    property string cfg_updatedBadgePosition: plasmoid.configuration.updatedBadgePosition
 
     property alias cfg_ownIconsUI: ownIconsUI.checked
     property int cfg_defaultTab: plasmoid.configuration.defaultTab
@@ -65,6 +60,15 @@ SimpleKCM {
     property bool horizontal: plasmoid.location === 3 || plasmoid.location === 4
     property bool counterOverlay: inTray || !horizontal
     property bool counterRow: !inTray && horizontal
+    property bool counterEnabled: plasmoid.configuration.counterPosition !== "disabled"
+
+    readonly property var positionModel: [
+        { name: i18n("Disabled"),     value: "disabled" },
+        { name: i18n("Top-Left"),     value: "topLeft" },
+        { name: i18n("Top-Right"),    value: "topRight" },
+        { name: i18n("Bottom-Left"),  value: "bottomLeft" },
+        { name: i18n("Bottom-Right"), value: "bottomRight" }
+    ]
 
     property int currentTab
     signal tabChanged(currentTab: int)
@@ -192,26 +196,57 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("Pause badge") + ":"
-            id: badgePaused
-            text: i18n("Enable")
+            ComboBox {
+                id: pauseBadgePosition
+                textRole: "name"
+                model: positionModel
+                currentIndex: JS.setIndex(plasmoid.configuration.pauseBadgePosition, model)
+                onCurrentIndexChanged: cfg_pauseBadgePosition = plasmoid.configuration.pauseBadgePosition = model[currentIndex].value
+            }
         }
 
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("Updated badge") + ":"
-            id: badgeUpdated
-            text: i18n("Enable")
+            ComboBox {
+                id: updatedBadgePosition
+                textRole: "name"
+                model: positionModel
+                currentIndex: JS.setIndex(plasmoid.configuration.updatedBadgePosition, model)
+                onCurrentIndexChanged: cfg_updatedBadgePosition = plasmoid.configuration.updatedBadgePosition = model[currentIndex].value
+            }
         }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
+        RowLayout {
             Kirigami.FormData.label: i18n("Counter") + ":"
-            id: counterEnabled
-            text: i18n("Enable")
+            ComboBox {
+                id: counterPosition
+                textRole: "name"
+                model: positionModel.concat([{ name: i18n("Center"), value: "center" }])
+                currentIndex: JS.setIndex(plasmoid.configuration.counterPosition, model)
+                onCurrentIndexChanged: cfg_counterPosition = plasmoid.configuration.counterPosition = model[currentIndex].value
+            }
+
+            Label { text: "X:" }
+            SpinBox {
+                id: counterOffsetX
+                from: -10
+                to: 10
+                stepSize: 1
+                value: counterOffsetX.value
+                onValueChanged: plasmoid.configuration.counterOffsetX = counterOffsetX.value
+            }
+
+            Label { text: "Y:" }
+            SpinBox {
+                id: counterOffsetY
+                from: -10
+                to: 10
+                stepSize: 1
+                value: counterOffsetY.value
+                onValueChanged: plasmoid.configuration.counterOffsetY = counterOffsetY.value
+            }
         }
 
         CheckBox {
@@ -219,7 +254,7 @@ SimpleKCM {
             id: counterOnLeft
             text: i18n("Enable")
             visible: counterRow
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
         }
 
         Button {
@@ -231,7 +266,7 @@ SimpleKCM {
             implicitWidth: Kirigami.Units.gridUnit
             implicitHeight: implicitWidth
             visible: counterOverlay
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
 
             background: Rectangle {
                 radius: counterRadius.value
@@ -285,7 +320,7 @@ SimpleKCM {
         RowLayout {
             Kirigami.FormData.label: i18n("Size") + ":"
             visible: counterOverlay
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
 
             Slider {
                 id: counterSize
@@ -304,7 +339,7 @@ SimpleKCM {
         RowLayout {
             Kirigami.FormData.label: i18n("Radius") + ":"
             visible: counterOverlay
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
 
             Slider {
                 id: counterRadius
@@ -323,7 +358,7 @@ SimpleKCM {
         RowLayout {
             Kirigami.FormData.label: i18n("Opacity") + ":"
             visible: counterOverlay
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
 
             Slider {
                 id: counterOpacity
@@ -343,14 +378,14 @@ SimpleKCM {
         CheckBox {
             Kirigami.FormData.label: i18n("Shadow") + ":"
             visible: counterOverlay
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
             id: counterShadow
             text: i18n("Enable")
         }
 
         ComboBox {
             Kirigami.FormData.label: i18n("Font") + ":"
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
             implicitWidth: 250
             editable: true
             textRole: "name"
@@ -370,7 +405,7 @@ SimpleKCM {
 
         CheckBox {
             Kirigami.FormData.label: i18n("Font bold") + ":"
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
             id: counterFontBold
             text: i18n("Enable")
         }
@@ -378,7 +413,7 @@ SimpleKCM {
         Slider {
             Kirigami.FormData.label: i18n("Font size") + ":"
             visible: counterRow
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
             id: counterFontSize
             from: 4
             to: 8
@@ -390,7 +425,7 @@ SimpleKCM {
         SpinBox {
             Kirigami.FormData.label: i18n("Left spacing") + ":"
             visible: counterRow
-            enabled: counterEnabled.checked
+            enabled: counterEnabled
             id: counterSpacing
             from: 0
             to: 99
@@ -408,171 +443,6 @@ SimpleKCM {
             stepSize: 1
             value: counterMargins.value
             onValueChanged: plasmoid.configuration.counterMargins = counterMargins.value
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Offset") + ":"
-            visible: counterOverlay
-            enabled: counterEnabled.checked
-
-            Label { text: "X:" }
-            SpinBox {
-                id: counterOffsetX
-                from: -10
-                to: 10
-                stepSize: 1
-                value: counterOffsetX.value
-                onValueChanged: plasmoid.configuration.counterOffsetX = counterOffsetX.value
-            }
-
-            Label { text: "Y:" }
-            SpinBox {
-                id: counterOffsetY
-                from: -10
-                to: 10
-                stepSize: 1
-                value: counterOffsetY.value
-                onValueChanged: plasmoid.configuration.counterOffsetY = counterOffsetY.value
-            }
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        CheckBox {
-            Kirigami.FormData.label: i18n("Position") + ":"
-            visible: counterOverlay
-            enabled: counterEnabled.checked
-            id: counterCenter
-            text: i18n("Center")
-        }
-
-        GridLayout {
-            Layout.fillWidth: true
-            visible: counterOverlay
-            enabled: counterEnabled.checked
-            columns: 4
-            rowSpacing: 0
-            columnSpacing: 0
-
-            ButtonGroup {
-                id: position
-            }
-
-            Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: Kirigami.Units.smallSpacing * 2.5
-                text: i18n("Top-Left")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        topleft.checked = true
-                    }
-                }
-            }
-
-            RadioButton {
-                id: topleft
-                ButtonGroup.group: position
-                checked: cfg_counterTop && cfg_counterLeft
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_counterTop = true
-                        cfg_counterBottom = false
-                        cfg_counterRight = false
-                        cfg_counterLeft = true
-                    }
-                }
-            }
-
-            RadioButton {
-                id: topright
-                ButtonGroup.group: position
-                checked: cfg_counterTop && cfg_counterRight
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_counterTop = true
-                        cfg_counterBottom = false
-                        cfg_counterRight = true
-                        cfg_counterLeft = false
-                    }
-                }
-            }
-
-            Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Top-Right")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        topright.checked = true
-                    }
-                }
-            }
-
-            Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: Kirigami.Units.smallSpacing * 2.5
-                text: i18n("Bottom-Left")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        bottomleft.checked = true
-                    }
-                }
-            }
-
-            RadioButton {
-                id: bottomleft
-                ButtonGroup.group: position
-                checked: cfg_counterBottom && cfg_counterLeft
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_counterTop = false
-                        cfg_counterBottom = true
-                        cfg_counterRight = false
-                        cfg_counterLeft = true
-                    }
-                }
-            }
-
-            RadioButton {
-                id: bottomright
-                ButtonGroup.group: position
-                checked: cfg_counterBottom && cfg_counterRight
-
-                onCheckedChanged: {
-                    if (checked) {
-                        cfg_counterTop = false
-                        cfg_counterBottom = true
-                        cfg_counterRight = true
-                        cfg_counterLeft = false
-                    }
-                }
-            }
-
-            Label {
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Bottom-Right")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        bottomright.checked = true
-                    }
-                }
-            }
         }
 
         Item {

@@ -7,34 +7,17 @@ import QtQuick
 import org.kde.kirigami as Kirigami
 
 Rectangle {
+    id: badge
+
     property var iconName: ""
     property var iconColor: ""
-    property bool pauseBadge: iconName === pausedIcon
 
-    function setAnchor(anchor) {
-        if (counterRow) {
-            var topLeft = { top: parent.top, bottom: undefined, left: parent.left, right: undefined }
-            var topRight = { top: parent.top, bottom: undefined, left: undefined, right: parent.right }
-            var positions = pauseBadge ? topLeft : topRight
-        } else {
-            var normal = {
-                top:    (cfg.counterTop && !cfg.counterBottom) ? parent.top : undefined,
-                bottom: (cfg.counterBottom && !cfg.counterTop) ? parent.bottom : undefined,
-                left:   (cfg.counterLeft && !cfg.counterRight) ? parent.left : undefined,
-                right:  (cfg.counterRight && !cfg.counterLeft) ? parent.right : undefined            
-            }
-            var reverse = {
-                top:    (cfg.counterBottom && !cfg.counterTop) ? parent.top : undefined,
-                bottom: (cfg.counterTop && !cfg.counterBottom) ? parent.bottom : undefined,
-                left:   (cfg.counterRight && !cfg.counterLeft) ? parent.left : undefined,
-                right:  (cfg.counterLeft && !cfg.counterRight) ? parent.right : undefined
-            }
-            var positions = pauseBadge ? reverse : normal
-        }
-
-        return positions[anchor]
+    property string position: {
+        if (iconName === pausedIcon)   return cfg.pauseBadgePosition
+        if (iconName === updatedIcon)  return cfg.updatedBadgePosition
+        if (iconName === errorIcon)    return cfg.updatedBadgePosition
+        return "topRight"
     }
-
 
     width: (counterOverlay ? trayIconSize : parent.width) / 3
     height: width
@@ -42,15 +25,33 @@ Rectangle {
     color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
 
     anchors {
-        top:    setAnchor("top")
-        bottom: setAnchor("bottom")
-        left:   setAnchor("left")
-        right:  setAnchor("right")
-
-        topMargin:    counterOverlay ? 0 : 5
+        topMargin:    counterOverlay ? 0 : 3
         bottomMargin: counterOverlay ? 0 : 0
         leftMargin:   counterOverlay ? 0 : -1
         rightMargin:  counterOverlay ? 0 : -1
+    }
+
+    states: [
+        State {
+            when: badge.position === "topLeft"
+            AnchorChanges { target: badge; anchors.top: parent.top; anchors.left: parent.left }
+        },
+        State {
+            when: badge.position === "topRight"
+            AnchorChanges { target: badge; anchors.top: parent.top; anchors.right: parent.right }
+        },
+        State {
+            when: badge.position === "bottomLeft"
+            AnchorChanges { target: badge; anchors.bottom: parent.bottom; anchors.left: parent.left }
+        },
+        State {
+            when: badge.position === "bottomRight"
+            AnchorChanges { target: badge; anchors.bottom: parent.bottom; anchors.right: parent.right }
+        }
+    ]
+
+    transitions: Transition {
+        AnchorAnimation { duration: 120 }
     }
 
     Kirigami.Icon {

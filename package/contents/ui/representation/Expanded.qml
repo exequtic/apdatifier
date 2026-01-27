@@ -96,7 +96,7 @@ Representation {
                     tooltipText: sts.paused ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
                     iconSource: cfg.ownIconsUI ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
                                                : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
-                    iconColor: sts.paused && !cfg.badgePaused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
+                    iconColor: sts.paused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                     enabled: sts.idle
                     visible: enabled && cfg.intervalButton && cfg.checkMode !== "manual"
                     onClicked: JS.switchScheduler()

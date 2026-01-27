@@ -24,6 +24,11 @@ MouseArea {
     property bool counterOverlay: inTray || !horizontal
     property bool counterRow: !inTray && horizontal
 
+    property bool counterEnabled: plasmoid.configuration.counterPosition !== "disabled"
+    property bool counterCenter: plasmoid.configuration.counterPosition === "center"
+    property bool pauseBadgeEnabled: plasmoid.configuration.pauseBadgePosition !== "disabled"
+    property bool updatedBadgeEnabled: plasmoid.configuration.updatedBadgePosition !== "disabled"
+
     function darkColor(color) {
         return Kirigami.ColorUtils.brightnessForColor(color) === Kirigami.ColorUtils.Dark
     }
@@ -56,8 +61,8 @@ MouseArea {
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         onWheel: (event) => {
-            if (srollTimer.running) return
-            srollTimer.start()
+            if (scrollTimer.running) return
+            scrollTimer.start()
             var action = event.angleDelta.y > 0 ? cfg.scrollUpAction : cfg.scrollDownAction
             if (!action) return
             JS[action]()
@@ -65,7 +70,7 @@ MouseArea {
     }
 
     Timer {
-        id: srollTimer
+        id: scrollTimer
         interval: 500
     }
 
@@ -100,12 +105,12 @@ MouseArea {
                 QQC.Badge {
                     iconName: updatedIcon
                     iconColor: Kirigami.Theme.positiveTextColor
-                    visible: sts.updated && cfg.badgeUpdated
+                    visible: sts.updated && updatedBadgeEnabled
                 }
                 QQC.Badge {
                     iconName: pausedIcon
                     iconColor: Kirigami.Theme.neutralTextColor
-                    visible: sts.paused && cfg.checkMode !== "manual" && cfg.badgePaused
+                    visible: sts.paused && cfg.checkMode !== "manual" && pauseBadgeEnabled
                 }
             }
         }
@@ -115,7 +120,7 @@ MouseArea {
         }
         Label {
             id: counterText
-            visible: cfg.counterEnabled && sts.pending
+            visible: counterEnabled && sts.pending
             font.family: plasmoid.configuration.counterFontFamily || Kirigami.Theme.defaultFont
             font.pixelSize: mouseArea.height * (cfg.counterFontSize / 10)
             font.bold: cfg.counterFontBold
@@ -148,12 +153,12 @@ MouseArea {
 
     Rectangle {
         id: counterFrame
-        width: cfg.counterCenter ? frame.width : counter.width + 2
-        height: cfg.counterCenter ? frame.height : counter.height
+        width: counterCenter ? frame.width : counter.width + 2
+        height: counterCenter ? frame.height : counter.height
         radius: cfg.counterRadius
         opacity: cfg.counterOpacity / 10
         color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
-        visible: counterOverlay && cfg.counterEnabled && sts.pending
+        visible: counterOverlay && counterEnabled && sts.pending
 
         layer.enabled: cfg.counterShadow
         layer.effect: DropShadow {
@@ -164,12 +169,27 @@ MouseArea {
             color: Qt.rgba(0, 0, 0, 0.5)
         }
 
-        anchors {
-            centerIn: cfg.counterCenter ? parent : undefined
-            top:    (!cfg.counterCenter && cfg.counterTop && !cfg.counterBottom) ? frame.top : undefined
-            bottom: (!cfg.counterCenter && cfg.counterBottom && !cfg.counterTop) ? frame.bottom : undefined
-            left:   (!cfg.counterCenter && cfg.counterLeft && !cfg.counterRight) ? frame.left : undefined
-            right:  (!cfg.counterCenter && cfg.counterRight && !cfg.counterLeft) ? frame.right : undefined
+        states: [
+            State {
+                when: cfg.counterPosition === "topLeft"
+                AnchorChanges { target: counterFrame; anchors.top: frame.top; anchors.left: frame.left }
+            },
+            State {
+                when: cfg.counterPosition === "topRight"
+                AnchorChanges { target: counterFrame; anchors.top: frame.top; anchors.right: frame.right }
+            },
+            State {
+                when: cfg.counterPosition === "bottomLeft"
+                AnchorChanges { target: counterFrame; anchors.bottom: frame.bottom; anchors.left: frame.left }
+            },
+            State {
+                when: cfg.counterPosition === "bottomRight"
+                AnchorChanges { target: counterFrame; anchors.bottom: frame.bottom; anchors.right: frame.right }
+            }
+        ]
+
+        transitions: Transition {
+            AnchorAnimation { duration: 120 }
         }
     }
 
@@ -193,11 +213,11 @@ MouseArea {
     QQC.Badge {
         iconName: updatedIcon
         iconColor: Kirigami.Theme.positiveTextColor
-        visible: counterOverlay && sts.updated && cfg.badgeUpdated
+        visible: counterOverlay && sts.updated && updatedBadgeEnabled
     }
     QQC.Badge {
         iconName: pausedIcon
         iconColor: Kirigami.Theme.neutralTextColor
-        visible: counterOverlay && sts.paused && cfg.checkMode !== "manual" && cfg.badgePaused
+        visible: counterOverlay && sts.paused && cfg.checkMode !== "manual" && pauseBadgeEnabled
     }
 }
