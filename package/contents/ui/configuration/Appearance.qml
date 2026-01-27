@@ -33,6 +33,8 @@ SimpleKCM {
     property alias cfg_counterMargins: counterMargins.value
     property alias cfg_counterOffsetX: counterOffsetX.value
     property alias cfg_counterOffsetY: counterOffsetY.value
+    property alias cfg_badgeOffsetX: badgeOffsetX.value
+    property alias cfg_badgeOffsetY: badgeOffsetY.value
     property string cfg_counterPosition: plasmoid.configuration.counterPosition
     property string cfg_pauseBadgePosition: plasmoid.configuration.pauseBadgePosition
     property string cfg_updatedBadgePosition: plasmoid.configuration.updatedBadgePosition
@@ -197,6 +199,21 @@ SimpleKCM {
         }
 
         RowLayout {
+            height: 30
+            Label {
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                font.bold: true
+                color: Kirigami.Theme.neutralTextColor
+                text: i18n("Settings take effect immediately after changes")
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
             Kirigami.FormData.label: i18n("Pause badge") + ":"
             ComboBox {
                 id: pauseBadgePosition
@@ -219,6 +236,35 @@ SimpleKCM {
         }
 
         RowLayout {
+            Kirigami.FormData.label: i18n("Badges offset") + ":"
+            Label { text: "X:" }
+            SpinBox {
+                id: badgeOffsetX
+                from: -5
+                to: 5
+                stepSize: 1
+                value: badgeOffsetX.value
+                onValueChanged: plasmoid.configuration.badgeOffsetX = badgeOffsetX.value
+                Layout.preferredWidth: 50
+            }
+
+            Label { text: "Y:" }
+            SpinBox {
+                id: badgeOffsetY
+                from: -5
+                to: 5
+                stepSize: 1
+                value: badgeOffsetY.value
+                onValueChanged: plasmoid.configuration.badgeOffsetY = badgeOffsetY.value
+                Layout.preferredWidth: 50
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
             Kirigami.FormData.label: i18n("Counter") + ":"
             ComboBox {
                 id: counterPosition
@@ -227,27 +273,33 @@ SimpleKCM {
                 currentIndex: JS.setIndex(plasmoid.configuration.counterPosition, model)
                 onCurrentIndexChanged: cfg_counterPosition = plasmoid.configuration.counterPosition = model[currentIndex].value
             }
+        }
 
+        RowLayout {
+            Kirigami.FormData.label: i18n("Counter offset") + ":"
             Label { text: "X:" }
             SpinBox {
                 id: counterOffsetX
-                from: -10
-                to: 10
+                from: -5
+                to: 5
                 stepSize: 1
                 value: counterOffsetX.value
                 onValueChanged: plasmoid.configuration.counterOffsetX = counterOffsetX.value
+                Layout.preferredWidth: 50
             }
 
             Label { text: "Y:" }
             SpinBox {
                 id: counterOffsetY
-                from: -10
-                to: 10
+                from: -5
+                to: 5
                 stepSize: 1
                 value: counterOffsetY.value
                 onValueChanged: plasmoid.configuration.counterOffsetY = counterOffsetY.value
+                Layout.preferredWidth: 50
             }
         }
+
 
         CheckBox {
             Kirigami.FormData.label: "On left" + ":"
@@ -255,10 +307,11 @@ SimpleKCM {
             text: i18n("Enable")
             visible: counterRow
             enabled: counterEnabled
+            onCheckedChanged: plasmoid.configuration.counterOnLeft = counterOnLeft.checked
         }
 
         Button {
-            Kirigami.FormData.label: i18n("Color") + ":"
+            Kirigami.FormData.label: i18n("Background color") + ":"
             id: counterColor
 
             Layout.leftMargin: Kirigami.Units.gridUnit
@@ -318,26 +371,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Size") + ":"
-            visible: counterOverlay
-            enabled: counterEnabled
-
-            Slider {
-                id: counterSize
-                from: -5
-                to: 10
-                stepSize: 1
-                value: counterSize.value
-                onValueChanged: plasmoid.configuration.counterSize = counterSize.value
-            }
-
-            Label {
-                text: counterSize.value
-            }
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Radius") + ":"
+            Kirigami.FormData.label: i18n("Background radius") + ":"
             visible: counterOverlay
             enabled: counterEnabled
 
@@ -356,7 +390,7 @@ SimpleKCM {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Opacity") + ":"
+            Kirigami.FormData.label: i18n("Background opacity") + ":"
             visible: counterOverlay
             enabled: counterEnabled
 
@@ -376,7 +410,7 @@ SimpleKCM {
 
 
         CheckBox {
-            Kirigami.FormData.label: i18n("Shadow") + ":"
+            Kirigami.FormData.label: i18n("Background shadow") + ":"
             visible: counterOverlay
             enabled: counterEnabled
             id: counterShadow
@@ -399,8 +433,23 @@ SimpleKCM {
                 return arr
             }
 
-            onCurrentIndexChanged: cfg_counterFontFamily = model[currentIndex]["value"]
+            onCurrentIndexChanged: cfg_counterFontFamily = plasmoid.configuration.counterFontFamily = model[currentIndex]["value"]
             Component.onCompleted: currentIndex = JS.setIndex(plasmoid.configuration.counterFontFamily, model)
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Font Size") + ":"
+            visible: counterOverlay
+            enabled: counterEnabled
+
+            Slider {
+                id: counterSize
+                from: -5
+                to: 10
+                stepSize: 1
+                value: counterSize.value
+                onValueChanged: plasmoid.configuration.counterSize = counterSize.value
+            }
         }
 
         CheckBox {
@@ -408,6 +457,7 @@ SimpleKCM {
             enabled: counterEnabled
             id: counterFontBold
             text: i18n("Enable")
+            onCheckedChanged: plasmoid.configuration.counterFontBold = counterFontBold.checked
         }
 
         Slider {

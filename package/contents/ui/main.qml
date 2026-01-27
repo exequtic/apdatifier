@@ -55,6 +55,7 @@ PlasmoidItem {
         property int count: 0
         property bool busy: false
         property bool upgrading: false
+        property bool refresh: false
         property bool error: !busy && errors.length > 0
         property bool idle: !busy && !error
         property bool updated: idle && !count

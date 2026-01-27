@@ -25,34 +25,34 @@ Rectangle {
     color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
 
     anchors {
-        topMargin:    counterOverlay ? 0 : 3
-        bottomMargin: counterOverlay ? 0 : 0
-        leftMargin:   counterOverlay ? 0 : -1
-        rightMargin:  counterOverlay ? 0 : -1
+        topMargin:    state.includes("top") ? cfg.badgeOffsetX : 0
+        leftMargin:   state.includes("Left") ? cfg.badgeOffsetY : 0
+        rightMargin:  state.includes("Right") ? cfg.badgeOffsetY : 0
+        bottomMargin: state.includes("bottom") ? cfg.badgeOffsetX : 0
     }
+
+    state: position
 
     states: [
         State {
-            when: badge.position === "topLeft"
+            name: "topLeft"
             AnchorChanges { target: badge; anchors.top: parent.top; anchors.left: parent.left }
         },
         State {
-            when: badge.position === "topRight"
+            name: "topRight"
             AnchorChanges { target: badge; anchors.top: parent.top; anchors.right: parent.right }
         },
         State {
-            when: badge.position === "bottomLeft"
+            name: "bottomLeft"
             AnchorChanges { target: badge; anchors.bottom: parent.bottom; anchors.left: parent.left }
         },
         State {
-            when: badge.position === "bottomRight"
+            name: "bottomRight"
             AnchorChanges { target: badge; anchors.bottom: parent.bottom; anchors.right: parent.right }
         }
     ]
 
-    transitions: Transition {
-        AnchorAnimation { duration: 120 }
-    }
+    transitions: Transition { AnchorAnimation { duration: 120 } }
 
     Kirigami.Icon {
         anchors.fill: parent
