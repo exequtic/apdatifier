@@ -105,6 +105,9 @@ MouseArea {
                     source: JS.setIcon(plasmoid.icon)
                     active: mouseArea.containsMouse
 
+                    layer.enabled: sts.error
+                    layer.effect: sts.error ? errorShadowEffect : null
+
                     Loader {
                         anchors.fill: parent
                         sourceComponent: badgesLayer
@@ -120,7 +123,7 @@ MouseArea {
 
             Label {
                 id: counterText
-                visible: mouseArea.counterEnabled && sts.pending
+                visible: mouseArea.counterEnabled && !sts.busy && sts.count
                 font.family: plasmoid.configuration.counterFontFamily || Kirigami.Theme.defaultFont.family
                 font.pixelSize: mouseArea.height * (cfg.counterFontSize / 10)
                 font.bold: cfg.counterFontBold
@@ -144,6 +147,9 @@ MouseArea {
                 anchors.fill: parent
                 source: JS.setIcon(plasmoid.icon)
                 active: mouseArea.containsMouse
+
+                layer.enabled: sts.error
+                layer.effect: sts.error ? errorShadowEffect : null
             }
 
             Rectangle {
@@ -154,17 +160,6 @@ MouseArea {
                 opacity: 0
             }
 
-            Component {
-                id: dropShadowEffect
-                DropShadow {
-                    horizontalOffset: 0
-                    verticalOffset: 0
-                    radius: 2
-                    samples: radius * 2
-                    color: Qt.rgba(0, 0, 0, 0.5)
-                }
-            }
-
             Rectangle {
                 id: counterFrame
                 width: mouseArea.counterCenter ? frame.width : counter.width + 2
@@ -172,10 +167,10 @@ MouseArea {
                 radius: cfg.counterRadius
                 opacity: cfg.counterOpacity / 10
                 color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
-                visible: mouseArea.counterEnabled && sts.pending
+                visible: mouseArea.counterEnabled && !sts.busy && sts.count
 
                 layer.enabled: cfg.counterShadow
-                layer.effect: cfg.counterShadow ? dropShadowEffect : null
+                layer.effect: cfg.counterShadow ? counterShadowEffect : null
 
                 state: cfg.counterPosition
 
@@ -225,20 +220,39 @@ MouseArea {
             anchors.fill: parent
 
             QQC.Badge {
-                iconName: errorIcon
-                iconColor: Kirigami.Theme.negativeTextColor
-                visible: sts.error
-            }
-            QQC.Badge {
                 iconName: updatedIcon
                 iconColor: Kirigami.Theme.positiveTextColor
-                visible: sts.updated && updatedBadgeEnabled
+                visible: !sts.busy && !sts.count && updatedBadgeEnabled
             }
             QQC.Badge {
                 iconName: pausedIcon
                 iconColor: Kirigami.Theme.neutralTextColor
-                visible: sts.paused && cfg.checkMode !== "manual" && pauseBadgeEnabled
+                visible: sts.paused && pauseBadgeEnabled
             }
+        }
+    }
+
+    Component {
+        id: counterShadowEffect
+        DropShadow {
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 2
+            samples: radius * 2
+            color: Qt.rgba(0, 0, 0, 0.5)
+        }
+    }
+
+    Component {
+        id: errorShadowEffect
+        DropShadow {
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 8
+            samples: 16
+            color: "red"
+            spread: 0.35
+            // transparentBorder: true
         }
     }
 }

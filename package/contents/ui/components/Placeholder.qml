@@ -13,7 +13,7 @@ Item {
     Loader {
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
-        active: sts.updated
+        active: !sts.busy && !sts.count
         sourceComponent: Kirigami.PlaceholderMessage {
             width: parent.width - (Kirigami.Units.largeSpacing * 4)
             icon.name: "checkmark"

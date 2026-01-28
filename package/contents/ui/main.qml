@@ -55,12 +55,8 @@ PlasmoidItem {
         property int count: 0
         property bool busy: false
         property bool upgrading: false
-        property bool refresh: false
         property bool error: !busy && errors.length > 0
-        property bool idle: !busy && !error
-        property bool updated: idle && !count
-        property bool pending: idle && count
-        property bool paused: idle && !scheduler.running
+        property bool paused: !busy && !scheduler.running && cfg.checkMode !== "manual"
         property string statusMsg: ""
         property string statusIco: ""
         property string checktime: ""
@@ -93,7 +89,7 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Upgrade system")
             icon.name: "akonadiconsole"
-            enabled: (cfg.terminal && cfg.tmuxSession && sts.count) || (cfg.terminal && sts.pending)
+            enabled: (cfg.terminal && cfg.tmuxSession && sts.count) || (cfg.terminal && !sts.busy && sts.count)
             onTriggered: JS.upgradeSystem()
         },
         PlasmaCore.Action {

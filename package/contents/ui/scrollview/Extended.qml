@@ -20,13 +20,13 @@ ScrollView {
     contentItem: ListView {
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Highlight { visible: sts.idle }
+        highlight: Highlight { visible: sts.busy }
         highlightMoveDuration: Kirigami.Units.shortDuration
         highlightResizeDuration: Kirigami.Units.shortDuration
         height: parent.height
 
         delegate: ExpandableListItem {
-            visible: sts.pending
+            visible: !sts.busy && sts.count
             property var pkg: []
             allowStyledText: true
             title: model.IM ? "<font color='" + Kirigami.Theme.negativeTextColor + "'><b>" + model.NM + "</b></font>" : model.NM

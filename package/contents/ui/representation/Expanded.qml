@@ -83,7 +83,7 @@ Representation {
                     id: searchButton
                     tooltipText: i18n("Filter by package name")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_search") : "search"
-                    visible: cfg.searchButton && sts.pending
+                    visible: cfg.searchButton && !sts.busy && sts.count
                     enabled: visible && swipeView.currentIndex != 2
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
@@ -97,7 +97,7 @@ Representation {
                     iconSource: cfg.ownIconsUI ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
                                                : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
                     iconColor: sts.paused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
-                    enabled: sts.idle
+                    enabled: !sts.busy
                     visible: enabled && cfg.intervalButton && cfg.checkMode !== "manual"
                     onClicked: JS.switchScheduler()
                 }
@@ -105,7 +105,7 @@ Representation {
                 ToolbarButton {
                     tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
-                    visible: cfg.sortButton && sts.pending
+                    visible: cfg.sortButton && !sts.busy && sts.count
                     enabled: visible && swipeView.currentIndex != 2
                     onClicked: cfg.sorting = !cfg.sorting
                 }
@@ -114,7 +114,7 @@ Representation {
                     id: managementButton
                     tooltipText: i18n("Management")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
-                    enabled: sts.idle && pkg.pacman !== "" && cfg.terminal
+                    enabled: !sts.busy && pkg.pacman !== "" && cfg.terminal
                     visible: enabled && cfg.managementButton
                     onClicked: { buttonTooltip.hide(); JS.management() }
                 }
@@ -123,7 +123,7 @@ Representation {
                     id: upgradeButton
                     tooltipText: i18n("Upgrade system")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_upgrade") : "akonadiconsole"
-                    enabled: sts.pending && cfg.terminal
+                    enabled: !sts.busy && sts.count && cfg.terminal
                     visible: enabled && cfg.upgradeButton
                     onClicked: { buttonTooltip.hide(); JS.upgradeSystem() }
                 }
@@ -139,7 +139,7 @@ Representation {
                 ToolbarButton {
                     tooltipText: i18n("Open settings")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_settings") : "settings-configure"
-                    visible: cfg.settingsButton && !inTray && sts.idle
+                    visible: cfg.settingsButton && !inTray && !sts.busy
                     onClicked: plasmoid.internalAction("configure").trigger()
                 }
 
@@ -248,7 +248,7 @@ Representation {
 
             id: searchField
             clearButtonShown: true
-            visible: searchFieldOpen && sts.pending
+            visible: searchFieldOpen && !sts.busy && sts.count
             placeholderText: i18n("Filter by package name")
             onTextChanged: modelList.setFilterFixedString(text)
         }

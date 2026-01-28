@@ -15,7 +15,6 @@ Rectangle {
     property string position: {
         if (iconName === pausedIcon)   return cfg.pauseBadgePosition
         if (iconName === updatedIcon)  return cfg.updatedBadgePosition
-        if (iconName === errorIcon)    return cfg.updatedBadgePosition
         return "topRight"
     }
 
