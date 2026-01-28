@@ -309,20 +309,19 @@ Representation {
             spacing: Kirigami.Units.largeSpacing * 2
             Layout.fillWidth: true
 
-            Kirigami.Icon {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: Math.round(Kirigami.Units.iconSizes.huge * 1.5)
-                Layout.preferredHeight: Math.round(Kirigami.Units.iconSizes.huge * 1.5)
-                color: Kirigami.Theme.textColor
-                source: "error"
-            }
-            Kirigami.Heading {
-                text: i18np("%1 error occurred", "%1 errors occurred", sts.errors.length)
-                type: Kirigami.Heading.Primary   
-                Layout.fillWidth: true
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                wrapMode: Text.WordWrap
+            RowLayout {
+                Kirigami.Icon {
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                    source: cfg.ownIconsUI ? svg("status_error") : "error"
+                    isMask: cfg.ownIconsUI
+                }
+                Kirigami.Heading {
+                    text: i18np("%1 error occurred", "%1 errors occurred", sts.errors.length)
+                    type: Kirigami.Heading.Primary   
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                }
             }
 
             ScrollView {
@@ -336,7 +335,7 @@ Representation {
                     wrapMode: Text.Wrap
                     font.family: "Monospace"
                     font.pointSize: Kirigami.Theme.smallFont.pointSize
-                    text: sts.errors.map(err => `${err.type}: ${err.message}`).join('\n')
+                    text: sts.errors.map(err => err?.type ? `${err.type}: ${err.message}` : `${err.message}`).join("\n\n")
                     color: Kirigami.Theme.textColor
                 }
             }
@@ -344,7 +343,8 @@ Representation {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 icon.name: "checkmark"
-                text: "Ok"
+                text: "OK"
+                visible: isMainInstance
                 onClicked: {
                     sts.errors = []
                     JS.setStatusBar()
