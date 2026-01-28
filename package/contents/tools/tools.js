@@ -405,9 +405,9 @@ function makeArchList(updates, source) {
             resolve([])
         } else {
             const pkgs = updates.map(l => l.split(' ')[0]).join(' ')
-            execute(`pacman -Sl --dbpath "${cfg.dbPath}"`, (cmd, out, err, code) => {
+            execute(`LC_ALL=C.UTF-8 pacman -Sl --dbpath "${cfg.dbPath}" | awk 'index($0,"[installed:")>0'`, (cmd, out, err, code) => {
                 if (code && handleError(code, err, source, () => resolve([]))) return
-                const repositories = out.trim().split('\n').filter(line => /\[.*\]/.test(line))
+                const repositories = out.trim().split('\n')
 
                 execute("LC_ALL=C.UTF-8 pacman -Qi " + pkgs, (cmd, out, err, code) => {
                     if (code && handleError(code, err, source, () => resolve([]))) return
@@ -430,8 +430,10 @@ function makeArchList(updates, source) {
 
                         const repositoriesMap = new Map()
                         repositories.forEach(line => {
-                            const parts = line.trim().split(/\s+/)
-                            if (parts.length >= 2) repositoriesMap.set(parts[1], parts[0])
+                            const [repo, name] = line.trim().split(/\s+/)
+                            if (!repositoriesMap.has(name)) {
+                                repositoriesMap.set(name, repo)
+                            }
                         })
 
                         const keyMap = {
