@@ -41,6 +41,7 @@ PlasmoidItem {
     property bool isMainInstance: false
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
+    property bool horizontal: plasmoid.location === PlasmaCore.Types.TopEdge || plasmoid.location === PlasmaCore.Types.BottomEdge
     property bool pinned: false
     property var cache: []
     property string checkMode: plasmoid.configuration.checkMode

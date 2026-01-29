@@ -66,24 +66,23 @@
     <group name="Appearance">
         <entry name="relevantIcon" type="int"><default>0</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
-        <entry name="counterOnLeft" type="bool"><default>false</default></entry>
-        <entry name="counterColor" type="string"><default></default></entry>
-        <entry name="counterSize" type="int"><default>0</default></entry>
-        <entry name="counterRadius" type="int"><default>3</default></entry>
-        <entry name="counterOpacity" type="int"><default>8</default></entry>
-        <entry name="counterShadow" type="bool"><default>true</default></entry>
-        <entry name="counterFontFamily" type="string"><default></default></entry>
-        <entry name="counterFontSize" type="int"><default>6</default></entry>
-        <entry name="counterFontBold" type="bool"><default>true</default></entry>
-        <entry name="counterSpacing" type="int"><default>0</default></entry>
-        <entry name="counterMargins" type="int"><default>0</default></entry>
+        <entry name="counterMode" type="string"><default>side</default></entry>
+        <entry name="counterBadgePosition" type="string"><default>topRight</default></entry>
+        <entry name="counterSidePosition" type="string"><default>left</default></entry>
+        <entry name="counterGapsInner" type="int"><default>0</default></entry>
+        <entry name="counterGapsOuter" type="int"><default>0</default></entry>
         <entry name="counterOffsetX" type="int"><default>0</default></entry>
         <entry name="counterOffsetY" type="int"><default>0</default></entry>
+        <entry name="counterColor" type="string"><default></default></entry>
+        <entry name="counterRadius" type="int"><default>3</default></entry>
+        <entry name="counterOpacity" type="int"><default>8</default></entry>
+        <entry name="counterFontFamily" type="string"><default></default></entry>
+        <entry name="counterFontSize" type="int"><default>4</default></entry>
+        <entry name="counterFontBold" type="bool"><default>true</default></entry>
+        <entry name="pauseBadgePosition" type="string"><default>topLeft</default></entry>
+        <entry name="updatedBadgePosition" type="string"><default>topRight</default></entry>
         <entry name="badgeOffsetX" type="int"><default>0</default></entry>
         <entry name="badgeOffsetY" type="int"><default>0</default></entry>
-        <entry name="counterPosition" type="string"><default>topRight</default></entry>
-        <entry name="pauseBadgePosition" type="string"><default>topLeft</default></entry>
-        <entry name="updatedBadgePosition" type="string"><default>bottomRight</default></entry>
         <entry name="ownIconsUI" type="bool"><default>true</default></entry>
         <entry name="defaultTab" type="int"><default>0</default></entry>
         <entry name="switchDefaultTab" type="bool"><default>false</default></entry>

@@ -11,14 +11,9 @@ Rectangle {
 
     property var iconName: ""
     property var iconColor: ""
+    property var position: ""
 
-    property string position: {
-        if (iconName === pausedIcon)   return cfg.pauseBadgePosition
-        if (iconName === updatedIcon)  return cfg.updatedBadgePosition
-        return "topRight"
-    }
-
-    width: (counterOverlay ? trayIconSize : parent.width) / 3
+    width: Math.min(parent.width, parent.height) / 3
     height: width
     radius: width / 2
     color: cfg.counterColor ? cfg.counterColor : Kirigami.Theme.backgroundColor
@@ -30,7 +25,7 @@ Rectangle {
         bottomMargin: state.includes("bottom") ? cfg.badgeOffsetX : 0
     }
 
-    state: position
+    state: position || "topRight"
 
     states: [
         State {
