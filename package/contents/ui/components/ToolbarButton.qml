@@ -1,8 +1,3 @@
-/*
-    SPDX-FileCopyrightText: https://github.com/exequtic/apdatifier
-    SPDX-License-Identifier: MIT
-*/
-
 import QtQuick
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami

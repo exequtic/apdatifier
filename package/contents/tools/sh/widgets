@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-# SPDX-License-Identifier: MIT
-
 source "$(dirname "$0")/utils"
 
 fetch_api_data() {

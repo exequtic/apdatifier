@@ -1,9 +1,3 @@
-/*
-    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-    SPDX-License-Identifier: MIT
-*/
-
-
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

@@ -1,8 +1,3 @@
-/*
-    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-    SPDX-License-Identifier: MIT
-*/
-
 import QtQuick
 import org.kde.notification
 import "../../tools/tools.js" as JS

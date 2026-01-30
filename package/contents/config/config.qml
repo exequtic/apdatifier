@@ -1,8 +1,3 @@
-/*
-    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-    SPDX-License-Identifier: MIT
-*/
-
 import org.kde.plasma.configuration
 
 ConfigModel {

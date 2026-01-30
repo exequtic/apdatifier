@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-# SPDX-License-Identifier: MIT
-
 scriptDir=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
 applet="com.github.exequtic.apdatifier"

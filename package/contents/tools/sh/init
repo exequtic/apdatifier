@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-# SPDX-License-Identifier: MIT
-
 configDir=$HOME/.config/apdatifier
 config=$configDir/config.conf
 test -d $configDir || mkdir -p $configDir

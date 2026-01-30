@@ -1,8 +1,3 @@
-/*
-    SPDX-FileCopyrightText: 2024 Evgeny Kazantsev <exequtic@gmail.com>
-    SPDX-License-Identifier: MIT
-*/
-
 const scriptDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/"
 const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
