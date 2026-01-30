@@ -344,7 +344,6 @@ Representation {
                 Layout.alignment: Qt.AlignHCenter
                 icon.name: "checkmark"
                 text: "OK"
-                visible: isMainInstance
                 onClicked: {
                     sts.errors = []
                     JS.setStatusBar()

@@ -56,7 +56,6 @@ MouseArea {
 
     onPressed: mouse => {
         wasExpanded = expanded
-        if (!isMainInstance && mouse.button == Qt.RightButton) return
         if (!cfg.rightAction && mouse.button == Qt.RightButton) mouse.accepted = false
     }
 
@@ -69,7 +68,6 @@ MouseArea {
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         onWheel: (event) => {
-            if (!isMainInstance) return
             if (scrollTimer.running) return
             scrollTimer.start()
             var action = event.angleDelta.y > 0 ? cfg.scrollUpAction : cfg.scrollDownAction
