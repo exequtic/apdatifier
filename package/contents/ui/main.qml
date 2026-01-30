@@ -29,9 +29,21 @@ PlasmoidItem {
     switchHeight: Kirigami.Units.gridUnit * 16
 
     Plasmoid.busy: plasmoid.location === PlasmaCore.Types.Floating ? false : sts.busy
-    Plasmoid.status: cfg.relevantIcon > 0 ? (sts.count >= cfg.relevantIcon || sts.busy || sts.error) ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.icon: plasmoid.configuration.selectedIcon
+
+    function updatePlasmoidStatus() {
+        if (sts.count >= cfg.hideIconPolicy || sts.busy || sts.error || panelConfigurationMode) {
+            Plasmoid.status = PlasmaCore.Types.ActiveStatus
+        } else {
+            Plasmoid.status = inTray ? PlasmaCore.Types.PassiveStatus : PlasmaCore.Types.HiddenStatus
+        }
+    }
+
+    property int hideIconPolicy: cfg.hideIconPolicy
+    property int countUpdates: sts.count
+    onHideIconPolicyChanged: updatePlasmoidStatus()
+    onCountUpdatesChanged: updatePlasmoidStatus()
 
     toolTipMainText: sts.paused ? i18n("Auto check disabled") : ""
     toolTipSubText: sts.busy ? sts.statusMsg : sts.checktime
@@ -42,6 +54,7 @@ PlasmoidItem {
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
     property bool horizontal: plasmoid.location === PlasmaCore.Types.TopEdge || plasmoid.location === PlasmaCore.Types.BottomEdge
+    property bool panelConfigurationMode: Plasmoid.containment.corona?.editMode ?? false
     property bool pinned: false
     property var cache: []
     property string checkMode: plasmoid.configuration.checkMode

@@ -18,7 +18,7 @@ import org.kde.plasma.core as PlasmaCore
 import "../../tools/tools.js" as JS
 
 SimpleKCM {
-    property alias cfg_relevantIcon: relevantIcon.value
+    property alias cfg_hideIconPolicy: hideIconPolicy.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
 
     property string cfg_pauseBadgePosition: plasmoid.configuration.pauseBadgePosition
@@ -106,24 +106,6 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Shown when")
-            enabled: inTray
-
-            SpinBox {
-                Layout.preferredWidth: Kirigami.Units.gridUnit * 3
-                id: relevantIcon
-                from: 0
-                to: 999
-                stepSize: 1
-                value: relevantIcon.value
-            }
-
-            Label {
-                text: i18np("update is pending ", "updates are pending ", relevantIcon.value)
-            }
-        }
-
         Button {
             id: iconButton
 
@@ -197,6 +179,30 @@ SimpleKCM {
                 text: cfg_selectedIcon === JS.defaultIcon ? i18n("Default icon") : cfg_selectedIcon
                 delay: Kirigami.Units.toolTipDelay
                 visible: iconButton.hovered
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Hide") + ":"
+
+            Label {
+                text: i18n("when less than")
+            }
+
+            SpinBox {
+                Layout.preferredWidth: Kirigami.Units.gridUnit * 3
+                id: hideIconPolicy
+                from: 0
+                to: 999
+                stepSize: 1
+            }
+
+            Label {
+                text: i18np("update", "updates", hideIconPolicy.value)
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("If the widget is on a panel, you can access the hidden icon in Panel Configuration mode.")
             }
         }
 // --------------------------------------------- COUNTER SECTION ------------------------------------------------
