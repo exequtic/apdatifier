@@ -56,8 +56,13 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 <br>
 
 # Requirements
-### Supported pacman wrappers
-paru, yay, pikaur
+# Optional dependencies
+- `paru`, `yay`, `pikaur` - for AUR updates support
+- `flatpak` - for Flatpak updates support
+- `fwupdmgr` - for Firmware updates support
+- `jq` - for KDE Widgets updates and News
+- `tmux` - for upgrade and management in a terminal multiplexer
+- `fzf` - for interactive package selection in management
 
 ### Supported terminals
 alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
