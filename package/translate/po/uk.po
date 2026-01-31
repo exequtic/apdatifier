@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # Yuriy Yasynskyy <yurij.yasinskij@gmail.com>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,7 +287,7 @@ msgstr "Перевірка оновлень віджетів..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "Перевірка оновлень прошивки..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -296,11 +295,11 @@ msgstr "останній внесок"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "Встановлено вручну"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "Встановлено як залежність"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -395,120 +394,9 @@ msgstr "Читати статтю"
 msgid "System updated"
 msgstr "Система оновлена"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Вид іконки на панелі"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Вигляд списку"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Показувати коли"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "оновлення доступне "
-msgstr[1] "оновлення доступно "
-msgstr[2] "оновлень доступно "
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Стандартно"
-
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "Вибрати..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Стандартна іконка"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "Значок паузи"
-
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включити"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "Значок оновлення"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Лічильник"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Колір"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Стандартний колір"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Вибір кольру фону лічильника"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Стандартний колір фону з поточної теми"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Розмір"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Радіус"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Прозорість"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Тінь"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "Шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Стандартний системний шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Жирний шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Розмір шрифту"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "Відступ зліва"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "Відступи збоків"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Зміщення"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Позиція"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "По центру"
+msgid "Disabled"
+msgstr "Відключено"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -525,6 +413,173 @@ msgstr "Знизу-зліва"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "Знизу-зправа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "Іконка на панелі"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "Повний вигляд"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "Іконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Стандартно"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Вибрати..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Стандартна іконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "Приховувати"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "коли менше ніж"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "оновлення"
+msgstr[1] "оновлення"
+msgstr[2] "оновлень"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "If the widget is on a panel, you can access the hidden icon in Panel Configuration mode."
+msgstr "Якщо віджет розміщено на панелі, ви можете отримати доступ до прихованої іконки в режимі налаштування панелі."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "Індикатор зайнятості"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "Спінер"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "Пульсація"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel icon. On the desktop, the busy indicator is always off."
+msgstr "Спінер використовує стандартний індикатор зайнятості Plasmoid. Пульсація анімує іконку на панелі. На робочому столі індикатор зайнятості завжди вимкнений."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Лічильник"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "Режим"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "Вимкн."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "Збоку"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "Значок"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Позиція"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "По центру"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "Ліворуч"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "Праворуч"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "Відступи"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "Внутрішні"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "Зовнішні"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Зміщення"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "Сімейство шрифтів"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Стандартний системний шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Розмір шрифту"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Жирний шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включити"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "Колір значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Стандартний колір"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Вибір кольру фону лічильника"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Стандартний колір фону з поточної теми"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "Радіус значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "Непрозорість значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "Значки на іконці"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "Пауза"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "Оновлено"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -732,7 +787,7 @@ msgstr "<br><br>Для розробників віджетів:<br>Не забу
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "Прошивка"
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
@@ -819,11 +874,11 @@ msgstr "Відновити приховані підказки"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
-msgstr ""
+msgstr "Скинути до типових. Типово шлях такий самий, як у checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "Шлях не повинен містити пробілів"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -978,10 +1033,6 @@ msgid "Generator"
 msgstr "Генератор"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "Відключено"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "Завжди питати"
 
@@ -1022,7 +1073,7 @@ msgstr "Кількість серверів, які будуть записан�
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "Показувати прогрес"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

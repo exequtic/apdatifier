@@ -72,24 +72,20 @@ alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, te
 # Translation
 Feel free to help translate to new languages or update and improve the ones that are already available. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
-### Current status:
-```markdown
-|   Locale  |  Lines  | % Done|
-|-----------|---------|-------|
-| English   |     282 |       |
-| Brazilian | 275/282 |   97% |
-| Chinese   | 275/282 |   97% |
-| Dutch     | 275/282 |   97% |
-| French    | 275/282 |   97% |
-| German    | 275/282 |   97% |
-| Spanish   | 275/282 |   97% |
-| Korean    | 275/282 |   97% |
-| Polish    | 275/282 |   97% |
-| Russian   | 275/282 |   97% |
-| Turkish   | 275/282 |   97% |
-| Ukrainian | 275/282 |   97% |
-|-----------|---------|-------|
-```
+### Available translations:
+- English
+- Brazilian
+- Chinese
+- Dutch
+- French
+- German
+- Spanish
+- Korean
+- Polish
+- Russian
+- Turkish
+- Ukrainian
+
 
 <br>
 

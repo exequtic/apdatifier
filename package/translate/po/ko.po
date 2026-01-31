@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -295,7 +294,7 @@ msgstr "위젯 업데이트 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "펌웨어 업데이트 확인 중..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -303,11 +302,11 @@ msgstr "최신 커밋"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "명시적으로 설치됨"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "의존성으로 설치됨"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -394,119 +393,9 @@ msgid "System updated"
 msgstr "시스템 업데이트됨"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "패널 아이콘 보기"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "목록 보기"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "표시 시기"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "업데이트 대기 중"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "기본"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "선택..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "기본 아이콘"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "일시 중지 배지"
-
-#: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "사용"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "업데이트 배지"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "카운터"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "색상"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "기본 색상"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "카운터 배경 색상 선택"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "현재 테마로부터 기본 배경색 설정"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "크기"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "반경"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "투명도"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "그림자"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "글꼴"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "기본 시스템 글꼴"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "굵은 글꼴"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "글꼴 크기"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "왼쪽 간격"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "측면 여백"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "오프셋"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "위치"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "중앙"
+msgid "Disabled"
+msgstr "비활성화"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -523,6 +412,181 @@ msgstr "좌측 하단"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "우측 하단"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "패널 아이콘"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "전체 보기"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "아이콘"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "기본"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "선택..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "기본 아이콘"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "숨기기"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "다음보다 적을 때"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "업데이트"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr ""
+"위젯이 패널에 있는 경우 패널 설정 모드에서 숨겨진 아이콘에 접근할 수 있습니"
+"다."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "바쁨 표시기"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "스피너"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "펄스"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr ""
+"스피너는 표준 플라스모이드 바쁨 표시기를 사용합니다. 펄스는 패널 아이콘을 애"
+"니메이션으로 표시합니다. 바탕화면에서는 바쁨 표시기가 항상 꺼져 있습니다."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "카운터"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "모드"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "끔"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "측면"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "배지"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "위치"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "중앙"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "왼쪽"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "오른쪽"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "간격"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "안쪽"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "바깥쪽"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "오프셋"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "글꼴 패밀리"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "기본 시스템 글꼴"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "글꼴 크기"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "굵은 글꼴"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "사용"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "배지 색상"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "기본 색상"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "카운터 배경 색상 선택"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "현재 테마로부터 기본 배경색 설정"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "배지 반경"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "배지 불투명도"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "아이콘 배지"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "일시 중지됨"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "업데이트됨"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -754,7 +818,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "펌웨어"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -856,11 +920,11 @@ msgstr "숨겨진 툴팁 복원"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
-msgstr ""
+msgstr "기본값으로 재설정합니다. 기본적으로 경로는 checkupdates와 동일합니다."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "경로에는 공백이 포함될 수 없습니다"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1036,10 +1100,6 @@ msgid "Generator"
 msgstr "생성"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "비활성화"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "항상 묻기"
 
@@ -1078,7 +1138,7 @@ msgstr "미러리스트 파일에 쓸 서버 수. 0은 모두."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "진행 상황 표시"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

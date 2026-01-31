@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # Heimen Stoffels <vistausss@fastmail.com>, 2023.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2025-05-18 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -298,7 +297,7 @@ msgstr "Bezig met controleren op widgetupdates…"
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "Bezig met controleren op firmware-updates…"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -306,11 +305,11 @@ msgstr "recentste commit"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "Expliciet geïnstalleerd"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "Geïnstalleerd als afhankelijkheid"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -404,120 +403,9 @@ msgid "System updated"
 msgstr "Het systeem is bijgewerkt"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Paneelpictogramweergave"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Lijstweergave"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Getoond indien"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "update in de wachtrij "
-msgstr[1] "updates in de wachtrij "
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Standaard"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "Kiezen…"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Standaardpictogram"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "Pauze-embleem"
-
-#: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Inschakelen"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "Bijgewerkt-embleem"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Embleem"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Kleur"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Standaardkleur"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Kies de achtergrondkleur van het embleem"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Standaard achtergrondkleur uit het huidige thema"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Grootte"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Straal"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Doorzichtigheid"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Schaduw"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "Lettertype"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Systeemlettertype"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Vetgedrukt lettertype"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Tekstgrootte"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "Ruimte aan linkerzijde"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "Marges aan zijkanten"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Verschuiving"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Locatie"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "Centreren"
+msgid "Disabled"
+msgstr "Uitgeschakeld"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -534,6 +422,182 @@ msgstr "Linksonder"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "Rechtsonder"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "Paneelpictogram"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "Volledige weergave"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "Pictogram"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Standaard"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Kiezen…"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Standaardpictogram"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "Verbergen"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "wanneer minder dan"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "update"
+msgstr[1] "updates"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr ""
+"Als de widget op een paneel staat, kun je het verborgen pictogram openen in "
+"de paneelconfiguratiemodus."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "Bezig-indicator"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "Spinner"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "Puls"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr ""
+"Spinner gebruikt de standaard bezig-indicator van de plasmoid. Puls animeert "
+"het paneelpictogram. Op het bureaublad staat de bezig-indicator altijd uit."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Embleem"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "Modus"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "Uit"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "Zijkant"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "Badge"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Locatie"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "Centreren"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "Links"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "Rechts"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "Afstanden"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "Binnen"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "Buiten"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Verschuiving"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "Lettertypefamilie"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Systeemlettertype"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Tekstgrootte"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Vetgedrukt lettertype"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Inschakelen"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "Badgekleur"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Standaardkleur"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Kies de achtergrondkleur van het embleem"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Standaard achtergrondkleur uit het huidige thema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "Badgeradius"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "Badge-dekking"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "Pictogrambadges"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "Gepauzeerd"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "Bijgewerkt"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -771,7 +835,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -876,10 +940,12 @@ msgstr "Verborgen hulpballonnen herstellen"
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
 msgstr ""
+"Terugzetten naar standaard. Standaard is het pad hetzelfde als bij "
+"checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "Pad mag geen spaties bevatten"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1060,10 +1126,6 @@ msgid "Generator"
 msgstr "Genereren"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "Altijd vragen"
 
@@ -1103,7 +1165,7 @@ msgstr "Het aantal servers dat in het bestand moet worden opgenomen. 0 = alle."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "Voortgang tonen"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

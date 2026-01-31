@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # João Victor Leal <victorsouzaleal@gmail.com>, 2024.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -298,7 +297,7 @@ msgstr "Verificando atualizações de widgets..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "Verificando atualizações de firmware..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -306,11 +305,11 @@ msgstr "último commit"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "Instalado explicitamente"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "Instalado como dependência"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -404,120 +403,9 @@ msgid "System updated"
 msgstr "Sistema atualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Visualização de ícone do painel"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Visualização de lista"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Mostrado quando"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "atualização está pendente "
-msgstr[1] "atualizações estão pendentes "
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Padrão"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "Selecione..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Ícone padrão"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "Emblema de pausa"
-
-#: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Habilitar"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "Emblema de atualizado"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Contador"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Cor"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Cor padrão"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Selecione a cor de fundo do contador"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Cor de fundo padrão do tema atual"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Tamanho"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Raio"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Opacidade"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Sombra"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "Fonte"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Fonte padrão do sistema"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Fonte em negrito"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Tamanho da fonte"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "Espaçamento à esquerda"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "Margens laterais"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Deslocar"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Posição"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "Centro"
+msgid "Disabled"
+msgstr "Desativado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -534,6 +422,183 @@ msgstr "Canto inferior esquerdo"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "Canto inferior direito"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "Ícone do painel"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "Visualização completa"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "Ícone"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Padrão"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Selecione..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Ícone padrão"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "Ocultar"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "quando houver menos de"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "atualização"
+msgstr[1] "atualizações"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr ""
+"Se o widget estiver em um painel, você pode acessar o ícone oculto no modo "
+"de Configuração do painel."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "Indicador de atividade"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "Spinner"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "Pulso"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr ""
+"Spinner usa o indicador de atividade padrão do Plasmoid. Pulso anima o ícone "
+"do painel. Na área de trabalho, o indicador de atividade fica sempre "
+"desligado."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Contador"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "Modo"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "Desligado"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "Lado"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "Emblema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Posição"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "Centro"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "Esquerda"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "Direita"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "Espaçamento"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "Interno"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "Externo"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Deslocar"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "Família de fontes"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Fonte padrão do sistema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Tamanho da fonte"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Fonte em negrito"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Habilitar"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "Cor do emblema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Cor padrão"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Selecione a cor de fundo do contador"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Cor de fundo padrão do tema atual"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "Raio do emblema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "Opacidade do emblema"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "Emblemas do ícone"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "Pausado"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "Atualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -771,7 +836,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -878,10 +943,12 @@ msgstr "Restaurar dicas de ferramentas ocultas"
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
 msgstr ""
+"Restaurar para o padrão. Por padrão, o caminho é o mesmo usado pelo "
+"checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "O caminho não deve conter espaços"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1062,10 +1129,6 @@ msgid "Generator"
 msgstr "Gerador"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "Desativado"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "Perguntar sempre"
 
@@ -1105,7 +1168,7 @@ msgstr "Número de servidores para gravar no arquivo mirrorlist. 0 para todos."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "Mostrar progresso"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # Evgeniy Kazantsev <exequtic@gmail.com>, 2023.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -296,7 +295,7 @@ msgstr "Проверка обновлений виджетов..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "Проверка обновлений прошивки..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -304,11 +303,11 @@ msgstr "последний коммит"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "Установлено явно"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "Установлено как зависимость"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -409,121 +408,9 @@ msgid "System updated"
 msgstr "Система обновлена"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Вид иконки на панели"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Вид списка"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Показывать когда"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "обновление доступно "
-msgstr[1] "обновления доступно "
-msgstr[2] "обновлений доступно "
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Стандартная"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "Выбрать..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Стандартная иконка"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "Значок паузы"
-
-#: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включить"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "Значок обновления"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Счетчик"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Стандартный цвет"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Выбор цвета для фона счетчика"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Стандартный цвет фона из текущей темы"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Размер"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Радиус"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Непрозрачность"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Тень"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "Шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Стандартный системный шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Жирный шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Размер шрифта"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "Отступ слева"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "Боковые отступы"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Смещение"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Позиция"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "По центру"
+msgid "Disabled"
+msgstr "Отключено"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -540,6 +427,184 @@ msgstr "Снизу-слева"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "Снизу-справа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "Иконка на панели"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "Полный вид"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "Иконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Стандартная"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Выбрать..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Стандартная иконка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "Скрывать"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "когда меньше чем"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "обновление"
+msgstr[1] "обновления"
+msgstr[2] "обновлений"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr ""
+"Если виджет расположен на панели, к скрытой иконке можно получить доступ в "
+"режиме настройки панели."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "Индикатор занятости"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "Спиннер"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "Пульсация"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr ""
+"Спиннер использует стандартный индикатор занятости Plasmoid. Пульсация "
+"анимирует иконку на панели. На рабочем столе индикатор занятости всегда "
+"выключен."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Счетчик"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "Режим"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "Выкл."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "Сбоку"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "Значок"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Позиция"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "По центру"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "Слева"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "Справа"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "Отступы"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "Внутренний"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "Внешний"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Смещение"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "Семейство шрифтов"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Стандартный системный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Размер шрифта"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Жирный шрифт"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включить"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "Цвет значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Стандартный цвет"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Выбор цвета для фона счетчика"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Стандартный цвет фона из текущей темы"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "Радиус значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "Непрозрачность значка"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "Значки на иконке"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "Пауза"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "Обновлено"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -775,7 +840,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "Прошивка"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -881,10 +946,12 @@ msgstr "Восстановить скрытые подсказки"
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
 msgstr ""
+"Сбросить к значению по умолчанию. По умолчанию путь совпадает с используемым "
+"в checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "Путь не должен содержать пробелов"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1065,10 +1132,6 @@ msgid "Generator"
 msgstr "Генератор"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "Отключено"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "Всегда спрашивать"
 
@@ -1111,7 +1174,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "Показывать прогресс"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

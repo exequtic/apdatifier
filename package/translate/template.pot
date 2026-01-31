@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -388,118 +388,8 @@ msgstr ""
 msgid "System updated"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr ""
-
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
+msgid "Disabled"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -516,6 +406,172 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "If the widget is on a panel, you can access the hidden icon in Panel Configuration mode."
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel icon. On the desktop, the busy indicator is always off."
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -968,10 +1024,6 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml

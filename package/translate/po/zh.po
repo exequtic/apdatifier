@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the apdatifier package.
 # Mill Haruto <mill413@outlook.com>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -292,7 +291,7 @@ msgstr "正在检查挂件更新..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "正在检查固件更新..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -300,11 +299,11 @@ msgstr "最新提交"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "显式安装"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "作为依赖安装"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -391,119 +390,9 @@ msgid "System updated"
 msgstr "系统已更新"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "面板图标视图"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "列表视图"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "当有"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "个更新待处理时显示"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "默认"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "选择..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "默认图标"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "暂停徽章"
-
-#: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "启用"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "已更新徽章"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "计数器"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "颜色"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "默认颜色"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "选择计数器背景颜色"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "来自当前主题的默认背景颜色"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "大小"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "圆角半径"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "不透明度"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "阴影"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "字体"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "默认系统字体"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "字体加粗"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "字体大小"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "左间距"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "侧边距"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "偏移"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "位置"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "中间"
+msgid "Disabled"
+msgstr "已禁用"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -520,6 +409,179 @@ msgstr "左下"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "右下"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "面板图标"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "完整视图"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "图标"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "默认"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "选择..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "默认图标"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "隐藏"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "当少于"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "更新"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr "如果该小部件位于面板上，你可以在“面板配置”模式下访问隐藏的图标。"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "忙碌指示器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "旋转指示器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "脉冲"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr ""
+"旋转指示器使用标准的 Plasmoid 忙碌指示器。脉冲会为面板图标添加动画。在桌面"
+"上，忙碌指示器始终关闭。"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "计数器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "模式"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "关闭"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "侧边"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "徽章"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "位置"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "中间"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "左侧"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "右侧"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "间距"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "内侧"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "外侧"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "偏移"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "字体"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "默认系统字体"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "字体大小"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "字体加粗"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "启用"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "徽章颜色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "默认颜色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "选择计数器背景颜色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "来自当前主题的默认背景颜色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "徽章半径"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "徽章不透明度"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "图标徽章"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "已暂停"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "已更新"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -748,7 +810,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "固件"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -846,11 +908,11 @@ msgstr "恢复隐藏的工具提示"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
-msgstr ""
+msgstr "重置为默认值。默认情况下，该路径与 checkupdates 使用的相同。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "路径不得包含空格"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1024,10 +1086,6 @@ msgid "Generator"
 msgstr "生成器"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "已禁用"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "始终询问"
 
@@ -1066,7 +1124,7 @@ msgstr "写入镜像列表文件的服务器数量。 0 表示全部服务器。
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "显示进度"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"

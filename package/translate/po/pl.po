@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-02 16:32+0300\n"
+"POT-Creation-Date: 2026-01-31 12:59+0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -288,7 +288,7 @@ msgstr "Sprawdzanie aktualizacji widżetów..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr ""
+msgstr "Sprawdzanie aktualizacji oprogramowania układowego..."
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -296,11 +296,11 @@ msgstr "najnowszy commit"
 
 #: ../contents/tools/tools.js
 msgid "Explicitly installed"
-msgstr ""
+msgstr "Zainstalowano ręcznie"
 
 #: ../contents/tools/tools.js
 msgid "Installed as a dependency"
-msgstr ""
+msgstr "Zainstalowano jako zależność"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -395,120 +395,9 @@ msgstr "Przeczytaj artykuł"
 msgid "System updated"
 msgstr "System zaktualizowany"
 
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Panel Icon View"
-msgstr "Widok ikon panelu"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "List View"
-msgstr "Widok listy"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shown when"
-msgstr "Pokazano, gdy"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "update is pending "
-msgid_plural "updates are pending "
-msgstr[0] "aktualizacja oczekuje "
-msgstr[1] "aktualizacje oczekują "
-msgstr[2] "aktualizacji oczekuje "
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default"
-msgstr "Domyślnie"
-
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
-msgid "Select..."
-msgstr "Wybierz..."
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default icon"
-msgstr "Ikona domyślna"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Pause badge"
-msgstr "Odznaka pauzy"
-
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Włącz"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Updated badge"
-msgstr "Odznaka zaktualizowane"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Counter"
-msgstr "Licznik"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Color"
-msgstr "Kolor"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default color"
-msgstr "Domyślny kolor"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Select counter background color"
-msgstr "Wybierz kolor tła licznika"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default background color from current theme"
-msgstr "Domyślny kolor tła z bieżącego motywu"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Size"
-msgstr "Rozmiar"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Radius"
-msgstr "Promień"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Opacity"
-msgstr "Przezroczystość"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Shadow"
-msgstr "Cień"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font"
-msgstr "Czcionka"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Domyślna czcionka systemowa"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Czcionka pogrubiona"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Rozmiar czcionki"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Left spacing"
-msgstr "Lewy odstęp"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Side margins"
-msgstr "Marginesy boczne"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Offset"
-msgstr "Przesunięcie"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Position"
-msgstr "Pozycja"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Center"
-msgstr "Środek"
+msgid "Disabled"
+msgstr "Wyłączone"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Top-Left"
@@ -525,6 +414,173 @@ msgstr "Lewy dolny"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Bottom-Right"
 msgstr "Prawy dolny"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "Ikona panelu"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "Pełny widok"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "Ikona"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "Domyślnie"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "Wybierz..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "Ikona domyślna"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "Ukryj"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "gdy mniej niż"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "aktualizacja"
+msgstr[1] "aktualizacje"
+msgstr[2] "aktualizacji"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "If the widget is on a panel, you can access the hidden icon in Panel Configuration mode."
+msgstr "Jeśli widget znajduje się na panelu, możesz uzyskać dostęp do ukrytej ikony w trybie konfiguracji panelu."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "Wskaźnik zajętości"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "Spinner"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "Puls"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel icon. On the desktop, the busy indicator is always off."
+msgstr "Spinner używa standardowego wskaźnika zajętości plasmoidu. Puls animuje ikonę panelu. Na pulpicie wskaźnik zajętości jest zawsze wyłączony."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "Licznik"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "Tryb"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "Wył."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "Bok"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "Odznaka"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "Pozycja"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "Środek"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "Lewo"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "Prawo"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "Odstępy"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "Wewnętrzne"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "Zewnętrzne"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "Przesunięcie"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "Rodzina czcionek"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "Domyślna czcionka systemowa"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "Rozmiar czcionki"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "Czcionka pogrubiona"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Włącz"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "Kolor odznaki"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "Domyślny kolor"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "Wybierz kolor tła licznika"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "Domyślny kolor tła z bieżącego motywu"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "Promień odznaki"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "Przezroczystość odznaki"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "Odznaki ikony"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "Wstrzymano"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "Zaktualizowano"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Use built-in icons"
@@ -732,7 +788,7 @@ msgstr "<br><br>Dla twórców widżetów:<br>Nie zapomnij zaktualizować pliku m
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr ""
+msgstr "Oprogramowanie układowe"
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "News"
@@ -819,11 +875,11 @@ msgstr "Przywróć ukryte podpowiedzi"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
-msgstr ""
+msgstr "Przywróć domyślne. Domyślnie ścieżka jest taka sama jak w checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr ""
+msgstr "Ścieżka nie może zawierać spacji"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -978,10 +1034,6 @@ msgid "Generator"
 msgstr "Generator"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Disabled"
-msgstr "Wyłączone"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
 msgstr "Zawsze pytaj"
 
@@ -1022,7 +1074,7 @@ msgstr "Liczba serwerów do zapisania w pliku mirrorlist. 0 dla wszystkich."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Show progress"
-msgstr ""
+msgstr "Pokaż postęp"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Country"
