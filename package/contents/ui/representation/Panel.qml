@@ -21,6 +21,9 @@ MouseArea {
     readonly property bool pauseBadgeEnabled: plasmoid.configuration.pauseBadgePosition !== "disabled"
     readonly property bool updatedBadgeEnabled: plasmoid.configuration.updatedBadgePosition !== "disabled"
 
+    readonly property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
+    readonly property bool pulseActive: (plasmoid.configuration.busyIndicator === "pulse") && sts.busy && !onDesktop
+
     function darkColor(color) {
         return Kirigami.ColorUtils.brightnessForColor(color) === Kirigami.ColorUtils.Dark
     }
@@ -112,6 +115,11 @@ MouseArea {
                         active: sts.init
                     }
                 }
+
+                QQC.Pulse {
+                    target: panelIcon
+                    running: mouseArea.pulseActive
+                }
             }
 
             Item {
@@ -154,6 +162,11 @@ MouseArea {
 
                     layer.enabled: sts.error
                     layer.effect: sts.error ? errorShadowEffect : null
+                }
+
+                QQC.Pulse {
+                    target: trayIcon
+                    running: mouseArea.pulseActive
                 }
 
                 Rectangle {
@@ -249,7 +262,7 @@ MouseArea {
         DropShadow {
             horizontalOffset: 0
             verticalOffset: 0
-            radius: 8
+            radius: 6
             samples: 16
             color: "red"
             spread: 0.35

@@ -22,7 +22,7 @@ PlasmoidItem {
     switchWidth: Kirigami.Units.gridUnit * 24
     switchHeight: Kirigami.Units.gridUnit * 16
 
-    Plasmoid.busy: plasmoid.location === PlasmaCore.Types.Floating ? false : sts.busy
+    Plasmoid.busy: plasmoid.location === PlasmaCore.Types.Floating ? false : ((cfg.busyIndicator || "spinner") === "spinner" ? sts.busy : false)
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.icon: plasmoid.configuration.selectedIcon
 

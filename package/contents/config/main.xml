@@ -61,6 +61,7 @@
     <group name="Appearance">
         <entry name="hideIconPolicy" type="int"><default>0</default></entry>
         <entry name="selectedIcon" type="string"><default>apdatifier-plasmoid</default></entry>
+        <entry name="busyIndicator" type="string"><default>spinner</default></entry>
         <entry name="counterMode" type="string"><default>side</default></entry>
         <entry name="counterBadgePosition" type="string"><default>topRight</default></entry>
         <entry name="counterSidePosition" type="string"><default>left</default></entry>

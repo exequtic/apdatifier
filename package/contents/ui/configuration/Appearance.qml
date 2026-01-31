@@ -15,6 +15,7 @@ import "../../tools/tools.js" as JS
 SimpleKCM {
     property alias cfg_hideIconPolicy: hideIconPolicy.value
     property string cfg_selectedIcon: plasmoid.configuration.selectedIcon
+    property string cfg_busyIndicator: plasmoid.configuration.busyIndicator
 
     property string cfg_pauseBadgePosition: plasmoid.configuration.pauseBadgePosition
     property string cfg_updatedBadgePosition: plasmoid.configuration.updatedBadgePosition
@@ -200,7 +201,51 @@ SimpleKCM {
                 toolTipText: i18n("If the widget is on a panel, you can access the hidden icon in Panel Configuration mode.")
             }
         }
-// --------------------------------------------- COUNTER SECTION ------------------------------------------------
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Busy indicator") + ":"
+
+            RowLayout {
+                spacing: Kirigami.Units.largeSpacing
+
+                ButtonGroup {
+                    id: busyIndicatorGroup
+                    onCheckedButtonChanged: {
+                        if (checkedButton) {
+                            cfg_busyIndicator = checkedButton.modeValue
+                        }
+                    }
+                }
+
+                RadioButton {
+                    text: i18n("Spinner")
+                    property string modeValue: "spinner"
+                    ButtonGroup.group: busyIndicatorGroup
+                }
+
+                RadioButton {
+                    text: i18n("Pulse")
+                    property string modeValue: "pulse"
+                    ButtonGroup.group: busyIndicatorGroup
+                }
+
+                Component.onCompleted: {
+                    const current = plasmoid.configuration.busyIndicator || "spinner"
+                    for (let i = 0; i < busyIndicatorGroup.buttons.length; ++i) {
+                        const b = busyIndicatorGroup.buttons[i]
+                        if (b.modeValue === current) {
+                            b.checked = true
+                            break
+                        }
+                    }
+                }
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel icon. On the desktop, the busy indicator is always off.")
+            }
+        }
+
         Kirigami.Separator {
             Kirigami.FormData.label: i18n("Counter")
             Kirigami.FormData.isSection: true
@@ -486,7 +531,7 @@ SimpleKCM {
                 text: counterOpacity.value / 10
             }
         }
-// --------------------------------------------- BADGES SECTION ------------------------------------------------
+
         Kirigami.Separator {
             Kirigami.FormData.label: i18n("Icon Badges")
             Kirigami.FormData.isSection: true
@@ -535,7 +580,7 @@ SimpleKCM {
             }
         }
     }
-// --------------------------------------------- ------------------------------------------------
+
     Kirigami.FormLayout {
         id: listViewTab
         visible: currentTab === 1
