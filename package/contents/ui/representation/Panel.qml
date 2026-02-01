@@ -35,7 +35,8 @@ MouseArea {
     readonly property string updatedIcon: cfg.ownIconsUI ? "status_updated" : "checkmark"
     readonly property string pausedIcon: cfg.ownIconsUI ? "toolbar_pause" : "media-playback-paused"
 
-    readonly property real iconSize: horizontal ? parent.height : parent.width
+    readonly property real panelIconSize: horizontal ? parent.height : parent.width
+    readonly property real iconSize: inTray ? Math.min(parent.width, parent.height) : panelIconSize
     readonly property real counterPixelSize: Math.max(iconSize / 4, iconSize * (cfg.counterFontSize / 10))
 
     implicitHeight: iconSize
