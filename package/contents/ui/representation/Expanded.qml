@@ -13,7 +13,7 @@ import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
 Representation {
-    property string currVersion: "v2.9.7"
+    property string currVersion: "v2.9.7.1"
     property bool searchFieldOpen: false
     property bool expanded: root.expanded
     onExpandedChanged: {
