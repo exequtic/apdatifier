@@ -135,7 +135,6 @@ MouseArea {
                 font.pixelSize: Math.round(mouseArea.counterPixelSize)
                 font.bold: cfg.counterFontBold
                 fontSizeMode: Text.FixedSize
-                antialiasing: false
                 text: sts.count
             }
 
@@ -224,7 +223,6 @@ MouseArea {
                     font.pixelSize: Math.round(mouseArea.counterPixelSize)
                     font.bold: cfg.counterFontBold
                     color: cfg.counterColor ? (mouseArea.darkColor(counterFrame.color) ? mouseArea.lightText : mouseArea.darkText) : Kirigami.Theme.textColor
-                    antialiasing: false
                     visible: counterFrame.visible
                 }
 
