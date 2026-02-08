@@ -282,7 +282,7 @@ function checkUpdates() {
         const next = () => cfg.flatpak ? checkFlatpak() : cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Checking AUR updates...")
-        const cmdArg = cfg.wrapper === "pikaur" ? " -Qua --noconfirm 2>&1 | grep -- '->' | awk '{$1=$1}1'" : " -Qua"
+        const cmdArg = cfg.wrapper === "pikaur" ? " -Qua --noconfirm" : " -Qua"
         execute(cfg.wrapper + cmdArg, (cmd, out, err, code) => {
             if (handleError(code, err, "aur", next)) return
             const updates = out ? out.trim().split("\n") : []
@@ -399,7 +399,14 @@ function makeArchList(updates, source) {
         if (updates.length === 0) {
             resolve([])
         } else {
-            const pkgs = updates.map(l => l.split(' ')[0]).join(' ')
+            const updateRe = /^([A-Za-z0-9@._+-]+)\s+(\S+)\s+->\s+(\S+)/
+            const parsed = updates.map(l => l.trim()).map(l => l.match(updateRe)).filter(Boolean)
+            if (parsed.length === 0) {
+                resolve([])
+                return
+            }
+
+            const pkgs = parsed.map(m => m[1]).join(' ')
             execute(`LC_ALL=C.UTF-8 pacman -Sl --dbpath "${cfg.dbPath}" | awk 'index($0,"[installed:")>0'`, (cmd, out, err, code) => {
                 if (code && handleError(code, err, source, () => resolve([]))) return
                 const repositories = out.trim().split('\n')
@@ -418,10 +425,7 @@ function makeArchList(updates, source) {
                              .forEach(([name, icon]) => iconsMap.set(name, icon))
 
                         const versionsMap = new Map()
-                        updates.forEach(update => {
-                            const [name, currentVer, , newVer] = update.split(' ')
-                            versionsMap.set(name, { currentVer, newVer })
-                        })
+                        parsed.forEach(m => versionsMap.set(m[1], { currentVer: m[2], newVer: m[3] }))
 
                         const repositoriesMap = new Map()
                         repositories.forEach(line => {
@@ -462,9 +466,9 @@ function makeArchList(updates, source) {
 
                             if (iconsMap.has(pkg.NM)) pkg.IN = iconsMap.get(pkg.NM)
 
-                            const versions = versionsMap.get(pkg.NM)
-                            pkg.VO = versions.currentVer
-                            pkg.VN = (versions.newVer === "latest-commit") ? i18n("latest commit") : versions.newVer
+                            const versions = versionsMap.get(pkg.NM) || {}
+                            pkg.VO = versions.currentVer || ""
+                            pkg.VN = (versions.newVer === "latest-commit") ? i18n("latest commit") : (versions.newVer || "")
                             pkg.RE = repositoriesMap.get(pkg.NM) || (pkg.NM.endsWith("-git") || pkg.VN === i18n("latest commit") ? "devel" : "aur")
                             pkg.RN = pkg.RN.includes("Explicitly") ? i18n("Explicitly installed") : i18n("Installed as a dependency")
 
