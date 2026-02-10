@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: version_or_commit
+    attributes:
+      label: Version or commit
+      description: Please provide the widget version or a commit hash.
+      placeholder: "vX.Y.Z or commit SHA"
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: Describe the issue clearly and concisely.
+      placeholder: "What happened? What is broken?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide a numbered list of steps to reproduce the problem.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      placeholder: "Expected result..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+      placeholder: "Actual result..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs_and_screenshots
+    attributes:
+      label: plasmashell logs / screenshots (optional)
+      description: |
+        Attach screenshots if helpful, and/or paste plasmashell logs.
+        - Journal logs: `journalctl -f | grep apdatifier`
+      placeholder: |
+        Paste logs here or drop screenshots.
+      render: shell
+    validations:
+      required: false

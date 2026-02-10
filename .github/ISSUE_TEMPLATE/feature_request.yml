@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an idea or improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: feature_summary
+    attributes:
+      label: Feature summary
+      description: Describe the feature you want and why it matters.
+      placeholder: "What do you want to be added/changed?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_or_use_case
+    attributes:
+      label: Problem / use case
+      description: What problem does this solve? Describe your workflow or scenario.
+      placeholder: "As a user, I want ... so that ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+      description: How should it work? If you have UI/behavior details, include them.
+      placeholder: "Describe the desired behavior/UI..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or workarounds you tried?
+      placeholder: "Other approaches, existing workarounds..."
+    validations:
+      required: false
