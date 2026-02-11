@@ -26,7 +26,24 @@ const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const runInTerminal = (script, ...args) => {
     execute('kstart ' + bash('terminal', script, ...args))
-    script === "upgrade" && upgradeTimer.start()
+    if (script === "upgrade") {
+        runLater(5000, () => upgradeTimer.start())
+        scheduler.stop()
+        sts.busy = sts.upgrading = true
+        sts.statusMsg = i18n("Upgrade in progress") + "..."
+        sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+    }
+
+}
+
+function runLater(ms, fn) {
+    const timer = Qt.createQmlObject('import QtQuick 2.0; Timer { repeat: false }', parent)
+    timer.interval = ms
+    timer.triggered.connect(() => {
+         fn()
+         timer.destroy()
+    })
+    timer.start()
 }
 
 const debug = true
@@ -174,17 +191,9 @@ function management() {
 
 
 function upgradingState() {
-    const checkProc = `ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade"`
+    const checkProc = `pgrep -f "apdatifier.*upgrade*"`
     execute(checkProc, (cmd, out, err, code) => {
-        const state = !!(out || err)
-        sts.busy = sts.upgrading = state
-
-        if (state) {
-            upgradeTimer.start()
-            scheduler.stop()
-            sts.statusMsg = i18n("Upgrade in progress") + "..."
-            sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
-        } else {
+        if (!out) {
             upgradeTimer.stop()
             execute(bash('utils', "currentVersions"), (cmd, out, err, code) => {
                 if (Error(code, err)) return
@@ -199,6 +208,7 @@ function upgradingState() {
                     refreshListModel()
                     saveCache(cache)
                 }
+                sts.busy = sts.upgrading = false
                 setStatusBar()
                 resumeScheduler()
             })
