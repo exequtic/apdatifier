@@ -212,6 +212,12 @@ function upgradingState() {
                 setStatusBar()
                 resumeScheduler()
             })
+        } else {
+            scheduler.stop()
+            upgradeTimer.start()
+            sts.busy = sts.upgrading = true
+            sts.statusMsg = i18n("Upgrade in progress") + "..."
+            sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
         }
     })
 }
