@@ -8,7 +8,7 @@ ConfigModel {
     }
 
     ConfigCategory {
-         name: i18n("Upgrade")
+         name: i18n("Upgrade & Management")
          icon: "preferences-system-startup"
          source: "configuration/Upgrade.qml"
     }

@@ -13,6 +13,11 @@ SimpleKCM {
     property alias cfg_tmuxSession: tmuxSession.checked
     property alias cfg_idleInhibit: idleInhibit.checked
     property alias cfg_termFont: termFont.checked
+    property alias cfg_mngHideFlatpak: mngHideFlatpak.checked
+    property alias cfg_mngHideHeaders: mngHideHeaders.checked
+    property alias cfg_mngHideHelp: mngHideHelp.checked
+    property alias cfg_mngHideNums: mngHideNums.checked
+    property alias cfg_fzfOptions: fzfOptions.text
 
     property string cfg_wrapper: plasmoid.configuration.wrapper
     property alias cfg_archFlags: archFlags.text
@@ -195,6 +200,48 @@ SimpleKCM {
 
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n("Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else.")
+            }
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Management")
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            id: mngHideFlatpak
+            text: i18n("No Flatpak options")
+        }
+        CheckBox {
+            id: mngHideHeaders
+            text: i18n("Hide headers")
+        }
+        CheckBox {
+            id: mngHideHelp
+            text: i18n("Hide help")
+        }
+        CheckBox {
+            id: mngHideNums
+            text: i18n("Hide option numbers")
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Fzf options") + ":"
+
+            TextField {
+                id: fzfOptions
+                placeholderText: "--style full --layout default"
+                placeholderTextColor: "grey"
+                Layout.preferredWidth: 250
+                onTextChanged: {
+                    var sanitized = fzfOptions.text.replace(/["'\\$`\n\r]/g, "")
+                    if (sanitized !== fzfOptions.text)
+                        fzfOptions.text = sanitized
+                }
+            }
+
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("Override default fzf options.<br>See <b>fzf --help</b> for available options.")
             }
         }
     }

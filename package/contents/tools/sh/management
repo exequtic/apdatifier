@@ -2,156 +2,372 @@
 
 source "$(dirname "$0")/utils"
 
-trap '' SIGINT
-
 [ "$1" ] && selected="$1" || selected=0
 
-[[ $aur != true || -z $wrapper ]] && wrapper="pacman"
-wrapper="${wrapper##*/}"; wrapper_sudo=$wrapper
-[[ $wrapper = "pacman" ]] && wrapper_sudo="$sudoBin pacman"
+if [[ $aur != true || -z $wrapper ]]; then
+    wrapper="pacman"
+    wrapper_sudo="$sudoBin $wrapper"
+else
+    wrapper="${wrapper##*/}"
+    wrapper_sudo=$wrapper
+fi
 
-returnMenu() {
-    printReturn
-    showOptions $selected
-    exit
+if [[ $termFont = "true" ]]; then
+    ICO_MNG_01="󱝩"
+    ICO_MNG_02="󱝕"
+    ICO_MNG_03="󱝭"
+    ICO_MNG_04="󱝧"
+    ICO_MNG_05="󱝥"
+    ICO_MNG_06="󱝝"
+    ICO_MNG_07=""
+    ICO_MNG_08="󱘴"
+    ICO_MNG_09="󰌠"
+    ICO_MNG_10="󱝏"
+    ICO_MNG_11="󰏖"
+    ICO_MNG_12="󱧕"
+    ICO_MNG_13="󱝑"
+fi
+
+fzf_settings="--preview-window=right:70%,border-none \
+              --height=100% \
+              --margin=0 \
+              --padding=0 \
+              --layout=reverse \
+              --style minimal \
+              --color dark \
+              --multi \
+              --track \
+              --exact \
+              --cycle \
+              --no-separator \
+              --info=right \
+              --marker=•"
+
+[[ -n "$fzfOptions" ]] && fzf_settings+=" $fzfOptions"
+
+show_help=false
+
+
+showMenu() {
+    menu_type=$1
+    opts=()
+
+    case $menu_type in
+        main)
+            opts+=("$ICO_MNG_01 $MNG_BROWSE")
+            opts+=("$ICO_MNG_02 $MNG_INST")
+            opts+=("$ICO_MNG_03 $MNG_EXPL")
+            opts+=("$ICO_MNG_04 $MNG_ORPH")
+            opts+=("$ICO_MNG_05 $MNG_DOWNGR")
+            opts+=("$ICO_MNG_06 $MNG_CACHE")
+            opts+=("$ICO_MNG_05 $MNG_REBUILD")
+            opts+=("$ICO_MNG_08 $MNG_MIRROR")
+            opts+=("$ICO_MNG_10 $MNG_RECENT")
+            redraw
+            case $selected in
+                0) [[ $mngHideFlatpak = true ]] && fzfExec Slq || showMenu browse;;
+                1) [[ $mngHideFlatpak = true ]] && fzfExec Qq || showMenu installed;;
+                2) showMenu explicit;;
+                3) showMenu orphans;;
+                4) downgrade;;
+                5) showMenu cache;;
+                6) showMenu rebuild;;
+                7) tui_exit; exec $scriptDir/mirrorlist menu $selected;;
+                8) recentlyInstalled;;
+                9) showMenu main;;
+            esac
+            ;;
+        browse)
+            selected=0
+            opts+=("$ICO_MNG_11 pacman repositories")
+            opts+=("$ICO_MNG_11 flathub")
+            redraw
+            case $selected in
+                0) fzfExec Slq;;
+                1) flatpakFlathub;;
+                2) selected=0; showMenu main;;
+            esac
+            ;;
+        installed)
+            selected=0
+            opts+=("$ICO_MNG_11 pacman")
+            opts+=("$ICO_MNG_11 flatpak")
+            redraw
+            case $selected in
+                0) fzfExec Qq;;
+                1) flatpakInstalled;;
+                2) selected=1; showMenu main;;
+            esac
+            ;;
+        explicit)
+            selected=0
+            opts+=("$ICO_MNG_03 $MNG_EXPL_L")
+            opts+=("$ICO_MNG_04 $MNG_EXPL_U")
+            redraw
+            case $selected in
+                0) fzfExec Qqe;;
+                1) fzfExec Qqet;;
+                2) selected=2; showMenu main;;
+            esac
+            ;;
+        orphans)
+            selected=0
+            opts+=("$ICO_MNG_06 $MNG_ORPH_L")
+            opts+=("$ICO_MNG_07 $MNG_ORPH_R")
+            redraw
+            case $selected in
+                0) fzfExec Qqtd;;
+                1) uninstallOrphans;;
+                2) selected=3; showMenu main;;
+            esac
+            ;;
+        cache)
+            selected=0
+            opts+=("$ICO_MNG_07 $MNG_CACHE_A")
+            opts+=("$ICO_MNG_06 $MNG_CACHE_U")
+            redraw
+            case $selected in
+                0) cleanCache Scc;;
+                1) cleanCache Sc;;
+                2) selected=5; showMenu main;;
+            esac
+            ;;
+        rebuild)
+            selected=0
+            opts+=("$ICO_MNG_05 $MNG_REBUILD_A")
+            opts+=("$ICO_MNG_09 $MNG_REBUILD_P")
+            redraw
+            case $selected in
+                0) fzfExec Qqm;;
+                1) rebuildPython;;
+                2) selected=6; showMenu main;;
+            esac
+            ;;
+    esac
 }
 
-options=(
-    "${ICO_MNG_OPT_01}${MNG_OPT_01}"
-    "${ICO_MNG_OPT_02}${MNG_OPT_02}"
-    "${ICO_MNG_OPT_03}${MNG_OPT_03}"
-    "${ICO_MNG_OPT_04}${MNG_OPT_04}"
-    "${ICO_MNG_OPT_05}${MNG_OPT_05}"
-    "${ICO_MNG_OPT_06}${MNG_OPT_06}"
-    "${ICO_MNG_OPT_07}${MNG_OPT_07}"
-    "${ICO_MNG_OPT_08}${MNG_OPT_08}"
-    "${ICO_MNG_OPT_09}${MNG_OPT_09}"
-    "${ICO_MNG_OPT_10}${MNG_OPT_10}"
-    "${ICO_MNG_OPT_11}${MNG_OPT_11}"
-    "${ICO_MNG_OPT_12}${MNG_OPT_12}"
-)
+draw_menu() {
+    printf '\e[H'
 
-showOptions() {
-    clear
-    tput civis
+    local min_height=$((${#opts[@]} + 4))
+    if ((LINES < min_height)); then
+        printf '\e[2J'
+        echo "Terminal too small (need ${min_height} lines)"
+        return
+    fi
 
-    drawMenu() {
-        tput home
-        for i in "${!options[@]}"; do
-            if [[ $i -eq $selected ]]; then
-                echo -e "$(colorize red bold $ICO_SELECT) $(colorize green bold ${options[$i]})"
-            else
-                echo -e "  ${options[$i]}"
-            fi
-        done
-    }
 
-    drawMenu
-
-    while true; do
-        read -rsn1 input
-        case $input in
-            A) ((selected--));;
-            B) ((selected++));;
-           "") break;;
+    if [[ $mngHideHeaders == false ]]; then
+        local header
+        case $menu_type in
+                main) header="$ICO_MNG_13 $MNG_HEADER";;
+              browse) header="$ICO_MNG_12 $MNG_BROWSE_H";;
+           installed) header="$ICO_MNG_11 $MNG_INST_H";;
+            explicit) header="$ICO_MNG_03 $MNG_EXPL_H";;
+             orphans) header="$ICO_MNG_04 $MNG_ORPH_H";;
+               cache) header="$ICO_MNG_06 $MNG_CACHE_H";;
+             rebuild) header="$ICO_MNG_05 $MNG_REBUILD_H";;
         esac
 
-        if [[ $selected -lt 0 ]]; then
-            selected=$(( ${#options[@]} - 1 ))
-        elif [ $selected -ge ${#options[@]} ]; then
-            selected=0
+        echo -e "$(colorize gray bold $header)\n"
+    fi
+
+
+    for i in "${!opts[@]}"; do
+
+        local number=$((i + 1))
+        if [[ $mngHideNums == false ]]; then
+            # if [[ $termFont = "true" ]]; then
+            #     case $number in
+            #         1) number=󰲡;;
+            #         2) number=󰲣;;
+            #         3) number=󰲥;;
+            #         4) number=󰲧;;
+            #         5) number=󰲩;;
+            #         6) number=󰲫;;
+            #         7) number=󰲭;;
+            #         8) number=󰲯;;
+            #         9) number=󰲱;;
+            #     esac
+            #     number="$(colorize gray $number)  "
+            # else
+                number="$(colorize gray $number.) "
+            # fi
+        else
+            number=""
         fi
 
-        drawMenu
+        if [[ $i -eq $selected ]]; then
+            echo "$number$(colorize green bold ${opts[$i]})"
+        else
+            echo "$number${opts[$i]# }"
+        fi
     done
 
-    clear
-    tput cnorm
+    if [[ $mngHideHelp == false ]]; then
+        tput cup $((LINES - 2)) 0
 
-    case $selected in
-        0) fzfPreview Slq;;
-        1) fzfPreview Qq;;
-        2) fzfPreview Qqe;;
-        3) fzfPreview Qqet;;
-        4) fzfPreview Qqtd;;
-        5) uninstallOrphans;;
-        6) downgradePackage;;
-        7) printExec -Scc; $wrapper_sudo -Scc; returnMenu;;
-        8) printExec -Sc; $wrapper_sudo -Sc; returnMenu;;
-        9) rebuildPython;;
-        10) $scriptDir/mirrorlist true $selected;;
-        11) exit;;
-    esac
-}
-
-fzfPreview() {
-    dependencies "fzf" true
-
-    case $1 in
-        Slq) fzfExec -$1 -Si -Syu;;
-          *) fzfExec -$1 -Qil -Rsn;;
-    esac
-}
-
-fzfExec() {
-    packages=$($wrapper $1 | fzf $fzf_settings --preview "$wrapper $2 {}")
-    if [[ -z "$packages" ]]; then
-        showOptions $selected
-    else
-        packages=$(echo "$packages" | oneLine)
-        printExec $3 "$packages"
-        $wrapper_sudo $3 $packages
-        returnMenu
+        local footer
+        if [[ $show_help == true ]]; then
+            footer='→ l Enter 1-9 · select   ↑ k · up   ↓ j · down   ← h · back   q · quit'
+        else
+            footer='? · help'
+        fi
+        printf "$(colorize gray '%s')%*s\n" "$footer" "$((COLUMNS - ${#footer}))" ""
     fi
 }
 
+redraw() {
+    clear_screen
+    draw_menu
+    handleInput
+}
+
+handleInput() {
+    while true; do
+        read -rsN1 "${read_flags[@]}" input
+        [[ -z $input ]] && { draw_menu; continue; }
+
+        if [[ $input == $'\e' ]]; then
+            read -rsN2 -t 0.02 rest || rest=""
+            input+="$rest"
+        fi
+
+        case "$input" in
+            k|$'\e[A') ((selected--)) ;;
+            j|$'\e[B') ((selected++)) ;;
+            l|$'\e[C'|$'\n'|$'\r') break ;;
+            h|$'\e[D')
+                if [[ $menu_type != main ]]; then
+                    selected=${#opts[@]}
+                    break
+                fi
+            ;;
+            $'\e')
+                if [[ $menu_type != main ]]; then
+                    selected=${#opts[@]}
+                    break
+                else
+                    exit
+                fi
+            ;;
+            [1-9]) (( input>0 && input<=${#opts[@]} )) && selected=$((input-1)) && break ;;
+            '?') [[ $show_help == true ]] && show_help=false || show_help=true ;;
+            q|Q) exit ;;
+        esac
+
+        (( selected < 0 )) && selected=$((${#opts[@]} - 1))
+        (( selected >= ${#opts[@]} )) && selected=0
+
+        draw_menu
+    done
+}
+
+
+
+
+fzfExec() {
+    tui_exit
+    dependency pacman fzf 
+
+    argList="-$1"
+    case $1 in
+        Slq) argPreview="-Si"; argAction="-Syu";;
+        Qqm) argPreview="-Qi"; argAction="-S --rebuild";;
+          *) argPreview="-Qil"; argAction="-Rsn";;
+    esac
+
+    packages=$($wrapper $argList | fzf $fzf_settings --preview "$wrapper $argPreview {}")
+    if [[ -n "$packages" ]]; then
+        packages=$(echo "$packages" | oneLine)
+        printExec "$wrapper_sudo $argAction $packages"
+        $wrapper_sudo $argAction $packages
+        pressReturn
+    fi
+
+    tui_restore
+}
+
 uninstallOrphans() {
-    if [[ -n $($wrapper -Qdt) ]]; then
-        printExec -Rsn "$($wrapper -Qqtd | oneLine)"
+    tui_exit
+    dependency pacman
+
+    orphans=$($wrapper -Qqtd | oneLine)
+    if [[ -n "$orphans" ]]; then
+        printExec "$wrapper_sudo -Rsn $orphans"
         printImportant "$MNG_WARN"; echo
-        $wrapper_sudo -Rsn $($wrapper -Qqtd)
+        $wrapper_sudo -Rsn "$orphans"
     else
         printDone "$MNG_DONE"
     fi
 
-    returnMenu
+    pressReturn
+    tui_restore
 }
 
-downgradePackage() {
-    dependencies "fzf" true
+downgrade() {
+    tui_exit
+    dependency pacman fzf
+
     pacman_cache_dir="$(pacman-conf CacheDir)"
     wrapper_cache_dir="$HOME/.cache/$wrapper"
 
-    files=$(find "$pacman_cache_dir" "$wrapper_cache_dir" -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | \
-            fzf --exact --multi --layout=reverse)
+    files=$(find "$pacman_cache_dir" "$wrapper_cache_dir" -type f -name "*.pkg.tar.zst" -printf "%f\n" 2>/dev/null | fzf $fzf_settings)
 
-    if [[ -z "$files" ]]; then
-        showOptions "$selected"
-        return
-    fi
+    if [[ -n "$files" ]]; then
+        file_paths=()
 
-    file_paths=()
+        for file in $files; do
+            if [ -f "${pacman_cache_dir}${file}" ]; then
+                file_paths+=("${pacman_cache_dir}${file}")
+            else
+                path=$(find "$wrapper_cache_dir" -type f -name "$file" 2>/dev/null)
+                [[ -n "$path" ]] && file_paths+=("$path")
+            fi
+        done
 
-    for file in $files; do
-        if [ -f "${pacman_cache_dir}${file}" ]; then
-            file_paths+=("${pacman_cache_dir}${file}")
-        else
-            path=$(find "$wrapper_cache_dir" -type f -name "$file" 2>/dev/null)
-            [[ -n "$path" ]] && file_paths+=("$path")
+        if [ ${#file_paths[@]} -gt 0 ]; then
+            cache="${file_paths[*]}"
+            printExec "$wrapper_sudo -U $cache"
+            $wrapper_sudo -U $cache
         fi
-    done
 
-    if [ ${#file_paths[@]} -gt 0 ]; then
-        cache="${file_paths[*]}"
-        printExec -U "$cache"
-        $wrapper_sudo -U $cache
+        pressReturn
     fi
 
-    returnMenu
+    tui_restore
+}
+
+cleanCache() {
+    tui_exit
+    dependency pacman
+    printExec "$wrapper_sudo -$1"
+    $wrapper_sudo -$1
+    pressReturn
+    tui_restore
 }
 
 rebuildPython() {
-    [[ $wrapper = "pacman" ]] && { printDone "$MNG_DONE"; returnMenu; }
+    tui_exit
+
+    if [[ $wrapper = "pacman" ]]; then
+        found=0
+        for h in yay paru pikaur; do
+            if command -v "$h" >/dev/null 2>&1; then
+                wrapper_sudo="$h"
+                found=1
+                break
+            fi
+        done
+
+        if [ "$found" -eq 0 ]; then
+            printError "$CMD_ERR: yay/paru/pikaur"
+            pressReturn
+            tui_restore
+            return
+        fi
+    fi
+
     rebuild_dir=$(find /usr/lib -maxdepth 1 -type d -name "python*.*" | oneLine)
 
     if [ $(echo "$rebuild_dir" | wc -w) -gt 1 ]; then
@@ -160,12 +376,12 @@ rebuildPython() {
         if [[ -z "$rebuild_packages" ]]; then
             printDone "$MNG_DONE"
         else
-            printExec "-S --rebuild" "$rebuild_packages"
+            printExec "$wrapper_sudo -S --rebuild" "$rebuild_packages"
             while true; do
                 printQuestion "$MNG_RESUME"; read -r answer
                 case "$answer" in
                         [Yy]*) echo; break;;
-                     [Nn]*|"") echo; showOptions;;
+                     [Nn]*|"") echo; pressReturn;;
                             *)  ;;
                 esac
             done
@@ -175,7 +391,179 @@ rebuildPython() {
         printDone "$MNG_DONE"
     fi
 
-    returnMenu
+    pressReturn
+    tui_restore
 }
 
-showOptions
+recentlyInstalled() {
+    tui_exit
+
+    echo "$MNG_CALC"
+
+    local log="/var/log/pacman.log"
+    if [[ ! -f "$log" ]]; then
+        printError "Pacman log file not found."
+        pressReturn
+        tui_restore
+        return
+    fi
+
+    local explicit_pkgs orphan_pkgs installed_pkgs
+    installed_pkgs=$(pacman -Qq)
+    explicit_pkgs=$(pacman -Qqe)
+    orphan_pkgs=$(pacman -Qqtd 2>/dev/null)
+
+    declare -A pkg_date
+    while IFS= read -r line; do
+        [[ $line =~ ^\[([0-9-]+)T([0-9:]+)[^\]]*\]\ \[ALPM\]\ installed\ ([^\ ]+) ]] || continue
+        pkg_date["${BASH_REMATCH[3]}"]="${BASH_REMATCH[1]} ${BASH_REMATCH[2]}"
+    done < "$log"
+
+    local output=""
+    for pkg in "${!pkg_date[@]}"; do
+        echo "$installed_pkgs" | grep -qx "$pkg" || continue
+
+        local status status_color
+        if echo "$orphan_pkgs" | grep -qx "$pkg"; then
+            status="orphan"; status_color="31"
+        elif echo "$explicit_pkgs" | grep -qx "$pkg"; then
+            status="explicit"; status_color="32"
+        else
+            status="dependency"; status_color="33"
+        fi
+
+        output+="${pkg_date[$pkg]}|${pkg}|${status}|${status_color}\n"
+    done
+
+    printf '\e[H\e[2J\e[3J'
+    {
+        printf "%s\t%s\t%s\n" "$(colorize gray bold DATE)" "$(colorize gray bold PACKAGE)" "$(colorize gray bold TYPE)"
+        echo -e "$output" | sort -t'|' -k1 | tail -100 | while IFS='|' read -r date pkg status color; do
+            [[ -z "$pkg" ]] && continue
+            printf "\e[90m%s\e[0m\t%s\t\e[%sm%s\e[0m\n" "$date" "$pkg" "$color" "$status"
+        done
+    } | column -t -s$'\t'
+
+    pressReturn
+    tui_restore
+}
+
+flatpakInstalled() {
+    tui_exit
+    dependency flatpak fzf
+
+    local apps=$(
+    flatpak list --app --columns=application,name \
+    | sort -t$'\t' -k2,2f -k1,1 \
+    | fzf $fzf_settings -d$'\t' --with-nth=2 --preview 'flatpak info {1}'
+    )
+
+    if [[ -n "$apps" ]]; then
+        local apps=$(echo "$apps" | cut -f1 | oneLine)
+        printExec "flatpak uninstall $apps"
+        flatpak uninstall $apps
+
+        if [ "$flatpakRemoveUnused" = true ]; then
+            echo
+            printExec "flatpak uninstall --unused $flatpakFlags"
+            flatpak uninstall --unused $flatpakFlags
+        fi
+
+        pressReturn
+    fi
+
+    tui_restore
+}
+
+flatpakFlathub() {
+    tui_exit
+    dependency flatpak fzf curl jq
+
+    local apps=$(curl -s https://flathub.org/api/v2/appstream | jq -r '.[]' | fzf $fzf_settings --preview "flatpak remote-info flathub {}")
+
+    if [[ -n "$apps" ]]; then
+        apps=$(echo "$apps" | oneLine)
+        printExec "flatpak install $apps"
+        flatpak install $apps
+        pressReturn
+    fi
+
+    tui_restore
+}
+
+
+
+
+
+pressReturn() {
+    printf '\e[?25l'
+    echo -e "\n$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
+    IFS= read -rs
+}
+
+tui_exit() {
+    reset_terminal
+    clear_screen
+}
+
+tui_restore() {
+    clear_screen
+    setup_terminal
+    showMenu $menu_type
+}
+
+dependency() {
+    for cmd in ${1}; do
+        if ! command -v "$cmd" >/dev/null; then
+            printError "${CMD_ERR} ${cmd}"
+            pressReturn
+            tui_restore
+        fi
+    done
+}
+
+get_term_size() {
+    read -r LINES COLUMNS < <(stty size)
+}
+
+setup_terminal() {
+    printf '\e[?1049h\e[?7l\e[?25l\e[2J\e[H'
+    stty -echo
+}
+
+reset_terminal() {
+    printf '\e[?7h\e[?25h\e[2J\e[;r\e[?1049l'
+    stty echo
+}
+
+clear_screen() {
+    printf '\e[H\e[2J'
+}
+
+main() {
+    ((BASH_VERSINFO[0] > 3)) && read_flags=(-t 0.05)
+
+    trap '' SIGINT
+    trap 'reset_terminal' EXIT
+    trap 'get_term_size; clear_screen; draw_menu' WINCH
+
+    get_term_size
+    setup_terminal
+    showMenu main
+}
+
+main
+
+
+
+# \e[?1049h     Alternative screen buffer
+# \e[?1049l     Restore main screen buffer
+# \e[?7l        Disable line wrapping
+# \e[?7h        Enable line wrapping
+# \e[?25l       Hide cursor
+# \e[?25h       Show cursor
+# \e[2J         Clear terminal
+# \e[H          Move cursor to top-left
+# \e[;r         Set the scroll region to its default value
+# stty -echo    Hide user input
+# stty echo     Show user input

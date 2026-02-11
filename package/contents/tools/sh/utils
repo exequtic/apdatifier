@@ -17,6 +17,7 @@ colorize() {
     local blue="\033[34m"
     local yellow="\033[33m"
     local white="\033[37m"
+    local gray="\e[90m"
     local clear="\033[0m"
     local bold="\033[1m"
 
@@ -48,7 +49,7 @@ printQuestion() {
 }
 
 printExec() {
-    echo -e "$(colorize blue bold "$ICO_EXEC $MNG_EXEC") $(colorize white $wrapper_sudo $1 $2) \n"
+    echo -e "$(colorize blue bold "$ICO_EXEC $MNG_EXEC") $(colorize white $1) \n"
 }
 
 printMsg() {
@@ -62,14 +63,6 @@ printMsg() {
     echo -e "$(colorize green bold $l)"
     echo -e "$(colorize green bold $s) $(colorize white bold $text) $(colorize green bold $p)"
     echo -e "$(colorize green bold $l)"
-}
-
-printReturn() {
-    tput civis
-    echo
-    echo -e "$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
-    read -r
-    tput cnorm
 }
 
 printClose() {
@@ -393,6 +386,14 @@ install_stable() {
 }
 
 uninstall() {
+    iconsDir="$localDir/icons/breeze/status/24"
+    notifDir="$localDir/knotifications6"
+    notif="apdatifier.notifyrc"
+    icons=(apdatifier-plasmoid.svg
+           apdatifier-packages.svg
+           apdatifier-package.svg
+           apdatifier-flatpak.svg)
+
     printMsg "Uninstall Apdatifier"
     echo
 
@@ -412,7 +413,7 @@ uninstall() {
     }
 
     printImportant "Remove icons"
-    for icon in $icon1 $icon2 $icon3 $icon4; do
+    for icon in "${icons[@]}"; do
         showCommand "rm $iconsDir/$icon"
         test -f "$iconsDir/$icon" && rm "$iconsDir/$icon"
     done

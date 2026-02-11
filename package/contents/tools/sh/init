@@ -1,17 +1,26 @@
 #!/usr/bin/env bash
 
-configDir=$HOME/.config/apdatifier
-config=$configDir/config.conf
+applet="com.github.exequtic.apdatifier"
+configDir="$HOME/.config/apdatifier"
+localDir="$HOME/.local/share"
+iconsDir="$localDir/icons/breeze/status/24"
+notifDir="$localDir/knotifications6"
+appletDir="$localDir/plasma/plasmoids/$applet"
+config="$configDir/config.conf"
+notif="apdatifier.notifyrc"
+icons=(apdatifier-plasmoid.svg
+       apdatifier-packages.svg
+       apdatifier-package.svg
+       apdatifier-flatpak.svg)
+
 test -d $configDir || mkdir -p $configDir
 test -f $config || touch $config
-
-source $(dirname "$0")/vars
 
 for dir in $iconsDir $notifDir; do
     test -d $dir || mkdir -p $dir
 done
 
-for icon in $icon1 $icon2 $icon3 $icon4; do
+for icon in "${icons[@]}"; do
     test -f $iconsDir/$icon || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
 done
 

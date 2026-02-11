@@ -57,6 +57,11 @@
         <entry name="idleInhibit" type="bool"><default>false</default></entry>
         <entry name="tmuxSession" type="bool"><default>false</default></entry>
         <entry name="termFont" type="bool"><default>false</default></entry>
+        <entry name="mngHideFlatpak" type="bool"><default>false</default></entry>
+        <entry name="mngHideHeaders" type="bool"><default>false</default></entry>
+        <entry name="mngHideHelp" type="bool"><default>false</default></entry>
+        <entry name="mngHideNums" type="bool"><default>false</default></entry>
+        <entry name="fzfOptions" type="string"><default></default></entry>
     </group>
     <group name="Appearance">
         <entry name="hideIconPolicy" type="int"><default>0</default></entry>

@@ -2,13 +2,14 @@
 
 source "$(dirname "$0")/utils"
 
-[[ "$1" == "true" ]] && MENU=1 || MENU=0
+[[ "$1" == "menu" ]] && MENU=1 || MENU=0
 selected=$2
 
 returnMenu() {
-    printReturn
-    $scriptDir/management $selected
-    exit
+    printf '\e[?25l'
+    echo -e "\n$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
+    IFS= read -rs
+    exec $scriptDir/management $selected
 }
 
 rank_mirrors() {
@@ -29,7 +30,7 @@ rank_mirrors() {
         url="${url//'$repo'/core}"
         url="${url}/core.db"
 
-        local response=$(curl -s -m 10 -w "%{time_total} %{http_code}" "$url" -o /dev/null 2>/dev/null)
+        local response=$(curl -s -m 9 -w "%{time_total} %{http_code}" "$url" -o /dev/null 2>/dev/null)
         local exit_code=$?
         local time status
         
@@ -49,7 +50,7 @@ rank_mirrors() {
         fi
 
         if [ "$mirrorProgress" = true ]; then
-            echo "$time - $domain" >&2
+            echo "$(colorize gray bold "$time" sec)   $domain" >&2
         fi
         echo "$time $server" >> "$rankmirrors_time"
     done 3< "$rankmirrors_mirrorlist"
@@ -88,7 +89,7 @@ OUTDATED=false
 [[ "$mirrors" != "force" || $MENU -eq 1 ]] && {
     printImportant "$MIRROR_TIME" "$NORM_TIME"
     while true; do
-        printQuestion "$MNG_OPT_11?"; read -r answer
+        printQuestion "$MIRROR_REFRESH"; read -r answer
         case "$answer" in
             [Yy]*) echo; break;;
             [Nn]*|"") (( MENU )) && { returnMenu; } || { echo; exit; };;
