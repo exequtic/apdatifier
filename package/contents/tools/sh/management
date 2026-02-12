@@ -34,6 +34,7 @@ fzf_settings="--preview-window=right:70%,border-none \
               --padding=0 \
               --layout=reverse \
               --style minimal \
+              --scrollbar \
               --color dark \
               --multi \
               --track \
@@ -268,7 +269,7 @@ handleInput() {
 
 fzfExec() {
     tui_exit
-    dependency pacman fzf 
+    dependency pacman fzf
 
     argList="-$1"
     case $1 in
@@ -277,7 +278,12 @@ fzfExec() {
           *) argPreview="-Qil"; argAction="-Rsn";;
     esac
 
-    packages=$($wrapper $argList | fzf $fzf_settings --preview "$wrapper $argPreview {}")
+    if [[ $aur == true && $1 == "Slq" && $wrapper == "paru" ]]; then
+        packages=$( ( pacman $argList; curl -fsSL https://aur.archlinux.org/packages.gz | gzip -dc ) | LC_ALL=C sort -u | fzf $fzf_settings --preview "$wrapper $argPreview {}" )
+    else
+        packages=$($wrapper $argList | LC_ALL=C sort -u | fzf $fzf_settings --preview "$wrapper $argPreview {}")
+    fi
+
     if [[ -n "$packages" ]]; then
         packages=$(echo "$packages" | oneLine)
         printExec "$wrapper_sudo $argAction $packages"
