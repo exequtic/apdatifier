@@ -1,4 +1,4 @@
-const scriptDir = "$HOME/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/tools/sh/"
+const scriptDir = Qt.resolvedUrl("sh/").toString().replace("file://", "");
 const configDir = "$HOME/.config/apdatifier/"
 const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"

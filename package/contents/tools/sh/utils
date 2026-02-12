@@ -304,7 +304,18 @@ checkCurrentVersions() {
     echo "[${list%,}]"
 }
 
+checkAppletDir() {
+    local jobToDo="$1"
+    if [[ "$appletDir" == "$systemAppletDir" ]]; then
+        printImportant "Applet is installed in system directory. Cannot $jobToDo."
+        printClose
+        exit
+    fi
+}
+
 install_devel() {
+    checkAppletDir "install Development version"
+
     printMsg "Downloading devel"
     echo
 
@@ -370,6 +381,8 @@ install_devel() {
 }
 
 install_stable() {
+    checkAppletDir "install Stable version"
+
     if [[ "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" = "Arch Update Notifier" ]]; then
         while true; do
             printImportant "It looks like you already have the stable version."
@@ -386,6 +399,8 @@ install_stable() {
 }
 
 uninstall() {
+    checkAppletDir "uninstall Apdatifier"
+
     iconsDir="$localDir/icons/breeze/status/24"
     notifDir="$localDir/knotifications6"
     notif="apdatifier.notifyrc"

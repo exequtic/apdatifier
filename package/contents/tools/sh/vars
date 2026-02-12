@@ -5,7 +5,13 @@ scriptDir=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 applet="com.github.exequtic.apdatifier"
 configDir="$HOME/.config/apdatifier"
 localDir="$HOME/.local/share"
-appletDir="$localDir/plasma/plasmoids/$applet"
+systemAppletDir="/usr/share/plasma/plasmoids/$applet"
+userAppletDir="$localDir/plasma/plasmoids/$applet"
+if [[ -d "$userAppletDir" ]]; then
+  appletDir="$userAppletDir"
+elif [[ -d "$systemAppletDir" ]]; then
+  appletDir="$systemAppletDir"
+fi
 tempDir="${TMPDIR:-/tmp}/apdatifier"
 config="$configDir/config.conf"
 
