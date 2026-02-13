@@ -304,17 +304,16 @@ checkCurrentVersions() {
     echo "[${list%,}]"
 }
 
-checkAppletDir() {
-    local jobToDo="$1"
-    if [[ "$appletDir" == "$systemAppletDir" ]]; then
-        printImportant "Applet is installed in system directory. Cannot $jobToDo."
+checkSetup() {
+    if (( systemWide )); then
+        printError "Operation not permitted - the widget is installed system-wide"
         printClose
         exit
     fi
 }
 
 install_devel() {
-    checkAppletDir "install Development version"
+    checkSetup
 
     printMsg "Downloading devel"
     echo
@@ -381,7 +380,7 @@ install_devel() {
 }
 
 install_stable() {
-    checkAppletDir "install Stable version"
+    checkSetup
 
     if [[ "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" = "Arch Update Notifier" ]]; then
         while true; do
@@ -399,9 +398,9 @@ install_stable() {
 }
 
 uninstall() {
-    checkAppletDir "uninstall Apdatifier"
+    checkSetup
 
-    iconsDir="$localDir/icons/breeze/status/24"
+    iconsDir="$localDir/icons/breeze/status/22"
     notifDir="$localDir/knotifications6"
     notif="apdatifier.notifyrc"
     icons=(apdatifier-plasmoid.svg
@@ -449,8 +448,8 @@ uninstall() {
     sleep 1; echo
 
     printImportant "Uninstall plasmoid"
-    showCommand "kpackagetool6 -t Plasma/Applet -r $applet"
-    kpackagetool6 -t Plasma/Applet -r $applet 2>/dev/null
+    showCommand "kpackagetool6 -t Plasma/Applet -r com.github.exequtic.apdatifier"
+    kpackagetool6 -t Plasma/Applet -r com.github.exequtic.apdatifier 2>/dev/null
     sleep 1; echo
 
     echo "Bye :("; sleep 1

@@ -172,16 +172,16 @@ check_packages_updates() {
         exit 127
     }
 
+    declare -a packages
+    ! get_packages && {
+        echo "[]"
+        exit
+    }
+
     makeTempDir
     XML="$tempDir/api.kde-look.xml"
     updatesList="$tempDir/update.list.json"
     trap cleanup EXIT
-
-    declare -a packages
-    if ! get_packages; then
-        echo "[]"
-        exit
-    fi
 
     fetch_api_data
     case $? in
@@ -228,13 +228,16 @@ download_package() {
 upgrade_all_packages() {
     dependencies "jq"
 
+    declare -a packages
+    ! get_packages && {
+        printDone "$MNG_DONE"
+        exit
+    }
+
     makeTempDir
     XML="$tempDir/api.kde-look.xml"
     updatesList="$tempDir/update.list.json"
     trap cleanup EXIT
-
-    declare -a packages
-    get_packages
 
     fetch_api_data & printWhile $! "$WIDGETS_FETCH"
     [[ $exitCode -ne 0 ]] && exit
@@ -334,7 +337,8 @@ upgrade_package() {
 
 list_current_packages() {
     declare -a packages
-    get_packages
+    ! get_packages && return
+
     local out=""
     for package in "${packages[@]}"; do
         local json="$package/metadata.json"; [ -s "$json" ] || continue

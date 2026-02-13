@@ -1,22 +1,16 @@
 #!/usr/bin/env bash
 
-scriptDir=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+scriptDir="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
+appletDir="${scriptDir%/contents/*}"
+[[ "$appletDir" == /home/*/.local* ]]; systemWide=$?
 
-applet="com.github.exequtic.apdatifier"
 configDir="$HOME/.config/apdatifier"
 localDir="$HOME/.local/share"
-systemAppletDir="/usr/share/plasma/plasmoids/$applet"
-userAppletDir="$localDir/plasma/plasmoids/$applet"
-if [[ -d "$userAppletDir" ]]; then
-  appletDir="$userAppletDir"
-elif [[ -d "$systemAppletDir" ]]; then
-  appletDir="$systemAppletDir"
-fi
 tempDir="${TMPDIR:-/tmp}/apdatifier"
 config="$configDir/config.conf"
 
 export TEXTDOMAINDIR="$scriptDir/../../locale"
-export TEXTDOMAIN="plasma_applet_${applet}"
+export TEXTDOMAIN="plasma_applet_com.github.exequtic.apdatifier"
 
 source $config
 
