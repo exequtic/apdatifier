@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-applet="com.github.exequtic.apdatifier"
+scriptDir="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
+appletDir="${scriptDir%/contents/*}"
 configDir="$HOME/.config/apdatifier"
 localDir="$HOME/.local/share"
-iconsDir="$localDir/icons/breeze/status/24"
+iconsDir="$localDir/icons/breeze/status/22"
 notifDir="$localDir/knotifications6"
-appletDir="$localDir/plasma/plasmoids/$applet"
 config="$configDir/config.conf"
 notif="apdatifier.notifyrc"
 icons=(apdatifier-plasmoid.svg
