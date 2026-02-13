@@ -47,10 +47,7 @@ get_packages() {
         "$localDir/plasma/plasmoids" \
         "$localDir/plasma/wallpapers" \
         -mindepth 1 -maxdepth 1 -type d 2>/dev/null))
-    [ ${#packages[@]} -eq 0 ] && {
-        echo "[]"
-        exit 0
-    }
+    [ ${#packages[@]} -eq 0 ] && exit
 }
 
 get_package_type() {
@@ -180,7 +177,10 @@ check_packages_updates() {
     trap cleanup EXIT
 
     declare -a packages
-    get_packages
+    if ! get_packages; then
+        echo "[]"
+        exit
+    fi
 
     fetch_api_data
     case $? in
