@@ -13,7 +13,8 @@ Plasma5Support.DataSource {
 
         exited(cmd, out, err, code)
 
-        listeners[cmd](cmd, out, err, code)
+        const cb = listeners[cmd]
+        if (cb) cb(cmd, out, err, code)
     }
 
     signal exited(string cmd, string out, string err, int code)
@@ -35,6 +36,9 @@ Plasma5Support.DataSource {
             delete listeners[cmd]
             disconnectSource(cmd)
         }
-        this.destroy()
+
+        if (sts.proc === executable) sts.proc = null
+
+        executable.destroy()
     }
 }

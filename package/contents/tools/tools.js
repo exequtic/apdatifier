@@ -4,13 +4,14 @@ const configFile = configDir + "config.conf"
 const cacheFile = configDir + "updates.json"
 const rulesFile = configDir + "rules.json"
 const newsFile = configDir + "news.json"
+const procOpt = { stoppable: true }
 
-function execute(command, callback, stoppable) {
+function execute(command, callback, opt) {
     const component = Qt.createComponent("../ui/components/Shell.qml")
     if (component.status === Component.Ready) {
         const componentObject = component.createObject(root)
         if (componentObject) {
-            if (typeof sts !== "undefined") sts.proc = componentObject
+            if (opt && opt.stoppable) sts.proc = componentObject
             componentObject.exec(command, callback)
         } else {
             Error(1, "Failed to create executable DataSource object")
@@ -234,7 +235,7 @@ function checkUpdates() {
 
     sts.errors = []
 
-    if (sts.busy) {
+    if (sts.proc) {
         sts.busy = false
         sts.proc.cleanup()
         setStatusBar()
@@ -271,7 +272,7 @@ function checkUpdates() {
             if (out) updateNews(out)
             if (handleError(code, err, "news", next)) return
             next()
-         })
+        }, procOpt)
     }
 
     function checkRepos() {
@@ -290,8 +291,8 @@ function checkUpdates() {
                     archRepos = result
                     next()
                 })
-            })
-        })
+            }, procOpt)
+        }, procOpt)
     }
 
     function checkAur() {
@@ -306,7 +307,7 @@ function checkUpdates() {
                 archAur = result
                 next()
             })
-        })
+        }, procOpt)
     }
 
     function checkFlatpak() {
@@ -324,8 +325,8 @@ function checkUpdates() {
                     flatpak = result
                     next()
                 })
-            })
-        })
+            }, procOpt)
+        }, procOpt)
     }
 
     function checkWidgets() {
@@ -336,7 +337,7 @@ function checkUpdates() {
             if (handleError(code, err, "widgets", next)) return
             widgets = JSON.parse(out.trim())
             next()
-        })
+        }, procOpt)
     }
 
     function checkFirmwares() {
@@ -357,8 +358,8 @@ function checkUpdates() {
                 }))
 
                 merge()
-            })
-        })
+            }, procOpt)
+        }, procOpt)
     }
 
     function merge() {
@@ -492,9 +493,9 @@ function makeArchList(updates, source) {
                         })
 
                         resolve([...new Map(packagesData.map(item => [item.NM, item])).values()])
-                    })
-                })
-            })
+                    }, procOpt)
+                }, procOpt)
+            }, procOpt)
         }
     })
 }
@@ -523,7 +524,7 @@ function makeFlatpakList(updates) {
                     }
                 })
                 resolve(extendedList)
-            })
+            }, procOpt)
         }
     })
 }
@@ -664,7 +665,7 @@ function resumeScheduler() {
 }
 
 function searchScheduler(options) {
-    const mode = cfg.checkMode
+        const mode = cfg.checkMode
     if (mode === "manual") {
         scheduler.stop()
         return
