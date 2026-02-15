@@ -37,7 +37,7 @@ Plasma5Support.DataSource {
             disconnectSource(cmd)
         }
 
-        if (sts.proc === executable) sts.proc = null
+        if (typeof sts !== 'undefined' && sts?.proc === executable) sts.proc = null
 
         executable.destroy()
     }

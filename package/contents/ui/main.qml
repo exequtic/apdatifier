@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtNetwork
 
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
@@ -44,6 +45,7 @@ PlasmoidItem {
 
     hideOnWindowDeactivate: !pinned
 
+    property bool isOnline: NetworkInformation.reachability === NetworkInformation.Reachability.Online
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
     property bool horizontal: plasmoid.location === PlasmaCore.Types.TopEdge || plasmoid.location === PlasmaCore.Types.BottomEdge
@@ -130,6 +132,7 @@ PlasmoidItem {
         onTriggered: JS.saveConfig()
     }
 
+    onIsOnlineChanged: (!isOnline && sts.proc) && JS.checkUpdates()
     onCheckModeChanged: sts.init && scheduler.restart()
     onSortingChanged: sts.init && JS.refreshListModel()
     onRulesChanged: sts.init && JS.refreshListModel()

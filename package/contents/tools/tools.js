@@ -235,9 +235,9 @@ function checkUpdates() {
 
     sts.errors = []
 
-    if (sts.proc) {
+    if (sts.proc || !isOnline) {
         sts.busy = false
-        sts.proc.cleanup()
+        sts.proc?.cleanup()
         setStatusBar()
         resumeScheduler()
         return
@@ -363,7 +363,10 @@ function checkUpdates() {
     }
 
     function merge() {
-        finalize(keys(archRepos.concat(archAur, flatpak, widgets, firmwares)))
+        const list = keys(archRepos.concat(archAur, flatpak, widgets, firmwares))
+        sts.errors.length > 0 
+            ? runLater(3000, () => isOnline ? finalize(list) : checkUpdates())
+            : finalize(list)
     }
 }
 
@@ -665,7 +668,9 @@ function resumeScheduler() {
 }
 
 function searchScheduler(options) {
-        const mode = cfg.checkMode
+    if (!isOnline) return
+
+    const mode = cfg.checkMode
     if (mode === "manual") {
         scheduler.stop()
         return

@@ -254,7 +254,7 @@ Representation {
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
-            visible: !searchFieldOpen &&
+            visible: !searchFieldOpen && isOnline &&
                      plasmoid.configuration.version.localeCompare(currVersion, undefined, { numeric: true, sensitivity: 'base' }) < 0
 
             actions: [
@@ -275,6 +275,15 @@ Representation {
                     }
                 }
             ]
+        }
+
+        Kirigami.InlineMessage {
+            Layout.fillWidth: true
+            Layout.topMargin: Kirigami.Units.smallSpacing * 2
+            Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
+            text: "<b>" + i18n("No internet connection") + "</b>"
+            type: Kirigami.MessageType.Error
+            visible: !isOnline
         }
 
         SwipeView {
