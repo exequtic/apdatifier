@@ -64,7 +64,7 @@ PlasmoidItem {
         property bool init: false
         property var errors: []
         property int count: 0
-        property bool busy: false
+        property bool busy: true
         property bool upgrading: false
         property bool error: !busy && errors.length > 0
         property bool paused: !busy && !scheduler.running && cfg.checkMode !== "manual"

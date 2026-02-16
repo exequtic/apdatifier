@@ -195,6 +195,7 @@ function upgradingState() {
     const checkProc = `pgrep -f "apdatifier.*upgrade*"`
     execute(checkProc, (cmd, out, err, code) => {
         if (!out) {
+            sts.busy = sts.upgrading = false
             upgradeTimer.stop()
             execute(bash('utils', "currentVersions"), (cmd, out, err, code) => {
                 if (Error(code, err)) return
@@ -209,7 +210,6 @@ function upgradingState() {
                     refreshListModel()
                     saveCache(cache)
                 }
-                sts.busy = sts.upgrading = false
                 setStatusBar()
                 resumeScheduler()
             })
