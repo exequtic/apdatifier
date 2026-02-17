@@ -201,6 +201,12 @@ updateJson() {
 rss() {
     command -v jq >/dev/null || { echo "${CMD_ERR} jq" >&2; return 127; }
 
+    # Wait for DNS to be ready (up to 30s) — avoids failures at boot/resume
+    for i in $(seq 1 30); do
+        getent hosts archlinux.org >/dev/null 2>&1 && break
+        sleep 1
+    done
+
     makeTempDir
     trap cleanup EXIT
 
