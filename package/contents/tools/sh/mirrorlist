@@ -34,12 +34,12 @@ rank_mirrors() {
         local exit_code=$?
         local time status
         
-        if [[ $exit_code -eq 28 ]]; then
-            status="Timeout"
+        if [[ $exit_code -ne 0 ]]; then
+            status="Unreachable"
         else
             time="${response%% *}"
             local code="${response##* }"
-            [[ $code -ge 400 || -z "$code" ]] && status="Unreachable"
+            [[ -z "$code" || $code -lt 200 || $code -gt 299 ]] && status="Unreachable"
         fi
         
         if [[ -n "$status" ]]; then
