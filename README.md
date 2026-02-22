@@ -1,6 +1,11 @@
 <div align="center">
 
-<img src="./screenshots/header.png" width="200px" alt="banner"/>
+<!-- <img src="./screenshots/header.png" width="200px" alt="banner"/> -->
+
+
+
+# Apdatifier
+### Arch Update Notifier
 
 <br>
 
@@ -10,14 +15,11 @@
 
 <br>
 
-# Apdatifier
-## Arch Update Notifier
-
 </div>
 
 # Features
+- Searching updates for [pacman](https://archlinux.org/packages/), [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org), [Firmware](https://fwupd.org/lvfs/vendors/)
 - Notification for updates and news
-- Searching updates for [Arch](https://archlinux.org/packages/) (+[AUR](https://aur.archlinux.org/packages)), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org)
 - Bash script with useful options for managing packages
 - Two types of lists: compact and extended with additional information
 - Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
@@ -40,12 +42,12 @@
 <br>
 
 #### Full system upgrade
-<img src="./screenshots/screenshot_4.png" width="600px" alt="screenshot"/>
+<img src="./screenshots/screenshot_4.png" width="500px" alt="screenshot"/>
 
 <br>
 
 #### Management
-<img src="./screenshots/screenshot_3.png" width="600px" alt="screenshot"/>
+<img src="./screenshots/screenshot_3.png" width="500px" alt="screenshot"/>
 
 <br><br>
 
@@ -56,7 +58,7 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 <br>
 
 # Requirements
-# Optional dependencies
+## Optional dependencies
 - `paru`, `yay`, `pikaur` - for AUR updates support
 - `flatpak` - for Flatpak updates support
 - `fwupdmgr` - for Firmware updates support
@@ -72,21 +74,6 @@ alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, te
 # Translation
 Feel free to help translate to new languages or update and improve the ones that are already available. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
-### Available translations:
-- English
-- Brazilian
-- Chinese
-- Dutch
-- French
-- German
-- Spanish
-- Korean
-- Polish
-- Russian
-- Turkish
-- Ukrainian
-
-
 <br>
 
 # Installation
@@ -95,15 +82,21 @@ Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widg
 
 After installation, you can either enable it to appear in the system tray or place it on the panel or desktop instead.
 
->[!IMPORTANT]
->If you are upgrading from a previous version, you need to log out or restart plasmashell for the new features to work properly.
->```bash
->systemctl --user restart plasma-plasmashell.service
->```
 
 ### Update to the latest commit
 ```
 Settings -> General -> Misc -> Install Development version
+```
+
+If script doesn't work, you can do it manually:
+
+```bash
+git clone -n --depth=10 --filter=tree:0 -b main https://github.com/exequtic/apdatifier
+cd apdatifier
+git sparse-checkout set --no-cone package
+git checkout
+kpackagetool6 -t Plasma/Applet -u ./package
+systemctl --user restart plasma-plasmashell.service
 ```
 
 <br>
