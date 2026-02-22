@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -22,9 +22,9 @@ msgstr ""
 msgid "General"
 msgstr "常规"
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
-msgstr "升级"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -53,6 +53,10 @@ msgstr "Flatpak 升级"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Plasma 挂件升级"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "升级"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -97,6 +101,10 @@ msgstr "写入镜像列表文件需要 sudo 权限"
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
 msgstr "您当前的镜像列表："
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -177,57 +185,103 @@ msgstr "有多个文件被标记了版本"
 msgid "Failed to download the package"
 msgstr "包下载失败"
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
-msgstr "无法获取新闻"
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "管理"
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
-msgstr "列出仓库中所有可用的软件包"
+msgid "Browse available"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all installed packages"
-msgstr "列出所有已安装的软件包"
+msgid "Search all available packages and select what to install"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
-msgstr "列出显式安装的软件包"
+msgid "Manage installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "列出显式安装且未被依赖的软件包"
+msgid "View installed packages and select what to remove"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "列出不再需要的已安装依赖（孤儿包）"
+msgid "Explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
-msgstr "卸载孤儿包"
+msgid "Show packages you installed directly"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
-msgstr "从缓存安装（降级）软件包"
+msgid "List explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
-msgstr "删除所有缓存的软件包"
+msgid "List unneeded explicit"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
-msgstr "删除当前未安装的软件包缓存"
+msgid "Orphaned dependency"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Python 升级后重建 AUR Python 软件包"
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
-msgstr "刷新镜像列表"
+msgid "List orphans"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
-msgstr "退出"
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -242,8 +296,8 @@ msgid "Press Enter to return menu"
 msgstr "按下 Enter 返回菜单"
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
-msgstr "搜索："
+msgid "Calculating..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -256,6 +310,10 @@ msgstr "无事可做"
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
 msgstr "需要安装"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "无法获取新闻"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -374,11 +432,6 @@ msgstr "升级系统"
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
 msgstr "暂停自动检查"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Management"
-msgstr "管理"
 
 #: ../contents/ui/components/Notification.qml
 #: ../contents/ui/scrollview/News.qml
@@ -1050,6 +1103,31 @@ msgstr ""
 "在升级完成后运行您的命令或脚本。<br>例如，您可以指定用于升级其他内容的命令。"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "封装"
 
@@ -1249,6 +1327,10 @@ msgstr "查看发行说明"
 msgid "Dismiss"
 msgstr "忽略"
 
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr ""
+
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "升级软件包"
@@ -1328,3 +1410,43 @@ msgstr "无未读新闻"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "恢复列表"
+
+#~ msgid "List all available packages in repositories"
+#~ msgstr "列出仓库中所有可用的软件包"
+
+#~ msgid "List all installed packages"
+#~ msgstr "列出所有已安装的软件包"
+
+#~ msgid "List explicitly installed packages"
+#~ msgstr "列出显式安装的软件包"
+
+#~ msgid ""
+#~ "List explicitly installed packages and isn't a dependency of anything"
+#~ msgstr "列出显式安装且未被依赖的软件包"
+
+#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
+#~ msgstr "列出不再需要的已安装依赖（孤儿包）"
+
+#~ msgid "Uninstall orphan packages"
+#~ msgstr "卸载孤儿包"
+
+#~ msgid "Install (downgrade) a package from cache"
+#~ msgstr "从缓存安装（降级）软件包"
+
+#~ msgid "Remove ALL cached packages"
+#~ msgstr "删除所有缓存的软件包"
+
+#~ msgid "Remove cached packages that are not currently installed"
+#~ msgstr "删除当前未安装的软件包缓存"
+
+#~ msgid "Rebuild AUR python packages after python upgrade"
+#~ msgstr "Python 升级后重建 AUR Python 软件包"
+
+#~ msgid "Refresh mirrorlist"
+#~ msgstr "刷新镜像列表"
+
+#~ msgid "Exit"
+#~ msgstr "退出"
+
+#~ msgid "Search:"
+#~ msgstr "搜索："

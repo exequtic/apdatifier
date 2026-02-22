@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,9 +22,9 @@ msgstr ""
 msgid "General"
 msgstr "일반"
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
-msgstr "업그레이드"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -53,6 +53,10 @@ msgstr "Flatpak 업그레이드"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Plasma 위젯 업그레이드"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "업그레이드"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -97,6 +101,10 @@ msgstr "미러리스트 파일을 변경하기 위해서는 sudo 권한이 필�
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
 msgstr "현재 미러리스트:"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -180,57 +188,103 @@ msgstr "여러 파일에 버전 태그가 있습니다"
 msgid "Failed to download the package"
 msgstr "패키지 다운로드 실패"
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
-msgstr "뉴스를 가져올 수 없습니다"
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "관리"
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
-msgstr "저장소에 있는 사용 가능한 모든 패키지 목록"
+msgid "Browse available"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all installed packages"
-msgstr "모든 설치된 패키지 목록"
+msgid "Search all available packages and select what to install"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
-msgstr "명시적으로 설치된 패키지 목록"
+msgid "Manage installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "의존성이 없는 명시된 패키지 목록"
+msgid "View installed packages and select what to remove"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "더 이상 필요하지 않은 의존성 설치 목록"
+msgid "Explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
-msgstr "고아 패키지 제거"
+msgid "Show packages you installed directly"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
-msgstr "캐시로부터 다운그레이드 패키지 설치"
+msgid "List explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
-msgstr "모든 캐시된 패키지 제거"
+msgid "List unneeded explicit"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
-msgstr "현재 설치되지 않은 캐시된 패키지 제거"
+msgid "Orphaned dependency"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Python 업그레이드 후 AUR Python 패키지 재빌드"
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
-msgstr "미러리스트 새로 고침"
+msgid "List orphans"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
-msgstr "나가기"
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -245,8 +299,8 @@ msgid "Press Enter to return menu"
 msgstr "메뉴로 돌아가려면 Enter를 누르시오"
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
-msgstr "검색:"
+msgid "Calculating..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -259,6 +313,10 @@ msgstr "할 일 없음"
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
 msgstr "설치에 필요"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "뉴스를 가져올 수 없습니다"
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -377,11 +435,6 @@ msgstr "시스템 업그레이드"
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
 msgstr "자동 확인 일시 중지"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Management"
-msgstr "관리"
 
 #: ../contents/ui/components/Notification.qml
 #: ../contents/ui/scrollview/News.qml
@@ -1064,6 +1117,31 @@ msgstr ""
 "레이드하는 명령을 지정할 수 있습니다."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "AUR 헬퍼"
 
@@ -1264,6 +1342,10 @@ msgstr "릴리스 노트 확인"
 msgid "Dismiss"
 msgstr "닫기"
 
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr ""
+
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "패키지 업그레이드"
@@ -1343,3 +1425,43 @@ msgstr "읽지 않은 뉴스 없음"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "목록 복원"
+
+#~ msgid "List all available packages in repositories"
+#~ msgstr "저장소에 있는 사용 가능한 모든 패키지 목록"
+
+#~ msgid "List all installed packages"
+#~ msgstr "모든 설치된 패키지 목록"
+
+#~ msgid "List explicitly installed packages"
+#~ msgstr "명시적으로 설치된 패키지 목록"
+
+#~ msgid ""
+#~ "List explicitly installed packages and isn't a dependency of anything"
+#~ msgstr "의존성이 없는 명시된 패키지 목록"
+
+#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
+#~ msgstr "더 이상 필요하지 않은 의존성 설치 목록"
+
+#~ msgid "Uninstall orphan packages"
+#~ msgstr "고아 패키지 제거"
+
+#~ msgid "Install (downgrade) a package from cache"
+#~ msgstr "캐시로부터 다운그레이드 패키지 설치"
+
+#~ msgid "Remove ALL cached packages"
+#~ msgstr "모든 캐시된 패키지 제거"
+
+#~ msgid "Remove cached packages that are not currently installed"
+#~ msgstr "현재 설치되지 않은 캐시된 패키지 제거"
+
+#~ msgid "Rebuild AUR python packages after python upgrade"
+#~ msgstr "Python 업그레이드 후 AUR Python 패키지 재빌드"
+
+#~ msgid "Refresh mirrorlist"
+#~ msgstr "미러리스트 새로 고침"
+
+#~ msgid "Exit"
+#~ msgstr "나가기"
+
+#~ msgid "Search:"
+#~ msgstr "검색:"

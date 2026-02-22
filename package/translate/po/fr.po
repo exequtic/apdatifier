@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "General"
 msgstr "Général"
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
-msgstr "Mettre à jour"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -52,6 +52,10 @@ msgstr "Mise à jour Flatpak"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Mise à jour des widgets Plasma"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "Mettre à jour"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -98,6 +102,10 @@ msgstr ""
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
 msgstr "Votre liste de miroirs actuelle :"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -182,61 +190,103 @@ msgstr "Plusieurs fichiers sont étiquetés avec la version"
 msgid "Failed to download the package"
 msgstr "Échec du téléchargement du paquet"
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
-msgstr "Impossible de récupérer les actualités "
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "Gestion"
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
-msgstr "Répertorier tous les paquets disponibles dans les dépôts"
-
-#: ../contents/tools/sh/messages
-msgid "List all installed packages"
-msgstr "Lister tous les paquets installés"
-
-#: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
-msgstr "Répertorier les paquets explicitement installés"
-
-#: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
+msgid "Browse available"
 msgstr ""
-"Répertorie les paquets explicitement installés qui ne sont dépendances "
-"d'aucun autre paquet"
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgid "Search all available packages and select what to install"
 msgstr ""
-"Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
-msgstr "Désinstaller les paquets orphelins"
-
-#: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
-msgstr "Installer (rétrograder) un package à partir du cache"
-
-#: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
-msgstr "Supprimer TOUS les paquets en cache"
-
-#: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
+msgid "Manage installed"
 msgstr ""
-"Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Reconstruire les paquets Python AUR après la mise à niveau de Python"
+msgid "View installed packages and select what to remove"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
-msgstr "Actualiser la liste de miroirs"
+msgid "Explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
-msgstr "Sortir"
+msgid "Show packages you installed directly"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "List explicit installs"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "List unneeded explicit"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Orphaned dependency"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "List orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -251,8 +301,8 @@ msgid "Press Enter to return menu"
 msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
-msgstr "Recherche"
+msgid "Calculating..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -266,6 +316,10 @@ msgstr "Rien à faire"
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
 msgstr "Installation requise"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Impossible de récupérer les actualités "
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -391,11 +445,6 @@ msgstr "Mise à niveau système"
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
 msgstr "Mettre en pause la vérification automatique"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Management"
-msgstr "Gestion"
 
 #: ../contents/ui/components/Notification.qml
 #: ../contents/ui/scrollview/News.qml
@@ -1096,6 +1145,31 @@ msgstr ""
 "chose."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Wrapper"
 
@@ -1300,6 +1374,10 @@ msgstr "Consulter les notes de version"
 msgid "Dismiss"
 msgstr "Ignorer"
 
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr ""
+
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Mettre à niveau le paquet"
@@ -1379,3 +1457,48 @@ msgstr "Aucune nouvelle non lue"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurer la liste"
+
+#~ msgid "List all available packages in repositories"
+#~ msgstr "Répertorier tous les paquets disponibles dans les dépôts"
+
+#~ msgid "List all installed packages"
+#~ msgstr "Lister tous les paquets installés"
+
+#~ msgid "List explicitly installed packages"
+#~ msgstr "Répertorier les paquets explicitement installés"
+
+#~ msgid ""
+#~ "List explicitly installed packages and isn't a dependency of anything"
+#~ msgstr ""
+#~ "Répertorie les paquets explicitement installés qui ne sont dépendances "
+#~ "d'aucun autre paquet"
+
+#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
+#~ msgstr ""
+#~ "Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
+
+#~ msgid "Uninstall orphan packages"
+#~ msgstr "Désinstaller les paquets orphelins"
+
+#~ msgid "Install (downgrade) a package from cache"
+#~ msgstr "Installer (rétrograder) un package à partir du cache"
+
+#~ msgid "Remove ALL cached packages"
+#~ msgstr "Supprimer TOUS les paquets en cache"
+
+#~ msgid "Remove cached packages that are not currently installed"
+#~ msgstr ""
+#~ "Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
+
+#~ msgid "Rebuild AUR python packages after python upgrade"
+#~ msgstr ""
+#~ "Reconstruire les paquets Python AUR après la mise à niveau de Python"
+
+#~ msgid "Refresh mirrorlist"
+#~ msgstr "Actualiser la liste de miroirs"
+
+#~ msgid "Exit"
+#~ msgstr "Sortir"
+
+#~ msgid "Search:"
+#~ msgstr "Recherche"

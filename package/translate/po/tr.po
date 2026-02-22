@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: 2025-12-05 11:00+0300\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: Turkish <LL@li.org>\n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "General"
 msgstr "Genel"
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
-msgstr "Yükselt"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -52,6 +52,10 @@ msgstr "Flatpak Yükseltmesi"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Plasma Widget'ları Yükseltmesi"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "Yükselt"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -96,6 +100,10 @@ msgstr "Yansı listesi dosyasına yazmak için sudo yetkileri gereklidir"
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
 msgstr "Geçerli yansı listeniz:"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
@@ -173,57 +181,101 @@ msgstr "Birden fazla dosya sürüme göre etiketlendi"
 msgid "Failed to download the package"
 msgstr "Paket indirilemedi"
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
-msgstr "Haberler alınamıyor "
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "Yönetim"
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
-msgstr "Depolardaki tüm mevcut paketleri listele"
+msgid "Browse available"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all installed packages"
-msgstr "Tüm kurulu paketleri listele"
+msgid "Search all available packages and select what to install"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
-msgstr "Açıkça kurulan paketleri listele"
+msgid "Manage installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Açıkça kurulan paketleri ve bir şeyin bağımlılığı olmayanları listele"
+msgid "View installed packages and select what to remove"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Artık ihtiyaç duyulmayan kurulu bağımlılıkları listele (sahipsiz)"
+msgid "Explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
-msgstr "Sahipsiz paketleri kaldır"
+msgid "Show packages you installed directly"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
-msgstr "Önbellekten bir paketi kur (sürüm düşür)"
+msgid "List explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
-msgstr "TÜM önbelleğe alınmış paketleri kaldır"
+msgid "List unneeded explicit"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
-msgstr "Şu anda kurulu olmayan önbelleğe alınmış paketleri kaldır"
+msgid "Orphaned dependency"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Python yükseltmesinden sonra AUR python paketlerini yeniden oluştur"
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
-msgstr "Yansı listesini yenile"
+msgid "List orphans"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
-msgstr "Çıkış"
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -238,8 +290,8 @@ msgid "Press Enter to return menu"
 msgstr "Menüye dönmek için Enter tuşuna basın"
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
-msgstr "Arama:"
+msgid "Calculating..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -252,6 +304,10 @@ msgstr "Yapılacak bir şey yok"
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
 msgstr "Gerekli kuruldu"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Haberler alınamıyor "
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -374,10 +430,6 @@ msgstr "Sistemi yükselt"
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
 msgstr "Otomatik kontrolü duraklat"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Management"
-msgstr "Yönetim"
 
 #: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
 msgid "Read article"
@@ -988,6 +1040,30 @@ msgid "Running your command or script AFTER the upgrade.<br>For example, you can
 msgstr "Yükseltmeden SONRA komutunuzu veya betiğinizi çalıştırır.<br>Örneğin, başka bir şeyi yükseltmek için komutunuzu belirtebilirsiniz."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Wrapper"
 
@@ -1177,6 +1253,10 @@ msgstr "Sürüm notlarını kontrol et"
 msgid "Dismiss"
 msgstr "Reddet"
 
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr ""
+
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Paketi yükselt"
@@ -1256,3 +1336,42 @@ msgstr "Okunmamış haber yok"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Listeyi geri yükle"
+
+#~ msgid "List all available packages in repositories"
+#~ msgstr "Depolardaki tüm mevcut paketleri listele"
+
+#~ msgid "List all installed packages"
+#~ msgstr "Tüm kurulu paketleri listele"
+
+#~ msgid "List explicitly installed packages"
+#~ msgstr "Açıkça kurulan paketleri listele"
+
+#~ msgid "List explicitly installed packages and isn't a dependency of anything"
+#~ msgstr "Açıkça kurulan paketleri ve bir şeyin bağımlılığı olmayanları listele"
+
+#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
+#~ msgstr "Artık ihtiyaç duyulmayan kurulu bağımlılıkları listele (sahipsiz)"
+
+#~ msgid "Uninstall orphan packages"
+#~ msgstr "Sahipsiz paketleri kaldır"
+
+#~ msgid "Install (downgrade) a package from cache"
+#~ msgstr "Önbellekten bir paketi kur (sürüm düşür)"
+
+#~ msgid "Remove ALL cached packages"
+#~ msgstr "TÜM önbelleğe alınmış paketleri kaldır"
+
+#~ msgid "Remove cached packages that are not currently installed"
+#~ msgstr "Şu anda kurulu olmayan önbelleğe alınmış paketleri kaldır"
+
+#~ msgid "Rebuild AUR python packages after python upgrade"
+#~ msgstr "Python yükseltmesinden sonra AUR python paketlerini yeniden oluştur"
+
+#~ msgid "Refresh mirrorlist"
+#~ msgstr "Yansı listesini yenile"
+
+#~ msgid "Exit"
+#~ msgstr "Çıkış"
+
+#~ msgid "Search:"
+#~ msgstr "Arama:"

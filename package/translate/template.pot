@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
 msgstr ""
 
 #: ../contents/config/config.qml
@@ -52,6 +52,10 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -96,6 +100,10 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -174,56 +182,100 @@ msgstr ""
 msgid "Failed to download the package"
 msgstr ""
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Management"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
+msgid "Browse available"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all installed packages"
+msgid "Search all available packages and select what to install"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
+msgid "Manage installed"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
+msgid "View installed packages and select what to remove"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
+msgid "Explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
+msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
+msgid "List explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
+msgid "List unneeded explicit"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
+msgid "Orphaned dependency"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
+msgid "Dependencies that are no longer needed by anything installed"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
+msgid "List orphans"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -239,7 +291,7 @@ msgid "Press Enter to return menu"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
+msgid "Calculating..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -252,6 +304,10 @@ msgstr ""
 
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -374,10 +430,6 @@ msgstr ""
 
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
-msgstr ""
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Management"
 msgstr ""
 
 #: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
@@ -991,6 +1043,30 @@ msgid "Running your command or script AFTER the upgrade.<br>For example, you can
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr ""
 
@@ -1180,6 +1256,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml

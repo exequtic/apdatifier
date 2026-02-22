@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-01-31 12:59+0300\n"
+"POT-Creation-Date: 2026-02-22 11:04+0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "General"
 msgstr "Основне"
 
-#: ../contents/config/config.qml ../contents/tools/sh/messages
-msgid "Upgrade"
-msgstr "Оновлення"
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -52,6 +52,10 @@ msgstr "Оновлення Flatpak"
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
 msgstr "Оновлення Plasma Віджетів"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "Оновлення"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -96,6 +100,10 @@ msgstr "Для запису в файл mirrorlist потрібні права �
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
 msgstr "Ваш поточний список дзеркал:"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
@@ -173,57 +181,101 @@ msgstr "Декілька файлів мають тег версії"
 msgid "Failed to download the package"
 msgstr "Не вдалось завантажити пакет"
 
-#: ../contents/tools/sh/messages
-msgid "Cannot fetch news "
-msgstr "Не вдалося отримати новини "
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "Керування"
 
 #: ../contents/tools/sh/messages
-msgid "List all available packages in repositories"
-msgstr "Список всіх доступних пакетів в репозиторіях"
+msgid "Browse available"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List all installed packages"
-msgstr "Список всіх встановлених пакетів"
+msgid "Search all available packages and select what to install"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages"
-msgstr "Список явно встановлених пакетів"
+msgid "Manage installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicitly installed packages and isn't a dependency of anything"
-msgstr "Список явно встановлених пакетів, які не є залежностями"
+msgid "View installed packages and select what to remove"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List installed dependencies that aren't needed anymore (orphans)"
-msgstr "Список встановлених непотрібних залежностей (сироти)"
+msgid "Explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Uninstall orphan packages"
-msgstr "Видалити пакети сироти"
+msgid "Show packages you installed directly"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Install (downgrade) a package from cache"
-msgstr "Встановити пакет (понизити версію) з кешу"
+msgid "List explicit installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove ALL cached packages"
-msgstr "Видалити ВСІ кешовані пакети"
+msgid "List unneeded explicit"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Remove cached packages that are not currently installed"
-msgstr "Видалити не встановлені кешовані пакети"
+msgid "Orphaned dependency"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Rebuild AUR python packages after python upgrade"
-msgstr "Перезбірка python пакетів з AUR після оновлення python"
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Refresh mirrorlist"
-msgstr "Оновити список дзеркал"
+msgid "List orphans"
+msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Exit"
-msgstr "Вихід"
+msgid "Remove orphans"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -238,8 +290,8 @@ msgid "Press Enter to return menu"
 msgstr "Натисніть Enter для повернення в меню"
 
 #: ../contents/tools/sh/messages
-msgid "Search:"
-msgstr "Пошук:"
+msgid "Calculating..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -252,6 +304,10 @@ msgstr "Нічого робити"
 #: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
 msgid "Required installed"
 msgstr "Потребує обов'язкового встановлення"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "Не вдалося отримати новини "
 
 #: ../contents/tools/tools.js
 msgid "Exit code: "
@@ -381,10 +437,6 @@ msgstr "Оновити систему"
 #: ../contents/ui/components/ComboBox.qml
 msgid "Pause auto check"
 msgstr "Призупинити автоматичну перевірку"
-
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
-msgid "Management"
-msgstr "Керування"
 
 #: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
 msgid "Read article"
@@ -997,6 +1049,30 @@ msgid "Running your command or script AFTER the upgrade.<br>For example, you can
 msgstr "Запустіть свою команду чи скрипт ПІСЛЯ оновлення.<br>Наприклад, ви можете вказати свою команду для оновлення ще чогось."
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "No Flatpak options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
 msgstr "Обкладинка"
 
@@ -1187,6 +1263,10 @@ msgstr "Гляньте список змін"
 msgid "Dismiss"
 msgstr "Відхилити"
 
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr ""
+
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
 msgstr "Оновити пакет"
@@ -1266,3 +1346,42 @@ msgstr "Немає непрочитаних новин"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Відновити список"
+
+#~ msgid "List all available packages in repositories"
+#~ msgstr "Список всіх доступних пакетів в репозиторіях"
+
+#~ msgid "List all installed packages"
+#~ msgstr "Список всіх встановлених пакетів"
+
+#~ msgid "List explicitly installed packages"
+#~ msgstr "Список явно встановлених пакетів"
+
+#~ msgid "List explicitly installed packages and isn't a dependency of anything"
+#~ msgstr "Список явно встановлених пакетів, які не є залежностями"
+
+#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
+#~ msgstr "Список встановлених непотрібних залежностей (сироти)"
+
+#~ msgid "Uninstall orphan packages"
+#~ msgstr "Видалити пакети сироти"
+
+#~ msgid "Install (downgrade) a package from cache"
+#~ msgstr "Встановити пакет (понизити версію) з кешу"
+
+#~ msgid "Remove ALL cached packages"
+#~ msgstr "Видалити ВСІ кешовані пакети"
+
+#~ msgid "Remove cached packages that are not currently installed"
+#~ msgstr "Видалити не встановлені кешовані пакети"
+
+#~ msgid "Rebuild AUR python packages after python upgrade"
+#~ msgstr "Перезбірка python пакетів з AUR після оновлення python"
+
+#~ msgid "Refresh mirrorlist"
+#~ msgstr "Оновити список дзеркал"
+
+#~ msgid "Exit"
+#~ msgstr "Вихід"
+
+#~ msgid "Search:"
+#~ msgstr "Пошук:"
