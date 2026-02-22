@@ -44,7 +44,7 @@ rank_mirrors() {
         
         if [[ -n "$status" ]]; then
             if [ "$mirrorProgress" = true ]; then
-                echo "$status - $domain" >&2
+                echo "$(colorize red bold $status)    $domain" >&2
             fi
             continue
         fi
