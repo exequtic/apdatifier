@@ -95,7 +95,7 @@ PlasmoidItem {
             text: i18n("Check updates")
             icon.name: "view-refresh"
             enabled: !sts.upgrading
-            onTriggered: JS.checkUpdates()
+            onTriggered: sts.proc ? JS.stopCheck() : JS.checkUpdates()
         },
         PlasmaCore.Action {
             text: i18n("Upgrade system")
@@ -132,7 +132,7 @@ PlasmoidItem {
         onTriggered: JS.saveConfig()
     }
 
-    onIsOnlineChanged: (!isOnline && sts.proc) && JS.checkUpdates()
+    onIsOnlineChanged: (!isOnline && sts.proc) && JS.stopCheck()
     onCheckModeChanged: sts.init && scheduler.restart()
     onSortingChanged: sts.init && JS.refreshListModel()
     onRulesChanged: sts.init && JS.refreshListModel()

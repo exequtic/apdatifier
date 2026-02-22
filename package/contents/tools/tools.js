@@ -230,19 +230,23 @@ function upgradeSystem() {
 }
 
 
+function stopCheck() {
+    sts.errors = []
+    sts.busy = false
+    sts.proc?.cleanup()
+    setStatusBar()
+    resumeScheduler()
+
+    if (isOnline) {
+        cfg.timestamp = new Date().getTime().toString()
+    }
+}
+
+
 function checkUpdates() {
     if (sts.upgrading) return
 
     sts.errors = []
-
-    if (sts.proc || !isOnline) {
-        sts.busy = false
-        sts.proc?.cleanup()
-        setStatusBar()
-        resumeScheduler()
-        return
-    }
-
     scheduler.stop()
     sts.busy = true
 
@@ -365,7 +369,7 @@ function checkUpdates() {
     function merge() {
         const list = keys(archRepos.concat(archAur, flatpak, widgets, firmwares))
         sts.errors.length > 0 
-            ? runLater(3000, () => isOnline ? finalize(list) : checkUpdates())
+            ? runLater(3000, () => isOnline ? finalize(list) : stopCheck())
             : finalize(list)
     }
 }

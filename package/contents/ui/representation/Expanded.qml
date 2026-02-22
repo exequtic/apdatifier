@@ -128,7 +128,7 @@ Representation {
                     iconSource: cfg.ownIconsUI ? (sts.busy ? svg("toolbar_stop") : svg("toolbar_check"))
                                                : (sts.busy ? "media-playback-stopped" : "view-refresh")
                     visible: cfg.checkButton && !sts.upgrading
-                    onClicked: JS.checkUpdates()
+                    onClicked: sts.proc ? JS.stopCheck() : JS.checkUpdates()
                 }
 
                 ToolbarButton {
