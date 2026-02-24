@@ -220,32 +220,64 @@ rss() {
         echo '[]' > "$newsFile"
     fi
 
-    for url in "$@"; do
+    # Build per-URL output file list for parallel download
+    local -a urls=("$@")
+    local -a rssFiles=()
+    local -a curlArgs=()
+    for url in "${urls[@]}"; do
         local rssFile=$(mktemp "$tempDir/XXXXXX.xml")
-        curl -s -o "$rssFile" --connect-timeout 5 --retry 3 --retry-delay 1 --retry-all-errors --max-time 10 --url "$url" 2>/dev/null
-        xmllint --noout "$rssFile" 2>/dev/null || {
+        rssFiles+=("$rssFile")
+        curlArgs+=(-o "$rssFile" --url "$url")
+    done
+
+    # Fetch all feeds simultaneously
+    curl -s --parallel --parallel-immediate \
+        --connect-timeout 5 --retry 3 --retry-delay 1 --retry-all-errors --max-time 15 \
+        "${curlArgs[@]}" 2>/dev/null
+
+    # Process each downloaded file
+    for i in "${!urls[@]}"; do
+        local url="${urls[$i]}"
+        local rssFile="${rssFiles[$i]}"
+
+        # Strip default XML namespace to avoid XPath 1.0 namespace issues
+        local cleanFile=$(mktemp "$tempDir/XXXXXX.xml")
+        sed 's/ xmlns="[^"]*"//g' "$rssFile" > "$cleanFile"
+
+        xmllint --noout "$cleanFile" 2>/dev/null || {
             errors+="$url "
             continue
         }
 
-        local title=$(xmllint --xpath "string(/rss/channel/title)" $rssFile)
-        local article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" $rssFile)
-        local date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' $rssFile)" +"%d.%m.%Y | %H:%M")
-        local link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" $rssFile)
+        # Detect RSS 2.0 vs Atom 1.0 by root element name
+        local root=$(xmllint --xpath "name(/*)" "$cleanFile" 2>/dev/null)
+        local title article date link
+
+        if [[ "$root" == "feed" ]]; then
+            title=$(xmllint --xpath "string(/feed/title)" "$cleanFile")
+            article=$(xmllint --xpath "string(/feed/entry[1]/title)" "$cleanFile")
+            date=$(date -d "$(xmllint --xpath 'string(/feed/entry[1]/updated)' "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+            link=$(xmllint --xpath "string(/feed/entry[1]/link/@href)" "$cleanFile")
+        else
+            title=$(xmllint --xpath "string(/rss/channel/title)" "$cleanFile")
+            article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" "$cleanFile")
+            date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+            link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" "$cleanFile")
+        fi
 
         [[ -z "$title" || -z "$article" || -z "$date" || -z "$link" ]] && {
             errors+="$url "
             continue
         }
 
-        while (( $(jq "[.[] | select(.title == \"$title\")] | length" "$newsFile") > newsKeep )); do
-            index=$(jq --arg title "$title" 'to_entries | reverse | map(select(.value.title == $title)) | .[0].key' $newsFile)
-            updateJson $newsFile "$(jq --argjson index "$index" "del(.[$index])" $newsFile)"
+        while (( $(jq --arg t "$title" '[.[] | select(.title == $t)] | length' "$newsFile") > ${newsKeep:-3} )); do
+            index=$(jq --arg t "$title" 'to_entries | reverse | map(select(.value.title == $t)) | .[0].key' "$newsFile")
+            updateJson "$newsFile" "$(jq --argjson index "$index" 'del(.[$index])' "$newsFile")"
         done
 
-        if ! jq -e ".[] | select(.link == \"$link\")" $newsFile > /dev/null; then
+        if ! jq -e --arg l "$link" '.[] | select(.link == $l)' "$newsFile" > /dev/null; then
             local item=$(jq -n --arg t "$title" --arg a "$article" --arg d "$date" --arg l "$link" '{title: $t, article: $a, date: $d, link: $l, removed: false}')
-            updateJson $newsFile "$(jq "[$item] + ." $newsFile)"
+            updateJson "$newsFile" "$(jq --argjson item "$item" '[$item] + .' "$newsFile")"
         fi
     done
 

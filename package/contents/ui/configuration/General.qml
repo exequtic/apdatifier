@@ -29,6 +29,7 @@ SimpleKCM {
     property alias cfg_newsTWIK: newsTWIK.checked
     property alias cfg_newsTWIKA: newsTWIKA.checked
     property alias cfg_newsKeep: newsKeep.value
+    property alias cfg_customFeeds: customFeeds.text
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -356,12 +357,22 @@ SimpleKCM {
                     to: 10
                     stepSize: 1
                     value: newsKeep
-                    enabled: newsArch.checked || newsKDE.checked || newsTWIK.checked || newsTWIKA.checked
+                    enabled: newsArch.checked || newsKDE.checked || newsTWIK.checked || newsTWIKA.checked || customFeeds.text.trim() !== ""
                 }
 
                 Label {
                     text: i18np("news item from the feed", "news items from the feed", newsKeep.value)
                 }
+            }
+
+            TextArea {
+                id: customFeeds
+                Kirigami.FormData.label: i18n("Custom feeds") + ":"
+                Layout.fillWidth: true
+                Layout.preferredHeight: Kirigami.Units.gridUnit * 5
+                placeholderText: i18n("One URL per line")
+                enabled: pkg.jq
+                wrapMode: TextEdit.NoWrap
             }
         }
 

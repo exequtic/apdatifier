@@ -256,7 +256,11 @@ function checkUpdates() {
         cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
         cfg.newsKDE   && "'https://kde.org/index.xml'",
         cfg.newsTWIK  && "'https://blogs.kde.org/categories/this-week-in-plasma/index.xml'",
-        cfg.newsTWIKA && "'https://blogs.kde.org/categories/this-week-in-kde-apps/index.xml'"
+        cfg.newsTWIKA && "'https://blogs.kde.org/categories/this-week-in-kde-apps/index.xml'",
+        ...(cfg.customFeeds || "").split("\n")
+            .map(u => u.trim())
+            .filter(u => u.startsWith("http"))
+            .map(u => `'${u}'`)
     ].filter(Boolean).join(' ')
 
             feeds ? checkNews() :
