@@ -14,7 +14,7 @@ ScrollView {
     ListView {
         model: modelList
         delegate: GridLayout {
-            visible: !sts.busy && sts.count
+            visible: (!sts.busy || sts.upgrading) && sts.count
             property var heightItem: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.5)
             property var column: view.width / 2
             height: heightItem + cfg.spacing
@@ -29,13 +29,13 @@ ScrollView {
                     anchors.centerIn: parent
                     height: heightItem
                     width: height
-                    source: !icon.isHovering ? model.IC : "edit-download"
+                    source: model.done ? "emblem-default" : (!icon.isHovering ? model.IC : "edit-download")
                 }
 
                 Loader {
                     width: parent.width - (Kirigami.Units.largeSpacing * 4)
                     anchors.fill: parent
-                    active: model.ID || model.CN
+                    active: (model.ID || model.CN) && !sts.upgrading
                     sourceComponent: MouseArea {
                         id: hoverIcon
                         anchors.fill: parent

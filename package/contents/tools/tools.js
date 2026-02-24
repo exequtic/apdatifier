@@ -196,6 +196,8 @@ function upgradingState() {
     execute(checkProc, (cmd, out, err, code) => {
         if (!out) {
             sts.busy = sts.upgrading = false
+            sts.upgradeLogStartLine = 0
+            sts.upgradeFlatpakTick = 0
             upgradeTimer.stop()
             execute(bash('utils', "currentVersions"), (cmd, out, err, code) => {
                 if (Error(code, err)) return
@@ -219,6 +221,7 @@ function upgradingState() {
             sts.busy = sts.upgrading = true
             sts.statusMsg = i18n("Upgrade in progress") + "..."
             sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+            checkInstalledPackages()
         }
     })
 }
@@ -226,7 +229,43 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    runInTerminal("upgrade", "full")
+    execute("wc -l < /var/log/pacman.log 2>/dev/null || echo 0", (cmd, out, err, code) => {
+        sts.upgradeLogStartLine = parseInt(out.trim()) || 0
+        sts.upgradeFlatpakTick = 0
+        runInTerminal("upgrade", "full")
+    })
+}
+
+function checkInstalledPackages() {
+    if (cfg.arch || cfg.aur) {
+        const logCmd = `tail -n +${sts.upgradeLogStartLine + 1} /var/log/pacman.log 2>/dev/null | awk '/\\[ALPM\\] upgraded /{print $4}'`
+        execute(logCmd, (cmd, out, err, code) => {
+            if (!out) return
+            const installed = new Set(out.trim().split("\n").filter(Boolean))
+            for (let i = 0; i < listModel.count; i++) {
+                const item = listModel.get(i)
+                if (!item.done && installed.has(item.NM)) listModel.setProperty(i, "done", true)
+            }
+        })
+    }
+    if (cfg.flatpak) {
+        sts.upgradeFlatpakTick++
+        if (sts.upgradeFlatpakTick % 5 === 0) {
+            execute("flatpak list --app --columns=application,active", (cmd, out, err, code) => {
+                if (!out) return
+                const active = {}
+                out.trim().split("\n").forEach(line => {
+                    const [id, commit] = line.split("\t")
+                    if (id) active[id.trim()] = commit ? commit.trim() : ""
+                })
+                for (let i = 0; i < listModel.count; i++) {
+                    const item = listModel.get(i)
+                    if (!item.done && item.ID && active[item.ID] !== undefined && active[item.ID] !== item.AC)
+                        listModel.setProperty(i, "done", true)
+                }
+            })
+        }
+    }
 }
 
 
@@ -568,7 +607,7 @@ function refreshListModel(list) {
     if (!list) return
 
     listModel.clear()
-    list.forEach(item => listModel.append(item))
+    list.forEach(item => { item.done = false; listModel.append(item) })
 }
 
 
@@ -808,6 +847,7 @@ function keys(list) {
         if (el.hasOwnProperty("IC")) delete el["IC"]
         if (el.hasOwnProperty("EX")) delete el["EX"]
         if (el.hasOwnProperty("IM")) delete el["IM"]
+        if (el.hasOwnProperty("done")) delete el["done"]
     })
 
     return list

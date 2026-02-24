@@ -21,16 +21,16 @@ ScrollView {
         height: parent.height
 
         delegate: ExpandableListItem {
-            visible: !sts.busy && sts.count
+            visible: (!sts.busy || sts.upgrading) && sts.count
             property var pkg: []
             allowStyledText: true
             title: model.IM ? "<font color='" + Kirigami.Theme.negativeTextColor + "'><b>" + model.NM + "</b></font>" : model.NM
             subtitle: model.RE + "  " + model.VO + " → " + model.VN
-            icon: model.IC
+            icon: model.done ? "emblem-default" : model.IC
 
             function getContextualActions() {
                 var actions = []
-                if (model.ID || model.CN) {
+                if (!sts.upgrading && (model.ID || model.CN)) {
                     actions.push(updateButton)
                 }
                 return actions

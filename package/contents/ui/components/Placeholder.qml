@@ -24,7 +24,7 @@ Item {
     Loader {
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         anchors.centerIn: parent
-        active: sts.busy
+        active: sts.busy && !sts.upgrading
         sourceComponent: ColumnLayout {
             spacing: Kirigami.Units.largeSpacing * 4
 

@@ -72,6 +72,8 @@ PlasmoidItem {
         property string statusIco: ""
         property string checktime: ""
         property var proc: null
+        property int upgradeLogStartLine: 0
+        property int upgradeFlatpakTick: 0
     }
 
     ListModel  {
