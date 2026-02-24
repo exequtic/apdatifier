@@ -1,0 +1,62 @@
+name: Build Plasmoid
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y gettext zip
+
+      - name: Build translations
+        run: |
+          cd package/translate
+          chmod +x build
+          ./build
+
+      - name: Set package name from tag
+        id: pkg
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VER="${GITHUB_REF_NAME}"
+          FILE="apdatifier_${VER}.plasmoid"
+          echo "ver=$VER" >> "$GITHUB_OUTPUT"
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+          echo "Building version from tag: $VER"
+
+      - name: Create plasmoid package
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          cd package
+          zip -r "../${{ steps.pkg.outputs.file }}" .
+          cd ..
+
+      - name: Upload artifact
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@v4
+        with:
+          name: apdatifier_${{ steps.pkg.outputs.ver }}
+          path: ${{ steps.pkg.outputs.file }}
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          files: ${{ steps.pkg.outputs.file }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
