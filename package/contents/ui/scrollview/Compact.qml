@@ -10,7 +10,7 @@ import "../components"
 
 ScrollView {
     id: view
-    ScrollBar.vertical.policy: (sts.count === 0 || sts.busy || sts.error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
+    ScrollBar.vertical.policy: (sts.count === 0 || (sts.busy && !sts.upgrading) || sts.error) ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
     ListView {
         model: modelList
         delegate: GridLayout {
