@@ -23,6 +23,7 @@ run() {
 bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
 
 fullSystemUpgrade() {
+    rm -f "$configDir/upgrade_complete"
     startTime=$(date +%s)
     critical_updated=()
     critical_installed=()
@@ -152,6 +153,7 @@ fullSystemUpgrade() {
 }
 
 flatpak_package() {
+    rm -f "$configDir/upgrade_complete"
     printMsg "$UPGRADE_PACKAGE: $2"
     echo
 
@@ -163,6 +165,7 @@ flatpak_package() {
 }
 
 widget_package() {
+    rm -f "$configDir/upgrade_complete"
     printMsg "$UPGRADE_PACKAGE: $2"
     echo
 

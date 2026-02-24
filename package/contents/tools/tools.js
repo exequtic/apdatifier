@@ -192,10 +192,17 @@ function management() {
 
 
 function upgradingState() {
-    const checkProc = `pgrep -f "apdatifier.*upgrade*"`
+    const sentinelFile = configDir + "upgrade_complete"
+    const checkProc = `ps aux | grep "[a]pdatifier/contents/tools/sh/upgrade" > /dev/null && ! [ -f "${sentinelFile}" ] && echo running`
     execute(checkProc, (cmd, out, err, code) => {
-        if (!out) {
-            sts.busy = sts.upgrading = false
+        const state = out.trim() === "running"
+        sts.busy = sts.upgrading = state
+        if (state) {
+            upgradeTimer.start()
+            scheduler.stop()
+            sts.statusMsg = i18n("Upgrade in progress") + "..."
+            sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
+        } else {
             upgradeTimer.stop()
             execute(bash('utils', "currentVersions"), (cmd, out, err, code) => {
                 if (Error(code, err)) return
@@ -213,12 +220,6 @@ function upgradingState() {
                 setStatusBar()
                 resumeScheduler()
             })
-        } else {
-            scheduler.stop()
-            upgradeTimer.start()
-            sts.busy = sts.upgrading = true
-            sts.statusMsg = i18n("Upgrade in progress") + "..."
-            sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
         }
     })
 }

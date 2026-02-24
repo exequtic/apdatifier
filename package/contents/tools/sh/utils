@@ -66,10 +66,13 @@ printMsg() {
 }
 
 printClose() {
+    touch "$configDir/upgrade_complete"
+    trap 'rm -f "$configDir/upgrade_complete"' EXIT INT TERM
     tput civis
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
+    rm -f "$configDir/upgrade_complete"
     [[ $(basename $terminal) = "yakuake" ]] && qdbusCMD sessions removeSession $(qdbusCMD sessions activeSessionId)
 }
 
