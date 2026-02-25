@@ -220,6 +220,7 @@ function upgradingState() {
             sts.statusMsg = i18n("Upgrade in progress") + "..."
             sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
         }
+        updatePlasmoidStatus()
     })
 }
 
