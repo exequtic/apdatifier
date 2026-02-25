@@ -251,34 +251,48 @@ rss() {
 
         # Detect RSS 2.0 vs Atom 1.0 by root element name
         local root=$(xmllint --xpath "name(/*)" "$cleanFile" 2>/dev/null)
-        local title article date link
 
+        # Count available items in feed (capped at newsKeep)
+        local count title
         if [[ "$root" == "feed" ]]; then
+            count=$(xmllint --xpath "count(/feed/entry)" "$cleanFile" 2>/dev/null || echo 0)
             title=$(xmllint --xpath "string(/feed/title)" "$cleanFile")
-            article=$(xmllint --xpath "string(/feed/entry[1]/title)" "$cleanFile")
-            date=$(date -d "$(xmllint --xpath 'string(/feed/entry[1]/updated)' "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
-            link=$(xmllint --xpath "string(/feed/entry[1]/link/@href)" "$cleanFile")
         else
+            count=$(xmllint --xpath "count(/rss/channel/item)" "$cleanFile" 2>/dev/null || echo 0)
             title=$(xmllint --xpath "string(/rss/channel/title)" "$cleanFile")
-            article=$(xmllint --xpath "string(/rss/channel/item[1]/title)" "$cleanFile")
-            date=$(date -d "$(xmllint --xpath 'string(/rss/channel/item[1]/pubDate)' "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
-            link=$(xmllint --xpath "string(/rss/channel/item[1]/link)" "$cleanFile")
         fi
 
-        [[ -z "$title" || -z "$article" || -z "$date" || -z "$link" ]] && {
-            errors+="$url "
-            continue
-        }
+        [[ -z "$title" ]] && { errors+="$url "; continue; }
 
-        while (( $(jq --arg t "$title" '[.[] | select(.title == $t)] | length' "$newsFile") > ${newsKeep:-3} )); do
+        local max=${newsKeep:-3}
+        (( count > max )) && count=$max
+
+        local n
+        for (( n=1; n<=count; n++ )); do
+            local article date link
+            if [[ "$root" == "feed" ]]; then
+                article=$(xmllint --xpath "string(/feed/entry[$n]/title)" "$cleanFile")
+                date=$(date -d "$(xmllint --xpath "string(/feed/entry[$n]/updated)" "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+                link=$(xmllint --xpath "string(/feed/entry[$n]/link/@href)" "$cleanFile")
+            else
+                article=$(xmllint --xpath "string(/rss/channel/item[$n]/title)" "$cleanFile")
+                date=$(date -d "$(xmllint --xpath "string(/rss/channel/item[$n]/pubDate)" "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+                link=$(xmllint --xpath "string(/rss/channel/item[$n]/link)" "$cleanFile")
+            fi
+
+            [[ -z "$article" || -z "$date" || -z "$link" ]] && continue
+
+            if ! jq -e --arg l "$link" '.[] | select(.link == $l)' "$newsFile" > /dev/null; then
+                local item=$(jq -n --arg t "$title" --arg a "$article" --arg d "$date" --arg l "$link" '{title: $t, article: $a, date: $d, link: $l, removed: false}')
+                updateJson "$newsFile" "$(jq --argjson item "$item" '[$item] + .' "$newsFile")"
+            fi
+        done
+
+        # Prune oldest entries for this feed down to newsKeep
+        while (( $(jq --arg t "$title" '[.[] | select(.title == $t)] | length' "$newsFile") > max )); do
             index=$(jq --arg t "$title" 'to_entries | reverse | map(select(.value.title == $t)) | .[0].key' "$newsFile")
             updateJson "$newsFile" "$(jq --argjson index "$index" 'del(.[$index])' "$newsFile")"
         done
-
-        if ! jq -e --arg l "$link" '.[] | select(.link == $l)' "$newsFile" > /dev/null; then
-            local item=$(jq -n --arg t "$title" --arg a "$article" --arg d "$date" --arg l "$link" '{title: $t, article: $a, date: $d, link: $l, removed: false}')
-            updateJson "$newsFile" "$(jq --argjson item "$item" '[$item] + .' "$newsFile")"
-        fi
     done
 
     updateJson $newsFile "$(jq 'sort_by(.date | strptime("%d.%m.%Y | %H:%M") | mktime) | reverse' $newsFile)"
