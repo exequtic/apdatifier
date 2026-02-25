@@ -248,11 +248,11 @@ function checkUpdates() {
 
     let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
 
-    const feeds = (cfg.customFeeds || "").split("\n")
+    const feeds = ((cfg.customFeeds || "").split("\n")
         .map(u => u.trim())
         .filter(u => u.startsWith("http"))
         .map(u => `'${u}'`)
-        .join(' ')
+        .join(' '));
 
             (feeds && cfg.packages?.jq) ? checkNews() :
          cfg.arch ? checkRepos() :
