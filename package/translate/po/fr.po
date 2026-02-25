@@ -23,7 +23,7 @@ msgstr "Général"
 
 #: ../contents/config/config.qml
 msgid "Upgrade & Management"
-msgstr ""
+msgstr "Mise à niveau et gestion"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -43,19 +43,19 @@ msgstr "Mise à niveau en cours"
 
 #: ../contents/tools/sh/messages
 msgid "Full system upgrade"
-msgstr "Mise à jour complète du système"
+msgstr "Mise à niveau complète du système"
 
 #: ../contents/tools/sh/messages
 msgid "Flatpak Upgrade"
-msgstr "Mise à jour Flatpak"
+msgstr "Mise à niveau Flatpak"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr "Mise à jour des widgets Plasma"
+msgstr "Mise à niveau des widgets Plasma"
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade"
-msgstr "Mettre à jour"
+msgstr "Mettre à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Total execution time:"
@@ -80,15 +80,15 @@ msgstr "Ignoré..."
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade complete, close the terminal"
-msgstr ""
+msgstr "Mise à niveau terminée, fermez le terminal"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
-msgstr "Obtenir une liste des derniers miroirs filtrés"
+msgstr "Récupération de la dernière liste de miroirs filtrés"
 
 #: ../contents/tools/sh/messages
 msgid "Ranking mirrors by their connection and opening speed"
-msgstr "Trier les miroirs selon leur vitesse de connexion et d'ouverture"
+msgstr "Classement des miroirs selon leur vitesse de connexion et d'ouverture"
 
 #: ../contents/tools/sh/messages
 msgid "Check your mirrorlist generator settings..."
@@ -109,7 +109,7 @@ msgstr "Votre liste de miroirs actuelle :"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirror list?"
-msgstr ""
+msgstr "Actualiser la liste de miroirs ?"
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -202,95 +202,95 @@ msgstr "Gestion"
 
 #: ../contents/tools/sh/messages
 msgid "Browse available"
-msgstr ""
+msgstr "Parcourir les disponibles"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
+msgstr "Rechercher tous les paquets disponibles et sélectionner ceux à installer"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
-msgstr ""
+msgstr "Gérer les installés"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
+msgstr "Afficher les paquets installés et sélectionner ceux à supprimer"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
-msgstr ""
+msgstr "Installations explicites"
 
 #: ../contents/tools/sh/messages
 msgid "Show packages you installed directly"
-msgstr ""
+msgstr "Afficher les paquets que vous avez installés directement"
 
 #: ../contents/tools/sh/messages
 msgid "All explicit installs"
-msgstr ""
+msgstr "Toutes les installations explicites"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs not required by anything"
-msgstr ""
+msgstr "Installations explicites non requises par d'autres paquets"
 
 #: ../contents/tools/sh/messages
 msgid "Orphaned dependencies"
-msgstr ""
+msgstr "Dépendances orphelines"
 
 #: ../contents/tools/sh/messages
 msgid "Dependencies that are no longer needed by anything installed"
-msgstr ""
+msgstr "Dépendances qui ne sont plus requises par aucun paquet installé"
 
 #: ../contents/tools/sh/messages
 msgid "List orphans"
-msgstr ""
+msgstr "Lister les orphelins"
 
 #: ../contents/tools/sh/messages
 msgid "Remove orphans"
-msgstr ""
+msgstr "Supprimer les orphelins"
 
 #: ../contents/tools/sh/messages
 msgid "Downgrade from cache"
-msgstr ""
+msgstr "Rétrograder depuis le cache"
 
 #: ../contents/tools/sh/messages
 msgid "Clean cache"
-msgstr ""
+msgstr "Nettoyer le cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
+msgstr "Supprimer les fichiers en cache pour libérer de l'espace disque"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
-msgstr ""
+msgstr "Supprimer tout le cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove unused cache"
-msgstr ""
+msgstr "Supprimer le cache inutilisé"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
-msgstr ""
+msgstr "Reconstruire les paquets"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
+msgstr "Sélectionner les paquets à réinstaller avec reconstruction"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
-msgstr ""
+msgstr "Reconstruire les paquets AUR"
 
 #: ../contents/tools/sh/messages
 msgid "Detect Python packages to rebuild"
-msgstr ""
+msgstr "Détecter les paquets Python à reconstruire"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrors"
-msgstr ""
+msgstr "Actualiser les miroirs"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
-msgstr ""
+msgstr "Installations récentes"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -306,7 +306,7 @@ msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
 msgid "Calculating..."
-msgstr ""
+msgstr "Calcul en cours..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -331,7 +331,7 @@ msgstr "Code de sortie : "
 
 #: ../contents/tools/tools.js
 msgid "Checking latest news..."
-msgstr "Vérification des dernières nouvelles..."
+msgstr "Vérification des dernières actualités..."
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing pacman databases..."
@@ -359,13 +359,13 @@ msgstr "Vérification des mises à jour des widgets..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
-msgstr "Vérification des mises à jour du micrologiciel..."
+msgstr "Vérification des mises à jour du firmware..."
 
 #: ../contents/tools/tools.js
 msgid "%1 new article"
 msgid_plural "%1 new articles"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 nouvel article"
+msgstr[1] "%1 nouveaux articles"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -431,7 +431,7 @@ msgstr "Dernière vérification :"
 
 #: ../contents/tools/tools.js
 msgid "ago"
-msgstr "depuis"
+msgstr "il y a"
 
 #: ../contents/tools/tools.js
 msgid "Next check in:"
@@ -697,7 +697,7 @@ msgstr "Toujours passer à l’onglet par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
-msgstr "Hauteur des éléments (Compacte)"
+msgstr "Espacement des éléments (Compacte)"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -705,7 +705,7 @@ msgstr "Tri"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr "Par référentiel"
+msgstr "Par dépôt"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
@@ -881,7 +881,7 @@ msgstr "Applications Flatpak"
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
-msgstr "Pas installé"
+msgstr "Non installé"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Plasma Widgets"
@@ -899,7 +899,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
-msgstr "Micrologiciel"
+msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -918,11 +918,11 @@ msgstr[1] "éléments d'actualité du flux"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS feeds"
-msgstr ""
+msgstr "Flux RSS"
 
 #: ../contents/ui/configuration/General.qml
 msgid "One URL per line"
-msgstr ""
+msgstr "Une URL par ligne"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -960,11 +960,11 @@ msgstr "Pour les erreurs"
 
 #: ../contents/ui/configuration/General.qml
 msgid "With sound"
-msgstr "Avec du son"
+msgstr "Avec son"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Persistent"
-msgstr "Persistant"
+msgstr "Persistantes"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -1093,7 +1093,7 @@ msgid ""
 "starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
 "Merci d'utiliser mon widget ! Si vous appréciez mon travail, vous pouvez me "
-"soutenir en mettant en vedette le dépôt GitHub ou en m'offrant un café ;)"
+"soutenir en mettant une étoile sur le dépôt GitHub ou en m'offrant un café ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
@@ -1160,28 +1160,30 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
-msgstr ""
+msgstr "Sans options Flatpak"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr ""
+msgstr "Masquer les en-têtes"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
-msgstr ""
+msgstr "Masquer l'aide"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr ""
+msgstr "Masquer les numéros d'option"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
-msgstr ""
+msgstr "Options fzf"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Override default fzf options.<br>See <b>fzf --help</b> for available options."
 msgstr ""
+"Remplacer les options fzf par défaut.<br>Voir <b>fzf --help</b> pour les "
+"options disponibles."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1390,7 +1392,7 @@ msgstr "Ignorer"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
-msgstr ""
+msgstr "Pas de connexion internet"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
@@ -1422,7 +1424,7 @@ msgstr "Commit"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Runtime"
-msgstr "Durée d'exécution"
+msgstr "Runtime"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Groups"
