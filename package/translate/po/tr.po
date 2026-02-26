@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2025-12-05 11:00+0300\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: Turkish <LL@li.org>\n"
@@ -76,6 +76,10 @@ msgstr "Kapatmak için Enter tuşuna basın"
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
 msgstr "Atlandı..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -210,15 +214,15 @@ msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
+msgid "All explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
+msgid "Explicit installs not required by anything"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
+msgid "Orphaned dependencies"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -344,6 +348,12 @@ msgstr "Widget güncellemeleri kontrol ediliyor..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "Aygıt yazılımı güncellemeleri kontrol ediliyor..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -838,10 +848,6 @@ msgid "News"
 msgstr "Haberler"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Arch Linux Haberleri"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "Tut"
 
@@ -850,6 +856,14 @@ msgid "news item from the feed"
 msgid_plural "news items from the feed"
 msgstr[0] "beslemeden haber öğesi"
 msgstr[1] "beslemeden haber öğeleri"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1040,7 +1054,7 @@ msgid "Running your command or script AFTER the upgrade.<br>For example, you can
 msgstr "Yükseltmeden SONRA komutunuzu veya betiğinizi çalıştırır.<br>Örneğin, başka bir şeyi yükseltmek için komutunuzu belirtebilirsiniz."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
+msgid "Without Flatpak options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1336,42 +1350,3 @@ msgstr "Okunmamış haber yok"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Listeyi geri yükle"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "Depolardaki tüm mevcut paketleri listele"
-
-#~ msgid "List all installed packages"
-#~ msgstr "Tüm kurulu paketleri listele"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "Açıkça kurulan paketleri listele"
-
-#~ msgid "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr "Açıkça kurulan paketleri ve bir şeyin bağımlılığı olmayanları listele"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr "Artık ihtiyaç duyulmayan kurulu bağımlılıkları listele (sahipsiz)"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "Sahipsiz paketleri kaldır"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "Önbellekten bir paketi kur (sürüm düşür)"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "TÜM önbelleğe alınmış paketleri kaldır"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr "Şu anda kurulu olmayan önbelleğe alınmış paketleri kaldır"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr "Python yükseltmesinden sonra AUR python paketlerini yeniden oluştur"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "Yansı listesini yenile"
-
-#~ msgid "Exit"
-#~ msgstr "Çıkış"
-
-#~ msgid "Search:"
-#~ msgstr "Arama:"

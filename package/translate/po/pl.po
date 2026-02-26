@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -77,6 +77,10 @@ msgstr "Naciśnij Enter, aby zamknąć"
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
 msgstr "Pominięto..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -211,15 +215,15 @@ msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
+msgid "All explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
+msgid "Explicit installs not required by anything"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
+msgid "Orphaned dependencies"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -345,6 +349,13 @@ msgstr "Sprawdzanie aktualizacji widżetów..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "Sprawdzanie aktualizacji oprogramowania układowego..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -847,10 +858,6 @@ msgid "News"
 msgstr "Wiadomości"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Wiadomości Arch Linux"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "Zachowaj"
 
@@ -860,6 +867,14 @@ msgid_plural "news items from the feed"
 msgstr[0] "wiadomość z kanału"
 msgstr[1] "wiadomości z kanału"
 msgstr[2] "wiadomości z kanału"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1050,7 +1065,7 @@ msgid "Running your command or script AFTER the upgrade.<br>For example, you can
 msgstr "Uruchamianie polecenia lub skryptu PO aktualizacji.<br>Na przykład, możesz określić polecenie do aktualizacji czegoś innego."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
+msgid "Without Flatpak options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1347,42 +1362,3 @@ msgstr "Brak nieprzeczytanych wiadomości"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Przywróć listę"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "Wyświetl wszystkie dostępne pakiety w repozytoriach"
-
-#~ msgid "List all installed packages"
-#~ msgstr "Wyświetl wszystkie zainstalowane pakiety"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "Wyświetl wszystkie pakiety zainstalowane jawnie"
-
-#~ msgid "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr "Wyświetl wszystkie pakiety zainstalowane jawnie, które nie są zależnościami żadnych innych pakietów"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr "Wyświetl wszystkie zależności, które nie są już potrzebne (osierocone)"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "Odinstaluj osierocone pakiety"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "Zainstaluj (zaktualizuj do starszej wersji) pakiet z pamięci podręcznej"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "Usuń WSZYSTKIE pakiety z pamięci podręcznej"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr "Usuń pakiety w pamięci podręcznej, które nie są aktualnie zainstalowane"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr "Zbuduj ponownie pakiety Pythona z AUR po aktualizacji Pythona"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "Odśwież listę serwerów lustrzanych"
-
-#~ msgid "Exit"
-#~ msgstr "Wyjdź"
-
-#~ msgid "Search:"
-#~ msgstr "Szukaj:"

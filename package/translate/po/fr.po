@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -77,6 +77,10 @@ msgstr "Appuyez sur Entrée pour fermer"
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
 msgstr "Ignoré..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -221,15 +225,15 @@ msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
+msgid "All explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
+msgid "Explicit installs not required by anything"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
+msgid "Orphaned dependencies"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -356,6 +360,12 @@ msgstr "Vérification des mises à jour des widgets..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "Vérification des mises à jour du micrologiciel..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -897,10 +907,6 @@ msgid "News"
 msgstr "Actualités"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Actualités Arch Linux"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "Conserver"
 
@@ -909,6 +915,14 @@ msgid "news item from the feed"
 msgid_plural "news items from the feed"
 msgstr[0] "élément d'actualité du flux"
 msgstr[1] "éléments d'actualité du flux"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1145,7 +1159,7 @@ msgstr ""
 "chose."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
+msgid "Without Flatpak options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1457,48 +1471,3 @@ msgstr "Aucune nouvelle non lue"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Restaurer la liste"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "Répertorier tous les paquets disponibles dans les dépôts"
-
-#~ msgid "List all installed packages"
-#~ msgstr "Lister tous les paquets installés"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "Répertorier les paquets explicitement installés"
-
-#~ msgid ""
-#~ "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr ""
-#~ "Répertorie les paquets explicitement installés qui ne sont dépendances "
-#~ "d'aucun autre paquet"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr ""
-#~ "Liste les dépendances installées qui ne sont plus nécessaires (orphelins)"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "Désinstaller les paquets orphelins"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "Installer (rétrograder) un package à partir du cache"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "Supprimer TOUS les paquets en cache"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr ""
-#~ "Supprimer les paquets mis en cache qui ne sont pas actuellement installés"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr ""
-#~ "Reconstruire les paquets Python AUR après la mise à niveau de Python"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "Actualiser la liste de miroirs"
-
-#~ msgid "Exit"
-#~ msgstr "Sortir"
-
-#~ msgid "Search:"
-#~ msgstr "Recherche"

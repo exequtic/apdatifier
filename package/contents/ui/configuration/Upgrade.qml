@@ -210,7 +210,7 @@ SimpleKCM {
 
         CheckBox {
             id: mngHideFlatpak
-            text: i18n("No Flatpak options")
+            text: i18n("Without Flatpak options")
         }
         CheckBox {
             id: mngHideHeaders
@@ -360,7 +360,7 @@ SimpleKCM {
                 font.pointSize: Kirigami.Theme.smallFont.pointSize
                 font.bold: true
                 color: Kirigami.Theme.negativeTextColor
-                text: i18n("Only for official repositories")
+                text: i18n("Only for official repositories")+"!"+" (core, extra, multilib)"
             }
 
             Kirigami.ContextualHelpButton {

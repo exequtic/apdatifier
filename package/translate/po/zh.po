@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2025-06-08 19:45+0800\n"
 "Last-Translator: Mill Haruto <mill413@outlook.com>\n"
 "Language-Team: \n"
@@ -77,6 +77,10 @@ msgstr "按下 Enter 关闭"
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
 msgstr "已跳过..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -216,15 +220,15 @@ msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
+msgid "All explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
+msgid "Explicit installs not required by anything"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
+msgid "Orphaned dependencies"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -350,6 +354,11 @@ msgstr "正在检查挂件更新..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "正在检查固件更新..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -871,10 +880,6 @@ msgid "News"
 msgstr "新闻通知"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Arch Linux 新闻"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "保留"
 
@@ -882,6 +887,14 @@ msgstr "保留"
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
 msgstr[0] "条来自订阅源的新闻"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1103,7 +1116,7 @@ msgstr ""
 "在升级完成后运行您的命令或脚本。<br>例如，您可以指定用于升级其他内容的命令。"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
+msgid "Without Flatpak options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1410,43 +1423,3 @@ msgstr "无未读新闻"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "恢复列表"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "列出仓库中所有可用的软件包"
-
-#~ msgid "List all installed packages"
-#~ msgstr "列出所有已安装的软件包"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "列出显式安装的软件包"
-
-#~ msgid ""
-#~ "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr "列出显式安装且未被依赖的软件包"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr "列出不再需要的已安装依赖（孤儿包）"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "卸载孤儿包"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "从缓存安装（降级）软件包"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "删除所有缓存的软件包"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr "删除当前未安装的软件包缓存"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr "Python 升级后重建 AUR Python 软件包"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "刷新镜像列表"
-
-#~ msgid "Exit"
-#~ msgstr "退出"
-
-#~ msgid "Search:"
-#~ msgstr "搜索："

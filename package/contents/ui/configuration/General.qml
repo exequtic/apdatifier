@@ -337,7 +337,7 @@ SimpleKCM {
 
             TextArea {
                 id: customFeeds
-                Kirigami.FormData.label: i18n("Custom feeds") + ":"
+                Kirigami.FormData.label: i18n("RSS feeds") + ":"
                 Layout.fillWidth: true
                 Layout.preferredHeight: Kirigami.Units.gridUnit * 5
                 placeholderText: i18n("One URL per line")

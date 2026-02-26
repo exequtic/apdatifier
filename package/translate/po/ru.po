@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -25,7 +25,7 @@ msgstr "Основное"
 
 #: ../contents/config/config.qml
 msgid "Upgrade & Management"
-msgstr ""
+msgstr "Обновление и Управление"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -80,6 +80,10 @@ msgid "Skipped..."
 msgstr "Пропуск..."
 
 #: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr "Обновление завершено, закройте терминал"
+
+#: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
 msgstr "Получение списка последних зеркал"
 
@@ -105,7 +109,7 @@ msgstr "Ваш текущий список зеркал:"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirror list?"
-msgstr ""
+msgstr "Обновить список зеркал?"
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -197,95 +201,95 @@ msgstr "Управление"
 
 #: ../contents/tools/sh/messages
 msgid "Browse available"
-msgstr ""
+msgstr "Обзор доступных"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
+msgstr "Поиск доступных пакетов и выбор для установки"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
-msgstr ""
+msgstr "Управление установленными"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
+msgstr "Просмотр установленных пакетов и выбор для удаления"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
-msgstr ""
+msgstr "Установленные явно"
 
 #: ../contents/tools/sh/messages
 msgid "Show packages you installed directly"
-msgstr ""
+msgstr "Показать пакеты, которые вы установили напрямую"
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
-msgstr ""
+msgid "All explicit installs"
+msgstr "Все явно установленные пакеты"
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
-msgstr ""
+msgid "Explicit installs not required by anything"
+msgstr "Явно установленные пакеты, не требуемые ничем"
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
-msgstr ""
+msgid "Orphaned dependencies"
+msgstr "Неиспользуемые зависимости"
 
 #: ../contents/tools/sh/messages
 msgid "Dependencies that are no longer needed by anything installed"
-msgstr ""
+msgstr "Зависимости, которые больше не требуются установленными пакетами"
 
 #: ../contents/tools/sh/messages
 msgid "List orphans"
-msgstr ""
+msgstr "Список неиспользуемых зависимостей"
 
 #: ../contents/tools/sh/messages
 msgid "Remove orphans"
-msgstr ""
+msgstr "Удалить неиспользуемые зависимости"
 
 #: ../contents/tools/sh/messages
 msgid "Downgrade from cache"
-msgstr ""
+msgstr "Понизить версию из кэша"
 
 #: ../contents/tools/sh/messages
 msgid "Clean cache"
-msgstr ""
+msgstr "Очистить кэш"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
+msgstr "Удалить кэшированные файлы для освобождения места на диске"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
-msgstr ""
+msgstr "Удалить весь кэш"
 
 #: ../contents/tools/sh/messages
 msgid "Remove unused cache"
-msgstr ""
+msgstr "Удалить кэш пакетов, которые не установлены"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
-msgstr ""
+msgstr "Пересобрать пакеты"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
+msgstr "Выберите пакеты, которые нужно переустановить с пересборкой"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
-msgstr ""
+msgstr "Пересобрать пакеты AUR"
 
 #: ../contents/tools/sh/messages
 msgid "Detect Python packages to rebuild"
-msgstr ""
+msgstr "Обнаружить пакеты Python, требующие пересборки"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrors"
-msgstr ""
+msgstr "Обновить зеркала"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
-msgstr ""
+msgstr "Недавние установки"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -301,7 +305,7 @@ msgstr "Нажмите Enter чтобы вернуться в меню"
 
 #: ../contents/tools/sh/messages
 msgid "Calculating..."
-msgstr ""
+msgstr "Вычисление..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -354,6 +358,13 @@ msgstr "Проверка обновлений виджетов..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "Проверка обновлений прошивки..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] "%1 новая статья"
+msgstr[1] "%1 новые статьи"
+msgstr[2] "%1 новых статей"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -901,10 +912,6 @@ msgid "News"
 msgstr "Новости"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "Новости Arch Linux"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "Хранить"
 
@@ -914,6 +921,14 @@ msgid_plural "news items from the feed"
 msgstr[0] "новость с фида"
 msgstr[1] "новости с фида"
 msgstr[2] "новостей с фида"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr "RSS фиды"
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr "Один URL на строку"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1147,29 +1162,31 @@ msgstr ""
 "указать свою команду для обновления чего-либо еще."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
-msgstr ""
+msgid "Without Flatpak options"
+msgstr "Без опций Flatpak"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr ""
+msgstr "Cкрыть заголовки"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
-msgstr ""
+msgstr "Скрыть помощь"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr ""
+msgstr "Скрыть номера опций"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
-msgstr ""
+msgstr "Опции Fzf"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Override default fzf options.<br>See <b>fzf --help</b> for available options."
 msgstr ""
+"Переопределить параметры fzf по умолчанию.<br>Смотрите <b>fzf --help</b> для "
+"доступных параметров."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1380,7 +1397,7 @@ msgstr "Отклонить"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
-msgstr ""
+msgstr "Нет подключения к интернету"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
@@ -1461,44 +1478,3 @@ msgstr "Нет непрочитанных новостей"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "Восстановить список"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "Список всех доступных пакетов в репозиториях"
-
-#~ msgid "List all installed packages"
-#~ msgstr "Список всех установленных пакетов"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "Список явно установленных пакетов"
-
-#~ msgid ""
-#~ "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr ""
-#~ "Список явно установленных пакетов, которые не являются зависимостями"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr "Список установленных зависимостей, которые больше не нужны (сироты)"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "Удалить пакеты сироты"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "Установить пакет (понизить версию) из кэша"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "Очистить ВСЕ кэшированные пакеты"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr "Очистить кэшированные пакеты, которые не установлены"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr "Пересборка python пакетов из AUR после обновления python"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "Обновить список зеркал"
-
-#~ msgid "Exit"
-#~ msgstr "Выход"
-
-#~ msgid "Search:"
-#~ msgstr "Поиск:"

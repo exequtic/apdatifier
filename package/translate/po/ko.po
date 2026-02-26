@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-22 11:04+0300\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -77,6 +77,10 @@ msgstr "Enter 키를 눌러 닫기"
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
 msgstr "건너뜀..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -219,15 +223,15 @@ msgid "Show packages you installed directly"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List explicit installs"
+msgid "All explicit installs"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "List unneeded explicit"
+msgid "Explicit installs not required by anything"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Orphaned dependency"
+msgid "Orphaned dependencies"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -353,6 +357,11 @@ msgstr "위젯 업데이트 확인 중..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "펌웨어 업데이트 확인 중..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -879,10 +888,6 @@ msgid "News"
 msgstr "소식"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Arch Linux News"
-msgstr "아치 리눅스 소식"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Keep"
 msgstr "유지"
 
@@ -890,6 +895,14 @@ msgstr "유지"
 msgid "news item from the feed"
 msgid_plural "news items from the feed"
 msgstr[0] "피드의 뉴스 항목"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1117,7 +1130,7 @@ msgstr ""
 "레이드하는 명령을 지정할 수 있습니다."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "No Flatpak options"
+msgid "Without Flatpak options"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1425,43 +1438,3 @@ msgstr "읽지 않은 뉴스 없음"
 #: ../contents/ui/scrollview/News.qml
 msgid "Restore list"
 msgstr "목록 복원"
-
-#~ msgid "List all available packages in repositories"
-#~ msgstr "저장소에 있는 사용 가능한 모든 패키지 목록"
-
-#~ msgid "List all installed packages"
-#~ msgstr "모든 설치된 패키지 목록"
-
-#~ msgid "List explicitly installed packages"
-#~ msgstr "명시적으로 설치된 패키지 목록"
-
-#~ msgid ""
-#~ "List explicitly installed packages and isn't a dependency of anything"
-#~ msgstr "의존성이 없는 명시된 패키지 목록"
-
-#~ msgid "List installed dependencies that aren't needed anymore (orphans)"
-#~ msgstr "더 이상 필요하지 않은 의존성 설치 목록"
-
-#~ msgid "Uninstall orphan packages"
-#~ msgstr "고아 패키지 제거"
-
-#~ msgid "Install (downgrade) a package from cache"
-#~ msgstr "캐시로부터 다운그레이드 패키지 설치"
-
-#~ msgid "Remove ALL cached packages"
-#~ msgstr "모든 캐시된 패키지 제거"
-
-#~ msgid "Remove cached packages that are not currently installed"
-#~ msgstr "현재 설치되지 않은 캐시된 패키지 제거"
-
-#~ msgid "Rebuild AUR python packages after python upgrade"
-#~ msgstr "Python 업그레이드 후 AUR Python 패키지 재빌드"
-
-#~ msgid "Refresh mirrorlist"
-#~ msgstr "미러리스트 새로 고침"
-
-#~ msgid "Exit"
-#~ msgstr "나가기"
-
-#~ msgid "Search:"
-#~ msgstr "검색:"
