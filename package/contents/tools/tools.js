@@ -167,10 +167,6 @@ function checkDependencies() {
         if (!tmux) plasmoid.configuration.tmuxSession = false
         if (!jq) {
             plasmoid.configuration.widgets = false
-            plasmoid.configuration.newsArch = false
-            plasmoid.configuration.newsKDE = false
-            plasmoid.configuration.newsTWIK = false
-            plasmoid.configuration.newsTWIKA = false
         }
     })
 }
@@ -253,14 +249,13 @@ function checkUpdates() {
 
     let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
 
-    const feeds = [
-        cfg.newsArch  && "'https://archlinux.org/feeds/news/'",
-        cfg.newsKDE   && "'https://kde.org/index.xml'",
-        cfg.newsTWIK  && "'https://blogs.kde.org/categories/this-week-in-plasma/index.xml'",
-        cfg.newsTWIKA && "'https://blogs.kde.org/categories/this-week-in-kde-apps/index.xml'"
-    ].filter(Boolean).join(' ')
+    const feeds = ((cfg.customFeeds || "").split("\n")
+        .map(u => u.trim())
+        .filter(u => u.startsWith("http"))
+        .map(u => `'${u}'`)
+        .join(' '));
 
-            feeds ? checkNews() :
+            (feeds && cfg.packages?.jq) ? checkNews() :
          cfg.arch ? checkRepos() :
           cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
@@ -380,12 +375,13 @@ function updateNews(out) {
     const news = JSON.parse(out.trim())
 
     if (cfg.notifyNews) {
-        const currentNews = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
-        news.forEach(item => {
-            if (!currentNews.some(currentItem => currentItem.link === item.link)) {
-                notify.send("news", item.title, item.article, item.link)
-            }
-        })
+        const currentLinks = new Set(Array.from(Array(newsModel.count), (_, i) => newsModel.get(i).link))
+        const newItems = news.filter(item => !currentLinks.has(item.link))
+        if (newItems.length > 0) {
+            const title = i18np("%1 new article", "%1 new articles", newItems.length)
+            const body = newItems.map(item => `<b>${item.title}</b>: ${item.article}`).join("\n")
+            notify.send("news", title, body, newItems[0].link)
+        }
     }
 
     newsModel.clear()
@@ -397,6 +393,22 @@ function updateActiveNews() {
     activeNewsModel.clear()
     activeItems.forEach(item => activeNewsModel.append(item))
 }
+function writeNewsFile(array) {
+    const json = toFileFormat(array)
+    if (json.length > 130000) {
+        const lines = json.replace(/},/g, "},\n").replace(/'/g, "").split("\n")
+        let start = 0
+        const chunkSize = 50
+        while (start < lines.length) {
+            const chunk = lines.slice(start, start + chunkSize).join("\n")
+            const redir = start === 0 ? ">" : ">>"
+            execute(writeFile(chunk, redir, newsFile))
+            start += chunkSize
+        }
+    } else {
+        execute(writeFile(json, '>', newsFile))
+    }
+}
 function removeNewsItem(index) {
     for (let i = 0; i < newsModel.count; i++) {
         if (newsModel.get(i).link === activeNewsModel.get(index).link) {
@@ -406,7 +418,7 @@ function removeNewsItem(index) {
         }
     }
     let array = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
-    execute(writeFile(toFileFormat(array), '>', newsFile))
+    writeNewsFile(array)
 }
 function restoreNewsList() {
     let array = []
@@ -414,7 +426,7 @@ function restoreNewsList() {
         newsModel.setProperty(i, "removed", false)
         array.push(newsModel.get(i))
     }
-    execute(writeFile(toFileFormat(array), '>', newsFile))
+    writeNewsFile(array)
     updateActiveNews()
 }
 

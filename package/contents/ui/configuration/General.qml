@@ -24,11 +24,8 @@ SimpleKCM {
     property alias cfg_fwupd: fwupd.checked
     property alias cfg_widgets: widgets.checked
 
-    property alias cfg_newsArch: newsArch.checked
-    property alias cfg_newsKDE: newsKDE.checked
-    property alias cfg_newsTWIK: newsTWIK.checked
-    property alias cfg_newsTWIKA: newsTWIKA.checked
     property alias cfg_newsKeep: newsKeep.value
+    property alias cfg_customFeeds: customFeeds.text
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -320,32 +317,6 @@ SimpleKCM {
             RowLayout {
                 Kirigami.FormData.label: i18n("News") + ":"
 
-                CheckBox {
-                    id: newsArch
-                    text: i18n("Arch Linux News")
-                    enabled: pkg.jq
-                }
-            }
-
-            CheckBox {
-                id: newsKDE
-                text: "KDE Announcements"
-                enabled: pkg.jq
-            }
-
-            CheckBox {
-                id: newsTWIK
-                text: "This Week in KDE"
-                enabled: pkg.jq
-            }
-
-            CheckBox {
-                id: newsTWIKA
-                text: "This Week in KDE Apps"
-                enabled: pkg.jq
-            }
-
-            RowLayout {
                 Label {
                     text: i18n("Keep")
                 }
@@ -356,12 +327,22 @@ SimpleKCM {
                     to: 10
                     stepSize: 1
                     value: newsKeep
-                    enabled: newsArch.checked || newsKDE.checked || newsTWIK.checked || newsTWIKA.checked
+                    enabled: customFeeds.text.trim() !== ""
                 }
 
                 Label {
                     text: i18np("news item from the feed", "news items from the feed", newsKeep.value)
                 }
+            }
+
+            TextArea {
+                id: customFeeds
+                Kirigami.FormData.label: i18n("Custom feeds") + ":"
+                Layout.fillWidth: true
+                Layout.preferredHeight: Kirigami.Units.gridUnit * 5
+                placeholderText: i18n("One URL per line")
+                enabled: pkg.jq
+                wrapMode: TextEdit.NoWrap
             }
         }
 
