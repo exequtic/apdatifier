@@ -63,8 +63,7 @@ msgstr "Temps d'exécution total :"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr ""
-"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
+msgstr "Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -100,8 +99,7 @@ msgstr "a été mis à jour avec les serveurs suivants :"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr ""
-"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr "Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -114,9 +112,7 @@ msgstr "Actualiser la liste de miroirs ?"
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
-"plasmashell après la mise à niveau"
+msgstr "Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer plasmashell après la mise à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -154,8 +150,7 @@ msgstr "Impossible de vérifier les widgets : "
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
-msgstr ""
-"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
+msgstr "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
 "Veuillez réessayer plus tard"
 
 #: ../contents/tools/sh/messages
@@ -669,9 +664,7 @@ msgstr "Utiliser les icônes intégrées"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr ""
-"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
-"par défaut à la place."
+msgstr "Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
