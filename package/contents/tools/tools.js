@@ -240,6 +240,36 @@ function stopCheck() {
 }
 
 
+function loadIgnorePkgs() {
+    return new Promise(resolve => {
+        if (!cfg.packages || !cfg.packages.pacman) {
+            resolve([])
+            return
+        }
+
+        execute("pacman-conf IgnorePkg", (cmd, out, err, code) => {
+            if (code || !out) {
+                resolve([])
+                return
+            }
+
+            const tokens = out.trim().split(/\s+/).filter(Boolean)
+            const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+
+            const patterns = tokens.map(token => {
+                let pat = token.split(/[<>=]/)[0].trim()
+                if (!pat) return null
+                let re = escapeRe(pat)
+                re = re.replace(/\\\*/g, ".*").replace(/\\\?/g, ".")
+                return new RegExp("^" + re + "$")
+            }).filter(Boolean)
+
+            resolve(patterns)
+        })
+    })
+}
+
+
 function checkUpdates() {
     if (sts.upgrading) return
 
@@ -364,9 +394,21 @@ function checkUpdates() {
 
     function merge() {
         const list = keys(archRepos.concat(archAur, flatpak, widgets, firmwares))
-        sts.errors.length > 0 
-            ? runLater(3000, () => isOnline ? finalize(list) : stopCheck())
-            : finalize(list)
+
+        const finish = (finalList) => {
+            sts.errors.length > 0
+                ? runLater(3000, () => isOnline ? finalize(finalList) : stopCheck())
+                : finalize(finalList)
+        }
+
+        loadIgnorePkgs().then(ignorePatterns => {
+            if (!ignorePatterns || ignorePatterns.length === 0) {
+                finish(list)
+            } else {
+                const filtered = list.filter(pkg => !ignorePatterns.some(re => re.test(pkg.NM)))
+                finish(filtered)
+            }
+        })
     }
 }
 
