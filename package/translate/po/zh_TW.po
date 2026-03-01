@@ -1,0 +1,1402 @@
+# Translation of apdatifier in zh_TW
+# Copyright (C) 2025
+# This file is distributed under the same license as the apdatifier package.
+# Mill Haruto <mill413@outlook.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: apdatifier\n"
+"Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
+"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"PO-Revision-Date: 2026-03-01 13:18+0800\n"
+"Last-Translator: Shion <nickyundt432@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.8\n"
+
+#: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
+msgid "General"
+msgstr "常規"
+
+#: ../contents/config/config.qml
+msgid "Upgrade & Management"
+msgstr "升級和管理"
+
+#: ../contents/config/config.qml
+msgid "Appearance"
+msgstr "外觀"
+
+#: ../contents/config/config.qml
+msgid "Rules"
+msgstr "規則"
+
+#: ../contents/config/config.qml
+msgid "Support me"
+msgstr "支援我"
+
+#: ../contents/tools/sh/messages ../contents/tools/tools.js
+msgid "Upgrade in progress"
+msgstr "正在升級中"
+
+#: ../contents/tools/sh/messages
+msgid "Full system upgrade"
+msgstr "系統完整升級"
+
+#: ../contents/tools/sh/messages
+msgid "Flatpak Upgrade"
+msgstr "Flatpak 升級"
+
+#: ../contents/tools/sh/messages
+msgid "Plasma Widgets Upgrade"
+msgstr "Plasma 小部件升級"
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade"
+msgstr "升級"
+
+#: ../contents/tools/sh/messages
+msgid "Total execution time:"
+msgstr "總執行時間："
+
+#: ../contents/tools/sh/messages
+msgid "Critical package(s) updated, reboot may be required:"
+msgstr "關鍵軟體包已更新，可能需要重啟："
+
+#: ../contents/tools/sh/messages
+msgid "Do you want to reboot now?"
+msgstr "您希望立即重啟嗎？"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to close"
+msgstr "按下 Enter 關閉"
+
+#: ../contents/tools/sh/messages
+msgid "Skipped..."
+msgstr "已跳過..."
+
+#: ../contents/tools/sh/messages
+msgid "Upgrade complete, close the terminal"
+msgstr "更新完畢，關閉終端視窗"
+
+#: ../contents/tools/sh/messages
+msgid "Fetching the latest filtered mirror list"
+msgstr "正在獲取最新的篩選後映象列表"
+
+#: ../contents/tools/sh/messages
+msgid "Ranking mirrors by their connection and opening speed"
+msgstr "正在根據連線速度和開啟速度對映象進行排序"
+
+#: ../contents/tools/sh/messages
+msgid "Check your mirrorlist generator settings..."
+msgstr "請檢查您的映象列表生成器設定…"
+
+#: ../contents/tools/sh/messages
+msgid "was updated with the following servers:"
+msgstr "已透過以下伺服器進行了更新："
+
+#: ../contents/tools/sh/messages
+msgid "To write to the mirrorlist file, sudo privileges are required"
+msgstr "寫入映象列表檔案需要 sudo 許可權"
+
+#: ../contents/tools/sh/messages
+msgid "Your current mirrorlist:"
+msgstr "當前映象列表："
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirror list?"
+msgstr "重新整理映象列表？"
+
+#: ../contents/tools/sh/messages
+msgid ""
+"For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgstr "某些小部件在升級後可能需要登出或重啟 plasmashell"
+
+#: ../contents/tools/sh/messages
+msgid "Checking widgets for updates"
+msgstr "正在檢查小部件更新"
+
+#: ../contents/tools/sh/messages
+msgid "Fetching data from the API"
+msgstr "正在從 API 獲取資料"
+
+#: ../contents/tools/sh/messages
+msgid "Getting the download link"
+msgstr "正在獲取下載連結"
+
+#: ../contents/tools/sh/messages
+msgid "Downloading package"
+msgstr "正在下載包"
+
+#: ../contents/tools/sh/messages
+msgid "Proceed with upgrade?"
+msgstr "是否繼續升級？"
+
+#: ../contents/tools/sh/messages
+msgid "Restart plasmashell now?"
+msgstr "立即重啟 plasmashell ？"
+
+#: ../contents/tools/sh/messages
+msgid "No description"
+msgstr "暫無描述"
+
+#: ../contents/tools/sh/messages
+msgid "Unable check widgets: "
+msgstr "無法檢查小部件："
+
+#: ../contents/tools/sh/messages
+msgid ""
+"Too many API requests in the last 15 minutes from your IP address, please "
+"try again later"
+msgstr "您的 IP 地址在過去 15 分鐘內傳送了過多的 API 請求，請稍後再試"
+
+#: ../contents/tools/sh/messages
+msgid "Failed to retrieve data from the API"
+msgstr "從 API 獲取資料失敗"
+
+#: ../contents/tools/sh/messages
+msgid "Unkwnown error"
+msgstr "未知錯誤"
+
+#: ../contents/tools/sh/messages
+msgid "File metadata.json not found"
+msgstr "檔案 metadata.json 未找到"
+
+#: ../contents/tools/sh/messages
+msgid "Errors in metadata.json file"
+msgstr "檔案 metadata.json 出錯"
+
+#: ../contents/tools/sh/messages
+msgid "Unsupported file format"
+msgstr "不支援的檔案格式"
+
+#: ../contents/tools/sh/messages
+msgid "No files for download"
+msgstr "無可下載檔案"
+
+#: ../contents/tools/sh/messages
+msgid "No file tagged with version"
+msgstr "無標記版本的檔案"
+
+#: ../contents/tools/sh/messages
+msgid "Multiple files are tagged with version"
+msgstr "有多個檔案被標記了版本"
+
+#: ../contents/tools/sh/messages
+msgid "Failed to download the package"
+msgstr "包下載失敗"
+
+#: ../contents/tools/sh/messages ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Management"
+msgstr "管理"
+
+#: ../contents/tools/sh/messages
+msgid "Browse available"
+msgstr "瀏覽可用包"
+
+#: ../contents/tools/sh/messages
+msgid "Search all available packages and select what to install"
+msgstr "搜尋所有可用軟體包並選擇安裝"
+
+#: ../contents/tools/sh/messages
+msgid "Manage installed"
+msgstr "管理已安裝包"
+
+#: ../contents/tools/sh/messages
+msgid "View installed packages and select what to remove"
+msgstr "檢視已安裝包並選擇解除安裝"
+
+#: ../contents/tools/sh/messages
+msgid "Explicit installs"
+msgstr "顯式安裝包"
+
+#: ../contents/tools/sh/messages
+msgid "Show packages you installed directly"
+msgstr "列出所有手動安裝的包"
+
+#: ../contents/tools/sh/messages
+msgid "All explicit installs"
+msgstr "所有顯式安裝包"
+
+#: ../contents/tools/sh/messages
+msgid "Explicit installs not required by anything"
+msgstr "不被依賴的顯式安裝包"
+
+#: ../contents/tools/sh/messages
+msgid "Orphaned dependencies"
+msgstr "冗餘依賴"
+
+#: ../contents/tools/sh/messages
+msgid "Dependencies that are no longer needed by anything installed"
+msgstr "不再被任何已安裝包需要的依賴"
+
+#: ../contents/tools/sh/messages
+msgid "List orphans"
+msgstr "列出孤兒包"
+
+#: ../contents/tools/sh/messages
+msgid "Remove orphans"
+msgstr "解除安裝孤兒包"
+
+#: ../contents/tools/sh/messages
+msgid "Downgrade from cache"
+msgstr "從本地快取降級"
+
+#: ../contents/tools/sh/messages
+msgid "Clean cache"
+msgstr "清理快取"
+
+#: ../contents/tools/sh/messages
+msgid "Remove cached files to free disk space"
+msgstr "清理軟體包快取以釋放磁碟空間"
+
+#: ../contents/tools/sh/messages
+msgid "Remove all cache"
+msgstr "清理所有快取"
+
+#: ../contents/tools/sh/messages
+msgid "Remove unused cache"
+msgstr "清理無用快取"
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild packages"
+msgstr "重新構建軟體包"
+
+#: ../contents/tools/sh/messages
+msgid "Select packages that need reinstall with rebuild"
+msgstr "選擇需要重新構建並安裝的軟體包"
+
+#: ../contents/tools/sh/messages
+msgid "Rebuild AUR packages"
+msgstr "重新構建 AUR 軟體包"
+
+#: ../contents/tools/sh/messages
+msgid "Detect Python packages to rebuild"
+msgstr "檢測需要重新構建的 Python 包"
+
+#: ../contents/tools/sh/messages
+msgid "Refresh mirrors"
+msgstr "更新映象源"
+
+#: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr "最近安裝"
+
+#: ../contents/tools/sh/messages
+msgid "Review dependency warnings before removing"
+msgstr "解除安裝前請檢視依賴項警告"
+
+#: ../contents/tools/sh/messages
+msgid "Resume?"
+msgstr "繼續？"
+
+#: ../contents/tools/sh/messages
+msgid "Press Enter to return menu"
+msgstr "按下 Enter 返回選單"
+
+#: ../contents/tools/sh/messages
+msgid "Calculating..."
+msgstr "計算中..."
+
+#: ../contents/tools/sh/messages
+msgid "Executed:"
+msgstr "執行："
+
+#: ../contents/tools/sh/messages
+msgid "Nothing to do"
+msgstr "無事可做"
+
+#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+msgid "Required installed"
+msgstr "需要安裝"
+
+#: ../contents/tools/sh/messages
+msgid "Cannot fetch news "
+msgstr "無法獲取新聞"
+
+#: ../contents/tools/tools.js
+msgid "Exit code: "
+msgstr "退出程式碼："
+
+#: ../contents/tools/tools.js
+msgid "Checking latest news..."
+msgstr "正在檢查最新新聞..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing pacman databases..."
+msgstr "正在同步 pacman 資料庫..."
+
+#: ../contents/tools/tools.js
+msgid "Checking system updates..."
+msgstr "正在檢查系統更新..."
+
+#: ../contents/tools/tools.js
+msgid "Checking AUR updates..."
+msgstr "正在檢查 AUR 更新..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing flatpak appstream..."
+msgstr "正在同步 flatpak appstream..."
+
+#: ../contents/tools/tools.js
+msgid "Checking flatpak updates..."
+msgstr "正在檢查 flatpak 更新..."
+
+#: ../contents/tools/tools.js
+msgid "Checking widgets updates..."
+msgstr "正在檢查小部件更新..."
+
+#: ../contents/tools/tools.js
+msgid "Checking firmware updates..."
+msgstr "正在檢查韌體更新..."
+
+#: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] "%1 條新資訊"
+
+#: ../contents/tools/tools.js
+msgid "latest commit"
+msgstr "最新提交"
+
+#: ../contents/tools/tools.js
+msgid "Explicitly installed"
+msgstr "顯式安裝"
+
+#: ../contents/tools/tools.js
+msgid "Installed as a dependency"
+msgstr "作為依賴安裝"
+
+#: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
+msgid "%1 error occurred"
+msgid_plural "%1 errors occurred"
+msgstr[0] "發生了 %1 個錯誤"
+
+#: ../contents/tools/tools.js
+msgid "+%1 new update"
+msgid_plural "+%1 new updates"
+msgstr[0] "+%1 項更新"
+
+#: ../contents/tools/tools.js
+msgid "update is pending"
+msgid_plural "updates are pending"
+msgstr[0] "項更新待處理"
+
+#: ../contents/tools/tools.js
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "%1 天"
+
+#: ../contents/tools/tools.js
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] "%1 小時"
+
+#: ../contents/tools/tools.js
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 分鐘"
+
+#: ../contents/tools/tools.js
+msgid "less than a minute"
+msgstr "不到一分鐘"
+
+#: ../contents/tools/tools.js
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "%1 秒"
+
+#: ../contents/tools/tools.js
+msgid "Last check:"
+msgstr "上次檢查："
+
+#: ../contents/tools/tools.js
+msgid "ago"
+msgstr "前"
+
+#: ../contents/tools/tools.js
+msgid "Next check in:"
+msgstr "下次檢查："
+
+#: ../contents/ui/components/ComboBox.qml
+msgid "None"
+msgstr "無"
+
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Check updates"
+msgstr "檢查更新"
+
+#: ../contents/ui/components/ComboBox.qml
+#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Upgrade system"
+msgstr "升級系統"
+
+#: ../contents/ui/components/ComboBox.qml
+msgid "Pause auto check"
+msgstr "暫停自動檢查"
+
+#: ../contents/ui/components/Notification.qml
+#: ../contents/ui/scrollview/News.qml
+msgid "Read article"
+msgstr "閱讀文章"
+
+#: ../contents/ui/components/Placeholder.qml
+msgid "System updated"
+msgstr "系統已更新"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Disabled"
+msgstr "已停用"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Left"
+msgstr "左上"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Top-Right"
+msgstr "右上"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Left"
+msgstr "左下"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Bottom-Right"
+msgstr "右下"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Panel Icon"
+msgstr "面板圖示"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Full View"
+msgstr "完整檢視"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon"
+msgstr "圖示"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default"
+msgstr "預設"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Select..."
+msgstr "選擇..."
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default icon"
+msgstr "預設圖示"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Hide"
+msgstr "隱藏"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "when less than"
+msgstr "當少於"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "update"
+msgid_plural "updates"
+msgstr[0] "更新"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"If the widget is on a panel, you can access the hidden icon in Panel "
+"Configuration mode."
+msgstr "如果該小部件位於面板上，你可以在“面板配置”模式下訪問隱藏的圖示。"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Busy indicator"
+msgstr "忙碌指示器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Spinner"
+msgstr "旋轉指示器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Pulse"
+msgstr "脈衝"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid ""
+"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
+"icon. On the desktop, the busy indicator is always off."
+msgstr "旋轉指示器使用標準的 Plasmoid 忙碌指示器。脈衝會為面板圖示新增動畫。在桌面上，忙碌指示器始終關閉。"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Counter"
+msgstr "計數器"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Mode"
+msgstr "模式"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Off"
+msgstr "關閉"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Side"
+msgstr "側邊"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge"
+msgstr "徽章"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Position"
+msgstr "位置"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Center"
+msgstr "中間"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Left"
+msgstr "左側"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Right"
+msgstr "右側"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Gaps"
+msgstr "間距"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Inner"
+msgstr "內側"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Outer"
+msgstr "外側"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Offset"
+msgstr "偏移"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font family"
+msgstr "字型"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default system font"
+msgstr "預設系統字型"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font size"
+msgstr "字型大小"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Font bold"
+msgstr "字型加粗"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "啟用"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge color"
+msgstr "徽章顏色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default color"
+msgstr "預設顏色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Select counter background color"
+msgstr "選擇計數器背景顏色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default background color from current theme"
+msgstr "來自當前主題的預設背景顏色"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge radius"
+msgstr "徽章半徑"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Badge opacity"
+msgstr "徽章不透明度"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Icon Badges"
+msgstr "圖示徽章"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Paused"
+msgstr "已暫停"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Updated"
+msgstr "已更新"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Use built-in icons"
+msgstr "使用內建圖示"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Override custom icon theme and use default Apdatifier icons instead."
+msgstr "覆蓋自定義圖示主題，改用預設 Apdatifier 圖示。"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default tab"
+msgstr "預設標籤頁"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "緊湊"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Extended"
+msgstr "擴充套件"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Behavior"
+msgstr "行為"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Always switch to default tab"
+msgstr "始終切換到預設標籤頁"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Item spacing (Compact)"
+msgstr "元素高度"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Sorting"
+msgstr "排序"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By repository"
+msgstr "按倉庫"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "By name"
+msgstr "按名稱"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Header"
+msgstr "頂欄"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show status"
+msgstr "顯示狀態"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tool bar"
+msgstr "顯示工具欄"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Footer"
+msgstr "底欄"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab bar"
+msgstr "顯示標籤欄"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Show tab texts"
+msgstr "顯示標籤文字"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Development version"
+msgstr "安裝開發版本"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Install Stable version"
+msgstr "安裝穩定版本"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Uninstall widget"
+msgstr "解除安裝小部件"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Note: version with the latest commits may be unstable."
+msgstr "注意：包含最新提交的版本可能不穩定。"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Note: if you haven't installed the Devel version before, there's no need to "
+"install the Stable version."
+msgstr "注意：如果之前未安裝過開發版，則無需安裝穩定版。"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Removal of the widget and all related files, including the directory with "
+"its configuration."
+msgstr "解除安裝小部件及其所有相關檔案，包括存放配置的目錄。"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Search"
+msgstr "搜尋"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Notifications"
+msgstr "通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Mouse actions"
+msgstr "滑鼠操作"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Misc"
+msgstr "其他"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Configuration is automatically saved in a config file and loaded at every "
+"startup, ensuring you never lose your settings. The config file is stored in "
+msgstr "配置會自動儲存至配置檔案，並在每次啟動時載入，確保您的設定不會丟失。配置檔案存放於"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Check mode"
+msgstr "檢查模式"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Manual"
+msgstr "手動"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Interval"
+msgstr "間隔"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Daily"
+msgstr "每日"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly"
+msgstr "每週"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Choose how automatic checks are scheduled: manual, periodic interval "
+"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
+"day/time."
+msgstr "選擇自動檢查的排程方式：手動、定期間隔（分鐘，最多 43200 - 30 天）、每日特定時間或每週特定日期/時間。"
+
+#: ../contents/ui/configuration/General.qml
+msgid "minutes"
+msgstr "分鐘"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Daily time"
+msgstr "每日時間"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Weekly schedule"
+msgstr "每週計劃"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Sunday"
+msgstr "星期日"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Monday"
+msgstr "星期一"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Tuesday"
+msgstr "星期二"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Wednesday"
+msgstr "星期三"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Thursday"
+msgstr "星期四"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Friday"
+msgstr "星期五"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Saturday"
+msgstr "星期六"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Updates"
+msgstr "更新"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Arch Official Repositories"
+msgstr "Arch 官方倉庫"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Arch User Repository"
+msgstr "Arch 使用者軟體倉庫"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Flatpak applications"
+msgstr "Flatpak 應用"
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Not installed"
+msgstr "未安裝"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Plasma Widgets"
+msgstr "Plasma 小部件"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
+"and specify the name of the applet and its version <b>exactly</b> as they "
+"appear on the KDE Store."
+msgstr "<br><br>對於小部件開發者：<br>不要忘記更新 metadata.json 檔案，<b>準確</b>指定小部件的名稱及版本號，需與 KDE 商店中顯示的完全一致。"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Firmware"
+msgstr "韌體"
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "新聞通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Keep"
+msgstr "保留"
+
+#: ../contents/ui/configuration/General.qml
+msgid "news item from the feed"
+msgid_plural "news items from the feed"
+msgstr[0] "條來自訂閱源的新聞"
+
+#: ../contents/ui/configuration/General.qml
+msgid "RSS feeds"
+msgstr "RSS 訂閱源"
+
+#: ../contents/ui/configuration/General.qml
+msgid "One URL per line"
+msgstr "每行輸入一個 URL"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For new updates"
+msgstr "新更新通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Action button"
+msgstr "操作按鈕"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For every version bump"
+msgstr "每次版本更新通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"If the option is <b>enabled</b>, notifications will be sent when a new "
+"version of the package is bumped, even if the package is already on the "
+"list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
+"notifications will only be sent for packages that are not yet on the list. "
+"<b>Less notifications.</b>"
+msgstr "如果<b>啟用</b>該選項，當軟體包有新版本釋出時，即使該軟體包已在列表中，也會發送通知。<b>更多通知。</b><br><br>如果<b>停用</b>該選項，則僅對尚未在列表中的軟體包傳送通知。<b>更少通知。</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For news"
+msgstr "新聞"
+
+#: ../contents/ui/configuration/General.qml
+msgid "For errors"
+msgstr "錯誤通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid "With sound"
+msgstr "播放聲音"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Persistent"
+msgstr "常駐通知"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"To further configure, click the button below -> Application Settings -> "
+"Apdatifier"
+msgstr "如需進一步配置，請點選以下按鈕 -> 應用程式設定 -> Apdatifier"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Configure..."
+msgstr "配置..."
+
+#: ../contents/ui/configuration/General.qml
+msgid "Middle click"
+msgstr "中鍵點選"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Right click"
+msgstr "右鍵點選"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Do not enable this option if the widget is not used in the system tray; "
+"otherwise, you will not be able to open the settings by right-clicking."
+msgstr "若小部件未在系統托盤中使用，請勿啟用此選項，否則無法透過右鍵開啟設定。"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Scroll up"
+msgstr "向上滾動"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Scroll down"
+msgstr "向下滾動"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Restore hidden tooltips"
+msgstr "恢復隱藏的工具提示"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Reset to default. By default, the path is the same as for checkupdates."
+msgstr "重置為預設值。預設情況下，該路徑與 checkupdates 使用的相同。"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Path must not contain spaces"
+msgstr "路徑不得包含空格"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Unimportant"
+msgstr "不重要"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Repository"
+msgstr "倉庫"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact repository match"
+msgstr "精確匹配倉庫"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Group"
+msgstr "組"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring group match"
+msgstr "子串匹配組"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring"
+msgstr "子串"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Substring name match"
+msgstr "子串匹配名字"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Name"
+msgstr "名字"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exact name match"
+msgstr "精確匹配名字"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid ""
+"Here you can override the default package icons and exclude them from the "
+"list. Each rule overwrites the previous one, so the list of rules should be "
+"in this order: "
+msgstr "在此處，您可以覆蓋預設的軟體包圖示並將其從列表中排除。每條規則都會覆蓋前一條規則，因此規則列表應按以下順序排列："
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Mark as important"
+msgstr "標記為重要"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Show in the list"
+msgstr "在列表中顯示"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Exclude from the list"
+msgstr "從列表中排除"
+
+#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+msgid "Remove"
+msgstr "移除"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Add rule"
+msgstr "新增規則"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "應用"
+
+#: ../contents/ui/configuration/Support.qml
+msgid ""
+"Thanks for using my widget! If you appreciate my work, you can support me by "
+"starring the GitHub repository or buying me a coffee ;)"
+msgstr "感謝您使用我的小部件！如果您喜歡我的工作，可以透過給我的 GitHub 倉庫點星或請我喝杯咖啡來支援我 ;)"
+
+#: ../contents/ui/configuration/Support.qml
+msgid "Visit %1"
+msgstr "訪問 %1"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Widgets"
+msgstr "小部件"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Terminal"
+msgstr "終端"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use NerdFont icons"
+msgstr "使用 NerdFont 圖示"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
+"used."
+msgstr "如果您的終端使用了任何 <b>Nerd Font</b>，將會使用該字型中的圖示。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "tmux session"
+msgstr "tmux 會話"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre/post upgrade scripts"
+msgstr "升級前/後腳本"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pre-exec"
+msgstr "升級前執行"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command or script path"
+msgstr "命令或指令碼路徑"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script BEFORE the upgrade.<br>For example, you can "
+"specify your command to update the mirrorlist if you have unofficial "
+"repositories."
+msgstr "在升級之前執行您的命令或指令碼。<br>例如，如果您使用了非官方倉庫，可以在此指定用於更新映象列表的命令。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Post-exec"
+msgstr "升級後執行"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Running your command or script AFTER the upgrade.<br>For example, you can "
+"specify your command to upgrade something else."
+msgstr "在升級完成後執行您的命令或指令碼。<br>例如，您可以指定用於升級其他內容的命令。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Without Flatpak options"
+msgstr "排除 Flatpak 選項"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide headers"
+msgstr "隱藏標題資訊"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide help"
+msgstr "隱藏幫助資訊"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Hide option numbers"
+msgstr "隱藏選項序號"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Fzf options"
+msgstr "Fzf 選項"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr "覆蓋預設的 fzf 選項。<br>有關可用選項，請參閱 <b>fzf --help</b>。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Wrapper"
+msgstr "封裝"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "AUR disabled in search settings"
+msgstr "AUR 在搜尋設定中已被停用"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade options"
+msgstr "升級選項"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Reboot system"
+msgstr "重啟系統"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Suggest after upgrading"
+msgstr "升級後建議"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Pacman Mirrorlist Generator"
+msgstr "Pacman 映象列表生成器"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Only for official repositories"
+msgstr "僅適用於官方倉庫"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Also see https://archlinux.org/mirrorlist (click button to open link)"
+msgstr "另請參見 https://archlinux.org/mirrorlist （點選按鈕開啟連結）"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Generator"
+msgstr "生成器"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Always ask"
+msgstr "始終詢問"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Ask if older than"
+msgstr "如果早於…則詢問"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "day"
+msgid_plural "days"
+msgstr[0] "天"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "No ask, force refresh"
+msgstr "不詢問，強制重新整理"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Protocol"
+msgstr "協議"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "IP version"
+msgstr "IP 版本"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Mirror status"
+msgstr "映象狀態"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Number output"
+msgstr "輸出數量"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Number of servers to write to mirrorlist file. 0 for all."
+msgstr "寫入映象列表檔案的伺服器數量。 0 表示全部伺服器。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Show progress"
+msgstr "顯示進度"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Country"
+msgstr "國家"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Select at least one!"
+msgstr "至少選擇一個！"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"You must select at least one country, otherwise all will be chosen by "
+"default. <br><br><b>The more countries you select, the longer it will take "
+"to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
+"countries closest to you."
+msgstr "您必須至少選擇一個國家，否則預設會選擇全部國家。<br><br><b>選擇的國家越多，生成映象列表所需時間越長！</b><br><br>建議選擇距離您最近的<b>1-2 個</b>國家以獲得最佳效果。"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Uninstall unused"
+msgstr "解除安裝未使用的軟體包"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal"
+msgstr "正常"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Normal, skip questions"
+msgstr "正常，跳過詢問"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Non interactive, skip questions"
+msgstr "非互動模式，跳過詢問"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Verbose"
+msgstr "詳細模式"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Upgrade confirmation"
+msgstr "升級確認"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Restart plasmashell"
+msgstr "重啟 plasmashell"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"After upgrading widget, the old version will still remain in memory until "
+"you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr "升級小部件後，舊版本仍會駐留在記憶體中，直到您重啟 plasmashell。為避免手動操作，建議啟用此選項"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "命令"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Apdatifier tray icon"
+msgstr "系統托盤中的 Apdatifier 圖示"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enabled by default"
+msgstr "預設啟用"
+
+#: ../contents/ui/main.qml
+msgid "Auto check disabled"
+msgstr "自動檢查已停用"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Filter by package name"
+msgstr "按軟體包名稱篩選"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Disable auto search updates"
+msgstr "停用自動搜尋更新"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Enable auto search updates"
+msgstr "啟用自動搜尋更新"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Sort packages by name"
+msgstr "按名稱排序軟體包"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Sort packages by repository"
+msgstr "按倉庫排序軟體包"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Stop checking"
+msgstr "停止檢查"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Open settings"
+msgstr "開啟設定"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Unpin window"
+msgstr "取消固定視窗"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Keep open"
+msgstr "保持開啟"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact view"
+msgstr "緊湊檢視"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Extended view"
+msgstr "擴充套件檢視"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Check out release notes"
+msgstr "檢視發行說明"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Dismiss"
+msgstr "忽略"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "No internet connection"
+msgstr "無網路連線"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Upgrade package"
+msgstr "升級軟體包"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Package type"
+msgstr "包型別"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Description"
+msgstr "描述"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Author"
+msgstr "作者"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "App ID"
+msgstr "App ID"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Branch"
+msgstr "分支"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Commit"
+msgstr "提交"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Runtime"
+msgstr "執行時"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Groups"
+msgstr "組"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Provides"
+msgstr "提供"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Depends on"
+msgstr "依賴於"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Required by"
+msgstr "依賴它"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Conflicts with"
+msgstr "與它衝突"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Replaces"
+msgstr "取代"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Installed size"
+msgstr "安裝後大小"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Download size"
+msgstr "下載大小"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install date"
+msgstr "安裝日期"
+
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "安裝原因"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "No unread news"
+msgstr "無未讀新聞"
+
+#: ../contents/ui/scrollview/News.qml
+msgid "Restore list"
+msgstr "恢復列表"
