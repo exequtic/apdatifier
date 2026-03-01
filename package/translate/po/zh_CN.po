@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-02-26 12:59+0300\n"
-"PO-Revision-Date: 2025-06-08 19:45+0800\n"
-"Last-Translator: Mill Haruto <mill413@outlook.com>\n"
+"PO-Revision-Date: 2026-03-01 13:18+0800\n"
+"Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
-"Language: zh\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -24,7 +24,7 @@ msgstr "常规"
 
 #: ../contents/config/config.qml
 msgid "Upgrade & Management"
-msgstr ""
+msgstr "升级和管理"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -52,7 +52,7 @@ msgstr "Flatpak 升级"
 
 #: ../contents/tools/sh/messages
 msgid "Plasma Widgets Upgrade"
-msgstr "Plasma 挂件升级"
+msgstr "Plasma 小部件升级"
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade"
@@ -80,7 +80,7 @@ msgstr "已跳过..."
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade complete, close the terminal"
-msgstr ""
+msgstr "更新完毕，关闭终端窗口"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -104,20 +104,20 @@ msgstr "写入镜像列表文件需要 sudo 权限"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
-msgstr "您当前的镜像列表："
+msgstr "当前镜像列表："
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirror list?"
-msgstr ""
+msgstr "刷新镜像列表？"
 
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr "某些挂件在升级后可能需要注销或重启 plasmashell"
+msgstr "某些小部件在升级后可能需要注销或重启 plasmashell"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
-msgstr "正在检查挂件更新"
+msgstr "正在检查小部件更新"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
@@ -145,7 +145,7 @@ msgstr "暂无描述"
 
 #: ../contents/tools/sh/messages
 msgid "Unable check widgets: "
-msgstr "无法检查挂件："
+msgstr "无法检查小部件："
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -197,95 +197,95 @@ msgstr "管理"
 
 #: ../contents/tools/sh/messages
 msgid "Browse available"
-msgstr ""
+msgstr "浏览可用包"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
+msgstr "搜索所有可用软件包并选择安装"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
-msgstr ""
+msgstr "管理已安装包"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
+msgstr "查看已安装包并选择卸载"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
-msgstr ""
+msgstr "显式安装包"
 
 #: ../contents/tools/sh/messages
 msgid "Show packages you installed directly"
-msgstr ""
+msgstr "列出所有手动安装的包"
 
 #: ../contents/tools/sh/messages
 msgid "All explicit installs"
-msgstr ""
+msgstr "所有显式安装包"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs not required by anything"
-msgstr ""
+msgstr "不被依赖的显式安装包"
 
 #: ../contents/tools/sh/messages
 msgid "Orphaned dependencies"
-msgstr ""
+msgstr "冗余依赖"
 
 #: ../contents/tools/sh/messages
 msgid "Dependencies that are no longer needed by anything installed"
-msgstr ""
+msgstr "不再被任何已安装包需要的依赖"
 
 #: ../contents/tools/sh/messages
 msgid "List orphans"
-msgstr ""
+msgstr "列出孤儿包"
 
 #: ../contents/tools/sh/messages
 msgid "Remove orphans"
-msgstr ""
+msgstr "卸载孤儿包"
 
 #: ../contents/tools/sh/messages
 msgid "Downgrade from cache"
-msgstr ""
+msgstr "从本地缓存降级"
 
 #: ../contents/tools/sh/messages
 msgid "Clean cache"
-msgstr ""
+msgstr "清理缓存"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
+msgstr "清理软件包缓存以释放磁盘空间"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
-msgstr ""
+msgstr "清理所有缓存"
 
 #: ../contents/tools/sh/messages
 msgid "Remove unused cache"
-msgstr ""
+msgstr "清理无用缓存"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
-msgstr ""
+msgstr "重新构建软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
+msgstr "选择需要重新构建并安装的软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
-msgstr ""
+msgstr "重新构建 AUR 软件包"
 
 #: ../contents/tools/sh/messages
 msgid "Detect Python packages to rebuild"
-msgstr ""
+msgstr "检测需要重新构建的 Python 包"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrors"
-msgstr ""
+msgstr "更新镜像源"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
-msgstr ""
+msgstr "最近安装"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -301,7 +301,7 @@ msgstr "按下 Enter 返回菜单"
 
 #: ../contents/tools/sh/messages
 msgid "Calculating..."
-msgstr ""
+msgstr "计算中..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -349,7 +349,7 @@ msgstr "正在检查 flatpak 更新..."
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets updates..."
-msgstr "正在检查挂件更新..."
+msgstr "正在检查小部件更新..."
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
@@ -358,7 +358,7 @@ msgstr "正在检查固件更新..."
 #: ../contents/tools/tools.js
 msgid "%1 new article"
 msgid_plural "%1 new articles"
-msgstr[0] ""
+msgstr[0] "%1 条新资讯"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -725,7 +725,7 @@ msgstr "安装稳定版本"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Uninstall widget"
-msgstr "卸载挂件"
+msgstr "卸载小部件"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Note: version with the latest commits may be unstable."
@@ -741,7 +741,7 @@ msgstr "注意：如果之前未安装过开发版，则无需安装稳定版。
 msgid ""
 "Removal of the widget and all related files, including the directory with "
 "its configuration."
-msgstr "卸载挂件及其所有相关文件，包括存放配置的目录。"
+msgstr "卸载小部件及其所有相关文件，包括存放配置的目录。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -859,7 +859,7 @@ msgstr "未安装"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Plasma Widgets"
-msgstr "Plasma 挂件"
+msgstr "Plasma 小部件"
 
 #: ../contents/ui/configuration/General.qml
 msgid ""
@@ -867,8 +867,8 @@ msgid ""
 "and specify the name of the applet and its version <b>exactly</b> as they "
 "appear on the KDE Store."
 msgstr ""
-"<br><br>对于挂件开发者：<br>不要忘记更新 metadata.json 文件，<b>准确</b>指定"
-"挂件的名称及版本号，需与 KDE 商店中显示的完全一致。"
+"<br><br>对于小部件开发者：<br>不要忘记更新 metadata.json 文件，<b>准确</b>指"
+"定小部件的名称及版本号，需与 KDE 商店中显示的完全一致。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Firmware"
@@ -890,11 +890,11 @@ msgstr[0] "条来自订阅源的新闻"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS feeds"
-msgstr ""
+msgstr "RSS 订阅源"
 
 #: ../contents/ui/configuration/General.qml
 msgid "One URL per line"
-msgstr ""
+msgstr "每行输入一个 URL"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -958,7 +958,7 @@ msgstr "右键点击"
 msgid ""
 "Do not enable this option if the widget is not used in the system tray; "
 "otherwise, you will not be able to open the settings by right-clicking."
-msgstr "若挂件未在系统托盘中使用，请勿启用此选项，否则无法通过右键打开设置。"
+msgstr "若小部件未在系统托盘中使用，请勿启用此选项，否则无法通过右键打开设置。"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -1054,8 +1054,8 @@ msgid ""
 "Thanks for using my widget! If you appreciate my work, you can support me by "
 "starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
-"感谢您使用我的挂件！如果您喜欢我的工作，可以通过给我的 GitHub 仓库点星或请我"
-"喝杯咖啡来支持我 ;)"
+"感谢您使用我的小部件！如果您喜欢我的工作，可以通过给我的 GitHub 仓库点星或请"
+"我喝杯咖啡来支持我 ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
@@ -1063,7 +1063,7 @@ msgstr "访问 %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
-msgstr "挂件"
+msgstr "小部件"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
@@ -1117,28 +1117,28 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
-msgstr ""
+msgstr "排除 Flatpak 选项"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr ""
+msgstr "隐藏标题信息"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
-msgstr ""
+msgstr "隐藏帮助信息"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr ""
+msgstr "隐藏选项序号"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
-msgstr ""
+msgstr "Fzf 选项"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Override default fzf options.<br>See <b>fzf --help</b> for available options."
-msgstr ""
+msgstr "覆盖默认的 fzf 选项。<br>有关可用选项，请参阅 <b>fzf --help</b>。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1269,8 +1269,8 @@ msgid ""
 "After upgrading widget, the old version will still remain in memory until "
 "you restart plasmashell. To avoid doing this manually, enable this option."
 msgstr ""
-"升级挂件后，旧版本仍会驻留在内存中，直到您重启 plasmashell。为避免手动操作，"
-"建议启用此选项"
+"升级小部件后，旧版本仍会驻留在内存中，直到您重启 plasmashell。为避免手动操"
+"作，建议启用此选项"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
@@ -1342,7 +1342,7 @@ msgstr "忽略"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
-msgstr ""
+msgstr "无网络连接"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"

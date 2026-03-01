@@ -32,4 +32,6 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | ru       | 317/317 |  100% |
 | tr       | 281/317 |   88% |
 | uk       | 281/317 |   88% |
-| zh       | 281/317 |   88% |
+| zh_CN    | 317/317 |  100% |
+| zh_TW    | 317/317 |  100% |
+| zh_HK    | 317/317 |  100% |
