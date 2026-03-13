@@ -252,7 +252,7 @@ rss() {
         # Detect RSS 2.0 vs Atom 1.0 by root element name
         local root=$(xmllint --xpath "name(/*)" "$cleanFile" 2>/dev/null)
 
-        # Count available items in feed (capped at newsKeep)
+        # Count available items in feed (capped at feedsFetchCount)
         local count title
         if [[ "$root" == "feed" ]]; then
             count=$(xmllint --xpath "count(/feed/entry)" "$cleanFile" 2>/dev/null || echo 0)
@@ -264,7 +264,7 @@ rss() {
 
         [[ -z "$title" ]] && { errors+="$url "; continue; }
 
-        local max=${newsKeep:-3}
+        local max=${feedsFetchCount:-3}
         (( count > max )) && count=$max
 
         local n
@@ -288,7 +288,7 @@ rss() {
             fi
         done
 
-        # Prune oldest entries for this feed down to newsKeep
+        # Prune oldest entries for this feed down to feedsFetchCount
         while (( $(jq --arg t "$title" '[.[] | select(.title == $t)] | length' "$newsFile") > max )); do
             index=$(jq --arg t "$title" 'to_entries | reverse | map(select(.value.title == $t)) | .[0].key' "$newsFile")
             updateJson "$newsFile" "$(jq --argjson index "$index" 'del(.[$index])' "$newsFile")"

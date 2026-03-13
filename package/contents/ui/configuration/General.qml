@@ -24,8 +24,9 @@ SimpleKCM {
     property alias cfg_fwupd: fwupd.checked
     property alias cfg_widgets: widgets.checked
 
-    property alias cfg_newsKeep: newsKeep.value
-    property alias cfg_customFeeds: customFeeds.text
+    property bool cfg_feedsEnabled: plasmoid.configuration.feedsEnabled
+    property alias cfg_feedsFetchCount: feedsFetchCount.value
+    property string cfg_feeds: plasmoid.configuration.feeds
 
     property string cfg_middleAction: plasmoid.configuration.middleAction
     property string cfg_rightAction: plasmoid.configuration.rightAction
@@ -44,6 +45,7 @@ SimpleKCM {
     property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
+    property var feeds: []
     property alias cfg_dbPath: dbPath.text
     
     property bool systemWide: !/^\/home\/[^/]+\/\.local/.test(JS.scriptDir)
@@ -65,6 +67,8 @@ SimpleKCM {
     onCurrentTabChanged: tabChanged(currentTab)
 
     Component.onCompleted: {
+        feeds = JS.parseCustomFeeds(cfg_feeds)
+        cfg_feeds = JS.serializeCustomFeeds(feeds)
         JS.checkDependencies()
     }
  
@@ -119,12 +123,13 @@ SimpleKCM {
             id: searchTab
             visible: currentTab === 0
 
-            Item {
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("Schedule")
                 Kirigami.FormData.isSection: true
             }
 
             RowLayout {
-                Kirigami.FormData.label: i18n("Check mode") + ":"
+                Kirigami.FormData.label: i18n("Mode") + ":"
 
                 ComboBox {
                     id: checkMode
@@ -136,10 +141,6 @@ SimpleKCM {
                         { name: i18n("Weekly"), value: "weekly" }]
                     currentIndex: JS.setIndex(cfg_checkMode, model)
                     onCurrentIndexChanged: cfg_checkMode = model[currentIndex].value
-                }
-
-                Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("Choose how automatic checks are scheduled: manual, periodic interval (minutes, max 43200 - 30 days), daily at specific time or weekly at specific day/time.")
                 }
             }
 
@@ -188,7 +189,7 @@ SimpleKCM {
 
             RowLayout {
                 visible: cfg_checkMode === "weekly"
-                Kirigami.FormData.label: i18n("Weekly schedule") + ":"
+                Kirigami.FormData.label: i18n("Schedule") + ":"
 
                 ComboBox {
                     id: weeklyDay
@@ -236,13 +237,12 @@ SimpleKCM {
                 }
             }
 
-            Item {
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("Updates")
                 Kirigami.FormData.isSection: true
             }
 
             RowLayout {
-                Kirigami.FormData.label: i18n("Updates") + ":"
-
                 CheckBox {
                     id: arch
                     text: i18n("Arch Official Repositories")
@@ -294,10 +294,6 @@ SimpleKCM {
                     text: i18n("Plasma Widgets")
                     enabled: pkg.jq
                 }
-
-                Kirigami.ContextualHelpButton {
-                    toolTipText: i18n("Required installed") + " jq." + i18n("<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store.")
-                }
             }
 
             RowLayout {
@@ -310,39 +306,103 @@ SimpleKCM {
                 }
             }
 
-            Item {
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("News")
                 Kirigami.FormData.isSection: true
             }
 
-            RowLayout {
-                Kirigami.FormData.label: i18n("News") + ":"
+            ColumnLayout {
+                id: feedsUrl
+                Layout.fillWidth: true
+                enabled: pkg.jq
+                spacing: Kirigami.Units.smallSpacing
 
-                Label {
-                    text: i18n("Keep")
+                function remove(index) {
+                    if (index < 0 || index >= feeds.length) return
+                    var items = feeds.slice()
+                    items.splice(index, 1)
+                    feeds = items
+                    cfg_feeds = JS.serializeCustomFeeds(feeds)
+                }
+                function update(index, value) {
+                    if (index < 0 || index >= feeds.length || feeds[index] === value) return
+                    var items = feeds.slice()
+                    items[index] = value
+                    feeds = items
+                    cfg_feeds = JS.serializeCustomFeeds(feeds)
+                }
+                function reset() {
+                    feeds = JS.parseCustomFeeds(plasmoid.configuration.feedsDefault)
+                    cfg_feeds = JS.serializeCustomFeeds(feeds)
                 }
 
-                SpinBox {
-                    id: newsKeep
-                    from: 1
-                    to: 10
-                    stepSize: 1
-                    value: newsKeep
-                    enabled: customFeeds.text.trim() !== ""
+                RowLayout {
+                    Button {
+                        text: cfg_feedsEnabled ? i18n("Enabled") : i18n("Disabled")
+                        icon.name: cfg_feedsEnabled ? "news-subscribe" : "news-unsubscribe"
+                        highlighted: cfg_feedsEnabled
+                        onClicked: cfg_feedsEnabled = !cfg_feedsEnabled
+                    }
+                    Button {
+                        text: i18n("Reset")
+                        icon.name: "edit-reset"
+                        enabled: cfg_feedsEnabled
+                        onClicked: feedsUrl.reset()
+                    }
+                    Button {
+                        text: i18n("Add")
+                        icon.name: "list-add"
+                        enabled: cfg_feedsEnabled
+                        onClicked: feeds = feeds.concat([""])
+                    }
                 }
 
-                Label {
-                    text: i18np("news item from the feed", "news items from the feed", newsKeep.value)
+                RowLayout {
+                    enabled: pkg.jq && cfg_feedsEnabled && cfg_feeds !== ""
+
+                    SpinBox {
+                        id: feedsFetchCount
+                        from: 1
+                        to: 10
+                        stepSize: 1
+                    }
+
+                    Label {
+                        text: i18np(
+                            "latest article from each feed",
+                            "latest articles from each feed",
+                            feedsFetchCount.value
+                        )
+                    }
+                }
+
+                Repeater {
+                    model: feeds.length
+
+                    delegate: RowLayout {
+                        Layout.fillWidth: true
+                        spacing: Kirigami.Units.smallSpacing
+
+                        TextField {
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: Kirigami.Units.gridUnit * 14
+                            enabled: cfg_feedsEnabled
+                            placeholderText: "https://..."
+                            text: feeds[index]
+                            selectByMouse: true
+                            onTextChanged: feedsUrl.update(index, text)
+                        }
+
+                        ToolButton {
+                            icon.name: "delete"
+                            onClicked: feedsUrl.remove(index)
+                        }
+                    }
                 }
             }
 
-            TextArea {
-                id: customFeeds
-                Kirigami.FormData.label: i18n("RSS feeds") + ":"
-                Layout.fillWidth: true
-                Layout.preferredHeight: Kirigami.Units.gridUnit * 5
-                placeholderText: i18n("One URL per line")
-                enabled: pkg.jq
-                wrapMode: TextEdit.NoWrap
+            Item {
+                Kirigami.FormData.isSection: true
             }
         }
 

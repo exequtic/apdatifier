@@ -167,6 +167,7 @@ function checkDependencies() {
         if (!tmux) plasmoid.configuration.tmuxSession = false
         if (!jq) {
             plasmoid.configuration.widgets = false
+            plasmoid.configuration.feedsEnabled = false
         }
     })
 }
@@ -279,13 +280,10 @@ function checkUpdates() {
 
     let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
 
-    const feeds = ((cfg.customFeeds || "").split("\n")
-        .map(u => u.trim())
-        .filter(u => u.startsWith("http"))
-        .map(u => `'${u}'`)
-        .join(' '));
+    const feeds = cfg.feedsEnabled ? parseCustomFeeds(cfg.feeds).map(u => `'${u}'`).join(' ') : ""
+    const news = feeds && cfg.packages?.jq
 
-            (feeds && cfg.packages?.jq) ? checkNews() :
+             news ? checkNews() :
          cfg.arch ? checkRepos() :
           cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
@@ -891,4 +889,22 @@ function validJSON(string, file) {
     }
 
     return false
+}
+
+function isValidFeedUrl(value) {
+  return /^https?:\/\/\S+$/i.test((value || "").trim())
+}
+
+function parseCustomFeeds(value) {
+  return String(value || "")
+    .split(/[\n|]/)
+    .map(feed => feed.trim())
+    .filter(isValidFeedUrl)
+}
+
+function serializeCustomFeeds(value) {
+  return (Array.isArray(value) ? value : parseCustomFeeds(value))
+    .map(feed => feed.trim())
+    .filter((feed, index, feeds) => isValidFeedUrl(feed) && feeds.indexOf(feed) === index)
+    .join("|")
 }
