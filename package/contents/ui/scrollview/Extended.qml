@@ -18,6 +18,7 @@ ScrollView {
         highlight: Highlight { visible: sts.busy }
         highlightMoveDuration: Kirigami.Units.shortDuration
         highlightResizeDuration: Kirigami.Units.shortDuration
+        highlightFollowsCurrentItem: false
         height: parent.height
 
         delegate: ExpandableListItem {
