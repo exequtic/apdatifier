@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"POT-Creation-Date: 2026-03-13 12:22+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -63,7 +63,8 @@ msgstr "Temps d'exécution total :"
 
 #: ../contents/tools/sh/messages
 msgid "Critical package(s) updated, reboot may be required:"
-msgstr "Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
+msgstr ""
+"Paquet(s) critique(s) mis à jour, un redémarrage peut être nécessaire :"
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
@@ -99,7 +100,8 @@ msgstr "a été mis à jour avec les serveurs suivants :"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
+msgstr ""
+"Pour écrire dans le fichier mirrorlist, les privilèges sudo sont requis"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -112,7 +114,9 @@ msgstr "Actualiser la liste de miroirs ?"
 #: ../contents/tools/sh/messages
 msgid ""
 "For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr "Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer plasmashell après la mise à niveau"
+msgstr ""
+"Pour certains widgets, vous devrez peut-être vous déconnecter ou redémarrer "
+"plasmashell après la mise à niveau"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -150,7 +154,8 @@ msgstr "Impossible de vérifier les widgets : "
 msgid ""
 "Too many API requests in the last 15 minutes from your IP address, please "
 "try again later"
-msgstr "Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
+msgstr ""
+"Trop de requêtes API depuis votre adresse IP ces 15 dernières minutes. "
 "Veuillez réessayer plus tard"
 
 #: ../contents/tools/sh/messages
@@ -201,7 +206,8 @@ msgstr "Parcourir les disponibles"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr "Rechercher tous les paquets disponibles et sélectionner ceux à installer"
+msgstr ""
+"Rechercher tous les paquets disponibles et sélectionner ceux à installer"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
@@ -312,7 +318,7 @@ msgid "Nothing to do"
 msgstr "Rien à faire"
 
 # Required installed <util name>
-#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages
 msgid "Required installed"
 msgstr "Installation requise"
 
@@ -461,6 +467,7 @@ msgid "System updated"
 msgstr "Système mis à jour"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
 msgstr "Désactivé"
@@ -554,6 +561,7 @@ msgid "Counter"
 msgstr "Compteur"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Mode"
 msgstr "Mode"
 
@@ -664,7 +672,9 @@ msgstr "Utiliser les icônes intégrées"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr "Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier par défaut à la place."
+msgstr ""
+"Remplacer le thème d'icônes personnalisé et utiliser les icônes Apdatifier "
+"par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default tab"
@@ -786,8 +796,8 @@ msgstr ""
 "perdrez jamais vos paramètres. Le fichier de configuration est stocké dans "
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check mode"
-msgstr "Mode de vérification"
+msgid "Schedule"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -806,26 +816,12 @@ msgid "Weekly"
 msgstr "Hebdomadaire"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Choose how automatic checks are scheduled: manual, periodic interval "
-"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
-"day/time."
-msgstr ""
-"Choisissez comment les vérifications automatiques sont planifiées : manuel, "
-"intervalle périodique (minutes, max 43200 - 30 jours), quotidien à une heure "
-"spécifique ou hebdomadaire à un jour/heure spécifique."
-
-#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minutes"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Daily time"
 msgstr "Heure quotidienne"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Weekly schedule"
-msgstr "Planification hebdomadaire"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sunday"
@@ -881,16 +877,6 @@ msgid "Plasma Widgets"
 msgstr "Widgets Plasma"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
-"and specify the name of the applet and its version <b>exactly</b> as they "
-"appear on the KDE Store."
-msgstr ""
-"<br><br>Pour les développeurs de widgets :<br>N'oubliez pas de mettre à jour "
-"le fichier metadata.json et de spécifier le nom de l'applet et sa version "
-"<b>exactement</b> tels qu'ils apparaissent sur le KDE Store."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Firmware"
 msgstr "Firmware"
 
@@ -900,22 +886,22 @@ msgid "News"
 msgstr "Actualités"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Keep"
-msgstr "Conserver"
+msgid "Enabled"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "news item from the feed"
-msgid_plural "news items from the feed"
-msgstr[0] "élément d'actualité du flux"
-msgstr[1] "éléments d'actualité du flux"
+msgid "Reset"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "RSS feeds"
-msgstr "Flux RSS"
+msgid "Add"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "One URL per line"
-msgstr "Une URL par ligne"
+msgid "latest article from each feed"
+msgid_plural "latest articles from each feed"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"

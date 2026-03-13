@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"POT-Creation-Date: 2026-03-13 12:22+0300\n"
 "PO-Revision-Date: 2026-03-01 13:18+0800\n"
 "Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
@@ -311,7 +311,7 @@ msgstr "執行："
 msgid "Nothing to do"
 msgstr "無事可做"
 
-#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages
 msgid "Required installed"
 msgstr "需要安裝"
 
@@ -452,6 +452,7 @@ msgid "System updated"
 msgstr "系統已更新"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
 msgstr "已停用"
@@ -532,13 +533,16 @@ msgstr "脈衝"
 msgid ""
 "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
 "icon. On the desktop, the busy indicator is always off."
-msgstr "旋轉指示器使用標準的 Plasmoid 忙碌指示器。脈衝會為面板圖示新增動畫。在桌面上，忙碌指示器始終關閉。"
+msgstr ""
+"旋轉指示器使用標準的 Plasmoid 忙碌指示器。脈衝會為面板圖示新增動畫。在桌面"
+"上，忙碌指示器始終關閉。"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
 msgstr "計數器"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Mode"
 msgstr "模式"
 
@@ -761,11 +765,13 @@ msgstr "其他"
 msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
-msgstr "配置會自動儲存至配置檔案，並在每次啟動時載入，確保您的設定不會丟失。配置檔案存放於"
+msgstr ""
+"配置會自動儲存至配置檔案，並在每次啟動時載入，確保您的設定不會丟失。配置檔案"
+"存放於"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check mode"
-msgstr "檢查模式"
+msgid "Schedule"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -784,23 +790,12 @@ msgid "Weekly"
 msgstr "每週"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Choose how automatic checks are scheduled: manual, periodic interval "
-"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
-"day/time."
-msgstr "選擇自動檢查的排程方式：手動、定期間隔（分鐘，最多 43200 - 30 天）、每日特定時間或每週特定日期/時間。"
-
-#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "分鐘"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Daily time"
 msgstr "每日時間"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Weekly schedule"
-msgstr "每週計劃"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sunday"
@@ -856,13 +851,6 @@ msgid "Plasma Widgets"
 msgstr "Plasma 小部件"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
-"and specify the name of the applet and its version <b>exactly</b> as they "
-"appear on the KDE Store."
-msgstr "<br><br>對於小部件開發者：<br>不要忘記更新 metadata.json 檔案，<b>準確</b>指定小部件的名稱及版本號，需與 KDE 商店中顯示的完全一致。"
-
-#: ../contents/ui/configuration/General.qml
 msgid "Firmware"
 msgstr "韌體"
 
@@ -872,21 +860,21 @@ msgid "News"
 msgstr "新聞通知"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Keep"
-msgstr "保留"
+msgid "Enabled"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "news item from the feed"
-msgid_plural "news items from the feed"
-msgstr[0] "條來自訂閱源的新聞"
+msgid "Reset"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "RSS feeds"
-msgstr "RSS 訂閱源"
+msgid "Add"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "One URL per line"
-msgstr "每行輸入一個 URL"
+msgid "latest article from each feed"
+msgid_plural "latest articles from each feed"
+msgstr[0] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -907,7 +895,10 @@ msgid ""
 "list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
-msgstr "如果<b>啟用</b>該選項，當軟體包有新版本釋出時，即使該軟體包已在列表中，也會發送通知。<b>更多通知。</b><br><br>如果<b>停用</b>該選項，則僅對尚未在列表中的軟體包傳送通知。<b>更少通知。</b>"
+msgstr ""
+"如果<b>啟用</b>該選項，當軟體包有新版本釋出時，即使該軟體包已在列表中，也會發"
+"送通知。<b>更多通知。</b><br><br>如果<b>停用</b>該選項，則僅對尚未在列表中的"
+"軟體包傳送通知。<b>更少通知。</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1010,7 +1001,9 @@ msgid ""
 "Here you can override the default package icons and exclude them from the "
 "list. Each rule overwrites the previous one, so the list of rules should be "
 "in this order: "
-msgstr "在此處，您可以覆蓋預設的軟體包圖示並將其從列表中排除。每條規則都會覆蓋前一條規則，因此規則列表應按以下順序排列："
+msgstr ""
+"在此處，您可以覆蓋預設的軟體包圖示並將其從列表中排除。每條規則都會覆蓋前一條"
+"規則，因此規則列表應按以下順序排列："
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1040,7 +1033,9 @@ msgstr "應用"
 msgid ""
 "Thanks for using my widget! If you appreciate my work, you can support me by "
 "starring the GitHub repository or buying me a coffee ;)"
-msgstr "感謝您使用我的小部件！如果您喜歡我的工作，可以透過給我的 GitHub 倉庫點星或請我喝杯咖啡來支援我 ;)"
+msgstr ""
+"感謝您使用我的小部件！如果您喜歡我的工作，可以透過給我的 GitHub 倉庫點星或請"
+"我喝杯咖啡來支援我 ;)"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Visit %1"
@@ -1085,7 +1080,9 @@ msgid ""
 "Running your command or script BEFORE the upgrade.<br>For example, you can "
 "specify your command to update the mirrorlist if you have unofficial "
 "repositories."
-msgstr "在升級之前執行您的命令或指令碼。<br>例如，如果您使用了非官方倉庫，可以在此指定用於更新映象列表的命令。"
+msgstr ""
+"在升級之前執行您的命令或指令碼。<br>例如，如果您使用了非官方倉庫，可以在此指"
+"定用於更新映象列表的命令。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
@@ -1095,7 +1092,9 @@ msgstr "升級後執行"
 msgid ""
 "Running your command or script AFTER the upgrade.<br>For example, you can "
 "specify your command to upgrade something else."
-msgstr "在升級完成後執行您的命令或指令碼。<br>例如，您可以指定用於升級其他內容的命令。"
+msgstr ""
+"在升級完成後執行您的命令或指令碼。<br>例如，您可以指定用於升級其他內容的命"
+"令。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
@@ -1213,7 +1212,10 @@ msgid ""
 "default. <br><br><b>The more countries you select, the longer it will take "
 "to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
 "countries closest to you."
-msgstr "您必須至少選擇一個國家，否則預設會選擇全部國家。<br><br><b>選擇的國家越多，生成映象列表所需時間越長！</b><br><br>建議選擇距離您最近的<b>1-2 個</b>國家以獲得最佳效果。"
+msgstr ""
+"您必須至少選擇一個國家，否則預設會選擇全部國家。<br><br><b>選擇的國家越多，生"
+"成映象列表所需時間越長！</b><br><br>建議選擇距離您最近的<b>1-2 個</b>國家以獲"
+"得最佳效果。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
@@ -1247,7 +1249,9 @@ msgstr "重啟 plasmashell"
 msgid ""
 "After upgrading widget, the old version will still remain in memory until "
 "you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr "升級小部件後，舊版本仍會駐留在記憶體中，直到您重啟 plasmashell。為避免手動操作，建議啟用此選項"
+msgstr ""
+"升級小部件後，舊版本仍會駐留在記憶體中，直到您重啟 plasmashell。為避免手動操"
+"作，建議啟用此選項"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"

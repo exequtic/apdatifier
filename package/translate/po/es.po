@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"POT-Creation-Date: 2026-03-13 12:22+0300\n"
 "PO-Revision-Date: 2024-05-27 15:58-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -304,7 +304,7 @@ msgstr "Ejecutado:"
 msgid "Nothing to do"
 msgstr "Nada que hacer"
 
-#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages
 msgid "Required installed"
 msgstr "Requerido instalado"
 
@@ -448,7 +448,7 @@ msgstr "Leer artículo"
 msgid "System updated"
 msgstr "Sistema actualizado"
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -530,7 +530,7 @@ msgstr "Spinner usa el indicador de actividad estándar del plasmoide. Pulso ani
 msgid "Counter"
 msgstr "Contador"
 
-#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/General.qml
 msgid "Mode"
 msgstr "Modo"
 
@@ -747,8 +747,8 @@ msgid "Configuration is automatically saved in a config file and loaded at every
 msgstr "La configuración se guarda automáticamente en un archivo de configuración y se carga en cada inicio, asegurando que nunca pierdas tus ajustes. El archivo de configuración se almacena en "
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check mode"
-msgstr "Modo de verificación"
+msgid "Schedule"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -767,20 +767,12 @@ msgid "Weekly"
 msgstr "Semanal"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Choose how automatic checks are scheduled: manual, periodic interval (minutes, max 43200 - 30 days), daily at specific time or weekly at specific day/time."
-msgstr "Elige cómo se programan las verificaciones automáticas: manual, intervalo periódico (minutos, máx. 43200 - 30 días), diario a una hora específica o semanal en un día/hora específicos."
-
-#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minutos"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Daily time"
 msgstr "Hora diaria"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Weekly schedule"
-msgstr "Programación semanal"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sunday"
@@ -835,10 +827,6 @@ msgid "Plasma Widgets"
 msgstr "Widgets de Plasma"
 
 #: ../contents/ui/configuration/General.qml
-msgid "<br><br>For widget developers:<br>Don't forget to update the metadata.json and specify the name of the applet and its version <b>exactly</b> as they appear on the KDE Store."
-msgstr "<br><br>Para desarrolladores de widgets:<br>No olvides actualizar el metadata.json y especificar el nombre del applet y su versión <b>exactamente</b> como aparecen en la KDE Store."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Firmware"
 msgstr "Firmware"
 
@@ -847,22 +835,22 @@ msgid "News"
 msgstr "Noticias"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Keep"
-msgstr "Mantener"
-
-#: ../contents/ui/configuration/General.qml
-msgid "news item from the feed"
-msgid_plural "news items from the feed"
-msgstr[0] "noticia del feed"
-msgstr[1] "noticias del feed"
-
-#: ../contents/ui/configuration/General.qml
-msgid "RSS feeds"
+msgid "Enabled"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "One URL per line"
+msgid "Reset"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Add"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "latest article from each feed"
+msgid_plural "latest articles from each feed"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"

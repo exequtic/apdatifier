@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"POT-Creation-Date: 2026-03-13 12:22+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -316,7 +316,7 @@ msgstr "Executado:"
 msgid "Nothing to do"
 msgstr "Nada a fazer"
 
-#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages
 msgid "Required installed"
 msgstr "Requer instalado"
 
@@ -465,6 +465,7 @@ msgid "System updated"
 msgstr "Sistema atualizado"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
 msgstr "Desativado"
@@ -558,6 +559,7 @@ msgid "Counter"
 msgstr "Contador"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Mode"
 msgstr "Modo"
 
@@ -792,8 +794,8 @@ msgstr ""
 "configurações. O arquivo de configuração é armazenado em "
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check mode"
-msgstr "Modo de verificação"
+msgid "Schedule"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -812,26 +814,12 @@ msgid "Weekly"
 msgstr "Semanal"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Choose how automatic checks are scheduled: manual, periodic interval "
-"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
-"day/time."
-msgstr ""
-"Escolha como as verificações automáticas são agendadas: manual, intervalo "
-"periódico (minutos, máx. 43200 - 30 dias), diário em horário específico ou "
-"semanal em dia/horário específicos."
-
-#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "minutos"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Daily time"
 msgstr "Horário diário"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Weekly schedule"
-msgstr "Agendamento semanal"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sunday"
@@ -887,16 +875,6 @@ msgid "Plasma Widgets"
 msgstr "Widgets do Plasma"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
-"and specify the name of the applet and its version <b>exactly</b> as they "
-"appear on the KDE Store."
-msgstr ""
-"<br><br>Para desenvolvedores de widgets:<br>Não se esqueça de atualizar o "
-"metadata.json e especificar o nome do applet e sua versão <b>exatamente</b> "
-"como aparecem na Loja KDE."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Firmware"
 msgstr "Firmware"
 
@@ -906,22 +884,22 @@ msgid "News"
 msgstr "Notícias"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Keep"
-msgstr "Manter"
-
-#: ../contents/ui/configuration/General.qml
-msgid "news item from the feed"
-msgid_plural "news items from the feed"
-msgstr[0] "item de notícia do feed"
-msgstr[1] "itens de notícia do feed"
-
-#: ../contents/ui/configuration/General.qml
-msgid "RSS feeds"
+msgid "Enabled"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "One URL per line"
+msgid "Reset"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Add"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "latest article from each feed"
+msgid_plural "latest articles from each feed"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"

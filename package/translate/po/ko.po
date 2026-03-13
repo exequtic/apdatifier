@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-02-26 12:59+0300\n"
+"POT-Creation-Date: 2026-03-13 12:22+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -314,7 +314,7 @@ msgstr "실행됨:"
 msgid "Nothing to do"
 msgstr "할 일 없음"
 
-#: ../contents/tools/sh/messages ../contents/ui/configuration/General.qml
+#: ../contents/tools/sh/messages
 msgid "Required installed"
 msgstr "설치에 필요"
 
@@ -455,6 +455,7 @@ msgid "System updated"
 msgstr "시스템 업데이트됨"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
 msgstr "비활성화"
@@ -546,6 +547,7 @@ msgid "Counter"
 msgstr "카운터"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Mode"
 msgstr "모드"
 
@@ -775,8 +777,8 @@ msgstr ""
 "되지 않도록 합니다. 설정 파일 위치: "
 
 #: ../contents/ui/configuration/General.qml
-msgid "Check mode"
-msgstr "확인 모드"
+msgid "Schedule"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -795,25 +797,12 @@ msgid "Weekly"
 msgstr "매주"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Choose how automatic checks are scheduled: manual, periodic interval "
-"(minutes, max 43200 - 30 days), daily at specific time or weekly at specific "
-"day/time."
-msgstr ""
-"자동 확인 일정을 선택하세요: 수동, 주기적 간격(분, 최대 43200 - 30일), 특정 "
-"시간에 매일 또는 특정 요일/시간에 매주."
-
-#: ../contents/ui/configuration/General.qml
 msgid "minutes"
 msgstr "분"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Daily time"
 msgstr "매일 시간"
-
-#: ../contents/ui/configuration/General.qml
-msgid "Weekly schedule"
-msgstr "주간 일정"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Sunday"
@@ -869,16 +858,6 @@ msgid "Plasma Widgets"
 msgstr "Plasma 위젯"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"<br><br>For widget developers:<br>Don't forget to update the metadata.json "
-"and specify the name of the applet and its version <b>exactly</b> as they "
-"appear on the KDE Store."
-msgstr ""
-"<br><br>위젯 개발자에게:<br>metadata.json 파일을 업데이트하는 것을 잊지 마세"
-"요. 위젯 이름과 버전을 KDE 스토어에 표시된 것과 <b>정확히</b> 동일하게 지정하"
-"세요."
-
-#: ../contents/ui/configuration/General.qml
 msgid "Firmware"
 msgstr "펌웨어"
 
@@ -888,21 +867,21 @@ msgid "News"
 msgstr "소식"
 
 #: ../contents/ui/configuration/General.qml
-msgid "Keep"
-msgstr "유지"
-
-#: ../contents/ui/configuration/General.qml
-msgid "news item from the feed"
-msgid_plural "news items from the feed"
-msgstr[0] "피드의 뉴스 항목"
-
-#: ../contents/ui/configuration/General.qml
-msgid "RSS feeds"
+msgid "Enabled"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
-msgid "One URL per line"
+msgid "Reset"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Add"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "latest article from each feed"
+msgid_plural "latest articles from each feed"
+msgstr[0] ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
