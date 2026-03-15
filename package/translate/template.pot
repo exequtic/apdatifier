@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-13 12:22+0300\n"
+"POT-Creation-Date: 2026-03-15 14:56-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,10 @@ msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "The system is going to reboot now..."
 msgstr ""
 
 #: ../contents/tools/sh/messages

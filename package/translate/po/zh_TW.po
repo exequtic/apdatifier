@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-13 12:22+0300\n"
+"POT-Creation-Date: 2026-03-15 14:56-0300\n"
 "PO-Revision-Date: 2026-03-01 13:18+0800\n"
 "Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
@@ -69,6 +69,10 @@ msgstr "關鍵軟體包已更新，可能需要重啟："
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
 msgstr "您希望立即重啟嗎？"
+
+#: ../contents/tools/sh/messages
+msgid "The system is going to reboot now..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
