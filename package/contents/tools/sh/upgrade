@@ -147,12 +147,14 @@ fullSystemUpgrade() {
         while true; do
             printQuestion "$UPGRADE_REBOOT"; read -r answer
             case "$answer" in
-                    [Yy]*) sys_reboot; break;;
-                 [Nn]*|"") printClose; break;;
+                    [Yy]*) sys_reboot; exit;;
+                 [Nn]*|"") break;;
                         *)  ;;
             esac
         done
     fi
+
+    printClose
 }
 
 sys_reboot() {
