@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-13 12:22+0300\n"
+"POT-Creation-Date: 2026-03-15 14:56-0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -69,6 +69,10 @@ msgstr "Zaktualizowano krytyczne pakiety, może być wymagany restart:"
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
 msgstr "Czy chcesz zrestartować teraz?"
+
+#: ../contents/tools/sh/messages
+msgid "The system is going to reboot now..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"

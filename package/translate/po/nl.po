@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-13 12:22+0300\n"
+"POT-Creation-Date: 2026-03-15 14:56-0300\n"
 "PO-Revision-Date: 2025-05-18 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -69,6 +69,10 @@ msgstr "Er zijn kritieke pakketten bijgewerkt - een herstart is vereist:"
 #: ../contents/tools/sh/messages
 msgid "Do you want to reboot now?"
 msgstr "Wil je nu herstarten?"
+
+#: ../contents/tools/sh/messages
+msgid "The system is going to reboot now..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"

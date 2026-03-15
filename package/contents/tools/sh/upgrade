@@ -147,14 +147,21 @@ fullSystemUpgrade() {
         while true; do
             printQuestion "$UPGRADE_REBOOT"; read -r answer
             case "$answer" in
-                    [Yy]*) qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot;;
-                 [Nn]*|"") break;;
+                    [Yy]*) sys_reboot; break;;
+                 [Nn]*|"") printClose; break;;
                         *)  ;;
             esac
         done
     fi
+}
 
-    printClose
+sys_reboot() {
+    tput civis
+    printMsg "$UPGRADE_REBOOTING"
+
+    read -s -t 2
+
+    qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot
 }
 
 flatpak_package() {
