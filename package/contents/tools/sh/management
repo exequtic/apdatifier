@@ -385,11 +385,13 @@ rebuildPython() {
             printExec "$wrapper_sudo -S --rebuild" "$rebuild_packages"
             while true; do
                 printQuestion "$MNG_RESUME"; read -r answer
-                case "$answer" in
-                        [Yy]*) echo; break;;
-                     [Nn]*|"") echo; pressReturn;;
-                            *)  ;;
-                esac
+                if [[ $answer =~ $YES_EXPR ]]; then
+                    echo
+                    break
+                elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+                    echo
+                    pressReturn
+                fi
             done
             pacman -Qqo "$rebuild_dir" | pacman -Qqm - | $wrapper -S --rebuild -
         fi

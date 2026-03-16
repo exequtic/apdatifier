@@ -45,7 +45,7 @@ printImportant() {
 }
 
 printQuestion() {
-    echo -en "$(colorize yellow bold "$ICO_QUESTION $1") [y/N]: "
+    echo -en "$(colorize yellow bold "$ICO_QUESTION $1") [$UTILS_YES_NO]: "
 }
 
 printExec() {
@@ -165,11 +165,11 @@ restartPlasmashell() {
         sleep 1
         while true; do
             printQuestion "$WIDGETS_RESTART"; read -r answer
-            case "$answer" in
-                    [Yy]*) break;;
-                 [Nn]*|"") exit;;
-                        *)  ;;
-            esac
+            if [[ $answer =~ $YES_EXPR ]]; then
+                break
+            elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+                exit
+            fi
         done
         eval ${restartCommand}
     else
@@ -411,11 +411,14 @@ install_devel() {
     [[ $trayEnabledByDefault == "true" ]] && updateJson $metadata "$(jq '.KPlugin.EnabledByDefault = true' $metadata)"
     while true; do
         printQuestion "Do you want build translations?"; read -r answer
-        case "$answer" in
-               [Yy]*) cd translate; bash build; cd ..; break;;
-            [Nn]*|"") break;;
-                   *)  ;;
-        esac
+        if [[ $answer =~ $YES_EXPR ]]; then
+            cd translate
+            bash build
+            cd ..
+            break
+        elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+            break
+        fi
     done
     echo
     tar --exclude=./apdatifier.tar -cf apdatifier.tar .
@@ -439,11 +442,12 @@ install_stable() {
         while true; do
             printImportant "It looks like you already have the stable version."
             printQuestion "Do you still want to proceed?"; read -r answer
-            case "$answer" in
-                   [Yy]*) break;;
-                [Nn]*|"") printClose; exit;;
-                       *)  ;;
-            esac
+            if [[ $answer =~ $YES_EXPR ]]; then
+                break
+            elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+                printClose
+                exit
+            fi
         done
     fi
 
@@ -466,11 +470,12 @@ uninstall() {
 
     while true; do
         printQuestion "Continue?"; read -r answer
-        case "$answer" in
-               [Yy]*) break;;
-            [Nn]*|"") printClose; exit;;
-                   *)  ;;
-        esac
+        if [[ $answer =~ $YES_EXPR ]]; then
+            break
+        elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+            printClose
+            exit
+        fi
     done
 
     echo

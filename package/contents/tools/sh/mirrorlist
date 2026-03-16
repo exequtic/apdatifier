@@ -90,11 +90,12 @@ OUTDATED=false
     printImportant "$MIRROR_TIME" "$NORM_TIME"
     while true; do
         printQuestion "$MIRROR_REFRESH"; read -r answer
-        case "$answer" in
-            [Yy]*) echo; break;;
-            [Nn]*|"") (( MENU )) && { returnMenu; } || { echo; exit; };;
-            *) ;;
-        esac
+        if [[ $answer =~ $YES_EXPR ]]; then
+            echo
+            break
+        elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+            (( MENU )) && { returnMenu; } || { echo; exit; }
+        fi
     done
 }
 

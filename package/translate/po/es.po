@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-15 14:56-0300\n"
+"POT-Creation-Date: 2026-03-15 22:30-0300\n"
 "PO-Revision-Date: 2024-05-27 15:58-0600\n"
 "Last-Translator: RodvinSanchez\n"
 "Language-Team: Español\n"
@@ -307,6 +307,18 @@ msgstr "Ejecutado:"
 #: ../contents/tools/sh/messages
 msgid "Nothing to do"
 msgstr "Nada que hacer"
+
+#: ../contents/tools/sh/messages
+msgid "y/N"
+msgstr "s/N"
+
+#: ../contents/tools/sh/messages
+msgid "^[+1yY]"
+msgstr "^[+1sSyY]"
+
+#: ../contents/tools/sh/messages
+msgid "^[-0nN]"
+msgstr "^[-0nN]"
 
 #: ../contents/tools/sh/messages
 msgid "Required installed"
