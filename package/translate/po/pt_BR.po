@@ -24,7 +24,7 @@ msgstr "Geral"
 
 #: ../contents/config/config.qml
 msgid "Upgrade & Management"
-msgstr ""
+msgstr "Atualização e Gerenciamento"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -73,7 +73,7 @@ msgstr "Deseja reiniciar agora?"
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr ""
+msgstr "O sistema vai reiniciar agora..."
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -85,7 +85,7 @@ msgstr "Ignorado..."
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade complete, close the terminal"
-msgstr ""
+msgstr "Atualização concluída. Feche o terminal."
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -113,7 +113,7 @@ msgstr "Sua mirrorlist atual:"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirror list?"
-msgstr ""
+msgstr "Atualizar a lista de espelhos (mirror list)?"
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -206,95 +206,95 @@ msgstr "Gerenciamento"
 
 #: ../contents/tools/sh/messages
 msgid "Browse available"
-msgstr ""
+msgstr "Navegar pelos pacotes disponíveis"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
+msgstr "Pesquisar todos os pacotes disponíveis e escolher o que instalar"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
-msgstr ""
+msgstr "Gerenciar pacotes instalados"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
+msgstr "Ver pacotes instalados e escolher o que remover"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
-msgstr ""
+msgstr "Explicitamente instalados"
 
 #: ../contents/tools/sh/messages
 msgid "Show packages you installed directly"
-msgstr ""
+msgstr "Mostra os pacotes que você instalou diretamente"
 
 #: ../contents/tools/sh/messages
 msgid "All explicit installs"
-msgstr ""
+msgstr "Todos os explicitamente instalados"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs not required by anything"
-msgstr ""
+msgstr "Explicitamente instalados não requeridas por outros pacotes"
 
 #: ../contents/tools/sh/messages
 msgid "Orphaned dependencies"
-msgstr ""
+msgstr "Dependências órfãs"
 
 #: ../contents/tools/sh/messages
 msgid "Dependencies that are no longer needed by anything installed"
-msgstr ""
+msgstr "Dependências que não são mais requeridas por outros pacotes"
 
 #: ../contents/tools/sh/messages
 msgid "List orphans"
-msgstr ""
+msgstr "Listar órfãos"
 
 #: ../contents/tools/sh/messages
 msgid "Remove orphans"
-msgstr ""
+msgstr "Remover órfãos"
 
 #: ../contents/tools/sh/messages
 msgid "Downgrade from cache"
-msgstr ""
+msgstr "Downgrade a partir do cache"
 
 #: ../contents/tools/sh/messages
 msgid "Clean cache"
-msgstr ""
+msgstr "Limpar o cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
+msgstr "Remover arquivos do cache para liberar espaço em disco"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
-msgstr ""
+msgstr "Apagar todo o cache"
 
 #: ../contents/tools/sh/messages
 msgid "Remove unused cache"
-msgstr ""
+msgstr "Apagar cache não utilizado"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
-msgstr ""
+msgstr "Reconstruir pacotes"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
+msgstr "Selecione pacotes que necessitam de reinstalação com reconstrução"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
-msgstr ""
+msgstr "Reconstruir pacotes AUR"
 
 #: ../contents/tools/sh/messages
 msgid "Detect Python packages to rebuild"
-msgstr ""
+msgstr "Detectar pacotes Python para reconstruir"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrors"
-msgstr ""
+msgstr "Atualizar espelhos (mirrors)"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
-msgstr ""
+msgstr "Recentemente instalados"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -310,7 +310,7 @@ msgstr "Pressione Enter para retornar ao menu"
 
 #: ../contents/tools/sh/messages
 msgid "Calculating..."
-msgstr ""
+msgstr "Calculando..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -799,7 +799,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
-msgstr ""
+msgstr "Agendamento"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -889,15 +889,15 @@ msgstr "Notícias"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
-msgstr ""
+msgstr "Ativado"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset"
-msgstr ""
+msgstr "Zerar"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
@@ -1140,28 +1140,30 @@ msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
-msgstr ""
+msgstr "Sem opções Flatpak"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr ""
+msgstr "Ocultar cabeçalhos"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
-msgstr ""
+msgstr "Ocultar ajuda"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr ""
+msgstr "Ocultar números das opções"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
-msgstr ""
+msgstr "Opções do Fzf"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid ""
 "Override default fzf options.<br>See <b>fzf --help</b> for available options."
 msgstr ""
+"Substituir as opções padrão do fzf.<br>Consulte <b>fzf --help</b> para ver "
+"as opções disponíveis."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1370,7 +1372,7 @@ msgstr "Recusar"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
-msgstr ""
+msgstr "Sem conexão com a internet"
 
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Upgrade package"
