@@ -19,12 +19,14 @@ printClose() {
     tput civis
     printMsg "$UPGRADE_ENTER"
 
-    local qdbus_bin="qdbus"
-    command -v qdbus6 >/dev/null && qdbus_bin="qdbus6"
-
     while ! read -t 30 -r; do
-        $qdbus_bin org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText apdatifier-plasmoid \
-        "$UPGRADE_COMPLETE" >/dev/null 2>&1
+        if command -v gdbus >/dev/null; then
+            gdbus call --session \
+                --dest org.kde.plasmashell \
+                --object-path /org/kde/osdService \
+                --method org.kde.osdService.showText \
+                apdatifier-plasmoid "$UPGRADE_COMPLETE" >/dev/null 2>&1
+        fi
     done
 
     tput cnorm
