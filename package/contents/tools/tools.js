@@ -273,6 +273,7 @@ function loadIgnorePkgs() {
 
 function checkUpdates() {
     if (sts.upgrading) return
+    if (!isOnline) return
 
     sts.errors = []
     scheduler.stop()
@@ -726,6 +727,7 @@ function resumeScheduler() {
 
 function searchScheduler(options) {
     if (!isOnline) return
+    if (isMetered) return
 
     const mode = cfg.checkMode
     if (mode === "manual") {

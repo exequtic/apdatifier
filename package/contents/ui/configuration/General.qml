@@ -42,6 +42,9 @@ SimpleKCM {
     property alias cfg_notifySound: notifySound.checked
     property alias cfg_notifyPersistent: notifyPersistent.checked
 
+    property alias cfg_checkConn: checkConn.checked
+    property alias cfg_respectMeteredConn: respectMeteredConn.checked
+
     property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
@@ -401,9 +404,21 @@ SimpleKCM {
                 }
             }
 
-            Item {
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("Network")
                 Kirigami.FormData.isSection: true
             }
+
+            CheckBox {
+                id: checkConn
+                text: i18n("Connectivity check")
+            }
+
+            CheckBox {
+                id: respectMeteredConn
+                text: i18n("Respect metered connection")
+            }
+
         }
 
         Kirigami.FormLayout {

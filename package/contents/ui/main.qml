@@ -45,7 +45,8 @@ PlasmoidItem {
 
     hideOnWindowDeactivate: !pinned
 
-    property bool isOnline: NetworkInformation.reachability === NetworkInformation.Reachability.Online
+    property bool isOnline: cfg.checkConn ? (NetworkInformation.reachability === NetworkInformation.Reachability.Online) : true
+    property bool isMetered: NetworkInformation.isMetered && cfg.respectMeteredConn
     property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
     property bool horizontal: plasmoid.location === PlasmaCore.Types.TopEdge || plasmoid.location === PlasmaCore.Types.BottomEdge
