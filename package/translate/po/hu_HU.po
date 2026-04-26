@@ -2,7 +2,7 @@
 # Copyright (C) 2026
 # This file is distributed under the same license as the apdatifier package.
 #
-# SPDX-FileCopyrightText: 2026 summoner <summoner@vivaldi.net>
+# SPDX-FileCopyrightText: 2026 summoner <summoner@disroot.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
