@@ -69,8 +69,13 @@ MNG_WARN                 = i18n("Review dependency warnings before removing")
 MNG_RESUME               = i18n("Resume?")
 MNG_RETURN               = i18n("Press Enter to return menu")
 MNG_CALC                 = i18n("Calculating...")
-
 MNG_EXEC                 = i18n("Executed:")
 MNG_DONE                 = i18n("Nothing to do")
+
+UTILS_YES_NO             = i18n("y/N")
+
+YES_EXPR                 = i18n("^[+1yY]")
+NO_EXPR                  = i18n("^[-0nN]")
+
 CMD_ERR                  = i18n("Required installed")
 NEWS_ERR                 = i18n("Cannot fetch news ")

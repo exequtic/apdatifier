@@ -258,11 +258,12 @@ upgrade_all_packages() {
         if [[ $widgetConfirmation = true ]]; then
             while true; do
                 printQuestion "$WIDGETS_PROCEED"; read -r answer
-                case "$answer" in
-                    [Yy]*) echo; break;;
-                 [Nn]*|"") return 0;;
-                        *)  ;;
-                esac
+                if [[ $answer =~ $YES_EXPR ]]; then
+                    echo
+                    break
+                elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+                    return 0
+                fi
             done
         fi
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-15 14:56-0300\n"
+"POT-Creation-Date: 2026-03-15 22:30-0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -308,6 +308,18 @@ msgstr "Вконано:"
 #: ../contents/tools/sh/messages
 msgid "Nothing to do"
 msgstr "Нічого робити"
+
+#: ../contents/tools/sh/messages
+msgid "y/N"
+msgstr "так/НІ"
+
+#: ../contents/tools/sh/messages
+msgid "^[+1yY]"
+msgstr "^([+1Yy]|[Тт][Аа][Кк]?)$"
+
+#: ../contents/tools/sh/messages
+msgid "^[-0nN]"
+msgstr "^([-0Nn]|[Нн][Іі])$"
 
 #: ../contents/tools/sh/messages
 msgid "Required installed"

@@ -148,24 +148,20 @@ fullSystemUpgrade() {
         printImportant "$UPGRADE_CRITICAL" "${critical_updated[*]}"
         while true; do
             printQuestion "$UPGRADE_REBOOT"; read -r answer
-            case "$answer" in
-                    [Yy]*) sys_reboot; exit;;
-                 [Nn]*|"") break;;
-                        *)  ;;
-            esac
+            if [[ $answer =~ $YES_EXPR ]]; then
+                tput civis
+                printMsg "$UPGRADE_REBOOTING"
+                read -s -t 2
+                qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot
+                tput cnorm
+                exit
+            elif [[ -z $answer || $answer =~ $NO_EXPR ]]; then
+                break
+            fi
         done
     fi
 
     printClose
-}
-
-sys_reboot() {
-    tput civis
-    printMsg "$UPGRADE_REBOOTING"
-
-    read -s -t 2
-
-    qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot
 }
 
 flatpak_package() {
