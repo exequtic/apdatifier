@@ -88,7 +88,7 @@ Representation {
                 }
 
                 ToolbarButton {
-                    tooltipText: sts.paused ? i18n("Disable auto search updates") : i18n("Enable auto search updates")
+                    tooltipText: sts.paused ? i18n("Enable auto search updates") : i18n("Disable auto search updates")
                     iconSource: cfg.ownIconsUI ? (!sts.paused ? svg("toolbar_pause") : svg("toolbar_start"))
                                                : (!sts.paused ? "media-playback-paused" : "media-playback-playing")
                     iconColor: sts.paused ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
