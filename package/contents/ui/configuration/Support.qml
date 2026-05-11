@@ -28,21 +28,6 @@ Kirigami.Page {
         }
     }
 
-    Menu {
-        id: menu
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-        MenuItem {
-            text: "buymeacoffee.com"
-            icon.name: "internet-web-browser-symbolic"
-            onTriggered: Qt.openUrlExternally("https://buymeacoffee.com/evgk")
-        }
-        MenuItem {
-            text: "nowpayments.io (crypto)"
-            icon.name: "internet-web-browser-symbolic"
-            onTriggered: Qt.openUrlExternally("https://nowpayments.io/donation/exequtic")
-        }
-    }
-
     RowLayout {
         anchors.centerIn: parent
         Layout.fillWidth: true
@@ -56,19 +41,19 @@ Kirigami.Page {
 
             HoverHandler {
                 id: handlerDonate
-                cursorShape: menu.opened ? Qt.ArrowCursor : Qt.PointingHandCursor
+                cursorShape: Qt.PointingHandCursor
             }
 
             TapHandler {
-                onTapped: (event) => menu.opened ? menu.close() : menu.popup(event.position.x, event.position.y)
+                onTapped: Qt.openUrlExternally("https://nowpayments.io/donation/exequtic")
             }
 
             Label {
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Donate"
+                text: "https://nowpayments.io"
                 font.bold: true
-                visible: handlerDonate.hovered && !menu.opened
+                visible: handlerDonate.hovered
             }
         }
 
@@ -92,7 +77,7 @@ Kirigami.Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.bold: true
                 visible: handlerGithub.hovered
-                text: i18n("Visit %1", "github")
+                text: "https://github.com"
             }
         }
     }

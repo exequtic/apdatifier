@@ -71,10 +71,10 @@ alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, te
 
 <br>
 
-# Translation
+<!-- # Translation
 Feel free to help translate to new languages or update and improve the ones that are already available. Please refer to the [ReadMe.md](https://github.com/exequtic/apdatifier/blob/main/package/translate/ReadMe.md) for instructions on how to do it.
 
-<br>
+<br> -->
 
 # Installation
 
@@ -111,10 +111,10 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 <br>
 
 # Support the project
-<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee.com">
+<!-- <a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee.com">
   <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-badge" style="width: 256px;">
 </a>
-<br>
+<br> -->
 <a href="https://nowpayments.io/donation/exequtic" target="_blank" title="nowpayments.io">
    <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="nowpayments-badge" style="width: 256px;">
 </a>
