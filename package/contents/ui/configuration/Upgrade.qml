@@ -141,11 +141,11 @@ SimpleKCM {
         RowLayout {
             CheckBox {
                 id: idleInhibit
-                text: "Idle Inhibit"
+                text: i18n("Idle Inhibit")
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: "Disables automatic sleep and screen lock while upgrading."
+                toolTipText: i18n("Disables automatic sleep and screen lock while upgrading.")
             }
         }
 
@@ -345,7 +345,7 @@ SimpleKCM {
             }
 
             Kirigami.ContextualHelpButton {
-                toolTipText: "This option suggests restarting the system after upgrading critical packages.<br><br><b>Note that not all critical packages require a full system restart; some may only need a session restart or no action at all, such as when an updated package is not currently running (e.g., an alternative kernel) or not in use (e.g., an alternative driver).</b>"
+                toolTipText: i18n("This option suggests restarting the system after upgrading critical packages.<br><br><b>Note that not all critical packages require a full system restart; some may only need a session restart or no action at all, such as when an updated package is not currently running (e.g., an alternative kernel) or not in use (e.g., an alternative driver).</b>")
             }
         }
 

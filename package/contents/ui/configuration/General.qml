@@ -403,22 +403,6 @@ SimpleKCM {
                     }
                 }
             }
-
-            Kirigami.Separator {
-                Kirigami.FormData.label: i18n("Network")
-                Kirigami.FormData.isSection: true
-            }
-
-            CheckBox {
-                id: checkConn
-                text: i18n("Connectivity check")
-            }
-
-            CheckBox {
-                id: respectMeteredConn
-                text: i18n("Respect metered connection")
-            }
-
         }
 
         Kirigami.FormLayout {
@@ -698,6 +682,21 @@ SimpleKCM {
                         JS.execute(JS.runInTerminal("utils", "uninstall"))
                     }
                 }
+            }
+
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("Network")
+                Kirigami.FormData.isSection: true
+            }
+
+            CheckBox {
+                id: checkConn
+                text: i18n("Connectivity check")
+            }
+
+            CheckBox {
+                id: respectMeteredConn
+                text: i18n("Respect metered connection")
             }
         }
     }

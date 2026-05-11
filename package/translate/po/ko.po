@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-15 14:56-0300\n"
+"POT-Creation-Date: 2026-05-11 13:44+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -335,6 +335,11 @@ msgid "Checking latest news..."
 msgstr "최근 소식 확인 중..."
 
 #: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] ""
+
+#: ../contents/tools/tools.js
 msgid "Synchronizing pacman databases..."
 msgstr "pacman 데이터베이스 동기화 중..."
 
@@ -361,11 +366,6 @@ msgstr "위젯 업데이트 확인 중..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "펌웨어 업데이트 확인 중..."
-
-#: ../contents/tools/tools.js
-msgid "%1 new article"
-msgid_plural "%1 new articles"
-msgstr[0] ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -975,6 +975,18 @@ msgstr "기본값으로 재설정합니다. 기본적으로 경로는 checkupdat
 msgid "Path must not contain spaces"
 msgstr "경로에는 공백이 포함될 수 없습니다"
 
+#: ../contents/ui/configuration/General.qml
+msgid "Network"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Connectivity check"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Respect metered connection"
+msgstr ""
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "중요하지 않음"
@@ -1032,7 +1044,7 @@ msgstr "목록에 표시"
 msgid "Exclude from the list"
 msgstr "목록에서 제외"
 
-#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Remove"
 msgstr "제거"
 
@@ -1051,10 +1063,6 @@ msgid ""
 msgstr ""
 "위젯을 사용해 주셔서 감사합니다! 제 작업을 좋아하신다면 GitHub 저장소에 별을 "
 "주시거나 커피를 사주실 수 있습니다 ;)"
-
-#: ../contents/ui/configuration/Support.qml
-msgid "Visit %1"
-msgstr "%1 방문"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
@@ -1078,6 +1086,14 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
 msgstr "tmux 세션"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Disables automatic sleep and screen lock while upgrading."
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1156,6 +1172,15 @@ msgstr "시스템 재부팅"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
 msgstr "업그레이드 후 권장됨"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"This option suggests restarting the system after upgrading critical packages."
+"<br><br><b>Note that not all critical packages require a full system "
+"restart; some may only need a session restart or no action at all, such as "
+"when an updated package is not currently running (e.g., an alternative "
+"kernel) or not in use (e.g., an alternative driver).</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1291,12 +1316,12 @@ msgid "Filter by package name"
 msgstr "패키지 이름으로 필터링"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Disable auto search updates"
-msgstr "자동 검색 업데이트 비활성화"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
 msgstr "자동 검색 업데이트 활성화"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Disable auto search updates"
+msgstr "자동 검색 업데이트 비활성화"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
@@ -1415,9 +1440,15 @@ msgid "Install reason"
 msgstr "설치 이유"
 
 #: ../contents/ui/scrollview/News.qml
+msgid "Mark as read"
+msgstr ""
+
+#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "읽지 않은 뉴스 없음"
 
-#: ../contents/ui/scrollview/News.qml
-msgid "Restore list"
-msgstr "목록 복원"
+#~ msgid "Visit %1"
+#~ msgstr "%1 방문"
+
+#~ msgid "Restore list"
+#~ msgstr "목록 복원"

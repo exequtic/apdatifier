@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-03-15 14:56-0300\n"
+"POT-Creation-Date: 2026-05-11 13:44+0300\n"
 "PO-Revision-Date: 2025-03-09 12:00+0300\n"
 "Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
 "Language-Team: \n"
@@ -37,7 +37,7 @@ msgstr "Правила"
 
 #: ../contents/config/config.qml
 msgid "Support me"
-msgstr "Поддержать меня"
+msgstr "Поддержать"
 
 #: ../contents/tools/sh/messages ../contents/tools/tools.js
 msgid "Upgrade in progress"
@@ -73,7 +73,7 @@ msgstr "Вы хотите перезагрузиться прямо сейчас
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr ""
+msgstr "Система сейчас перезагрузится..."
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -336,6 +336,13 @@ msgid "Checking latest news..."
 msgstr "Проверка последних новостей..."
 
 #: ../contents/tools/tools.js
+msgid "%1 new article"
+msgid_plural "%1 new articles"
+msgstr[0] "%1 новая статья"
+msgstr[1] "%1 новые статьи"
+msgstr[2] "%1 новых статей"
+
+#: ../contents/tools/tools.js
 msgid "Synchronizing pacman databases..."
 msgstr "Синхронизация баз данных pacman..."
 
@@ -362,13 +369,6 @@ msgstr "Проверка обновлений виджетов..."
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
 msgstr "Проверка обновлений прошивки..."
-
-#: ../contents/tools/tools.js
-msgid "%1 new article"
-msgid_plural "%1 new articles"
-msgstr[0] "%1 новая статья"
-msgstr[1] "%1 новые статьи"
-msgstr[2] "%1 новых статей"
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
@@ -1003,6 +1003,18 @@ msgstr ""
 msgid "Path must not contain spaces"
 msgstr "Путь не должен содержать пробелов"
 
+#: ../contents/ui/configuration/General.qml
+msgid "Network"
+msgstr "Сеть"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Connectivity check"
+msgstr "Проверка подключения"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Respect metered connection"
+msgstr "Учитывать лимитное соединение"
+
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
 msgstr "Не имеет значения"
@@ -1061,7 +1073,7 @@ msgstr "Показывать в списке"
 msgid "Exclude from the list"
 msgstr "Исключить из списка"
 
-#: ../contents/ui/configuration/Rules.qml ../contents/ui/scrollview/News.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Remove"
 msgstr "Удалить"
 
@@ -1080,10 +1092,6 @@ msgid ""
 msgstr ""
 "Спасибо, что пользуетесь моим виджетом! Если он понравился, Вы можете "
 "поддержать меня, нажав кнопку Star на GitHub, или купив мне кофе ;)"
-
-#: ../contents/ui/configuration/Support.qml
-msgid "Visit %1"
-msgstr "Посетите %1"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Widgets"
@@ -1108,6 +1116,14 @@ msgstr ""
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
 msgstr "tmux сессия"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Idle Inhibit"
+msgstr "Блокировка бездействия"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Disables automatic sleep and screen lock while upgrading."
+msgstr "Отключает автоматический сон и блокировку экрана во время обновления."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1189,6 +1205,22 @@ msgstr "Перезагрузить систему"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Suggest after upgrading"
 msgstr "Предлагать после обновления"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"This option suggests restarting the system after upgrading critical packages."
+"<br><br><b>Note that not all critical packages require a full system "
+"restart; some may only need a session restart or no action at all, such as "
+"when an updated package is not currently running (e.g., an alternative "
+"kernel) or not in use (e.g., an alternative driver).</b>"
+msgstr ""
+"С этой опцией будет предложено перезагрузить систему после обновления "
+"критических пакетов.<br><br><b>Обратите внимание, что не все критические "
+"пакеты требуют полной перезагрузки системы; некоторые могут потребовать "
+"только перезапуска сеанса или вообще не требуют никаких действий, например, "
+"когда обновляемый пакет в настоящее время не запущен (например, "
+"альтернативное ядро) или не используется (например, альтернативный драйвер)."
+"</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1330,12 +1362,12 @@ msgid "Filter by package name"
 msgstr "Фильтровать по названию пакета"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Disable auto search updates"
-msgstr "Отключить авто-проверку обновлений"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
 msgstr "Включить авто-проверку обновлений"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Disable auto search updates"
+msgstr "Отключить авто-проверку обновлений"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
@@ -1454,9 +1486,15 @@ msgid "Install reason"
 msgstr "Причина установки"
 
 #: ../contents/ui/scrollview/News.qml
+msgid "Mark as read"
+msgstr "Отметить как прочитанное"
+
+#: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Нет непрочитанных новостей"
 
-#: ../contents/ui/scrollview/News.qml
-msgid "Restore list"
-msgstr "Восстановить список"
+#~ msgid "Visit %1"
+#~ msgstr "Посетите %1"
+
+#~ msgid "Restore list"
+#~ msgstr "Восстановить список"
