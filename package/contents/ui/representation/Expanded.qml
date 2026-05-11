@@ -28,6 +28,30 @@ Representation {
     property var backgroundHidden: (Plasmoid.formFactor === PlasmaCore.Types.Planar) && (Plasmoid.userBackgroundHints === PlasmaCore.Types.ShadowBackground)
     onBackgroundHiddenChanged: topHeader.background.visible = bottomHeader.background.visible = !backgroundHidden
 
+
+    property bool activeNewsItems: false
+    function checkActiveNewsItems() {
+        activeNewsItems = false
+        for (let i = 0; i < newsModel.count; ++i) {
+            if (newsModel.get(i).removed === false) {
+                activeNewsItems = true
+                return
+            }
+        }
+    }
+
+    Connections {
+        target: newsModel
+        function onDataChanged() {
+            checkActiveNewsItems()
+        }
+        function onCountChanged() {
+            checkActiveNewsItems()
+        }
+    }
+
+    Component.onCompleted: checkActiveNewsItems()
+
     header: PlasmoidHeading {
         id: topHeader
         visible: (cfg.showStatusText || cfg.showToolBar) && !sts.error
@@ -219,7 +243,7 @@ Representation {
                         Layout.preferredHeight: Kirigami.Units.iconSizes.small
                         Layout.preferredWidth: Kirigami.Units.iconSizes.small
                         source: cfg.ownIconsUI ? svg("status_news") : "news-subscribe"
-                        color: activeNewsModel.count > 0 ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
+                        color: activeNewsItems ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                         isMask: cfg.ownIconsUI
                         smooth: true
                     }

@@ -116,7 +116,26 @@ function init() {
     function loadNews() {
         execute(readFile(newsFile), (cmd, out, err, code) => {
             if (Error(code, err)) return
-            if (out && validJSON(out, newsFile)) JSON.parse(out.trim()).forEach(item => newsModel.append(item))
+            if (out && validJSON(out, newsFile)) {
+                const news = JSON.parse(out.trim())
+                let migrate = false //
+                for (const article of news) {
+                    // todo: remove later
+                    if (article.timestamp === undefined && article.date) {
+                        migrate = true
+                        const [d, t] = article.date.split(" | ")
+                        const [day, month, year] = d.split(".").map(Number)
+                        const [hour, minute] = t.split(":").map(Number)
+                        article.timestamp = Math.floor(new Date(year, month - 1, day, hour, minute).getTime() / 1000)
+                        delete article.date
+                    }//
+
+                    addNewsItem(article)
+                }
+
+                if (migrate) saveNews() //
+            }
+
             onStartup()
         })
     }
@@ -125,7 +144,6 @@ function init() {
         sts.init = true
         checkDependencies()
         refreshListModel()
-        updateActiveNews()
         upgradingState()
     }
 }
@@ -298,7 +316,35 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
         execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
-            if (out) updateNews(out)
+            if (out) {
+                const news = JSON.parse(out.trim())
+                if (cfg.notifyNews) {
+                    const currentLinks = new Set(Array.from(Array(newsModel.count), (_, i) => newsModel.get(i).link))
+                    const newItems = news.filter(item => !currentLinks.has(item.link))
+                    if (newItems.length > 0) {
+                        const title = i18np("%1 new article", "%1 new articles", newItems.length)
+                        const body = newItems.map(item => `<b>${item.title}</b>: ${item.article}`).join("\n")
+                        notify.send("news", title, body, newItems[0].link)
+                    }
+                }
+
+                if (newsModel.count === 0) {
+                    news.forEach(item => addNewsItem(item))
+                } else {
+                    let newLinks = news.map(item => item.link)
+                    let prevLinks = modelToArray(newsModel).map(item => item.link)
+
+                    news.forEach(item => {
+                        if (!prevLinks.includes(item.link)) addNewsItem(item)
+                    })
+
+                    for (let i = newsModel.count - 1; i >= 0; --i) {
+                        let modelItem = newsModel.get(i)
+                        if (!newLinks.includes(modelItem.link)) newsModel.remove(i)
+                    }
+                }
+            }
+
             if (handleError(code, err, "news", next)) return
             next()
         }, procOpt)
@@ -410,67 +456,6 @@ function checkUpdates() {
         })
     }
 }
-
-
-function updateNews(out) {
-    const news = JSON.parse(out.trim())
-
-    if (cfg.notifyNews) {
-        const currentLinks = new Set(Array.from(Array(newsModel.count), (_, i) => newsModel.get(i).link))
-        const newItems = news.filter(item => !currentLinks.has(item.link))
-        if (newItems.length > 0) {
-            const title = i18np("%1 new article", "%1 new articles", newItems.length)
-            const body = newItems.map(item => `<b>${item.title}</b>: ${item.article}`).join("\n")
-            notify.send("news", title, body, newItems[0].link)
-        }
-    }
-
-    newsModel.clear()
-    news.forEach(item => newsModel.append(item))
-    updateActiveNews()
-}
-function updateActiveNews() {
-    const activeItems = Array.from({ length: newsModel.count }, (_, i) => newsModel.get(i)).filter(item => !item.removed)
-    activeNewsModel.clear()
-    activeItems.forEach(item => activeNewsModel.append(item))
-}
-function writeNewsFile(array) {
-    const json = toFileFormat(array)
-    if (json.length > 130000) {
-        const lines = json.replace(/},/g, "},\n").replace(/'/g, "").split("\n")
-        let start = 0
-        const chunkSize = 50
-        while (start < lines.length) {
-            const chunk = lines.slice(start, start + chunkSize).join("\n")
-            const redir = start === 0 ? ">" : ">>"
-            execute(writeFile(chunk, redir, newsFile))
-            start += chunkSize
-        }
-    } else {
-        execute(writeFile(json, '>', newsFile))
-    }
-}
-function removeNewsItem(index) {
-    for (let i = 0; i < newsModel.count; i++) {
-        if (newsModel.get(i).link === activeNewsModel.get(index).link) {
-            newsModel.setProperty(i, "removed", true)
-            activeNewsModel.remove(index)
-            break
-        }
-    }
-    let array = Array.from(Array(newsModel.count), (_, i) => newsModel.get(i))
-    writeNewsFile(array)
-}
-function restoreNewsList() {
-    let array = []
-    for (let i = 0; i < newsModel.count; i++) {
-        newsModel.setProperty(i, "removed", false)
-        array.push(newsModel.get(i))
-    }
-    writeNewsFile(array)
-    updateActiveNews()
-}
-
 
 function makeArchList(updates, source) {
     return new Promise((resolve) => {
@@ -910,3 +895,57 @@ function serializeCustomFeeds(value) {
     .filter((feed, index, feeds) => isValidFeedUrl(feed) && feeds.indexOf(feed) === index)
     .join("|")
 }
+
+
+
+function modelToArray(model) {
+    const array = new Array(model.count)
+    for (let i = 0; i < model.count; i++) {
+        array[i] = model.get(i)
+    }
+    return array
+}
+
+function findInsertIndex(news) {
+    const n = newsModel.count
+    let firstRemoved = n
+
+    for (let i = 0; i < n; i++) {
+        if (newsModel.get(i).removed) {
+            firstRemoved = i
+            break
+        }
+    }
+
+    const start = news.removed ? firstRemoved : 0
+    const end = news.removed ? n : firstRemoved
+
+    for (let i = start; i < end; i++) {
+        if (newsModel.get(i).timestamp < news.timestamp)
+            return i
+    }
+
+    return end
+}
+
+function saveNews() {
+    execute(writeFile(toFileFormat(modelToArray(newsModel)), '>', newsFile))
+}
+
+function addNewsItem(news) {
+    newsModel.insert(findInsertIndex(news), news)
+}
+
+function removeNewsItem(index) {
+    const item = newsModel.get(index)
+    if (!item || item.removed) return
+
+    let to = findInsertIndex({ timestamp: item.timestamp, removed: true })
+    if (to > index) to--
+
+    newsModel.move(index, to, 1)
+    newsModel.setProperty(to, "removed", true)
+
+    saveNews()
+}
+

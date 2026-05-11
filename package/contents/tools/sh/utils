@@ -216,7 +216,7 @@ rss() {
 
     if [[ ! -s "$newsFile" ]] \
     || ! jq -e '.' "$newsFile" >/dev/null 2>&1 \
-    || ! jq -e '[.[] | .date | strptime("%d.%m.%Y | %H:%M")] | length == length' "$newsFile" >/dev/null 2>&1; then
+    || ! jq -e 'all(.[]; .timestamp | numbers)' "$newsFile" >/dev/null 2>&1; then
         echo '[]' > "$newsFile"
     fi
 
@@ -269,21 +269,22 @@ rss() {
 
         local n
         for (( n=1; n<=count; n++ )); do
-            local article date link
+            local article timestamp link
             if [[ "$root" == "feed" ]]; then
                 article=$(xmllint --xpath "string(/feed/entry[$n]/title)" "$cleanFile")
-                date=$(date -d "$(xmllint --xpath "string(/feed/entry[$n]/updated)" "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+                timestamp=$(date -d "$(xmllint --xpath "string(/feed/entry[$n]/updated)" "$cleanFile")" +%s 2>/dev/null)
                 link=$(xmllint --xpath "string(/feed/entry[$n]/link/@href)" "$cleanFile")
             else
                 article=$(xmllint --xpath "string(/rss/channel/item[$n]/title)" "$cleanFile")
-                date=$(date -d "$(xmllint --xpath "string(/rss/channel/item[$n]/pubDate)" "$cleanFile")" +"%d.%m.%Y | %H:%M" 2>/dev/null)
+                timestamp=$(date -d "$(xmllint --xpath "string(/rss/channel/item[$n]/pubDate)" "$cleanFile")" +%s 2>/dev/null)
                 link=$(xmllint --xpath "string(/rss/channel/item[$n]/link)" "$cleanFile")
             fi
 
-            [[ -z "$article" || -z "$date" || -z "$link" ]] && continue
+            [[ -z "$article" || -z "$timestamp" || -z "$link" ]] && continue
 
             if ! jq -e --arg l "$link" '.[] | select(.link == $l)' "$newsFile" > /dev/null; then
-                local item=$(jq -n --arg t "$title" --arg a "$article" --arg d "$date" --arg l "$link" '{title: $t, article: $a, date: $d, link: $l, removed: false}')
+                local item=$(jq -n --arg t "$title" --arg a "$article" --arg l "$link" --argjson ts "$timestamp" \
+                    '{title: $t, article: $a, timestamp: $ts, link: $l, removed: false}')
                 updateJson "$newsFile" "$(jq --argjson item "$item" '[$item] + .' "$newsFile")"
             fi
         done
@@ -295,7 +296,7 @@ rss() {
         done
     done
 
-    updateJson $newsFile "$(jq 'sort_by(.date | strptime("%d.%m.%Y | %H:%M") | mktime) | reverse' $newsFile)"
+    updateJson "$newsFile" "$(jq 'sort_by(.timestamp) | reverse' "$newsFile")"
 
     jq . $newsFile
 
