@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-05-11 13:44+0300\n"
-"PO-Revision-Date: 2026-04-26 17:54+0200\n"
+"PO-Revision-Date: 2026-05-14 09:12+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
 "Language: hu_HU\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Poedit 3.8\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -72,7 +72,7 @@ msgstr "Szeretné újraindítani a rendszert?"
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr "A rendszer újraindúl…"
+msgstr "A rendszer most újraindúl…"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -151,7 +151,7 @@ msgstr "Nincs leírás"
 
 #: ../contents/tools/sh/messages
 msgid "Unable check widgets: "
-msgstr "Ellenőrizhetetlen kisalkalmazások:"
+msgstr "Nem sikerült ellenőrizni a kisalkalmazásokat: "
 
 #: ../contents/tools/sh/messages
 msgid ""
@@ -159,7 +159,7 @@ msgid ""
 "try again later"
 msgstr ""
 "Az elmúlt 15 percben túl sok API-lekérdezés érkezett az Ön IP-címéről. "
-"Próbálja meg később újra!"
+"Próbálja meg később újra"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
@@ -797,9 +797,9 @@ msgid ""
 "Configuration is automatically saved in a config file and loaded at every "
 "startup, ensuring you never lose your settings. The config file is stored in "
 msgstr ""
-"A beállítások automatikusan elmentésre kerülnek egy konfigurációs fájlba, és "
+"A beállítások automatikusan el lesznek mentve egy konfigurációs fájlba, és "
 "minden indításkor betöltődnek, így biztosítva, hogy soha ne vesszenek el a "
-"beállítások. A konfigurációs fájl a következő helyen van tárolva:"
+"beállítások. A konfigurációs fájl a következő helyen van tárolva: "
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
@@ -1004,15 +1004,15 @@ msgstr "Az elérési út nem tartalmazhat szóközöket"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
-msgstr ""
+msgstr "Hálózat"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr ""
+msgstr "Kapcsolatellenőrzés"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
-msgstr ""
+msgstr "Korlátozott adatforgalom figyelembevétele"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Unimportant"
@@ -1119,11 +1119,13 @@ msgstr "tmux munkamenet"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Idle Inhibit"
-msgstr ""
+msgstr "Alvó állapot és a képernyőzár letiltása frissítés közben"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
 msgstr ""
+"Megakadályozza az automatikus elalvást és a képernyő zárolását frissítés "
+"közben."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1213,6 +1215,13 @@ msgid ""
 "when an updated package is not currently running (e.g., an alternative "
 "kernel) or not in use (e.g., an alternative driver).</b>"
 msgstr ""
+"Ez a beállítás azt javasolja, hogy a kritikus csomagok frissítése után "
+"indítsa újra a rendszert.<br><br><b>Megjegyzés: Nem minden kritikus csomag "
+"esetében szükséges a rendszer teljes újraindítása; egyes csomagoknál "
+"elegendő lehet a munkamenet újraindítása, vagy egyáltalán nincs szükség "
+"semmilyen műveletre, például, ha a frissített csomag éppen nem fut (például "
+"egy alternatív rendszermag) vagy nincs használatban (például egy alternatív "
+"illesztőprogram).</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1478,7 +1487,7 @@ msgstr "Telepítés oka"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
-msgstr ""
+msgstr "Megjelölés olvasottként"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
