@@ -97,7 +97,9 @@ fullSystemUpgrade() {
         fi
 
         test -f "$configDir/env.sh" && source "$configDir/env.sh"
-        run "$bin -Syu $archFlags"
+
+        ignorePkgs="$@"
+        run "$bin -Syu $archFlags $ignorePkgs"
 
         for pkg in "${critical_installed[@]}"; do
             afterVersion=$(pacman -Q $pkg | awk '{print $2}')
@@ -190,7 +192,7 @@ widget_package() {
 
 
 case "$1" in
-          "full") fullSystemUpgrade ;;
+          "full") shift; fullSystemUpgrade $@ ;;
        "flatpak") shift; flatpak_package $1 $2;;
         "widget") shift; widget_package $1 $2;;
                *) exit;;

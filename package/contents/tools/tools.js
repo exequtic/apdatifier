@@ -26,7 +26,8 @@ const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const runInTerminal = (script, ...args) => {
-    execute('kstart ' + bash('terminal', script, ...args))
+    const cmd = bash('terminal', script, ...args)
+    execute(`kstart -- bash -c '${cmd}'`)
     if (script === "upgrade") {
         runLater(5000, () => upgradeTimer.start())
         scheduler.stop()
@@ -242,7 +243,8 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    runInTerminal("upgrade", "full")
+    const ignorePkgs = buildIgnoreString()
+    runInTerminal("upgrade", "full", `${ignorePkgs}`)
 }
 
 
@@ -286,6 +288,20 @@ function loadIgnorePkgs() {
             resolve(patterns)
         })
     })
+}
+
+function buildIgnoreString() {
+    const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
+    if (!Array.isArray(rules)) return ''
+
+    const ignoreItems = rules.filter(rule =>
+        rule && rule.type === "name" && rule.ignore === true
+    )
+
+    if (ignoreItems.length === 0) return ''
+
+    const values = ignoreItems.map(rule => rule.value)
+    return `--ignore ${values.join(',')}`
 }
 
 

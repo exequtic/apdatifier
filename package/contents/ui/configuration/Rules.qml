@@ -21,6 +21,7 @@ ColumnLayout {
                             value: el.value,
                             icon: el.icon,
                             excluded: el.excluded,
+                            ignore: ('ignore' in el) ? el.ignore : false,
                             important: ('important' in el) ? el.important : false
                         })
                     )
@@ -78,6 +79,10 @@ ColumnLayout {
                     onCurrentIndexChanged: {
                         if (currentIndex === 0) valueField.text = ""
                         rulesList.model.set(index, {"type": model.get(currentIndex).type})
+
+                        if (currentIndex !== 4) {
+                            rulesList.model.set(index, {"ignore": false})
+                        }
                     }
                     Component.onCompleted: {
                         var currentType = rulesList.model.get(index).type
@@ -123,13 +128,29 @@ ColumnLayout {
                 ToolButton {
                     ToolTip { text: i18n("Mark as important") }
                     icon.name: model.important ? "flag-red" : "flag"
+                    checkable: true
+                    checked: model.important
                     onClicked: model.important = !model.important
                 }
 
                 ToolButton {
                     ToolTip { text: model.excluded ? i18n("Show in the list") : i18n("Exclude from the list") }
-                    icon.name: model.excluded ? "view-visible" : "hint"
+                    icon.name: model.excluded ? "hint" : "view-visible"
+                    checkable: true
+                    checked: model.excluded
                     onClicked: model.excluded = !model.excluded
+                }
+
+                ToolButton {
+                    ToolTip { 
+                        text: i18n("Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>")
+                    }
+                    icon.name: model.ignore ? "software-updates-security" : "software-updates-updates"
+                    enabled: type.model.get(type.currentIndex).type === "name"
+                    checkable: true
+                    checked: model.ignore
+                    opacity: enabled ? 1 : 0.5
+                    onClicked: model.ignore = !model.ignore
                 }
 
                 ToolButton {
@@ -183,7 +204,8 @@ ColumnLayout {
                     value: "",
                     icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
                     excluded: false,
-                    important: false
+                    important: false,
+                    ignore: false
                 })
             }
         }
