@@ -311,9 +311,9 @@ SimpleKCM {
             TextField {
                 id: archFlags
                 onTextChanged: {
-                    var allow = /^[a-z\- ]*$/
+                    var allow = /^[a-z0-9\- ]*$/
                     if (!allow.test(archFlags.text))
-                        archFlags.text = archFlags.text.replace(/[^a-z\- ]/g, "")
+                        archFlags.text = archFlags.text.replace(/[^a-z0-9\- ]/g, "")
                 }
             }
         }
