@@ -55,10 +55,7 @@ ScrollView {
                             Controls.Label {
                                 Layout.fillWidth: true
                                 wrapMode: Text.WordWrap
-                                text: Qt.locale(Qt.locale().name).toString(
-                                    new Date(model.timestamp * 1000),
-                                    "dd MMMM yyyy, HH:mm"
-                                )
+                                text: Qt.formatDateTime(new Date(model.timestamp * 1000), Qt.DefaultLocaleShortDate)
                                 opacity: 0.6
                             }
                             Kirigami.Separator {
