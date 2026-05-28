@@ -295,7 +295,7 @@ function buildIgnoreString() {
     if (!Array.isArray(rules)) return ''
 
     const ignoreItems = rules.filter(rule =>
-        rule && rule.type === "name" && rule.ignore === true
+        rule && rule.ignore === true
     )
 
     if (ignoreItems.length === 0) return ''
@@ -833,14 +833,11 @@ function applyRules(list) {
 
     function applyRule(el, rule) {
         const types = {
-            'all'    : () => true,
-            'repo'   : () => el.RE === rule.value,
-            'group'  : () => el.GR.includes(rule.value),
-            'match'  : () => el.NM.includes(rule.value),
-            'name'   : () => el.NM === rule.value
+            'name'  : () => el.NM === rule.value,
+            'regex' : () => { try { return new RegExp(rule.value).test(el.NM) } catch(e) { return false } }
         }
 
-        if (types[rule.type]()) {
+        if (types[rule.type] && types[rule.type]()) {
             el.IC = rule.icon
             el.EX = rule.excluded
             el.IM = rule.important

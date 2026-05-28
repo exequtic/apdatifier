@@ -15,7 +15,8 @@ ColumnLayout {
             JS.execute(JS.readFile(JS.rulesFile), (cmd, out, err, code) => {
                 if (JS.Error(code, err)) return
                 if (out && JS.validJSON(out, JS.rulesFile)) {
-                    JSON.parse(out).forEach(el =>
+                    JSON.parse(out).forEach(el => {
+                        if (el.type !== "name" && el.type !== "regex") return
                         rulesModel.append({
                             type: el.type,
                             value: el.value,
@@ -24,7 +25,7 @@ ColumnLayout {
                             ignore: ('ignore' in el) ? el.ignore : false,
                             important: ('important' in el) ? el.important : false
                         })
-                    )
+                    })
                 }
             })
         }
@@ -34,11 +35,8 @@ ColumnLayout {
         id: typesModel
         Component.onCompleted: {
             let types = [
-                {name: i18n("Unimportant"), type: "all", tip: "---"},
-                {name: i18n("Repository"), type: "repo", tip: i18n("Exact repository match")},
-                {name: i18n("Group"), type: "group", tip: i18n("Substring group match")},
-                {name: i18n("Substring"), type: "match", tip: i18n("Substring name match")},
-                {name: i18n("Name"), type: "name", tip: i18n("Exact name match")}
+                {name: i18n("Name"),  type: "name",  tip: i18n("Exact package name")},
+                {name: i18n("Regex"), type: "regex", tip: i18n("See Help")}
             ]
 
             for (var i = 0; i < types.length; ++i) {
@@ -47,42 +45,36 @@ ColumnLayout {
         }
     }
 
-    Kirigami.InlineMessage {
-        id: rulesMsg
-        Layout.fillWidth: true
-        Layout.leftMargin: Kirigami.Units.smallSpacing * 2
-        Layout.rightMargin: Kirigami.Units.smallSpacing * 2
-        icon.source: "showinfo"
-        text: i18n("Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: ")+i18n("Unimportant")+", "+i18n("Repository")+", "+i18n("Group")+", "+i18n("Substring")+", "+i18n("Name")
-        visible: plasmoid.configuration.rulesMsg
-
-        actions: [
-            Kirigami.Action {
-                text: "OK"
-                icon.name: "checkmark"
-                onTriggered: plasmoid.configuration.rulesMsg = false
-            }
-        ]
-    }
-
     Component {
         id: rule
-        ItemDelegate {
+        Item {
+            id: ruleItem
+            required property int index
+            required property var model
             width: rulesList.width - Kirigami.Units.largeSpacing * 2
-            contentItem: RowLayout {
+            height: swipeListItem.height
+
+            Kirigami.SwipeListItem {
+                id: swipeListItem
+                down: false
+                hoverEnabled: true
+                separatorVisible: true
+
+                contentItem: RowLayout {
+                Kirigami.ListItemDragHandle {
+                    listItem: swipeListItem
+                    listView: rulesList
+                    onMoveRequested: rulesModel.move(oldIndex, newIndex, 1)
+                }
                 ComboBox {
-                    implicitWidth: 200
+                    implicitWidth: 120
                     id: type
                     model: typesModel
                     textRole: "name"
                     currentIndex: -1
                     onCurrentIndexChanged: {
-                        if (currentIndex === 0) valueField.text = ""
                         rulesList.model.set(index, {"type": model.get(currentIndex).type})
-
-                        if (currentIndex !== 4) {
-                            rulesList.model.set(index, {"ignore": false})
-                        }
+                        if (currentIndex !== 0) rulesList.model.set(index, {"ignore": false})
                     }
                     Component.onCompleted: {
                         var currentType = rulesList.model.get(index).type
@@ -100,13 +92,14 @@ ColumnLayout {
                     Layout.fillWidth: true
                     text: model.value
                     placeholderText: type.model.get(type.currentIndex).tip
-                    enabled: type.currentIndex !== 0
+                    enabled: true
                     onTextChanged: {
-                        var allow = /^[a-z0-9_\-+.]*$/
-                        var filtered = valueField.text.replace(/[^a-z0-9_\-+.]/g, "")
-                        if (valueField.text !== filtered) {
-                            valueField.text = filtered
-                            return
+                        if (type.model.get(type.currentIndex).type === "name") {
+                            var filtered = valueField.text.replace(/[^a-z0-9_\-+.]/g, "")
+                            if (valueField.text !== filtered) {
+                                valueField.text = filtered
+                                return
+                            }
                         }
                         if (model.value !== valueField.text) {
                             model.value = valueField.text
@@ -145,24 +138,12 @@ ColumnLayout {
                     ToolTip { 
                         text: i18n("Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>")
                     }
-                    icon.name: model.ignore ? "software-updates-security" : "software-updates-updates"
+                    icon.name: model.ignore ? "process-stop" : "software-updates-updates"
                     enabled: type.model.get(type.currentIndex).type === "name"
                     checkable: true
                     checked: model.ignore
                     opacity: enabled ? 1 : 0.5
                     onClicked: model.ignore = !model.ignore
-                }
-
-                ToolButton {
-                    icon.name: 'arrow-up'
-                    enabled: index > 0
-                    onClicked: rulesList.model.move(index, index - 1, 1)
-                }
-
-                ToolButton {
-                    icon.name: 'arrow-down'
-                    enabled: index > -1 && index < rulesList.model.count - 1
-                    onClicked: rulesList.model.move(index, index + 1, 1)
                 }
 
                 ToolButton {
@@ -172,6 +153,15 @@ ColumnLayout {
                 }
             }
         }
+    }
+    }
+
+    Kirigami.InlineMessage {
+        id: rulesMsg
+        Layout.fillWidth: true
+        icon.source: "showinfo"
+        text: i18n("Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts")
+        visible: false
     }
 
     ListView {
@@ -183,47 +173,76 @@ ColumnLayout {
         clip: true
 
         boundsBehavior: Flickable.StopAtBounds
-        add: Transition { NumberAnimation { properties: "x"; from: 100; duration: 300 } }
-        moveDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
-        move: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
-        removeDisplaced: Transition { NumberAnimation { properties: "x,y"; duration: 300 } }
-        remove: Transition { ParallelAnimation {
-            NumberAnimation { property: "opacity"; to: 0; duration: 300 }
-            NumberAnimation { properties: "x"; to: 100; duration: 300 } } }
+        reuseItems: true
+        headerPositioning: ListView.OverlayHeader
+        header: Kirigami.InlineViewHeader {
+            width: rulesList.width
+            text: i18n("Rules")
+            actions: [
+                Kirigami.Action {
+                    icon.name: "help-about-symbolic"
+                    text: i18n("Help")
+                    checkable: true
+                    id: helpAction
+                    onTriggered: rulesMsg.visible = checked
+                },
+                Kirigami.Action {
+                    icon.name: "list-add-symbolic"
+                    text: i18n("Add rule")
+                    onTriggered: rulesModel.append({
+                        type: "name", value: "",
+                        icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
+                        excluded: false, important: false, ignore: false
+                    })
+                },
+                Kirigami.Action {
+                    id: applyAction
+                    icon.name: "dialog-ok-apply"
+                    text: i18n("Apply")
+                    enabled: {
+                        var arr = []
+                        for (var i = 0; i < rulesModel.count; i++) {
+                            var item = rulesModel.get(i)
+                            if (item.value.trim() !== "")
+                                arr.push({
+                                    type: item.type, value: item.value, icon: item.icon,
+                                    excluded: item.excluded, important: item.important, ignore: item.ignore
+                                })
+                        }
+                        return JS.toFileFormat(arr) !== plasmoid.configuration.rules
+                    }
+                    onTriggered: {
+                        var array = []
+                        for (var i = 0; i < rulesModel.count; i++) {
+                            var item = rulesModel.get(i)
+                            if (item.value.trim() !== "")
+                                array.push({
+                                    type: item.type, value: item.value, icon: item.icon,
+                                    excluded: item.excluded, important: item.important, ignore: item.ignore
+                                })
+                        }
+                        var rules = JS.toFileFormat(array)
+                        plasmoid.configuration.rules = rules
+                        JS.execute(JS.writeFile(rules, '>', JS.rulesFile))
+                        rulesModel.clear()
+                        for (var i = 0; i < array.length; i++)
+                            rulesModel.append(array[i])
+                    }
+                }
+            ]
+        }
+        moveDisplaced: Transition {
+            YAnimator { duration: Kirigami.Units.longDuration; easing.type: Easing.InOutQuad }
+        }
         ScrollBar.vertical: ScrollBar { active: true }
+
+        Label {
+            anchors.centerIn: parent
+            visible: rulesModel.count === 0
+            text: i18n("No rules yet")
+            font.pointSize: Kirigami.Theme.defaultFont.pointSize * 1.3
+            opacity: 0.6
+        }
     }
 
-    RowLayout {
-        Layout.alignment: Qt.AlignHCenter
-        Button {
-            text: i18n("Add rule")
-            icon.name: "list-add"
-            onClicked: {
-                rulesModel.append({
-                    type: "name",
-                    value: "",
-                    icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
-                    excluded: false,
-                    important: false,
-                    ignore: false
-                })
-            }
-        }
-        Button {
-            text: i18n("Apply")
-            icon.name: "dialog-ok-apply"
-            onClicked: {
-                var array = []
-                for (var i = rulesModel.count - 1; i >= 0; --i) {
-                    if (rulesModel.get(i).type !== "all" && rulesModel.get(i).value.trim() === "") rulesModel.remove(i, 1);
-                }
-                for (var i = 0; i < rulesModel.count; i++) {
-                    array.push(rulesModel.get(i))
-                }
-                var rules = JS.toFileFormat(array)
-                plasmoid.configuration.rules = rules
-                JS.execute(JS.writeFile(rules, '>', JS.rulesFile))
-            }
-        }
-    }
 }

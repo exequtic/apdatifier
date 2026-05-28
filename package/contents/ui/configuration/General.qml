@@ -661,7 +661,6 @@ SimpleKCM {
                     text: i18n("Restore hidden tooltips")
                     onClicked: {
                         plasmoid.configuration.configMsg = true
-                        plasmoid.configuration.rulesMsg = true
                         plasmoid.configuration.newsMsg = true
                         plasmoid.configuration.version = "v0"
                     }
