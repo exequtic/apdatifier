@@ -103,7 +103,7 @@ Representation {
                     tooltipText: i18n("Filter by package name")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_search") : "search"
                     visible: cfg.searchButton && !sts.busy && sts.count
-                    enabled: visible && swipeView.currentIndex != 2
+                    enabled: visible && swipeView.currentIndex < 2
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
                         searchFieldOpen = !searchField.visible
@@ -125,7 +125,7 @@ Representation {
                     tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
                     visible: cfg.sortButton && !sts.busy && sts.count
-                    enabled: visible && swipeView.currentIndex != 2
+                    enabled: visible && swipeView.currentIndex < 2
                     onClicked: cfg.sorting = !cfg.sorting
                 }
 
@@ -188,67 +188,42 @@ Representation {
             currentIndex: swipeView.currentIndex
             onCurrentIndexChanged: {
                 swipeView.currentIndex = currentIndex
-                if (swipeView.currentIndex === 2) {
+                if (swipeView.currentIndex >= 2) {
                     searchFieldOpen = false
                     searchField.text = ""
                 }
             }
 
-            TabButton {
-                id: compactViewTab
-                ToolTip { text: cfg.tabBarTexts ? "" : i18n("Compact view") }
-                contentItem: RowLayout {
-                    Kirigami.Theme.inherit: true
-                    Item { Layout.fillWidth: true }
-                    Kirigami.Icon {
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                        source: cfg.ownIconsUI ? svg("tab_compact") : "view-split-left-right"
-                        color: Kirigami.Theme.colorSet
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
-                    Label { text: i18n("Compact"); visible: cfg.tabBarTexts }
-                    Item { Layout.fillWidth: true }
-                }
-            }
+            Repeater {
+                model: [
+                    { id: "compact", icon: "tab_compact", fallback: "view-split-left-right", label: i18n("Compact"), tip: i18n("Compact view") },
+                    { id: "extended", icon: "tab_extended", fallback: "view-split-top-bottom", label: i18n("Extended"), tip: i18n("Extended view") },
+                    cfg.feedsEnabled ? { id: "news", icon: "status_news", fallback: "news-subscribe", label: i18n("News"), tip: i18n("News") } : null
+                ].filter(Boolean)
 
-            TabButton {
-                id: extendViewTab
-                ToolTip { text: cfg.tabBarTexts ? "" : i18n("Extended view") }
-                contentItem: RowLayout {
-                    Kirigami.Theme.inherit: true
-                    Item { Layout.fillWidth: true }
-                    Kirigami.Icon {
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                        source: cfg.ownIconsUI ? svg("tab_extended") : "view-split-top-bottom"
-                        color: Kirigami.Theme.colorSet
-                        isMask: cfg.ownIconsUI
-                        smooth: true
-                    }
-                    Label { text: i18n("Extended"); visible: cfg.tabBarTexts }
-                    Item { Layout.fillWidth: true }
-                }
-            }
+                delegate: TabButton {
+                    required property var modelData
 
-            TabButton {
-                id: newsViewTab
-                ToolTip { text: cfg.tabBarTexts ? "" : i18n("News") }
-                contentItem: RowLayout {
-                    Kirigami.Theme.inherit: true
-                    Item { Layout.fillWidth: true }
-                    Kirigami.Icon {
-                        id: newsIcon
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                        source: cfg.ownIconsUI ? svg("status_news") : "news-subscribe"
-                        color: activeNewsItems ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
-                        isMask: cfg.ownIconsUI
-                        smooth: true
+                    ToolTip { text: cfg.tabBarTexts ? "" : modelData.tip }
+
+                    contentItem: RowLayout {
+                        Kirigami.Theme.inherit: true
+                        Item { Layout.fillWidth: true }
+                        Kirigami.Icon {
+                            Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                            Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                            source: modelData.id === "news" && activeNewsItems
+                                ? (cfg.ownIconsUI ? svg("status_news") : "news-subscribe")
+                                : (cfg.ownIconsUI ? svg(modelData.icon) : modelData.fallback)
+                            color: (modelData.id === "news" && activeNewsItems)
+                                ? Kirigami.Theme.negativeTextColor
+                                : Kirigami.Theme.colorSet
+                            isMask: cfg.ownIconsUI
+                            smooth: true
+                        }
+                        Label { text: modelData.label; visible: cfg.tabBarTexts }
+                        Item { Layout.fillWidth: true }
                     }
-                    Label { text: i18n("News"); visible: cfg.tabBarTexts }
-                    Item { Layout.fillWidth: true }
                 }
             }
         }
@@ -316,9 +291,22 @@ Representation {
             Layout.fillHeight: true
             clip: true
             currentIndex: plasmoid.configuration.defaultTab
-            View.Compact {}
-            View.Extended {}
-            View.News {}
+            Repeater {
+                model: [
+                    { component: "compact" },
+                    { component: "extended" },
+                    cfg.feedsEnabled ? { component: "news" } : null
+                ].filter(Boolean)
+
+                delegate: Loader {
+                    required property var modelData
+                    sourceComponent: modelData.component === "compact" ? compactComp : modelData.component === "extended" ? extendedComp : newsComp
+                }
+            }
+
+            Component { id: compactComp; View.Compact {} }
+            Component { id: extendedComp; View.Extended {} }
+            Component { id: newsComp; View.News { id: newsPage } }
         }
     }
 
