@@ -68,7 +68,7 @@ MNG_RECENT               = i18n("Recent installs")
 MNG_WARN                 = i18n("Review dependency warnings before removing")
 MNG_RESUME               = i18n("Resume?")
 MNG_RETURN               = i18n("Press Enter to return menu")
-MNG_CALC                 = i18n("Calculating...")
+MNG_RECENT_SCAN          = i18n("Scanning pacman log...")
 
 MNG_EXEC                 = i18n("Executed:")
 MNG_DONE                 = i18n("Nothing to do")
