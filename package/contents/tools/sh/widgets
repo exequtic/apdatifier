@@ -5,39 +5,39 @@ source "$(dirname "$0")/utils"
 fetch_api_data() {
     echo '<?xml version="1.0" encoding="UTF-8"?><data>' > "$XML"
 
-    local page=0
-    local pagesize=100
+    local ps=100 url="https://api.kde-look.org/ocs/v1/content/data"
+    local q="categories=705x715x719x720&sort=new&pagesize=$ps"
 
-    while true; do
-        pageXML=$(mktemp "$tempDir/XXXXXX.xml")
-        api_url="https://api.kde-look.org/ocs/v1/content/data?categories=705x715x719x720&sort=new&page=$page&pagesize=$pagesize"
+    local p0=$(mktemp "$tempDir/XXXXXX.xml")
+    curl -s -o "$p0" --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "$url?$q&page=0"
+    ! xmllint --noout "$p0" 2>/dev/null && { echo '</data>' >> "$XML"; return 1; }
+    case $(xmllint --xpath "string(//ocs/meta/statuscode)" "$p0") in
+        ""|200) echo '</data>' >> "$XML"; return 2;;
+        [!100]*) echo '</data>' >> "$XML"; return 3;;
+    esac
 
-        curl -s -o "$pageXML" --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "$api_url"
+    local total=$(xmllint --xpath "string(//ocs/meta/totalitems)" "$p0")
+    xmllint --xpath "//content[@details='summary']" "$p0" 2>/dev/null >> "$XML"
+    [[ $total =~ ^[0-9]+$ ]] || total=0
+    (( total <= ps )) && { echo '</data>' >> "$XML"; return 0; }
 
-        ! xmllint --noout "$pageXML" 2>/dev/null && return 1
+    local pages=$(( (total - 1) / ps ))
+    local -a files=() args=()
+    for ((p=1; p<=pages; p++)); do
+        f=$(mktemp "$tempDir/XXXXXX.xml"); files+=("$f")
+        args+=(-o "$f" --url "$url?$q&page=$p")
+    done
+    curl -s --parallel --parallel-immediate --connect-timeout 5 --retry 2 --max-time 60 "${args[@]}"
 
-        totalitems=$(xmllint --xpath "string(//ocs/meta/totalitems)" $pageXML)
-        statuscode=$(xmllint --xpath "string(//ocs/meta/statuscode)" $pageXML)
-
-        case $statuscode in
-            100)
-                xmllint --xpath "//content[@details='summary']" $pageXML >> $XML
-
-                items=$(((page + 1) * pagesize))
-                if [[ $totalitems > $items ]]; then
-                    ((page++))
-                else
-                    echo '</data>' >> "$XML"
-                    break
-                fi
-            ;;
-
-            200) return 2 ;;
-              *) return 3 ;;
+    for f in "${files[@]}"; do
+        xmllint --noout "$f" 2>/dev/null || { echo '</data>' >> "$XML"; return 2; }
+        case $(xmllint --xpath "string(//ocs/meta/statuscode)" "$f") in
+            100) xmllint --xpath "//content[@details='summary']" "$f" 2>/dev/null >> "$XML";;
+              *) echo '</data>' >> "$XML"; return 2;;
         esac
     done
 
-    return 0
+    echo '</data>' >> "$XML"
 }
 
 get_packages() {
