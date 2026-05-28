@@ -188,7 +188,7 @@ ColumnLayout {
                 },
                 Kirigami.Action {
                     icon.name: "list-add-symbolic"
-                    text: i18n("Add rule")
+                    text: i18n("Add")
                     onTriggered: rulesModel.append({
                         type: "name", value: "",
                         icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",

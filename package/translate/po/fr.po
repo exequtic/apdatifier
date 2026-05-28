@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -29,7 +29,7 @@ msgstr "Mise à niveau et gestion"
 msgid "Appearance"
 msgstr "Apparence"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "Règles"
 
@@ -310,8 +310,8 @@ msgid "Press Enter to return menu"
 msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
-msgstr "Calcul en cours..."
+msgid "Scanning pacman log..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -885,9 +885,8 @@ msgid "Firmware"
 msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "Actualités"
+msgid "RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -898,14 +897,24 @@ msgid "Reset"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "Supprimer"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1013,50 +1022,20 @@ msgid "Respect metered connection"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "Sans importance"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "Dépôt"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "Correspondance exacte du dépôt"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "Groupe"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "Correspondance partielle du groupe"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "Sous-chaîne"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "Correspondance partielle du nom"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "Nom"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "Correspondance exacte du nom"
+msgid "Exact package name"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Here you can override the default package icons and exclude them from the "
-"list. Each rule overwrites the previous one, so the list of rules should be "
-"in this order: "
+msgid "Regex"
 msgstr ""
-"Ici, vous pouvez remplacer les icônes de paquet par défaut et les exclure de "
-"la liste. Chaque règle remplace la précédente, donc la liste des règles doit "
-"être dans cet ordre : "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1071,16 +1050,31 @@ msgid "Exclude from the list"
 msgstr "Exclure de la liste"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "Supprimer"
+msgid ""
+"Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
+"upgrades are unsupported.</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "Ajouter une règle"
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
+"examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
+"— names ending with wayland<br><b>.*qt.*</b> — names containing "
+"qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
+"lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Appliquer"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1391,6 +1385,10 @@ msgid "Extended view"
 msgstr "Vue étendue"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Actualités"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "Consulter les notes de version"
 
@@ -1481,9 +1479,3 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Aucune nouvelle non lue"
-
-#~ msgid "Visit %1"
-#~ msgstr "Visiter %1"
-
-#~ msgid "Restore list"
-#~ msgstr "Restaurer la liste"

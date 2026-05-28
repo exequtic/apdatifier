@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Appearance"
 msgstr "모양새"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "규칙"
 
@@ -307,7 +307,7 @@ msgid "Press Enter to return menu"
 msgstr "메뉴로 돌아가려면 Enter를 누르시오"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
+msgid "Scanning pacman log..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -866,9 +866,8 @@ msgid "Firmware"
 msgstr "펌웨어"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "소식"
+msgid "RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -879,13 +878,23 @@ msgid "Reset"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "제거"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
 msgstr[0] ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -988,49 +997,20 @@ msgid "Respect metered connection"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "중요하지 않음"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "저장소"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "정확한 저장소 일치"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "그룹"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "부분 문자열 그룹 일치"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "부분 문자열"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "부분 문자열 이름 일치"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "이름"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "정확한 이름 일치"
+msgid "Exact package name"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Here you can override the default package icons and exclude them from the "
-"list. Each rule overwrites the previous one, so the list of rules should be "
-"in this order: "
+msgid "Regex"
 msgstr ""
-"여기서 기본 패키지 아이콘을 재정의하고 목록에서 제외할 수 있습니다. 각 규칙"
-"은 이전 규칙을 덮어쓰므로 규칙 목록은 다음 순서여야 합니다: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1045,16 +1025,31 @@ msgid "Exclude from the list"
 msgstr "목록에서 제외"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "제거"
+msgid ""
+"Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
+"upgrades are unsupported.</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "규칙 추가"
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
+"examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
+"— names ending with wayland<br><b>.*qt.*</b> — names containing "
+"qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
+"lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "적용"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1356,6 +1351,10 @@ msgid "Extended view"
 msgstr "확장 보기"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "소식"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "릴리스 노트 확인"
 
@@ -1446,9 +1445,3 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "읽지 않은 뉴스 없음"
-
-#~ msgid "Visit %1"
-#~ msgstr "%1 방문"
-
-#~ msgid "Restore list"
-#~ msgstr "목록 복원"

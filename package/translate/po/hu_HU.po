@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: 2026-05-14 09:12+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
@@ -30,7 +30,7 @@ msgstr "Frissítés és kezelés"
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "Szabályok"
 
@@ -313,8 +313,8 @@ msgid "Press Enter to return menu"
 msgstr "Nyomja meg az enter billentyűt a menübe való visszatéréshez"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
-msgstr "Számítás…"
+msgid "Scanning pacman log..."
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -887,9 +887,8 @@ msgid "Firmware"
 msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "Hírek"
+msgid "RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -900,14 +899,24 @@ msgid "Reset"
 msgstr "Visszaállítás"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr "Hozzáadás"
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "Eltávolítás"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
 msgstr[0] "minden hírcsatornából a legújabb cikk"
 msgstr[1] "minden hírcsatornából a legújabb cikkek"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1015,50 +1024,20 @@ msgid "Respect metered connection"
 msgstr "Korlátozott adatforgalom figyelembevétele"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "Nem fontos"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "Tároló"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "Pontos tárolóegyezés"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "Csoport"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "Csoportrészlet szerinti egyezés"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "Szövegrészlet"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "Névrészlet szerinti egyezés"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "Név"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "Pontos név szerinti egyezés"
+msgid "Exact package name"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Here you can override the default package icons and exclude them from the "
-"list. Each rule overwrites the previous one, so the list of rules should be "
-"in this order: "
+msgid "Regex"
 msgstr ""
-"Itt felülírhatja az alapértelmezett csomagikonokat, és kizárhatja őket a "
-"listából. Minden szabály felülírja az előzőt, ezért a szabályok listájának a "
-"következő sorrendben kell szerepelnie: "
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1073,16 +1052,31 @@ msgid "Exclude from the list"
 msgstr "Kihagyás a listából"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "Eltávolítás"
+msgid ""
+"Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
+"upgrades are unsupported.</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "Szabály hozzáadása"
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
+"examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
+"— names ending with wayland<br><b>.*qt.*</b> — names containing "
+"qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
+"lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Alkalmaz"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1402,6 +1396,10 @@ msgid "Extended view"
 msgstr "Bővített nézet"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Hírek"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "Kiadási megjegyzések megtekintése"
 
@@ -1492,9 +1490,3 @@ msgstr "Megjelölés olvasottként"
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Nincsenek olvasatlan hírek"
-
-#~ msgid "Visit %1"
-#~ msgstr "%1 felkeresése"
-
-#~ msgid "Restore list"
-#~ msgstr "Lista helyreállítása"

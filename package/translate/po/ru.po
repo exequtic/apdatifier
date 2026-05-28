@@ -1,15 +1,15 @@
 # Translation of apdatifier in ru
 # Copyright (C) 2023
 # This file is distributed under the same license as the apdatifier package.
-# Evgeniy Kazantsev <exequtic@gmail.com>, 2023.
+# exequtic, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
-"PO-Revision-Date: 2025-03-09 12:00+0300\n"
-"Last-Translator: Evgeniy Kazantsev <exequtic@gmail.com>\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"PO-Revision-Date: 2026-05-28 17:32+0300\n"
+"Last-Translator: exequtic\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Обновление и Управление"
 msgid "Appearance"
 msgstr "Внешний вид"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "Правила"
 
@@ -308,8 +308,8 @@ msgid "Press Enter to return menu"
 msgstr "Нажмите Enter чтобы вернуться в меню"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
-msgstr "Вычисление..."
+msgid "Scanning pacman log..."
+msgstr "Сканирование журнала pacman..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -889,9 +889,8 @@ msgid "Firmware"
 msgstr "Прошивка"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "Новости"
+msgid "RSS Feeds"
+msgstr "RSS-ленты"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -902,8 +901,14 @@ msgid "Reset"
 msgstr "Сбросить"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr "Добавить"
+
+#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "Удалить"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
@@ -911,6 +916,10 @@ msgid_plural "latest articles from each feed"
 msgstr[0] "последнюю статью из каждого фида"
 msgstr[1] "последние статьи из каждого фида"
 msgstr[2] "последних статей из каждого фида"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr "Рекомендуемые RSS-ленты"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -1016,50 +1025,20 @@ msgid "Respect metered connection"
 msgstr "Учитывать лимитное соединение"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "Не имеет значения"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "Репозиторий"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "Точное совпадение репозитория"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "Группа"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "Совпадение с подстрокой в группе"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "Совпадение"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "Совпадение с подстрокой в имени"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "Имя"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "Точное совпадение имени"
+msgid "Exact package name"
+msgstr "Точное имя пакета"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Here you can override the default package icons and exclude them from the "
-"list. Each rule overwrites the previous one, so the list of rules should be "
-"in this order: "
-msgstr ""
-"Здесь вы можете переопределить значки пакетов и исключить их из списка. "
-"Каждое правило перезаписывает предыдущее, поэтому список правил должен быть "
-"в таком порядке: "
+msgid "Regex"
+msgstr "Регулярное выражение"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr "См. справку"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1074,16 +1053,39 @@ msgid "Exclude from the list"
 msgstr "Исключить из списка"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "Удалить"
+msgid ""
+"Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
+"upgrades are unsupported.</b>"
+msgstr ""
+"Игнорировать обновление пакета. <b>Будьте осторожны при пропуске пакетов, "
+"так как частичные обновления не поддерживаются.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "Добавить правило"
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
+"examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
+"— names ending with wayland<br><b>.*qt.*</b> — names containing "
+"qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
+"lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+"Правила применяются сверху вниз: последующие правила переопределяют "
+"предыдущие.<br><br>Примеры регулярных выражений:<br><b>^nvidia</b> — имена, "
+"начинающиеся с nvidia<br><b>wayland$</b> — имена, заканчивающиеся на "
+"wayland<br><b>.*qt.*</b> — имена, содержащие qt<br><b>(ttf|font|otf)</b> — "
+"ttf, font или otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen или linux-"
+"lts"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr "Справка"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Применить"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr "Правил пока нет"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1402,6 +1404,10 @@ msgid "Extended view"
 msgstr "Расширенный вид"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Новости"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "Посмотрите список изменений"
 
@@ -1492,9 +1498,3 @@ msgstr "Отметить как прочитанное"
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Нет непрочитанных новостей"
-
-#~ msgid "Visit %1"
-#~ msgstr "Посетите %1"
-
-#~ msgid "Restore list"
-#~ msgstr "Восстановить список"

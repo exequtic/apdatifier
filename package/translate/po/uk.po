@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Appearance"
 msgstr "Зовнішній вигляд"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "Правила"
 
@@ -298,7 +298,7 @@ msgid "Press Enter to return menu"
 msgstr "Натисніть Enter для повернення в меню"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
+msgid "Scanning pacman log..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -844,9 +844,9 @@ msgstr "Plasma віджети"
 msgid "Firmware"
 msgstr "Прошивка"
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "Новини"
+#: ../contents/ui/configuration/General.qml
+msgid "RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -856,9 +856,13 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "Видалити"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
@@ -866,6 +870,10 @@ msgid_plural "latest articles from each feed"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -952,44 +960,20 @@ msgid "Respect metered connection"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "Не має значення"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "Репозиторій"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "Точний збіг репозиторію"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "Група"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "Збіг з підрядком в групі"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "Збіг"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "Збіг з підрядком в імені"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "Ім'я"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "Точний збіг імені"
+msgid "Exact package name"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
-msgstr "Тут ви можете перевизначити значки пакетів і виключити їх зі списку. Кожне правило перезаписує попереднє, тому список правил повинен бути в такому порядку: "
+msgid "Regex"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1004,16 +988,24 @@ msgid "Exclude from the list"
 msgstr "Виключити зі списку"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "Видалити"
+msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "Додати правило"
+msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Застосувати"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
@@ -1283,6 +1275,10 @@ msgid "Extended view"
 msgstr "Розширений вигляд"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Новини"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "Гляньте список змін"
 
@@ -1373,9 +1369,3 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Немає непрочитаних новин"
-
-#~ msgid "Visit %1"
-#~ msgstr "Відвідайте %1"
-
-#~ msgid "Restore list"
-#~ msgstr "Відновити список"

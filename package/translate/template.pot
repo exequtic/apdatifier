@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgid "Press Enter to return menu"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
+msgid "Scanning pacman log..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -836,8 +836,8 @@ msgstr ""
 msgid "Firmware"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
-msgid "News"
+#: ../contents/ui/configuration/General.qml
+msgid "RSS Feeds"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -848,8 +848,12 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
 msgid "Add"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
+msgid "Remove"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -857,6 +861,10 @@ msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -945,43 +953,19 @@ msgid "Respect metered connection"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
+msgid "Exact package name"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
+msgid "Regex"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -997,15 +981,25 @@ msgid "Exclude from the list"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
+msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — "
+"names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
 msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
@@ -1276,6 +1270,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Extended view"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "News"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml

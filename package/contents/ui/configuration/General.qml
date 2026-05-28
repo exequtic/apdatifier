@@ -382,7 +382,7 @@ SimpleKCM {
                             },
                             Kirigami.Action {
                                 icon.name: "list-add-symbolic"
-                                text: i18n("Add new")
+                                text: i18n("Add")
                                 enabled: cfg_feedsEnabled && pkg.jq
                                 onTriggered: {
                                     feedsModel.insert(0, {url: ""})

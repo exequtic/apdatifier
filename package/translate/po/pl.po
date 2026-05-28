@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-11 13:44+0300\n"
+"POT-Creation-Date: 2026-05-28 17:32+0300\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Appearance"
 msgstr "Wygląd"
 
-#: ../contents/config/config.qml
+#: ../contents/config/config.qml ../contents/ui/configuration/Rules.qml
 msgid "Rules"
 msgstr "Zasady"
 
@@ -299,7 +299,7 @@ msgid "Press Enter to return menu"
 msgstr "Naciśnij Enter, aby wrócić do menu"
 
 #: ../contents/tools/sh/messages
-msgid "Calculating..."
+msgid "Scanning pacman log..."
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -845,9 +845,9 @@ msgstr "Widżety Plasma"
 msgid "Firmware"
 msgstr "Oprogramowanie układowe"
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
-msgid "News"
-msgstr "Wiadomości"
+#: ../contents/ui/configuration/General.qml
+msgid "RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -857,9 +857,13 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
 msgid "Add"
 msgstr ""
+
+#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
+msgid "Remove"
+msgstr "Usuń"
 
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
@@ -867,6 +871,10 @@ msgid_plural "latest articles from each feed"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Recommended RSS Feeds"
+msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -953,44 +961,20 @@ msgid "Respect metered connection"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Unimportant"
-msgstr "Nieistotne"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Repository"
-msgstr "Repozytorium"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Exact repository match"
-msgstr "Dokładne dopasowanie repozytorium"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Group"
-msgstr "Grupa"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring group match"
-msgstr "Dopasowanie grupy przez podciąg"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring"
-msgstr "Podciąg"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Substring name match"
-msgstr "Dopasowanie nazwy przez podciąg"
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Name"
 msgstr "Nazwa"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Exact name match"
-msgstr "Dokładne dopasowanie nazwy"
+msgid "Exact package name"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Here you can override the default package icons and exclude them from the list. Each rule overwrites the previous one, so the list of rules should be in this order: "
-msgstr "Tutaj możesz nadpisać domyślne ikony pakietów i wykluczyć je z listy. Każda reguła nadpisuje poprzednią, więc lista reguł powinna być w następującej kolejności:"
+msgid "Regex"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "See Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1005,16 +989,24 @@ msgid "Exclude from the list"
 msgstr "Wyklucz z listy"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Remove"
-msgstr "Usuń"
+msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Add rule"
-msgstr "Dodaj regułę"
+msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Zastosuj"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "No rules yet"
+msgstr ""
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
@@ -1284,6 +1276,10 @@ msgid "Extended view"
 msgstr "Widok rozszerzony"
 
 #: ../contents/ui/representation/Expanded.qml
+msgid "News"
+msgstr "Wiadomości"
+
+#: ../contents/ui/representation/Expanded.qml
 msgid "Check out release notes"
 msgstr "Sprawdź informacje o wersji"
 
@@ -1374,9 +1370,3 @@ msgstr ""
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Brak nieprzeczytanych wiadomości"
-
-#~ msgid "Visit %1"
-#~ msgstr "Odwiedź %1"
-
-#~ msgid "Restore list"
-#~ msgstr "Przywróć listę"
