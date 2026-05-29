@@ -73,8 +73,11 @@ ColumnLayout {
                     textRole: "name"
                     currentIndex: -1
                     onCurrentIndexChanged: {
-                        rulesList.model.set(index, {"type": model.get(currentIndex).type})
-                        if (currentIndex !== 0) rulesList.model.set(index, {"ignore": false})
+                        rulesList.model.set(index, {
+                            "type": model.get(currentIndex).type,
+                            "value": "",
+                            "ignore": false
+                        })
                     }
                     Component.onCompleted: {
                         var currentType = rulesList.model.get(index).type
