@@ -72,7 +72,9 @@ ColumnLayout {
                     model: typesModel
                     textRole: "name"
                     currentIndex: -1
+                    property bool ready: false
                     onCurrentIndexChanged: {
+                        if (!ready) return
                         rulesList.model.set(index, {
                             "type": model.get(currentIndex).type,
                             "value": "",
@@ -87,6 +89,7 @@ ColumnLayout {
                                 break
                             }
                         }
+                        ready = true
                     }
                 }
 
