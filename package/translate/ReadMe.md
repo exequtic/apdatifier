@@ -24,7 +24,7 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | Template |     319 |       |
 | de       | 264/319 |   82% |
 | es       | 264/319 |   82% |
-| fr       | 297/319 |   93% |
+| fr       | 319/319 |  100% |
 | hu_HU    | 309/319 |   96% |
 | ko       | 264/319 |   82% |
 | nl       | 264/319 |   82% |
