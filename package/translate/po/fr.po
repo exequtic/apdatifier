@@ -72,7 +72,7 @@ msgstr "Voulez-vous redémarrer maintenant ?"
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr ""
+msgstr "Le système va redémarrer maintenant..."
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -311,7 +311,7 @@ msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
-msgstr ""
+msgstr "Analyse du journal pacman..."
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -536,12 +536,12 @@ msgid ""
 "If the widget is on a panel, you can access the hidden icon in Panel "
 "Configuration mode."
 msgstr ""
-"Si le widget est sur un panneau, vous pouvez accéder à l’icône masquée en "
+"Si le widget est sur un panneau, vous pouvez accéder à l'icône masquée en "
 "mode Configuration du panneau."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Busy indicator"
-msgstr "Indicateur d’activité"
+msgstr "Indicateur d'activité"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Spinner"
@@ -556,8 +556,8 @@ msgid ""
 "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
 "icon. On the desktop, the busy indicator is always off."
 msgstr ""
-"Spinner utilise l’indicateur d’activité standard du plasmoïde. Pulsation "
-"anime l’icône du panneau. Sur le bureau, l’indicateur d’activité est "
+"Spinner utilise l'indicateur d'activité standard du plasmoïde. Pulsation "
+"anime l'icône du panneau. Sur le bureau, l'indicateur d'activité est "
 "toujours désactivé."
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -660,7 +660,7 @@ msgstr "Opacité du badge"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Icon Badges"
-msgstr "Badges d’icône"
+msgstr "Badges d'icône"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Paused"
@@ -700,7 +700,7 @@ msgstr "Comportement"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default tab"
-msgstr "Toujours passer à l’onglet par défaut"
+msgstr "Toujours passer à l'onglet par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Item spacing (Compact)"
@@ -801,7 +801,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
-msgstr ""
+msgstr "Planification"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -886,20 +886,20 @@ msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS Feeds"
-msgstr ""
+msgstr "Flux RSS"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
-msgstr ""
+msgstr "Activé"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
@@ -909,12 +909,12 @@ msgstr "Supprimer"
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dernier article de chaque flux"
+msgstr[1] "derniers articles de chaque flux"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Recommended RSS Feeds"
-msgstr ""
+msgstr "Flux RSS recommandés"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -922,7 +922,7 @@ msgstr "Pour les nouvelles mises à jour"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
-msgstr "Bouton d’action"
+msgstr "Bouton d'action"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For every version bump"
@@ -936,11 +936,12 @@ msgid ""
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
 msgstr ""
-"Si l'option est <b>activée</b>, des notifications seront envoyées lorsqu'une "
-"nouvelle version du paquet est modifiée, même si le paquet est déjà dans la "
-"liste. <b>Plus de notifications.</b> <br><br>Si l'option est <b>désactivée</"
-"b>, les notifications ne seront envoyées que pour les paquets qui ne sont "
-"pas encore dans la liste. <b>Moins de notifications.</b>"
+"Si l'option est <b>activée</b>, des notifications seront envoyées "
+"lorsqu'une nouvelle version du paquet est publiée, même si le paquet est "
+"déjà dans la liste. <b>Plus de notifications.</b> <br><br>Si l'option est "
+"<b>désactivée</b>, les notifications ne seront envoyées que pour les "
+"paquets qui ne sont pas encore dans la liste. <b>Moins de "
+"notifications.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1002,24 +1003,24 @@ msgstr "Restaurer les info-bulles masquées"
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
 msgstr ""
-"Réinitialiser par défaut. Par défaut, le chemin est le même que pour "
-"checkupdates."
+"Réinitialiser à la valeur par défaut. Par défaut, le chemin est le même "
+"que pour checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr "Le chemin ne doit pas contenir d’espaces"
+msgstr "Le chemin ne doit pas contenir d'espaces"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
-msgstr ""
+msgstr "Réseau"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr ""
+msgstr "Vérification de la connectivité"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
-msgstr ""
+msgstr "Respecter la connexion limitée"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
@@ -1027,15 +1028,15 @@ msgstr "Nom"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact package name"
-msgstr ""
+msgstr "Nom exact du paquet"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Regex"
-msgstr ""
+msgstr "Regex"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "See Help"
-msgstr ""
+msgstr "Voir l'aide"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1054,6 +1055,9 @@ msgid ""
 "Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
 "upgrades are unsupported.</b>"
 msgstr ""
+"Ignorer la mise à niveau d'un paquet. <b>Soyez prudent lorsque vous "
+"ignorez des paquets, car les mises à niveau partielles ne sont pas prises "
+"en charge.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid ""
@@ -1063,10 +1067,16 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
+"Les règles s'appliquent de haut en bas : les règles suivantes remplacent "
+"les précédentes.<br><br>Exemples de regex :<br><b>^nvidia</b> — noms "
+"commençant par nvidia<br><b>wayland$</b> — noms se terminant par "
+"wayland<br><b>.*qt.*</b> — noms contenant qt<br><b>(ttf|font|otf)</b> — "
+"ttf, font ou otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen ou "
+"linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Help"
-msgstr ""
+msgstr "Aide"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
@@ -1074,7 +1084,7 @@ msgstr "Appliquer"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
-msgstr ""
+msgstr "Aucune règle pour le moment"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1110,11 +1120,13 @@ msgstr "Session tmux"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Idle Inhibit"
-msgstr ""
+msgstr "Empêcher la mise en veille"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
 msgstr ""
+"Désactive la mise en veille automatique et le verrouillage de l'écran "
+"pendant la mise à niveau."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1206,6 +1218,12 @@ msgid ""
 "when an updated package is not currently running (e.g., an alternative "
 "kernel) or not in use (e.g., an alternative driver).</b>"
 msgstr ""
+"Cette option suggère de redémarrer le système après la mise à niveau de "
+"paquets critiques.<br><br><b>Notez que tous les paquets critiques ne "
+"nécessitent pas un redémarrage complet du système ; certains peuvent ne "
+"requérir qu'un redémarrage de session, voire aucune action, par exemple "
+"lorsqu'un paquet mis à jour n'est pas en cours d'exécution (par ex. un "
+"noyau alternatif) ou n'est pas utilisé (par ex. un pilote alternatif).</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1241,7 +1259,7 @@ msgstr[1] "jours"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr "Ne pas demander, forcer la mise à jour"
+msgstr "Ne pas demander, forcer l'actualisation"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1257,7 +1275,7 @@ msgstr "État du miroir"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
-msgstr "Nombre de sorties"
+msgstr "Nombre de serveurs"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number of servers to write to mirrorlist file. 0 for all."
@@ -1297,7 +1315,7 @@ msgstr "Normal"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Normal, skip questions"
-msgstr "Normal, sans questions"
+msgstr "Normal, ignorer les questions"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Non interactive, skip questions"
@@ -1330,7 +1348,7 @@ msgstr "Commande"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
-msgstr "Icône Apdatifier dans la barre système"
+msgstr "Icône Apdatifier dans la barre d'état système"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Enabled by default"
@@ -1346,11 +1364,11 @@ msgstr "Filtrer par nom de paquet"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
-msgstr "Activer les mises à jour de recherche automatique"
+msgstr "Activer la recherche automatique des mises à jour"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Disable auto search updates"
-msgstr "Désactiver les mises à jour de recherche automatique"
+msgstr "Désactiver la recherche automatique des mises à jour"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
@@ -1474,7 +1492,7 @@ msgstr "Motif d'installation"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
-msgstr ""
+msgstr "Marquer comme lu"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
