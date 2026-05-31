@@ -50,7 +50,7 @@ MouseArea {
     hoverEnabled: true
     acceptedButtons: cfg.rightAction ? Qt.AllButtons : Qt.LeftButton | Qt.MiddleButton
 
-    onEntered: sts.checktime = JS.getCheckTime()
+    onEntered: sts.checkTimeTooltip = JS.getCheckTime()
 
     onPressed: mouse => {
         wasExpanded = expanded

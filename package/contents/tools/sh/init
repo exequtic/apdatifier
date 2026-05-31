@@ -2,8 +2,9 @@
 
 scriptDir="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 appletDir="${scriptDir%/contents/*}"
-configDir="$HOME/.config/apdatifier"
-localDir="$HOME/.local/share"
+configDir="${APDATIFIER_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/apdatifier}"
+cacheDir="${APDATIFIER_CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/apdatifier}"
+localDir="${XDG_LOCAL_HOME:-$HOME/.local/share}"
 iconsDir="$localDir/icons/breeze/status/22"
 notifDir="$localDir/knotifications6"
 config="$configDir/config.conf"
@@ -15,6 +16,11 @@ icons=(apdatifier-plasmoid.svg
 
 test -d $configDir || mkdir -p $configDir
 test -f $config || touch $config
+
+test -d $cacheDir || mkdir -p $cacheDir
+# Migrate cache files from old location
+[[ -f "$configDir/updates.json" && ! -f "$cacheDir/updates.json" ]] && mv "$configDir/updates.json" "$cacheDir/updates.json"
+[[ -f "$configDir/news.json" && ! -f "$cacheDir/news.json" ]] && mv "$configDir/news.json" "$cacheDir/news.json"
 
 for dir in $iconsDir $notifDir; do
     test -d $dir || mkdir -p $dir

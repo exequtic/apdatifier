@@ -1,9 +1,12 @@
 const scriptDir = Qt.resolvedUrl("sh/").toString().replace("file://", "");
-const configDir = "$HOME/.config/apdatifier/"
+const configDir = "${APDATIFIER_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/apdatifier}/"
+const cacheDir = "${APDATIFIER_CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/apdatifier}/"
 const configFile = configDir + "config.conf"
-const cacheFile = configDir + "updates.json"
+const cacheFile = cacheDir + "updates.json"
 const rulesFile = configDir + "rules.json"
-const newsFile = configDir + "news.json"
+const newsFile = cacheDir + "news.json"
+const timestampFile = cacheDir + "lastCheck"
+
 const procOpt = { stoppable: true }
 
 function execute(command, callback, opt) {
@@ -23,6 +26,7 @@ function execute(command, callback, opt) {
 
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
 const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
+const saveTimestamp = () => execute(writeFile(Math.round(sts.lastCheck).toString(), '>', timestampFile))
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const runInTerminal = (script, ...args) => {
@@ -94,7 +98,10 @@ function init() {
                 })
             }
 
-            loadCache()
+            execute(readFile(timestampFile), (cmd, out, err, code) => {
+                if (out) sts.lastCheck = parseInt(out.trim()) || 0
+                loadCache()
+            })
         })
     }
 
@@ -256,7 +263,8 @@ function stopCheck() {
     resumeScheduler()
 
     if (isOnline) {
-        cfg.timestamp = new Date().getTime().toString()
+        sts.lastCheck = Date.now()
+        saveTimestamp()
     }
 }
 
@@ -631,7 +639,8 @@ function finalize(list) {
     sts.busy = false
     resumeScheduler()
 
-    cfg.timestamp = new Date().getTime().toString()
+    sts.lastCheck = Date.now()
+    saveTimestamp()
 
     if (cfg.notifyErrors && sts.error) {
         const notifyMsg = sts.errors.map(err => `<b>${err.type}</b> => ${err.message} (Exit code ${err.code})`).join('\n\n')
@@ -737,7 +746,7 @@ function searchScheduler(options) {
     }
 
     const currTime = new Date().getTime()
-    const lastCheck = parseInt(cfg.timestamp) || 0
+    const lastCheck = sts.lastCheck || 0
     let nextCheck = null
 
     if (mode === "interval") {
@@ -772,7 +781,7 @@ function searchScheduler(options) {
 
 function getCheckTime() {
     const currTime = new Date().getTime()
-    const lastCheck = parseInt(cfg.timestamp) || currTime
+    const lastCheck = sts.lastCheck || currTime
 
     const formatDelta = (ms1, ms2) => {
         const diff = Math.max(0, Math.floor((ms1 - ms2) / 1000))

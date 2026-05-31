@@ -180,7 +180,7 @@ restartPlasmashell() {
 combineFiles() {
     sleep 1
     [ -f "$1" ] && rm "$1"
-    for cache in $(find $configDir -name "updates.json_*" | sort); do
+    for cache in $(find $cacheDir -name "updates.json_*" 2>/dev/null | sort); do
         cat "$cache" >> "$1"; rm "$cache"
     done
 }
@@ -211,7 +211,7 @@ rss() {
     makeTempDir
     trap cleanup EXIT
 
-    local newsFile="$configDir/news.json"
+    local newsFile="$cacheDir/news.json"
     local errors=""
 
     if [[ ! -s "$newsFile" ]] \

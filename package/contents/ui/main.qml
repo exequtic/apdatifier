@@ -41,7 +41,7 @@ PlasmoidItem {
     onCountUpdatesChanged: updatePlasmoidStatus()
 
     toolTipMainText: sts.paused ? i18n("Auto check disabled") : ""
-    toolTipSubText: sts.busy ? sts.statusMsg : sts.checktime
+    toolTipSubText: sts.busy ? sts.statusMsg : sts.checkTimeTooltip
 
     hideOnWindowDeactivate: !pinned
 
@@ -65,13 +65,14 @@ PlasmoidItem {
         property bool init: false
         property var errors: []
         property int count: 0
+        property double lastCheck: 0
         property bool busy: true
         property bool upgrading: false
         property bool error: !busy && errors.length > 0
         property bool paused: !busy && !scheduler.running && cfg.checkMode !== "manual"
         property string statusMsg: ""
         property string statusIco: ""
-        property string checktime: ""
+        property string checkTimeTooltip: ""
         property var proc: null
     }
 

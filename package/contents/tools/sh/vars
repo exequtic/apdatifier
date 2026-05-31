@@ -4,8 +4,9 @@ scriptDir="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 appletDir="${scriptDir%/contents/*}"
 [[ "$appletDir" == /home/*/.local* ]]; systemWide=$?
 
-configDir="$HOME/.config/apdatifier"
-localDir="$HOME/.local/share"
+configDir="${APDATIFIER_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/apdatifier}"
+cacheDir="${APDATIFIER_CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/apdatifier}"
+localDir="${XDG_LOCAL_HOME:-$HOME/.local/share}"
 tempDir="${TMPDIR:-/tmp}/apdatifier"
 config="$configDir/config.conf"
 
