@@ -56,6 +56,7 @@ ColumnLayout {
 
             Kirigami.SwipeListItem {
                 id: swipeListItem
+                width: ruleItem.width
                 down: false
                 hoverEnabled: true
                 separatorVisible: true
@@ -64,7 +65,13 @@ ColumnLayout {
                 Kirigami.ListItemDragHandle {
                     listItem: swipeListItem
                     listView: rulesList
-                    onMoveRequested: rulesModel.move(oldIndex, newIndex, 1)
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                    Layout.minimumWidth: Kirigami.Units.iconSizes.small
+                    Layout.maximumWidth: Kirigami.Units.iconSizes.small
+                    onMoveRequested: {
+                        var to = Math.max(0, Math.min(newIndex, rulesModel.count - 1))
+                        rulesModel.move(oldIndex, to, 1)
+                    }
                 }
                 ComboBox {
                     implicitWidth: 120
@@ -162,6 +169,49 @@ ColumnLayout {
     }
     }
 
+    Kirigami.InlineViewHeader {
+        Layout.fillWidth: true
+        text: i18n("Rules")
+        actions: [
+            Kirigami.Action {
+                icon.name: "help-about-symbolic"
+                text: i18n("Help")
+                checkable: true
+                onTriggered: rulesMsg.visible = checked
+            },
+            Kirigami.Action {
+                icon.name: "list-add-symbolic"
+                text: i18n("Add")
+                onTriggered: rulesModel.append({
+                    type: "name", value: "",
+                    icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
+                    excluded: false, important: false, ignore: false
+                })
+            },
+            Kirigami.Action {
+                icon.name: "dialog-ok-apply"
+                text: i18n("Apply")
+                onTriggered: {
+                    var array = []
+                    for (var i = 0; i < rulesModel.count; i++) {
+                        var item = rulesModel.get(i)
+                        if (item.value.trim() !== "")
+                            array.push({
+                                type: item.type, value: item.value, icon: item.icon,
+                                excluded: item.excluded, important: item.important, ignore: item.ignore
+                            })
+                    }
+                    var rules = JS.toFileFormat(array)
+                    plasmoid.configuration.rules = rules
+                    JS.execute(JS.writeFile(rules, '>', JS.rulesFile))
+                    rulesModel.clear()
+                    for (var i = 0; i < array.length; i++)
+                        rulesModel.append(array[i])
+                }
+            }
+        ]
+    }
+
     Kirigami.InlineMessage {
         id: rulesMsg
         Layout.fillWidth: true
@@ -180,63 +230,6 @@ ColumnLayout {
 
         boundsBehavior: Flickable.StopAtBounds
         reuseItems: true
-        headerPositioning: ListView.OverlayHeader
-        header: Kirigami.InlineViewHeader {
-            width: rulesList.width
-            text: i18n("Rules")
-            actions: [
-                Kirigami.Action {
-                    icon.name: "help-about-symbolic"
-                    text: i18n("Help")
-                    checkable: true
-                    id: helpAction
-                    onTriggered: rulesMsg.visible = checked
-                },
-                Kirigami.Action {
-                    icon.name: "list-add-symbolic"
-                    text: i18n("Add")
-                    onTriggered: rulesModel.append({
-                        type: "name", value: "",
-                        icon: plasmoid.configuration.ownIconsUI ? "apdatifier-package" : "server-database",
-                        excluded: false, important: false, ignore: false
-                    })
-                },
-                Kirigami.Action {
-                    id: applyAction
-                    icon.name: "dialog-ok-apply"
-                    text: i18n("Apply")
-                    enabled: {
-                        var arr = []
-                        for (var i = 0; i < rulesModel.count; i++) {
-                            var item = rulesModel.get(i)
-                            if (item.value.trim() !== "")
-                                arr.push({
-                                    type: item.type, value: item.value, icon: item.icon,
-                                    excluded: item.excluded, important: item.important, ignore: item.ignore
-                                })
-                        }
-                        return JS.toFileFormat(arr) !== plasmoid.configuration.rules
-                    }
-                    onTriggered: {
-                        var array = []
-                        for (var i = 0; i < rulesModel.count; i++) {
-                            var item = rulesModel.get(i)
-                            if (item.value.trim() !== "")
-                                array.push({
-                                    type: item.type, value: item.value, icon: item.icon,
-                                    excluded: item.excluded, important: item.important, ignore: item.ignore
-                                })
-                        }
-                        var rules = JS.toFileFormat(array)
-                        plasmoid.configuration.rules = rules
-                        JS.execute(JS.writeFile(rules, '>', JS.rulesFile))
-                        rulesModel.clear()
-                        for (var i = 0; i < array.length; i++)
-                            rulesModel.append(array[i])
-                    }
-                }
-            ]
-        }
         moveDisplaced: Transition {
             YAnimator { duration: Kirigami.Units.longDuration; easing.type: Easing.InOutQuad }
         }
