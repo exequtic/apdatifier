@@ -530,6 +530,7 @@ function makeArchList(updates, source) {
                             'Provides':       'PR',
                             'Depends On':     'DP',
                             'Required By':    'RQ',
+                            'Optional For':   'OF',
                             'Conflicts With': 'CF',
                             'Replaces':       'RP',
                             'Installed Size': 'IS',
@@ -557,7 +558,17 @@ function makeArchList(updates, source) {
                             pkg.VO = versions.currentVer || ""
                             pkg.VN = (versions.newVer === "latest-commit") ? i18n("latest commit") : (versions.newVer || "")
                             pkg.RE = repositoriesMap.get(pkg.NM) || (pkg.NM.endsWith("-git") || pkg.VN === i18n("latest commit") ? "devel" : "aur")
-                            pkg.RN = pkg.RN.includes("Explicitly") ? i18n("Explicitly installed") : i18n("Installed as a dependency")
+                            // pkg.RN = pkg.RN.includes("Explicitly") ? i18n("Explicitly installed") : i18n("Installed as a dependency")
+
+                            if (pkg.RN.includes("Explicitly")) {
+                                pkg.RN = i18n("explicit")
+                            } else if (!pkg.RQ && !pkg.OF) {
+                                pkg.RN = i18n("orphan")
+                            } else {
+                                pkg.RN = i18n("dependency")
+                            }
+
+                            delete pkg.OF
 
                             return pkg
                         })

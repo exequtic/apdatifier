@@ -19,13 +19,11 @@
 
 # Features
 - Searching updates for [pacman](https://archlinux.org/packages/), [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org), [Firmware](https://fwupd.org/lvfs/vendors/)
-- Notification for updates and news
+- Notifications for updates and news
 - Bash script with useful options for managing packages
-- Two types of lists: compact and extended with additional information
-- Button to initiate a full system upgrade in the selected [terminal](#supported-terminals)
-- Option to refresh the [mirrorlist](https://archlinux.org/mirrorlist) with the latest mirrors filtered by speed
-- Customizable icon on the panel and package icons in the list
-- Also should work on non-Arch-based systems (for Plasma Widgets and Flatpak)
+- Full system upgrade in the selected [terminal](#supported-terminals)
+- Refresh the [mirrorlist](https://archlinux.org/mirrorlist) with the latest mirrors filtered by speed
+- Also should work on non-Arch-based systems (for Plasma Widgets, Flatpak, Firmware)
 
 <br>
 
@@ -33,7 +31,6 @@
 
 <div align="center">
 
-#### Compact/Extended list
 <img src="./screenshots/screenshot_1.png" width="300px" alt="screenshot"/>
 &nbsp;&nbsp;&nbsp;
 <img src="./screenshots/screenshot_2.png" width="300px" alt="screenshot"/>
@@ -41,12 +38,10 @@
 
 <br>
 
-#### Full system upgrade
 <img src="./screenshots/screenshot_4.png" width="500px" alt="screenshot"/>
 
 <br>
 
-#### Management
 <img src="./screenshots/screenshot_3.png" width="500px" alt="screenshot"/>
 
 <br><br>

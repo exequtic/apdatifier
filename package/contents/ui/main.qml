@@ -52,6 +52,7 @@ PlasmoidItem {
     property bool horizontal: plasmoid.location === PlasmaCore.Types.TopEdge || plasmoid.location === PlasmaCore.Types.BottomEdge
     property bool panelConfigurationMode: Plasmoid.containment.corona?.editMode ?? false
     property bool pinned: false
+    property bool listCompactMode: false
     property var cache: []
     property string checkMode: plasmoid.configuration.checkMode
     property bool sorting: plasmoid.configuration.sorting

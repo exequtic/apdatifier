@@ -85,20 +85,26 @@
         <entry name="badgeOffsetX" type="int"><default>0</default></entry>
         <entry name="badgeOffsetY" type="int"><default>0</default></entry>
         <entry name="ownIconsUI" type="bool"><default>true</default></entry>
+        <entry name="autoHideScrollBar" type="bool"><default>true</default></entry>
         <entry name="defaultTab" type="int"><default>0</default></entry>
         <entry name="switchDefaultTab" type="bool"><default>false</default></entry>
-        <entry name="spacing" type="int"><default>6</default></entry>
         <entry name="sorting" type="bool"><default>true</default></entry>
         <entry name="showStatusText" type="bool"><default>true</default></entry>
         <entry name="showToolBar" type="bool"><default>true</default></entry>
         <entry name="searchButton" type="bool"><default>true</default></entry>
         <entry name="intervalButton" type="bool"><default>true</default></entry>
         <entry name="sortButton" type="bool"><default>true</default></entry>
+        <entry name="viewButton" type="bool"><default>true</default></entry>
         <entry name="managementButton" type="bool"><default>true</default></entry>
         <entry name="upgradeButton" type="bool"><default>true</default></entry>
         <entry name="checkButton" type="bool"><default>true</default></entry>
         <entry name="pinButton" type="bool"><default>true</default></entry>
         <entry name="settingsButton" type="bool"><default>true</default></entry>
+        <entry name="compactInfo" type="string"><default>repository</default></entry>
+        <entry name="extendedShowRepository" type="bool"><default>true</default></entry>
+        <entry name="extendedShowInstallReason" type="bool"><default>true</default></entry>
+        <entry name="coloredVersionDiff" type="bool"><default>false</default></entry>
+        <entry name="coloredInstallReason" type="bool"><default>false</default></entry>
         <entry name="tabBarVisible" type="bool"><default>true</default></entry>
         <entry name="tabBarTexts" type="bool"><default>true</default></entry>
     </group>

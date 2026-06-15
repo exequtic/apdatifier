@@ -37,15 +37,16 @@ SimpleKCM {
     property alias cfg_counterGapsOuter: counterGapsOuter.value
 
     property alias cfg_ownIconsUI: ownIconsUI.checked
+    property alias cfg_autoHideScrollBar: autoHideScrollBar.checked
     property int cfg_defaultTab: plasmoid.configuration.defaultTab
     property alias cfg_switchDefaultTab: switchDefaultTab.checked
-    property alias cfg_spacing: spacing.value
     property alias cfg_sorting: sorting.checked
     property alias cfg_showStatusText: showStatusText.checked
     property alias cfg_showToolBar: showToolBar.checked
     property alias cfg_searchButton: searchButton.checked
     property alias cfg_intervalButton: intervalButton.checked
     property alias cfg_sortButton: sortButton.checked
+    property alias cfg_viewButton: viewButton.checked
     property alias cfg_managementButton: managementButton.checked
     property alias cfg_upgradeButton: upgradeButton.checked
     property alias cfg_checkButton: checkButton.checked
@@ -53,6 +54,11 @@ SimpleKCM {
     property alias cfg_settingsButton: settingsButton.checked
     property alias cfg_tabBarVisible: tabBarVisible.checked
     property alias cfg_tabBarTexts: tabBarTexts.checked
+    property string cfg_compactInfo: plasmoid.configuration.compactInfo || "repository"
+    property alias cfg_extendedShowRepository: extendedShowRepository.checked
+    property alias cfg_extendedShowInstallReason: extendedShowInstallReason.checked
+    property alias cfg_coloredVersionDiff: coloredVersionDiff.checked
+    property alias cfg_coloredInstallReason: coloredInstallReason.checked
 
     readonly property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     readonly property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
@@ -605,21 +611,31 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
+        CheckBox {
+            Kirigami.FormData.label: i18n("Scrollbar") + ":"
+            id: autoHideScrollBar
+            text: i18n("Auto-hide scrollbar")
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
         ButtonGroup {
             id: viewGroup
         }
 
         RadioButton {
-            Kirigami.FormData.label: i18n("Default tab") + ":"
-            id: compactView
+            Kirigami.FormData.label: i18n("Default view") + ":"
+            id: extendedView
             ButtonGroup.group: viewGroup
-            text: i18n("Compact")
+            text: i18n("Extended")
             Component.onCompleted: checked = !plasmoid.configuration.defaultTab
         }
 
         RadioButton {
             ButtonGroup.group: viewGroup
-            text: i18n("Extended")
+            text: i18n("Compact")
             onCheckedChanged: cfg_defaultTab = checked
             Component.onCompleted: checked = plasmoid.configuration.defaultTab
         }
@@ -627,22 +643,7 @@ SimpleKCM {
         CheckBox {
             Kirigami.FormData.label: i18n("Behavior") + ":"
             id: switchDefaultTab
-            text: i18n("Always switch to default tab")
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Item spacing (Compact)") + ":"
-            Slider {
-                Layout.preferredWidth: Kirigami.Units.gridUnit * 10
-                id: spacing
-                from: 0
-                to: 12
-                stepSize: 1
-            }
-
-            Label {
-                text: spacing.value
-            }
+            text: i18n("Always switch to default view")
         }
 
         Item {
@@ -668,7 +669,8 @@ SimpleKCM {
             ButtonGroup.group: sortGroup
         }
 
-        Item {
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Toolbar")
             Kirigami.FormData.isSection: true
         }
 
@@ -685,46 +687,113 @@ SimpleKCM {
 
         RowLayout {
             enabled: showToolBar.checked
-            CheckBox {
+            ToolButton {
                 id: searchButton
                 icon.name: "search"
+                checkable: true
             }
-            CheckBox {
+            ToolButton {
                 id: intervalButton
                 icon.name: "media-playback-paused"
+                checkable: true
             }
-            CheckBox {
+            ToolButton {
                 id: sortButton
                 icon.name: "sort-name"
-            }
-            CheckBox {
-                id: managementButton
-                icon.name: "tools"
+                checkable: true
             }
         }
         RowLayout {
             enabled: showToolBar.checked
-            CheckBox {
+            ToolButton {
+                id: viewButton
+                icon.name: "view-split-top-bottom"
+                checkable: true
+            }
+            ToolButton {
+                id: managementButton
+                icon.name: "tools"
+                checkable: true
+            }
+            ToolButton {
                 id: upgradeButton
                 icon.name: "akonadiconsole"
+                checkable: true
             }
-            CheckBox {
+
+        }
+        RowLayout {
+            enabled: showToolBar.checked
+            ToolButton {
                 id: checkButton
                 icon.name: "view-refresh"
+                checkable: true
             }
-            CheckBox {
+            ToolButton {
                 id: settingsButton
                 icon.name: "settings-configure"
+                checkable: true
                 enabled: !inTray
             }
-            CheckBox {
+            ToolButton {
                 id: pinButton
                 icon.name: "pin"
+                checkable: true
                 enabled: !inTray && !onDesktop
+                ToolTip {
+                    text: !pinButton.enabled ? "Pinning button is not available in the system tray and on the desktop" : ""
+                }
             }
         }
 
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Additional Package Info")
+            Kirigami.FormData.isSection: true
+        }
+
+        ComboBox {
+            Kirigami.FormData.label: i18n("Compact view") + ":"
+            id: compactInfo
+            textRole: "name"
+            model: [
+                { name: i18n("Repository"), value: "repository" },
+                { name: i18n("Install reason"), value: "installReason" },
+                { name: i18n("Versions"), value: "versionDiff" }
+            ]
+            onCurrentIndexChanged: cfg_compactInfo = model[currentIndex].value
+            Component.onCompleted: currentIndex = JS.setIndex(plasmoid.configuration.compactInfo || "repository", model)
+        }
+
         Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            Kirigami.FormData.label: i18n("Extended view") + ":"
+            id: extendedShowRepository
+            text: i18n("Repository")
+        }
+
+        CheckBox {
+            id: extendedShowInstallReason
+            text: i18n("Install reason")
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        CheckBox {
+            id: coloredVersionDiff
+            text: i18n("Colored version difference")
+        }
+        CheckBox {
+            id: coloredInstallReason
+            text: i18n("Colored install reason")
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Tab Bar")
             Kirigami.FormData.isSection: true
         }
 

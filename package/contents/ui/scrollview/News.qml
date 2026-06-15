@@ -6,10 +6,9 @@ import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 
 import "../../tools/tools.js" as JS
+import "../components"
 
-ScrollView {
-    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
+Item {
     ListView {
         model: newsModel
         spacing: Kirigami.Units.largeSpacing * 2
@@ -17,7 +16,12 @@ ScrollView {
         rightMargin: spacing
         leftMargin: spacing
         bottomMargin: spacing
+        anchors.fill: parent
 
+        ScrollBar.vertical: Scroll {
+            policy: newsModel.count > 0 ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff
+        }
+        
         delegate: Kirigami.AbstractCard {
             contentItem: Item {
                 implicitWidth: delegateLayout.implicitWidth
@@ -91,11 +95,6 @@ ScrollView {
         }
 
         Loader {
-            width: parent.width
-            active: sts.busy && (sts.statusIco === "status_news" || sts.statusIco === "news-subscribe")
-            sourceComponent: ProgressBar { from: 0; to: 100; indeterminate: true }
-        }
-        Loader {
             anchors.centerIn: parent
             active: newsModel.count === 0
             sourceComponent: Kirigami.PlaceholderMessage {
@@ -104,10 +103,10 @@ ScrollView {
             }
         }
 
-        add: Transition { animations: [ NumberAnimation { properties: popin ? "opacity,scale" : "opacity"; from: 0; to: 1; duration: 380; easing.type: Easing.OutBack; easing.overshoot: 1.12 } ] }
+        add: Transition { animations: [ NumberAnimation { properties: "opacity,scale"; from: 0; to: 1; duration: 380; easing.type: Easing.OutBack; easing.overshoot: 1.12 } ] }
         addDisplaced: Transition { animations: [
             NumberAnimation { property: "y"; duration: 340; easing.type: Easing.OutCubic },
-            NumberAnimation { properties: popin ? "opacity,scale" : "opacity"; to: 1; duration: 340; easing.type: Easing.OutBack; easing.overshoot: 1.08 }
+            NumberAnimation { properties: "opacity,scale"; to: 1; duration: 340; easing.type: Easing.OutBack; easing.overshoot: 1.08 }
         ] }
         displaced: Transition { animations: [
             NumberAnimation { property: "y"; duration: 340; easing.type: Easing.OutBack; easing.overshoot: 1.05 },

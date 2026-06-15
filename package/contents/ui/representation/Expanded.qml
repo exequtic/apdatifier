@@ -18,7 +18,7 @@ Representation {
     property bool expanded: root.expanded
     onExpandedChanged: {
         if (plasmoid.configuration.switchDefaultTab && !expanded)
-            swipeView.currentIndex = plasmoid.configuration.defaultTab
+            listCompactMode = (plasmoid.configuration.defaultTab !== 0)
     }
 
     function svg(icon) {
@@ -103,7 +103,7 @@ Representation {
                     tooltipText: i18n("Filter by package name")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_search") : "search"
                     visible: cfg.searchButton && !sts.busy && sts.count
-                    enabled: visible && swipeView.currentIndex < 2
+                    enabled: visible && swipeView.currentIndex === 0
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
                         searchFieldOpen = !searchField.visible
@@ -125,8 +125,20 @@ Representation {
                     tooltipText: cfg.sorting ? i18n("Sort packages by name") : i18n("Sort packages by repository")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_sort") : "sort-name"
                     visible: cfg.sortButton && !sts.busy && sts.count
-                    enabled: visible && swipeView.currentIndex < 2
+                    enabled: visible && swipeView.currentIndex === 0
                     onClicked: cfg.sorting = !cfg.sorting
+                }
+
+                ToolbarButton {
+                    tooltipText: listCompactMode ? i18n("Switch to extended view") : i18n("Switch to compact view")
+                    // iconSource: cfg.ownIconsUI ? svg("tab_compact") : "view-list-details"
+                    iconSource: cfg.ownIconsUI ? (listCompactMode ? svg("tab_extended") : svg("tab_compact"))
+                                               : (listCompactMode ? "view-split-top-bottom" : "view-split-left-right")
+
+
+                    visible: cfg.viewButton && sts.count && swipeView.currentIndex === 0
+                    enabled: visible
+                    onClicked: listCompactMode = !listCompactMode
                 }
 
                 ToolbarButton {
@@ -178,7 +190,7 @@ Representation {
         spacing: 0
         topPadding: 0
         height: Kirigami.Units.iconSizes.medium
-        visible: cfg.tabBarVisible && !sts.error
+        visible: cfg.tabBarVisible && cfg.feedsEnabled && !sts.error
 
         contentItem: TabBar {
             id: tabBar
@@ -188,7 +200,7 @@ Representation {
             currentIndex: swipeView.currentIndex
             onCurrentIndexChanged: {
                 swipeView.currentIndex = currentIndex
-                if (swipeView.currentIndex >= 2) {
+                if (swipeView.currentIndex >= 1) {
                     searchFieldOpen = false
                     searchField.text = ""
                 }
@@ -196,28 +208,30 @@ Representation {
 
             Repeater {
                 model: [
-                    { id: "compact", icon: "tab_compact", fallback: "view-split-left-right", label: i18n("Compact"), tip: i18n("Compact view") },
-                    { id: "extended", icon: "tab_extended", fallback: "view-split-top-bottom", label: i18n("Extended"), tip: i18n("Extended view") },
-                    cfg.feedsEnabled ? { id: "news", icon: "status_news", fallback: "news-subscribe", label: i18n("News"), tip: i18n("News") } : null
-                ].filter(Boolean)
+                    {
+                        id: "extended",
+                        icon: "tab_extended",
+                        fallback: "view-split-top-bottom",
+                        label: i18n("Updates"),
+                    },
+                    cfg.feedsEnabled ? {
+                        id: "news",
+                        icon: "status_news",
+                        fallback: "news-subscribe",
+                        label: i18n("News"),
+                    } : null
+                    ].filter(Boolean)
 
                 delegate: TabButton {
                     required property var modelData
-
-                    ToolTip { text: cfg.tabBarTexts ? "" : modelData.tip }
-
                     contentItem: RowLayout {
                         Kirigami.Theme.inherit: true
                         Item { Layout.fillWidth: true }
                         Kirigami.Icon {
                             Layout.preferredHeight: Kirigami.Units.iconSizes.small
                             Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                            source: modelData.id === "news" && activeNewsItems
-                                ? (cfg.ownIconsUI ? svg("status_news") : "news-subscribe")
-                                : (cfg.ownIconsUI ? svg(modelData.icon) : modelData.fallback)
-                            color: (modelData.id === "news" && activeNewsItems)
-                                ? Kirigami.Theme.negativeTextColor
-                                : Kirigami.Theme.colorSet
+                            source: cfg.ownIconsUI ? svg(modelData.icon) : modelData.fallback
+                            color: (modelData.id === "news" && activeNewsItems) ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.colorSet
                             isMask: cfg.ownIconsUI
                             smooth: true
                         }
@@ -232,6 +246,12 @@ Representation {
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
+
+        Loader {
+            Layout.fillWidth: true
+            active: sts.busy
+            sourceComponent: ProgressBar { from: 0; to: 100; indeterminate: true }
+        }
 
         TextField {
             Layout.fillWidth: true
@@ -290,21 +310,19 @@ Representation {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            currentIndex: plasmoid.configuration.defaultTab
+            currentIndex: 0
             Repeater {
                 model: [
-                    { component: "compact" },
                     { component: "extended" },
                     cfg.feedsEnabled ? { component: "news" } : null
                 ].filter(Boolean)
 
                 delegate: Loader {
                     required property var modelData
-                    sourceComponent: modelData.component === "compact" ? compactComp : modelData.component === "extended" ? extendedComp : newsComp
+                    sourceComponent: modelData.component === "extended" ? extendedComp : newsComp
                 }
             }
 
-            Component { id: compactComp; View.Compact {} }
             Component { id: extendedComp; View.Extended {} }
             Component { id: newsComp; View.News { id: newsPage } }
         }
