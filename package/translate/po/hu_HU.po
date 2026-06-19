@@ -669,11 +669,11 @@ msgstr "Felülírja az egyéni ikontémát, és helyette az Apdatifier alapérte
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
-msgstr "Gördítősáv"
+msgstr "Görgetősáv"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Auto-hide scrollbar"
-msgstr "Gördítősáv automatikus elrejtése"
+msgstr "Görgetősáv automatikus elrejtése"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default view"
