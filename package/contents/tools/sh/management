@@ -347,6 +347,41 @@ downgrade() {
 cleanCache() {
     tui_exit
     dependency pacman || return
+
+    pacman_cache_dir="$(pacman-conf CacheDir | head -n1)"
+    mapfile -t dirs < <(find "$pacman_cache_dir" -mindepth 1 -maxdepth 1 -type d)
+    if ((${#dirs[@]})); then
+        printImportant "$MNG_CACHE_DIR"
+        printf '  %q\n' "${dirs[@]}"
+        echo
+
+        while true; do
+            printQuestion "$MNG_CACHE_DIR_RM"; read -r answer
+            case "$answer" in
+                [Yy]*)
+                    [ -w "$pacman_cache_dir" ] && prefix="" || prefix="$sudoBin "
+                    cmd="${prefix}rm -rf"
+                    for dir in "${dirs[@]}"; do
+                        printf -v escaped '%q' "$dir"
+                        cmd+=" $escaped"
+                    done
+                    echo
+                    printExec "$cmd"
+                    if [ -n "$prefix" ]; then
+                        "$sudoBin" rm -rf "${dirs[@]}"
+                    else
+                        rm -rf "${dirs[@]}"
+                    fi
+                    break
+                ;;
+             [Nn]*|"") break ;;
+                    *)  ;;
+            esac
+        done
+
+        echo
+    fi
+
     printExec "$wrapper_sudo -$1"
     $wrapper_sudo -$1
     pressReturn
