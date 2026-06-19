@@ -238,11 +238,14 @@ upgrade_all_packages() {
     XML="$tempDir/api.kde-look.xml"
     updatesList="$tempDir/update.list.json"
     trap cleanup EXIT
+    trap 'kill "$bg_pid" 2>/dev/null; cleanup' INT TERM
 
-    fetch_api_data & printWhile $! "$WIDGETS_FETCH"
+    fetch_api_data & bg_pid=$!
+    printWhile "$bg_pid" "$WIDGETS_FETCH"
     [[ $exitCode -ne 0 ]] && exit
 
-    make_updates_list & printWhile $! "$WIDGETS_CHECK"
+    make_updates_list & bg_pid=$!
+    printWhile "$bg_pid" "$WIDGETS_CHECK"
 
     if [[ -s "$updatesList" ]] && jq -e '(. | length) > 0' "$updatesList" > /dev/null 2>&1; then
         echo
@@ -302,7 +305,7 @@ upgrade_package() {
     mkdir -p "$tempDir/$name/unpacked"
     XML="$tempDir/$name/api.kde-look.xml"
 
-    trap cleanup EXIT
+    trap 'kill "$bg_pid" 2>/dev/null; cleanup' INT TERM EXIT
 
     {
         curl -s -o "$XML" --connect-timeout 5 --retry 2 --max-time 60 --request GET --url "https://api.kde-look.org/ocs/v1/content/data/$contentId" 2>/dev/null
@@ -316,16 +319,19 @@ upgrade_package() {
         else
             return 1
         fi
-    } & printWhile $! "$WIDGETS_FETCH"
+    } & bg_pid=$!
+    printWhile "$bg_pid" "$WIDGETS_FETCH"
     [[ $exitCode -ne 0 ]] && exit
 
     latestVer=$(clearVer "$(xmllint --xpath "string(//id[text()='$contentId']/../version)" "$XML")")
     type=$(get_package_type)
 
-    get_download_link & printWhile $! "$WIDGETS_LINK"
+    get_download_link & bg_pid=$!
+    printWhile "$bg_pid" "$WIDGETS_LINK"
     [[ $exitCode -ne 0 ]] && exit
 
-    download_package & printWhile $! "$WIDGETS_DOWNLOADING"
+    download_package & bg_pid=$!
+    printWhile "$bg_pid" "$WIDGETS_DOWNLOADING"
     [[ $exitCode -ne 0 ]] && exit
 
     kpackagetool6 -t "$type" -u "$(dirname "$(find "$tempDir/$name" -name "metadata.json")")" 2>/dev/null
