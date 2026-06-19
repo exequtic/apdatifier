@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: 2026-03-01 13:18+0800\n"
 "Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
@@ -268,6 +268,14 @@ msgid "Remove unused cache"
 msgstr "清理無用快取"
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr "重新構建軟體包"
 
@@ -288,10 +296,6 @@ msgid "Refresh mirrors"
 msgstr "更新映象源"
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr "最近安裝"
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "解除安裝前請檢視依賴項警告"
 
@@ -304,7 +308,23 @@ msgid "Press Enter to return menu"
 msgstr "按下 Enter 返回選單"
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr "最近安裝"
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr "顯式安裝"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr "作為依賴安裝"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -367,14 +387,6 @@ msgstr "正在檢查韌體更新..."
 #: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "最新提交"
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr "顯式安裝"
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
-msgstr "作為依賴安裝"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -450,10 +462,6 @@ msgstr "暫停自動檢查"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "閱讀文章"
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
-msgstr "系統已更新"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/General.qml
@@ -660,13 +668,16 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "覆蓋自定義圖示主題，改用預設 Apdatifier 圖示。"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
-msgstr "預設標籤頁"
+msgid "Scrollbar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Compact"
-msgstr "緊湊"
+msgid "Auto-hide scrollbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -674,16 +685,17 @@ msgid "Extended"
 msgstr "擴充套件"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "緊湊"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
 msgstr "行為"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr "始終切換到預設標籤頁"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
-msgstr "元素高度"
+msgid "Always switch to default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -698,6 +710,10 @@ msgid "By name"
 msgstr "按名稱"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "頂欄"
 
@@ -708,6 +724,44 @@ msgstr "顯示狀態"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
 msgstr "顯示工具欄"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr "緊湊檢視"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "安裝原因"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr "擴充套件檢視"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -830,6 +884,7 @@ msgid "Saturday"
 msgstr "星期六"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr "更新"
 
@@ -1020,6 +1075,14 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "應用"
+
+#: ../contents/ui/configuration/Rules.qml
 msgid ""
 "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
 "examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
@@ -1027,14 +1090,6 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Help"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Apply"
-msgstr "應用"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
@@ -1330,14 +1385,6 @@ msgid "Keep open"
 msgstr "保持開啟"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr "緊湊檢視"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr "擴充套件檢視"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "新聞通知"
 
@@ -1422,8 +1469,8 @@ msgid "Install date"
 msgstr "安裝日期"
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
-msgstr "安裝原因"
+msgid "System updated"
+msgstr "系統已更新"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"

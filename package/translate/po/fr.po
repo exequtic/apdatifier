@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -274,6 +274,14 @@ msgid "Remove unused cache"
 msgstr "Supprimer le cache inutilisé"
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr "Reconstruire les paquets"
 
@@ -294,10 +302,6 @@ msgid "Refresh mirrors"
 msgstr "Actualiser les miroirs"
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr "Installations récentes"
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Examinez les avertissements de dépendance avant de supprimer"
 
@@ -310,8 +314,24 @@ msgid "Press Enter to return menu"
 msgstr "Appuyez sur Entrée pour revenir au menu"
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr "Installations récentes"
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
 msgstr "Analyse du journal pacman..."
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr "Installé explicitement"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr "Installé comme dépendance"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
+msgstr ""
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -375,14 +395,6 @@ msgstr "Vérification des mises à jour du firmware..."
 #: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "dernier commit"
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr "Installé explicitement"
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
-msgstr "Installé comme dépendance"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -465,10 +477,6 @@ msgstr "Mettre en pause la vérification automatique"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Lire l'article"
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
-msgstr "Système mis à jour"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/General.qml
@@ -681,13 +689,16 @@ msgstr ""
 "par défaut à la place."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
-msgstr "Onglet par défaut"
+msgid "Scrollbar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Compact"
-msgstr "Compacte"
+msgid "Auto-hide scrollbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -695,16 +706,17 @@ msgid "Extended"
 msgstr "Étendue"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "Compacte"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
 msgstr "Comportement"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr "Toujours passer à l'onglet par défaut"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
-msgstr "Espacement des éléments (Compacte)"
+msgid "Always switch to default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -719,6 +731,10 @@ msgid "By name"
 msgstr "Par nom"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "En-tête"
 
@@ -729,6 +745,44 @@ msgstr "Afficher l'état"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
 msgstr "Afficher la barre d'outils"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr "Vue compacte"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "Motif d'installation"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr "Vue étendue"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -856,6 +910,7 @@ msgid "Saturday"
 msgstr "Samedi"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr "Mises à jour"
 
@@ -936,12 +991,11 @@ msgid ""
 "notifications will only be sent for packages that are not yet on the list. "
 "<b>Less notifications.</b>"
 msgstr ""
-"Si l'option est <b>activée</b>, des notifications seront envoyées "
-"lorsqu'une nouvelle version du paquet est publiée, même si le paquet est "
-"déjà dans la liste. <b>Plus de notifications.</b> <br><br>Si l'option est "
-"<b>désactivée</b>, les notifications ne seront envoyées que pour les "
-"paquets qui ne sont pas encore dans la liste. <b>Moins de "
-"notifications.</b>"
+"Si l'option est <b>activée</b>, des notifications seront envoyées lorsqu'une "
+"nouvelle version du paquet est publiée, même si le paquet est déjà dans la "
+"liste. <b>Plus de notifications.</b> <br><br>Si l'option est <b>désactivée</"
+"b>, les notifications ne seront envoyées que pour les paquets qui ne sont "
+"pas encore dans la liste. <b>Moins de notifications.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1003,8 +1057,8 @@ msgstr "Restaurer les info-bulles masquées"
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
 msgstr ""
-"Réinitialiser à la valeur par défaut. Par défaut, le chemin est le même "
-"que pour checkupdates."
+"Réinitialiser à la valeur par défaut. Par défaut, le chemin est le même que "
+"pour checkupdates."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
@@ -1055,9 +1109,17 @@ msgid ""
 "Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
 "upgrades are unsupported.</b>"
 msgstr ""
-"Ignorer la mise à niveau d'un paquet. <b>Soyez prudent lorsque vous "
-"ignorez des paquets, car les mises à niveau partielles ne sont pas prises "
-"en charge.</b>"
+"Ignorer la mise à niveau d'un paquet. <b>Soyez prudent lorsque vous ignorez "
+"des paquets, car les mises à niveau partielles ne sont pas prises en charge."
+"</b>"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr "Aide"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Appliquer"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid ""
@@ -1067,20 +1129,11 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
-"Les règles s'appliquent de haut en bas : les règles suivantes remplacent "
-"les précédentes.<br><br>Exemples de regex :<br><b>^nvidia</b> — noms "
-"commençant par nvidia<br><b>wayland$</b> — noms se terminant par "
-"wayland<br><b>.*qt.*</b> — noms contenant qt<br><b>(ttf|font|otf)</b> — "
-"ttf, font ou otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen ou "
-"linux-lts"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Help"
-msgstr "Aide"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Apply"
-msgstr "Appliquer"
+"Les règles s'appliquent de haut en bas : les règles suivantes remplacent les "
+"précédentes.<br><br>Exemples de regex :<br><b>^nvidia</b> — noms commençant "
+"par nvidia<br><b>wayland$</b> — noms se terminant par wayland<br><b>.*qt.*</"
+"b> — noms contenant qt<br><b>(ttf|font|otf)</b> — ttf, font ou "
+"otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen ou linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
@@ -1222,8 +1275,8 @@ msgstr ""
 "paquets critiques.<br><br><b>Notez que tous les paquets critiques ne "
 "nécessitent pas un redémarrage complet du système ; certains peuvent ne "
 "requérir qu'un redémarrage de session, voire aucune action, par exemple "
-"lorsqu'un paquet mis à jour n'est pas en cours d'exécution (par ex. un "
-"noyau alternatif) ou n'est pas utilisé (par ex. un pilote alternatif).</b>"
+"lorsqu'un paquet mis à jour n'est pas en cours d'exécution (par ex. un noyau "
+"alternatif) ou n'est pas utilisé (par ex. un pilote alternatif).</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1395,14 +1448,6 @@ msgid "Keep open"
 msgstr "Garder ouvert"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr "Vue compacte"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr "Vue étendue"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Actualités"
 
@@ -1487,8 +1532,8 @@ msgid "Install date"
 msgstr "Date d'installation"
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
-msgstr "Motif d'installation"
+msgid "System updated"
+msgstr "Système mis à jour"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"

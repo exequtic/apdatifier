@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: 2026-05-28 17:32+0300\n"
 "Last-Translator: exequtic\n"
 "Language-Team: \n"
@@ -233,7 +233,7 @@ msgstr "Все явно установленные пакеты"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs not required by anything"
-msgstr "Явно установленные пакеты, не требуемые ничем"
+msgstr "Явно установленные пакеты, которые ничем не требуются"
 
 #: ../contents/tools/sh/messages
 msgid "Orphaned dependencies"
@@ -272,6 +272,14 @@ msgid "Remove unused cache"
 msgstr "Удалить кэш пакетов, которые не установлены"
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr "Найдены каталоги в кэше pacman:"
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr "Удалить эти каталоги?"
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr "Пересобрать пакеты"
 
@@ -292,10 +300,6 @@ msgid "Refresh mirrors"
 msgstr "Обновить зеркала"
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr "Недавние установки"
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Ознакомьтесь с предупреждениями о зависимостях перед удалением"
 
@@ -308,8 +312,24 @@ msgid "Press Enter to return menu"
 msgstr "Нажмите Enter чтобы вернуться в меню"
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr "Недавние установки"
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
 msgstr "Сканирование журнала pacman..."
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr "Установлено явно"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr "Установлено как зависимость"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
+msgstr "Неиспользуемая зависимость"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -373,14 +393,6 @@ msgstr "Проверка обновлений прошивки..."
 #: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "последний коммит"
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr "Установлено явно"
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
-msgstr "Установлено как зависимость"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -470,10 +482,6 @@ msgstr "Приостановить авто-проверку"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Читать статью"
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
-msgstr "Система обновлена"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/General.qml
@@ -685,13 +693,16 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "Использовать иконки Apdatifier вместо пользовательских иконок из темы."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
-msgstr "Вкладка по умолчанию"
+msgid "Scrollbar"
+msgstr "Полоса прокрутки"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Compact"
-msgstr "Компактный"
+msgid "Auto-hide scrollbar"
+msgstr "Автоскрытие полосы прокрутки"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
+msgstr "Вид по умолчанию"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -699,16 +710,17 @@ msgid "Extended"
 msgstr "Расширенный"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "Компактный"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
 msgstr "Поведение"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr "Всегда переключаться на вкладку по умолчанию"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
-msgstr "Высота элементов (Компактный)"
+msgid "Always switch to default view"
+msgstr "Всегда переключаться на вид по умолчанию"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -723,6 +735,10 @@ msgid "By name"
 msgstr "По имени"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr "Панель инструментов"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "Заголовок"
 
@@ -733,6 +749,44 @@ msgstr "Показывать статус"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
 msgstr "Показывать панель инструментов"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr "Дополнительные сведения пакета"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr "Компактный вид"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr "Репозиторий"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "Причина установки"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr "Версии"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr "Расширенный вид"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr "Подсветка различий между версиями"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr "Цветная причина установки"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
+msgstr "Панель вкладок"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -860,6 +914,7 @@ msgid "Saturday"
 msgstr "Суббота"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr "Обновления"
 
@@ -1061,6 +1116,14 @@ msgstr ""
 "так как частичные обновления не поддерживаются.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr "Справка"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Применить"
+
+#: ../contents/ui/configuration/Rules.qml
 msgid ""
 "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
 "examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
@@ -1074,14 +1137,6 @@ msgstr ""
 "wayland<br><b>.*qt.*</b> — имена, содержащие qt<br><b>(ttf|font|otf)</b> — "
 "ttf, font или otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen или linux-"
 "lts"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Help"
-msgstr "Справка"
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Apply"
-msgstr "Применить"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
@@ -1396,14 +1451,6 @@ msgid "Keep open"
 msgstr "Оставить открытым"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr "Компактный вид"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr "Расширенный вид"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Новости"
 
@@ -1488,8 +1535,8 @@ msgid "Install date"
 msgstr "Дата установки"
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
-msgstr "Причина установки"
+msgid "System updated"
+msgstr "Система обновлена"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"

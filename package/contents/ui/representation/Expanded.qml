@@ -130,8 +130,7 @@ Representation {
                 }
 
                 ToolbarButton {
-                    tooltipText: listCompactMode ? i18n("Switch to extended view") : i18n("Switch to compact view")
-                    // iconSource: cfg.ownIconsUI ? svg("tab_compact") : "view-list-details"
+                    tooltipText: listCompactMode ? i18n("Extended") : i18n("Compact")
                     iconSource: cfg.ownIconsUI ? (listCompactMode ? svg("tab_extended") : svg("tab_compact"))
                                                : (listCompactMode ? "view-split-top-bottom" : "view-split-left-right")
 

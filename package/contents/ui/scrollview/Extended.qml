@@ -187,7 +187,9 @@ Item {
                                 active: model.RN && (cfg.compactInfo || "repository") === "installReason"
                                 visible: active
                                 onLoaded: {
-                                    item.text = model.RN
+                                    item.text = model.RN === "explicit" ? i18n("Explicitly installed")
+                                              : model.RN === "dependency" ? i18n("Installed as a dependency")
+                                              : i18n("Orphaned dependency")
                                     item.reason = model.RN || ""
                                 }
                             }
@@ -328,7 +330,7 @@ Item {
             property string reason: ""
             readonly property color bgColor: {
                 if (reason) {
-                    if (!cfg.coloredInstallReason)
+                    if (!cfg.colorizeInstallReason)
                         return Kirigami.Theme.highlightColor
                     else if (reason === "explicit")
                         return Kirigami.Theme.positiveBackgroundColor
@@ -367,7 +369,7 @@ Item {
             property int hAlign: Text.AlignLeft
 
             horizontalAlignment: hAlign
-            text: cfg.coloredVersionDiff ? versionDiff(oldVer, newVer) : `${oldVer} → ${newVer}`
+            text: cfg.highlightVersionDiff ? versionDiff(oldVer, newVer) : `${oldVer} → ${newVer}`
             font: Kirigami.Theme.smallFont
             textFormat: Text.StyledText
             elide: Text.ElideRight

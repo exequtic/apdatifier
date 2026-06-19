@@ -103,8 +103,8 @@
         <entry name="compactInfo" type="string"><default>repository</default></entry>
         <entry name="extendedShowRepository" type="bool"><default>true</default></entry>
         <entry name="extendedShowInstallReason" type="bool"><default>true</default></entry>
-        <entry name="coloredVersionDiff" type="bool"><default>false</default></entry>
-        <entry name="coloredInstallReason" type="bool"><default>false</default></entry>
+        <entry name="highlightVersionDiff" type="bool"><default>false</default></entry>
+        <entry name="colorizeInstallReason" type="bool"><default>false</default></entry>
         <entry name="tabBarVisible" type="bool"><default>true</default></entry>
         <entry name="tabBarTexts" type="bool"><default>true</default></entry>
     </group>

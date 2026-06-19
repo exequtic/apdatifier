@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: 2025-11-14 21:00+0200\n"
 "Last-Translator: Yuriy Yasynskyy <yurij.yasinskij@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,6 +262,14 @@ msgid "Remove unused cache"
 msgstr ""
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr ""
 
@@ -282,10 +290,6 @@ msgid "Refresh mirrors"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr ""
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Ознайомтесь з попередженнями про залежності перед видаленням"
 
@@ -298,7 +302,23 @@ msgid "Press Enter to return menu"
 msgstr "Натисніть Enter для повернення в меню"
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr "Встановлено вручну"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr "Встановлено як залежність"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -363,14 +383,6 @@ msgstr "Перевірка оновлень прошивки..."
 #: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "останній внесок"
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr "Встановлено вручну"
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
-msgstr "Встановлено як залежність"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -456,10 +468,6 @@ msgstr "Призупинити автоматичну перевірку"
 #: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Читати статтю"
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
-msgstr "Система оновлена"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
 msgid "Disabled"
@@ -657,28 +665,32 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr "Використовувати іконки Apdatifier замість користувацьких іконок з теми."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
-msgstr "Вкладка за замовчуванням"
+msgid "Scrollbar"
+msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
-msgid "Compact"
-msgstr "Компактний"
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Auto-hide scrollbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
 msgstr "Розширений"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "Компактний"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
 msgstr "Поведінка"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr "Завжди переключатись на вкладку за замовчуванням"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
-msgstr "Висота елементів (Компактний)"
+msgid "Always switch to default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -693,6 +705,10 @@ msgid "By name"
 msgstr "За іменем"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "Заголовок"
 
@@ -703,6 +719,42 @@ msgstr "Показувати статус"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
 msgstr "Показувати панель інструментів"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr "Компактний вигляд"
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "Причина встановлення"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr "Розширений вигляд"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -816,7 +868,7 @@ msgstr "П'ятниця"
 msgid "Saturday"
 msgstr "Субота"
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr "Оновлення"
 
@@ -992,16 +1044,16 @@ msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since parti
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Help"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
 msgstr "Застосувати"
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
@@ -1267,14 +1319,6 @@ msgid "Keep open"
 msgstr "Тримати відкритим"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr "Компактний вигляд"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr "Розширений вигляд"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Новини"
 
@@ -1359,8 +1403,8 @@ msgid "Install date"
 msgstr "Дата встановлення"
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
-msgstr "Причина встановлення"
+msgid "System updated"
+msgstr "Система оновлена"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: 2026-05-14 09:12+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
@@ -276,6 +276,14 @@ msgid "Remove unused cache"
 msgstr "Nem használt gyorsítótár eltávolítása"
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr "Csomagok újraösszeállítása"
 
@@ -297,10 +305,6 @@ msgid "Refresh mirrors"
 msgstr "Tükrök frissítése"
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr "Legutóbb telepített csomagok"
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Eltávolítás előtt ellenőrizze a függőségi figyelmeztetéseket"
 
@@ -313,7 +317,23 @@ msgid "Press Enter to return menu"
 msgstr "Nyomja meg az enter billentyűt a menübe való visszatéréshez"
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr "Legutóbb telepített csomagok"
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr "Kifejezetten telepített"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr "Függőségként telepítve"
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -377,14 +397,6 @@ msgstr "Firmware frissítések ellenőrzése…"
 #: ../contents/tools/tools.js
 msgid "latest commit"
 msgstr "legutóbbi véglegesítés"
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr "Kifejezetten telepített"
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
-msgstr "Függőségként telepítve"
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
 msgid "%1 error occurred"
@@ -467,10 +479,6 @@ msgstr "Automatikus ellenőrzés szüneteltetése"
 #: ../contents/ui/scrollview/News.qml
 msgid "Read article"
 msgstr "Cikk elolvasása"
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
-msgstr "Rendszer frissítve"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/configuration/General.qml
@@ -683,13 +691,16 @@ msgstr ""
 "ikonjait használja."
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
-msgstr "Alapértelmezett lap"
+msgid "Scrollbar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/representation/Expanded.qml
-msgid "Compact"
-msgstr "Kompakt"
+msgid "Auto-hide scrollbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -697,16 +708,17 @@ msgid "Extended"
 msgstr "Bővített"
 
 #: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/representation/Expanded.qml
+msgid "Compact"
+msgstr "Kompakt"
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Behavior"
 msgstr "Viselkedés"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr "Mindig váltson az alapértelmezett fülre"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
-msgstr "Elemek közötti távolság (Kompakt)"
+msgid "Always switch to default view"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -721,6 +733,10 @@ msgid "By name"
 msgstr "Név szerint"
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr "Fejléc"
 
@@ -731,6 +747,44 @@ msgstr "Állapot megjelenítése"
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
 msgstr "Eszköztár megjelenítése"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr "Kompakt nézet"
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+#: ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr "Telepítés oka"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr "Bővített nézet"
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
+msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -858,6 +912,7 @@ msgid "Saturday"
 msgstr "Szombat"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr "Frissítés"
 
@@ -1058,6 +1113,14 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
+msgid "Help"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid "Apply"
+msgstr "Alkalmaz"
+
+#: ../contents/ui/configuration/Rules.qml
 msgid ""
 "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
 "examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
@@ -1065,14 +1128,6 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Help"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
-msgid "Apply"
-msgstr "Alkalmaz"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
@@ -1388,14 +1443,6 @@ msgid "Keep open"
 msgstr "Megnyitva tartás"
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr "Kompakt nézet"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr "Bővített nézet"
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr "Hírek"
 
@@ -1480,8 +1527,8 @@ msgid "Install date"
 msgstr "Telepítés dátuma"
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
-msgstr "Telepítés oka"
+msgid "System updated"
+msgstr "Rendszer frissítve"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"

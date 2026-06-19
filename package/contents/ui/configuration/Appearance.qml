@@ -57,8 +57,8 @@ SimpleKCM {
     property string cfg_compactInfo: plasmoid.configuration.compactInfo || "repository"
     property alias cfg_extendedShowRepository: extendedShowRepository.checked
     property alias cfg_extendedShowInstallReason: extendedShowInstallReason.checked
-    property alias cfg_coloredVersionDiff: coloredVersionDiff.checked
-    property alias cfg_coloredInstallReason: coloredInstallReason.checked
+    property alias cfg_highlightVersionDiff: highlightVersionDiff.checked
+    property alias cfg_colorizeInstallReason: colorizeInstallReason.checked
 
     readonly property bool inTray: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
     readonly property bool onDesktop: plasmoid.location === PlasmaCore.Types.Floating
@@ -784,12 +784,12 @@ SimpleKCM {
         }
 
         CheckBox {
-            id: coloredVersionDiff
-            text: i18n("Colored version difference")
+            id: highlightVersionDiff
+            text: i18n("Highlight version differences")
         }
         CheckBox {
-            id: coloredInstallReason
-            text: i18n("Colored install reason")
+            id: colorizeInstallReason
+            text: i18n("Colorize install reason")
         }
 
         Kirigami.Separator {

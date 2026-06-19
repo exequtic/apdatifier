@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-05-28 17:32+0300\n"
+"POT-Creation-Date: 2026-06-19 12:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,6 +263,14 @@ msgid "Remove unused cache"
 msgstr ""
 
 #: ../contents/tools/sh/messages
+msgid "Found directories in the pacman cache:"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove these directories?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Rebuild packages"
 msgstr ""
 
@@ -283,10 +291,6 @@ msgid "Refresh mirrors"
 msgstr ""
 
 #: ../contents/tools/sh/messages
-msgid "Recent installs"
-msgstr ""
-
-#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr ""
 
@@ -299,7 +303,23 @@ msgid "Press Enter to return menu"
 msgstr ""
 
 #: ../contents/tools/sh/messages
+msgid "Recent installs"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Explicitly installed"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Installed as a dependency"
+msgstr ""
+
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+msgid "Orphaned dependency"
 msgstr ""
 
 #: ../contents/tools/sh/messages
@@ -362,14 +382,6 @@ msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "latest commit"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "Explicitly installed"
-msgstr ""
-
-#: ../contents/tools/tools.js
-msgid "Installed as a dependency"
 msgstr ""
 
 #: ../contents/tools/tools.js ../contents/ui/representation/Expanded.qml
@@ -448,10 +460,6 @@ msgstr ""
 
 #: ../contents/ui/components/Notification.qml ../contents/ui/scrollview/News.qml
 msgid "Read article"
-msgstr ""
-
-#: ../contents/ui/components/Placeholder.qml
-msgid "System updated"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
@@ -649,15 +657,23 @@ msgid "Override custom icon theme and use default Apdatifier icons instead."
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default tab"
+msgid "Scrollbar"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
-msgid "Compact"
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Auto-hide scrollbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Default view"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
+msgid "Compact"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -665,11 +681,7 @@ msgid "Behavior"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Always switch to default tab"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Item spacing (Compact)"
+msgid "Always switch to default view"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -685,6 +697,10 @@ msgid "By name"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
+msgid "Toolbar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
 msgstr ""
 
@@ -694,6 +710,42 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Show tool bar"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Additional Package Info"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Compact view"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+msgid "Repository"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+msgid "Install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Versions"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Extended view"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Highlight version differences"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Colorize install reason"
+msgstr ""
+
+#: ../contents/ui/configuration/Appearance.qml
+msgid "Tab Bar"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -808,7 +860,7 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "Updates"
 msgstr ""
 
@@ -985,17 +1037,17 @@ msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since parti
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — "
-"names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
-msgstr ""
-
-#: ../contents/ui/configuration/Rules.qml
 msgid "Help"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
+msgstr ""
+
+#: ../contents/ui/configuration/Rules.qml
+msgid ""
+"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — "
+"names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
 
 #: ../contents/ui/configuration/Rules.qml
@@ -1265,14 +1317,6 @@ msgid "Keep open"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
-msgid "Compact view"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "Extended view"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
 msgid "News"
 msgstr ""
 
@@ -1357,7 +1401,7 @@ msgid "Install date"
 msgstr ""
 
 #: ../contents/ui/scrollview/Extended.qml
-msgid "Install reason"
+msgid "System updated"
 msgstr ""
 
 #: ../contents/ui/scrollview/News.qml

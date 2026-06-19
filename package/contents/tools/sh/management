@@ -80,7 +80,7 @@ showMenu() {
             ;;
         browse)
             selected=0
-            opts+=("$ICO_MNG_11 pacman repositories")
+            opts+=("$ICO_MNG_11 pacman")
             opts+=("$ICO_MNG_11 flathub")
             redraw
             case $selected in
@@ -461,11 +461,11 @@ recentlyInstalled() {
 
         local status status_color
         if echo "$orphan_pkgs" | grep -qx "$pkg"; then
-            status="orphan"; status_color="31"
+            status="$MNG_RECENT_ORPHAN"; status_color="31"
         elif echo "$explicit_pkgs" | grep -qx "$pkg"; then
-            status="explicit"; status_color="32"
+            status="$MNG_RECENT_EXPLICIT"; status_color="32"
         else
-            status="dependency"; status_color="33"
+            status="$MNG_RECENT_DEPEND"; status_color="33"
         fi
 
         output+="${pkg_date[$pkg]}|${pkg}|${status}|${status_color}\n"
