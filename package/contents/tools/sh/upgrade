@@ -30,7 +30,7 @@ printClose() {
     done
 
     tput cnorm
-    [[ $(basename $terminal) = "yakuake" ]] && qdbusCMD sessions removeSession $(qdbusCMD sessions activeSessionId)
+    [[ $(basename "$terminal") = "yakuake" ]] && qdbusCMD sessions removeSession "$(qdbusCMD sessions activeSessionId)"
 }
 
 bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
@@ -77,7 +77,7 @@ fullSystemUpgrade() {
         printMsg "$UPGRADE_FULL_ARCH"
         echo
 
-        [ "$mirrors" != "false" ] && $scriptDir/mirrorlist
+        [ "$mirrors" != "false" ] && "$scriptDir"/mirrorlist
 
         if [ -n "$preExec" ]; then
             run "$preExec"
@@ -142,7 +142,7 @@ fullSystemUpgrade() {
 
     endTime=$(date +%s)
     runTime=$((endTime-startTime))
-    echo
+    echo; echo
     printImportant "$UPGRADE_EXECTIME" "$(printf "%02dh:%02dm:%02ds" $((runTime / 3600)) $(( (runTime % 3600) / 60 )) $((runTime % 60)))"
 
     if [ ${#critical_updated[@]} -gt 0 ]; then
@@ -185,7 +185,7 @@ widget_package() {
     printMsg "$UPGRADE_PACKAGE: $2"
     echo
 
-    $scriptDir/widgets upgrade $1 $2
+    "$scriptDir"/widgets upgrade "$1" "$2"
 
     printClose
 }

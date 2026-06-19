@@ -13,7 +13,7 @@ config="$configDir/config.conf"
 export TEXTDOMAINDIR="$scriptDir/../../locale"
 export TEXTDOMAIN="plasma_applet_com.github.exequtic.apdatifier"
 
-source $config
+source "$config"
 
 while IFS= read -r line; do
     [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue

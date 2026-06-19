@@ -3,12 +3,12 @@
 source "$(dirname "$0")/vars"
 
 cleanup() {
-    [ -d $tempDir ] && rm -rf $tempDir
+    [ -d "$tempDir" ] && rm -rf "$tempDir"
 }
 
 makeTempDir() {
     cleanup
-    mkdir $tempDir
+    mkdir "$tempDir"
 }
 
 colorize() {
@@ -70,7 +70,7 @@ printClose() {
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
-    [[ $(basename $terminal) = "yakuake" ]] && qdbusCMD sessions removeSession $(qdbusCMD sessions activeSessionId)
+    [[ $(basename "$terminal") = "yakuake" ]] && qdbusCMD sessions removeSession "$(qdbusCMD sessions activeSessionId)"
 }
 
 printWhile() {
@@ -157,7 +157,7 @@ compareVer() {
 
 getId() {
     [[ $1 =~ ^[0-9]+$ ]] && f=2 || f=1
-    grep $1 "$(dirname "$0")/widgets-id" | cut -d' ' -f$f
+    grep "$1" "$(dirname "$0")/widgets-id" | cut -d' ' -f$f
 }
 
 restartPlasmashell() {
@@ -180,7 +180,7 @@ restartPlasmashell() {
 combineFiles() {
     sleep 1
     [ -f "$1" ] && rm "$1"
-    for cache in $(find $cacheDir -name "updates.json_*" 2>/dev/null | sort); do
+    for cache in $(find "$cacheDir" -name "updates.json_*" 2>/dev/null | sort); do
         cat "$cache" >> "$1"; rm "$cache"
     done
 }
@@ -346,7 +346,7 @@ checkCurrentVersions() {
     fi
 
     if [ "$widgets" = true ]; then
-        list+=$($scriptDir/widgets list)
+        list+=$("$scriptDir"/widgets list)
     fi
 
     if [ "$fwupd" = true ]; then
@@ -377,7 +377,7 @@ install_devel() {
 
     commit=$(curl -s https://api.github.com/repos/exequtic/apdatifier/commits/main | jq -r '.sha' | cut -c1-7)
 
-    if [[ "github commit: $commit" = "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" ]]; then
+    if [[ "github commit: $commit" = "$(jq -r '.KPlugin.Description' "$appletDir/metadata.json")" ]]; then
         printDone "Up to date"
         printClose
         exit
@@ -385,7 +385,7 @@ install_devel() {
 
     savedir=$(pwd)
     clonedir=$(mktemp -d)
-    cd $clonedir
+    cd "$clonedir"
 
     { git clone -n --depth=10 --filter=tree:0 -b main https://github.com/exequtic/apdatifier 2>/dev/null
     } & printWhile $! "Clone main branch"
@@ -423,8 +423,8 @@ install_devel() {
     kpackagetool6 -t Plasma/Applet -u apdatifier.tar 2>/dev/null
     echo
 
-    cd $savedir
-    [ ! -d $clonedir ] || rm -rf $clonedir
+    cd "$savedir"
+    [ ! -d "$clonedir" ] || rm -rf "$clonedir"
 
     restartShell=true
     restartPlasmashell
@@ -436,7 +436,7 @@ install_devel() {
 install_stable() {
     checkSetup
 
-    if [[ "$(jq -r '.KPlugin.Description' $appletDir/metadata.json)" = "Arch Update Notifier" ]]; then
+    if [[ "$(jq -r '.KPlugin.Description' "$appletDir/metadata.json")" = "Arch Update Notifier" ]]; then
         while true; do
             printImportant "It looks like you already have the stable version."
             printQuestion "Do you still want to proceed?"; read -r answer

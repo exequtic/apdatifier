@@ -9,7 +9,7 @@ returnMenu() {
     printf '\e[?25l'
     echo -e "\n$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
     IFS= read -rs
-    exec $scriptDir/management $selected
+    exec "$scriptDir/management" "$selected"
 }
 
 rank_mirrors() {
@@ -101,9 +101,9 @@ OUTDATED=false
 rankmirrors_mirrorlist="$(mktemp)"
 rankmirrors_time="$(mktemp)"
 
-trap 'rm -f $rankmirrors_mirrorlist $rankmirrors_time' INT TERM EXIT
+trap 'rm -f "$rankmirrors_mirrorlist" "$rankmirrors_time"' INT TERM EXIT
 
-curl -s -m 10 -o $rankmirrors_mirrorlist "$dynamicUrl" 2>/dev/null & printWhile $! "$MIRRORS_FETCH"
+curl -s -m 10 -o "$rankmirrors_mirrorlist" "$dynamicUrl" 2>/dev/null & printWhile $! "$MIRRORS_FETCH"
 if ! validate "$rankmirrors_mirrorlist"; then
     printError "$MIRRORS_ERR"
     printError "No server entries found."
@@ -122,11 +122,11 @@ if ! validate "$rankmirrors_mirrorlist"; then
 fi
 
 ${sudoBin} -n true 2>/dev/null || { echo; printImportant "$MIRRORS_SUDO"; }
-cat $rankmirrors_mirrorlist | ${sudoBin} tee $mirrorfile > /dev/null
+cat "$rankmirrors_mirrorlist" | ${sudoBin} tee "$mirrorfile" > /dev/null
 
 if [ $? -eq 0 ]; then
     printDone "$mirrorfile $MIRRORS_UPD"
-    echo -e "$y$(tail -n +3 $mirrorfile | sed 's/Server = //g')$c\n"
+    echo -e "$y$(tail -n +3 "$mirrorfile" | sed 's/Server = //g')$c\n"
     (( MENU )) && returnMenu
 else
     printError "$MIRRORS_SUDO"

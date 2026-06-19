@@ -14,23 +14,23 @@ icons=(apdatifier-plasmoid.svg
        apdatifier-package.svg
        apdatifier-flatpak.svg)
 
-test -d $configDir || mkdir -p $configDir
-test -f $config || touch $config
+test -d "$configDir" || mkdir -p "$configDir"
+test -f "$config" || touch "$config"
 
-test -d $cacheDir || mkdir -p $cacheDir
+test -d "$cacheDir" || mkdir -p "$cacheDir"
 # Migrate cache files from old location
 [[ -f "$configDir/updates.json" && ! -f "$cacheDir/updates.json" ]] && mv "$configDir/updates.json" "$cacheDir/updates.json"
 [[ -f "$configDir/news.json" && ! -f "$cacheDir/news.json" ]] && mv "$configDir/news.json" "$cacheDir/news.json"
 
 for dir in $iconsDir $notifDir; do
-    test -d $dir || mkdir -p $dir
+    test -d "$dir" || mkdir -p "$dir"
 done
 
 for icon in "${icons[@]}"; do
-    test -f $iconsDir/$icon || cp $appletDir/contents/ui/assets/icons/$icon $iconsDir
+    test -f "$iconsDir/$icon" || cp "$appletDir/contents/ui/assets/icons/$icon" "$iconsDir"
 done
 
-test -d $notifDir && cat > $notifDir/$notif << EOF
+test -d "$notifDir" && cat > "$notifDir/$notif" << EOF
 [Global]
 IconName=apdatifier-plasmoid
 Comment=Apdatifier

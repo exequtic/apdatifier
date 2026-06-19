@@ -5,7 +5,7 @@ source "$(dirname "$0")/utils"
 declare -A termArg=( ["gnome-terminal"]="--" ["ptyxis"]="--" ["terminator"]="-x" )
 name="${1^}"
 sess="Apdatifier"
-term="$(basename $terminal)"
+term="$(basename "$terminal")"
 termArg="${termArg[$term]:-"-e"}"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
@@ -16,10 +16,10 @@ _script="$scr $arg"
 [[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
 
 run_terminal() {
-    $term $termArg bash -c "$1"
+    "$term" "$termArg" bash -c "$1"
 }
 run_yakuake() {
-    qdbusCMD sessions runCommandInTerminal $session "bash -c '$1'"
+    qdbusCMD sessions runCommandInTerminal "$session" "bash -c '$1'"
 }
 create_tmux_session() {
     ! tmux has-session -t "$sess" 2>/dev/null && {
@@ -35,7 +35,7 @@ create_tmux_session() {
 if [[ $term = "yakuake" ]]; then
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
-    qdbusCMD tabs org.kde.yakuake.setTabTitle $session $name
+    qdbusCMD tabs org.kde.yakuake.setTabTitle "$session" "$name"
     if (( _TMUX )); then
         create_tmux_session
         run_yakuake "$_attach"

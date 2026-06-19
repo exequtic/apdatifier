@@ -73,7 +73,7 @@ showMenu() {
                 4) downgrade;;
                 5) showMenu cache;;
                 6) showMenu rebuild;;
-                7) tui_exit; exec $scriptDir/mirrorlist menu $selected;;
+                7) tui_exit; exec "$scriptDir/mirrorlist" menu "$selected";;
                 8) recentlyInstalled;;
                 9) showMenu main;;
             esac
