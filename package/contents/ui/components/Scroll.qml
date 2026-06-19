@@ -7,6 +7,8 @@ ScrollBar {
 
     property bool showByTimer: false
 
+    visible: root.visualSize < 1.0
+
     Timer {
         id: hideTimer
         interval: 1200

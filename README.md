@@ -17,7 +17,7 @@
 
 </div>
 
-# Features
+## Features
 - Searching updates for [pacman](https://archlinux.org/packages/), [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org), [Firmware](https://fwupd.org/lvfs/vendors/)
 - Notifications for updates and news
 - Bash script with useful options for managing packages
@@ -27,7 +27,7 @@
 
 <br>
 
-# Screenshots
+## Screenshots (outdated)
 
 <div align="center">
 
@@ -52,8 +52,8 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 
 <br>
 
-# Requirements
-## Optional dependencies
+## Requirements
+### Optional dependencies
 - `paru`, `yay`, `pikaur` - for AUR updates support
 - `flatpak` - for Flatpak updates support
 - `fwupdmgr` - for Firmware updates support
@@ -71,7 +71,7 @@ Feel free to help translate to new languages or update and improve the ones that
 
 <br> -->
 
-# Installation
+## Installation
 
 Just install directly from KDE Widget Store ("+ Add widgets..." -> "Get New Widgets..." -> "Download New Plasma Widgets").
 
@@ -96,7 +96,7 @@ systemctl --user restart plasma-plasmashell.service
 
 <br>
 
-# Uninstalling
+## Uninstalling
 Uninstall plasmoid and remove all related files (config, icons, notifyrc):
 
 ```bash
@@ -105,13 +105,15 @@ bash ~/.local/share/plasma/plasmoids/com.github.exequtic.apdatifier/contents/too
 
 <br>
 
-# Support the project
-<a href="https://www.buymeacoffee.com/evgk" target="_blank" title="buymeacoffee.com">
-  <img src="https://iili.io/JoQ1MeS.md.png" alt="buymeacoffee-badge" style="width: 256px;">
-</a>
-<br>
-<a href="https://nowpayments.io/donation/exequtic" target="_blank" title="nowpayments.io">
-   <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="nowpayments-badge" style="width: 256px;">
-</a>
+## Support the project
+<p>
+  <a href="https://www.buymeacoffee.com/evgk" target="_blank">
+    <img src="https://iili.io/JoQ1MeS.md.png" alt="Buy Me a Coffee" width="200">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://nowpayments.io/donation/exequtic" target="_blank">
+    <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="NOWPayments" width="200">
+  </a>
+</p>
 
 <br>

@@ -102,7 +102,7 @@ Representation {
                     id: searchButton
                     tooltipText: i18n("Filter by package name")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_search") : "search"
-                    visible: cfg.searchButton && !sts.busy && sts.count
+                    visible: cfg.searchButton && sts.count
                     enabled: visible && swipeView.currentIndex === 0
                     onClicked: {
                         if (searchFieldOpen) searchField.text = ""
@@ -208,9 +208,9 @@ Representation {
             Repeater {
                 model: [
                     {
-                        id: "extended",
-                        icon: "tab_extended",
-                        fallback: "view-split-top-bottom",
+                        id: "updates",
+                        icon: "status_package",
+                        fallback: "kpackagekit-updates",
                         label: i18n("Updates"),
                     },
                     cfg.feedsEnabled ? {
@@ -261,7 +261,7 @@ Representation {
 
             id: searchField
             clearButtonShown: true
-            visible: searchFieldOpen && !sts.busy && sts.count
+            visible: searchFieldOpen && sts.count
             placeholderText: i18n("Filter by package name")
             onTextChanged: modelList.setFilterFixedString(text)
         }
@@ -312,17 +312,17 @@ Representation {
             currentIndex: 0
             Repeater {
                 model: [
-                    { component: "extended" },
+                    { component: "updates" },
                     cfg.feedsEnabled ? { component: "news" } : null
                 ].filter(Boolean)
 
                 delegate: Loader {
                     required property var modelData
-                    sourceComponent: modelData.component === "extended" ? extendedComp : newsComp
+                    sourceComponent: modelData.component === "updates" ? updatesComp : newsComp
                 }
             }
 
-            Component { id: extendedComp; View.Extended {} }
+            Component { id: updatesComp; View.Updates {} }
             Component { id: newsComp; View.News { id: newsPage } }
         }
     }

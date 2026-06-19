@@ -53,7 +53,7 @@ Item {
                     NumberAnimation {
                         duration: 220
                         easing.type: Easing.OutBack
-                        easing.overshoot: 0.8
+                        easing.overshoot: 0.7
                     }
                 }
 
@@ -187,9 +187,7 @@ Item {
                                 active: model.RN && (cfg.compactInfo || "repository") === "installReason"
                                 visible: active
                                 onLoaded: {
-                                    item.text = model.RN === "explicit" ? i18n("Explicitly installed")
-                                              : model.RN === "dependency" ? i18n("Installed as a dependency")
-                                              : i18n("Orphaned dependency")
+                                    item.text = model.RN
                                     item.reason = model.RN || ""
                                 }
                             }
@@ -299,8 +297,22 @@ Item {
                                     ["DT", i18n("Install date")],
                                     ["RN", i18n("Install reason")]
                                 ]
+
                                 const details = []
-                                for (const [k, l] of F) model[k] && details.push(l, model[k])
+                                for (const [k, l] of F) {
+                                    if (!model[k]) continue
+
+                                    let value = model[k]
+
+                                    if (k === "RN") {
+                                        value = model.RN === "explicit" ? i18n("Explicitly installed")
+                                              : model.RN === "dependency" ? i18n("Installed as a dependency")
+                                              : i18n("Orphaned dependency")
+                                    }
+
+                                    details.push(l, value)
+                                }
+
                                 delegateItem.pkg = details
                             }
                         }
