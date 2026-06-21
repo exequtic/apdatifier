@@ -1441,7 +1441,7 @@ msgstr "Versionshinweise ansehen"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Dismiss"
-msgstr "Ablehnen"
+msgstr "Verwerfen"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
