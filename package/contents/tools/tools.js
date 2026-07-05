@@ -69,6 +69,7 @@ function Error(code, err) {
 
 function handleError(code, err, type, onError) {
     if (code && err) {
+        if (type === "aur") err = err.replace(/(https?:\/\/[^\s)?]+)\?[^\s)]+/g, '$1?…')
         sts.errors = sts.errors.concat([{code: code, message: err.trim(), type: type}])
         onError()
         return true
