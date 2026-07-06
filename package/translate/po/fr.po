@@ -275,11 +275,11 @@ msgstr "Supprimer le cache inutilisé"
 
 #: ../contents/tools/sh/messages
 msgid "Found directories in the pacman cache:"
-msgstr ""
+msgstr "Répertoires trouvés dans le cache pacman :"
 
 #: ../contents/tools/sh/messages
 msgid "Remove these directories?"
-msgstr ""
+msgstr "Supprimer ces répertoires ?"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
@@ -331,7 +331,7 @@ msgstr "Installé comme dépendance"
 
 #: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
 msgid "Orphaned dependency"
-msgstr ""
+msgstr "Dépendance orpheline"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -448,7 +448,7 @@ msgstr "Dernière vérification :"
 
 #: ../contents/tools/tools.js
 msgid "ago"
-msgstr "il y a"
+msgstr "auparavant"
 
 #: ../contents/tools/tools.js
 msgid "Next check in:"
@@ -652,7 +652,7 @@ msgstr "Couleur par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Select counter background color"
-msgstr "Sélectionnez la couleur de fond du compteur"
+msgstr "Sélectionnez la couleur d'arrière-plan du compteur"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default background color from current theme"
@@ -690,15 +690,15 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
-msgstr ""
+msgstr "Barre de défilement"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Auto-hide scrollbar"
-msgstr ""
+msgstr "Masquer automatiquement la barre de défilement"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default view"
-msgstr ""
+msgstr "Vue par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -716,7 +716,7 @@ msgstr "Comportement"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default view"
-msgstr ""
+msgstr "Toujours basculer vers la vue par défaut"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -732,7 +732,7 @@ msgstr "Par nom"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Toolbar"
-msgstr ""
+msgstr "Barre d'outils"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
@@ -748,7 +748,7 @@ msgstr "Afficher la barre d'outils"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Additional Package Info"
-msgstr ""
+msgstr "Informations supplémentaires sur le paquet"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Compact view"
@@ -757,7 +757,7 @@ msgstr "Vue compacte"
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/scrollview/Extended.qml
 msgid "Repository"
-msgstr ""
+msgstr "Dépôt"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/scrollview/Extended.qml
@@ -766,7 +766,7 @@ msgstr "Motif d'installation"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Versions"
-msgstr ""
+msgstr "Versions"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Extended view"
@@ -774,15 +774,15 @@ msgstr "Vue étendue"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Highlight version differences"
-msgstr ""
+msgstr "Surligner les différences de version"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Colorize install reason"
-msgstr ""
+msgstr "Coloriser le motif d'installation"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Tab Bar"
-msgstr ""
+msgstr "Barre d'onglets"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
