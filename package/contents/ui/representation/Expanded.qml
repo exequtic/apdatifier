@@ -50,7 +50,12 @@ Representation {
         }
     }
 
-    Component.onCompleted: checkActiveNewsItems()
+    Component.onCompleted: {
+        checkActiveNewsItems()
+
+        if (cfg.switchDefaultTab)
+            listCompactMode = (cfg.defaultTab !== 0)
+    }
 
     header: PlasmoidHeading {
         id: topHeader
