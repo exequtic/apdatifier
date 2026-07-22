@@ -248,7 +248,7 @@ Item {
                                                 return "<a href=\"" + delegateItem.pkg[index] + "\">" + delegateItem.pkg[index] + "</a>"
                                             return delegateItem.pkg[index]
                                         }
-                                        textFormat: header ? Text.StyledText : delegateItem.pkg[index].indexOf("://") !== -1 ? Text.StyledText : Text.PlainText
+                                        textFormat: header ? Text.StyledText : (delegateItem.pkg[index].indexOf("://") !== -1 || delegateItem.pkg[index].indexOf("<font") !== -1) ? Text.StyledText : Text.PlainText
                                         wrapMode: header ? Text.NoWrap : Text.WordWrap
                                         onLinkActivated: Qt.openUrlExternally(link)
                                     }
@@ -277,10 +277,11 @@ Item {
 
                             Component.onCompleted: {
                                 const F = [
+                                    ["VD", i18n("Version diff")],
+                                    ["RE", i18n("Repository")],
                                     ["TP", i18n("Package type")],
                                     ["DE", i18n("Description")],
                                     ["AU", i18n("Author")],
-                                    ["RE", i18n("Repository")],
                                     ["LN", "URL"],
                                     ["ID", i18n("App ID")],
                                     ["BR", i18n("Branch")],
@@ -300,11 +301,13 @@ Item {
 
                                 const details = []
                                 for (const [k, l] of F) {
-                                    if (!model[k]) continue
+                                    if (k !== "VD" && !model[k]) continue
 
                                     let value = model[k]
 
-                                    if (k === "RN") {
+                                    if (k === "VD") {
+                                        value = cfg.highlightVersionDiff ? versionDiff(model.VO, model.VN) : `${model.VO} → ${model.VN}`
+                                    } else if (k === "RN") {
                                         value = model.RN === "explicit" ? i18n("Explicitly installed")
                                               : model.RN === "dependency" ? i18n("Installed as a dependency")
                                               : i18n("Orphaned dependency")
@@ -386,24 +389,22 @@ Item {
             textFormat: Text.StyledText
             elide: Text.ElideRight
             opacity: 0.7
-
-            function versionDiff(oldVer, newVer) {
-                if (oldVer === newVer) return oldVer
-
-                let i = 0
-
-                while (i < oldVer.length &&
-                    i < newVer.length &&
-                    oldVer[i] === newVer[i]) {
-                    ++i
-                }
-
-                const prefix = oldVer.slice(0, i)
-                const oldDiff = oldVer.slice(i)
-                const newDiff = newVer.slice(i)
-
-                return `${prefix}<font color="${Kirigami.Theme.negativeTextColor}">${oldDiff}</font> → ${prefix}<font color="${Kirigami.Theme.positiveTextColor}">${newDiff}</font>`
-            }
         }
+    }
+
+    function versionDiff(oldVer, newVer) {
+        if (!oldVer || !newVer) return ""
+        if (oldVer === newVer) return oldVer
+
+        let i = 0
+        while (i < oldVer.length && i < newVer.length && oldVer[i] === newVer[i]) {
+            ++i
+        }
+
+        const prefix = oldVer.slice(0, i)
+        const oldDiff = oldVer.slice(i)
+        const newDiff = newVer.slice(i)
+
+        return `${prefix}<font color="${Kirigami.Theme.negativeTextColor}">${oldDiff}</font> → ${prefix}<font color="${Kirigami.Theme.positiveTextColor}">${newDiff}</font>`
     }
 }
