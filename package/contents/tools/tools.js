@@ -95,7 +95,10 @@ function init() {
                 }
                 config.forEach(line => {
                     const match = line.match(/(\w+)="([^"]*)"/)
-                    if (match) plasmoid.configuration[match[1]] = convert(match[2])
+                    if (match) {
+                        if (typeof plasmoid.configuration[match[1]] === "object") return // skip font
+                        plasmoid.configuration[match[1]] = convert(match[2])
+                    }
                 })
             }
 
@@ -163,6 +166,7 @@ function saveConfig() {
     Object.keys(cfg).forEach(key => {
         if (key.endsWith("Default")) {
             let name = key.slice(0, -7)
+            if (typeof cfg[name] === "object") return // skip font
             config += `${name}="${cfg[name]}"\n`
         }
     })

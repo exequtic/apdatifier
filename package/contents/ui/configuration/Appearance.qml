@@ -30,9 +30,7 @@ SimpleKCM {
     property string cfg_counterColor: plasmoid.configuration.counterColor
     property alias cfg_counterRadius: counterRadius.value
     property alias cfg_counterOpacity: counterOpacity.value
-    property string cfg_counterFontFamily: plasmoid.configuration.counterFontFamily
-    property alias cfg_counterFontBold: counterFontBold.checked
-    property alias cfg_counterFontSize: counterFontSize.value
+    property alias cfg_counterFont: fontDialog.fontChosen
     property alias cfg_counterGapsInner: counterGapsInner.value
     property alias cfg_counterGapsOuter: counterGapsOuter.value
 
@@ -392,42 +390,27 @@ SimpleKCM {
             Kirigami.FormData.isSection: true
         }
 
-        ComboBox {
-            Kirigami.FormData.label: i18n("Font family") + ":"
-            Layout.preferredWidth: Kirigami.Units.gridUnit * 12
-            enabled: counterEnabled
-            editable: true
-            textRole: "name"
-            model: {
-                let fonts = Qt.fontFamilies()
-                let arr = []
-                arr.push({"name": i18n("Default system font"), "value": ""})
-                for (let i = 0; i < fonts.length; i++) {
-                    arr.push({"name": fonts[i], "value": fonts[i]})
-                }
-                return arr
-            }
-
-            onCurrentIndexChanged: cfg_counterFontFamily = model[currentIndex]["value"]
-            Component.onCompleted: currentIndex = JS.setIndex(plasmoid.configuration.counterFontFamily, model)
+        FontDialog {
+            id: fontDialog
+            property font fontChosen: Qt.font()
+            title: i18n("Select a font")
+            modality: Qt.WindowModal
+            onAccepted: fontChosen = selectedFont
         }
 
-        Slider {
-            Kirigami.FormData.label: i18n("Font size") + ":"
-            Layout.preferredWidth: Kirigami.Units.gridUnit * 10
-            enabled: counterEnabled
-            id: counterFontSize
-            from: 2
-            to: 8
-            stepSize: 1
+        Button {
+            Kirigami.FormData.label: i18n("Counter font") + ":"
+            text: i18n("Select a font")
+            icon.name: "preferences-desktop-font-symbolic"
+            onClicked: fontDialog.open()
         }
 
-        CheckBox {
-            Kirigami.FormData.label: i18n("Font bold") + ":"
-            enabled: counterEnabled
-            id: counterFontBold
-            text: i18n("Enable")
-            onCheckedChanged: cfg_counterFontBold = counterFontBold.checked
+        Label {
+            id: fontName
+            visible: fontDialog.fontChosen.family && fontDialog.fontChosen.pointSize
+            text: i18n("%1pt %2", fontDialog.fontChosen.pointSize, fontDialog.fontChosen.family)
+            textFormat: Text.PlainText
+            font: fontDialog.fontChosen
         }
 
         Item {

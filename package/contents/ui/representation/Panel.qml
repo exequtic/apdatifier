@@ -37,7 +37,6 @@ MouseArea {
 
     readonly property real panelIconSize: horizontal ? parent.height : parent.width
     readonly property real iconSize: inTray ? Math.min(parent.width, parent.height) : panelIconSize
-    readonly property real counterPixelSize: Math.max(iconSize / 4, iconSize * (cfg.counterFontSize / 10))
 
     implicitHeight: iconSize
     implicitWidth: viewLoader.item ? viewLoader.item.implicitWidth : iconSize
@@ -131,9 +130,7 @@ MouseArea {
             Label {
                 id: counterText
                 visible: mouseArea.counterEnabled && !sts.busy && sts.count
-                font.family: plasmoid.configuration.counterFontFamily || Kirigami.Theme.defaultFont.family
-                font.pixelSize: Math.round(mouseArea.counterPixelSize)
-                font.bold: cfg.counterFontBold
+                font: cfg.counterFont.family ? cfg.counterFont : Kirigami.Theme.defaultFont
                 fontSizeMode: Text.FixedSize
                 text: sts.count
             }
@@ -219,9 +216,7 @@ MouseArea {
                     id: counter
                     anchors.centerIn: counterFrame
                     text: sts.count
-                    font.family: plasmoid.configuration.counterFontFamily || Kirigami.Theme.defaultFont.family
-                    font.pixelSize: Math.round(mouseArea.counterPixelSize)
-                    font.bold: cfg.counterFontBold
+                    font: cfg.counterFont.family ? cfg.counterFont : Kirigami.Theme.smallFont
                     color: cfg.counterColor ? (mouseArea.darkColor(counterFrame.color) ? mouseArea.lightText : mouseArea.darkText) : Kirigami.Theme.textColor
                     visible: counterFrame.visible
                 }
