@@ -179,10 +179,9 @@ function checkDependencies() {
     const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done
         if command -v flatpak >/dev/null; then
             flatpak list --app --columns=application | while IFS= read -r app; do
-                desktop="$(flatpak info --show-location "$app")/export/share/applications/$app.desktop"
-                [[ -f "$desktop" ]] || continue
-                flatpak info --show-permissions "$app" | grep -qx 'org.freedesktop.Flatpak=talk' || continue
-                command="$(sed -nE 's/^Exec=.*--command=([^[:space:]]+).*/\\1/p' "$desktop")"
+                metadata="$(flatpak info --show-metadata "$app" 2>/dev/null)" || continue
+                grep -qx 'org.freedesktop.Flatpak=talk' <<< "$metadata" || continue
+                command="$(sed -nE '/^\[Application\]/,/^\[/ s/^command=([^[:space:]]+).*/\\1/p' <<< "$metadata")"
                 [[ " ${terminalPkgs} " == *" $command "* ]] && echo "flatpak://$app/$command"
             done
         fi`

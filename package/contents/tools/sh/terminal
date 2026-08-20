@@ -52,7 +52,10 @@ if [[ $term = "yakuake" ]]; then
             qdbusCMD sessions activeSessionId &>/dev/null && break
             sleep 0.1
         done
-        qdbusCMD sessions activeSessionId &>/dev/null || exit 1
+        qdbusCMD sessions activeSessionId &>/dev/null || {
+            kdialog --error "$YAKUAKE_START_ERR"
+            exit 1
+        }
     fi
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
