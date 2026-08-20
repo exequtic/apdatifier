@@ -174,9 +174,22 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman flatpak fwupdmgr paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
-    const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
-    const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
+    const terminalPkgs = "alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    const pkgs = `pacman flatpak fwupdmgr paru pikaur yay jq tmux ${terminalPkgs}`
+    const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done
+        if command -v flatpak >/dev/null; then
+            flatpak list --app --columns=application | while IFS= read -r app; do
+                desktop="$(flatpak info --show-location "$app")/export/share/applications/$app.desktop"
+                [[ -f "$desktop" ]] || continue
+                flatpak info --show-permissions "$app" | grep -qx 'org.freedesktop.Flatpak=talk' || continue
+                command="$(sed -nE 's/^Exec=.*--command=([^[:space:]]+).*/\\1/p' "$desktop")"
+                [[ " ${terminalPkgs} " == *" $command "* ]] && echo "flatpak://$app/$command"
+            done
+        fi`
+    const populate = (data) => data.map(item => ({
+        "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
+        "value": item
+    }))
 
     execute(checkPkg(pkgs), (cmd, out, err, code) => {
         if (Error(code, err)) return
@@ -985,4 +998,3 @@ function removeNewsItem(index) {
 
     saveNews()
 }
-

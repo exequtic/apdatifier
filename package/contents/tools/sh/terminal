@@ -5,8 +5,15 @@ source "$(dirname "$0")/utils"
 declare -A termArg=( ["gnome-terminal"]="--" ["ptyxis"]="--" ["terminator"]="-x" )
 name="${1^}"
 sess="Apdatifier"
-term="$(basename "$terminal")"
+if [[ $terminal = flatpak://* ]]; then
+    flatpakTerm="${terminal#flatpak://}"
+    flatpakApp="${flatpakTerm%/*}"
+    term="${flatpakTerm##*/}"
+else
+    term="$(basename "$terminal")"
+fi
 termArg="${termArg[$term]:-"-e"}"
+termEnv="xterm-256color"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
@@ -16,10 +23,16 @@ _script="$scr $arg"
 [[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
 
 run_terminal() {
-    "$term" "$termArg" bash -c "$1"
+    if [[ -n $flatpakApp ]]; then
+        flatpak run --command="$term" "$flatpakApp" "$termArg" flatpak-spawn --host --env=TERM="$termEnv" bash -c "$1"
+    else
+        "$term" "$termArg" bash -c "$1"
+    fi
 }
 run_yakuake() {
-    qdbusCMD sessions runCommandInTerminal "$session" "bash -c '$1'"
+    local command="bash -c '$1'"
+    [[ -n $flatpakApp ]] && command="flatpak-spawn --host --env=TERM=$termEnv $command"
+    qdbusCMD sessions runCommandInTerminal "$session" "$command"
 }
 create_tmux_session() {
     ! tmux has-session -t "$sess" 2>/dev/null && {
@@ -33,6 +46,14 @@ create_tmux_session() {
 
 
 if [[ $term = "yakuake" ]]; then
+    if [[ -n $flatpakApp ]]; then
+        flatpak run "$flatpakApp" >/dev/null 2>&1 &
+        for _ in {1..50}; do
+            qdbusCMD sessions activeSessionId &>/dev/null && break
+            sleep 0.1
+        done
+        qdbusCMD sessions activeSessionId &>/dev/null || exit 1
+    fi
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
     qdbusCMD tabs org.kde.yakuake.setTabTitle "$session" "$name"
