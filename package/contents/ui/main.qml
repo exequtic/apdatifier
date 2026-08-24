@@ -101,7 +101,7 @@ PlasmoidItem {
             onTriggered: sts.proc ? JS.stopCheck() : JS.checkUpdates()
         },
         PlasmaCore.Action {
-            text: i18n("Upgrade system")
+            text: i18n("Full upgrade")
             icon.name: "akonadiconsole"
             enabled: (cfg.terminal && cfg.tmuxSession && sts.count) || (cfg.terminal && !sts.busy && sts.count)
             onTriggered: JS.upgradeSystem()

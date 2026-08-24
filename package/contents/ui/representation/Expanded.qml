@@ -57,6 +57,30 @@ Representation {
             listCompactMode = (cfg.defaultTab !== 0)
     }
 
+    Menu {
+        id: upgradeMenu
+
+        readonly property var sources: [
+            (cfg.arch || cfg.aur) ? { t: i18n("System packages"), i: "apdatifier-package", a: "system" } : null,
+            cfg.flatpak  ? { t: i18n("Flatpak"),   i: "apdatifier-flatpak", a: "flatpak" } : null,
+            cfg.widgets  ? { t: i18n("Widgets"),   i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,
+            cfg.fwupd    ? { t: i18n("Firmware"),  i: "application-x-firmware", a: "fwupd" } : null
+        ].filter(Boolean)
+
+        function openAt(anchor) {
+            Qt.callLater(() => anchor ? upgradeMenu.popup(anchor, 0, anchor.height) : upgradeMenu.popup())
+        }
+
+        Repeater {
+            model: upgradeMenu.sources
+            MenuItem {
+                text: modelData.t
+                icon.name: modelData.i
+                onClicked: JS.upgradePart(modelData.a)
+            }
+        }
+    }
+
     header: PlasmoidHeading {
         id: topHeader
         visible: (cfg.showStatusText || cfg.showToolBar) && !sts.error
@@ -156,11 +180,20 @@ Representation {
 
                 ToolbarButton {
                     id: upgradeButton
-                    tooltipText: i18n("Upgrade system")
+                    tooltipText: upgradeMenu.sources.length > 1 ? i18n("Full upgrade (right-click to choose)") : i18n("Full upgrade")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_upgrade") : "akonadiconsole"
                     enabled: !sts.busy && sts.count && cfg.terminal
                     visible: enabled && cfg.upgradeButton
-                    onClicked: { buttonTooltip.hide(); JS.upgradeSystem() }
+                    onClicked: {
+                        buttonTooltip.hide()
+                        JS.upgradeSystem()
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.RightButton
+                        onPressed: upgradeMenu.sources.length > 1 ? upgradeMenu.openAt(upgradeButton) : null
+                    }
                 }
 
                 ToolbarButton {

@@ -35,109 +35,101 @@ printClose() {
 
 bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper
 
-fullSystemUpgrade() {
-    startTime=$(date +%s)
-    critical_updated=()
-    critical_installed=()
-    critical_packages=(
-        "amd-ucode"
-        "intel-ucode"
-        "cryptsetup"
-        "linux"
-        "linux-hardened"
-        "linux-lts"
-        "linux-zen"
-        "linux-rt"
-        "linux-rt-lts"
-        "linux-firmware*"
-        "linux-cachyos*"
-        "linux-cacule*"
-        "nvidia"
-        "nvidia-dkms"
-        "nvidia-*xx-dkms"
-        "nvidia-*xx"
-        "nvidia-*lts-dkms"
-        "nvidia*-lts"
-        "mkinitcpio*"
-        "booster*"
-        "mesa"
-        "systemd*"
-        "wayland"
-        "virtualbox-guest-utils"
-        "virtualbox-host-dkms"
-        "virtualbox-host-modules-arch"
-        "egl-wayland"
-        "xf86-video-*"
-        "xorg-server*"
-        "xorg-fonts*"
-        "winesync-dkms"
-    )
+critical_packages=(
+    "amd-ucode"
+    "intel-ucode"
+    "cryptsetup"
+    "linux"
+    "linux-hardened"
+    "linux-lts"
+    "linux-zen"
+    "linux-rt"
+    "linux-rt-lts"
+    "linux-firmware*"
+    "linux-cachyos*"
+    "linux-cacule*"
+    "nvidia"
+    "nvidia-dkms"
+    "nvidia-*xx-dkms"
+    "nvidia-*xx"
+    "nvidia-*lts-dkms"
+    "nvidia*-lts"
+    "mkinitcpio*"
+    "booster*"
+    "mesa"
+    "systemd*"
+    "wayland"
+    "virtualbox-guest-utils"
+    "virtualbox-host-dkms"
+    "virtualbox-host-modules-arch"
+    "egl-wayland"
+    "xf86-video-*"
+    "xorg-server*"
+    "xorg-fonts*"
+    "winesync-dkms"
+)
 
-    if [ "$arch" = true ]; then
-        printMsg "$UPGRADE_FULL_ARCH"
-        echo
+arch_upgrade() {
+    printMsg "$UPGRADE_FULL_ARCH"
+    echo
 
-        [ "$mirrors" != "false" ] && "$scriptDir"/mirrorlist
+    [ "$mirrors" != "false" ] && "$scriptDir"/mirrorlist
 
-        if [ -n "$preExec" ]; then
-            run "$preExec"
-            printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
-        fi
+    if [ -n "$preExec" ]; then
+        run "$preExec"
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+    fi
 
-        if [ "$rebootSystem" = true ]; then
-            for package in "${critical_packages[@]}"; do
-                matches=$(pacman -Qq | grep -E "^${package//\*/.*}$")
-                [ -n "$matches" ] && critical_installed+=($matches)
-            done
+    if [ "$rebootSystem" = true ]; then
+        for package in "${critical_packages[@]}"; do
+            matches=$(pacman -Qq | grep -E "^${package//\*/.*}$")
+            [ -n "$matches" ] && critical_installed+=($matches)
+        done
 
-            declare -A beforeVersions
-            for pkg in "${critical_installed[@]}"; do
-                beforeVersions[$pkg]=$(pacman -Q $pkg | awk '{print $2}')
-            done
-        fi
-
-        test -f "$configDir/env.sh" && source "$configDir/env.sh"
-
-        ignorePkgs="$@"
-        run "$bin -Syu $archFlags $ignorePkgs"
-
+        declare -A beforeVersions
         for pkg in "${critical_installed[@]}"; do
-            afterVersion=$(pacman -Q $pkg | awk '{print $2}')
-            if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
-                critical_updated+=("$pkg")
-            fi
+            beforeVersions[$pkg]=$(pacman -Q $pkg | awk '{print $2}')
         done
     fi
 
-    if [ "$flatpak" = true ]; then
-        printMsg "$UPGRADE_FULL_FLATPAK"
-        echo
+    test -f "$configDir/env.sh" && source "$configDir/env.sh"
 
-        run "flatpak update $flatpakFlags"
+    ignorePkgs="$@"
+    run "$bin -Syu $archFlags $ignorePkgs"
 
-        if [ "$flatpakRemoveUnused" = true ]; then
-            echo
-            run "flatpak uninstall --unused $flatpakFlags"
+    for pkg in "${critical_installed[@]}"; do
+        afterVersion=$(pacman -Q $pkg | awk '{print $2}')
+        if [ "${beforeVersions[$pkg]}" != "$afterVersion" ]; then
+            critical_updated+=("$pkg")
         fi
-    fi
+    done
+}
 
-    if [ "$widgets" = true ]; then
-        printMsg "$UPGRADE_FULL_WIDGETS"
+flatpak_upgrade() {
+    printMsg "$UPGRADE_FULL_FLATPAK"
+    echo
+
+    run "flatpak update $flatpakFlags"
+
+    if [ "$flatpakRemoveUnused" = true ]; then
         echo
-        run "$scriptDir/widgets upgradeAll" noPrint
+        run "flatpak uninstall --unused $flatpakFlags"
     fi
+}
 
-    if [ "$fwupd" = true ]; then
-        printMsg "fwupdmgr"
-        echo
-        run "$sudoBin fwupdmgr update"
-    fi
+widgets_upgrade() {
+    printMsg "$UPGRADE_FULL_WIDGETS"
+    echo
+    run "$scriptDir/widgets upgradeAll" noPrint
+}
 
-    if [ -n "$postExec" ]; then
-        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
-        run "$postExec"
-    fi
+fwupd_upgrade() {
+    printMsg "fwupdmgr"
+    echo
+    run "$sudoBin fwupdmgr update"
+}
 
+finish() {
     trap ' ' SIGINT
 
     endTime=$(date +%s)
@@ -159,6 +151,64 @@ fullSystemUpgrade() {
     fi
 
     printClose
+}
+
+fullSystemUpgrade() {
+    startTime=$(date +%s)
+    critical_updated=()
+    critical_installed=()
+
+    if [ "$arch" = true ] || [ "$aur" = true ]; then
+        arch_upgrade "$@"
+    fi
+    if [ "$flatpak" = true ]; then
+        flatpak_upgrade
+    fi
+    if [ "$widgets" = true ]; then
+        widgets_upgrade
+    fi
+    if [ "$fwupd" = true ]; then
+        fwupd_upgrade
+    fi
+
+    if [ -n "$postExec" ]; then
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+        run "$postExec"
+    fi
+
+    finish
+}
+
+system_upgrade() {
+    startTime=$(date +%s)
+    critical_updated=()
+    critical_installed=()
+    arch_upgrade "$@"
+
+    if [ -n "$postExec" ]; then
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+        run "$postExec"
+    fi
+
+    finish
+}
+
+flatpak_all_upgrade() {
+    startTime=$(date +%s)
+    flatpak_upgrade
+    finish
+}
+
+widgets_all_upgrade() {
+    startTime=$(date +%s)
+    widgets_upgrade
+    finish
+}
+
+fwupd_all_upgrade() {
+    startTime=$(date +%s)
+    fwupd_upgrade
+    finish
 }
 
 sys_reboot() {
@@ -193,7 +243,11 @@ widget_package() {
 
 case "$1" in
           "full") shift; fullSystemUpgrade $@ ;;
-       "flatpak") shift; flatpak_package $1 $2;;
-        "widget") shift; widget_package $1 $2;;
+        "system") shift; system_upgrade $@ ;;
+       "flatpak") shift; flatpak_all_upgrade ;;
+       "widgets") shift; widgets_all_upgrade ;;
+         "fwupd") shift; fwupd_all_upgrade ;;
+   "flatpak-pkg") shift; flatpak_package $1 $2 ;;
+    "widget-pkg") shift; widget_package $1 $2 ;;
                *) exit;;
 esac

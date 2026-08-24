@@ -208,9 +208,9 @@ function upgradePackage(name, appID, contentID) {
     if (sts.upgrading) return
 
     if (appID) {
-        runInTerminal("upgrade", "flatpak", appID, name)
+        runInTerminal("upgrade", "flatpak-pkg", appID, name)
     } else if (contentID) {
-        runInTerminal("upgrade", "widget", contentID, name)
+        runInTerminal("upgrade", "widget-pkg", contentID, name)
     }
 }
 
@@ -259,6 +259,14 @@ function upgradeSystem() {
     runInTerminal("upgrade", "full", `${ignorePkgs}`)
 }
 
+function upgradePart(source) {
+    if (sts.upgrading && !cfg.tmuxSession) return
+    if (source === "system") {
+        runInTerminal("upgrade", "system", buildIgnoreString())
+    } else {
+        runInTerminal("upgrade", source)
+    }
+}
 
 function stopCheck() {
     sts.errors = []
