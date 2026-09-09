@@ -52,9 +52,14 @@ Representation {
 
     Component.onCompleted: {
         checkActiveNewsItems()
+        listCompactMode = (cfg.defaultTab !== 0)
+    }
 
-        if (cfg.switchDefaultTab)
-            listCompactMode = (cfg.defaultTab !== 0)
+    Connections {
+        target: plasmoid.configuration
+        function onDefaultTabChanged() {
+            listCompactMode = (plasmoid.configuration.defaultTab !== 0)
+        }
     }
 
     Menu {
