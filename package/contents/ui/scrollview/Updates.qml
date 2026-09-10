@@ -22,6 +22,11 @@ Item {
             policy: !sts.count ? ScrollBar.AlwaysOff : ScrollBar.AsNeeded
         }
 
+        Kirigami.WheelHandler {
+            target: listView
+            verticalStepSize: 100
+        }
+
         anchors.fill: parent
         model: modelList
         boundsBehavior: Flickable.StopAtBounds
