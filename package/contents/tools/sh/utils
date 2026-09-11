@@ -267,6 +267,7 @@ rss() {
         local max=${feedsFetchCount:-3}
         (( count > max )) && count=$max
 
+        local -a feedLinks=()
         local n
         for (( n=1; n<=count; n++ )); do
             local article timestamp link
@@ -281,6 +282,7 @@ rss() {
             fi
 
             [[ -z "$article" || -z "$timestamp" || -z "$link" ]] && continue
+            feedLinks+=("$link")
 
             if ! jq -e --arg l "$link" '.[] | select(.link == $l)' "$newsFile" > /dev/null; then
                 local item=$(jq -n --arg t "$title" --arg a "$article" --arg l "$link" --argjson ts "$timestamp" \
@@ -289,14 +291,16 @@ rss() {
             fi
         done
 
-        # Prune oldest entries for this feed down to feedsFetchCount
-        while (( $(jq --arg t "$title" '[.[] | select(.title == $t)] | length' "$newsFile") > max )); do
-            index=$(jq --arg t "$title" 'to_entries | reverse | map(select(.value.title == $t)) | .[0].key' "$newsFile")
-            updateJson "$newsFile" "$(jq --argjson index "$index" 'del(.[$index])' "$newsFile")"
-        done
+        # Drop this feed's entries whose link left the feed (zombies from feed edits)
+        if (( ${#feedLinks[@]} )); then
+            local linksJson
+            linksJson=$(printf '%s\n' "${feedLinks[@]}" | jq -R . | jq -s .)
+            updateJson "$newsFile" "$(jq --arg t "$title" --argjson links "$linksJson" \
+                'map(select(.title != $t or (.link as $l | $links | index($l)) != null))' "$newsFile")"
+        fi
     done
 
-    updateJson "$newsFile" "$(jq 'sort_by(.timestamp) | reverse' "$newsFile")"
+    updateJson "$newsFile" "$(jq 'map(del(.date)) | sort_by(.timestamp) | reverse' "$newsFile")"
 
     jq . $newsFile
 

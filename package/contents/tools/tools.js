@@ -25,7 +25,7 @@ function execute(command, callback, opt) {
 }
 
 const readFile = (file) => `[ -f "${file}" ] && cat "${file}"`
-const writeFile = (data, redir, file) => `echo '${data}' ${redir} "${file}"`
+const writeFile = (data, redir, file) => `echo '${String(data).replace(/'/g, "'\\''")}' ${redir} "${file}"`
 const saveTimestamp = () => execute(writeFile(Math.round(sts.lastCheck).toString(), '>', timestampFile))
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
@@ -130,22 +130,7 @@ function init() {
             if (Error(code, err)) return
             if (out && validJSON(out, newsFile)) {
                 const news = JSON.parse(out.trim())
-                let migrate = false //
-                for (const article of news) {
-                    // todo: remove later
-                    if (article.timestamp === undefined && article.date) {
-                        migrate = true
-                        const [d, t] = article.date.split(" | ")
-                        const [day, month, year] = d.split(".").map(Number)
-                        const [hour, minute] = t.split(":").map(Number)
-                        article.timestamp = Math.floor(new Date(year, month - 1, day, hour, minute).getTime() / 1000)
-                        delete article.date
-                    }//
-
-                    addNewsItem(article)
-                }
-
-                if (migrate) saveNews() //
+                for (const article of news) addNewsItem(article)
             }
 
             onStartup()
@@ -354,6 +339,7 @@ function checkUpdates() {
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
         execute(bash('utils', 'rss', feeds), (cmd, out, err, code) => {
+            if (handleError(code, err, "news", next)) return
             if (out) {
                 const news = JSON.parse(out.trim())
                 if (cfg.notifyNews) {
@@ -381,9 +367,10 @@ function checkUpdates() {
                         if (!newLinks.includes(modelItem.link)) newsModel.remove(i)
                     }
                 }
+
+                saveNews()
             }
 
-            if (handleError(code, err, "news", next)) return
             next()
         }, procOpt)
     }
@@ -906,9 +893,7 @@ function switchScheduler() {
 }
 
 function toFileFormat(obj) {
-    const jsonStringWithSpace = JSON.stringify(obj, null, 2)
-    const writebleJsonStrings = jsonStringWithSpace.replace(/'/g, "")
-    return writebleJsonStrings
+    return JSON.stringify(obj, null, 2)
 }
 
 function validJSON(string, file) {
