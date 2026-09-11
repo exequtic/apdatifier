@@ -175,22 +175,12 @@ function saveConfig() {
 
 function checkDependencies() {
     const terminalPkgs = "alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
-    const pkgs = `pacman flatpak fwupdmgr paru pikaur yay jq tmux ${terminalPkgs}`
-    const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done
-        if command -v flatpak >/dev/null; then
-            flatpak list --app --columns=application | while IFS= read -r app; do
-                metadata="$(flatpak info --show-metadata "$app" 2>/dev/null)" || continue
-                grep -qx 'org.freedesktop.Flatpak=talk' <<< "$metadata" || continue
-                command="$(sed -nE '/^\[Application\]/,/^\[/ s/^command=([^[:space:]]+).*/\\1/p' <<< "$metadata")"
-                [[ " ${terminalPkgs} " == *" $command "* ]] && echo "flatpak://$app/$command"
-            done
-        fi`
     const populate = (data) => data.map(item => ({
         "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
         "value": item
     }))
 
-    execute(checkPkg(pkgs), (cmd, out, err, code) => {
+    execute(bash('utils', 'checkPkgs', terminalPkgs), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
         const output = out.split("\n")
