@@ -174,11 +174,12 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const pkgs = "pacman flatpak fwupdmgr paru pikaur yay jq tmux alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
-    const checkPkg = (pkgs) => `for pkg in ${pkgs}; do command -v $pkg || echo; done`
-    const populate = (data) => data.map(item => ({ "name": item.split("/").pop(), "value": item }))
+    const populate = (data) => data.map(item => ({
+        "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
+        "value": item
+    }))
 
-    execute(checkPkg(pkgs), (cmd, out, err, code) => {
+    execute(bash('utils', 'checkPkgs'), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
         const output = out.split("\n")
@@ -993,4 +994,3 @@ function removeNewsItem(index) {
 
     saveNews()
 }
-
