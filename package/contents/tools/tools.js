@@ -174,13 +174,12 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const terminalPkgs = "alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
     const populate = (data) => data.map(item => ({
         "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
         "value": item
     }))
 
-    execute(bash('utils', 'checkPkgs', terminalPkgs), (cmd, out, err, code) => {
+    execute(bash('utils', 'checkPkgs'), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
         const output = out.split("\n")

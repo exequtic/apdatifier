@@ -12,7 +12,6 @@ UPGRADE_REBOOTING        = i18n("The system is going to reboot now...")
 UPGRADE_ENTER            = i18n("Press Enter to close")
 UPGRADE_SKIPPED          = i18n("Skipped...")
 UPGRADE_COMPLETE         = i18n("Upgrade complete, close the terminal")
-YAKUAKE_START_ERR         = i18n("Unable to start Yakuake")
 
 MIRRORS_FETCH            = i18n("Fetching the latest filtered mirror list")
 MIRRORS_RANK             = i18n("Ranking mirrors by their connection and opening speed")

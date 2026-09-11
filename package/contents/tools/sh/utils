@@ -513,15 +513,15 @@ uninstall() {
 }
 
 checkPkgs() {
-    local termPkgs="$*"
-    local pkgs="pacman flatpak fwupdmgr paru pikaur yay jq tmux $termPkgs"
-    for pkg in $pkgs; do command -v $pkg || echo; done
+    local terms="alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
+    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux $terms"
+    for pkg in $utils; do command -v $pkg || echo; done
     if command -v flatpak >/dev/null; then
         flatpak list --app --columns=application | while IFS= read -r app; do
             metadata="$(flatpak info --show-metadata "$app" 2>/dev/null)" || continue
             grep -qx 'org.freedesktop.Flatpak=talk' <<< "$metadata" || continue
             command="$(sed -nE '/^\[Application\]/,/^\[/ s/^command=([^[:space:]]+).*/\1/p' <<< "$metadata")"
-            [[ " $termPkgs " == *" $command "* ]] && echo "flatpak://$app/$command"
+            [[ " $terms " == *" $command "* ]] && echo "flatpak://$app/$command"
         done
     fi
 }
