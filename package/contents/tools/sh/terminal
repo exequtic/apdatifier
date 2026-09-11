@@ -13,7 +13,6 @@ else
     term="$(basename "$terminal")"
 fi
 termArg="${termArg[$term]:-"-e"}"
-termEnv="xterm-256color"
 scr="$(dirname "$0")/$1"
 arg="${@:2}"
 
@@ -24,14 +23,13 @@ _script="$scr $arg"
 
 run_terminal() {
     if [[ -n $flatpakApp ]]; then
-        flatpak run --command="$term" "$flatpakApp" "$termArg" flatpak-spawn --host --env=TERM="$termEnv" bash -c "$1"
+        flatpak run --command="$term" "$flatpakApp" "$termArg" "$(command -v bash)" -c "$1"
     else
         "$term" "$termArg" bash -c "$1"
     fi
 }
 run_yakuake() {
     local command="bash -c '$1'"
-    [[ -n $flatpakApp ]] && command="flatpak-spawn --host --env=TERM=$termEnv $command"
     qdbusCMD sessions runCommandInTerminal "$session" "$command"
 }
 create_tmux_session() {
