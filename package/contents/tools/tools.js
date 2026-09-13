@@ -714,7 +714,7 @@ function saveCache(list) {
     if (JSON.stringify(list).length > 130000) {
         let start = 0
         const chunkSize = 200
-        const json = JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))).replace(/},/g, "},\n").replace(/'/g, "")
+        const json = JSON.stringify(keys(sortList(JSON.parse(JSON.stringify(list)), true))).replace(/},/g, "},\n")
         const lines = json.split("\n")
         while (start < lines.length) {
             const chunk = lines.slice(start, start + chunkSize).join("\n")
