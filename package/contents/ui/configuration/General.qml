@@ -36,6 +36,7 @@ SimpleKCM {
     property alias cfg_notifyUpdates: notifyUpdates.checked
     property alias cfg_notifyUpdatesAction: notifyUpdatesAction.checked
     property alias cfg_notifyEveryBump: notifyEveryBump.checked
+    property alias cfg_notifyExplicitOnly: notifyExplicitOnly.checked
     property alias cfg_notifyNews: notifyNews.checked
     property alias cfg_notifyNewsAction: notifyNewsAction.checked
     property alias cfg_notifyErrors: notifyErrors.checked
@@ -537,6 +538,12 @@ SimpleKCM {
                 Kirigami.ContextualHelpButton {
                     toolTipText: i18n("If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>")
                 }
+            }
+
+            CheckBox {
+                id: notifyExplicitOnly
+                text: i18n("Don't notify about dependencies")
+                enabled: notifyUpdates.checked
             }
 
             RowLayout {

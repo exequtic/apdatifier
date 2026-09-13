@@ -697,7 +697,10 @@ function finalize(list) {
 
     if (cfg.notifyUpdates) {
         const cached = new Map(cache.map(el => [el.NM, el.VN]))
-        const newList = applyRules(list).filter(el => !cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN))
+        const newList = applyRules(list).filter(el =>
+            (!cfg.notifyExplicitOnly || !el.RN || el.RN === "explicit") &&
+            (!cached.has(el.NM) || (cfg.notifyEveryBump && cached.get(el.NM) !== el.VN))
+        )
     
         if (newList.length > 0) {
             const title = i18np("+%1 new update", "+%1 new updates", newList.length)

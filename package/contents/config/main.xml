@@ -27,6 +27,7 @@
         <entry name="notifyUpdates" type="bool"><default>true</default></entry>
         <entry name="notifyUpdatesAction" type="bool"><default>false</default></entry>
         <entry name="notifyEveryBump" type="bool"><default>true</default></entry>
+        <entry name="notifyExplicitOnly" type="bool"><default>false</default></entry>
         <entry name="notifyNews" type="bool"><default>true</default></entry>
         <entry name="notifyNewsAction" type="bool"><default>false</default></entry>
         <entry name="notifyErrors" type="bool"><default>true</default></entry>
