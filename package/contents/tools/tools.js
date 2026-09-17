@@ -175,7 +175,8 @@ function checkDependencies() {
 
         const terminals = populate(output.slice(8).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
-        if (!cfg.terminal) cfg.terminal = cfg.terminals.length > 0 ? cfg.terminals[0].value : ""
+        if (!cfg.terminal || !terminals.some(t => t.value === cfg.terminal))
+            cfg.terminal = terminals.length > 0 ? terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
