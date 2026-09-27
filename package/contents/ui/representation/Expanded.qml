@@ -13,7 +13,7 @@ import "../scrollview" as View
 import "../../tools/tools.js" as JS
 
 Representation {
-    property string currVersion: "v2.9.9"
+    property string currVersion: "v2.10.0"
     function versionLess(a, b) {
         const nums = v => (String(v).match(/\d+/g) || []).map(Number)
         const [x, y] = [nums(a), nums(b)]
