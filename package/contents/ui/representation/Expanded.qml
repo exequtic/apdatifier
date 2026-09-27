@@ -14,6 +14,15 @@ import "../../tools/tools.js" as JS
 
 Representation {
     property string currVersion: "v2.9.9"
+    function versionLess(a, b) {
+        const nums = v => (String(v).match(/\d+/g) || []).map(Number)
+        const [x, y] = [nums(a), nums(b)]
+        for (let i = 0; i < Math.max(x.length, y.length); i++) {
+            const d = (x[i] || 0) - (y[i] || 0)
+            if (d) return d < 0
+        }
+        return false
+    }
     property bool searchFieldOpen: false
     property bool expanded: root.expanded
     onExpandedChanged: {
@@ -315,8 +324,7 @@ Representation {
             Layout.bottomMargin: Kirigami.Units.smallSpacing * 2
             text: "<b>" + i18n("Check out release notes")+" "+currVersion+"</b>"
             type: Kirigami.MessageType.Positive
-            visible: !searchFieldOpen && isOnline &&
-                     plasmoid.configuration.version.localeCompare(currVersion, undefined, { numeric: true, sensitivity: 'base' }) < 0
+            visible: !searchFieldOpen && isOnline && versionLess(plasmoid.configuration.version, currVersion)
 
             actions: [
                 Kirigami.Action {
