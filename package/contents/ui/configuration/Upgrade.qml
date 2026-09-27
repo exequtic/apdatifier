@@ -59,6 +59,7 @@ SimpleKCM {
             Kirigami.Action {
                 icon.name: "apdatifier-package"
                 text: "Arch"
+                enabled: pkg.pacman
                 checked: currentTab === 1
                 onTriggered: currentTab = 1
             },

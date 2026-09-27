@@ -19,6 +19,7 @@ SimpleKCM {
     property alias cfg_weeklyMinute: weeklyMinute.value
 
     property alias cfg_arch: arch.checked
+    property alias cfg_dnf: dnf.checked
     property alias cfg_aur: aur.checked
     property alias cfg_flatpak: flatpak.checked
     property alias cfg_fwupd: fwupd.checked
@@ -271,6 +272,14 @@ SimpleKCM {
                     font.pointSize: instTip.font.pointSize
                     color: instTip.color
                     visible: !aur.enabled
+                }
+            }
+
+            RowLayout {
+                CheckBox {
+                    id: dnf
+                    text: i18n("DNF packages")
+                    enabled: pkg.dnf
                 }
             }
 

@@ -345,6 +345,10 @@ checkCurrentVersions() {
         list+=$(pacman -Q | awk '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
     fi
 
+    if [ "$dnf" = true ]; then
+        list+=$(rpm -qa --qf '%{NAME}\t%{EVR}\n' | awk -F'\t' 'NF==2 {print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 "\"},"}')
+    fi
+
     if [ "$flatpak" = true ]; then
         list+=$(flatpak list --app --columns=name,version,active | awk -F'\t' '{print "{\"NM\": \"" $1 "\", \"VO\": \"" $2 $3 "\"},"}')
     fi
@@ -518,7 +522,7 @@ uninstall() {
 
 checkPkgs() {
     local terms="alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
-    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux $terms"
+    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux dnf $terms"
     for pkg in $utils; do command -v $pkg || echo; done
     if command -v flatpak >/dev/null; then
         flatpak list --app --columns=application | while IFS= read -r app; do

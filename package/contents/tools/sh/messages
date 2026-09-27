@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 UPGRADE_PROGRESS         = i18n("Upgrade in progress")
-UPGRADE_FULL_ARCH        = i18n("Full system upgrade")
+UPGRADE_FULL_SYSTEM      = i18n("Full system upgrade")
 UPGRADE_FULL_FLATPAK     = i18n("Flatpak Upgrade")
 UPGRADE_FULL_WIDGETS     = i18n("Plasma Widgets Upgrade")
 UPGRADE_PACKAGE          = i18n("Upgrade")

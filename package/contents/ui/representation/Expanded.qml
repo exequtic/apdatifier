@@ -76,9 +76,10 @@ Representation {
 
         readonly property var sources: [
             (cfg.arch || cfg.aur) ? { t: i18n("System packages"), i: "apdatifier-package", a: "system" } : null,
-            cfg.flatpak  ? { t: "Flatpak",         i: "apdatifier-flatpak", a: "flatpak" } : null,
-            cfg.widgets  ? { t: i18n("Widgets"),   i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,
-            cfg.fwupd    ? { t: i18n("Firmware"),  i: "application-x-firmware", a: "fwupd" } : null
+            cfg.dnf               ? { t: "DNF",                   i: "apdatifier-package", a: "dnf" } : null,
+            cfg.flatpak           ? { t: "Flatpak",               i: "apdatifier-flatpak", a: "flatpak" } : null,
+            cfg.widgets           ? { t: i18n("Widgets"),         i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,
+            cfg.fwupd             ? { t: i18n("Firmware"),        i: "application-x-firmware", a: "fwupd" } : null
         ].filter(Boolean)
 
         function openAt(anchor) {
