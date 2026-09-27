@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-06-19 12:43+0300\n"
+"POT-Creation-Date: 2026-09-26 15:00+0300\n"
 "PO-Revision-Date: 2024-11-20 22:37-0300\n"
 "Last-Translator: João Victor Leal\n"
 "Language-Team: \n"
@@ -274,11 +274,11 @@ msgstr "Apagar cache não utilizado"
 
 #: ../contents/tools/sh/messages
 msgid "Found directories in the pacman cache:"
-msgstr ""
+msgstr "Diretórios encontrados no cache do pacman:"
 
 #: ../contents/tools/sh/messages
 msgid "Remove these directories?"
-msgstr ""
+msgstr "Remover estes diretórios?"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
@@ -318,19 +318,19 @@ msgstr "Recentemente instalados"
 
 #: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
-msgstr ""
+msgstr "Verificando o log do pacman..."
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Explicitly installed"
 msgstr "Instalado explicitamente"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Installed as a dependency"
 msgstr "Instalado como dependência"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Orphaned dependency"
-msgstr ""
+msgstr "Dependência órfã"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -359,8 +359,8 @@ msgstr "Verificando as últimas notícias..."
 #: ../contents/tools/tools.js
 msgid "%1 new article"
 msgid_plural "%1 new articles"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 nova notícia"
+msgstr[1] "%1 novas notícias"
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing pacman databases..."
@@ -462,8 +462,7 @@ msgid "Check updates"
 msgstr "Verificar atualizações"
 
 #: ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/Notification.qml
 msgid "Upgrade system"
 msgstr "Atualizar sistema"
 
@@ -620,25 +619,12 @@ msgid "Offset"
 msgstr "Deslocar"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Font family"
-msgstr "Família de fontes"
+msgid "Select a font"
+msgstr "Selecionar fonte"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Fonte padrão do sistema"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Tamanho da fonte"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Fonte em negrito"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Habilitar"
+msgid "Counter font"
+msgstr "Fonte do contador"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
@@ -688,15 +674,15 @@ msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
-msgstr ""
+msgstr "Barra de rolagem"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Auto-hide scrollbar"
-msgstr ""
+msgstr "Ocultar automaticamente a barra de rolagem"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default view"
-msgstr ""
+msgstr "Visualização padrão"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -714,7 +700,7 @@ msgstr "Comportamento"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default view"
-msgstr ""
+msgstr "Sempre mudar para a visualização padrão"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -730,7 +716,7 @@ msgstr "Por nome"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Toolbar"
-msgstr ""
+msgstr "Barra de ferramentas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
@@ -746,25 +732,25 @@ msgstr "Mostrar barra de ferramentas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Additional Package Info"
-msgstr ""
+msgstr "Informações adicionais do pacote"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Compact view"
 msgstr "Visualização compacta"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Repository"
-msgstr ""
+msgstr "Repositório"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Install reason"
 msgstr "Motivo da instalação"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Versions"
-msgstr ""
+msgstr "Versões"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Extended view"
@@ -772,15 +758,15 @@ msgstr "Visualização extendida"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Highlight version differences"
-msgstr ""
+msgstr "Destacar diferenças de versão"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Colorize install reason"
-msgstr ""
+msgstr "Colorir o motivo da instalação"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Tab Bar"
-msgstr ""
+msgstr "Barra de abas"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -934,12 +920,13 @@ msgid "Plasma Widgets"
 msgstr "Widgets do Plasma"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Firmware"
 msgstr "Firmware"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS Feeds"
-msgstr ""
+msgstr "Feeds RSS"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
@@ -962,12 +949,12 @@ msgstr "Remover"
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "notícia mais recente de cada feed"
+msgstr[1] "notícias mais recentes de cada feed"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Recommended RSS Feeds"
-msgstr ""
+msgstr "Feeds RSS recomendados"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -994,6 +981,10 @@ msgstr ""
 "<b>Mais notificações.</b> <br><br>Se a opção estiver <b>desabilitada</b>, "
 "notificações serão enviadas somente para pacotes que ainda não estejam na "
 "lista. <b>Menos notificações.</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Don't notify about dependencies"
+msgstr "Não notificar sobre dependências"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1064,15 +1055,15 @@ msgstr "O caminho não deve conter espaços"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
-msgstr ""
+msgstr "Rede"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr ""
+msgstr "Verificação de conectividade"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
-msgstr ""
+msgstr "Respeitar conexão medida"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
@@ -1080,15 +1071,15 @@ msgstr "Nome"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact package name"
-msgstr ""
+msgstr "Nome exato do pacote"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Regex"
-msgstr ""
+msgstr "Expressão regular"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "See Help"
-msgstr ""
+msgstr "Veja a Ajuda"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1107,10 +1098,12 @@ msgid ""
 "Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
 "upgrades are unsupported.</b>"
 msgstr ""
+"Ignorar a atualização de um pacote. <b>Tenha cuidado ao pular pacotes, pois "
+"atualizações parciais não são suportadas.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
@@ -1124,10 +1117,16 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
+"As regras são aplicadas de cima para baixo: regras posteriores substituem as "
+"anteriores.<br><br>Exemplos de expressões regulares:<br><b>^nvidia</b> — "
+"nomes começando com nvidia<br><b>wayland$</b> — nomes terminando em "
+"wayland<br><b>.*qt.*</b> — nomes contendo qt<br><b>(ttf|font|otf)</b> — "
+"qualquer um de ttf, font ou otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-"
+"zen ou linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
-msgstr ""
+msgstr "Ainda não há regras"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1138,6 +1137,7 @@ msgstr ""
 "estrelando o repositório do GitHub ou me pagando um café ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Widgets"
 
@@ -1163,11 +1163,12 @@ msgstr "Sessão tmux"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Idle Inhibit"
-msgstr ""
+msgstr "Inibir inatividade"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
 msgstr ""
+"Desativa a suspensão automática e o bloqueio da tela durante a atualização."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1258,6 +1259,12 @@ msgid ""
 "when an updated package is not currently running (e.g., an alternative "
 "kernel) or not in use (e.g., an alternative driver).</b>"
 msgstr ""
+"Esta opção sugere reiniciar o sistema após atualizar pacotes críticos."
+"<br><br><b>Note que nem todos os pacotes críticos exigem reinicialização "
+"completa do sistema; alguns podem precisar apenas reiniciar a sessão ou de "
+"nada, por exemplo quando o pacote atualizado não está em execução (p. ex., "
+"um kernel alternativo) ou não está em uso (p. ex., um driver alternativo).</"
+"b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1306,6 +1313,10 @@ msgstr "versão do IP"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Mirror status"
 msgstr "Status do mirror"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Habilitar"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
@@ -1392,6 +1403,14 @@ msgstr "Ativado por padrão"
 msgid "Auto check disabled"
 msgstr "Verificação automática desabilitada"
 
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade"
+msgstr "Atualização completa"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "System packages"
+msgstr "Pacotes do sistema"
+
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
 msgstr "Filtrar por nome do pacote"
@@ -1411,6 +1430,10 @@ msgstr "Ordenar pacotes por nome"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr "Ordenar pacotes por repositório"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade (right-click to choose)"
+msgstr "Atualização completa (clique direito para escolher)"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
@@ -1444,82 +1467,98 @@ msgstr "Recusar"
 msgid "No internet connection"
 msgstr "Sem conexão com a internet"
 
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Upgrade package"
-msgstr "Atualizar pacote"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Package type"
-msgstr "Tipo de pacote"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Description"
-msgstr "Descrição"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Author"
-msgstr "Autor"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "App ID"
-msgstr "App ID"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Branch"
-msgstr "Branch"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Commit"
-msgstr "Commit"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Runtime"
-msgstr "Runtime"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Groups"
-msgstr "Grupos"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Provides"
-msgstr "Fornece"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Depends on"
-msgstr "Depende de"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Required by"
-msgstr "Exigido por"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Conflicts with"
-msgstr "Conflita com"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Replaces"
-msgstr "Substitui"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Installed size"
-msgstr "Tamanho instalado"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Download size"
-msgstr "Tamanho do download"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Install date"
-msgstr "Data de instalação"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "System updated"
-msgstr "Sistema atualizado"
-
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
-msgstr ""
+msgstr "Marcar como lida"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Nenhuma notícia não lida"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Upgrade package"
+msgstr "Atualizar pacote"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Version diff"
+msgstr "Diferença de versões"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Package type"
+msgstr "Tipo de pacote"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Description"
+msgstr "Descrição"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Author"
+msgstr "Autor"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "App ID"
+msgstr "App ID"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Branch"
+msgstr "Branch"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Commit"
+msgstr "Commit"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Runtime"
+msgstr "Runtime"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Groups"
+msgstr "Grupos"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Provides"
+msgstr "Fornece"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Depends on"
+msgstr "Depende de"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Required by"
+msgstr "Exigido por"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Conflicts with"
+msgstr "Conflita com"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Replaces"
+msgstr "Substitui"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Installed size"
+msgstr "Tamanho instalado"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Download size"
+msgstr "Tamanho do download"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Install date"
+msgstr "Data de instalação"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "System updated"
+msgstr "Sistema atualizado"
+
+#~ msgid "Font family"
+#~ msgstr "Família de fontes"
+
+#~ msgid "Default system font"
+#~ msgstr "Fonte padrão do sistema"
+
+#~ msgid "Font size"
+#~ msgstr "Tamanho da fonte"
+
+#~ msgid "Font bold"
+#~ msgstr "Fonte em negrito"

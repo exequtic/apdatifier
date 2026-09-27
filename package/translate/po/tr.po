@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-06-19 12:43+0300\n"
+"POT-Creation-Date: 2026-09-26 15:00+0300\n"
 "PO-Revision-Date: 2025-12-05 11:00+0300\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: Turkish <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Genel"
 
 #: ../contents/config/config.qml
 msgid "Upgrade & Management"
-msgstr ""
+msgstr "Güncelleme ve Yönetim"
 
 #: ../contents/config/config.qml
 msgid "Appearance"
@@ -71,7 +71,7 @@ msgstr "Şimdi yeniden başlatmak ister misiniz?"
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr ""
+msgstr "Sistem şimdi yeniden başlatılıyor..."
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -83,7 +83,7 @@ msgstr "Atlandı..."
 
 #: ../contents/tools/sh/messages
 msgid "Upgrade complete, close the terminal"
-msgstr ""
+msgstr "Güncelleme tamamlandı, terminali kapatın"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching the latest filtered mirror list"
@@ -111,7 +111,7 @@ msgstr "Geçerli yansı listeniz:"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirror list?"
-msgstr ""
+msgstr "Yansı listesi yenilensin mi?"
 
 #: ../contents/tools/sh/messages
 msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
@@ -195,99 +195,99 @@ msgstr "Yönetim"
 
 #: ../contents/tools/sh/messages
 msgid "Browse available"
-msgstr ""
+msgstr "Kullanılabilirlere göz at"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
+msgstr "Tüm kullanılabilir paketleri ara ve yüklenecekleri seç"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
-msgstr ""
+msgstr "Yüklüleri yönet"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
+msgstr "Yüklü paketleri göster ve kaldırılacakları seç"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
-msgstr ""
+msgstr "Açık kurulumlar"
 
 #: ../contents/tools/sh/messages
 msgid "Show packages you installed directly"
-msgstr ""
+msgstr "Doğrudan kurduğun paketleri göster"
 
 #: ../contents/tools/sh/messages
 msgid "All explicit installs"
-msgstr ""
+msgstr "Tüm açık kurulumlar"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs not required by anything"
-msgstr ""
+msgstr "Hiçbir şeyin gerektirmediği açık kurulumlar"
 
 #: ../contents/tools/sh/messages
 msgid "Orphaned dependencies"
-msgstr ""
+msgstr "Yetim bağımlılıklar"
 
 #: ../contents/tools/sh/messages
 msgid "Dependencies that are no longer needed by anything installed"
-msgstr ""
+msgstr "Yüklü hiçbir paket tarafından artık gerektirilmeyen bağımlılıklar"
 
 #: ../contents/tools/sh/messages
 msgid "List orphans"
-msgstr ""
+msgstr "Yetimleri listele"
 
 #: ../contents/tools/sh/messages
 msgid "Remove orphans"
-msgstr ""
+msgstr "Yetimleri kaldır"
 
 #: ../contents/tools/sh/messages
 msgid "Downgrade from cache"
-msgstr ""
+msgstr "Önbellekten sürüm düşür"
 
 #: ../contents/tools/sh/messages
 msgid "Clean cache"
-msgstr ""
+msgstr "Önbelleği temizle"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
+msgstr "Disk alanı açmak için önbellek dosyalarını kaldır"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
-msgstr ""
+msgstr "Tüm önbelleği kaldır"
 
 #: ../contents/tools/sh/messages
 msgid "Remove unused cache"
-msgstr ""
+msgstr "Kullanılmayan önbelleği kaldır"
 
 #: ../contents/tools/sh/messages
 msgid "Found directories in the pacman cache:"
-msgstr ""
+msgstr "Pacman önbelleğinde bulunan dizinler:"
 
 #: ../contents/tools/sh/messages
 msgid "Remove these directories?"
-msgstr ""
+msgstr "Bu dizinler kaldırılsın mı?"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
-msgstr ""
+msgstr "Paketleri yeniden derle"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
+msgstr "Yeniden derleme ile yeniden kurulması gereken paketleri seç"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
-msgstr ""
+msgstr "AUR paketlerini yeniden derle"
 
 #: ../contents/tools/sh/messages
 msgid "Detect Python packages to rebuild"
-msgstr ""
+msgstr "Yeniden derlenecek Python paketlerini algıla"
 
 #: ../contents/tools/sh/messages
 msgid "Refresh mirrors"
-msgstr ""
+msgstr "Yansaları yenile"
 
 #: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
@@ -303,23 +303,23 @@ msgstr "Menüye dönmek için Enter tuşuna basın"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
-msgstr ""
+msgstr "Son kurulumlar"
 
 #: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
-msgstr ""
+msgstr "Pacman günlüğü taranıyor..."
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Explicitly installed"
 msgstr "Açıkça yüklendi"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Installed as a dependency"
 msgstr "Bağımlılık olarak yüklendi"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Orphaned dependency"
-msgstr ""
+msgstr "Yetim bağımlılık"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -348,8 +348,8 @@ msgstr "Son haberler kontrol ediliyor..."
 #: ../contents/tools/tools.js
 msgid "%1 new article"
 msgid_plural "%1 new articles"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 yeni yazı"
+msgstr[1] "%1 yeni yazı"
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing pacman databases..."
@@ -449,7 +449,7 @@ msgstr "Hiçbiri"
 msgid "Check updates"
 msgstr "Güncellemeleri kontrol et"
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml
 msgid "Upgrade system"
 msgstr "Sistemi yükselt"
 
@@ -592,24 +592,12 @@ msgid "Offset"
 msgstr "Uzaklık"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Font family"
-msgstr "Yazı tipi ailesi"
+msgid "Select a font"
+msgstr "Yazı tipi seç"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Varsayılan sistem yazı tipi"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Yazı tipi boyutu"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Kalın yazı tipi"
-
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Etkinleştir"
+msgid "Counter font"
+msgstr "Sayaç yazı tipi"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
@@ -657,15 +645,15 @@ msgstr "Özel simge temasını geçersiz kıl ve bunun yerine varsayılan Apdati
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
-msgstr ""
+msgstr "Kaydırma çubuğu"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Auto-hide scrollbar"
-msgstr ""
+msgstr "Kaydırma çubuğunu otomatik gizle"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default view"
-msgstr ""
+msgstr "Varsayılan görünüm"
 
 #: ../contents/ui/configuration/Appearance.qml ../contents/ui/representation/Expanded.qml
 msgid "Extended"
@@ -681,7 +669,7 @@ msgstr "Davranış"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default view"
-msgstr ""
+msgstr "Her zaman varsayılan görünüme geç"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -697,7 +685,7 @@ msgstr "Ada göre"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Toolbar"
-msgstr ""
+msgstr "Araç çubuğu"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
@@ -713,23 +701,23 @@ msgstr "Araç çubuğunu göster"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Additional Package Info"
-msgstr ""
+msgstr "Ek paket bilgisi"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Compact view"
 msgstr "Kompakt görünüm"
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Updates.qml
 msgid "Repository"
-msgstr ""
+msgstr "Depo"
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Updates.qml
 msgid "Install reason"
 msgstr "Kurulum nedeni"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Versions"
-msgstr ""
+msgstr "Sürümler"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Extended view"
@@ -737,15 +725,15 @@ msgstr "Genişletilmiş görünüm"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Highlight version differences"
-msgstr ""
+msgstr "Sürüm farklarını vurgula"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Colorize install reason"
-msgstr ""
+msgstr "Kurulum nedenini renklendir"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Tab Bar"
-msgstr ""
+msgstr "Sekme çubuğu"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -805,7 +793,7 @@ msgstr "Yapılandırma otomatik olarak bir yapılandırma dosyasına kaydedilir 
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
-msgstr ""
+msgstr "Zamanlama"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -883,25 +871,25 @@ msgstr "Kurulu değil"
 msgid "Plasma Widgets"
 msgstr "Plasma Widget'ları"
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "Firmware"
 msgstr "Aygıt yazılımı"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS Feeds"
-msgstr ""
+msgstr "RSS akışları"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset"
-msgstr ""
+msgstr "Sıfırla"
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Rules.qml
 msgid "Remove"
@@ -910,12 +898,12 @@ msgstr "Kaldır"
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "her akıştan en yeni yazı"
+msgstr[1] "her akıştan en yeni yazılar"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Recommended RSS Feeds"
-msgstr ""
+msgstr "Önerilen RSS akışları"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -932,6 +920,10 @@ msgstr "Her sürüm yükseltmesi için"
 #: ../contents/ui/configuration/General.qml
 msgid "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
 msgstr "Seçenek <b>etkinleştirilirse</b>, paket zaten listede olsa bile yeni bir paket sürümü yayınlandığında bildirimler gönderilecektir. <b>Daha fazla bildirim.</b> <br><br>Seçenek <b>devre dışı bırakılırsa</b>, sadece henüz listede olmayan paketler için bildirimler gönderilecektir. <b>Daha az bildirim.</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Don't notify about dependencies"
+msgstr "Bağımlılıklar için uyarı gösterme"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -991,15 +983,15 @@ msgstr "Yol boşluk içeremez"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
-msgstr ""
+msgstr "Ağ"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr ""
+msgstr "Bağlantı denetimi"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
-msgstr ""
+msgstr "Ölçülü bağlantıya uy"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
@@ -1007,15 +999,15 @@ msgstr "Ad"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact package name"
-msgstr ""
+msgstr "Tam paket adı"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Regex"
-msgstr ""
+msgstr "Düzenli ifade"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "See Help"
-msgstr ""
+msgstr "Yardım'a bak"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1031,11 +1023,11 @@ msgstr "Listeden hariç tut"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>"
-msgstr ""
+msgstr "Paket güncellemesini yoksay. <b>Kısmi güncellemeler desteklenmediğinden paket atlamada dikkatli olun.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Help"
-msgstr ""
+msgstr "Yardım"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
@@ -1043,17 +1035,17 @@ msgstr "Uygula"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
-msgstr ""
+msgstr "Kurallar yukarıdan aşağıya uygulanır: sonraki kurallar öncekileri geçersiz kılar.<br><br>Düzenli ifade örnekleri:<br><b>^nvidia</b> — nvidia ile başlayan adlar<br><b>wayland$</b> — wayland ile biten adlar<br><b>.*qt.*</b> — qt içeren adlar<br><b>(ttf|font|otf)</b> — ttf, font veya otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen veya linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
-msgstr ""
+msgstr "Henüz kural yok"
 
 #: ../contents/ui/configuration/Support.qml
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
 msgstr "Widget'ımı kullandığınız için teşekkür ederim! Çalışmalarımı takdir ediyorsanız GitHub deposuna yıldız vererek veya bana bir kahve ısmarlayarak bana destek olabilirsiniz ;)"
 
-#: ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Widget'lar"
 
@@ -1075,11 +1067,11 @@ msgstr "tmux oturumu"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Idle Inhibit"
-msgstr ""
+msgstr "Boşta kalmayı engelle"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
-msgstr ""
+msgstr "Güncelleme sırasında otomatik uyumayı ve ekran kilidini devre dışı bırakır."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1107,27 +1099,27 @@ msgstr "Yükseltmeden SONRA komutunuzu veya betiğinizi çalıştırır.<br>Örn
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
-msgstr ""
+msgstr "Flatpak seçenekleri olmadan"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr ""
+msgstr "Başlıkları gizle"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
-msgstr ""
+msgstr "Yardımı gizle"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr ""
+msgstr "Seçenek numaralarını gizle"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
-msgstr ""
+msgstr "Fzf seçenekleri"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Override default fzf options.<br>See <b>fzf --help</b> for available options."
-msgstr ""
+msgstr "Varsayılan fzf seçeneklerini geçersiz kıl.<br>Kullanılabilir seçenekler için <b>fzf --help</b> komutuna bakın."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1151,7 +1143,7 @@ msgstr "Yükseltmeden sonra öner"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "This option suggests restarting the system after upgrading critical packages.<br><br><b>Note that not all critical packages require a full system restart; some may only need a session restart or no action at all, such as when an updated package is not currently running (e.g., an alternative kernel) or not in use (e.g., an alternative driver).</b>"
-msgstr ""
+msgstr "Bu seçenek, kritik paketler güncellendikten sonra sistemi yeniden başlatmayı önerir.<br><br><b>Tüm kritik paketlerin tam yeniden başlatma gerektirmediğini unutmayın; bazıları yalnızca oturumun yeniden başlatılmasını ya da hiç işlem gerektirmeyebilir, örneğin güncellenen paket şu anda çalışmıyorsa (alternatif çekirdek gibi) veya kullanılmıyorsa (alternatif sürücü gibi).</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1198,6 +1190,10 @@ msgstr "IP sürümü"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Mirror status"
 msgstr "Yansı durumu"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Etkinleştir"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
@@ -1271,6 +1267,14 @@ msgstr "Varsayılan olarak etkin"
 msgid "Auto check disabled"
 msgstr "Otomatik kontrol devre dışı"
 
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade"
+msgstr "Tam güncelleme"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "System packages"
+msgstr "Sistem paketleri"
+
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
 msgstr "Paket adına göre filtrele"
@@ -1290,6 +1294,10 @@ msgstr "Paketleri ada göre sırala"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr "Paketleri depoya göre sırala"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade (right-click to choose)"
+msgstr "Tam güncelleme (seçmek için sağ tık)"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
@@ -1321,84 +1329,100 @@ msgstr "Reddet"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "No internet connection"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Upgrade package"
-msgstr "Paketi yükselt"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Package type"
-msgstr "Paket türü"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Description"
-msgstr "Açıklama"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Author"
-msgstr "Yazar"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "App ID"
-msgstr "Uygulama Kimliği"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Branch"
-msgstr "Dal"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Commit"
-msgstr "Commit"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Runtime"
-msgstr "Çalışma zamanı"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Groups"
-msgstr "Gruplar"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Provides"
-msgstr "Sağlar"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Depends on"
-msgstr "Bağımlı olduğu"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Required by"
-msgstr "Tarafından gerekli"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Conflicts with"
-msgstr "Çakıştığı"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Replaces"
-msgstr "Değiştirdiği"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Installed size"
-msgstr "Kurulu boyut"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Download size"
-msgstr "İndirme boyutu"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Install date"
-msgstr "Kurulum tarihi"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "System updated"
-msgstr "Sistem güncellendi"
+msgstr "İnternet bağlantısı yok"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
-msgstr ""
+msgstr "Okundu olarak işaretle"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Okunmamış haber yok"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Upgrade package"
+msgstr "Paketi yükselt"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Version diff"
+msgstr "Sürüm farkı"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Package type"
+msgstr "Paket türü"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Description"
+msgstr "Açıklama"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Author"
+msgstr "Yazar"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "App ID"
+msgstr "Uygulama Kimliği"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Branch"
+msgstr "Dal"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Commit"
+msgstr "Commit"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Runtime"
+msgstr "Çalışma zamanı"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Groups"
+msgstr "Gruplar"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Provides"
+msgstr "Sağlar"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Depends on"
+msgstr "Bağımlı olduğu"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Required by"
+msgstr "Tarafından gerekli"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Conflicts with"
+msgstr "Çakıştığı"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Replaces"
+msgstr "Değiştirdiği"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Installed size"
+msgstr "Kurulu boyut"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Download size"
+msgstr "İndirme boyutu"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Install date"
+msgstr "Kurulum tarihi"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "System updated"
+msgstr "Sistem güncellendi"
+
+#~ msgid "Font family"
+#~ msgstr "Yazı tipi ailesi"
+
+#~ msgid "Default system font"
+#~ msgstr "Varsayılan sistem yazı tipi"
+
+#~ msgid "Font size"
+#~ msgstr "Yazı tipi boyutu"
+
+#~ msgid "Font bold"
+#~ msgstr "Kalın yazı tipi"

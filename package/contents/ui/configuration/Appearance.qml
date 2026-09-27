@@ -408,7 +408,7 @@ SimpleKCM {
         Label {
             id: fontName
             visible: fontDialog.fontChosen.family && fontDialog.fontChosen.pointSize
-            text: i18n("%1pt %2", fontDialog.fontChosen.pointSize, fontDialog.fontChosen.family)
+            text: `${fontDialog.fontChosen.pointSize}pt ${fontDialog.fontChosen.family}`
             textFormat: Text.PlainText
             font: fontDialog.fontChosen
         }

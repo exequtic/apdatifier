@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-06-19 12:43+0300\n"
+"POT-Creation-Date: 2026-09-26 15:00+0300\n"
 "PO-Revision-Date: 2026-03-01 13:18+0800\n"
 "Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
@@ -72,7 +72,7 @@ msgstr "您希望立即重啟嗎？"
 
 #: ../contents/tools/sh/messages
 msgid "The system is going to reboot now..."
-msgstr ""
+msgstr "系統即將重新啟動..."
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
@@ -269,11 +269,11 @@ msgstr "清理無用快取"
 
 #: ../contents/tools/sh/messages
 msgid "Found directories in the pacman cache:"
-msgstr ""
+msgstr "在 pacman 快取中發現目錄："
 
 #: ../contents/tools/sh/messages
 msgid "Remove these directories?"
-msgstr ""
+msgstr "刪除這些目錄嗎？"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild packages"
@@ -313,19 +313,19 @@ msgstr "最近安裝"
 
 #: ../contents/tools/sh/messages
 msgid "Scanning pacman log..."
-msgstr ""
+msgstr "正在掃描 pacman 日誌..."
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Explicitly installed"
 msgstr "顯式安裝"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Installed as a dependency"
 msgstr "作為依賴安裝"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Orphaned dependency"
-msgstr ""
+msgstr "孤立相依"
 
 #: ../contents/tools/sh/messages
 msgid "Executed:"
@@ -449,8 +449,7 @@ msgid "Check updates"
 msgstr "檢查更新"
 
 #: ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/Notification.qml
 msgid "Upgrade system"
 msgstr "升級系統"
 
@@ -603,25 +602,12 @@ msgid "Offset"
 msgstr "偏移"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Font family"
-msgstr "字型"
+msgid "Select a font"
+msgstr "選擇字型"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "預設系統字型"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "字型大小"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "字型加粗"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "啟用"
+msgid "Counter font"
+msgstr "計數器字型"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
@@ -669,15 +655,15 @@ msgstr "覆蓋自定義圖示主題，改用預設 Apdatifier 圖示。"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
-msgstr ""
+msgstr "捲軸"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Auto-hide scrollbar"
-msgstr ""
+msgstr "自動隱藏捲軸"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default view"
-msgstr ""
+msgstr "預設檢視"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -695,7 +681,7 @@ msgstr "行為"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Always switch to default view"
-msgstr ""
+msgstr "一律切換至預設檢視"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Sorting"
@@ -711,7 +697,7 @@ msgstr "按名稱"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Toolbar"
-msgstr ""
+msgstr "工具列"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Header"
@@ -727,25 +713,25 @@ msgstr "顯示工具欄"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Additional Package Info"
-msgstr ""
+msgstr "附加軟體包資訊"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Compact view"
 msgstr "緊湊檢視"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Repository"
-msgstr ""
+msgstr "軟體庫"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Install reason"
 msgstr "安裝原因"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Versions"
-msgstr ""
+msgstr "版本"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Extended view"
@@ -753,15 +739,15 @@ msgstr "擴充套件檢視"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Highlight version differences"
-msgstr ""
+msgstr "突顯版本差異"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Colorize install reason"
-msgstr ""
+msgstr "為安裝原因上色"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Tab Bar"
-msgstr ""
+msgstr "標籤列"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Footer"
@@ -829,7 +815,7 @@ msgstr ""
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
-msgstr ""
+msgstr "排程"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Manual"
@@ -910,25 +896,26 @@ msgid "Plasma Widgets"
 msgstr "Plasma 小部件"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Firmware"
 msgstr "韌體"
 
 #: ../contents/ui/configuration/General.qml
 msgid "RSS Feeds"
-msgstr ""
+msgstr "RSS 訂閱"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Enabled"
-msgstr ""
+msgstr "已啟用"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset"
-msgstr ""
+msgstr "重設"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: ../contents/ui/configuration/General.qml
 #: ../contents/ui/configuration/Rules.qml
@@ -938,11 +925,11 @@ msgstr "移除"
 #: ../contents/ui/configuration/General.qml
 msgid "latest article from each feed"
 msgid_plural "latest articles from each feed"
-msgstr[0] ""
+msgstr[0] "每個來源的最新訊息"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Recommended RSS Feeds"
-msgstr ""
+msgstr "建議的 RSS 訂閱"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
@@ -967,6 +954,10 @@ msgstr ""
 "如果<b>啟用</b>該選項，當軟體包有新版本釋出時，即使該軟體包已在列表中，也會發"
 "送通知。<b>更多通知。</b><br><br>如果<b>停用</b>該選項，則僅對尚未在列表中的"
 "軟體包傳送通知。<b>更少通知。</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Don't notify about dependencies"
+msgstr "不要通知相依項目"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1030,15 +1021,15 @@ msgstr "路徑不得包含空格"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
-msgstr ""
+msgstr "網路"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr ""
+msgstr "連線檢查"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
-msgstr ""
+msgstr "尊重計量連線"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Name"
@@ -1046,15 +1037,15 @@ msgstr "名字"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Exact package name"
-msgstr ""
+msgstr "精確軟體包名稱"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Regex"
-msgstr ""
+msgstr "正規表示式"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "See Help"
-msgstr ""
+msgstr "參閱說明"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Mark as important"
@@ -1072,11 +1063,11 @@ msgstr "從列表中排除"
 msgid ""
 "Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
 "upgrades are unsupported.</b>"
-msgstr ""
+msgstr "忽略軟體包升級。<b>跳過軟體包時請小心，因為不支援部分升級。</b>"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Help"
-msgstr ""
+msgstr "說明"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Apply"
@@ -1090,10 +1081,14 @@ msgid ""
 "qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
 "lts)?$</b> — linux, linux-zen or linux-lts"
 msgstr ""
+"規則由上往下套用：後面的規則會覆寫前面的。<br><br>正規表示式範例："
+"<br><b>^nvidia</b> — 以 nvidia 開頭的名稱<br><b>wayland$</b> — 以 wayland 結"
+"尾的名稱<br><b>.*qt.*</b> — 包含 qt 的名稱<br><b>(ttf|font|otf)</b> — ttf、"
+"font 或 otf 任一<br><b>linux(-zen|-lts)?$</b> — linux、linux-zen 或 linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
-msgstr ""
+msgstr "尚無規則"
 
 #: ../contents/ui/configuration/Support.qml
 msgid ""
@@ -1104,6 +1099,7 @@ msgstr ""
 "我喝杯咖啡來支援我 ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "小部件"
 
@@ -1127,11 +1123,11 @@ msgstr "tmux 會話"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Idle Inhibit"
-msgstr ""
+msgstr "抑制閒置"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
-msgstr ""
+msgstr "在升級期間停用自動睡眠與螢幕鎖定。"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
@@ -1219,6 +1215,10 @@ msgid ""
 "when an updated package is not currently running (e.g., an alternative "
 "kernel) or not in use (e.g., an alternative driver).</b>"
 msgstr ""
+"此選項會在升級關鍵軟體包後建議重新啟動系統。<br><br><b>請注意，並非所有關鍵軟"
+"體包都需要完全重新啟動系統；有些只需重新啟動工作階段或根本不需要任何動作，例"
+"如當被升級的軟體包目前並非執行中（如備用核心）或未被使用（如備用驅動程式）"
+"時。</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1264,6 +1264,10 @@ msgstr "IP 版本"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Mirror status"
 msgstr "映象狀態"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "啟用"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
@@ -1348,6 +1352,14 @@ msgstr "預設啟用"
 msgid "Auto check disabled"
 msgstr "自動檢查已停用"
 
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade"
+msgstr "完整升級"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "System packages"
+msgstr "系統軟體包"
+
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
 msgstr "按軟體包名稱篩選"
@@ -1367,6 +1379,10 @@ msgstr "按名稱排序軟體包"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr "按倉庫排序軟體包"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade (right-click to choose)"
+msgstr "完整升級（右鍵選擇）"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
@@ -1400,82 +1416,98 @@ msgstr "忽略"
 msgid "No internet connection"
 msgstr "無網路連線"
 
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Upgrade package"
-msgstr "升級軟體包"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Package type"
-msgstr "包型別"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Description"
-msgstr "描述"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Author"
-msgstr "作者"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "App ID"
-msgstr "App ID"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Branch"
-msgstr "分支"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Commit"
-msgstr "提交"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Runtime"
-msgstr "執行時"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Groups"
-msgstr "組"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Provides"
-msgstr "提供"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Depends on"
-msgstr "依賴於"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Required by"
-msgstr "依賴它"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Conflicts with"
-msgstr "與它衝突"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Replaces"
-msgstr "取代"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Installed size"
-msgstr "安裝後大小"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Download size"
-msgstr "下載大小"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Install date"
-msgstr "安裝日期"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "System updated"
-msgstr "系統已更新"
-
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
-msgstr ""
+msgstr "標記為已讀"
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "無未讀新聞"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Upgrade package"
+msgstr "升級軟體包"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Version diff"
+msgstr "版本差異"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Package type"
+msgstr "包型別"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Description"
+msgstr "描述"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Author"
+msgstr "作者"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "App ID"
+msgstr "App ID"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Branch"
+msgstr "分支"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Commit"
+msgstr "提交"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Runtime"
+msgstr "執行時"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Groups"
+msgstr "組"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Provides"
+msgstr "提供"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Depends on"
+msgstr "依賴於"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Required by"
+msgstr "依賴它"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Conflicts with"
+msgstr "與它衝突"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Replaces"
+msgstr "取代"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Installed size"
+msgstr "安裝後大小"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Download size"
+msgstr "下載大小"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Install date"
+msgstr "安裝日期"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "System updated"
+msgstr "系統已更新"
+
+#~ msgid "Font family"
+#~ msgstr "字型"
+
+#~ msgid "Default system font"
+#~ msgstr "預設系統字型"
+
+#~ msgid "Font size"
+#~ msgstr "字型大小"
+
+#~ msgid "Font bold"
+#~ msgstr "字型加粗"

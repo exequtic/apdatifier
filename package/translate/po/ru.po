@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-06-19 12:43+0300\n"
+"POT-Creation-Date: 2026-09-26 15:00+0300\n"
 "PO-Revision-Date: 2026-05-28 17:32+0300\n"
 "Last-Translator: exequtic\n"
 "Language-Team: \n"
@@ -319,15 +319,15 @@ msgstr "Недавние установки"
 msgid "Scanning pacman log..."
 msgstr "Сканирование журнала pacman..."
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Explicitly installed"
 msgstr "Установлено явно"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Installed as a dependency"
 msgstr "Установлено как зависимость"
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Orphaned dependency"
 msgstr "Неиспользуемая зависимость"
 
@@ -469,8 +469,7 @@ msgid "Check updates"
 msgstr "Проверить обновления"
 
 #: ../contents/ui/components/ComboBox.qml
-#: ../contents/ui/components/Notification.qml ../contents/ui/main.qml
-#: ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/Notification.qml
 msgid "Upgrade system"
 msgstr "Обновить систему"
 
@@ -628,25 +627,12 @@ msgid "Offset"
 msgstr "Смещение"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Font family"
-msgstr "Семейство шрифтов"
+msgid "Select a font"
+msgstr "Выбор шрифта"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr "Стандартный системный шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr "Размер шрифта"
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr "Жирный шрифт"
-
-#: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
-msgstr "Включить"
+msgid "Counter font"
+msgstr "Шрифт счетчика"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
@@ -759,12 +745,12 @@ msgid "Compact view"
 msgstr "Компактный вид"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Repository"
 msgstr "Репозиторий"
 
 #: ../contents/ui/configuration/Appearance.qml
-#: ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/scrollview/Updates.qml
 msgid "Install reason"
 msgstr "Причина установки"
 
@@ -940,6 +926,7 @@ msgid "Plasma Widgets"
 msgstr "Plasma виджеты"
 
 #: ../contents/ui/configuration/General.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Firmware"
 msgstr "Прошивка"
 
@@ -1000,6 +987,10 @@ msgstr ""
 "повышается, даже если этот пакет уже есть в списке. <b>Больше уведомлений.</"
 "b> <br><br>Если опция <b>выключена</b>, уведомления будут приходить только "
 "если пакета еще нет в списке. <b>Меньше уведомлений.</b>"
+
+#: ../contents/ui/configuration/General.qml
+msgid "Don't notify about dependencies"
+msgstr "Не уведомлять о зависимостях"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1151,6 +1142,7 @@ msgstr ""
 "поддержать меня, нажав кнопку Star на GitHub, или купив мне кофе ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Виджеты"
 
@@ -1222,7 +1214,7 @@ msgstr "Без опций Flatpak"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide headers"
-msgstr "Cкрыть заголовки"
+msgstr "Скрыть заголовки"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide help"
@@ -1329,6 +1321,10 @@ msgid "Mirror status"
 msgstr "Статус зеркал"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr "Включить"
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
 msgstr "Количество"
 
@@ -1414,6 +1410,14 @@ msgstr "Включено по умолчанию"
 msgid "Auto check disabled"
 msgstr "Авто проверка выключена"
 
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade"
+msgstr "Полное обновление"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "System packages"
+msgstr "Системные пакеты"
+
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
 msgstr "Фильтровать по названию пакета"
@@ -1433,6 +1437,10 @@ msgstr "Сортировать пакеты по имени"
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
 msgstr "Сортировать пакеты по репозиторию"
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade (right-click to choose)"
+msgstr "Полное обновление (ПКМ для выбора)"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
@@ -1466,78 +1474,6 @@ msgstr "Отклонить"
 msgid "No internet connection"
 msgstr "Нет подключения к интернету"
 
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Upgrade package"
-msgstr "Обновить пакет"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Package type"
-msgstr "Тип пакета"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Description"
-msgstr "Описание"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Author"
-msgstr "Автор"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "App ID"
-msgstr "ID приложения"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Branch"
-msgstr "Ветвь"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Commit"
-msgstr "Активный коммит"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Runtime"
-msgstr "Среда выполнения"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Groups"
-msgstr "Группы"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Provides"
-msgstr "Предоставляет"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Depends on"
-msgstr "Зависим от"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Required by"
-msgstr "Требуется для"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Conflicts with"
-msgstr "Конфликтует"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Replaces"
-msgstr "Заменяет"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Installed size"
-msgstr "Размер"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Download size"
-msgstr "Размер загрузки"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Install date"
-msgstr "Дата установки"
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "System updated"
-msgstr "Система обновлена"
-
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
 msgstr "Отметить как прочитанное"
@@ -1545,3 +1481,91 @@ msgstr "Отметить как прочитанное"
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
 msgstr "Нет непрочитанных новостей"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Upgrade package"
+msgstr "Обновить пакет"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Version diff"
+msgstr "Разница версий"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Package type"
+msgstr "Тип пакета"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Description"
+msgstr "Описание"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Author"
+msgstr "Автор"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "App ID"
+msgstr "ID приложения"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Branch"
+msgstr "Ветвь"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Commit"
+msgstr "Активный коммит"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Runtime"
+msgstr "Среда выполнения"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Groups"
+msgstr "Группы"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Provides"
+msgstr "Предоставляет"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Depends on"
+msgstr "Зависим от"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Required by"
+msgstr "Требуется для"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Conflicts with"
+msgstr "Конфликтует"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Replaces"
+msgstr "Заменяет"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Installed size"
+msgstr "Размер"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Download size"
+msgstr "Размер загрузки"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Install date"
+msgstr "Дата установки"
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "System updated"
+msgstr "Система обновлена"
+
+#~ msgid "Font family"
+#~ msgstr "Семейство шрифтов"
+
+#~ msgid "Default system font"
+#~ msgstr "Стандартный системный шрифт"
+
+#~ msgid "Font size"
+#~ msgstr "Размер шрифта"
+
+#~ msgid "Font bold"
+#~ msgstr "Жирный шрифт"

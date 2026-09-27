@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-06-19 12:43+0300\n"
+"POT-Creation-Date: 2026-09-26 15:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,15 +310,15 @@ msgstr ""
 msgid "Scanning pacman log..."
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Explicitly installed"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Installed as a dependency"
 msgstr ""
 
-#: ../contents/tools/sh/messages ../contents/ui/scrollview/Extended.qml
+#: ../contents/tools/sh/messages ../contents/ui/scrollview/Updates.qml
 msgid "Orphaned dependency"
 msgstr ""
 
@@ -450,7 +450,7 @@ msgstr ""
 msgid "Check updates"
 msgstr ""
 
-#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+#: ../contents/ui/components/ComboBox.qml ../contents/ui/components/Notification.qml
 msgid "Upgrade system"
 msgstr ""
 
@@ -593,23 +593,11 @@ msgid "Offset"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Font family"
+msgid "Select a font"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid "Default system font"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font size"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml
-msgid "Font bold"
-msgstr ""
-
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/configuration/Upgrade.qml
-msgid "Enable"
+msgid "Counter font"
 msgstr ""
 
 #: ../contents/ui/configuration/Appearance.qml
@@ -720,11 +708,11 @@ msgstr ""
 msgid "Compact view"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Updates.qml
 msgid "Repository"
 msgstr ""
 
-#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Extended.qml
+#: ../contents/ui/configuration/Appearance.qml ../contents/ui/scrollview/Updates.qml
 msgid "Install reason"
 msgstr ""
 
@@ -884,7 +872,7 @@ msgstr ""
 msgid "Plasma Widgets"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml
+#: ../contents/ui/configuration/General.qml ../contents/ui/representation/Expanded.qml
 msgid "Firmware"
 msgstr ""
 
@@ -934,6 +922,10 @@ msgstr ""
 msgid ""
 "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option "
 "is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Don't notify about dependencies"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
@@ -1058,7 +1050,7 @@ msgstr ""
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
 
-#: ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/Upgrade.qml ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr ""
 
@@ -1207,6 +1199,10 @@ msgid "Mirror status"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Enable"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 msgid "Number output"
 msgstr ""
 
@@ -1280,6 +1276,14 @@ msgstr ""
 msgid "Auto check disabled"
 msgstr ""
 
+#: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "System packages"
+msgstr ""
+
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
 msgstr ""
@@ -1298,6 +1302,10 @@ msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by repository"
+msgstr ""
+
+#: ../contents/ui/representation/Expanded.qml
+msgid "Full upgrade (right-click to choose)"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml
@@ -1332,82 +1340,86 @@ msgstr ""
 msgid "No internet connection"
 msgstr ""
 
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Upgrade package"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Package type"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Description"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Author"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "App ID"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Branch"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Commit"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Runtime"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Groups"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Provides"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Depends on"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Required by"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Conflicts with"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Replaces"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Installed size"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Download size"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "Install date"
-msgstr ""
-
-#: ../contents/ui/scrollview/Extended.qml
-msgid "System updated"
-msgstr ""
-
 #: ../contents/ui/scrollview/News.qml
 msgid "Mark as read"
 msgstr ""
 
 #: ../contents/ui/scrollview/News.qml
 msgid "No unread news"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Upgrade package"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Version diff"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Package type"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Description"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Author"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "App ID"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Branch"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Commit"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Runtime"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Groups"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Provides"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Depends on"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Required by"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Conflicts with"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Replaces"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Installed size"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Download size"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "Install date"
+msgstr ""
+
+#: ../contents/ui/scrollview/Updates.qml
+msgid "System updated"
 msgstr ""
