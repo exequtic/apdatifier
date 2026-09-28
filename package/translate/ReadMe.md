@@ -25,7 +25,7 @@ Copy the [`template.pot`](template.pot) file to [`./po`](po) directory and name 
 | de       | 333/333 |  100% |
 | es       | 333/333 |  100% |
 | fr       | 333/333 |  100% |
-| hu_HU    | 326/333 |   97% |
+| hu_HU    | 333/333 |  100% |
 | ko       | 333/333 |  100% |
 | nl       | 333/333 |  100% |
 | pl       | 333/333 |  100% |
