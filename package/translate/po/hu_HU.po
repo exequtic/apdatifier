@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-09-26 15:00+0300\n"
-"PO-Revision-Date: 2026-09-28 07:41+0200\n"
+"PO-Revision-Date: 2026-09-28 07:46+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
 "Language: hu_HU\n"
@@ -689,7 +689,7 @@ msgstr "Rendezés"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr "By repository"
+msgstr "Tároló szerint"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
