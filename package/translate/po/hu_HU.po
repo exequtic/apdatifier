@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-09-26 15:00+0300\n"
-"PO-Revision-Date: 2026-06-19 12:18+0200\n"
+"PO-Revision-Date: 2026-09-28 07:41+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
 "Language: hu_HU\n"
@@ -104,7 +104,7 @@ msgstr "a következő kiszolgálókkal frissült:"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "A tükörlista-fájlba történő íráshoz sudo jogosultságokra van szükség"
+msgstr "A tükörlista-fájlba történő íráshoz rendszergazdai jogosultságokra van szükség"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -115,11 +115,8 @@ msgid "Refresh mirror list?"
 msgstr "Frissíti a tükörlistát?"
 
 #: ../contents/tools/sh/messages
-msgid ""
-"For some widgets you may need to Log Out or restart plasmashell after upgrade"
-msgstr ""
-"Egyes kisalkalmazások esetében előfordulhat, hogy a frissítés után ki kell "
-"jelentkeznie vagy újra kell indítania a Plasmas-héjt"
+msgid "For some widgets you may need to Log Out or restart plasmashell after upgrade"
+msgstr "Egyes kisalkalmazások esetében előfordulhat, hogy a frissítés után ki kell jelentkeznie vagy újra kell indítania a Plasmas-héjt"
 
 #: ../contents/tools/sh/messages
 msgid "Checking widgets for updates"
@@ -127,7 +124,7 @@ msgstr "Kisalkalmazások frissítéseinek ellenőrzése"
 
 #: ../contents/tools/sh/messages
 msgid "Fetching data from the API"
-msgstr "Adatok lekérése az API-tól"
+msgstr "Adatok lekérése az API-n keresztül"
 
 #: ../contents/tools/sh/messages
 msgid "Getting the download link"
@@ -154,16 +151,12 @@ msgid "Unable check widgets: "
 msgstr "Nem sikerült ellenőrizni a kisalkalmazásokat: "
 
 #: ../contents/tools/sh/messages
-msgid ""
-"Too many API requests in the last 15 minutes from your IP address, please "
-"try again later"
-msgstr ""
-"Az elmúlt 15 percben túl sok API-lekérdezés érkezett az Ön IP-címéről. "
-"Próbálja meg később újra"
+msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
+msgstr "Az elmúlt 15 percben túl sok API-lekérdezés érkezett az Ön IP-címéről. Próbálja meg újra később"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
-msgstr "Nem sikerült adatokat lekérni az API-ból"
+msgstr "Nem sikerült adatokat lekérni az API-n keresztül"
 
 #: ../contents/tools/sh/messages
 msgid "Unkwnown error"
@@ -209,9 +202,7 @@ msgstr "Elérhetők böngészése"
 
 #: ../contents/tools/sh/messages
 msgid "Search all available packages and select what to install"
-msgstr ""
-"Keresse meg az összes elérhető csomagot, és válassza ki, hogy melyiket "
-"szeretné telepíteni"
+msgstr "Keresse meg az összes elérhető csomagot, és válassza ki, hogy melyiket szeretné telepíteni"
 
 #: ../contents/tools/sh/messages
 msgid "Manage installed"
@@ -219,8 +210,7 @@ msgstr "Telepítettek kezelése"
 
 #: ../contents/tools/sh/messages
 msgid "View installed packages and select what to remove"
-msgstr ""
-"Telepített csomagok megtekintése, és az eltávolítandó csomagok kiválasztása"
+msgstr "Telepített csomagok megtekintése, és az eltávolítandó csomagok kiválasztása"
 
 #: ../contents/tools/sh/messages
 msgid "Explicit installs"
@@ -264,8 +254,7 @@ msgstr "Gyorsítótár törlése"
 
 #: ../contents/tools/sh/messages
 msgid "Remove cached files to free disk space"
-msgstr ""
-"Fájlok eltávolítása a gyorsítótárból a lemezterület felszabadítása érdekében"
+msgstr "Fájlok eltávolítása a gyorsítótárból a lemezterület felszabadítása érdekében"
 
 #: ../contents/tools/sh/messages
 msgid "Remove all cache"
@@ -289,8 +278,7 @@ msgstr "Csomagok újraösszeállítása"
 
 #: ../contents/tools/sh/messages
 msgid "Select packages that need reinstall with rebuild"
-msgstr ""
-"Csomagok kiválasztása, amelyeket újraösszeállítással kell újratelepíteni"
+msgstr "Csomagok kiválasztása, amelyeket újraösszeállítással kell újratelepíteni"
 
 #: ../contents/tools/sh/messages
 msgid "Rebuild AUR packages"
@@ -388,7 +376,7 @@ msgstr "Flatpak frissítések ellenőrzése…"
 
 #: ../contents/tools/tools.js
 msgid "Checking widgets updates..."
-msgstr "Kisalkalmazás-frissítések ellenőrzése…"
+msgstr "Kisalkalmazások frissítéseinek ellenőrzése…"
 
 #: ../contents/tools/tools.js
 msgid "Checking firmware updates..."
@@ -515,7 +503,7 @@ msgstr "Ikon"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default"
-msgstr "Alapértelmezett"
+msgstr "Alapértelmezés"
 
 #: ../contents/ui/configuration/Appearance.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -541,12 +529,8 @@ msgstr[0] "frissítés"
 msgstr[1] "frissítés"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"If the widget is on a panel, you can access the hidden icon in Panel "
-"Configuration mode."
-msgstr ""
-"Ha a kisalkalmazás egy panelen található, akkor a rejtett ikonhoz a "
-"panelbeállítás-módban férhet hozzá."
+msgid "If the widget is on a panel, you can access the hidden icon in Panel Configuration mode."
+msgstr "Ha a kisalkalmazás egy panelen található, akkor a rejtett ikonhoz a panelbeállítás-módban férhet hozzá."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Busy indicator"
@@ -561,13 +545,8 @@ msgid "Pulse"
 msgstr "Lüktető"
 
 #: ../contents/ui/configuration/Appearance.qml
-msgid ""
-"Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel "
-"icon. On the desktop, the busy indicator is always off."
-msgstr ""
-"A várakozásjelző a szabványos Plasmoid foglaltságjelzőt használja. A "
-"lüktetés animálja a panel ikont. Az asztalon a foglaltságjelző mindig ki van "
-"kapcsolva."
+msgid "Spinner uses the standard Plasmoid busy indicator. Pulse animates the panel icon. On the desktop, the busy indicator is always off."
+msgstr "A várakozásjelző a szabványos Plasmoid foglaltságjelzőt használja. A lüktetés animálja a panel ikont. Az asztalon a foglaltságjelző mindig ki van kapcsolva."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter"
@@ -588,7 +567,7 @@ msgstr "Oldal"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge"
-msgstr "Jelvény"
+msgstr "Kitűző"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Position"
@@ -624,15 +603,15 @@ msgstr "Eltolás"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Select a font"
-msgstr ""
+msgstr "Betűtípus kiválasztása"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Counter font"
-msgstr ""
+msgstr "Számláló betűtípusa"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
-msgstr "Jelvény színe"
+msgstr "Kitűző színe"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
@@ -648,11 +627,11 @@ msgstr "Alapértelmezett háttérszín a jelenlegi témából"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge radius"
-msgstr "Jelvény sugara"
+msgstr "Kitűző sugara"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge opacity"
-msgstr "Jelvény átlátszatlansága"
+msgstr "Kitűző átlátszatlansága"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Icon Badges"
@@ -672,9 +651,7 @@ msgstr "Beépített ikonok használata"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Override custom icon theme and use default Apdatifier icons instead."
-msgstr ""
-"Felülírja az egyéni ikontémát, és helyette az Apdatifier alapértelmezett "
-"ikonjait használja."
+msgstr "Felülírja az egyéni ikontémát, és helyette az Apdatifier alapértelmezett ikonjait használja."
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Scrollbar"
@@ -712,7 +689,7 @@ msgstr "Rendezés"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By repository"
-msgstr "Tároló szerint"
+msgstr "By repository"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "By name"
@@ -801,20 +778,12 @@ msgid "Note: version with the latest commits may be unstable."
 msgstr "Megjegyzés: a legújabb módosításokat tartalmazó verzió instabil lehet."
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Note: if you haven't installed the Devel version before, there's no need to "
-"install the Stable version."
-msgstr ""
-"Megjegyzés: ha korábban még nem telepítette a fejlesztői verziót, akkor nem "
-"szükséges telepíteni a stabil verziót."
+msgid "Note: if you haven't installed the Devel version before, there's no need to install the Stable version."
+msgstr "Megjegyzés: ha korábban még nem telepítette a fejlesztői verziót, akkor nem szükséges telepíteni a stabil verziót."
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Removal of the widget and all related files, including the directory with "
-"its configuration."
-msgstr ""
-"A kisalkalmazás és az összes hozzá kapcsolódó fájl eltávolítása, beleértve a "
-"konfigurációs mappát is."
+msgid "Removal of the widget and all related files, including the directory with its configuration."
+msgstr "A kisalkalmazás és az összes hozzá kapcsolódó fájl eltávolítása, beleértve a konfigurációs mappát is."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -833,13 +802,8 @@ msgid "Misc"
 msgstr "Egyebek"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Configuration is automatically saved in a config file and loaded at every "
-"startup, ensuring you never lose your settings. The config file is stored in "
-msgstr ""
-"A beállítások automatikusan el lesznek mentve egy konfigurációs fájlba, és "
-"minden indításkor betöltődnek, így biztosítva, hogy soha ne vesszenek el a "
-"beállítások. A konfigurációs fájl a következő helyen van tárolva: "
+msgid "Configuration is automatically saved in a config file and loaded at every startup, ensuring you never lose your settings. The config file is stored in "
+msgstr "A beállítások automatikusan el lesznek mentve egy konfigurációs fájlba, és minden indításkor betöltődnek, így biztosítva, hogy soha ne vesszenek el a beállítások. A konfigurációs fájl a következő helyen van tárolva: "
 
 #: ../contents/ui/configuration/General.qml
 msgid "Schedule"
@@ -904,7 +868,7 @@ msgstr "Frissítés"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch Official Repositories"
-msgstr "Az Arch Linux hivatalos tárolói"
+msgstr "Arch Linux hivatalos tároló"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Arch User Repository"
@@ -973,22 +937,12 @@ msgid "For every version bump"
 msgstr "Minden verziószám-emeléskor"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"If the option is <b>enabled</b>, notifications will be sent when a new "
-"version of the package is bumped, even if the package is already on the "
-"list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, "
-"notifications will only be sent for packages that are not yet on the list. "
-"<b>Less notifications.</b>"
-msgstr ""
-"Ha az opció <b>engedélyezve van</b>, akkor minden alkalommal értesítést fog "
-"kapni, amikor egy csomag új verziója megjelenik, még akkor is, ha a csomag "
-"már szerepel a listán. <b>Több értesítés.</b><br><br>Ha az opció ki van "
-"kapcsolva, akkor csak azokról a csomagokról fog értesítéseket kapni, amelyek "
-"még nem szerepelnek a listán. <b>Kevesebb értesítés.</b>"
+msgid "If the option is <b>enabled</b>, notifications will be sent when a new version of the package is bumped, even if the package is already on the list. <b>More notifications.</b> <br><br>If the option is <b>disabled</b>, notifications will only be sent for packages that are not yet on the list. <b>Less notifications.</b>"
+msgstr "Ha a beállítás <b>engedélyezve van</b>, akkor minden alkalommal értesítést fog kapni, amikor egy csomag új verziója megjelenik, még akkor is, ha a csomag már szerepel a listán. <b>Több értesítés.</b><br><br>Ha a beállítás <b>ki van kapcsolva</b>, akkor csak azokról a csomagokról fog értesítéseket kapni, amelyek még nem szerepelnek a listán. <b>Kevesebb értesítés.</b>"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Don't notify about dependencies"
-msgstr ""
+msgstr "Ne értesítsen a függőségekről"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
@@ -1007,12 +961,8 @@ msgid "Persistent"
 msgstr "Állandó"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"To further configure, click the button below -> Application Settings -> "
-"Apdatifier"
-msgstr ""
-"A további beállításokhoz kattintson az alábbi gombra -> "
-"Alkalmazásbeállítások -> Apdatifier"
+msgid "To further configure, click the button below -> Application Settings -> Apdatifier"
+msgstr "A további beállításokhoz kattintson az alábbi gombra -> Alkalmazásbeállítások -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -1027,13 +977,8 @@ msgid "Right click"
 msgstr "Jobb kattintás"
 
 #: ../contents/ui/configuration/General.qml
-msgid ""
-"Do not enable this option if the widget is not used in the system tray; "
-"otherwise, you will not be able to open the settings by right-clicking."
-msgstr ""
-"Ne engedélyezze ezt az opciót, ha a kisalkalmazást nem a tálcán használja; "
-"ellenkező esetben jobb egérgombbal kattintva nem tudja megnyitni a "
-"beállításokat."
+msgid "Do not enable this option if the widget is not used in the system tray; otherwise, you will not be able to open the settings by right-clicking."
+msgstr "Ne engedélyezze ezt a beállítást, ha a kisalkalmazást nem a tálcán használja; ellenkező esetben jobb egérgombbal kattintva nem tudja megnyitni a beállításokat."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Scroll up"
@@ -1045,13 +990,11 @@ msgstr "Lefelé görgetés"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Restore hidden tooltips"
-msgstr "Rejtett eszköztippek visszaállítása"
+msgstr "Rejtett eszköztippek helyreállítása"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Reset to default. By default, the path is the same as for checkupdates."
-msgstr ""
-"Alapértelmezett beállítások visszaállítása. Alapértelmezés szerint az "
-"elérési út megegyezik a checkupdates parancséval."
+msgstr "Alapértelmezett beállítások visszaállítása. Alapértelmezés szerint az elérési út megegyezik a checkupdates parancséval."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
@@ -1063,7 +1006,7 @@ msgstr "Hálózat"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Connectivity check"
-msgstr "Kapcsolatellenőrzés"
+msgstr "Kapcsolat ellenőrzése"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Respect metered connection"
@@ -1079,7 +1022,7 @@ msgstr "Pontos csomagnév"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Regex"
-msgstr "Regex"
+msgstr "Reguláris kifejezés"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "See Help"
@@ -1098,12 +1041,8 @@ msgid "Exclude from the list"
 msgstr "Kihagyás a listából"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Ignore a package upgrade. <b>Be careful in skipping packages, since partial "
-"upgrades are unsupported.</b>"
-msgstr ""
-"Egy csomagfrissítés mellőzése. <b>Legyen óvatos egyes csomagok frissítésének "
-"mellőzésével, mivel a részleges frissítések nem támogatottak.</b>"
+msgid "Ignore a package upgrade. <b>Be careful in skipping packages, since partial upgrades are unsupported.</b>"
+msgstr "Egy csomagfrissítés mellőzése. <b>Legyen óvatos egyes csomagok frissítésének mellőzésével, mivel a részleges frissítések nem támogatottak.</b>"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "Help"
@@ -1114,31 +1053,16 @@ msgid "Apply"
 msgstr "Alkalmaz"
 
 #: ../contents/ui/configuration/Rules.qml
-msgid ""
-"Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex "
-"examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> "
-"— names ending with wayland<br><b>.*qt.*</b> — names containing "
-"qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-"
-"lts)?$</b> — linux, linux-zen or linux-lts"
-msgstr ""
-"A szabályok fentről lefelé érvényesülnek: a későbbiek felülbírálják a "
-"korábbiakat.<br><br>Regex példák:<br><b>^nvidia</b> — nvidia-val kezdődő "
-"nevek<br><b>wayland$</b> — waylandre végződő nevek<br><b>.*qt.*</b> — qt-t "
-"tartalmazó nevek<br><b>(ttf|font|otf)</b> — ttf, font vagy otf "
-"bármelyike<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen vagy linux-lts"
+msgid "Rules apply top-to-bottom: later rules override earlier ones.<br><br>Regex examples:<br><b>^nvidia</b> — names starting with nvidia<br><b>wayland$</b> — names ending with wayland<br><b>.*qt.*</b> — names containing qt<br><b>(ttf|font|otf)</b> — any of ttf, font, or otf<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen or linux-lts"
+msgstr "A szabályok fentről lefelé érvényesülnek: a későbbiek felülbírálják a korábbiakat.<br><br>Példák reguláris kifejezésre:<br><b>^nvidia</b> — nvidia-val kezdődő nevek<br><b>wayland$</b> — waylandre végződő nevek<br><b>.*qt.*</b> — qt-t tartalmazó nevek<br><b>(ttf|font|otf)</b> — ttf, font vagy otf bármelyike<br><b>linux(-zen|-lts)?$</b> — linux, linux-zen vagy linux-lts"
 
 #: ../contents/ui/configuration/Rules.qml
 msgid "No rules yet"
 msgstr "Még nincsenek szabályok"
 
 #: ../contents/ui/configuration/Support.qml
-msgid ""
-"Thanks for using my widget! If you appreciate my work, you can support me by "
-"starring the GitHub repository or buying me a coffee ;)"
-msgstr ""
-"Köszönöm, hogy az én kisalkalmazásomat használja! Ha tetszik a munkám, "
-"támogathat azzal, hogy a GitHub-tárolómat csillagozza, vagy meghív egy "
-"kávéra ;)"
+msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
+msgstr "Köszönöm, hogy az én kisalkalmazásomat használja! Ha tetszik a munkám, támogathat azzal, hogy csillagozza a GitHub-tárolómat, vagy meghív egy kávéra ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
@@ -1154,12 +1078,8 @@ msgid "Use NerdFont icons"
 msgstr "NerdFont ikonok használata"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be "
-"used."
-msgstr ""
-"Ha az Ön terminálja, bármely <b>Nerd Font</b> betűtípust megjeleníti, akkor "
-"az adott betűtípus ikonjai kerülnek felhasználásra."
+msgid "If your terminal utilizes any <b>Nerd Font</b>, icons from that font will be used."
+msgstr "Ha az Ön terminálja, bármely <b>Nerd Font</b> betűtípust megjeleníti, akkor az adott betűtípus ikonjai lesznek használva."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "tmux session"
@@ -1171,42 +1091,31 @@ msgstr "Tétlenség megakadályozása"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Disables automatic sleep and screen lock while upgrading."
-msgstr ""
-"Megakadályozza az automatikus elalvást és a képernyő zárolását frissítés "
-"közben."
+msgstr "Megakadályozza az automatikus elalvást és a képernyő zárolását frissítés közben."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr "Frissítés előtti és utáni parancsfájlok"
+msgstr "Tranzakció előtti/utáni frissítési parancsfájlok"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr "Frissítés előtti futtatás"
+msgstr "Tranzakció előtti futtatás"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
 msgstr "Parancs vagy parancsfájl elérési útja"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"Running your command or script BEFORE the upgrade.<br>For example, you can "
-"specify your command to update the mirrorlist if you have unofficial "
-"repositories."
-msgstr ""
-"Parancs vagy parancsfájl futtatása a frissítés ELŐTT.<br>Például megadhat "
-"egy parancsot a tükörlisták frissítésére, ha nem hivatalos tárolókat használ."
+msgid "Running your command or script BEFORE the upgrade.<br>For example, you can specify your command to update the mirrorlist if you have unofficial repositories."
+msgstr "Parancs vagy parancsfájl futtatása a frissítés ELŐTT.<br>Például megadhat egy parancsot a tükörlisták frissítésére, ha nem hivatalos tárolókat is használ."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr "Frissítés utáni futtatás"
+msgstr "Tranzakció utáni futtatás"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"Running your command or script AFTER the upgrade.<br>For example, you can "
-"specify your command to upgrade something else."
-msgstr ""
-"Parancs vagy parancsfájl futtatása a frissítés UTÁN.<br>Például megadhat egy "
-"parancsot, amellyel valami mást frissíthet."
+msgid "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
+msgstr "Parancs vagy parancsfájl futtatása a frissítés UTÁN.<br>Például megadhat egy parancsot, amellyel valami mást frissíthet."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Without Flatpak options"
@@ -1222,18 +1131,15 @@ msgstr "Súgó elrejtése"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Hide option numbers"
-msgstr "Opciószámok elrejtése"
+msgstr "Beállítások számainak elrejtése"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Fzf options"
 msgstr "FZF-beállítások"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"Override default fzf options.<br>See <b>fzf --help</b> for available options."
-msgstr ""
-"FZF alapértelmezett beállításainak felülírása.<br>A rendelkezésre álló "
-"beállításokhoz tekintse meg: <b>fzf --help</b>."
+msgid "Override default fzf options.<br>See <b>fzf --help</b> for available options."
+msgstr "FZF alapértelmezett beállításainak felülírása.<br>A rendelkezésre álló beállításokhoz tekintse meg: <b>fzf --help</b>."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Wrapper"
@@ -1256,20 +1162,8 @@ msgid "Suggest after upgrading"
 msgstr "Javaslat a frissítés után"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"This option suggests restarting the system after upgrading critical packages."
-"<br><br><b>Note that not all critical packages require a full system "
-"restart; some may only need a session restart or no action at all, such as "
-"when an updated package is not currently running (e.g., an alternative "
-"kernel) or not in use (e.g., an alternative driver).</b>"
-msgstr ""
-"Ez a beállítás azt javasolja, hogy a kritikus csomagok frissítése után "
-"indítsa újra a rendszert.<br><br><b>Megjegyzés: Nem minden kritikus csomag "
-"esetében szükséges a rendszer teljes újraindítása; egyes csomagoknál "
-"elegendő lehet a munkamenet újraindítása, vagy egyáltalán nincs szükség "
-"semmilyen műveletre, például, ha a frissített csomag éppen nem fut (például "
-"egy alternatív rendszermag) vagy nincs használatban (például egy alternatív "
-"illesztőprogram).</b>"
+msgid "This option suggests restarting the system after upgrading critical packages.<br><br><b>Note that not all critical packages require a full system restart; some may only need a session restart or no action at all, such as when an updated package is not currently running (e.g., an alternative kernel) or not in use (e.g., an alternative driver).</b>"
+msgstr "Ez a beállítás azt javasolja, hogy a kritikus csomagok frissítése után indítsa újra a rendszert.<br><br><b>Megjegyzés: Nem minden kritikus csomag esetében szükséges a rendszer teljes újraindítása; egyes csomagoknál elegendő lehet a munkamenet újraindítása, vagy egyáltalán nincs szükség semmilyen műveletre, például, ha a frissített csomag éppen nem fut (például egy alternatív rendszermag) vagy nincs használatban (például egy alternatív illesztőprogram).</b>"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pacman Mirrorlist Generator"
@@ -1281,9 +1175,7 @@ msgstr "Csak a hivatalos tárolókra vonatkozik"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Also see https://archlinux.org/mirrorlist (click button to open link)"
-msgstr ""
-"Lásd még: https://archlinux.org/mirrorlist (a hivatkozás megnyitásához "
-"kattintson a gombra)"
+msgstr "Lásd még: https://archlinux.org/mirrorlist (a hivatkozás megnyitásához kattintson a gombra)"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Generator"
@@ -1344,17 +1236,8 @@ msgid "Select at least one!"
 msgstr "Válasszon ki legalább egyet!"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"You must select at least one country, otherwise all will be chosen by "
-"default. <br><br><b>The more countries you select, the longer it will take "
-"to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> "
-"countries closest to you."
-msgstr ""
-"Legalább egy országot ki kell választania, ellenkező esetben alapértelmezés "
-"szerint az összes országot kiválasztja a rendszer.<br><br><b>Minél több "
-"országot választ ki, annál tovább tart a tükörszerverek előállítása!</b> "
-"<br><br>A legjobb megoldás, ha <b>1–2</b> olyan országot választ, amelyik a "
-"legközelebb van Önhöz."
+msgid "You must select at least one country, otherwise all will be chosen by default. <br><br><b>The more countries you select, the longer it will take to generate the mirrors!</b> <br><br>It is optimal to choose <b>1-2</b> countries closest to you."
+msgstr "Legalább egy országot ki kell választania, ellenkező esetben alapértelmezés szerint az összes országot kiválasztja a rendszer.<br><br><b>Minél több országot választ ki, annál tovább tart a tükörszerverek előállítása!</b> <br><br>A legjobb megoldás, ha <b>1–2</b> olyan országot választ, amelyik a legközelebb van Önhöz."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Uninstall unused"
@@ -1385,13 +1268,8 @@ msgid "Restart plasmashell"
 msgstr "Plasma-héj újraindítása"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid ""
-"After upgrading widget, the old version will still remain in memory until "
-"you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr ""
-"A kisalkalmazás frissítése után a régi verzió addig marad a memóriában, amíg "
-"újra nem indítja a Plasma-héjt. Ha nem szeretné ezt kézzel elvégezni, "
-"engedélyezze ezt az opciót."
+msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
+msgstr "A kisalkalmazás frissítése után a régi verzió addig marad a memóriában, amíg újra nem indítja a Plasma-héjt. Ha nem szeretné ezt kézzel elvégezni, engedélyezze ezt a beálltást."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
@@ -1411,11 +1289,11 @@ msgstr "Automatikus ellenőrzés letiltva"
 
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
-msgstr ""
+msgstr "Teljes frissítés"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "System packages"
-msgstr ""
+msgstr "Rendszercsomagok"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1423,11 +1301,11 @@ msgstr "Szűrés csomagnév szerint"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Enable auto search updates"
-msgstr "Automatikus keresésfrissítések engedélyezése"
+msgstr "Frissítések automatikus keresésének engedélyezése"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Disable auto search updates"
-msgstr "Automatikus keresésfrissítések letiltása"
+msgstr "Frissítések automatikus keresésének letiltása"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Sort packages by name"
@@ -1439,7 +1317,7 @@ msgstr "Csomagok rendezése tároló szerint"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade (right-click to choose)"
-msgstr ""
+msgstr "Teljes frissítés (jobb egérgomb használata a kiválasztáshoz)"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Stop checking"
@@ -1487,7 +1365,7 @@ msgstr "Csomag frissítése"
 
 #: ../contents/ui/scrollview/Updates.qml
 msgid "Version diff"
-msgstr ""
+msgstr "Verziókülönbségek"
 
 #: ../contents/ui/scrollview/Updates.qml
 msgid "Package type"
