@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-09-26 15:00+0300\n"
-"PO-Revision-Date: 2026-09-28 07:46+0200\n"
+"PO-Revision-Date: 2026-09-28 07:54+0200\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
 "Language: hu_HU\n"
@@ -1183,11 +1183,11 @@ msgstr "Előállító"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Always ask"
-msgstr "Mindig kérdezzen rá"
+msgstr "Rákérdezés mindig"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Ask if older than"
-msgstr "Akkor kérdezzen, ha régebbi mint"
+msgstr "Rákérdezés, ha régebbi mint"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "day"
@@ -1197,7 +1197,7 @@ msgstr[1] "nap"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr "Ne kérdezzen, frissítés kényszerítése"
+msgstr "Rákérdezés kihagyása, frissítés kényszerítése"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
