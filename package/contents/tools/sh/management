@@ -4,6 +4,13 @@ source "$(dirname "$0")/utils"
 
 [ "$1" ] && selected="$1" || selected=0
 
+have_pacman=false; have_flatpak=false; have_dnf=false
+command -v pacman  >/dev/null && have_pacman=true
+command -v dnf     >/dev/null && have_dnf=true
+command -v flatpak >/dev/null && have_flatpak=true
+
+dnf_cache="$cacheDir/dnf"
+
 if [[ $aur != true || -z $wrapper ]]; then
     wrapper="pacman"
     wrapper_sudo="$sudoBin $wrapper"
@@ -49,100 +56,115 @@ fzf_settings="--preview-window=right:70%,border-none \
 show_help=false
 
 
+sourceList() {
+    opts=()
+    acts=()
+
+    case $1 in
+        browse)
+            [[ $have_pacman = true ]] && { opts+=("$ICO_MNG_11 pacman"); acts+=("fzfExec Slq"); }
+            [[ $have_dnf = true ]] && { opts+=("$ICO_MNG_11 dnf"); acts+=(dnfAvailable); }
+            [[ $have_flatpak = true && $mngHideFlatpak != true ]] && { opts+=("$ICO_MNG_11 flathub"); acts+=(flatpakFlathub); }
+            ;;
+        installed)
+            [[ $have_pacman = true ]] && { opts+=("$ICO_MNG_11 pacman"); acts+=("fzfExec Qq"); }
+            [[ $have_dnf = true ]] && { opts+=("$ICO_MNG_11 dnf"); acts+=(dnfInstalled); }
+            [[ $have_flatpak = true && $mngHideFlatpak != true ]] && { opts+=("$ICO_MNG_11 flatpak"); acts+=(flatpakInstalled); }
+            ;;
+    esac
+
+    ((${#opts[@]})) || return
+}
+
+
 showMenu() {
     menu_type=$1
     opts=()
+    acts=()
 
     case $menu_type in
         main)
-            opts+=("$ICO_MNG_01 $MNG_BROWSE")
-            opts+=("$ICO_MNG_02 $MNG_INST")
-            opts+=("$ICO_MNG_03 $MNG_EXPL")
-            opts+=("$ICO_MNG_04 $MNG_ORPH")
-            opts+=("$ICO_MNG_05 $MNG_DOWNGR")
-            opts+=("$ICO_MNG_06 $MNG_CACHE")
-            opts+=("$ICO_MNG_05 $MNG_REBUILD")
-            opts+=("$ICO_MNG_08 $MNG_MIRROR")
-            opts+=("$ICO_MNG_10 $MNG_RECENT")
-            redraw
-            case $selected in
-                0) [[ $mngHideFlatpak = true ]] && fzfExec Slq || showMenu browse;;
-                1) [[ $mngHideFlatpak = true ]] && fzfExec Qq || showMenu installed;;
-                2) showMenu explicit;;
-                3) showMenu orphans;;
-                4) downgrade;;
-                5) showMenu cache;;
-                6) showMenu rebuild;;
-                7) tui_exit; exec "$scriptDir/mirrorlist" menu "$selected";;
-                8) recentlyInstalled;;
-                9) showMenu main;;
-            esac
+            if [[ $have_pacman = true || $have_dnf = true || ( $have_flatpak = true && $mngHideFlatpak != true ) ]]; then
+                opts+=("$ICO_MNG_01 $MNG_BROWSE"); acts+=(browse)
+                opts+=("$ICO_MNG_02 $MNG_INST");   acts+=(installed)
+            fi
+            if [[ $have_pacman = true ]]; then
+                opts+=("$ICO_MNG_03 $MNG_EXPL");    acts+=(explicit)
+                opts+=("$ICO_MNG_04 $MNG_ORPH");    acts+=(orphans)
+                opts+=("$ICO_MNG_05 $MNG_DOWNGR");  acts+=(downgrade)
+                opts+=("$ICO_MNG_06 $MNG_CACHE");   acts+=(cache)
+                opts+=("$ICO_MNG_05 $MNG_REBUILD"); acts+=(rebuild)
+                opts+=("$ICO_MNG_08 $MNG_MIRROR");  acts+=(mirror)
+                opts+=("$ICO_MNG_10 $MNG_RECENT");  acts+=(recent)
+            fi
+
+            if [[ -n $back_to ]]; then
+                selected=0
+                for i in "${!acts[@]}"; do [[ ${acts[$i]} = "$back_to" ]] && selected=$i; done
+                back_to=""
+            fi
+
+            ((${#opts[@]})) || { printError "${CMD_ERR} pacman/dnf/flatpak"; read -rs; exit; }
             ;;
-        browse)
+        browse|installed)
+            sourceList $menu_type
             selected=0
-            opts+=("$ICO_MNG_11 pacman")
-            opts+=("$ICO_MNG_11 flathub")
-            redraw
-            case $selected in
-                0) fzfExec Slq;;
-                1) flatpakFlathub;;
-                2) selected=0; showMenu main;;
-            esac
-            ;;
-        installed)
-            selected=0
-            opts+=("$ICO_MNG_11 pacman")
-            opts+=("$ICO_MNG_11 flatpak")
-            redraw
-            case $selected in
-                0) fzfExec Qq;;
-                1) flatpakInstalled;;
-                2) selected=1; showMenu main;;
-            esac
             ;;
         explicit)
-            selected=0
-            opts+=("$ICO_MNG_03 $MNG_EXPL_L")
-            opts+=("$ICO_MNG_04 $MNG_EXPL_U")
-            redraw
-            case $selected in
-                0) fzfExec Qqe;;
-                1) fzfExec Qqet;;
-                2) selected=2; showMenu main;;
-            esac
+            opts+=("$ICO_MNG_03 $MNG_EXPL_L"); acts+=("fzfExec Qqe")
+            opts+=("$ICO_MNG_04 $MNG_EXPL_U"); acts+=("fzfExec Qqet")
             ;;
         orphans)
-            selected=0
-            opts+=("$ICO_MNG_06 $MNG_ORPH_L")
-            opts+=("$ICO_MNG_07 $MNG_ORPH_R")
-            redraw
-            case $selected in
-                0) fzfExec Qqtd;;
-                1) uninstallOrphans;;
-                2) selected=3; showMenu main;;
-            esac
+            opts+=("$ICO_MNG_06 $MNG_ORPH_L"); acts+=("fzfExec Qqtd")
+            opts+=("$ICO_MNG_07 $MNG_ORPH_R"); acts+=(uninstallOrphans)
             ;;
         cache)
-            selected=0
-            opts+=("$ICO_MNG_07 $MNG_CACHE_A")
-            opts+=("$ICO_MNG_06 $MNG_CACHE_U")
-            redraw
-            case $selected in
-                0) cleanCache Scc;;
-                1) cleanCache Sc;;
-                2) selected=5; showMenu main;;
-            esac
+            opts+=("$ICO_MNG_07 $MNG_CACHE_A"); acts+=("cleanCache Scc")
+            opts+=("$ICO_MNG_06 $MNG_CACHE_U"); acts+=("cleanCache Sc")
             ;;
         rebuild)
+            opts+=("$ICO_MNG_05 $MNG_REBUILD_A"); acts+=("fzfExec Qqm")
+            opts+=("$ICO_MNG_09 $MNG_REBUILD_P"); acts+=(rebuildPython)
+            ;;
+    esac
+
+    redraw
+
+    case "${acts[$selected]:-back}" in
+        browse|installed)
+            menu_type=${acts[$selected]}
+            sourceList $menu_type
             selected=0
-            opts+=("$ICO_MNG_05 $MNG_REBUILD_A")
-            opts+=("$ICO_MNG_09 $MNG_REBUILD_P")
-            redraw
-            case $selected in
-                0) fzfExec Qqm;;
-                1) rebuildPython;;
-                2) selected=6; showMenu main;;
-            esac
+            # a lone source skips the submenu (also covers mngHideFlatpak with pacman left)
+            if ((${#opts[@]} == 1)); then
+                menu_type=main
+                ${acts[0]}
+            else
+                redraw
+                dispatch
+            fi
+            ;;
+        *)
+            dispatch
+            ;;
+    esac
+}
+
+dispatch() {
+    case "${acts[$selected]:-back}" in
+        explicit|orphans|cache|rebuild)
+            back_to=$menu_type
+            showMenu ${acts[$selected]}
+            ;;
+        back)
+            back_to=$menu_type
+            showMenu main
+            ;;
+        mirror)
+            tui_exit; exec "$scriptDir/mirrorlist" menu "$selected"
+            ;;
+        *)
+            ${acts[$selected]}
             ;;
     esac
 }
@@ -531,6 +553,61 @@ flatpakFlathub() {
 
 
 
+dnf_ask() {
+    local answer
+    while true; do
+        printQuestion "$1"; read -r answer
+        case $answer in
+            [Yy]*) return 0 ;;
+            [Nn]*|"") return 1 ;;
+        esac
+    done
+}
+
+dnfAvailable() {
+    tui_exit
+    dependency dnf fzf || return
+
+    local names=$(
+    dnf --setopt=cachedir="$dnf_cache" -q repoquery --cacheonly --qf '%{name}\n' 2>/dev/null | sort -fu |
+    fzf $fzf_settings --preview "dnf --setopt=cachedir=$dnf_cache -q info {1}"
+    )
+
+    if [[ -n "$names" ]]; then
+        names=$(echo "$names" | oneLine)
+        printExec "dnf install $names"
+        if dnf_ask "$MNG_DNF_ADD"; then
+            $sudoBin dnf install $names
+            pressReturn
+        fi
+    fi
+
+    tui_restore
+}
+
+dnfInstalled() {
+    tui_exit
+    dependency dnf fzf || return
+
+    local names=$(
+    rpm -qa --qf '%{NAME}\n' | sort -fu |
+    fzf $fzf_settings --preview "rpm -qi {1}"
+    )
+
+    if [[ -n "$names" ]]; then
+        names=$(echo "$names" | oneLine)
+        printExec "dnf remove $names"
+        if dnf_ask "$MNG_DNF_RM"; then
+            $sudoBin dnf remove $names
+            pressReturn
+        fi
+    fi
+
+    tui_restore
+}
+
+
+
 pressReturn() {
     printf '\e[?25l'
     echo -e "\n$(colorize blue bold $ICO_RETURN $MNG_RETURN)"
@@ -579,6 +656,7 @@ clear_screen() {
 
 main() {
     ((BASH_VERSINFO[0] > 3)) && read_flags=(-t 0.05)
+    ((selected < 0)) && selected=0
 
     trap '' SIGINT
     trap 'reset_terminal' EXIT

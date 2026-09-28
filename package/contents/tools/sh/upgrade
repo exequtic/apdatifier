@@ -70,7 +70,7 @@ critical_packages=(
 )
 
 arch_upgrade() {
-    printMsg "$UPGRADE_FULL_ARCH"
+    printMsg "$UPGRADE_FULL_SYSTEM"
     echo
 
     [ "$mirrors" != "false" ] && "$scriptDir"/mirrorlist
@@ -129,6 +129,20 @@ fwupd_upgrade() {
     run "$sudoBin fwupdmgr update"
 }
 
+dnf_upgrade() {
+    printMsg "$UPGRADE_FULL_SYSTEM"
+    echo
+
+    if [ -n "$preExec" ]; then
+        run "$preExec"
+        printf '\n\033[32m'; printf '%.0s:' {1..48}; printf '\033[0m\n\n'
+    fi
+
+    test -f "$configDir/env.sh" && source "$configDir/env.sh"
+
+    run "$sudoBin dnf upgrade --refresh"
+}
+
 finish() {
     trap ' ' SIGINT
 
@@ -160,6 +174,9 @@ fullSystemUpgrade() {
 
     if [ "$arch" = true ] || [ "$aur" = true ]; then
         arch_upgrade "$@"
+    fi
+    if [ "$dnf" = true ]; then
+        dnf_upgrade "$@"
     fi
     if [ "$flatpak" = true ]; then
         flatpak_upgrade
@@ -211,6 +228,12 @@ fwupd_all_upgrade() {
     finish
 }
 
+dnf_all_upgrade() {
+    startTime=$(date +%s)
+    dnf_upgrade "$@"
+    finish
+}
+
 sys_reboot() {
     tput civis
     printMsg "$UPGRADE_REBOOTING"
@@ -244,6 +267,7 @@ widget_package() {
 case "$1" in
           "full") shift; fullSystemUpgrade $@ ;;
         "system") shift; system_upgrade $@ ;;
+           "dnf") shift; dnf_all_upgrade $@ ;;
        "flatpak") shift; flatpak_all_upgrade ;;
        "widgets") shift; widgets_all_upgrade ;;
          "fwupd") shift; fwupd_all_upgrade ;;

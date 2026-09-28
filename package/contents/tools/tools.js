@@ -169,17 +169,18 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
+        const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux, dnf ] = output.map(Boolean)
+        cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux, dnf }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = populate(output.slice(8).filter(Boolean))
+        const terminals = populate(output.slice(9).filter(Boolean))
         cfg.terminals = terminals.length > 0 ? terminals : null
         if (!cfg.terminal || !terminals.some(t => t.value === cfg.terminal))
             cfg.terminal = terminals.length > 0 ? terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
+        if (!dnf) plasmoid.configuration.dnf = false
         if (!flatpak) plasmoid.configuration.flatpak = false
         if (!fwupdmgr) plasmoid.configuration.fwupd = false
         if (!tmux) plasmoid.configuration.tmuxSession = false
@@ -321,13 +322,14 @@ function checkUpdates() {
     scheduler.stop()
     sts.busy = true
 
-    let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
+    let archRepos = [], archAur = [], dnfPkgs = [], flatpak = [], widgets = [], firmwares = []
 
     const feeds = cfg.feedsEnabled ? parseCustomFeeds(cfg.feeds).map(u => `'${u}'`).join(' ') : ""
     const news = feeds && cfg.packages?.jq
 
              news ? checkNews() :
          cfg.arch ? checkRepos() :
+          cfg.dnf ? checkDnf() :
           cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
       cfg.widgets ? checkWidgets() :
@@ -335,7 +337,7 @@ function checkUpdates() {
                     merge()
 
     function checkNews() {
-        const next = () => cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+        const next = () => cfg.arch ? checkRepos() : cfg.dnf ? checkDnf() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
                            cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
@@ -377,7 +379,7 @@ function checkUpdates() {
     }
 
     function checkRepos() {
-        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+        const next = () => cfg.dnf ? checkDnf() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
                            cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Synchronizing pacman databases...")
@@ -408,6 +410,44 @@ function checkUpdates() {
                 archAur = result
                 next()
             })
+        }, procOpt)
+    }
+
+    function checkDnf() {
+        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+                           cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
+        sts.statusMsg = i18n("Checking dnf updates...")
+
+        const cachePath = cacheDir + "dnf"
+        const qfUpdates = '%{name}|%{arch}|%{evr}|%{repoid}|%{summary}|%{url}\\n'
+        const qfInstalled = '%{name}|%{arch}|%{evr}|%{reason}\\n'
+        const rows = out => out.trim() ? out.trim().split("\n").map(l => l.trim().split("|")) : []
+
+        execute(`mkdir -p "${cachePath}" && dnf -q repoquery --refresh --setopt=cachedir="${cachePath}" --upgrades --latest-limit=1 --qf "${qfUpdates}"`, (cmd, out, err, code) => {
+            if (handleError(code, err, "dnf", next)) return
+            const updates = rows(out)
+            if (updates.length === 0) { dnfPkgs = []; next(); return }
+
+            execute(`dnf -q repoquery --cacheonly --setopt=cachedir="${cachePath}" --installed --qf "${qfInstalled}"`, (cmd, out, err, code) => {
+                if (handleError(code, err, "dnf", next)) return
+                const installed = new Map(rows(out).map(p => [p[0] + "." + p[1], { VO: p[2], reason: (p[3] || "").toLowerCase() }]))
+
+                const seen = new Set()
+                dnfPkgs = updates.filter(p => !seen.has(p[0]) && seen.add(p[0])).map(p => {
+                    const found = installed.get(p[0] + "." + p[1]) || {}
+                    return {
+                        NM: p[0],
+                        DE: p.slice(4, -1).join("|"),
+                        LN: p[p.length - 1],
+                        RE: p[3],
+                        VO: found.VO || "",
+                        VN: p[2],
+                        RN: found.reason === "user" ? "explicit" : "dependency"
+                    }
+                })
+                next()
+            }, procOpt)
         }, procOpt)
     }
 
@@ -464,7 +504,7 @@ function checkUpdates() {
     }
 
     function merge() {
-        const list = keys(archRepos.concat(archAur, flatpak, widgets, firmwares))
+        const list = keys(archRepos.concat(archAur, dnfPkgs, flatpak, widgets, firmwares))
 
         const finish = (finalList) => {
             sts.errors.length > 0
