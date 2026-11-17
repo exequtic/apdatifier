@@ -48,7 +48,6 @@ SimpleKCM {
 
     property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
-    property var terminals: plasmoid.configuration.terminals
     property var feeds: []
     property alias cfg_dbPath: dbPath.text
     
@@ -779,11 +778,11 @@ SimpleKCM {
                 standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
                 onAccepted: {
                     if (installButton === 0) {
-                        JS.execute(JS.runInTerminal("utils", "installDev"))
+                        JS.runInTerminal("utils", "installDev")
                     } else if (installButton === 1) {
-                        JS.execute(JS.runInTerminal("utils", "installStable"))
+                        JS.runInTerminal("utils", "installStable")
                     } else {
-                        JS.execute(JS.runInTerminal("utils", "uninstall"))
+                        JS.runInTerminal("utils", "uninstall")
                     }
                 }
             }

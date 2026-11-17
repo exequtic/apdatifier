@@ -70,7 +70,7 @@ printClose() {
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
-    [[ $(basename "$terminal") = "yakuake" ]] && qdbusCMD sessions removeSession "$(qdbusCMD sessions activeSessionId)"
+    closeYakuakeSession
 }
 
 printWhile() {
@@ -103,6 +103,12 @@ printWhile() {
             3) printError "$WIDGETS_ERR_NO_JSON" ;;
             4) printError "$WIDGETS_ERR_JSON" ;;
         esac
+    fi
+}
+
+closeYakuakeSession() {
+    if [[ -n $APDATIFIER_YAKUAKE_SESSION ]]; then
+        qdbusCMD sessions removeSession "$APDATIFIER_YAKUAKE_SESSION"
     fi
 }
 
@@ -517,17 +523,8 @@ uninstall() {
 }
 
 checkPkgs() {
-    local terms="alacritty foot ghostty gnome-terminal kitty konsole lxterminal ptyxis terminator tilix wezterm xterm yakuake"
-    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux $terms"
-    for pkg in $utils; do command -v $pkg || echo; done
-    if command -v flatpak >/dev/null; then
-        flatpak list --app --columns=application | while IFS= read -r app; do
-            metadata="$(flatpak info --show-metadata "$app" 2>/dev/null)" || continue
-            grep -qx 'org.freedesktop.Flatpak=talk' <<< "$metadata" || continue
-            command="$(sed -nE '/^\[Application\]/,/^\[/ s/^command=([^[:space:]]+).*/\1/p' <<< "$metadata")"
-            [[ " $terms " == *" $command "* ]] && echo "flatpak://$app/$command"
-        done
-    fi
+    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux"
+    for pkg in $utils; do command -v "$pkg" || echo; done
 }
 
 case "$1" in
