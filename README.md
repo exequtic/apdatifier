@@ -62,9 +62,13 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 - `fzf` - for interactive package selection in management
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, ghostty, konsole, kitty, kwi, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
+Open **Upgrade & Management → General → Terminal** to follow the KDE default or select an installed terminal.
 
-Flatpak installations of these terminals are also supported.
+Apdatifier uses a terminal's desktop entry to find its command-line options when available. For other terminals, select **Custom command…** and include one standalone `%s` for the command to run. Use **Test** beside the command to try it without upgrading anything.
+
+Flatpak terminals need permission to execute commands on the host. Apdatifier uses Yakuake's D-Bus interface to open a session.
+
+Apdatifier reads KDE’s default terminal setting and discovers terminals through their XDG desktop entries.
 
 <br>
 

@@ -29,17 +29,27 @@ const writeFile = (data, redir, file) => `echo '${String(data).replace(/'/g, "'\
 const saveTimestamp = () => execute(writeFile(Math.round(sts.lastCheck).toString(), '>', timestampFile))
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
+const shellArg = (value) => "'" + String(value).replace(/'/g, "'\\''") + "'"
+const terminalDiscoveryCommand = () => ["bash", scriptDir + "terminal-registry"].map(shellArg).join(" ")
+const terminalCommand = (selection, template, script, ...args) =>
+    [scriptDir + "terminal", selection, template, script, ...args].map(shellArg).join(" ")
+
 const runInTerminal = (script, ...args) => {
-    const cmd = bash('terminal', script, ...args)
-    execute(`kstart -- bash -c '${cmd}'`)
+    execute(terminalCommand(cfg.terminal, cfg.terminalCommand, script, ...args), (cmd, out, err, code) => {
+        if (code) {
+            Error(code, err || i18n("Could not open the selected terminal."))
+            if (script === "upgrade") upgradingState()
+        }
+    })
     if (script === "upgrade") {
-        runLater(5000, () => upgradeTimer.start())
+        runLater(5000, () => {
+            if (sts.upgrading) upgradeTimer.start()
+        })
         scheduler.stop()
         sts.busy = sts.upgrading = true
         sts.statusMsg = i18n("Upgrade in progress") + "..."
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     }
-
 }
 
 function runLater(ms, fn) {
@@ -151,7 +161,7 @@ function saveConfig() {
     Object.keys(cfg).forEach(key => {
         if (key.endsWith("Default")) {
             let name = key.slice(0, -7)
-            if (typeof cfg[name] === "object") return // skip font
+            if (typeof cfg[name] === "object" || name === "terminalCommand") return
             config += `${name}="${cfg[name]}"\n`
         }
     })
@@ -159,11 +169,6 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const populate = (data) => data.map(item => ({
-        "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
-        "value": item
-    }))
-
     execute(bash('utils', 'checkPkgs'), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
@@ -172,11 +177,6 @@ function checkDependencies() {
         const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
         cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
-
-        const terminals = populate(output.slice(8).filter(Boolean))
-        cfg.terminals = terminals.length > 0 ? terminals : null
-        if (!cfg.terminal || !terminals.some(t => t.value === cfg.terminal))
-            cfg.terminal = terminals.length > 0 ? terminals[0].value : ""
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
@@ -242,14 +242,14 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    const ignorePkgs = buildIgnoreString()
-    runInTerminal("upgrade", "full", `${ignorePkgs}`)
+    const ignorePkgs = buildIgnoreArgs()
+    runInTerminal("upgrade", "full", ...ignorePkgs)
 }
 
 function upgradePart(source) {
     if (sts.upgrading && !cfg.tmuxSession) return
     if (source === "system") {
-        runInTerminal("upgrade", "system", buildIgnoreString())
+        runInTerminal("upgrade", "system", ...buildIgnoreArgs())
     } else {
         runInTerminal("upgrade", source)
     }
@@ -298,18 +298,18 @@ function loadIgnorePkgs() {
     })
 }
 
-function buildIgnoreString() {
+function buildIgnoreArgs() {
     const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
-    if (!Array.isArray(rules)) return ''
+    if (!Array.isArray(rules)) return []
 
     const ignoreItems = rules.filter(rule =>
         rule && rule.ignore === true
     )
 
-    if (ignoreItems.length === 0) return ''
+    if (ignoreItems.length === 0) return []
 
     const values = ignoreItems.map(rule => rule.value)
-    return `--ignore ${values.join(',')}`
+    return ["--ignore", values.join(",")]
 }
 
 
