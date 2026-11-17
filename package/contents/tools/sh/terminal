@@ -17,7 +17,11 @@ _script="$scr $arg"
 [[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
 
 run_terminal() {
-    if [[ -n $flatpakApp ]]; then
+    if [[ $flatpakApp == org.kde.kwi ]]; then
+        local ref
+        ref=$(flatpak info --show-ref "$flatpakApp") || return
+        flatpak run --command="$term" "$ref" "$termArg" bash -c "$1"
+    elif [[ -n $flatpakApp ]]; then
         flatpak run --command="$term" "$flatpakApp" "$termArg" "$(command -v bash)" -c "$1"
     else
         "$term" "$termArg" bash -c "$1"
