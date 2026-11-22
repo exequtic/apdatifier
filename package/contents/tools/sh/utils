@@ -70,7 +70,7 @@ printClose() {
     printMsg "$UPGRADE_ENTER"
     read -r
     tput cnorm
-    closeYakuakeSession
+    [[ $(basename "$terminal") = "yakuake" ]] && qdbusCMD sessions removeSession "$(qdbusCMD sessions activeSessionId)"
 }
 
 printWhile() {
@@ -103,12 +103,6 @@ printWhile() {
             3) printError "$WIDGETS_ERR_NO_JSON" ;;
             4) printError "$WIDGETS_ERR_JSON" ;;
         esac
-    fi
-}
-
-closeYakuakeSession() {
-    if [[ -n $APDATIFIER_YAKUAKE_SESSION ]]; then
-        qdbusCMD sessions removeSession "$APDATIFIER_YAKUAKE_SESSION"
     fi
 }
 
@@ -523,7 +517,8 @@ uninstall() {
 }
 
 checkPkgs() {
-    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux"
+    local terms="alacritty foot ghostty gnome-terminal kitty konsole kwi lxterminal ptyxis terminator tilix wezterm xterm uxterm yakuake"
+    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux $terms"
     for pkg in $utils; do command -v "$pkg" || echo; done
 }
 

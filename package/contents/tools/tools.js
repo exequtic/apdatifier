@@ -30,26 +30,24 @@ const saveTimestamp = () => execute(writeFile(Math.round(sts.lastCheck).toString
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
 const shellArg = (value) => "'" + String(value).replace(/'/g, "'\\''") + "'"
-const terminalDiscoveryCommand = () => ["bash", scriptDir + "terminal-registry"].map(shellArg).join(" ")
-const terminalCommand = (selection, template, script, ...args) =>
-    [scriptDir + "terminal", selection, template, script, ...args].map(shellArg).join(" ")
-
 const runInTerminal = (script, ...args) => {
-    execute(terminalCommand(cfg.terminal, cfg.terminalCommand, script, ...args), (cmd, out, err, code) => {
-        if (code) {
-            Error(code, err || i18n("Could not open the selected terminal."))
-            if (script === "upgrade") upgradingState()
-        }
-    })
+    const selection = cfg.terminal || "kde-default"
+    if (selection === "custom" && !String(cfg.terminalCommand || "").trim()) {
+        Error(1, i18n("Set a custom terminal command in the widget settings."))
+        return
+    }
+    const parts = [scriptDir + "terminal", selection]
+    if (selection === "custom") parts.push(cfg.terminalCommand)
+    parts.push(script, ...args)
+    execute("kstart -- " + parts.map(shellArg).join(" "))
     if (script === "upgrade") {
-        runLater(5000, () => {
-            if (sts.upgrading) upgradeTimer.start()
-        })
+        runLater(5000, () => upgradeTimer.start())
         scheduler.stop()
         sts.busy = sts.upgrading = true
         sts.statusMsg = i18n("Upgrade in progress") + "..."
         sts.statusIco = cfg.ownIconsUI ? "toolbar_upgrade" : "akonadiconsole"
     }
+
 }
 
 function runLater(ms, fn) {
@@ -178,6 +176,15 @@ function checkDependencies() {
         cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
+        const terminals = output.slice(8).filter(Boolean).map(item => ({
+            "name": item.split("/").pop(),
+            "value": item
+        }))
+        cfg.terminals = terminals.length > 0 ? terminals : null
+        if (!cfg.terminal) cfg.terminal = "kde-default"
+        else if (cfg.terminal !== "kde-default" && cfg.terminal !== "custom" &&
+                 !terminals.some(t => t.value === cfg.terminal)) cfg.terminal = "kde-default"
+
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
         if (!flatpak) plasmoid.configuration.flatpak = false
@@ -242,14 +249,14 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    const ignorePkgs = buildIgnoreArgs()
-    runInTerminal("upgrade", "full", ...ignorePkgs)
+    const ignorePkgs = buildIgnoreString()
+    runInTerminal("upgrade", "full", `${ignorePkgs}`)
 }
 
 function upgradePart(source) {
     if (sts.upgrading && !cfg.tmuxSession) return
     if (source === "system") {
-        runInTerminal("upgrade", "system", ...buildIgnoreArgs())
+        runInTerminal("upgrade", "system", buildIgnoreString())
     } else {
         runInTerminal("upgrade", source)
     }
@@ -298,18 +305,18 @@ function loadIgnorePkgs() {
     })
 }
 
-function buildIgnoreArgs() {
+function buildIgnoreString() {
     const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
-    if (!Array.isArray(rules)) return []
+    if (!Array.isArray(rules)) return ''
 
     const ignoreItems = rules.filter(rule =>
         rule && rule.ignore === true
     )
 
-    if (ignoreItems.length === 0) return []
+    if (ignoreItems.length === 0) return ''
 
     const values = ignoreItems.map(rule => rule.value)
-    return ["--ignore", values.join(",")]
+    return `--ignore ${values.join(',')}`
 }
 
 

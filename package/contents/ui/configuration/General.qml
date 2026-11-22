@@ -48,6 +48,7 @@ SimpleKCM {
 
     property var cfg: plasmoid.configuration
     property var pkg: plasmoid.configuration.packages
+    property var terminals: plasmoid.configuration.terminals
     property var feeds: []
     property alias cfg_dbPath: dbPath.text
     

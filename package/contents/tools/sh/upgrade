@@ -30,7 +30,7 @@ printClose() {
     done
 
     tput cnorm
-    closeYakuakeSession
+    [[ $(basename "$terminal") = "yakuake" ]] && qdbusCMD sessions removeSession "$(qdbusCMD sessions activeSessionId)"
 }
 
 bin="$sudoBin pacman"; [ "$aur" = true ] && bin=$wrapper

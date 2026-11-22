@@ -6,9 +6,6 @@ import QtQuick.Dialogs
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
 
-import "../../tools/tools.js" as JS
-import "../components" as Components
-
 SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
     property alias cfg_terminalCommand: terminalCommand.text
@@ -42,56 +39,18 @@ SimpleKCM {
     property alias cfg_trayEnabledByDefault: trayEnabledByDefault.checked
 
     property var pkg: plasmoid.configuration.packages
-    property var terminalRegistry: ({ default: {}, apps: [] })
-    property string discoveryError
-    property string testMessage
-    property bool testingTerminal: false
+    property var terminals: plasmoid.configuration.terminals
     property var terminalChoices: {
-        const preferred = terminalRegistry.default
-        const defaultName = preferred.name ? i18n("Use KDE default (%1)", preferred.name) : i18n("Use KDE default")
-        const choices = [{ name: defaultName, icon: preferred.icon, value: "kde-default", error: preferred.error, example: preferred.example }]
-        for (const app of terminalRegistry.apps)
-            choices.push({ name: app.name, icon: app.icon, value: app.id, legacy: app.legacy, error: app.error, example: app.example })
-        const saved = cfg_terminal || "kde-default"
-        const legacy = saved.startsWith("flatpak://") ? saved : saved.split("/").pop()
-        if (saved !== "custom" && !choices.some(app => app.value === saved || (app.legacy === legacy && !app.error)))
-            choices.push({ name: saved, value: saved, error: i18n("This saved terminal could not be found in the application registry.") })
+        const choices = [{ name: i18n("Use KDE default"), value: "kde-default" }]
+        if (terminals)
+            for (const terminal of terminals)
+                choices.push(terminal)
         choices.push({ name: i18n("Custom command…"), value: "custom" })
         return choices
     }
-
     function terminalIndex() {
-        const saved = cfg_terminal || "kde-default"
-        const exact = terminalChoices.findIndex(choice => choice.value === saved)
-        if (exact >= 0)
-            return exact
-        const legacy = saved.startsWith("flatpak://") ? saved : saved.split("/").pop()
-        return terminalChoices.findIndex(choice => choice.legacy === legacy && !choice.error)
-    }
-
-    function refreshTerminals() {
-        const job = terminalJob.createObject(terminalTab)
-        job.exec(JS.terminalDiscoveryCommand(), (cmd, out, err, code) => {
-            discoveryError = code ? (err.trim() || i18n("Could not read installed terminals.")) : ""
-            if (!code) {
-                const fields = out.split("\0")
-                const apps = []
-                for (let i = 0; i + 5 < fields.length; i += 6) {
-                    const [id, name, icon, legacy, error, example] = fields.slice(i, i + 6)
-                    apps.push({ id, name, icon, legacy, error, example })
-                }
-                if (!apps.length) {
-                    discoveryError = i18n("Could not read installed terminals.")
-                    return
-                }
-                terminalRegistry = { default: apps.shift(), apps: apps.sort((a, b) => a.name.localeCompare(b.name)) }
-            }
-        })
-    }
-
-    Component {
-        id: terminalJob
-        Components.Shell {}
+        const index = terminalChoices.findIndex(choice => choice.value === (cfg_terminal || "kde-default"))
+        return index < 0 ? 0 : index
     }
     property alias cfg_preExec: preExec.text
     property alias cfg_postExec: postExec.text
@@ -141,44 +100,12 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Terminal") + ":"
 
             ComboBox {
-                id: terminalPicker
                 Layout.fillWidth: true
                 model: terminalChoices
                 textRole: "name"
                 valueRole: "value"
                 currentIndex: terminalIndex()
-                onActivated: {
-                    cfg_terminal = currentValue
-                    testMessage = ""
-                }
-
-                delegate: ItemDelegate {
-                    required property var modelData
-                    required property int index
-                    width: terminalPicker.width
-                    text: modelData.name
-                    icon.name: modelData.icon || ""
-                    highlighted: terminalPicker.highlightedIndex === index
-                }
-            }
-        }
-
-        Label {
-            Layout.fillWidth: true
-            wrapMode: Text.Wrap
-            visible: text.length > 0
-            text: discoveryError || (terminalChoices[terminalPicker.currentIndex]?.error ?? "")
-        }
-
-        Button {
-            text: i18n("Configure launch command…")
-            visible: !!terminalChoices[terminalPicker.currentIndex]?.error
-            onClicked: {
-                const example = terminalChoices[terminalPicker.currentIndex].example
-                if (!terminalCommand.text && example)
-                    terminalCommand.text = example
-                cfg_terminal = "custom"
-                terminalCommand.forceActiveFocus()
+                onActivated: cfg_terminal = currentValue
             }
         }
 
@@ -189,32 +116,12 @@ SimpleKCM {
             TextField {
                 id: terminalCommand
                 Layout.fillWidth: true
-                placeholderText: "konsole -e %s"
-                onTextEdited: testMessage = ""
+                placeholderText: "konsole -e"
             }
 
-            Button {
-                text: i18n("Test")
-                Accessible.name: i18n("Test terminal command")
-                enabled: !testingTerminal && terminalCommand.text.trim().length > 0
-                onClicked: {
-                    testingTerminal = true
-                    testMessage = i18n("Opening the test terminal…")
-                    const job = terminalJob.createObject(terminalTab)
-                    job.exec(JS.terminalCommand(cfg_terminal, terminalCommand.text, "test",
-                            i18n("Apdatifier terminal test. Press Enter to close.")), (cmd, out, err, code) => {
-                        testingTerminal = false
-                        testMessage = code ? (err.trim() || i18n("Could not open the selected terminal.")) : ""
-                    })
-                }
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("The command to run is appended to this command.<br><br><b>Native:</b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole org.kde.konsole -e")
             }
-        }
-
-        Label {
-            Layout.fillWidth: true
-            wrapMode: Text.Wrap
-            visible: cfg_terminal === "custom"
-            text: testMessage || i18n("Use %s once as a separate argument. Apdatifier replaces it with the command to run.")
         }
 
         RowLayout {
@@ -799,7 +706,6 @@ SimpleKCM {
     }
 
     Component.onCompleted: {
-        refreshTerminals()
         if (tmuxSession.checked && !pkg.tmux) tmuxSession.checked = plasmoid.configuration.tmuxSession = false
 
         if(cfg_dynamicUrl) {
