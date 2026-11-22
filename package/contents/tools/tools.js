@@ -39,7 +39,12 @@ const runInTerminal = (script, ...args) => {
     const parts = [scriptDir + "terminal", selection]
     if (selection === "custom") parts.push(cfg.terminalCommand)
     parts.push(script, ...args)
-    execute("kstart -- " + parts.map(shellArg).join(" "))
+    // kstart detaches the terminal so it survives plasmashell crashes/restarts;
+    // stdout/stderr go to /dev/null: the dataengine pipes die right after kstart exits.
+    const command = "kstart -- " + parts.map(shellArg).join(" ")
+    execute("sh -c " + shellArg(command + " > /dev/null 2>&1"), (cmd, out, err, code) => {
+        if (code) Error(code, err || i18n("Could not open the terminal"))
+    })
     if (script === "upgrade") {
         runLater(5000, () => upgradeTimer.start())
         scheduler.stop()
