@@ -242,12 +242,12 @@ widget_package() {
 
 
 case "$1" in
-          "full") shift; fullSystemUpgrade $@ ;;
-        "system") shift; system_upgrade $@ ;;
+          "full") shift; fullSystemUpgrade "$@" ;;
+        "system") shift; system_upgrade "$@" ;;
        "flatpak") shift; flatpak_all_upgrade ;;
        "widgets") shift; widgets_all_upgrade ;;
          "fwupd") shift; fwupd_all_upgrade ;;
-   "flatpak-pkg") shift; flatpak_package $1 $2 ;;
-    "widget-pkg") shift; widget_package $1 $2 ;;
+   "flatpak-pkg") shift; flatpak_package "$1" "$2" ;;
+    "widget-pkg") shift; widget_package "$1" "$2" ;;
                *) exit;;
 esac

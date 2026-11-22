@@ -29,9 +29,17 @@ const writeFile = (data, redir, file) => `echo '${String(data).replace(/'/g, "'\
 const saveTimestamp = () => execute(writeFile(Math.round(sts.lastCheck).toString(), '>', timestampFile))
 
 const bash = (script, ...args) => scriptDir + script + ' ' + args.join(' ')
+const shellArg = (value) => "'" + String(value).replace(/'/g, "'\\''") + "'"
 const runInTerminal = (script, ...args) => {
-    const cmd = bash('terminal', script, ...args)
-    execute(`kstart -- bash -c '${cmd}'`)
+    const selection = cfg.terminal || "kde-default"
+    if (selection === "custom" && !String(cfg.terminalCommand || "").trim()) {
+        Error(1, i18n("Set a custom terminal command in the widget settings."))
+        return
+    }
+    const parts = [scriptDir + "terminal", selection]
+    if (selection === "custom") parts.push(cfg.terminalCommand)
+    parts.push(script, ...args)
+    execute("kstart -- " + parts.map(shellArg).join(" "))
     if (script === "upgrade") {
         runLater(5000, () => upgradeTimer.start())
         scheduler.stop()
@@ -151,7 +159,7 @@ function saveConfig() {
     Object.keys(cfg).forEach(key => {
         if (key.endsWith("Default")) {
             let name = key.slice(0, -7)
-            if (typeof cfg[name] === "object") return // skip font
+            if (typeof cfg[name] === "object" || name === "terminalCommand") return
             config += `${name}="${cfg[name]}"\n`
         }
     })
@@ -159,11 +167,6 @@ function saveConfig() {
 }
 
 function checkDependencies() {
-    const populate = (data) => data.map(item => ({
-        "name": item.startsWith("flatpak://") ? `${item.split("/").pop()} (Flatpak)` : item.split("/").pop(),
-        "value": item
-    }))
-
     execute(bash('utils', 'checkPkgs'), (cmd, out, err, code) => {
         if (Error(code, err)) return
 
@@ -173,10 +176,14 @@ function checkDependencies() {
         cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = populate(output.slice(8).filter(Boolean))
+        const terminals = output.slice(8).filter(Boolean).map(item => ({
+            "name": item.split("/").pop(),
+            "value": item
+        }))
         cfg.terminals = terminals.length > 0 ? terminals : null
-        if (!cfg.terminal || !terminals.some(t => t.value === cfg.terminal))
-            cfg.terminal = terminals.length > 0 ? terminals[0].value : ""
+        if (!cfg.terminal) cfg.terminal = "kde-default"
+        else if (cfg.terminal !== "kde-default" && cfg.terminal !== "custom" &&
+                 !terminals.some(t => t.value === cfg.terminal)) cfg.terminal = "kde-default"
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false

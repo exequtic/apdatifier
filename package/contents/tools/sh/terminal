@@ -2,55 +2,101 @@
 
 source "$(dirname "$0")/utils"
 
+selection=$1
+shift
+template=
+if [[ $selection == custom ]]; then
+    template=$1
+    shift
+fi
+task=$1
+shift
+
 declare -A termArg=( ["gnome-terminal"]="--" ["ptyxis"]="--" ["terminator"]="-x" )
-name="${1^}"
 sess="Apdatifier"
-term="${terminal##*/}"
-[[ $terminal = flatpak://* ]] && { flatpakApp="${terminal#flatpak://}"; flatpakApp="${flatpakApp%/*}"; }
-termArg="${termArg[$term]:-"-e"}"
-scr="$(dirname "$0")/$1"
-arg="${@:2}"
+name="${task^}"
+term=
+launch=()
 
-_attach="tmux attach-session -t $sess \; select-window -t $name"
-_script="$scr $arg"
-
-[[ $tmuxSession = "true" && -x $(command -v tmux) ]] && _TMUX=1
-
-run_terminal() {
-    if [[ -n $flatpakApp ]]; then
-        flatpak run --command="$term" "$flatpakApp" "$termArg" "$(command -v bash)" -c "$1"
-    else
-        "$term" "$termArg" bash -c "$1"
-    fi
-}
-run_yakuake() {
-    qdbusCMD sessions runCommandInTerminal "$session" "bash -c '$1'"
-}
-create_tmux_session() {
-    ! tmux has-session -t "$sess" 2>/dev/null && {
-        tmux new-session -d -s "$sess" -n "$name" "bash -c '$scr $arg'"
-    } || {
-        ! tmux list-windows -t "$sess" | grep -wq "$name" && {
-            tmux new-window -t "$sess:" -n "$name" "bash -c '$scr $arg'"
-        }
-    }
+splitCommand() {
+    mapfile -d '' -t words < <(xargs -r printf '%s\0' <<< "$1")
 }
 
+case $selection in
+    ""|kde-default)
+        execLine=$(kreadconfig6 --file kdeglobals --group General --key TerminalApplication)
+        if [[ -z $execLine ]]; then
+            service=$(kreadconfig6 --file kdeglobals --group General --key TerminalService)
+            if [[ -n $service ]]; then
+                IFS=: read -r -a dataDirs <<< "${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+                for dir in "${XDG_DATA_HOME:-$HOME/.local/share}" "${dataDirs[@]}"; do
+                    [[ -f $dir/applications/$service ]] || continue
+                    execLine=$(kreadconfig6 --file "$dir/applications/$service" --group 'Desktop Entry' --key Exec)
+                    break
+                done
+            fi
+        fi
+        [[ -n $execLine ]] || execLine=konsole
 
-if [[ $term = "yakuake" ]]; then
+        splitCommand "$execLine"
+        for word in "${words[@]}"; do
+            case $word in
+                %f|%F|%u|%U|%d|%D|%n|%N|%i|%c|%k|%v|%m|@@*|--file-forwarding) continue ;;
+            esac
+            launch+=("$word")
+        done
+        [[ -n ${launch[0]} ]] || launch=(konsole)
+        term=${launch[0]##*/}
+        if [[ $term == flatpak && ${launch[1]} == run ]]; then
+            for word in "${launch[@]:2}"; do
+                case $word in
+                    --command=*) term=${word#*=} ;;
+                    -*) ;;
+                    *) break ;;
+                esac
+            done
+        fi
+        ;;
+    custom)
+        [[ -n $template ]] || { echo "Set a custom terminal command." >&2; exit 1; }
+        splitCommand "$template"
+        launch=("${words[@]}")
+        ;;
+    *)
+        term=${selection##*/}
+        launch=("$selection")
+        ;;
+esac
+
+arg=
+[[ -n $term ]] && arg=${termArg[$term]:-"-e"}
+[[ -n $arg ]] && launch+=("$arg")
+payload=("$(command -v bash)" "$scriptDir/$task" "$@")
+
+[[ -n ${launch[0]} ]] || { echo "No terminal command to run." >&2; exit 1; }
+
+if [[ $term == yakuake ]]; then
     session=$(qdbusCMD sessions addSession)
     visible=$(qdbusCMD MainWindow_1 org.qtproject.Qt.QWidget.visible)
     qdbusCMD tabs org.kde.yakuake.setTabTitle "$session" "$name"
-    if (( _TMUX )); then
-        create_tmux_session
-        run_yakuake "$_attach"
-    else
-        run_yakuake "tput sc; clear; $_script"
-    fi
-    [[ $visible = "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
-elif (( _TMUX )); then
-    create_tmux_session
-    run_terminal "$_attach"
-else
-    run_terminal "$_script"
 fi
+
+if [[ $tmuxSession == "true" ]] && command -v tmux >/dev/null; then
+    if ! tmux has-session -t "=$sess" 2>/dev/null; then
+        tmux new-session -d -s "$sess" -n "$name" "${payload[@]}" || exit 1
+    elif ! tmux list-windows -t "=$sess" -F '#{window_name}' | grep -Fxq "$name"; then
+        tmux new-window -t "$sess:" -n "$name" "${payload[@]}" || exit 1
+    fi
+    payload=(tmux attach-session -t "$sess" \; select-window -t "$sess:$name")
+fi
+
+if [[ $term == yakuake ]]; then
+    printf -v command '%q ' "${payload[@]}"
+    printf -v command 'tput sc; clear; %s' "$command"
+    printf -v command 'bash -c %q' "$command"
+    qdbusCMD sessions runCommandInTerminal "$session" "$command"
+    [[ $visible == "false" ]] && qdbusCMD window org.kde.yakuake.toggleWindowState
+    exit
+fi
+
+exec "${launch[@]}" "${payload[@]}"

@@ -62,9 +62,9 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 - `fzf` - for interactive package selection in management
 
 ### Supported terminals
-alacritty, foot, gnome-terminal, ghostty, konsole, kitty, lxterminal, ptyxis, terminator, tilix, xterm, yakuake, wezterm
+alacritty, foot, gnome-terminal, ghostty, konsole, kitty, kwi, lxterminal, ptyxis, terminator, tilix, xterm, uxterm, yakuake, wezterm
 
-Flatpak installations of these terminals are also supported.
+Apdatifier uses the KDE default terminal by default. If your terminal is not listed above (Flatpak terminals are not detected automatically), select **Custom command…** and enter the command that launches the terminal (for example `konsole -e`), or set it as the KDE default.
 
 <br>
 

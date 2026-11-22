@@ -6,10 +6,9 @@ import QtQuick.Dialogs
 import org.kde.kcmutils
 import org.kde.kirigami as Kirigami
 
-import "../../tools/tools.js" as JS
-
 SimpleKCM {
     property string cfg_terminal: plasmoid.configuration.terminal
+    property alias cfg_terminalCommand: terminalCommand.text
     property alias cfg_tmuxSession: tmuxSession.checked
     property alias cfg_idleInhibit: idleInhibit.checked
     property alias cfg_termFont: termFont.checked
@@ -41,6 +40,18 @@ SimpleKCM {
 
     property var pkg: plasmoid.configuration.packages
     property var terminals: plasmoid.configuration.terminals
+    property var terminalChoices: {
+        const choices = [{ name: i18n("Use KDE default"), value: "kde-default" }]
+        if (terminals)
+            for (const terminal of terminals)
+                choices.push(terminal)
+        choices.push({ name: i18n("Custom command…"), value: "custom" })
+        return choices
+    }
+    function terminalIndex() {
+        const index = terminalChoices.findIndex(choice => choice.value === (cfg_terminal || "kde-default"))
+        return index < 0 ? 0 : index
+    }
     property alias cfg_preExec: preExec.text
     property alias cfg_postExec: postExec.text
 
@@ -89,29 +100,27 @@ SimpleKCM {
             Kirigami.FormData.label: i18n("Terminal") + ":"
 
             ComboBox {
-                model: terminals
+                Layout.fillWidth: true
+                model: terminalChoices
                 textRole: "name"
-                enabled: terminals
+                valueRole: "value"
+                currentIndex: terminalIndex()
+                onActivated: cfg_terminal = currentValue
+            }
+        }
 
-                onCurrentIndexChanged: cfg_terminal = model[currentIndex]["value"]
+        RowLayout {
+            Kirigami.FormData.label: i18n("Command") + ":"
+            visible: cfg_terminal === "custom"
 
-                Component.onCompleted: {
-                    if (terminals) {
-                        currentIndex = JS.setIndex(plasmoid.configuration.terminal, terminals)
-
-                        if (!plasmoid.configuration.terminal) {
-                            plasmoid.configuration.terminal = model[0]["value"]
-                        }
-                    }
-                }
+            TextField {
+                id: terminalCommand
+                Layout.fillWidth: true
+                placeholderText: "konsole -e"
             }
 
-            Kirigami.UrlButton {
-                url: "https://github.com/exequtic/apdatifier#supported-terminals"
-                text: i18n("Not installed")
-                font.pointSize: Kirigami.Theme.smallFont.pointSize
-                color: Kirigami.Theme.neutralTextColor
-                visible: !terminals
+            Kirigami.ContextualHelpButton {
+                toolTipText: i18n("The command to run is appended to this command.<br><br><b>Native:</b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole org.kde.konsole -e")
             }
         }
 
