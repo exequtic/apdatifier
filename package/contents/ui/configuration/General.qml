@@ -281,6 +281,10 @@ SimpleKCM {
                     text: i18n("DNF packages")
                     enabled: pkg.dnf
                 }
+
+                Kirigami.ContextualHelpButton {
+                    toolTipText: i18n("Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically before each check.")
+                }
             }
 
             RowLayout {

@@ -6,10 +6,8 @@ source "$(dirname "$0")/utils"
 
 have_pacman=false; have_flatpak=false; have_dnf=false
 command -v pacman  >/dev/null && have_pacman=true
-command -v dnf     >/dev/null && have_dnf=true
+command -v dnf5    >/dev/null && have_dnf=true
 command -v flatpak >/dev/null && have_flatpak=true
-
-dnf_cache="$cacheDir/dnf"
 
 if [[ $aur != true || -z $wrapper ]]; then
     wrapper="pacman"
@@ -566,18 +564,18 @@ dnf_ask() {
 
 dnfAvailable() {
     tui_exit
-    dependency dnf fzf || return
+    dependency dnf5 fzf || return
 
     local names=$(
-    dnf --setopt=cachedir="$dnf_cache" -q repoquery --cacheonly --qf '%{name}\n' 2>/dev/null | sort -fu |
-    fzf $fzf_settings --preview "dnf --setopt=cachedir=$dnf_cache -q info {1}"
+    dnf5 -q repoquery --cacheonly --qf '%{name}\n' 2>/dev/null | sort -fu |
+    fzf $fzf_settings --preview "dnf5 -q info --cacheonly {1}"
     )
 
     if [[ -n "$names" ]]; then
         names=$(echo "$names" | oneLine)
-        printExec "dnf install $names"
+        printExec "dnf5 install $names"
         if dnf_ask "$MNG_DNF_ADD"; then
-            $sudoBin dnf install $names
+            $sudoBin dnf5 install $names
             pressReturn
         fi
     fi
@@ -587,7 +585,7 @@ dnfAvailable() {
 
 dnfInstalled() {
     tui_exit
-    dependency dnf fzf || return
+    dependency dnf5 fzf || return
 
     local names=$(
     rpm -qa --qf '%{NAME}\n' | sort -fu |
@@ -596,9 +594,9 @@ dnfInstalled() {
 
     if [[ -n "$names" ]]; then
         names=$(echo "$names" | oneLine)
-        printExec "dnf remove $names"
+        printExec "dnf5 remove $names"
         if dnf_ask "$MNG_DNF_RM"; then
-            $sudoBin dnf remove $names
+            $sudoBin dnf5 remove $names
             pressReturn
         fi
     fi

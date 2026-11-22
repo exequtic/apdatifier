@@ -188,7 +188,7 @@ Representation {
                     id: managementButton
                     tooltipText: i18n("Management")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
-                    enabled: !sts.busy && pkg.pacman !== "" && cfg.terminal
+                    enabled: !sts.busy && cfg.terminal
                     visible: enabled && cfg.managementButton
                     onClicked: { buttonTooltip.hide(); JS.management() }
                 }

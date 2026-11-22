@@ -424,36 +424,40 @@ function checkUpdates() {
         const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
                            cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
-        sts.statusMsg = i18n("Checking dnf updates...")
+        sts.statusMsg = i18n("Synchronizing dnf metadata...")
 
-        const cachePath = cacheDir + "dnf"
-        const qfUpdates = '%{name}|%{arch}|%{evr}|%{repoid}|%{summary}|%{url}\\n'
-        const qfInstalled = '%{name}|%{arch}|%{evr}|%{reason}\\n'
-        const rows = out => out.trim() ? out.trim().split("\n").map(l => l.trim().split("|")) : []
+        // A failed sync must not abort the check: the queries below can still use the existing cache.
+        execute("dnf5 -q makecache >/dev/null 2>&1", (cmd, out, err, code) => {
+            sts.statusMsg = i18n("Checking dnf updates...")
 
-        execute(`mkdir -p "${cachePath}" && dnf -q repoquery --refresh --setopt=cachedir="${cachePath}" --upgrades --latest-limit=1 --qf "${qfUpdates}"`, (cmd, out, err, code) => {
-            if (handleError(code, err, "dnf", next)) return
-            const updates = rows(out)
-            if (updates.length === 0) { dnfPkgs = []; next(); return }
+            const qfUpdates = '%{name}|%{arch}|%{evr}|%{repoid}|%{summary}|%{url}\\n'
+            const qfInstalled = '%{name}|%{arch}|%{evr}|%{reason}\\n'
+            const rows = out => out.trim() ? out.trim().split("\n").map(l => l.trim().split("|")) : []
 
-            execute(`dnf -q repoquery --cacheonly --setopt=cachedir="${cachePath}" --installed --qf "${qfInstalled}"`, (cmd, out, err, code) => {
+            execute(`dnf5 -q repoquery --cacheonly --upgrades --latest-limit=1 --qf "${qfUpdates}"`, (cmd, out, err, code) => {
                 if (handleError(code, err, "dnf", next)) return
-                const installed = new Map(rows(out).map(p => [p[0] + "." + p[1], { VO: p[2], reason: (p[3] || "").toLowerCase() }]))
+                const updates = rows(out)
+                if (updates.length === 0) { dnfPkgs = []; next(); return }
 
-                const seen = new Set()
-                dnfPkgs = updates.filter(p => !seen.has(p[0]) && seen.add(p[0])).map(p => {
-                    const found = installed.get(p[0] + "." + p[1]) || {}
-                    return {
-                        NM: p[0],
-                        DE: p.slice(4, -1).join("|"),
-                        LN: p[p.length - 1],
-                        RE: p[3],
-                        VO: found.VO || "",
-                        VN: p[2],
-                        RN: found.reason === "user" ? "explicit" : "dependency"
-                    }
-                })
-                next()
+                execute(`dnf5 -q repoquery --cacheonly --installed --qf "${qfInstalled}"`, (cmd, out, err, code) => {
+                    if (handleError(code, err, "dnf", next)) return
+                    const installed = new Map(rows(out).map(p => [p[0] + "." + p[1], { VO: p[2], reason: (p[3] || "").toLowerCase() }]))
+
+                    const seen = new Set()
+                    dnfPkgs = updates.filter(p => !seen.has(p[0]) && seen.add(p[0])).map(p => {
+                        const found = installed.get(p[0] + "." + p[1]) || {}
+                        return {
+                            NM: p[0],
+                            DE: p.slice(4, -1).join("|"),
+                            LN: p[p.length - 1],
+                            RE: p[3],
+                            VO: found.VO || "",
+                            VN: p[2],
+                            RN: found.reason === "user" ? "explicit" : "dependency"
+                        }
+                    })
+                    next()
+                }, procOpt)
             }, procOpt)
         }, procOpt)
     }

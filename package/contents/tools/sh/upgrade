@@ -140,7 +140,7 @@ dnf_upgrade() {
 
     test -f "$configDir/env.sh" && source "$configDir/env.sh"
 
-    run "$sudoBin dnf upgrade --refresh"
+    run "$sudoBin dnf5 upgrade --refresh"
 }
 
 finish() {

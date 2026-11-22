@@ -18,12 +18,12 @@
 </div>
 
 ## Features
-- Searching updates for [pacman](https://archlinux.org/packages/), [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org), [Firmware](https://fwupd.org/lvfs/vendors/)
+- Searching updates for [pacman](https://archlinux.org/packages/), [AUR](https://aur.archlinux.org/packages), [Plasma Widgets](https://store.kde.org/browse?cat=705), [Flatpak](https://flathub.org), [Firmware](https://fwupd.org/lvfs/vendors/), [DNF](https://dnf.readthedocs.io/) (dnf5, Fedora 41+)
 - Notifications for updates and news
 - Bash script with useful options for managing packages
 - Full system upgrade in the selected [terminal](#supported-terminals)
 - Refresh the [mirrorlist](https://archlinux.org/mirrorlist) with the latest mirrors filtered by speed
-- Also should work on non-Arch-based systems (for Plasma Widgets, Flatpak, Firmware)
+- Also should work on non-Arch-based systems (for Plasma Widgets, Flatpak, Firmware, DNF)
 
 <br>
 
@@ -56,6 +56,7 @@ https://github.com/exequtic/apdatifier/assets/29355358/9751fc8f-29c2-4f7d-8f1f-c
 ### Optional dependencies
 - `paru`, `yay`, `pikaur` - for AUR updates support
 - `flatpak` - for Flatpak updates support
+- `dnf5` - for DNF updates support (Fedora 41+). The metadata cache is synchronized automatically before each check.
 - `fwupdmgr` - for Firmware updates support
 - `jq` - for KDE Widgets updates and News
 - `tmux` - for upgrade and management in a terminal multiplexer

@@ -522,7 +522,7 @@ uninstall() {
 
 checkPkgs() {
     local terms="alacritty foot ghostty gnome-terminal kitty konsole kwi lxterminal ptyxis terminator tilix wezterm xterm uxterm yakuake"
-    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux dnf $terms"
+    local utils="pacman flatpak fwupdmgr paru pikaur yay jq tmux dnf5 $terms"
     for pkg in $utils; do command -v "$pkg" || echo; done
 }
 
