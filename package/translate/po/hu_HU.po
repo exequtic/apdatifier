@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Joplin 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
 "POT-Creation-Date: 2026-09-26 15:00+0300\n"
-"PO-Revision-Date: 2026-09-28 07:54+0200\n"
+"PO-Revision-Date: 2026-11-22 11:20+0100\n"
 "Last-Translator: summoner <summoner@disroot.org>\n"
 "Language-Team: Hungarian <>\n"
 "Language: hu_HU\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: ../contents/config/config.qml ../contents/ui/configuration/Upgrade.qml
 msgid "General"
@@ -76,7 +76,7 @@ msgstr "A rendszer most újraindúl…"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to close"
-msgstr "Nyomja meg az enter billentyűt a bezáráshoz"
+msgstr "Nyomja meg az „Enter” billentyűt a bezáráshoz"
 
 #: ../contents/tools/sh/messages
 msgid "Skipped..."
@@ -104,7 +104,7 @@ msgstr "a következő kiszolgálókkal frissült:"
 
 #: ../contents/tools/sh/messages
 msgid "To write to the mirrorlist file, sudo privileges are required"
-msgstr "A tükörlista-fájlba történő íráshoz rendszergazdai jogosultságokra van szükség"
+msgstr "Rendszergazdai jogosultságokra van szükség a tükörlista-fájlba történő íráshoz"
 
 #: ../contents/tools/sh/messages
 msgid "Your current mirrorlist:"
@@ -152,7 +152,7 @@ msgstr "Nem sikerült ellenőrizni a kisalkalmazásokat: "
 
 #: ../contents/tools/sh/messages
 msgid "Too many API requests in the last 15 minutes from your IP address, please try again later"
-msgstr "Az elmúlt 15 percben túl sok API-lekérdezés érkezett az Ön IP-címéről. Próbálja meg újra később"
+msgstr "Túl sok API-lekérdezés érkezett az Ön IP-címéről az elmúlt 15 percben. Próbálja meg újra később"
 
 #: ../contents/tools/sh/messages
 msgid "Failed to retrieve data from the API"
@@ -302,7 +302,7 @@ msgstr "Folytatja?"
 
 #: ../contents/tools/sh/messages
 msgid "Press Enter to return menu"
-msgstr "Nyomja meg az enter billentyűt a menübe való visszatéréshez"
+msgstr "Nyomja meg az „Enter” billentyűt a menübe való visszatéréshez"
 
 #: ../contents/tools/sh/messages
 msgid "Recent installs"
@@ -407,19 +407,19 @@ msgstr[1] "frissítés folyamatban"
 #: ../contents/tools/tools.js
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "%1 nap"
-msgstr[1] "%1 nap"
+msgstr[0] "%1 nappal"
+msgstr[1] "%1 nappal"
 
 #: ../contents/tools/tools.js
 msgid "%1 hour"
 msgid_plural "%1 hours"
-msgstr[0] "%1 óra"
+msgstr[0] "%1 órával"
 msgstr[1] "%1 óra"
 
 #: ../contents/tools/tools.js
 msgid "%1 minute"
 msgid_plural "%1 minutes"
-msgstr[0] "%1 perc"
+msgstr[0] "%1 perccel"
 msgstr[1] "%1 perc"
 
 #: ../contents/tools/tools.js
@@ -429,8 +429,8 @@ msgstr "kevesebb mint egy perc"
 #: ../contents/tools/tools.js
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] "%1 másodperc"
-msgstr[1] "%1 másodperc"
+msgstr[0] "%1 másodperccel"
+msgstr[1] "%1 másodperccel"
 
 #: ../contents/tools/tools.js
 msgid "Last check:"
@@ -534,7 +534,7 @@ msgstr "Ha a kisalkalmazás egy panelen található, akkor a rejtett ikonhoz a p
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Busy indicator"
-msgstr "Elfoglalt jelző"
+msgstr "Elfoglaltságjelző"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Spinner"
@@ -567,7 +567,7 @@ msgstr "Oldal"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge"
-msgstr "Kitűző"
+msgstr "Jelvény"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Position"
@@ -611,7 +611,7 @@ msgstr "Számláló betűtípusa"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge color"
-msgstr "Kitűző színe"
+msgstr "Jelvény színe"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Default color"
@@ -627,11 +627,11 @@ msgstr "Alapértelmezett háttérszín a jelenlegi témából"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge radius"
-msgstr "Kitűző sugara"
+msgstr "Jelvény sugara"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Badge opacity"
-msgstr "Kitűző átlátszatlansága"
+msgstr "Jelvény átlátszatlansága"
 
 #: ../contents/ui/configuration/Appearance.qml
 msgid "Icon Badges"
@@ -783,7 +783,7 @@ msgstr "Megjegyzés: ha korábban még nem telepítette a fejlesztői verziót, 
 
 #: ../contents/ui/configuration/General.qml
 msgid "Removal of the widget and all related files, including the directory with its configuration."
-msgstr "A kisalkalmazás és az összes hozzá kapcsolódó fájl eltávolítása, beleértve a konfigurációs mappát is."
+msgstr "Kisalkalmazás és az összes hozzá kapcsolódó fájl eltávolítása, beleértve a konfigurációs mappát is."
 
 #: ../contents/ui/configuration/General.qml
 msgid "Search"
@@ -926,7 +926,7 @@ msgstr "Ajánlott RSS-hírfolyamok"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For new updates"
-msgstr "Az új frissítésekhez"
+msgstr "Új frissítésekhez"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Action button"
@@ -942,15 +942,15 @@ msgstr "Ha a beállítás <b>engedélyezve van</b>, akkor minden alkalommal ért
 
 #: ../contents/ui/configuration/General.qml
 msgid "Don't notify about dependencies"
-msgstr "Ne értesítsen a függőségekről"
+msgstr "Értesítések kihagyása a függőségekről"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For news"
-msgstr "A hírekhez"
+msgstr "Hírekhez"
 
 #: ../contents/ui/configuration/General.qml
 msgid "For errors"
-msgstr "A hibákhoz"
+msgstr "Hibákhoz"
 
 #: ../contents/ui/configuration/General.qml
 msgid "With sound"
@@ -962,7 +962,7 @@ msgstr "Állandó"
 
 #: ../contents/ui/configuration/General.qml
 msgid "To further configure, click the button below -> Application Settings -> Apdatifier"
-msgstr "A további beállításokhoz kattintson az alábbi gombra -> Alkalmazásbeállítások -> Apdatifier"
+msgstr "További beállításokhoz kattintson az alábbi gombra -> Alkalmazásbeállítások -> Apdatifier"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Configure..."
@@ -998,7 +998,7 @@ msgstr "Alapértelmezett beállítások visszaállítása. Alapértelmezés szer
 
 #: ../contents/ui/configuration/General.qml
 msgid "Path must not contain spaces"
-msgstr "Az elérési út nem tartalmazhat szóközöket"
+msgstr "Nem tartalmazhat szóközöket az elérési út"
 
 #: ../contents/ui/configuration/General.qml
 msgid "Network"
@@ -1095,11 +1095,11 @@ msgstr "Megakadályozza az automatikus elalvást és a képernyő zárolását f
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre/post upgrade scripts"
-msgstr "Tranzakció előtti/utáni frissítési parancsfájlok"
+msgstr "Tranzakció előtt és után futtatandó parancsfájlok"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Pre-exec"
-msgstr "Tranzakció előtti futtatás"
+msgstr "Tranzakció előtt futtatandó parancsfájlok"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command or script path"
@@ -1111,7 +1111,7 @@ msgstr "Parancs vagy parancsfájl futtatása a frissítés ELŐTT.<br>Például 
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Post-exec"
-msgstr "Tranzakció utáni futtatás"
+msgstr "Tranzakció után futtatandó parancsfájlok"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Running your command or script AFTER the upgrade.<br>For example, you can specify your command to upgrade something else."
@@ -1147,7 +1147,7 @@ msgstr "Csomagoló"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "AUR disabled in search settings"
-msgstr "A keresési beállításokban az AUR le van tiltva"
+msgstr "Le van tiltva az AUR a keresési beállításokban"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Upgrade options"
@@ -1197,7 +1197,7 @@ msgstr[1] "nap"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "No ask, force refresh"
-msgstr "Rákérdezés kihagyása, frissítés kényszerítése"
+msgstr "Frissítés kényszerítése rákérdezés nélkül"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Protocol"
@@ -1269,7 +1269,7 @@ msgstr "Plasma-héj újraindítása"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "After upgrading widget, the old version will still remain in memory until you restart plasmashell. To avoid doing this manually, enable this option."
-msgstr "A kisalkalmazás frissítése után a régi verzió addig marad a memóriában, amíg újra nem indítja a Plasma-héjt. Ha nem szeretné ezt kézzel elvégezni, engedélyezze ezt a beálltást."
+msgstr "A kisalkalmazás frissítése után a régi verzió addig marad a memóriában, amíg újra nem indítja a Plasma-héjt. Ha nem szeretné ezt kézzel elvégezni, engedélyezze ezt a beállítást."
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Command"
