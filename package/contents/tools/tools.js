@@ -453,7 +453,8 @@ function checkUpdates() {
                             RE: p[3],
                             VO: found.VO || "",
                             VN: p[2],
-                            RN: found.reason === "user" ? "explicit" : "dependency"
+                            RN: found.reason === "user" ? "explicit" : "dependency",
+                            PV: "dnf"
                         }
                     })
                     next()
@@ -731,7 +732,9 @@ function finalize(list) {
             var cached = cache[k]
             if (currentNames[cached.NM]) continue
             
-            if (errorTypes.repositories && cached.RE && cached.RE !== "aur" && cached.RE !== "devel") {
+            if (cached.PV === "dnf") {
+                if (errorTypes.dnf) cachedPackages.push(cached)
+            } else if (errorTypes.repositories && cached.RE && cached.RE !== "aur" && cached.RE !== "devel") {
                 cachedPackages.push(cached)
             } else if (errorTypes.aur && (cached.RE === "aur" || cached.RE === "devel")) {
                 cachedPackages.push(cached)
