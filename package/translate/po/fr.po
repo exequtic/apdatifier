@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2024-06-02 20:39+0200\n"
 "Last-Translator: foXaCe\n"
 "Language-Team: \n"
@@ -302,6 +302,14 @@ msgid "Refresh mirrors"
 msgstr "Actualiser les miroirs"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Examinez les avertissements de dépendance avant de supprimer"
 
@@ -351,6 +359,10 @@ msgid "Cannot fetch news "
 msgstr "Impossible de récupérer les actualités "
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "Code de sortie : "
 
@@ -375,6 +387,14 @@ msgstr "Vérification des mises à jour du système..."
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "Vérification des mises à jour AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -909,11 +929,20 @@ msgid "Arch User Repository"
 msgstr "Dépôt utilisateur Arch"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically "
+"before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Applications Flatpak"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
 msgstr "Non installé"
 
@@ -1139,6 +1168,14 @@ msgstr ""
 "soutenir en mettant une étoile sur le dépôt GitHub ou en m'offrant un café ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Widgets"
@@ -1146,6 +1183,17 @@ msgstr "Widgets"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "Commande"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"The command to run is appended to this command.<br><br><b>Native:</"
+"b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1392,10 +1440,6 @@ msgstr ""
 "manuellement, activez cette option."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "Commande"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "Icône Apdatifier dans la barre d'état système"
 
@@ -1410,10 +1454,6 @@ msgstr "Vérification automatique désactivée"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "Mise à niveau complète"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "Paquets système"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1554,6 +1594,9 @@ msgstr "Date d'installation"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "Système mis à jour"
+
+#~ msgid "System packages"
+#~ msgstr "Paquets système"
 
 #~ msgid "Font family"
 #~ msgstr "Famille de polices"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -291,6 +291,14 @@ msgid "Refresh mirrors"
 msgstr ""
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr ""
 
@@ -339,6 +347,10 @@ msgid "Cannot fetch news "
 msgstr ""
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr ""
 
@@ -362,6 +374,14 @@ msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
 msgstr ""
 
 #: ../contents/tools/tools.js
@@ -861,10 +881,18 @@ msgid "Arch User Repository"
 msgstr ""
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr ""
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Not installed"
 msgstr ""
 
@@ -1050,12 +1078,28 @@ msgstr ""
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
 msgstr ""
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
 #: ../contents/ui/configuration/Upgrade.qml ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "The command to run is appended to this command.<br><br><b>Native:</b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole org.kde.konsole -e"
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
@@ -1261,10 +1305,6 @@ msgid "After upgrading widget, the old version will still remain in memory until
 msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr ""
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr ""
 
@@ -1278,10 +1318,6 @@ msgstr ""
 
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
-msgstr ""
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
 msgstr ""
 
 #: ../contents/ui/representation/Expanded.qml

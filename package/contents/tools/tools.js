@@ -177,11 +177,11 @@ function checkDependencies() {
 
         const output = out.split("\n")
 
-        const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux ] = output.map(Boolean)
-        cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux }
+        const [pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux, dnf ] = output.map(Boolean)
+        cfg.packages = { pacman, flatpak, fwupdmgr, paru, pikaur, yay, jq, tmux, dnf }
         if (!cfg.wrapper) cfg.wrapper = paru ? "paru" : yay ? "yay" : pikaur ? "pikaur" : ""
 
-        const terminals = output.slice(8).filter(Boolean).map(item => ({
+        const terminals = output.slice(9).filter(Boolean).map(item => ({
             "name": item.split("/").pop(),
             "value": item
         }))
@@ -192,6 +192,7 @@ function checkDependencies() {
 
         if (!pacman) plasmoid.configuration.arch = false
         if (!pacman || (!yay && !paru && !pikaur)) plasmoid.configuration.aur = false
+        if (!dnf) plasmoid.configuration.dnf = false
         if (!flatpak) plasmoid.configuration.flatpak = false
         if (!fwupdmgr) plasmoid.configuration.fwupd = false
         if (!tmux) plasmoid.configuration.tmuxSession = false
@@ -254,14 +255,14 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    const ignorePkgs = buildIgnoreString()
+    const ignorePkgs = buildIgnoreList()
     runInTerminal("upgrade", "full", `${ignorePkgs}`)
 }
 
 function upgradePart(source) {
     if (sts.upgrading && !cfg.tmuxSession) return
-    if (source === "system") {
-        runInTerminal("upgrade", "system", buildIgnoreString())
+    if (source === "pacman" || source === "dnf") {
+        runInTerminal("upgrade", source, buildIgnoreList())
     } else {
         runInTerminal("upgrade", source)
     }
@@ -310,7 +311,7 @@ function loadIgnorePkgs() {
     })
 }
 
-function buildIgnoreString() {
+function buildIgnoreList() {
     const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
     if (!Array.isArray(rules)) return ''
 
@@ -320,8 +321,7 @@ function buildIgnoreString() {
 
     if (ignoreItems.length === 0) return ''
 
-    const values = ignoreItems.map(rule => rule.value)
-    return `--ignore ${values.join(',')}`
+    return ignoreItems.map(rule => rule.value).join(',')
 }
 
 
@@ -333,13 +333,14 @@ function checkUpdates() {
     scheduler.stop()
     sts.busy = true
 
-    let archRepos = [], archAur = [], flatpak = [], widgets = [], firmwares = []
+    let archRepos = [], archAur = [], dnfPkgs = [], flatpak = [], widgets = [], firmwares = []
 
     const feeds = cfg.feedsEnabled ? parseCustomFeeds(cfg.feeds).map(u => `'${u}'`).join(' ') : ""
     const news = feeds && cfg.packages?.jq
 
              news ? checkNews() :
          cfg.arch ? checkRepos() :
+          cfg.dnf ? checkDnf() :
           cfg.aur ? checkAur() :
       cfg.flatpak ? checkFlatpak() :
       cfg.widgets ? checkWidgets() :
@@ -347,7 +348,7 @@ function checkUpdates() {
                     merge()
 
     function checkNews() {
-        const next = () => cfg.arch ? checkRepos() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+        const next = () => cfg.arch ? checkRepos() : cfg.dnf ? checkDnf() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
                            cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_news" : "news-subscribe"
         sts.statusMsg = i18n("Checking latest news...")
@@ -389,7 +390,7 @@ function checkUpdates() {
     }
 
     function checkRepos() {
-        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+        const next = () => cfg.dnf ? checkDnf() : cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
                            cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
         sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
         sts.statusMsg = i18n("Synchronizing pacman databases...")
@@ -420,6 +421,49 @@ function checkUpdates() {
                 archAur = result
                 next()
             })
+        }, procOpt)
+    }
+
+    function checkDnf() {
+        const next = () => cfg.aur ? checkAur() : cfg.flatpak ? checkFlatpak() :
+                           cfg.widgets ? checkWidgets() : cfg.fwupd ? checkFirmwares() : merge()
+        sts.statusIco = cfg.ownIconsUI ? "status_package" : "apdatifier-package"
+        sts.statusMsg = i18n("Synchronizing dnf metadata...")
+
+        // A failed sync must not abort the check: the queries below can still use the existing cache.
+        execute("dnf5 -q makecache >/dev/null 2>&1", (cmd, out, err, code) => {
+            sts.statusMsg = i18n("Checking dnf updates...")
+
+            const qfUpdates = '%{name}|%{arch}|%{evr}|%{repoid}|%{summary}|%{url}\\n'
+            const qfInstalled = '%{name}|%{arch}|%{evr}|%{reason}\\n'
+            const rows = out => out.trim() ? out.trim().split("\n").map(l => l.trim().split("|")) : []
+
+            execute(`dnf5 -q repoquery --cacheonly --upgrades --latest-limit=1 --qf "${qfUpdates}"`, (cmd, out, err, code) => {
+                if (handleError(code, err, "dnf", next)) return
+                const updates = rows(out)
+                if (updates.length === 0) { dnfPkgs = []; next(); return }
+
+                execute(`dnf5 -q repoquery --cacheonly --installed --qf "${qfInstalled}"`, (cmd, out, err, code) => {
+                    if (handleError(code, err, "dnf", next)) return
+                    const installed = new Map(rows(out).map(p => [p[0] + "." + p[1], { VO: p[2], reason: (p[3] || "").toLowerCase() }]))
+
+                    const seen = new Set()
+                    dnfPkgs = updates.filter(p => !seen.has(p[0]) && seen.add(p[0])).map(p => {
+                        const found = installed.get(p[0] + "." + p[1]) || {}
+                        return {
+                            NM: p[0],
+                            DE: p.slice(4, -1).join("|"),
+                            LN: p[p.length - 1],
+                            RE: p[3],
+                            VO: found.VO || "",
+                            VN: p[2],
+                            RN: found.reason === "user" ? "explicit" : "dependency",
+                            PV: "dnf"
+                        }
+                    })
+                    next()
+                }, procOpt)
+            }, procOpt)
         }, procOpt)
     }
 
@@ -476,7 +520,7 @@ function checkUpdates() {
     }
 
     function merge() {
-        const list = keys(archRepos.concat(archAur, flatpak, widgets, firmwares))
+        const list = keys(archRepos.concat(archAur, dnfPkgs, flatpak, widgets, firmwares))
 
         const finish = (finalList) => {
             sts.errors.length > 0
@@ -692,7 +736,9 @@ function finalize(list) {
             var cached = cache[k]
             if (currentNames[cached.NM]) continue
             
-            if (errorTypes.repositories && cached.RE && cached.RE !== "aur" && cached.RE !== "devel") {
+            if (cached.PV === "dnf") {
+                if (errorTypes.dnf) cachedPackages.push(cached)
+            } else if (errorTypes.repositories && cached.RE && cached.RE !== "aur" && cached.RE !== "devel") {
                 cachedPackages.push(cached)
             } else if (errorTypes.aur && (cached.RE === "aur" || cached.RE === "devel")) {
                 cachedPackages.push(cached)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2025-05-18 14:38+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -301,6 +301,14 @@ msgid "Refresh mirrors"
 msgstr "Spiegervers bijwerken"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Afhankelijkheidswaarschuwingen tonen alvorens te verwijderen"
 
@@ -350,6 +358,10 @@ msgid "Cannot fetch news "
 msgstr "Het nieuws kan niet worden opgehaald "
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "Afsluitcode: "
 
@@ -374,6 +386,14 @@ msgstr "Bezig met controleren op systeemupdates…"
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "Bezig met controleren op AUR-updates..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -907,11 +927,20 @@ msgid "Arch User Repository"
 msgstr "Arch User Repository"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically "
+"before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Flatpakprogramma's"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
 msgstr "Niet geïnstalleerd"
 
@@ -1135,6 +1164,14 @@ msgstr ""
 "kopje koffie te schenken. ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Widgets"
@@ -1142,6 +1179,17 @@ msgstr "Widgets"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Terminalvenster"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "Opdracht"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"The command to run is appended to this command.<br><br><b>Native:</"
+"b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1386,10 +1434,6 @@ msgstr ""
 "hoeven herstarten."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "Opdracht"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "Apdatifier-pictogram in het systeemvak"
 
@@ -1404,10 +1448,6 @@ msgstr "Automatische controle is uitgeschakeld"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "Volledig bijwerken"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "Systeempakketten"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1548,6 +1588,9 @@ msgstr "Installatiedatum"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "Het systeem is bijgewerkt"
+
+#~ msgid "System packages"
+#~ msgstr "Systeempakketten"
 
 #~ msgid "Font family"
 #~ msgstr "Lettertypefamilie"

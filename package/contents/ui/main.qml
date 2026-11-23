@@ -109,7 +109,7 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Management")
             icon.name: "tools"
-            enabled: cfg.terminal && pkg.pacman
+            enabled: cfg.terminal
             onTriggered: JS.management()
         }
     ]

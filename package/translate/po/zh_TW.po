@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2026-03-01 13:18+0800\n"
 "Last-Translator: Shion <nickyundt432@gmail.com>\n"
 "Language-Team: \n"
@@ -296,6 +296,14 @@ msgid "Refresh mirrors"
 msgstr "更新映象源"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "解除安裝前請檢視依賴項警告"
 
@@ -344,6 +352,10 @@ msgid "Cannot fetch news "
 msgstr "無法獲取新聞"
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "退出程式碼："
 
@@ -367,6 +379,14 @@ msgstr "正在檢查系統更新..."
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "正在檢查 AUR 更新..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -883,11 +903,20 @@ msgid "Arch User Repository"
 msgstr "Arch 使用者軟體倉庫"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically "
+"before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Flatpak 應用"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
 msgstr "未安裝"
 
@@ -1099,6 +1128,14 @@ msgstr ""
 "我喝杯咖啡來支援我 ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "小部件"
@@ -1106,6 +1143,17 @@ msgstr "小部件"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "終端"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "命令"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"The command to run is appended to this command.<br><br><b>Native:</"
+"b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1337,10 +1385,6 @@ msgstr ""
 "作，建議啟用此選項"
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "命令"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "系統托盤中的 Apdatifier 圖示"
 
@@ -1355,10 +1399,6 @@ msgstr "自動檢查已停用"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "完整升級"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "系統軟體包"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1499,6 +1539,9 @@ msgstr "安裝日期"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "系統已更新"
+
+#~ msgid "System packages"
+#~ msgstr "系統軟體包"
 
 #~ msgid "Font family"
 #~ msgstr "字型"

@@ -75,10 +75,11 @@ Representation {
         id: upgradeMenu
 
         readonly property var sources: [
-            (cfg.arch || cfg.aur) ? { t: i18n("System packages"), i: "apdatifier-package", a: "system" } : null,
-            cfg.flatpak  ? { t: "Flatpak",         i: "apdatifier-flatpak", a: "flatpak" } : null,
-            cfg.widgets  ? { t: i18n("Widgets"),   i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,
-            cfg.fwupd    ? { t: i18n("Firmware"),  i: "application-x-firmware", a: "fwupd" } : null
+            (cfg.arch || cfg.aur) ? { t: "pacman",                i: "apdatifier-package", a: "pacman" } : null,
+            cfg.dnf               ? { t: "DNF",                   i: "apdatifier-package", a: "dnf" } : null,
+            cfg.flatpak           ? { t: "Flatpak",               i: "apdatifier-flatpak", a: "flatpak" } : null,
+            cfg.widgets           ? { t: i18n("Widgets"),         i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,
+            cfg.fwupd             ? { t: i18n("Firmware"),        i: "application-x-firmware", a: "fwupd" } : null
         ].filter(Boolean)
 
         function openAt(anchor) {
@@ -187,7 +188,7 @@ Representation {
                     id: managementButton
                     tooltipText: i18n("Management")
                     iconSource: cfg.ownIconsUI ? svg("toolbar_management") : "tools"
-                    enabled: !sts.busy && pkg.pacman !== "" && cfg.terminal
+                    enabled: !sts.busy && cfg.terminal
                     visible: enabled && cfg.managementButton
                     onClicked: { buttonTooltip.hide(); JS.management() }
                 }
