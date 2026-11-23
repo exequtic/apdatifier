@@ -75,7 +75,7 @@ Representation {
         id: upgradeMenu
 
         readonly property var sources: [
-            (cfg.arch || cfg.aur) ? { t: i18n("System packages"), i: "apdatifier-package", a: "system" } : null,
+            (cfg.arch || cfg.aur) ? { t: "pacman",                i: "apdatifier-package", a: "pacman" } : null,
             cfg.dnf               ? { t: "DNF",                   i: "apdatifier-package", a: "dnf" } : null,
             cfg.flatpak           ? { t: "Flatpak",               i: "apdatifier-flatpak", a: "flatpak" } : null,
             cfg.widgets           ? { t: i18n("Widgets"),         i: "start-here-kde-plasma-symbolic", a: "widgets" } : null,

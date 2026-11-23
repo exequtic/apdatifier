@@ -250,14 +250,14 @@ function upgradingState() {
 
 function upgradeSystem() {
     if (sts.upgrading && !cfg.tmuxSession) return
-    const ignorePkgs = buildIgnoreString()
+    const ignorePkgs = buildIgnoreList()
     runInTerminal("upgrade", "full", `${ignorePkgs}`)
 }
 
 function upgradePart(source) {
     if (sts.upgrading && !cfg.tmuxSession) return
-    if (source === "system") {
-        runInTerminal("upgrade", "system", buildIgnoreString())
+    if (source === "pacman" || source === "dnf") {
+        runInTerminal("upgrade", source, buildIgnoreList())
     } else {
         runInTerminal("upgrade", source)
     }
@@ -306,7 +306,7 @@ function loadIgnorePkgs() {
     })
 }
 
-function buildIgnoreString() {
+function buildIgnoreList() {
     const rules = !cfg.rules ? [] : JSON.parse(cfg.rules)
     if (!Array.isArray(rules)) return ''
 
@@ -316,8 +316,7 @@ function buildIgnoreString() {
 
     if (ignoreItems.length === 0) return ''
 
-    const values = ignoreItems.map(rule => rule.value)
-    return `--ignore ${values.join(',')}`
+    return ignoreItems.map(rule => rule.value).join(',')
 }
 
 

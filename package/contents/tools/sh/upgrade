@@ -69,6 +69,11 @@ critical_packages=(
     "winesync-dkms"
 )
 
+dnf_critical_packages=(
+    "kernel-core"
+    "systemd"
+)
+
 arch_upgrade() {
     printMsg "$UPGRADE_FULL_SYSTEM"
     echo
@@ -95,7 +100,7 @@ arch_upgrade() {
     test -f "$configDir/env.sh" && source "$configDir/env.sh"
 
     ignorePkgs="$@"
-    run "$bin -Syu $archFlags $ignorePkgs"
+    run "$bin -Syu $archFlags ${ignorePkgs:+--ignore $ignorePkgs}"
 
     for pkg in "${critical_installed[@]}"; do
         afterVersion=$(pacman -Q $pkg | awk '{print $2}')
@@ -140,7 +145,21 @@ dnf_upgrade() {
 
     test -f "$configDir/env.sh" && source "$configDir/env.sh"
 
-    run "$sudoBin dnf5 upgrade --refresh"
+    if [ "$rebootSystem" = true ]; then
+        declare -A beforeVersions
+        for pkg in "${dnf_critical_packages[@]}"; do
+            beforeVersions[$pkg]=$(rpm -q --last --qf '%{VERSION}-%{RELEASE}\n' "$pkg" 2>/dev/null | head -n1)
+        done
+    fi
+
+    ignorePkgs="$@"
+    run "$sudoBin dnf5 upgrade --refresh ${ignorePkgs:+--exclude=$ignorePkgs}"
+
+    if [ "$rebootSystem" = true ]; then
+        for pkg in "${dnf_critical_packages[@]}"; do
+            [ "${beforeVersions[$pkg]}" != "$(rpm -q --last --qf '%{VERSION}-%{RELEASE}\n' "$pkg" 2>/dev/null | head -n1)" ] && critical_updated+=("$pkg")
+        done
+    fi
 }
 
 finish() {
@@ -196,7 +215,7 @@ fullSystemUpgrade() {
     finish
 }
 
-system_upgrade() {
+pacman_all_upgrade() {
     startTime=$(date +%s)
     critical_updated=()
     critical_installed=()
@@ -266,7 +285,7 @@ widget_package() {
 
 case "$1" in
           "full") shift; fullSystemUpgrade "$@" ;;
-        "system") shift; system_upgrade "$@" ;;
+        "pacman") shift; pacman_all_upgrade "$@" ;;
            "dnf") shift; dnf_all_upgrade "$@" ;;
        "flatpak") shift; flatpak_all_upgrade ;;
        "widgets") shift; widgets_all_upgrade ;;
