@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2024-07-02 17:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -299,6 +299,14 @@ msgid "Refresh mirrors"
 msgstr "미러 새로 고침"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "삭제 전 의존성 경고를 확인하십시오"
 
@@ -347,6 +355,10 @@ msgid "Cannot fetch news "
 msgstr "뉴스를 가져올 수 없습니다"
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "종료 코드: "
 
@@ -370,6 +382,14 @@ msgstr "시스템 업데이트 확인 중..."
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "AUR 업데이트 확인 중..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -890,11 +910,20 @@ msgid "Arch User Repository"
 msgstr "Arch 사용자 저장소"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically "
+"before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Flatpak 앱"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
 msgstr "설치되지 않음"
 
@@ -1113,6 +1142,14 @@ msgstr ""
 "주시거나 커피를 사주실 수 있습니다 ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "위젯"
@@ -1120,6 +1157,17 @@ msgstr "위젯"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "터미널"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "명령"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"The command to run is appended to this command.<br><br><b>Native:</"
+"b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1356,10 +1404,6 @@ msgstr ""
 "오."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "명령"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "Apdatifier 트레이 아이콘"
 
@@ -1374,10 +1418,6 @@ msgstr "자동 확인 사용 안 함"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "전체 업그레이드"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "시스템 패키지"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1518,6 +1558,9 @@ msgstr "설치 날짜"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "시스템 업데이트됨"
+
+#~ msgid "System packages"
+#~ msgstr "시스템 패키지"
 
 #~ msgid "Font family"
 #~ msgstr "글꼴 패밀리"

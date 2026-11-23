@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2025-08-16 00:48+0200\n"
 "Last-Translator: Rygorr Mortis <rygorrmortis@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -291,6 +291,14 @@ msgid "Refresh mirrors"
 msgstr "Odśwież serwery lustrzane"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr ""
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Sprawdź ostrzeżenia zależności przed usunięciem"
 
@@ -339,6 +347,10 @@ msgid "Cannot fetch news "
 msgstr "Nie można pobrać wiadomości "
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr ""
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "Kod wyjścia: "
 
@@ -364,6 +376,14 @@ msgstr "Sprawdzanie aktualizacji systemu..."
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "Sprawdzanie aktualizacji AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr ""
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr ""
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -870,10 +890,18 @@ msgid "Arch User Repository"
 msgstr "Repozytorium użytkowników Arch"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
+msgid "Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically before each check."
+msgstr ""
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Aplikacje Flatpak"
 
-#: ../contents/ui/configuration/General.qml ../contents/ui/configuration/Upgrade.qml
+#: ../contents/ui/configuration/General.qml
 msgid "Not installed"
 msgstr "Nie zainstalowane"
 
@@ -1056,6 +1084,14 @@ msgstr "Brak zasad"
 msgid "Thanks for using my widget! If you appreciate my work, you can support me by starring the GitHub repository or buying me a coffee ;)"
 msgstr "Dziękuję za korzystanie z mojego widżetu! Jeśli doceniasz moją pracę, możesz mnie wesprzeć, dodając gwiazdkę do repozytorium na GitHubie lub stawiając kawę ;)"
 
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr ""
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr ""
+
 #: ../contents/ui/configuration/Upgrade.qml ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Widżety"
@@ -1063,6 +1099,14 @@ msgstr "Widżety"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "Polecenie"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "The command to run is appended to this command.<br><br><b>Native:</b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole org.kde.konsole -e"
+msgstr ""
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1264,10 +1308,6 @@ msgid "After upgrading widget, the old version will still remain in memory until
 msgstr "Po zaktualizowaniu widżetu, stara wersja nadal będzie przechowywana w pamięci, dopóki nie zrestartujesz plasmashell. Aby uniknąć robienia tego ręcznie, włącz tę opcję."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "Polecenie"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "Ikona Apdatifier w zasobniku systemowym"
 
@@ -1282,10 +1322,6 @@ msgstr "Automatyczne sprawdzanie wyłączone"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "Pełna aktualizacja"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "Pakiety systemowe"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1426,6 +1462,9 @@ msgstr "Data instalacji"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "System zaktualizowany"
+
+#~ msgid "System packages"
+#~ msgstr "Pakiety systemowe"
 
 #~ msgid "Font family"
 #~ msgstr "Rodzina czcionek"

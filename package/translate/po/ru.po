@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apdatifier\n"
 "Report-Msgid-Bugs-To: https://github.com/exequtic/apdatifier\n"
-"POT-Creation-Date: 2026-09-26 15:00+0300\n"
+"POT-Creation-Date: 2026-11-24 02:43+0500\n"
 "PO-Revision-Date: 2026-05-28 17:32+0300\n"
 "Last-Translator: exequtic\n"
 "Language-Team: \n"
@@ -300,6 +300,14 @@ msgid "Refresh mirrors"
 msgstr "Обновить зеркала"
 
 #: ../contents/tools/sh/messages
+msgid "Install selected packages?"
+msgstr "Установить выбранные пакеты?"
+
+#: ../contents/tools/sh/messages
+msgid "Remove selected packages?"
+msgstr "Удалить выбранные пакеты?"
+
+#: ../contents/tools/sh/messages
 msgid "Review dependency warnings before removing"
 msgstr "Ознакомьтесь с предупреждениями о зависимостях перед удалением"
 
@@ -348,6 +356,10 @@ msgid "Cannot fetch news "
 msgstr "Не удалось получить новости "
 
 #: ../contents/tools/tools.js
+msgid "Set a custom terminal command in the widget settings."
+msgstr "Укажите свою команду терминала в настройках виджета."
+
+#: ../contents/tools/tools.js
 msgid "Exit code: "
 msgstr "Код ошибки: "
 
@@ -373,6 +385,14 @@ msgstr "Проверка системных обновлений..."
 #: ../contents/tools/tools.js
 msgid "Checking AUR updates..."
 msgstr "Проверка обновлений AUR..."
+
+#: ../contents/tools/tools.js
+msgid "Synchronizing dnf metadata..."
+msgstr "Синхронизация метаданных dnf..."
+
+#: ../contents/tools/tools.js
+msgid "Checking dnf updates..."
+msgstr "Проверка обновлений dnf..."
 
 #: ../contents/tools/tools.js
 msgid "Synchronizing flatpak appstream..."
@@ -913,11 +933,22 @@ msgid "Arch User Repository"
 msgstr "Пользовательский репозиторий"
 
 #: ../contents/ui/configuration/General.qml
+msgid "DNF packages"
+msgstr "Пакеты DNF"
+
+#: ../contents/ui/configuration/General.qml
+msgid ""
+"Requires dnf5 (Fedora 41+). The metadata cache is synchronized automatically "
+"before each check."
+msgstr ""
+"Требуется dnf5 (Fedora 41+). Кэш метаданных синхронизируется автоматически "
+"перед каждой проверкой."
+
+#: ../contents/ui/configuration/General.qml
 msgid "Flatpak applications"
 msgstr "Flatpak приложения"
 
 #: ../contents/ui/configuration/General.qml
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Not installed"
 msgstr "Не установлено"
 
@@ -1142,6 +1173,14 @@ msgstr ""
 "поддержать меня, нажав кнопку Star на GitHub, или купив мне кофе ;)"
 
 #: ../contents/ui/configuration/Upgrade.qml
+msgid "Use KDE default"
+msgstr "По умолчанию в KDE"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Custom command…"
+msgstr "Своя команда"
+
+#: ../contents/ui/configuration/Upgrade.qml
 #: ../contents/ui/representation/Expanded.qml
 msgid "Widgets"
 msgstr "Виджеты"
@@ -1149,6 +1188,20 @@ msgstr "Виджеты"
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Terminal"
 msgstr "Терминал"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid "Command"
+msgstr "Команда"
+
+#: ../contents/ui/configuration/Upgrade.qml
+msgid ""
+"The command to run is appended to this command.<br><br><b>Native:</"
+"b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
+msgstr ""
+"Команда запуска добавляется в конец этой команды.<br><br><b>Нативная версия: "
+"</b><br>konsole -e<br><br><b>Flatpak</b>:<br> flatpak run --command=konsole "
+"org.kde.konsole -e"
 
 #: ../contents/ui/configuration/Upgrade.qml
 msgid "Use NerdFont icons"
@@ -1395,10 +1448,6 @@ msgstr ""
 "опцию."
 
 #: ../contents/ui/configuration/Upgrade.qml
-msgid "Command"
-msgstr "Команда"
-
-#: ../contents/ui/configuration/Upgrade.qml
 msgid "Apdatifier tray icon"
 msgstr "Значок Apdatifier в системном трее"
 
@@ -1413,10 +1462,6 @@ msgstr "Авто проверка выключена"
 #: ../contents/ui/main.qml ../contents/ui/representation/Expanded.qml
 msgid "Full upgrade"
 msgstr "Полное обновление"
-
-#: ../contents/ui/representation/Expanded.qml
-msgid "System packages"
-msgstr "Системные пакеты"
 
 #: ../contents/ui/representation/Expanded.qml
 msgid "Filter by package name"
@@ -1557,15 +1602,3 @@ msgstr "Дата установки"
 #: ../contents/ui/scrollview/Updates.qml
 msgid "System updated"
 msgstr "Система обновлена"
-
-#~ msgid "Font family"
-#~ msgstr "Семейство шрифтов"
-
-#~ msgid "Default system font"
-#~ msgstr "Стандартный системный шрифт"
-
-#~ msgid "Font size"
-#~ msgstr "Размер шрифта"
-
-#~ msgid "Font bold"
-#~ msgstr "Жирный шрифт"
